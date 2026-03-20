@@ -16,6 +16,24 @@ If you are new to this repository, use this path:
 3. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
 4. Read [ROADMAP](ROADMAP.md) for the current direction.
 
+For the shortest next route by intent:
+- if you need the ecosystem center and layer map, go to [`Agents-of-Abyss`](https://github.com/8Dionysus/Agents-of-Abyss)
+- if you need authored execution workflows rather than actor contracts, go to [`aoa-skills`](https://github.com/8Dionysus/aoa-skills)
+- if you need portable proof surfaces rather than role posture, go to [`aoa-evals`](https://github.com/8Dionysus/aoa-evals)
+- if you need memory and recall meaning, go to [`aoa-memo`](https://github.com/8Dionysus/aoa-memo)
+- if you need scenario compositions across multiple surfaces, go to [`aoa-playbooks`](https://github.com/8Dionysus/aoa-playbooks)
+
+## Quick route table
+
+| repository | owns | go here when |
+|---|---|---|
+| `aoa-agents` | agent profiles, role contracts, handoff posture, memory posture, evaluation posture | you need to define who acts under what role contract |
+| `Agents-of-Abyss` | ecosystem identity, layer map, federation rules, program-level direction | you need the center and the constitutional view of AoA |
+| `aoa-skills` | bounded agent-facing execution workflows | you need execution interfaces rather than actor contracts |
+| `aoa-evals` | portable proof surfaces for bounded claims | you need quality and boundary checks rather than role definitions |
+| `aoa-memo` | memory objects, recall surfaces, provenance threads | you need memory-layer meaning rather than agent-layer contracts |
+| `aoa-playbooks` | recurring operational scenarios and multi-surface compositions | you need scenario recipes rather than role-bearing actors |
+
 ## What this repository is for
 
 `aoa-agents` should own agent-layer meaning about:
