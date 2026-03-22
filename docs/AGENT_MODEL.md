@@ -62,6 +62,43 @@ A good agent profile should make it easier to answer:
 - how much memory should this role rely on?
 - how strict should its evaluation posture be?
 
+## Self-agent as governed checkpoint
+
+AoA may include self-agent surfaces, but they should stay governed rather than mythologized.
+
+When an agent can reshape important system surfaces, its role contract should make checkpoint posture visible:
+
+- constitution or policy check
+- approval gate
+- rollback marker
+- health check
+- bounded iteration limit
+- improvement log requirement
+
+See [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the compact contract.
+
+## Self-agent checkpoint cohort
+
+When a self-agent route becomes a real scenario-level method, AoA should prefer a small visible cohort over one magical actor.
+
+Current bounded cohort pattern:
+
+- `architect` initiates the route, checks constitutional fit, and keeps scope bounded
+- `coder` executes the bounded change path after the gate is clear
+- `reviewer` checks approval posture, health posture, and final boundedness
+- `memory-keeper` preserves provenance and the improvement log as reviewable history
+
+This keeps one role from silently becoming planner, operator, reviewer, and historian at the same time.
+
+## Thinkers and operators
+
+AoA benefits from preserving a gap between thinking roles and acting roles.
+
+Thinking roles may plan, critique, compare, and shape.
+Operator-facing roles may execute bounded changes.
+
+This gap creates review surfaces and makes self-agent posture legible.
+
 ## Relationship to neighboring layers
 
 - `aoa-techniques` stores reusable practice

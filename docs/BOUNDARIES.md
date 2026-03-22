@@ -52,6 +52,13 @@ That posture should not stay implicit.
 If profiles become giant biographies or hidden prompt systems, the layer will stop being trustworthy.
 Compactness and explicit posture matter.
 
+## Rule 8: self-agent posture must stay checkpointed
+
+If a role can reshape important system surfaces, it should expose approval, rollback, and health-check posture explicitly.
+
+The agent layer owns the role-facing contract for that checkpoint stack.
+It does not own the runtime implementation underneath it.
+
 ## Compact rule
 
 `aoa-agents` should help AoA name its actors without letting the actor layer blur every other layer.
