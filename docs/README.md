@@ -8,12 +8,14 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
+- Read [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
 - Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
 - Read [ROADMAP](../ROADMAP.md) for the current direction.
 
 ## Docs in this repository
 
 - [AGENT_MODEL](AGENT_MODEL.md) — what the agent layer is for
+- [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
 - [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb
 
 ## Notes

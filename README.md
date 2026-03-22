@@ -13,8 +13,9 @@ If you are new to this repository, use this path:
 
 1. Read [CHARTER](CHARTER.md) for the role and boundaries of the agent layer.
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
-3. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-4. Read [ROADMAP](ROADMAP.md) for the current direction.
+3. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+4. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+5. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -73,6 +74,7 @@ The goal of this first public baseline is to define the role, boundaries, and fi
 
 - agents should be explicit rather than magical
 - roles should stay bounded and reviewable
+- self-agent posture should be checkpointed rather than mythologized
 - handoff should be a contract, not an accident
 - memory posture should be named, not implied
 - evaluation posture should be named, not retrofitted later
