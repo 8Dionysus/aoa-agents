@@ -13,9 +13,20 @@ MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.jso
 
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
 ALLOWED_MEMORY_POSTURE = {"none", "light_recall", "bounded_recall", "deep_recall"}
+ALLOWED_MEMORY_BANDS = {"core", "hot", "warm", "cool", "cold", "frozen"}
+ALLOWED_RECALL_SCOPES = {"repo", "project", "ecosystem"}
+ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", "cold_to_cool"}
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
+ALLOWED_TIER_MEMORY_SCOPE = {
+    "core",
+    "selected_hot",
+    "selected_warm",
+    "selected_cool",
+    "selected_cold",
+    "selected_frozen",
+}
 
 
 class ValidationError(RuntimeError):
@@ -90,6 +101,7 @@ def validate_registry() -> None:
             "summary",
             "preferred_skill_families",
             "memory_posture",
+            "memory_rights",
             "evaluation_posture",
             "handoff_rule",
         ):
@@ -103,6 +115,7 @@ def validate_registry() -> None:
         summary = agent["summary"]
         preferred_skill_families = agent["preferred_skill_families"]
         memory_posture = agent["memory_posture"]
+        memory_rights = agent["memory_rights"]
         evaluation_posture = agent["evaluation_posture"]
         handoff_rule = agent["handoff_rule"]
 
@@ -128,6 +141,7 @@ def validate_registry() -> None:
                 fail(f"{location}.preferred_skill_families contains an invalid entry")
         if memory_posture not in ALLOWED_MEMORY_POSTURE:
             fail(f"{location}.memory_posture '{memory_posture}' is not allowed")
+        validate_memory_rights(location, memory_rights)
         if evaluation_posture not in ALLOWED_EVAL_POSTURE:
             fail(f"{location}.evaluation_posture '{evaluation_posture}' is not allowed")
         if handoff_rule not in ALLOWED_HANDOFF:
@@ -210,6 +224,8 @@ def validate_model_tier_registry() -> None:
             for item in value:
                 if not isinstance(item, str) or len(item) < 2:
                     fail(f"{location}.{array_name} contains an invalid entry")
+                if array_name == "default_memory_scope" and item not in ALLOWED_TIER_MEMORY_SCOPE:
+                    fail(f"{location}.{array_name} contains unsupported scope '{item}'")
 
         if "activation_conditions" in tier:
             activation_conditions = tier.get("activation_conditions")
@@ -222,6 +238,69 @@ def validate_model_tier_registry() -> None:
     missing_tiers = sorted(REQUIRED_MODEL_TIERS - seen_ids)
     if missing_tiers:
         fail(f"model-tier registry is missing required tiers: {', '.join(missing_tiers)}")
+
+
+def validate_memory_rights(location: str, memory_rights: object) -> None:
+    if not isinstance(memory_rights, dict):
+        fail(f"{location}.memory_rights must be an object")
+
+    required_keys = {
+        "default_read_bands",
+        "default_write_bands",
+        "allowed_recall_scopes",
+        "promotion_rights",
+        "freeze_rights",
+    }
+    missing = sorted(required_keys - set(memory_rights))
+    if missing:
+        fail(f"{location}.memory_rights is missing required keys: {', '.join(missing)}")
+
+    for array_name, allowed_values in (
+        ("default_read_bands", ALLOWED_MEMORY_BANDS),
+        ("default_write_bands", ALLOWED_MEMORY_BANDS),
+        ("allowed_recall_scopes", ALLOWED_RECALL_SCOPES),
+    ):
+        value = memory_rights[array_name]
+        if not isinstance(value, list) or not value:
+            fail(f"{location}.memory_rights.{array_name} must be a non-empty list")
+        for item in value:
+            if item not in allowed_values:
+                fail(f"{location}.memory_rights.{array_name} contains unsupported value '{item}'")
+
+    promotion_rights = memory_rights["promotion_rights"]
+    if not isinstance(promotion_rights, dict):
+        fail(f"{location}.memory_rights.promotion_rights must be an object")
+    for key in (
+        "can_nominate",
+        "can_confirm",
+        "can_promote",
+        "can_demote",
+        "can_retire",
+        "can_rescue",
+        "allowed_transitions",
+    ):
+        if key not in promotion_rights:
+            fail(f"{location}.memory_rights.promotion_rights is missing required key '{key}'")
+    for key in ("can_nominate", "can_confirm", "can_promote", "can_demote", "can_retire", "can_rescue"):
+        if not isinstance(promotion_rights[key], bool):
+            fail(f"{location}.memory_rights.promotion_rights.{key} must be a boolean")
+    allowed_transitions = promotion_rights["allowed_transitions"]
+    if not isinstance(allowed_transitions, list):
+        fail(f"{location}.memory_rights.promotion_rights.allowed_transitions must be a list")
+    for item in allowed_transitions:
+        if item not in ALLOWED_PROMOTION_TRANSITIONS:
+            fail(
+                f"{location}.memory_rights.promotion_rights.allowed_transitions contains unsupported value '{item}'"
+            )
+
+    freeze_rights = memory_rights["freeze_rights"]
+    if not isinstance(freeze_rights, dict):
+        fail(f"{location}.memory_rights.freeze_rights must be an object")
+    for key in ("can_recommend", "can_prepare", "can_finalize"):
+        if key not in freeze_rights:
+            fail(f"{location}.memory_rights.freeze_rights is missing required key '{key}'")
+        if not isinstance(freeze_rights[key], bool):
+            fail(f"{location}.memory_rights.freeze_rights.{key} must be a boolean")
 
 
 def main() -> int:

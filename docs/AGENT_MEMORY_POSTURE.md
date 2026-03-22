@@ -112,5 +112,15 @@ When a role contract or registry entry mentions memory posture, it should remain
 
 - which bands are read by default
 - which bands are writable
+- which recall scopes are allowed by default
 - which promotions are allowed
 - when human or `memory-keeper` review is required
+
+Machine-readable agent surfaces should keep this split explicit:
+
+- `memory_posture` for the coarse recall stance
+- `memory_rights.default_read_bands` for public memo bands plus `core`
+- `memory_rights.default_write_bands` for direct write authority
+- `memory_rights.allowed_recall_scopes` for bounded recall scope
+- `memory_rights.promotion_rights` for nomination, confirmation, and lifecycle actions
+- `memory_rights.freeze_rights` for recommend, prepare, and finalize posture

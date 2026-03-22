@@ -28,6 +28,7 @@
           "summary",
           "preferred_skill_families",
           "memory_posture",
+          "memory_rights",
           "evaluation_posture",
           "handoff_rule"
         ],
@@ -63,6 +64,94 @@
           "memory_posture": {
             "type": "string",
             "enum": ["none", "light_recall", "bounded_recall", "deep_recall"]
+          },
+          "memory_rights": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "default_read_bands",
+              "default_write_bands",
+              "allowed_recall_scopes",
+              "promotion_rights",
+              "freeze_rights"
+            ],
+            "properties": {
+              "default_read_bands": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum": ["core", "hot", "warm", "cool", "cold", "frozen"]
+                }
+              },
+              "default_write_bands": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum": ["core", "hot", "warm", "cool", "cold", "frozen"]
+                }
+              },
+              "allowed_recall_scopes": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum": ["repo", "project", "ecosystem"]
+                }
+              },
+              "promotion_rights": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "can_nominate",
+                  "can_confirm",
+                  "can_promote",
+                  "can_demote",
+                  "can_retire",
+                  "can_rescue",
+                  "allowed_transitions"
+                ],
+                "properties": {
+                  "can_nominate": { "type": "boolean" },
+                  "can_confirm": { "type": "boolean" },
+                  "can_promote": { "type": "boolean" },
+                  "can_demote": { "type": "boolean" },
+                  "can_retire": { "type": "boolean" },
+                  "can_rescue": { "type": "boolean" },
+                  "allowed_transitions": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "hot_to_warm",
+                        "warm_to_cool",
+                        "cool_to_cold",
+                        "cold_to_cool"
+                      ]
+                    }
+                  }
+                }
+              },
+              "freeze_rights": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "can_recommend",
+                  "can_prepare",
+                  "can_finalize"
+                ],
+                "properties": {
+                  "can_recommend": { "type": "boolean" },
+                  "can_prepare": { "type": "boolean" },
+                  "can_finalize": { "type": "boolean" }
+                }
+              }
+            }
           },
           "evaluation_posture": {
             "type": "string",
