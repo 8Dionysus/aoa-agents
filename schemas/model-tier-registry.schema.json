@@ -73,7 +73,14 @@
             "minItems": 1,
             "items": {
               "type": "string",
-              "minLength": 2
+              "enum": [
+                "core",
+                "selected_hot",
+                "selected_warm",
+                "selected_cool",
+                "selected_cold",
+                "selected_frozen"
+              ]
             },
             "uniqueItems": true
           },
