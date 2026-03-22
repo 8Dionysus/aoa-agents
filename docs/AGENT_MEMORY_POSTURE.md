@@ -1,0 +1,116 @@
+# AGENT MEMORY POSTURE
+
+## Purpose
+
+This document defines memory posture at the agent layer.
+
+It does not redefine memory objects.
+It defines how existing agent roles are expected to read, write, promote, freeze, or hand off memory-facing work.
+
+## Core rule
+
+`aoa-memo` owns memory objects and memory doctrine.
+`aoa-agents` owns role-level memory rights and posture.
+
+An agent posture should answer:
+
+- what memory bands the role reads by default
+- what it may write directly
+- what it may nominate for promotion
+- what it must hand off instead of deciding alone
+
+## Public memory bands
+
+Use the public memo temperature scale:
+
+- `hot`
+- `warm`
+- `cool`
+- `cold`
+- `frozen`
+
+Also respect the `core` overlay as a constitutional band.
+
+## Role postures
+
+### `architect`
+
+- default read bands: `core`, selected `warm`, selected `cool`
+- default write bands: `warm`
+- promotion rights: may nominate `warm -> cool`
+- freeze rights: no default freeze authority
+- handoff posture: hand off durable object shaping to `memory-keeper` when memory design becomes first-class work
+
+### `coder`
+
+- default read bands: `core`, selected `hot`, narrow `warm`
+- default write bands: `hot`
+- promotion rights: may nominate `hot -> warm`
+- freeze rights: none
+- handoff posture: hand off durable writeback and retention questions when the route becomes cross-session or policy-relevant
+
+### `reviewer`
+
+- default read bands: `core`, `warm`, selected `cool`
+- default write bands: `warm`
+- promotion rights: may confirm or block promotion proposals
+- freeze rights: may recommend freeze, but should not freeze alone by default
+- handoff posture: hand off durable memory capture to `memory-keeper` after review posture is explicit
+
+### `evaluator`
+
+- default read bands: `core`, selected `warm`
+- default write bands: `warm` for bounded evaluation traces only
+- promotion rights: may nominate stable evaluation patterns
+- freeze rights: none
+- handoff posture: keep eval doctrine separate from memo truth and hand off durable memory capture when needed
+
+### `memory-keeper`
+
+- default read bands: `core`, `warm`, `cool`, selected `cold`
+- default write bands: `warm`, `cool`, `cold`
+- promotion rights: may promote, demote, retire, and rescue within named policy
+- freeze rights: may prepare freeze candidates, but human review remains preferred for `frozen`
+- handoff posture: should hand off source-authored canon questions to neighboring source-of-truth layers instead of absorbing them
+
+## Practical rights
+
+### Read rights
+
+Read rights should stay role-shaped and need-based.
+
+- low-latency execution roles should not read the whole archive by default
+- review and memory roles may read wider history when the route requires it
+- `core` should stay broadly readable because it carries constitutional constraints
+
+### Write rights
+
+Write rights should stay narrower than read rights.
+
+- `hot` write is common for active work
+- `warm` write should require enough evidence to survive one session
+- `cool` or `cold` write should imply consolidation or review intent
+
+### Promotion and freeze
+
+Default rule:
+
+- most roles may nominate promotion
+- few roles should finalize promotion
+- `frozen` should remain rare and review-heavy
+
+## Boundaries to preserve
+
+- memory posture is not the same thing as memory ownership
+- role posture must not replace memo schemas
+- memory posture must not silently encode evaluation doctrine
+- wide recall is not a sign of sophistication by itself
+
+## Minimal contract
+
+When a role contract or registry entry mentions memory posture, it should remain clear:
+
+- which bands are read by default
+- which bands are writable
+- which promotions are allowed
+- when human or `memory-keeper` review is required

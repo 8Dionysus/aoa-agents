@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "layer": "aoa-agents",
+  "model_tiers": [
+    {
+      "id": "router",
+      "status": "active",
+      "summary": "Fast bounded triage that classifies task shape, risk, and the smallest next tier or source surface.",
+      "primary_duty": "Route the task toward the smallest sufficient next step.",
+      "output_contract": "Emit a route decision that names the next tier or the next source-owned surface to inspect.",
+      "default_memory_scope": [
+        "core",
+        "selected_hot"
+      ],
+      "handoff_targets": [
+        "planner",
+        "executor",
+        "verifier",
+        "conductor"
+      ],
+      "artifact_requirement": "route_decision",
+      "activation_conditions": [
+        "new task intake",
+        "task-class ambiguity",
+        "risk triage"
+      ]
+    },
+    {
+      "id": "planner",
+      "status": "active",
+      "summary": "Bounded planning tier that shapes steps, checks, and escalation posture before or during execution.",
+      "primary_duty": "Shape a bounded plan with explicit decision points and verification posture.",
+      "output_contract": "Emit a bounded plan with named steps, checks, and escalation boundaries.",
+      "default_memory_scope": [
+        "core",
+        "selected_hot",
+        "selected_warm"
+      ],
+      "handoff_targets": [
+        "executor",
+        "verifier",
+        "conductor"
+      ],
+      "artifact_requirement": "bounded_plan",
+      "activation_conditions": [
+        "non-trivial route",
+        "need for explicit decision points"
+      ]
+    },
+    {
+      "id": "executor",
+      "status": "active",
+      "summary": "Action-focused tier that performs bounded task work without silently absorbing every adjacent duty.",
+      "primary_duty": "Execute the bounded task work and leave explicit state deltas.",
+      "output_contract": "Emit the bounded work result plus explicit state and verification notes.",
+      "default_memory_scope": [
+        "core",
+        "selected_hot"
+      ],
+      "handoff_targets": [
+        "verifier",
+        "conductor",
+        "archivist"
+      ],
+      "artifact_requirement": "work_result",
+      "activation_conditions": [
+        "approved bounded execution step"
+      ]
+    },
+    {
+      "id": "verifier",
+      "status": "active",
+      "summary": "Review tier that checks format, contradiction posture, and named verification boundaries on the current route.",
+      "primary_duty": "Check whether the route output and named evidence support the current step.",
+      "output_contract": "Emit a verification result that names pass, fail, ambiguity, or escalation need.",
+      "default_memory_scope": [
+        "core",
+        "selected_hot",
+        "selected_warm"
+      ],
+      "handoff_targets": [
+        "conductor",
+        "deep",
+        "archivist"
+      ],
+      "artifact_requirement": "verification_result",
+      "activation_conditions": [
+        "post-execution review",
+        "contradiction check"
+      ]
+    },
+    {
+      "id": "conductor",
+      "status": "experimental",
+      "summary": "Meta-tier that governs transitions between route, plan, do, verify, deep, and distill states.",
+      "primary_duty": "Decide whether the route should continue, escalate, pause, or distill.",
+      "output_contract": "Emit a tier transition decision with a named reason and next hop.",
+      "default_memory_scope": [
+        "core",
+        "selected_hot",
+        "selected_warm"
+      ],
+      "handoff_targets": [
+        "planner",
+        "executor",
+        "verifier",
+        "deep",
+        "archivist"
+      ],
+      "artifact_requirement": "transition_decision",
+      "activation_conditions": [
+        "multi-step route coordination",
+        "escalation boundary decision"
+      ]
+    },
+    {
+      "id": "deep",
+      "status": "experimental",
+      "summary": "Rare high-cost synthesis tier used for framing, arbitration, contradiction handling, or final judgment.",
+      "primary_duty": "Perform bounded deep synthesis only when the ordinary loop cannot resolve the route cleanly.",
+      "output_contract": "Emit a synthesis or arbitration result that names what changed and what remains open.",
+      "default_memory_scope": [
+        "core",
+        "selected_warm",
+        "selected_cool"
+      ],
+      "handoff_targets": [
+        "conductor",
+        "archivist"
+      ],
+      "artifact_requirement": "deep_synthesis_note",
+      "activation_conditions": [
+        "high uncertainty",
+        "conflict between strong options",
+        "high cost of error",
+        "rule-birth or contradiction arbitration"
+      ]
+    },
+    {
+      "id": "archivist",
+      "status": "experimental",
+      "summary": "Distillation tier that turns non-trivial route output into summaries, entities, decisions, and memory candidates.",
+      "primary_duty": "Distill durable memory candidates without replacing source-owned canon.",
+      "output_contract": "Emit a distillation pack naming summaries, entities, decisions, and memory candidates.",
+      "default_memory_scope": [
+        "core",
+        "selected_warm",
+        "selected_cool",
+        "selected_cold"
+      ],
+      "handoff_targets": [
+        "memory-keeper",
+        "conductor"
+      ],
+      "artifact_requirement": "distillation_pack",
+      "activation_conditions": [
+        "non-trivial run completion",
+        "checkpoint or writeback preparation"
+      ]
+    }
+  ]
+}
