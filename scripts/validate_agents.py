@@ -211,8 +211,8 @@ def validate_model_tier_registry() -> None:
                 if not isinstance(item, str) or len(item) < 2:
                     fail(f"{location}.{array_name} contains an invalid entry")
 
-        activation_conditions = tier.get("activation_conditions", [])
-        if activation_conditions:
+        if "activation_conditions" in tier:
+            activation_conditions = tier.get("activation_conditions")
             if not isinstance(activation_conditions, list):
                 fail(f"{location}.activation_conditions must be a list when present")
             for item in activation_conditions:
