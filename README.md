@@ -13,9 +13,11 @@ If you are new to this repository, use this path:
 
 1. Read [CHARTER](CHARTER.md) for the role and boundaries of the agent layer.
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
-3. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-4. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-5. Read [ROADMAP](ROADMAP.md) for the current direction.
+3. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
+4. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
+5. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+6. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+7. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -58,6 +60,7 @@ Within AoA:
 
 This repository includes a compact machine-readable agent-layer registry at:
 - `generated/agent_registry.min.json`
+- `generated/model_tier_registry.json`
 
 To validate the current agent-layer surface locally, run:
 
@@ -68,7 +71,7 @@ python scripts/validate_agents.py
 ## Current status
 
 `aoa-agents` is in bootstrap.
-The goal of this first public baseline is to define the role, boundaries, and first machine-readable agent-layer surface without overbuilding orchestration too early.
+The goal of this first public baseline is to define the role, boundaries, memory posture, and first machine-readable agent-layer surfaces without overbuilding orchestration too early.
 
 ## Principles
 

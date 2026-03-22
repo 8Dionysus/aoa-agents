@@ -8,11 +8,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
+MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
+MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
 
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
 ALLOWED_MEMORY_POSTURE = {"none", "light_recall", "bounded_recall", "deep_recall"}
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
+REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
 
 
 class ValidationError(RuntimeError):
@@ -40,6 +43,16 @@ def validate_schema_surface() -> None:
     missing = sorted(required_top_level - set(schema))
     if missing:
         fail(f"schema is missing required top-level keys: {', '.join(missing)}")
+
+
+def validate_model_tier_schema_surface() -> None:
+    schema = read_json(MODEL_TIER_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("model-tier schema file must contain a JSON object")
+    required_top_level = {"$schema", "$id", "title", "type", "properties", "required"}
+    missing = sorted(required_top_level - set(schema))
+    if missing:
+        fail(f"model-tier schema is missing required top-level keys: {', '.join(missing)}")
 
 
 def validate_registry() -> None:
@@ -125,16 +138,106 @@ def validate_registry() -> None:
         fail(f"agent registry is missing required seed agents: {', '.join(missing_seed)}")
 
 
+def validate_model_tier_registry() -> None:
+    payload = read_json(MODEL_TIER_REGISTRY_PATH)
+    if not isinstance(payload, dict):
+        fail("model-tier registry must be a JSON object")
+
+    for key in ("version", "layer", "model_tiers"):
+        if key not in payload:
+            fail(f"model-tier registry is missing required key '{key}'")
+
+    if not isinstance(payload["version"], int) or payload["version"] < 1:
+        fail("model-tier registry 'version' must be an integer >= 1")
+    if payload["layer"] != "aoa-agents":
+        fail("model-tier registry 'layer' must equal 'aoa-agents'")
+
+    model_tiers = payload["model_tiers"]
+    if not isinstance(model_tiers, list) or not model_tiers:
+        fail("model-tier registry 'model_tiers' must be a non-empty list")
+
+    seen_ids: set[str] = set()
+    for index, tier in enumerate(model_tiers):
+        location = f"model_tiers[{index}]"
+        if not isinstance(tier, dict):
+            fail(f"{location} must be an object")
+
+        for key in (
+            "id",
+            "status",
+            "summary",
+            "primary_duty",
+            "output_contract",
+            "default_memory_scope",
+            "handoff_targets",
+            "artifact_requirement",
+        ):
+            if key not in tier:
+                fail(f"{location} is missing required key '{key}'")
+
+        tier_id = tier["id"]
+        status = tier["status"]
+        summary = tier["summary"]
+        primary_duty = tier["primary_duty"]
+        output_contract = tier["output_contract"]
+        default_memory_scope = tier["default_memory_scope"]
+        handoff_targets = tier["handoff_targets"]
+        artifact_requirement = tier["artifact_requirement"]
+
+        if not isinstance(tier_id, str) or len(tier_id) < 3:
+            fail(f"{location}.id must be a string of length >= 3")
+        if tier_id in seen_ids:
+            fail(f"duplicate model tier id in registry: '{tier_id}'")
+        seen_ids.add(tier_id)
+
+        if status not in ALLOWED_STATUS:
+            fail(f"{location}.status '{status}' is not allowed")
+        if not isinstance(summary, str) or len(summary) < 10:
+            fail(f"{location}.summary must be a string of length >= 10")
+        if not isinstance(primary_duty, str) or len(primary_duty) < 3:
+            fail(f"{location}.primary_duty must be a string of length >= 3")
+        if not isinstance(output_contract, str) or len(output_contract) < 5:
+            fail(f"{location}.output_contract must be a string of length >= 5")
+        if not isinstance(artifact_requirement, str) or len(artifact_requirement) < 3:
+            fail(f"{location}.artifact_requirement must be a string of length >= 3")
+
+        for array_name, value in (
+            ("default_memory_scope", default_memory_scope),
+            ("handoff_targets", handoff_targets),
+        ):
+            if not isinstance(value, list) or not value:
+                fail(f"{location}.{array_name} must be a non-empty list")
+            for item in value:
+                if not isinstance(item, str) or len(item) < 2:
+                    fail(f"{location}.{array_name} contains an invalid entry")
+
+        activation_conditions = tier.get("activation_conditions", [])
+        if activation_conditions:
+            if not isinstance(activation_conditions, list):
+                fail(f"{location}.activation_conditions must be a list when present")
+            for item in activation_conditions:
+                if not isinstance(item, str) or len(item) < 3:
+                    fail(f"{location}.activation_conditions contains an invalid entry")
+
+    missing_tiers = sorted(REQUIRED_MODEL_TIERS - seen_ids)
+    if missing_tiers:
+        fail(f"model-tier registry is missing required tiers: {', '.join(missing_tiers)}")
+
+
 def main() -> int:
     try:
         validate_schema_surface()
+        validate_model_tier_schema_surface()
         validate_registry()
+        validate_model_tier_registry()
     except ValidationError as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
     print("[ok] validated agent registry schema surface")
+    print("[ok] validated model-tier registry schema surface")
     print("[ok] validated generated/agent_registry.min.json")
+    print("[ok] validated generated/model_tier_registry.json")
     return 0
 
 
