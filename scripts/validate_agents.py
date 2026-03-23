@@ -89,10 +89,12 @@ REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is 
 REQUIRED_FEDERATION_DOC_SNIPPETS = (
     "- `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded",
     "- `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may",
-    "- `aoa-routing` consumes model-tier registry only and selects the next memo path",
+    "- `aoa-routing` consumes model-tier registry for tier hints and selects the next",
+    "- `aoa-agents` may read routing-published memo recall entrypoints as bounded",
     "- `AOA-P-0006 -> checkpoint_cohort`",
     "- `AOA-P-0008 -> orchestrated_loop`",
     "Router remains tier-aware, not cohort-aware, in this slice.",
+    "`memory_objects` remains a parallel recall family selected explicitly through",
     "`aoa-agents` does not define memory-object canon or recall meaning in this slice.",
 )
 
@@ -100,6 +102,7 @@ REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
     "`aoa-memo` owns memory-object canon, memory doctrine, and recall meaning.",
     "`aoa-routing` selects the next memo path.",
     "`aoa-agents` only states which roles may use published or routed object recall seams.",
+    "the default memo path and `memory_objects` remains an explicit parallel family",
 )
 
 MEMO_OBJECT_SURFACE_PATHS = (
@@ -115,6 +118,11 @@ MEMO_OBJECT_RECALL_CONTRACTS = (
 
 MEMO_OBJECT_INSPECT_SURFACE = "generated/memory_object_catalog.min.json"
 MEMO_OBJECT_EXPAND_SURFACE = "generated/memory_object_sections.full.json"
+ROUTING_TASK_TO_SURFACE_HINTS_PATH = "generated/task_to_surface_hints.json"
+ROUTING_TINY_MODEL_ENTRYPOINTS_PATH = "generated/tiny_model_entrypoints.json"
+ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
+ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
+ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
 
 
 class ValidationError(RuntimeError):
@@ -1102,6 +1110,17 @@ def iter_string_values(payload: object) -> list[str]:
     return values
 
 
+def find_mapping_by_key(items: object, *, key: str, expected_value: str) -> dict[str, object] | None:
+    if not isinstance(items, list):
+        return None
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        if item.get(key) == expected_value:
+            return item
+    return None
+
+
 def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     prefix = "repo:aoa-agents/"
     if not ref.startswith(prefix):
@@ -1237,6 +1256,177 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
                 f"{location}.output_artifact must match artifact_requirement for tier '{preferred_tier}' "
                 f"('{expected_artifact}')"
             )
+
+    routing_hints = read_json(routing_root / ROUTING_TASK_TO_SURFACE_HINTS_PATH, root=routing_root)
+    if not isinstance(routing_hints, dict):
+        fail(f"aoa-routing {ROUTING_TASK_TO_SURFACE_HINTS_PATH} must be a JSON object")
+
+    hint_entries = routing_hints.get("hints")
+    memo_hint = find_mapping_by_key(hint_entries, key="kind", expected_value="memo")
+    if memo_hint is None:
+        fail("aoa-routing task_to_surface_hints.json must publish a memo hint")
+    actions = memo_hint.get("actions")
+    if not isinstance(actions, dict):
+        fail("aoa-routing memo hint must expose actions")
+
+    inspect = actions.get("inspect")
+    if not isinstance(inspect, dict) or inspect.get("surface_file") != ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE:
+        fail(
+            "aoa-routing memo hint must keep doctrine inspect_surface = "
+            f"'{ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE}'"
+        )
+
+    expand = actions.get("expand")
+    if not isinstance(expand, dict) or expand.get("surface_file") != ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE:
+        fail(
+            "aoa-routing memo hint must keep doctrine expand_surface = "
+            f"'{ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE}'"
+        )
+
+    recall = actions.get("recall")
+    if not isinstance(recall, dict) or recall.get("enabled") is not True:
+        fail("aoa-routing memo hint must expose enabled recall routing")
+
+    doctrine_supported_modes = recall.get("supported_modes")
+    if not isinstance(doctrine_supported_modes, list) or not doctrine_supported_modes:
+        fail("aoa-routing memo recall hint must expose non-empty doctrine supported_modes")
+    doctrine_supported_mode_set = set()
+    for mode in doctrine_supported_modes:
+        if not isinstance(mode, str) or not mode:
+            fail("aoa-routing memo recall supported_modes must contain non-empty strings")
+        doctrine_supported_mode_set.add(mode)
+
+    doctrine_default_mode = recall.get("default_mode")
+    if not isinstance(doctrine_default_mode, str) or doctrine_default_mode not in doctrine_supported_mode_set:
+        fail("aoa-routing memo recall default_mode must resolve in doctrine supported_modes")
+
+    doctrine_contracts_by_mode = recall.get("contracts_by_mode")
+    if not isinstance(doctrine_contracts_by_mode, dict):
+        fail("aoa-routing memo recall hint must expose doctrine contracts_by_mode")
+    for mode in doctrine_supported_mode_set:
+        if mode not in doctrine_contracts_by_mode:
+            fail(
+                "aoa-routing memo recall hint must publish a doctrine contract for mode "
+                f"'{mode}'"
+            )
+
+    parallel_families = recall.get("parallel_families")
+    if not isinstance(parallel_families, dict):
+        fail("aoa-routing memo recall hint must expose parallel_families")
+    object_family = parallel_families.get(ROUTING_MEMO_OBJECT_RECALL_FAMILY)
+    if not isinstance(object_family, dict):
+        fail(
+            "aoa-routing memo recall hint must publish the "
+            f"'{ROUTING_MEMO_OBJECT_RECALL_FAMILY}' recall family"
+        )
+    if object_family.get("inspect_surface") != MEMO_OBJECT_INSPECT_SURFACE:
+        fail(
+            "aoa-routing memory_objects recall family must point inspect_surface at "
+            f"'{MEMO_OBJECT_INSPECT_SURFACE}'"
+        )
+    if object_family.get("expand_surface") != MEMO_OBJECT_EXPAND_SURFACE:
+        fail(
+            "aoa-routing memory_objects recall family must point expand_surface at "
+            f"'{MEMO_OBJECT_EXPAND_SURFACE}'"
+        )
+
+    object_supported_mode_set = {mode for _, mode in MEMO_OBJECT_RECALL_CONTRACTS}
+    object_supported_modes = object_family.get("supported_modes")
+    if not isinstance(object_supported_modes, list):
+        fail("aoa-routing memory_objects recall family must expose supported_modes")
+    actual_object_mode_set: set[str] = set()
+    for mode in object_supported_modes:
+        if not isinstance(mode, str) or not mode:
+            fail("aoa-routing memory_objects supported_modes must contain non-empty strings")
+        actual_object_mode_set.add(mode)
+    if actual_object_mode_set != object_supported_mode_set:
+        fail(
+            "aoa-routing memory_objects supported_modes must match aoa-memo object recall modes: "
+            f"expected {sorted(object_supported_mode_set)}, got {sorted(actual_object_mode_set)}"
+        )
+    if object_family.get("default_mode") != "working":
+        fail("aoa-routing memory_objects recall family must keep default_mode = 'working'")
+
+    object_contracts_by_mode = object_family.get("contracts_by_mode")
+    if not isinstance(object_contracts_by_mode, dict):
+        fail("aoa-routing memory_objects recall family must expose contracts_by_mode")
+    for contract_file, mode in MEMO_OBJECT_RECALL_CONTRACTS:
+        if object_contracts_by_mode.get(mode) != contract_file:
+            fail(
+                "aoa-routing memory_objects recall family must mirror aoa-memo object contract "
+                f"'{contract_file}' for mode '{mode}'"
+            )
+
+    tiny_payload = read_json(routing_root / ROUTING_TINY_MODEL_ENTRYPOINTS_PATH, root=routing_root)
+    if not isinstance(tiny_payload, dict):
+        fail(f"aoa-routing {ROUTING_TINY_MODEL_ENTRYPOINTS_PATH} must be a JSON object")
+
+    queries = tiny_payload.get("queries")
+    if not isinstance(queries, list) or not queries:
+        fail("aoa-routing tiny_model_entrypoints.json must expose a non-empty queries list")
+    starters = tiny_payload.get("starters")
+    if not isinstance(starters, list) or not starters:
+        fail("aoa-routing tiny_model_entrypoints.json must expose a non-empty starters list")
+
+    doctrine_query_found = False
+    object_query_found = False
+    for query in queries:
+        if not isinstance(query, dict):
+            continue
+        if query.get("verb") != "recall":
+            continue
+        if query.get("target_surface") != ROUTING_TASK_TO_SURFACE_HINTS_PATH:
+            continue
+        if query.get("match_key") != "kind" or query.get("allowed_kinds") != ["memo"]:
+            continue
+        recall_family = query.get("recall_family")
+        if recall_family is None:
+            doctrine_query_found = True
+        elif recall_family == ROUTING_MEMO_OBJECT_RECALL_FAMILY:
+            object_query_found = True
+
+    if not doctrine_query_found:
+        fail("aoa-routing tiny_model_entrypoints.json must publish a doctrine-default memo recall query")
+    if not object_query_found:
+        fail(
+            "aoa-routing tiny_model_entrypoints.json must publish a memo recall query for "
+            f"recall_family = '{ROUTING_MEMO_OBJECT_RECALL_FAMILY}'"
+        )
+
+    doctrine_starter_modes: set[str] = set()
+    object_starter_modes: set[str] = set()
+    for starter in starters:
+        if not isinstance(starter, dict):
+            continue
+        if starter.get("verb") != "recall":
+            continue
+        if starter.get("target_surface") != ROUTING_TASK_TO_SURFACE_HINTS_PATH:
+            continue
+        if starter.get("match_key") != "kind":
+            continue
+        if starter.get("allowed_kinds") != ["memo"]:
+            continue
+        if starter.get("target_kind") != "memo" or starter.get("target_value") != "memo":
+            fail("aoa-routing memo recall starters must keep target_kind/target_value = 'memo'")
+        recall_mode = starter.get("recall_mode")
+        if not isinstance(recall_mode, str) or not recall_mode:
+            fail("aoa-routing memo recall starters must expose a non-empty recall_mode")
+        recall_family = starter.get("recall_family")
+        if recall_family is None:
+            doctrine_starter_modes.add(recall_mode)
+        elif recall_family == ROUTING_MEMO_OBJECT_RECALL_FAMILY:
+            object_starter_modes.add(recall_mode)
+
+    if doctrine_starter_modes != doctrine_supported_mode_set:
+        fail(
+            "aoa-routing doctrine recall starters must match doctrine supported_modes: "
+            f"expected {sorted(doctrine_supported_mode_set)}, got {sorted(doctrine_starter_modes)}"
+        )
+    if object_starter_modes != object_supported_mode_set:
+        fail(
+            "aoa-routing memory_objects recall starters must match object family supported_modes: "
+            f"expected {sorted(object_supported_mode_set)}, got {sorted(object_starter_modes)}"
+        )
 
 
 def validate_optional_consumer_smoke_checks(

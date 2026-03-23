@@ -24,7 +24,11 @@ They do not move their canon into `aoa-agents`.
 - `aoa-evals` consumes artifact schema refs only
 - `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may
   consume published object recall seams as role posture only
-- `aoa-routing` consumes model-tier registry only and selects the next memo path
+- `aoa-routing` consumes model-tier registry for tier hints and selects the next
+  memo path
+- `aoa-agents` may read routing-published memo recall entrypoints as bounded
+  consumer guidance, where doctrine recall stays the default tiny-model path and
+  `memory_objects` stays an explicit parallel family
 
 ## Bounded playbook-compatible cohort subset
 
@@ -55,6 +59,20 @@ The bounded routing contract for this slice is:
 - `output_artifact` matches the `artifact_requirement` of the `preferred_tier`
 
 Router remains tier-aware, not cohort-aware, in this slice.
+
+`aoa-agents` may also read routing-published memo recall entry surfaces through:
+
+- `generated/task_to_surface_hints.json`
+- `generated/tiny_model_entrypoints.json`
+
+The bounded memo-facing routing contract for this slice is:
+
+- root memo `inspect` and `expand` remain doctrine-first
+- doctrine recall stays the default tiny-model memo path
+- `memory_objects` remains a parallel recall family selected explicitly through
+  `recall_family`
+- `aoa-agents` reads these surfaces as consumer guidance only and does not own
+  dispatch policy, memo truth, or family selection rules
 
 ## Eval and memo seams
 
@@ -87,3 +105,4 @@ They do not validate whole neighboring repositories or import their meaning.
 - do not make `aoa-routing` consume the cohort registry
 - do not make `aoa-evals` or `aoa-memo` cohort-aware here
 - do not widen reference playbook checks into universal playbook doctrine
+- do not move tiny-model recall-family selection policy into `aoa-agents`
