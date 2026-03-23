@@ -13,6 +13,9 @@ It defines how existing agent roles are expected to read, write, promote, freeze
 `aoa-routing` selects the next memo path.
 `aoa-agents` owns role-level memory rights and posture.
 `aoa-agents` only states which roles may use published or routed object recall seams.
+When consumed through `aoa-routing` tiny-model entrypoints, doctrine recall remains
+the default memo path and `memory_objects` remains an explicit parallel family
+selected through `recall_family`.
 
 An agent posture should answer:
 

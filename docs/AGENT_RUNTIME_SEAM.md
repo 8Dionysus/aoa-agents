@@ -141,8 +141,11 @@ These checks verify bounded contract reachability only.
 They do not move playbook meaning, eval doctrine, memo object meaning, or
 routing meaning into `aoa-agents`.
 
-For `aoa-routing`, this slice stays tier-aware only.
-Router remains tier-aware, not cohort-aware, in this slice.
+For `aoa-routing`, the role-and-tier contract stays tier-aware, while the memo
+follow-up may also confirm routing-published doctrine-default and
+`memory_objects` tiny-model recall entrypoints.
+Router remains tier-aware, not cohort-aware, and memo dispatch policy still
+stays outside `aoa-agents`.
 
 ## Minimal Landing Slice
 

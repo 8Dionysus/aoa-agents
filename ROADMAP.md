@@ -68,6 +68,8 @@ Goals:
 - connect agent postures to `aoa-evals`
 - connect agent memory posture to `aoa-memo`
 - preserve clear boundaries relative to `aoa-routing`
+- harden bounded consumer seams against routing-published memo recall entrypoints
+  without moving tiny-model family-selection policy into `aoa-agents`
 
 ## Standing discipline
 

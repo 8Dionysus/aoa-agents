@@ -119,6 +119,8 @@ Optional bounded consumer smoke checks may be enabled by setting:
 
 These checks only confirm published contract reachability.
 `AOA_MEMO_ROOT` additionally confirms object recall surface reachability.
+`AOA_ROUTING_ROOT` additionally confirms doctrine-default memo recall entrypoints
+plus the parallel `memory_objects` tiny-model recall family.
 They do not move playbook, eval, memo, or routing meaning into `aoa-agents`.
 
 ## Current status
