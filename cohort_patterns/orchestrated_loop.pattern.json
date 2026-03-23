@@ -1,0 +1,52 @@
+{
+  "$schema": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "id": "orchestrated_loop",
+  "status": "active",
+  "summary": "Multi-step coordination hint for routes that need explicit transitions, escalation posture, and possible distillation.",
+  "allowed_role_sets": [
+    [
+      "architect",
+      "coder",
+      "reviewer"
+    ],
+    [
+      "architect",
+      "coder",
+      "reviewer",
+      "evaluator"
+    ],
+    [
+      "architect",
+      "coder",
+      "reviewer",
+      "memory-keeper"
+    ],
+    [
+      "architect",
+      "coder",
+      "reviewer",
+      "evaluator",
+      "memory-keeper"
+    ]
+  ],
+  "preferred_tier_ids": [
+    "router",
+    "planner",
+    "executor",
+    "verifier",
+    "conductor",
+    "deep",
+    "archivist"
+  ],
+  "activation_conditions": [
+    "non-trivial multi-step route",
+    "escalation or arbitration may be needed",
+    "durable distillation may follow execution"
+  ],
+  "required_handoffs": [
+    "transition decisions stay explicit through conductor-facing surfaces",
+    "deep activates only for named high-cost conditions",
+    "archivist distills durable candidates without replacing source-owned canon"
+  ],
+  "boundary_note": "Orchestrated_loop is a coordination hint over the public loop and does not absorb scenario composition from aoa-playbooks."
+}

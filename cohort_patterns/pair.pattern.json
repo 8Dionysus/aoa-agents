@@ -1,0 +1,36 @@
+{
+  "$schema": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "id": "pair",
+  "status": "active",
+  "summary": "Dual-role collaboration that keeps design pressure and review posture explicit without hidden orchestration.",
+  "allowed_role_sets": [
+    [
+      "architect",
+      "coder"
+    ],
+    [
+      "coder",
+      "reviewer"
+    ],
+    [
+      "architect",
+      "reviewer"
+    ]
+  ],
+  "preferred_tier_ids": [
+    "planner",
+    "executor",
+    "verifier"
+  ],
+  "activation_conditions": [
+    "moderate ambiguity or design pressure",
+    "bounded implementation with an explicit review edge",
+    "need for a second role before escalation becomes necessary"
+  ],
+  "required_handoffs": [
+    "hand off to reviewer when execution risk rises",
+    "hand off to architect when boundary-shaping decisions appear",
+    "hand off durable provenance or recall design to memory-keeper"
+  ],
+  "boundary_note": "Pair keeps dual-role coordination inspectable and does not become hidden orchestration or an implicit playbook."
+}

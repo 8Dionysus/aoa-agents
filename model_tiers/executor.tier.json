@@ -1,0 +1,21 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "executor",
+  "status": "active",
+  "summary": "Action-focused tier that performs bounded task work without silently absorbing every adjacent duty.",
+  "primary_duty": "Execute the bounded task work and leave explicit state deltas.",
+  "output_contract": "Emit the bounded work result plus explicit state and verification notes.",
+  "default_memory_scope": [
+    "core",
+    "selected_hot"
+  ],
+  "handoff_targets": [
+    "verifier",
+    "conductor",
+    "archivist"
+  ],
+  "artifact_requirement": "work_result",
+  "activation_conditions": [
+    "approved bounded execution step"
+  ]
+}

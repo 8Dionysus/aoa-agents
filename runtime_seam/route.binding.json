@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "phase": "route",
+  "tier_id": "router",
+  "role_names": [
+    "architect"
+  ],
+  "artifact_type": "route_decision"
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "conductor",
+  "status": "experimental",
+  "summary": "Meta-tier that governs transitions between route, plan, do, verify, deep, and distill states.",
+  "primary_duty": "Decide whether the route should continue, escalate, pause, or distill.",
+  "output_contract": "Emit a tier transition decision with a named reason and next hop.",
+  "default_memory_scope": [
+    "core",
+    "selected_hot",
+    "selected_warm"
+  ],
+  "handoff_targets": [
+    "planner",
+    "executor",
+    "verifier",
+    "deep",
+    "archivist"
+  ],
+  "artifact_requirement": "transition_decision",
+  "activation_conditions": [
+    "multi-step route coordination",
+    "escalation boundary decision"
+  ]
+}

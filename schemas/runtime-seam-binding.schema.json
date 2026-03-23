@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "title": "AoA runtime seam binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "phase",
+    "tier_id",
+    "role_names",
+    "artifact_type"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/runtime-seam-binding.schema.json"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "route",
+        "plan",
+        "do",
+        "verify",
+        "transition",
+        "deep",
+        "distill"
+      ]
+    },
+    "tier_id": {
+      "type": "string",
+      "enum": [
+        "router",
+        "planner",
+        "executor",
+        "verifier",
+        "conductor",
+        "deep",
+        "archivist"
+      ]
+    },
+    "role_names": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "architect",
+          "coder",
+          "reviewer",
+          "evaluator",
+          "memory-keeper"
+        ]
+      }
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "route_decision",
+        "bounded_plan",
+        "work_result",
+        "verification_result",
+        "transition_decision",
+        "deep_synthesis_note",
+        "distillation_pack"
+      ]
+    }
+  }
+}

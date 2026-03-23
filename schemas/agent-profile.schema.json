@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/agent-profile.schema.json",
+  "title": "AoA agent profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "name",
+    "role",
+    "status",
+    "summary",
+    "mission",
+    "owns",
+    "does_not_own",
+    "preferred_skill_families",
+    "preferred_cohort_patterns",
+    "preferred_tier_ids",
+    "source_surfaces",
+    "handoff_rule",
+    "handoff_triggers",
+    "memory_posture",
+    "memory_rights",
+    "evaluation_posture",
+    "evaluation_focus"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/agent-profile.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "role": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "planned", "experimental", "deprecated"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "mission": {
+      "type": "string",
+      "minLength": 20
+    },
+    "owns": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 6
+      }
+    },
+    "does_not_own": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 6
+      }
+    },
+    "preferred_skill_families": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "preferred_cohort_patterns": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "preferred_tier_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "source_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "handoff_rule": {
+      "type": "string",
+      "enum": ["solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"]
+    },
+    "handoff_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "memory_posture": {
+      "type": "string",
+      "enum": ["none", "light_recall", "bounded_recall", "deep_recall"]
+    },
+    "memory_rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_read_bands",
+        "default_write_bands",
+        "allowed_recall_scopes",
+        "promotion_rights",
+        "freeze_rights"
+      ],
+      "properties": {
+        "default_read_bands": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["core", "hot", "warm", "cool", "cold", "frozen"]
+          }
+        },
+        "default_write_bands": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["core", "hot", "warm", "cool", "cold", "frozen"]
+          }
+        },
+        "allowed_recall_scopes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["repo", "project", "ecosystem"]
+          }
+        },
+        "promotion_rights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "can_nominate",
+            "can_confirm",
+            "can_promote",
+            "can_demote",
+            "can_retire",
+            "can_rescue",
+            "allowed_transitions"
+          ],
+          "properties": {
+            "can_nominate": {
+              "type": "boolean"
+            },
+            "can_confirm": {
+              "type": "boolean"
+            },
+            "can_promote": {
+              "type": "boolean"
+            },
+            "can_demote": {
+              "type": "boolean"
+            },
+            "can_retire": {
+              "type": "boolean"
+            },
+            "can_rescue": {
+              "type": "boolean"
+            },
+            "allowed_transitions": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "hot_to_warm",
+                  "warm_to_cool",
+                  "cool_to_cold",
+                  "cold_to_cool"
+                ]
+              }
+            }
+          }
+        },
+        "freeze_rights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "can_recommend",
+            "can_prepare",
+            "can_finalize"
+          ],
+          "properties": {
+            "can_recommend": {
+              "type": "boolean"
+            },
+            "can_prepare": {
+              "type": "boolean"
+            },
+            "can_finalize": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "evaluation_posture": {
+      "type": "string",
+      "enum": ["minimal", "required", "strict", "paired_eval"]
+    },
+    "evaluation_focus": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    }
+  }
+}

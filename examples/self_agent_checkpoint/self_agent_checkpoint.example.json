@@ -1,0 +1,12 @@
+{
+  "agent_id": "AOA-A-0001",
+  "role": "architect",
+  "alignment_profile": "constitution-first",
+  "sandbox": "repo-bounded",
+  "memory_scope": "bounded_recall",
+  "audit_policy": "checkpoint-log-required",
+  "approval_mode": "required",
+  "rollback_marker": "pre-change checkpoint tag",
+  "health_check": "post-change validation pass",
+  "max_iterations": 3
+}

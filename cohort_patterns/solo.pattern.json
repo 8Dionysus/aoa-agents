@@ -1,0 +1,33 @@
+{
+  "$schema": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "id": "solo",
+  "status": "active",
+  "summary": "Bounded single-role route that keeps handoff triggers explicit instead of mythologizing autonomy.",
+  "allowed_role_sets": [
+    [
+      "architect"
+    ],
+    [
+      "coder"
+    ],
+    [
+      "evaluator"
+    ]
+  ],
+  "preferred_tier_ids": [
+    "router",
+    "executor",
+    "verifier"
+  ],
+  "activation_conditions": [
+    "bounded low-risk route",
+    "clear single-role ownership",
+    "no mandatory multi-role review before the next step"
+  ],
+  "required_handoffs": [
+    "hand off on ambiguity when the route exceeds the role contract",
+    "hand off durable memory shaping to memory-keeper",
+    "hand off high-cost arbitration to deep or evaluator"
+  ],
+  "boundary_note": "Solo is a bounded default, not permission for one role to silently absorb planning, review, and memory canon."
+}

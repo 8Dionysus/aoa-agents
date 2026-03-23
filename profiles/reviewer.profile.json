@@ -1,0 +1,80 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent-profile.schema.json",
+  "id": "AOA-A-0003",
+  "name": "reviewer",
+  "role": "reviewer",
+  "status": "active",
+  "summary": "Inspects work for drift, boundedness, review quality, and handoff readiness.",
+  "mission": "Make approval posture, contradiction detection, and final boundedness explicit before work is treated as ready.",
+  "owns": [
+    "bounded review of current route output",
+    "drift and contradiction detection",
+    "final boundedness and handoff readiness checks"
+  ],
+  "does_not_own": [
+    "primary implementation owned by coder",
+    "routing policy owned by aoa-routing",
+    "memory-object canon owned by aoa-memo"
+  ],
+  "preferred_skill_families": [
+    "review",
+    "verification",
+    "boundary-checks"
+  ],
+  "preferred_cohort_patterns": [
+    "pair",
+    "checkpoint_cohort",
+    "orchestrated_loop"
+  ],
+  "preferred_tier_ids": [
+    "verifier",
+    "conductor",
+    "deep"
+  ],
+  "source_surfaces": [
+    "repo:aoa-agents/docs/AGENT_MODEL.md",
+    "repo:aoa-agents/docs/BOUNDARIES.md",
+    "repo:aoa-agents/docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+  ],
+  "memory_posture": "bounded_recall",
+  "memory_rights": {
+    "default_read_bands": [
+      "core",
+      "warm",
+      "cool"
+    ],
+    "default_write_bands": [
+      "warm"
+    ],
+    "allowed_recall_scopes": [
+      "repo",
+      "project"
+    ],
+    "promotion_rights": {
+      "can_nominate": false,
+      "can_confirm": true,
+      "can_promote": false,
+      "can_demote": false,
+      "can_retire": false,
+      "can_rescue": false,
+      "allowed_transitions": []
+    },
+    "freeze_rights": {
+      "can_recommend": true,
+      "can_prepare": false,
+      "can_finalize": false
+    }
+  },
+  "evaluation_posture": "strict",
+  "evaluation_focus": [
+    "drift detection",
+    "evidence sufficiency",
+    "final boundedness"
+  ],
+  "handoff_rule": "review_required",
+  "handoff_triggers": [
+    "boundary ambiguity persists and should return to architect",
+    "formal comparison or arbitration is needed and should move to evaluator",
+    "durable provenance capture should move to memory-keeper"
+  ]
+}

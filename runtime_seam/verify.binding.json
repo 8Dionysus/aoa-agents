@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "phase": "verify",
+  "tier_id": "verifier",
+  "role_names": [
+    "reviewer"
+  ],
+  "artifact_type": "verification_result"
+}

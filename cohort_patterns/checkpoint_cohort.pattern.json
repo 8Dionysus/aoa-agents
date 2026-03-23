@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "id": "checkpoint_cohort",
+  "status": "active",
+  "summary": "Governed self-agent cohort for system-shaping routes that need approval, rollback, health, and provenance posture.",
+  "allowed_role_sets": [
+    [
+      "architect",
+      "coder",
+      "reviewer",
+      "memory-keeper"
+    ]
+  ],
+  "preferred_tier_ids": [
+    "planner",
+    "executor",
+    "verifier",
+    "archivist"
+  ],
+  "activation_conditions": [
+    "self-agent or system-shaping change",
+    "approval, rollback, or health posture must be explicit",
+    "provenance and improvement logging must remain reviewable"
+  ],
+  "required_handoffs": [
+    "architect names constitutional fit and scope before the change",
+    "coder executes only after approval is explicit",
+    "reviewer checks post-change health and final boundedness",
+    "memory-keeper preserves provenance and the improvement log"
+  ],
+  "boundary_note": "Checkpoint_cohort names the governed actor cohort, not the runtime implementation that executes the route."
+}

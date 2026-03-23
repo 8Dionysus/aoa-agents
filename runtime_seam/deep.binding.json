@@ -1,0 +1,10 @@
+{
+  "$schema": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "phase": "deep",
+  "tier_id": "deep",
+  "role_names": [
+    "evaluator",
+    "architect"
+  ],
+  "artifact_type": "deep_synthesis_note"
+}
