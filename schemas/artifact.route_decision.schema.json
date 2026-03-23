@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/artifact.route_decision.schema.json",
+  "title": "AoA route decision artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "summary",
+    "next_hop_kind",
+    "next_hop",
+    "reason"
+  ],
+  "properties": {
+    "artifact_type": {
+      "type": "string",
+      "const": "route_decision"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "next_hop_kind": {
+      "type": "string",
+      "enum": [
+        "tier",
+        "source_surface"
+      ]
+    },
+    "next_hop": {
+      "type": "string",
+      "minLength": 2
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 5
+    }
+  }
+}

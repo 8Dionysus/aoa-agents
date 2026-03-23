@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/artifact.deep_synthesis_note.schema.json",
+  "title": "AoA deep synthesis note artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "synthesis",
+    "what_changed",
+    "what_remains_open"
+  ],
+  "properties": {
+    "artifact_type": {
+      "type": "string",
+      "const": "deep_synthesis_note"
+    },
+    "synthesis": {
+      "type": "string",
+      "minLength": 10
+    },
+    "what_changed": {
+      "type": "string",
+      "minLength": 3
+    },
+    "what_remains_open": {
+      "type": "string",
+      "minLength": 3
+    }
+  }
+}

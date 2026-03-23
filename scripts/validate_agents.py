@@ -10,6 +10,15 @@ REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
+RUNTIME_ARTIFACT_SCHEMA_PATHS = {
+    "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
+    "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
+    "work_result": REPO_ROOT / "schemas" / "artifact.work_result.schema.json",
+    "verification_result": REPO_ROOT / "schemas" / "artifact.verification_result.schema.json",
+    "transition_decision": REPO_ROOT / "schemas" / "artifact.transition_decision.schema.json",
+    "deep_synthesis_note": REPO_ROOT / "schemas" / "artifact.deep_synthesis_note.schema.json",
+    "distillation_pack": REPO_ROOT / "schemas" / "artifact.distillation_pack.schema.json",
+}
 
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
 ALLOWED_MEMORY_POSTURE = {"none", "light_recall", "bounded_recall", "deep_recall"}
@@ -47,23 +56,35 @@ def read_json(path: Path) -> object:
 
 
 def validate_schema_surface() -> None:
-    schema = read_json(SCHEMA_PATH)
-    if not isinstance(schema, dict):
-        fail("schema file must contain a JSON object")
-    required_top_level = {"$schema", "$id", "title", "type", "properties", "required"}
-    missing = sorted(required_top_level - set(schema))
-    if missing:
-        fail(f"schema is missing required top-level keys: {', '.join(missing)}")
+    validate_json_schema_surface(SCHEMA_PATH, "schema")
 
 
 def validate_model_tier_schema_surface() -> None:
-    schema = read_json(MODEL_TIER_SCHEMA_PATH)
+    validate_json_schema_surface(MODEL_TIER_SCHEMA_PATH, "model-tier schema")
+
+
+def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
+    schema = read_json(path)
     if not isinstance(schema, dict):
-        fail("model-tier schema file must contain a JSON object")
+        fail(f"{label} file must contain a JSON object")
     required_top_level = {"$schema", "$id", "title", "type", "properties", "required"}
     missing = sorted(required_top_level - set(schema))
     if missing:
-        fail(f"model-tier schema is missing required top-level keys: {', '.join(missing)}")
+        fail(f"{label} is missing required top-level keys: {', '.join(missing)}")
+    return schema
+
+
+def validate_runtime_artifact_schema_surfaces() -> None:
+    for artifact_name, path in RUNTIME_ARTIFACT_SCHEMA_PATHS.items():
+        schema = validate_json_schema_surface(path, f"runtime artifact schema '{artifact_name}'")
+        if schema.get("type") != "object":
+            fail(f"runtime artifact schema '{artifact_name}' must declare type 'object'")
+        properties = schema.get("properties")
+        if not isinstance(properties, dict) or "artifact_type" not in properties:
+            fail(f"runtime artifact schema '{artifact_name}' must expose an artifact_type property")
+        artifact_type = properties["artifact_type"]
+        if not isinstance(artifact_type, dict) or artifact_type.get("const") != artifact_name:
+            fail(f"runtime artifact schema '{artifact_name}' must pin artifact_type.const to '{artifact_name}'")
 
 
 def validate_registry() -> None:
@@ -307,6 +328,7 @@ def main() -> int:
     try:
         validate_schema_surface()
         validate_model_tier_schema_surface()
+        validate_runtime_artifact_schema_surfaces()
         validate_registry()
         validate_model_tier_registry()
     except ValidationError as exc:
@@ -315,6 +337,7 @@ def main() -> int:
 
     print("[ok] validated agent registry schema surface")
     print("[ok] validated model-tier registry schema surface")
+    print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
     return 0

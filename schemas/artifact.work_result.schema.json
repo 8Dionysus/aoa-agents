@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/artifact.work_result.schema.json",
+  "title": "AoA work result artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "summary",
+    "state_delta",
+    "verification_notes"
+  ],
+  "properties": {
+    "artifact_type": {
+      "type": "string",
+      "const": "work_result"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "state_delta": {
+      "type": "string",
+      "minLength": 3
+    },
+    "verification_notes": {
+      "type": "string",
+      "minLength": 3
+    }
+  }
+}

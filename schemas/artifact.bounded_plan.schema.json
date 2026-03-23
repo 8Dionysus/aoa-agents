@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/artifact.bounded_plan.schema.json",
+  "title": "AoA bounded plan artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "objective",
+    "steps",
+    "verification_posture",
+    "escalation_boundary"
+  ],
+  "properties": {
+    "artifact_type": {
+      "type": "string",
+      "const": "bounded_plan"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 5
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "verification_posture": {
+      "type": "string",
+      "minLength": 3
+    },
+    "escalation_boundary": {
+      "type": "string",
+      "minLength": 3
+    }
+  }
+}
