@@ -9,8 +9,10 @@ It defines how existing agent roles are expected to read, write, promote, freeze
 
 ## Core rule
 
-`aoa-memo` owns memory objects and memory doctrine.
+`aoa-memo` owns memory-object canon, memory doctrine, and recall meaning.
+`aoa-routing` selects the next memo path.
 `aoa-agents` owns role-level memory rights and posture.
+`aoa-agents` only states which roles may use published or routed object recall seams.
 
 An agent posture should answer:
 
