@@ -1,0 +1,9 @@
+{
+  "artifact_type": "verification_result",
+  "verdict": "pass",
+  "checked_artifacts": [
+    "work_result"
+  ],
+  "summary": "The current bounded output passed review.",
+  "unexpected_note": "This extra property should not be allowed."
+}

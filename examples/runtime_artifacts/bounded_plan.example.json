@@ -1,0 +1,11 @@
+{
+  "artifact_type": "bounded_plan",
+  "objective": "Shape the next bounded pass for the long-horizon route.",
+  "steps": [
+    "Confirm the route boundary and current source surface.",
+    "Name the next execution step and expected artifact.",
+    "State the verification posture before execution begins."
+  ],
+  "verification_posture": "strict",
+  "escalation_boundary": "Escalate to conductor if the route goal or evidence boundary changes."
+}

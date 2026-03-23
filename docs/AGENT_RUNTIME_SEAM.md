@@ -44,6 +44,10 @@ run
 
 This is a contract formula, not a runtime mandate.
 
+The public loop remains:
+
+`route -> plan -> do -> verify -> deep? -> distill`
+
 ## Role × Tier Binding
 
 The public binding for the first planting slice is:
@@ -74,6 +78,16 @@ The public artifact contracts are:
 These schemas define inspectable artifact names and minimal contract fields.
 They do not define runtime execution, tool wiring, or vendor-specific transport.
 
+Inspectable examples for each public artifact live under:
+
+- `examples/runtime_artifacts/*.example.json`
+- `examples/runtime_artifacts/invalid/*.json`
+
+The role × tier binding is also published as a machine-readable surface:
+
+- `schemas/runtime-seam-bindings.schema.json`
+- `generated/runtime_seam_bindings.json`
+
 ## Reference Scenarios
 
 Use these as reference scenarios and future example runs only:
@@ -93,6 +107,22 @@ They do not move scenario composition into this repository.
 - `aoa-memo` still owns memory objects and writeback doctrine
 - `aoa-evals` still owns proof doctrine and verdict logic
 - `abyss-stack` still owns runtime and infrastructure implementation
+
+## Optional Consumer Smoke Checks
+
+`python scripts/validate_agents.py` stays self-contained by default.
+
+When these environment variables are set, the validator may also confirm that
+published neighboring surfaces still resolve back to the public artifact
+contracts in this repository:
+
+- `AOA_PLAYBOOKS_ROOT`
+- `AOA_EVALS_ROOT`
+- `AOA_MEMO_ROOT`
+
+These checks verify published contract reachability only.
+They do not move playbook meaning, eval doctrine, or memo object meaning into
+`aoa-agents`.
 
 ## Minimal Landing Slice
 

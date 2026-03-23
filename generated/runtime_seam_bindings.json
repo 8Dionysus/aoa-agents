@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "layer": "aoa-agents",
+  "bindings": [
+    {
+      "phase": "route",
+      "tier_id": "router",
+      "role_names": [
+        "architect"
+      ],
+      "artifact_type": "route_decision"
+    },
+    {
+      "phase": "plan",
+      "tier_id": "planner",
+      "role_names": [
+        "architect"
+      ],
+      "artifact_type": "bounded_plan"
+    },
+    {
+      "phase": "do",
+      "tier_id": "executor",
+      "role_names": [
+        "coder"
+      ],
+      "artifact_type": "work_result"
+    },
+    {
+      "phase": "verify",
+      "tier_id": "verifier",
+      "role_names": [
+        "reviewer"
+      ],
+      "artifact_type": "verification_result"
+    },
+    {
+      "phase": "transition",
+      "tier_id": "conductor",
+      "role_names": [
+        "architect",
+        "reviewer"
+      ],
+      "artifact_type": "transition_decision"
+    },
+    {
+      "phase": "deep",
+      "tier_id": "deep",
+      "role_names": [
+        "evaluator",
+        "architect"
+      ],
+      "artifact_type": "deep_synthesis_note"
+    },
+    {
+      "phase": "distill",
+      "tier_id": "archivist",
+      "role_names": [
+        "memory-keeper"
+      ],
+      "artifact_type": "distillation_pack"
+    }
+  ]
+}

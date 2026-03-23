@@ -16,9 +16,10 @@ If you are new to this repository, use this path:
 3. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
 4. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
 5. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-6. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-7. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-8. Read [ROADMAP](ROADMAP.md) for the current direction.
+6. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+7. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+8. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+9. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -72,11 +73,25 @@ It also includes public contract schemas for bounded runtime-facing artifacts at
 - `schemas/artifact.deep_synthesis_note.schema.json`
 - `schemas/artifact.distillation_pack.schema.json`
 
+It also includes inspectable runtime seam surfaces at:
+- `examples/runtime_artifacts/*.example.json`
+- `examples/runtime_artifacts/invalid/*.json`
+- `schemas/runtime-seam-bindings.schema.json`
+- `generated/runtime_seam_bindings.json`
+
 To validate the current agent-layer surface locally, run:
 
 ```bash
 python scripts/validate_agents.py
 ```
+
+Optional bounded consumer smoke checks may be enabled by setting:
+- `AOA_PLAYBOOKS_ROOT`
+- `AOA_EVALS_ROOT`
+- `AOA_MEMO_ROOT`
+
+These checks only confirm published contract reachability.
+They do not move playbook, eval, or memo meaning into `aoa-agents`.
 
 ## Current status
 

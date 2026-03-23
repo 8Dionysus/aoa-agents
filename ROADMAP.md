@@ -8,6 +8,19 @@ This roadmap tracks the bootstrap and early shaping of the AoA agent layer.
 The current goal is not to build a giant orchestration engine immediately.
 The goal is to define what the agent layer is for, what it owns, and what it must not silently absorb.
 
+## Bootstrap substep: runtime seam hardening
+
+Goals:
+- add inspectable runtime artifact examples and bounded negative fixtures
+- publish a machine-readable role × tier binding surface
+- make transition and artifact coverage discipline explicit
+- add optional published-contract smoke checks without requiring cross-repo CI checkout
+
+Exit signals:
+- every published runtime artifact schema has a valid example and bounded invalid fixture coverage
+- the public role × tier mapping is machine-readable without changing existing registry wire shape
+- the validator can confirm public contract reachability in neighboring repos when local roots are supplied
+
 ## Phase 1: agent layer definition
 
 Goals:

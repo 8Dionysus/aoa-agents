@@ -149,7 +149,6 @@
         "selected_cold"
       ],
       "handoff_targets": [
-        "memory-keeper",
         "conductor"
       ],
       "artifact_requirement": "distillation_pack",

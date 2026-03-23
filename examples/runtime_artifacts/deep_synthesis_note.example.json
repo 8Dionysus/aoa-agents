@@ -1,0 +1,6 @@
+{
+  "artifact_type": "deep_synthesis_note",
+  "synthesis": "The route can stay bounded because the conflict is about ordering, not about ownership or canon.",
+  "what_changed": "The escalation boundary was narrowed and the next hop stayed inside the public loop.",
+  "what_remains_open": "A later pass may still need a richer scenario example outside the agent layer."
+}
