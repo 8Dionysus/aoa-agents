@@ -62,6 +62,17 @@ The public binding for the first planting slice is:
 
 This keeps the role axis and tier axis visible without collapsing them into one mythic agent.
 
+The official cohort composition surface sits beside this binding, not above it.
+Use:
+
+- `solo` for bounded single-role routes with explicit handoff posture
+- `pair` for bounded dual-role collaboration without hidden orchestration
+- `checkpoint_cohort` for governed self-agent routes
+- `orchestrated_loop` for explicit coordination over the public loop
+
+These are composition hints.
+They do not move scenario composition into this repository.
+
 ## Public Artifact Surfaces
 
 The first public runtime seam is schema-backed and code-free.
@@ -87,6 +98,11 @@ The role × tier binding is also published as a machine-readable surface:
 
 - `schemas/runtime-seam-bindings.schema.json`
 - `generated/runtime_seam_bindings.json`
+
+The cohort composition surface is also published as a machine-readable surface:
+
+- `schemas/cohort-composition-registry.schema.json`
+- `generated/cohort_composition_registry.json`
 
 ## Reference Scenarios
 

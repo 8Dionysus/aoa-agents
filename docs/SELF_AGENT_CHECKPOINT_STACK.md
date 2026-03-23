@@ -52,6 +52,8 @@ The checkpoint stack matters most when an actor crosses from reasoning posture i
 
 ## Checkpoint cohort pattern
 
+The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern.
+
 The current portable cohort pattern for a self-agent checkpoint route is:
 
 - `architect` initiates the checkpoint and names the constitution or source-of-truth fit
