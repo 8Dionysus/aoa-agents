@@ -118,6 +118,7 @@ Optional bounded consumer smoke checks may be enabled by setting:
 - `AOA_ROUTING_ROOT`
 
 These checks only confirm published contract reachability.
+`AOA_MEMO_ROOT` additionally confirms object recall surface reachability.
 They do not move playbook, eval, memo, or routing meaning into `aoa-agents`.
 
 ## Current status

@@ -88,11 +88,33 @@ REQUIRED_COHORT_DOC_SNIPPETS = (
 REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
 REQUIRED_FEDERATION_DOC_SNIPPETS = (
     "- `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded",
-    "- `aoa-routing` consumes model-tier registry only",
+    "- `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may",
+    "- `aoa-routing` consumes model-tier registry only and selects the next memo path",
     "- `AOA-P-0006 -> checkpoint_cohort`",
     "- `AOA-P-0008 -> orchestrated_loop`",
     "Router remains tier-aware, not cohort-aware, in this slice.",
+    "`aoa-agents` does not define memory-object canon or recall meaning in this slice.",
 )
+
+REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
+    "`aoa-memo` owns memory-object canon, memory doctrine, and recall meaning.",
+    "`aoa-routing` selects the next memo path.",
+    "`aoa-agents` only states which roles may use published or routed object recall seams.",
+)
+
+MEMO_OBJECT_SURFACE_PATHS = (
+    "generated/memory_object_catalog.min.json",
+    "generated/memory_object_sections.full.json",
+)
+
+MEMO_OBJECT_RECALL_CONTRACTS = (
+    ("examples/recall_contract.object.working.json", "working"),
+    ("examples/recall_contract.object.semantic.json", "semantic"),
+    ("examples/recall_contract.object.lineage.json", "lineage"),
+)
+
+MEMO_OBJECT_INSPECT_SURFACE = "generated/memory_object_catalog.min.json"
+MEMO_OBJECT_EXPAND_SURFACE = "generated/memory_object_sections.full.json"
 
 
 class ValidationError(RuntimeError):
@@ -952,12 +974,17 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
 
 
 def validate_runtime_seam_doc_coherence() -> None:
+    agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
     cohort_patterns = read_text(REPO_ROOT / "docs" / "AGENT_COHORT_PATTERNS.md")
     federation_consumer_seams = read_text(REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md")
     agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
     self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
+
+    for snippet in REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS:
+        if snippet not in agent_memory_posture:
+            fail(f"docs/AGENT_MEMORY_POSTURE.md is missing required memory posture guidance: {snippet}")
 
     if PUBLIC_LOOP not in agent_runtime_seam:
         fail("docs/AGENT_RUNTIME_SEAM.md must preserve the public loop string")
@@ -1084,6 +1111,27 @@ def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     if not target.exists():
         fail(f"aoa-agents repo ref does not resolve to an existing public surface: {ref}")
     return target
+
+
+def validate_optional_memo_object_smoke_check(memo_root: Path) -> None:
+    for surface_file in MEMO_OBJECT_SURFACE_PATHS:
+        read_json(memo_root / surface_file, root=memo_root)
+
+    for contract_file, expected_mode in MEMO_OBJECT_RECALL_CONTRACTS:
+        payload = read_json(memo_root / contract_file, root=memo_root)
+        if not isinstance(payload, dict):
+            fail(f"aoa-memo {contract_file} must be a JSON object")
+        mode = payload.get("mode")
+        if mode != expected_mode:
+            fail(f"aoa-memo {contract_file} must declare mode '{expected_mode}'")
+        if payload.get("inspect_surface") != MEMO_OBJECT_INSPECT_SURFACE:
+            fail(
+                f"aoa-memo {contract_file} must point inspect_surface at {MEMO_OBJECT_INSPECT_SURFACE}"
+            )
+        if payload.get("expand_surface") != MEMO_OBJECT_EXPAND_SURFACE:
+            fail(
+                f"aoa-memo {contract_file} must point expand_surface at {MEMO_OBJECT_EXPAND_SURFACE}"
+            )
 
 
 def format_role_sets(role_sets: object) -> str:
@@ -1242,6 +1290,7 @@ def validate_optional_consumer_smoke_checks(
             fail("aoa-memo checkpoint_to_memory_contract example does not contain any aoa-agents refs to smoke-check")
         for ref in refs:
             resolve_aoa_agents_repo_ref(ref)
+        validate_optional_memo_object_smoke_check(memo_root)
         checked.append("aoa-memo")
 
     routing_root = env_repo_root("AOA_ROUTING_ROOT")

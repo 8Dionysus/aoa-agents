@@ -22,8 +22,9 @@ They do not move their canon into `aoa-agents`.
 - `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded
   cohort-compatible reference subset
 - `aoa-evals` consumes artifact schema refs only
-- `aoa-memo` consumes writeback/runtime refs only
-- `aoa-routing` consumes model-tier registry only
+- `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may
+  consume published object recall seams as role posture only
+- `aoa-routing` consumes model-tier registry only and selects the next memo path
 
 ## Bounded playbook-compatible cohort subset
 
@@ -63,6 +64,7 @@ It does not consume cohort patterns in this slice.
 `aoa-memo` continues to consume published writeback-facing refs and runtime
 boundary docs.
 It does not consume cohort patterns in this slice.
+`aoa-agents` does not define memory-object canon or recall meaning in this slice.
 
 ## Optional smoke-check posture
 
@@ -76,6 +78,8 @@ may smoke-check:
 
 These checks confirm bounded consumer contract reachability only.
 They do not validate whole neighboring repositories or import their meaning.
+`AOA_MEMO_ROOT` also confirms published object recall surface reachability for
+`aoa-agents` consumer posture only.
 
 ## Boundaries to preserve
 
