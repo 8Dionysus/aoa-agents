@@ -112,6 +112,13 @@ REQUIRED_COHORT_DOC_SNIPPETS = (
     "Composition hints do not replace `aoa-playbooks`.",
 )
 REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
+REQUIRED_FEDERATION_DOC_SNIPPETS = (
+    "- `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded",
+    "- `aoa-routing` consumes model-tier registry only",
+    "- `AOA-P-0006 -> checkpoint_cohort`",
+    "- `AOA-P-0008 -> orchestrated_loop`",
+    "Router remains tier-aware, not cohort-aware, in this slice.",
+)
 
 
 class ValidationError(RuntimeError):
@@ -496,7 +503,9 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
     return tiers_by_id
 
 
-def validate_cohort_composition_registry(agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]) -> None:
+def validate_cohort_composition_registry(
+    agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]
+) -> dict[str, dict[str, object]]:
     validate_cohort_composition_schema_surface()
     schema = read_json(COHORT_COMPOSITION_SCHEMA_PATH)
     payload = read_json(COHORT_COMPOSITION_REGISTRY_PATH)
@@ -517,6 +526,7 @@ def validate_cohort_composition_registry(agent_names: set[str], tiers_by_id: dic
         fail("cohort composition registry 'cohort_patterns' must be a non-empty list")
 
     seen_ids: set[str] = set()
+    patterns_by_id: dict[str, dict[str, object]] = {}
     for index, pattern in enumerate(cohort_patterns):
         location = f"cohort_patterns[{index}]"
         if not isinstance(pattern, dict):
@@ -528,6 +538,7 @@ def validate_cohort_composition_registry(agent_names: set[str], tiers_by_id: dic
         if pattern_id in seen_ids:
             fail(f"duplicate cohort pattern id in registry: '{pattern_id}'")
         seen_ids.add(pattern_id)
+        patterns_by_id[pattern_id] = pattern
 
         allowed_role_sets = pattern.get("allowed_role_sets")
         preferred_tier_ids = pattern.get("preferred_tier_ids")
@@ -567,6 +578,8 @@ def validate_cohort_composition_registry(agent_names: set[str], tiers_by_id: dic
     missing_patterns = sorted(REQUIRED_COHORT_PATTERNS - seen_ids)
     if missing_patterns:
         fail(f"cohort composition registry is missing required patterns: {', '.join(missing_patterns)}")
+
+    return patterns_by_id
 
 
 def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]) -> None:
@@ -628,6 +641,7 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
 
 def validate_runtime_seam_doc_coherence() -> None:
     cohort_patterns = read_text(REPO_ROOT / "docs" / "AGENT_COHORT_PATTERNS.md")
+    federation_consumer_seams = read_text(REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md")
     agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
@@ -647,6 +661,9 @@ def validate_runtime_seam_doc_coherence() -> None:
     for snippet in REQUIRED_COHORT_DOC_SNIPPETS:
         if snippet not in cohort_patterns:
             fail(f"docs/AGENT_COHORT_PATTERNS.md is missing required cohort guidance: {snippet}")
+    for snippet in REQUIRED_FEDERATION_DOC_SNIPPETS:
+        if snippet not in federation_consumer_seams:
+            fail(f"docs/FEDERATION_CONSUMER_SEAMS.md is missing required federation guidance: {snippet}")
 
     required_transition_snippets = (
         "`transition_decision` is a governance artifact between phases.",
@@ -757,7 +774,114 @@ def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     return target
 
 
-def validate_optional_consumer_smoke_checks() -> list[str]:
+def format_role_sets(role_sets: object) -> str:
+    if not isinstance(role_sets, list):
+        return "<invalid role set payload>"
+    formatted: list[str] = []
+    for role_set in role_sets:
+        if isinstance(role_set, list):
+            formatted.append("[" + ", ".join(str(item) for item in role_set) + "]")
+        else:
+            formatted.append(str(role_set))
+    return "; ".join(formatted)
+
+
+def validate_reference_playbook_cohort_compatibility(
+    playbooks_root: Path, cohort_patterns_by_id: dict[str, dict[str, object]]
+) -> None:
+    payload = read_json(playbooks_root / "generated" / "playbook_registry.min.json", root=playbooks_root)
+    if not isinstance(payload, dict) or not isinstance(payload.get("playbooks"), list):
+        fail("aoa-playbooks generated/playbook_registry.min.json must expose a playbooks list")
+
+    playbooks_by_id = {
+        playbook.get("id"): playbook
+        for playbook in payload["playbooks"]
+        if isinstance(playbook, dict) and isinstance(playbook.get("id"), str)
+    }
+
+    checkpoint_playbook = playbooks_by_id.get("AOA-P-0006")
+    if not isinstance(checkpoint_playbook, dict):
+        fail("aoa-playbooks registry is missing playbook 'AOA-P-0006'")
+    checkpoint_roles = checkpoint_playbook.get("participating_agents")
+    checkpoint_pattern = cohort_patterns_by_id.get("checkpoint_cohort")
+    if not isinstance(checkpoint_pattern, dict):
+        fail("aoa-agents cohort registry is missing pattern 'checkpoint_cohort'")
+    checkpoint_allowed_role_sets = checkpoint_pattern.get("allowed_role_sets")
+    if (
+        not isinstance(checkpoint_allowed_role_sets, list)
+        or not checkpoint_allowed_role_sets
+        or not isinstance(checkpoint_allowed_role_sets[0], list)
+    ):
+        fail("aoa-agents checkpoint_cohort pattern must expose at least one allowed_role_sets entry")
+    expected_checkpoint_roles = checkpoint_allowed_role_sets[0]
+    if checkpoint_roles != expected_checkpoint_roles:
+        fail(
+            "aoa-playbooks AOA-P-0006 participating_agents must match "
+            f"checkpoint_cohort.allowed_role_sets[0]: expected {expected_checkpoint_roles}, got {checkpoint_roles}"
+        )
+
+    orchestrated_playbook = playbooks_by_id.get("AOA-P-0008")
+    if not isinstance(orchestrated_playbook, dict):
+        fail("aoa-playbooks registry is missing playbook 'AOA-P-0008'")
+    orchestrated_roles = orchestrated_playbook.get("participating_agents")
+    orchestrated_pattern = cohort_patterns_by_id.get("orchestrated_loop")
+    if not isinstance(orchestrated_pattern, dict):
+        fail("aoa-agents cohort registry is missing pattern 'orchestrated_loop'")
+    orchestrated_allowed_role_sets = orchestrated_pattern.get("allowed_role_sets")
+    if not isinstance(orchestrated_allowed_role_sets, list) or not orchestrated_allowed_role_sets:
+        fail("aoa-agents orchestrated_loop pattern must expose at least one allowed_role_sets entry")
+    if orchestrated_roles not in orchestrated_allowed_role_sets:
+        fail(
+            "aoa-playbooks AOA-P-0008 participating_agents must match one of "
+            "orchestrated_loop.allowed_role_sets: "
+            f"allowed {format_role_sets(orchestrated_allowed_role_sets)}, got {orchestrated_roles}"
+        )
+
+
+def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[str, dict[str, object]]) -> None:
+    payload = read_json(routing_root / "generated" / "task_to_tier_hints.json", root=routing_root)
+    if not isinstance(payload, dict):
+        fail("aoa-routing generated/task_to_tier_hints.json must be a JSON object")
+
+    source_of_truth = payload.get("source_of_truth")
+    if not isinstance(source_of_truth, dict):
+        fail("aoa-routing task_to_tier_hints.json must expose source_of_truth")
+    if source_of_truth.get("tier_registry_repo") != "aoa-agents":
+        fail("aoa-routing task_to_tier_hints.json must keep source_of_truth.tier_registry_repo = 'aoa-agents'")
+    if source_of_truth.get("tier_registry_path") != "generated/model_tier_registry.json":
+        fail(
+            "aoa-routing task_to_tier_hints.json must keep "
+            "source_of_truth.tier_registry_path = 'generated/model_tier_registry.json'"
+        )
+
+    hints = payload.get("hints")
+    if not isinstance(hints, list) or not hints:
+        fail("aoa-routing task_to_tier_hints.json must expose a non-empty hints list")
+
+    for index, hint in enumerate(hints):
+        location = f"aoa-routing task_to_tier_hints.json.hints[{index}]"
+        if not isinstance(hint, dict):
+            fail(f"{location} must be an object")
+        preferred_tier = hint.get("preferred_tier")
+        fallback_tier = hint.get("fallback_tier")
+        output_artifact = hint.get("output_artifact")
+
+        if not isinstance(preferred_tier, str) or preferred_tier not in tiers_by_id:
+            fail(f"{location}.preferred_tier must resolve in aoa-agents model-tier registry")
+        if fallback_tier is not None and (not isinstance(fallback_tier, str) or fallback_tier not in tiers_by_id):
+            fail(f"{location}.fallback_tier must resolve in aoa-agents model-tier registry when present")
+
+        expected_artifact = tiers_by_id[preferred_tier]["artifact_requirement"]
+        if output_artifact != expected_artifact:
+            fail(
+                f"{location}.output_artifact must match artifact_requirement for tier '{preferred_tier}' "
+                f"('{expected_artifact}')"
+            )
+
+
+def validate_optional_consumer_smoke_checks(
+    tiers_by_id: dict[str, dict[str, object]], cohort_patterns_by_id: dict[str, dict[str, object]]
+) -> list[str]:
     checked: list[str] = []
     known_artifact_names = set(RUNTIME_ARTIFACT_SCHEMA_PATHS)
 
@@ -778,6 +902,7 @@ def validate_optional_consumer_smoke_checks() -> list[str]:
                 "aoa-playbooks AOA-P-0008 expected_artifacts are not a subset of aoa-agents artifact names: "
                 + ", ".join(invalid)
             )
+        validate_reference_playbook_cohort_compatibility(playbooks_root, cohort_patterns_by_id)
         checked.append("aoa-playbooks")
 
     evals_root = env_repo_root("AOA_EVALS_ROOT")
@@ -807,6 +932,11 @@ def validate_optional_consumer_smoke_checks() -> list[str]:
             resolve_aoa_agents_repo_ref(ref)
         checked.append("aoa-memo")
 
+    routing_root = env_repo_root("AOA_ROUTING_ROOT")
+    if routing_root is not None:
+        validate_optional_routing_smoke_check(routing_root, tiers_by_id)
+        checked.append("aoa-routing")
+
     return checked
 
 
@@ -820,10 +950,10 @@ def main() -> int:
         validate_negative_runtime_artifact_examples()
         agent_names = validate_registry()
         tiers_by_id = validate_model_tier_registry()
-        validate_cohort_composition_registry(agent_names, tiers_by_id)
+        cohort_patterns_by_id = validate_cohort_composition_registry(agent_names, tiers_by_id)
         validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_runtime_seam_doc_coherence()
-        checked_roots = validate_optional_consumer_smoke_checks()
+        checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except ValidationError as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1

@@ -129,16 +129,20 @@ They do not move scenario composition into this repository.
 `python scripts/validate_agents.py` stays self-contained by default.
 
 When these environment variables are set, the validator may also confirm that
-published neighboring surfaces still resolve back to the public artifact
+published neighboring surfaces still resolve back to public agent-layer
 contracts in this repository:
 
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`
 - `AOA_MEMO_ROOT`
+- `AOA_ROUTING_ROOT`
 
-These checks verify published contract reachability only.
-They do not move playbook meaning, eval doctrine, or memo object meaning into
-`aoa-agents`.
+These checks verify bounded contract reachability only.
+They do not move playbook meaning, eval doctrine, memo object meaning, or
+routing meaning into `aoa-agents`.
+
+For `aoa-routing`, this slice stays tier-aware only.
+Router remains tier-aware, not cohort-aware, in this slice.
 
 ## Minimal Landing Slice
 
