@@ -1,0 +1,24 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "router",
+  "status": "active",
+  "summary": "Fast bounded triage that classifies task shape, risk, and the smallest next tier or source surface.",
+  "primary_duty": "Route the task toward the smallest sufficient next step.",
+  "output_contract": "Emit a route decision that names the next tier or the next source-owned surface to inspect.",
+  "default_memory_scope": [
+    "core",
+    "selected_hot"
+  ],
+  "handoff_targets": [
+    "planner",
+    "executor",
+    "verifier",
+    "conductor"
+  ],
+  "artifact_requirement": "route_decision",
+  "activation_conditions": [
+    "new task intake",
+    "task-class ambiguity",
+    "risk triage"
+  ]
+}

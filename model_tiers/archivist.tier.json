@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "archivist",
+  "status": "experimental",
+  "summary": "Distillation tier that turns non-trivial route output into summaries, entities, decisions, and memory candidates.",
+  "primary_duty": "Distill durable memory candidates without replacing source-owned canon.",
+  "output_contract": "Emit a distillation pack naming summaries, entities, decisions, and memory candidates.",
+  "default_memory_scope": [
+    "core",
+    "selected_warm",
+    "selected_cool",
+    "selected_cold"
+  ],
+  "handoff_targets": [
+    "conductor"
+  ],
+  "artifact_requirement": "distillation_pack",
+  "activation_conditions": [
+    "non-trivial run completion",
+    "checkpoint or writeback preparation"
+  ]
+}

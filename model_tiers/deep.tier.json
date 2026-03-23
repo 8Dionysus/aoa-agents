@@ -1,0 +1,24 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "deep",
+  "status": "experimental",
+  "summary": "Rare high-cost synthesis tier used for framing, arbitration, contradiction handling, or final judgment.",
+  "primary_duty": "Perform bounded deep synthesis only when the ordinary loop cannot resolve the route cleanly.",
+  "output_contract": "Emit a synthesis or arbitration result that names what changed and what remains open.",
+  "default_memory_scope": [
+    "core",
+    "selected_warm",
+    "selected_cool"
+  ],
+  "handoff_targets": [
+    "conductor",
+    "archivist"
+  ],
+  "artifact_requirement": "deep_synthesis_note",
+  "activation_conditions": [
+    "high uncertainty",
+    "conflict between strong options",
+    "high cost of error",
+    "rule-birth or contradiction arbitration"
+  ]
+}

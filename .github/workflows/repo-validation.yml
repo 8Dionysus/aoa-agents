@@ -18,5 +18,8 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Build published surfaces
+        run: python scripts/build_published_surfaces.py
+
       - name: Run agent validator
         run: python scripts/validate_agents.py

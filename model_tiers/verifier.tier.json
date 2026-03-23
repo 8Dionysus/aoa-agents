@@ -1,0 +1,23 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "verifier",
+  "status": "active",
+  "summary": "Review tier that checks format, contradiction posture, and named verification boundaries on the current route.",
+  "primary_duty": "Check whether the route output and named evidence support the current step.",
+  "output_contract": "Emit a verification result that names pass, fail, ambiguity, or escalation need.",
+  "default_memory_scope": [
+    "core",
+    "selected_hot",
+    "selected_warm"
+  ],
+  "handoff_targets": [
+    "conductor",
+    "deep",
+    "archivist"
+  ],
+  "artifact_requirement": "verification_result",
+  "activation_conditions": [
+    "post-execution review",
+    "contradiction check"
+  ]
+}

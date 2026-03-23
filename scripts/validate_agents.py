@@ -6,17 +6,30 @@ import os
 import sys
 from pathlib import Path
 
+from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
+from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
+from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
+from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
+PROFILE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-profile.schema.json"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
+MODEL_TIER_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier.schema.json"
 COHORT_COMPOSITION_REGISTRY_PATH = REPO_ROOT / "generated" / "cohort_composition_registry.json"
 COHORT_COMPOSITION_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-composition-registry.schema.json"
+COHORT_PATTERN_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-pattern.schema.json"
 RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.json"
 RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindings.schema.json"
+RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-binding.schema.json"
+SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
+SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
+SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agent_checkpoint.example.json"
+SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
     "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
@@ -51,50 +64,11 @@ EXPECTED_INVALID_FIXTURES = {
     "bounded_plan.missing_required_field.json": ("bounded_plan", "missing_required_field"),
     "verification_result.forbidden_extra_property.json": ("verification_result", "forbidden_extra_property"),
 }
-EXPECTED_RUNTIME_SEAM_BINDINGS = [
-    {
-        "phase": "route",
-        "tier_id": "router",
-        "role_names": ["architect"],
-        "artifact_type": "route_decision",
-    },
-    {
-        "phase": "plan",
-        "tier_id": "planner",
-        "role_names": ["architect"],
-        "artifact_type": "bounded_plan",
-    },
-    {
-        "phase": "do",
-        "tier_id": "executor",
-        "role_names": ["coder"],
-        "artifact_type": "work_result",
-    },
-    {
-        "phase": "verify",
-        "tier_id": "verifier",
-        "role_names": ["reviewer"],
-        "artifact_type": "verification_result",
-    },
-    {
-        "phase": "transition",
-        "tier_id": "conductor",
-        "role_names": ["architect", "reviewer"],
-        "artifact_type": "transition_decision",
-    },
-    {
-        "phase": "deep",
-        "tier_id": "deep",
-        "role_names": ["evaluator", "architect"],
-        "artifact_type": "deep_synthesis_note",
-    },
-    {
-        "phase": "distill",
-        "tier_id": "archivist",
-        "role_names": ["memory-keeper"],
-        "artifact_type": "distillation_pack",
-    },
-]
+EXPECTED_SELF_AGENT_CHECKPOINT_INVALID_FIXTURES = {
+    "self_agent_checkpoint.missing_required_field.json": "missing_required_field",
+    "self_agent_checkpoint.invalid_approval_mode.json": "invalid_enum_value",
+    "self_agent_checkpoint.max_iterations_below_minimum.json": "below_minimum",
+}
 EXPECTED_SEAM_BINDING_LINES = (
     "- `router + architect -> route_decision`",
     "- `planner + architect -> bounded_plan`",
@@ -170,12 +144,32 @@ def validate_model_tier_schema_surface() -> None:
     validate_json_schema_surface(MODEL_TIER_SCHEMA_PATH, "model-tier schema")
 
 
+def validate_model_tier_item_schema_surface() -> None:
+    validate_json_schema_surface(MODEL_TIER_ITEM_SCHEMA_PATH, "model-tier item schema")
+
+
+def validate_agent_profile_schema_surface() -> None:
+    validate_json_schema_surface(PROFILE_SCHEMA_PATH, "agent-profile schema")
+
+
 def validate_cohort_composition_schema_surface() -> None:
     validate_json_schema_surface(COHORT_COMPOSITION_SCHEMA_PATH, "cohort composition schema")
 
 
+def validate_cohort_pattern_schema_surface() -> None:
+    validate_json_schema_surface(COHORT_PATTERN_SCHEMA_PATH, "cohort-pattern schema")
+
+
 def validate_runtime_seam_bindings_schema_surface() -> None:
     validate_json_schema_surface(RUNTIME_SEAM_BINDINGS_SCHEMA_PATH, "runtime-seam-bindings schema")
+
+
+def validate_runtime_seam_binding_item_schema_surface() -> None:
+    validate_json_schema_surface(RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH, "runtime-seam-binding schema")
+
+
+def validate_self_agent_checkpoint_schema_surface() -> None:
+    validate_json_schema_surface(SELF_AGENT_CHECKPOINT_SCHEMA_PATH, "self-agent-checkpoint schema")
 
 
 def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
@@ -226,6 +220,10 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
         min_items = schema.get("minItems")
         if isinstance(min_items, int) and len(instance) < min_items:
             fail_schema(f"{location} must contain at least {min_items} items")
+        if schema.get("uniqueItems") is True:
+            rendered = [json.dumps(item, sort_keys=True) for item in instance]
+            if len(rendered) != len(set(rendered)):
+                fail_schema(f"{location} must not contain duplicate items")
         item_schema = schema.get("items")
         if isinstance(item_schema, dict):
             for index, item in enumerate(instance):
@@ -243,12 +241,18 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
             fail_schema(f"{location} must equal constant '{schema['const']}'", code=code)
         enum_values = schema.get("enum")
         if isinstance(enum_values, list) and instance not in enum_values:
-            fail_schema(f"{location} must be one of: {', '.join(str(item) for item in enum_values)}")
+            fail_schema(
+                f"{location} must be one of: {', '.join(str(item) for item in enum_values)}",
+                code="invalid_enum_value",
+            )
         return
 
     if schema_type == "integer":
         if not isinstance(instance, int) or isinstance(instance, bool):
             fail_schema(f"{location} must be an integer")
+        minimum = schema.get("minimum")
+        if isinstance(minimum, int) and instance < minimum:
+            fail_schema(f"{location} must be >= {minimum}", code="below_minimum")
         return
 
     if schema_type == "boolean":
@@ -313,6 +317,117 @@ def validate_negative_runtime_artifact_examples() -> None:
                 )
         else:
             fail(f"{describe_path(fixture_path)} unexpectedly passed validation")
+
+
+def validate_self_agent_checkpoint_example() -> dict[str, object]:
+    schema = read_json(SELF_AGENT_CHECKPOINT_SCHEMA_PATH)
+    payload = read_json(SELF_AGENT_CHECKPOINT_EXAMPLE_PATH)
+    if not isinstance(schema, dict):
+        fail("self-agent-checkpoint schema must remain a JSON object")
+    if not isinstance(payload, dict):
+        fail("self-agent checkpoint example must be a JSON object")
+    validate_instance_against_schema(payload, schema, describe_path(SELF_AGENT_CHECKPOINT_EXAMPLE_PATH))
+    return payload
+
+
+def validate_negative_self_agent_checkpoint_examples() -> None:
+    if not SELF_AGENT_CHECKPOINT_INVALID_DIR.is_dir():
+        fail(f"missing required directory: {describe_path(SELF_AGENT_CHECKPOINT_INVALID_DIR)}")
+
+    actual_files = {path.name for path in SELF_AGENT_CHECKPOINT_INVALID_DIR.glob("*.json")}
+    expected_files = set(EXPECTED_SELF_AGENT_CHECKPOINT_INVALID_FIXTURES)
+    if actual_files != expected_files:
+        missing = sorted(expected_files - actual_files)
+        extra = sorted(actual_files - expected_files)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"unexpected: {', '.join(extra)}")
+        fail(f"self-agent checkpoint invalid fixtures drifted ({'; '.join(details)})")
+
+    schema = read_json(SELF_AGENT_CHECKPOINT_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("self-agent-checkpoint schema must remain a JSON object")
+
+    for file_name, expected_code in EXPECTED_SELF_AGENT_CHECKPOINT_INVALID_FIXTURES.items():
+        fixture_path = SELF_AGENT_CHECKPOINT_INVALID_DIR / file_name
+        payload = read_json(fixture_path)
+        try:
+            validate_instance_against_schema(payload, schema, describe_path(fixture_path))
+        except SchemaValidationError as exc:
+            if exc.code != expected_code:
+                fail(
+                    f"{describe_path(fixture_path)} failed with unexpected error class "
+                    f"'{exc.code}' instead of '{expected_code}'"
+                )
+        else:
+            fail(f"{describe_path(fixture_path)} unexpectedly passed validation")
+
+
+def validate_agent_profile_sources() -> list[dict[str, object]]:
+    schema = read_json(PROFILE_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("agent-profile schema must remain a JSON object")
+
+    try:
+        profiles = load_profiles()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not profiles:
+        fail("profiles/ must contain at least one '*.profile.json' file")
+
+    expected_registry = build_agent_registry_payload(profiles)
+    actual_registry = read_json(REGISTRY_PATH)
+    if actual_registry != expected_registry:
+        fail("generated/agent_registry.min.json drifted from profiles/*.profile.json")
+
+    seen_ids: set[str] = set()
+    seen_names: set[str] = set()
+    required_seed = {"architect", "coder", "reviewer", "evaluator", "memory-keeper"}
+    for index, payload in enumerate(profiles):
+        location = f"profiles[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        profile_id = payload.get("id")
+        profile_name = payload.get("name")
+        if not isinstance(profile_id, str) or not isinstance(profile_name, str):
+            fail(f"{location} must expose string 'id' and 'name' fields")
+
+        expected_profile_path = PROFILES_DIR / f"{profile_name}.profile.json"
+        if not expected_profile_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_profile_path)}")
+
+        if profile_id in seen_ids:
+            fail(f"duplicate agent profile id in source layer: '{profile_id}'")
+        seen_ids.add(profile_id)
+
+        if profile_name in seen_names:
+            fail(f"duplicate agent profile name in source layer: '{profile_name}'")
+        seen_names.add(profile_name)
+
+        owns = payload.get("owns")
+        does_not_own = payload.get("does_not_own")
+        if not isinstance(owns, list) or not isinstance(does_not_own, list):
+            fail(f"{location} must expose list-valued owns and does_not_own fields")
+        overlap = sorted(set(owns) & set(does_not_own))
+        if overlap:
+            fail(f"{location} owns/does_not_own overlap on: {', '.join(overlap)}")
+
+        source_surfaces = payload.get("source_surfaces")
+        if not isinstance(source_surfaces, list) or not source_surfaces:
+            fail(f"{location} must expose a non-empty source_surfaces list")
+        for ref in source_surfaces:
+            if not isinstance(ref, str):
+                fail(f"{location}.source_surfaces must contain only strings")
+            resolve_aoa_agents_repo_ref(ref)
+
+    missing_seed = sorted(required_seed - seen_names)
+    if missing_seed:
+        fail(f"source-authored agent profiles are missing required seed agents: {', '.join(missing_seed)}")
+
+    return profiles
 
 
 def validate_registry() -> set[str]:
@@ -401,6 +516,205 @@ def validate_registry() -> set[str]:
         fail(f"agent registry is missing required seed agents: {', '.join(missing_seed)}")
 
     return seen_names
+
+
+def validate_agent_profile_references(
+    profiles: list[dict[str, object]],
+    tiers_by_id: dict[str, dict[str, object]],
+    cohort_patterns_by_id: dict[str, dict[str, object]],
+) -> None:
+    known_tier_ids = set(tiers_by_id)
+    known_cohort_pattern_ids = set(cohort_patterns_by_id)
+
+    for profile in profiles:
+        profile_name = profile.get("name")
+        location = f"agent profile '{profile_name}'"
+
+        preferred_tier_ids = profile.get("preferred_tier_ids")
+        if not isinstance(preferred_tier_ids, list) or not preferred_tier_ids:
+            fail(f"{location} must expose a non-empty preferred_tier_ids list")
+        for tier_id in preferred_tier_ids:
+            if not isinstance(tier_id, str) or tier_id not in known_tier_ids:
+                fail(f"{location}.preferred_tier_ids contains unknown tier '{tier_id}'")
+
+        preferred_cohort_patterns = profile.get("preferred_cohort_patterns")
+        if not isinstance(preferred_cohort_patterns, list) or not preferred_cohort_patterns:
+            fail(f"{location} must expose a non-empty preferred_cohort_patterns list")
+        for pattern_id in preferred_cohort_patterns:
+            if not isinstance(pattern_id, str) or pattern_id not in known_cohort_pattern_ids:
+                fail(f"{location}.preferred_cohort_patterns contains unknown pattern '{pattern_id}'")
+            pattern = cohort_patterns_by_id[pattern_id]
+            allowed_role_sets = pattern.get("allowed_role_sets")
+            if not isinstance(allowed_role_sets, list):
+                fail(f"cohort pattern '{pattern_id}' must expose allowed_role_sets")
+            if not any(isinstance(role_set, list) and profile_name in role_set for role_set in allowed_role_sets):
+                fail(
+                    f"{location}.preferred_cohort_patterns contains '{pattern_id}', "
+                    f"but the pattern never includes role '{profile_name}'"
+                )
+
+        source_surfaces = profile.get("source_surfaces")
+        if not isinstance(source_surfaces, list) or not source_surfaces:
+            fail(f"{location} must expose a non-empty source_surfaces list")
+        for ref in source_surfaces:
+            if not isinstance(ref, str):
+                fail(f"{location}.source_surfaces must contain strings")
+            resolve_aoa_agents_repo_ref(ref)
+
+
+def validate_self_agent_checkpoint_example_coherence(
+    payload: dict[str, object], profiles: list[dict[str, object]], agent_names: set[str]
+) -> None:
+    agent_id = payload.get("agent_id")
+    role = payload.get("role")
+    if not isinstance(agent_id, str) or not isinstance(role, str):
+        fail("self-agent checkpoint example must expose string-valued 'agent_id' and 'role'")
+
+    profiles_by_id = {
+        profile["id"]: profile
+        for profile in profiles
+        if isinstance(profile, dict) and isinstance(profile.get("id"), str)
+    }
+    matched_profile = profiles_by_id.get(agent_id)
+    if not isinstance(matched_profile, dict):
+        fail(f"self-agent checkpoint example agent_id '{agent_id}' does not resolve in source-authored agent profiles")
+
+    expected_role_name = matched_profile.get("name")
+    if not isinstance(expected_role_name, str):
+        fail(f"source-authored agent profile '{agent_id}' must expose a string 'name'")
+    if role != expected_role_name:
+        fail(
+            "self-agent checkpoint example role must match the public role-facing agent name "
+            f"for '{agent_id}': expected '{expected_role_name}', got '{role}'"
+        )
+    if role not in agent_names:
+        fail(f"self-agent checkpoint example role '{role}' does not resolve in generated/agent_registry.min.json")
+
+
+def validate_model_tier_sources() -> list[dict[str, object]]:
+    schema = read_json(MODEL_TIER_ITEM_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("model-tier item schema must remain a JSON object")
+
+    try:
+        tiers = load_model_tiers()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not tiers:
+        fail("model_tiers/ must contain at least one '*.tier.json' file")
+
+    expected_registry = build_model_tier_registry_payload(tiers)
+    actual_registry = read_json(MODEL_TIER_REGISTRY_PATH)
+    if actual_registry != expected_registry:
+        fail("generated/model_tier_registry.json drifted from model_tiers/*.tier.json")
+
+    seen_ids: set[str] = set()
+    for index, payload in enumerate(tiers):
+        location = f"model_tiers[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        tier_id = payload.get("id")
+        if not isinstance(tier_id, str):
+            fail(f"{location} must expose string 'id'")
+
+        expected_tier_path = MODEL_TIERS_DIR / f"{tier_id}.tier.json"
+        if not expected_tier_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_tier_path)}")
+
+        if tier_id in seen_ids:
+            fail(f"duplicate model tier id in source layer: '{tier_id}'")
+        seen_ids.add(tier_id)
+
+    missing_tiers = sorted(REQUIRED_MODEL_TIERS - seen_ids)
+    if missing_tiers:
+        fail(f"source-authored model tiers are missing required ids: {', '.join(missing_tiers)}")
+
+    return tiers
+
+
+def validate_cohort_pattern_sources() -> list[dict[str, object]]:
+    schema = read_json(COHORT_PATTERN_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("cohort-pattern schema must remain a JSON object")
+
+    try:
+        patterns = load_cohort_patterns()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not patterns:
+        fail("cohort_patterns/ must contain at least one '*.pattern.json' file")
+
+    expected_registry = build_cohort_registry_payload(patterns)
+    actual_registry = read_json(COHORT_COMPOSITION_REGISTRY_PATH)
+    if actual_registry != expected_registry:
+        fail("generated/cohort_composition_registry.json drifted from cohort_patterns/*.pattern.json")
+
+    seen_ids: set[str] = set()
+    for index, payload in enumerate(patterns):
+        location = f"cohort_patterns[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        pattern_id = payload.get("id")
+        if not isinstance(pattern_id, str):
+            fail(f"{location} must expose string 'id'")
+
+        expected_pattern_path = COHORT_PATTERNS_DIR / f"{pattern_id}.pattern.json"
+        if not expected_pattern_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_pattern_path)}")
+
+        if pattern_id in seen_ids:
+            fail(f"duplicate cohort pattern id in source layer: '{pattern_id}'")
+        seen_ids.add(pattern_id)
+
+    missing_patterns = sorted(REQUIRED_COHORT_PATTERNS - seen_ids)
+    if missing_patterns:
+        fail(f"source-authored cohort patterns are missing required ids: {', '.join(missing_patterns)}")
+
+    return patterns
+
+
+def validate_runtime_seam_binding_sources() -> list[dict[str, object]]:
+    schema = read_json(RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("runtime-seam-binding schema must remain a JSON object")
+
+    try:
+        bindings = load_runtime_seam_bindings()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not bindings:
+        fail("runtime_seam/ must contain at least one '*.binding.json' file")
+
+    expected_registry = build_runtime_seam_registry_payload(bindings)
+    actual_registry = read_json(RUNTIME_SEAM_BINDINGS_PATH)
+    if actual_registry != expected_registry:
+        fail("generated/runtime_seam_bindings.json drifted from runtime_seam/*.binding.json")
+
+    seen_phases: set[str] = set()
+    for index, payload in enumerate(bindings):
+        location = f"runtime_seam[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        phase = payload.get("phase")
+        if not isinstance(phase, str):
+            fail(f"{location} must expose string 'phase'")
+
+        expected_binding_path = RUNTIME_SEAM_DIR / f"{phase}.binding.json"
+        if not expected_binding_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_binding_path)}")
+
+        if phase in seen_phases:
+            fail(f"duplicate runtime seam phase in source layer: '{phase}'")
+        seen_phases.add(phase)
+
+    missing_phases = sorted(set(ALLOWED_RUNTIME_PHASES) - seen_phases)
+    if missing_phases:
+        fail(f"source-authored runtime seam bindings are missing phases: {', '.join(missing_phases)}")
+
+    return bindings
 
 
 def validate_model_tier_registry() -> dict[str, dict[str, object]]:
@@ -601,8 +915,6 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
     bindings = payload.get("bindings")
     if not isinstance(bindings, list):
         fail("runtime seam bindings 'bindings' must be a list")
-    if bindings != EXPECTED_RUNTIME_SEAM_BINDINGS:
-        fail("generated/runtime_seam_bindings.json drifted from the current public role × tier contract")
 
     seen_artifact_types: set[str] = set()
     for index, binding in enumerate(bindings):
@@ -944,13 +1256,27 @@ def main() -> int:
     try:
         validate_schema_surface()
         validate_model_tier_schema_surface()
+        validate_model_tier_item_schema_surface()
+        validate_agent_profile_schema_surface()
         validate_cohort_composition_schema_surface()
+        validate_cohort_pattern_schema_surface()
+        validate_runtime_seam_bindings_schema_surface()
+        validate_runtime_seam_binding_item_schema_surface()
+        validate_self_agent_checkpoint_schema_surface()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
         validate_negative_runtime_artifact_examples()
+        self_agent_checkpoint_example = validate_self_agent_checkpoint_example()
+        validate_negative_self_agent_checkpoint_examples()
+        profiles = validate_agent_profile_sources()
+        validate_model_tier_sources()
+        validate_cohort_pattern_sources()
+        validate_runtime_seam_binding_sources()
         agent_names = validate_registry()
+        validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
         tiers_by_id = validate_model_tier_registry()
         cohort_patterns_by_id = validate_cohort_composition_registry(agent_names, tiers_by_id)
+        validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_runtime_seam_doc_coherence()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
@@ -960,13 +1286,25 @@ def main() -> int:
 
     print("[ok] validated agent registry schema surface")
     print("[ok] validated model-tier registry schema surface")
+    print("[ok] validated model-tier item schema surface")
+    print("[ok] validated agent profile schema surface")
     print("[ok] validated cohort composition schema surface")
+    print("[ok] validated cohort-pattern schema surface")
+    print("[ok] validated runtime seam bindings schema surface")
+    print("[ok] validated runtime-seam-binding schema surface")
+    print("[ok] validated self-agent-checkpoint schema surface")
+    print("[ok] validated source-authored agent profiles")
+    print("[ok] validated source-authored model tiers")
+    print("[ok] validated source-authored cohort patterns")
+    print("[ok] validated source-authored runtime seam bindings")
     print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated runtime artifact examples")
+    print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
     print("[ok] validated generated/cohort_composition_registry.json")
+    print("[ok] validated generated/runtime_seam_bindings.json")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")
     else:

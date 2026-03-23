@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "title": "AoA cohort pattern",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "status",
+    "summary",
+    "allowed_role_sets",
+    "preferred_tier_ids",
+    "activation_conditions",
+    "required_handoffs",
+    "boundary_note"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/cohort-pattern.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "enum": [
+        "solo",
+        "pair",
+        "checkpoint_cohort",
+        "orchestrated_loop"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "planned",
+        "experimental",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "allowed_role_sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": [
+            "architect",
+            "coder",
+            "reviewer",
+            "evaluator",
+            "memory-keeper"
+          ]
+        }
+      }
+    },
+    "preferred_tier_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "router",
+          "planner",
+          "executor",
+          "verifier",
+          "conductor",
+          "deep",
+          "archivist"
+        ]
+      }
+    },
+    "activation_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "required_handoffs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "boundary_note": {
+      "type": "string",
+      "minLength": 10
+    }
+  }
+}

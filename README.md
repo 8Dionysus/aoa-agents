@@ -13,15 +13,17 @@ If you are new to this repository, use this path:
 
 1. Read [CHARTER](CHARTER.md) for the role and boundaries of the agent layer.
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
-3. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
-4. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
-5. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
-6. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-7. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
-8. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-9. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-10. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-11. Read [ROADMAP](ROADMAP.md) for the current direction.
+3. Read [docs/AGENT_PROFILE_SURFACE](docs/AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
+4. Read [docs/REGISTRY_SOURCE_SURFACES](docs/REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
+5. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
+6. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
+7. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
+8. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
+9. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
+10. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+11. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+12. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+13. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -62,6 +64,18 @@ Within AoA:
 
 ## Local validation
 
+Canonical source-authored role contracts now live at:
+- `profiles/*.profile.json`
+- `schemas/agent-profile.schema.json`
+
+Canonical source-authored machine-readable registry inputs now live at:
+- `model_tiers/*.tier.json`
+- `cohort_patterns/*.pattern.json`
+- `runtime_seam/*.binding.json`
+- `schemas/model-tier.schema.json`
+- `schemas/cohort-pattern.schema.json`
+- `schemas/runtime-seam-binding.schema.json`
+
 This repository includes a compact machine-readable agent-layer registry at:
 - `generated/agent_registry.min.json`
 - `generated/model_tier_registry.json`
@@ -85,9 +99,15 @@ It also includes inspectable runtime seam surfaces at:
 - `schemas/runtime-seam-bindings.schema.json`
 - `generated/runtime_seam_bindings.json`
 
+It also includes self-agent checkpoint contract surfaces at:
+- `schemas/self-agent-checkpoint.schema.json`
+- `examples/self_agent_checkpoint/*.json`
+- `examples/self_agent_checkpoint/invalid/*.json`
+
 To validate the current agent-layer surface locally, run:
 
 ```bash
+python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 

@@ -41,6 +41,19 @@ A self-agent surface should be able to state:
 This repository owns the role-facing contract for those fields.
 It does not own the runtime implementation beneath them.
 
+## Current public schema
+
+The current public schema at `schemas/self-agent-checkpoint.schema.json` is a
+single-actor checkpoint contract.
+
+It records checkpoint posture for one governed actor, typically the initiating
+or currently governed role on the route.
+
+Route-level coordination still lives in the canonical `checkpoint_cohort`
+composition surface.
+This schema does not replace `checkpoint_cohort` or define runtime
+orchestration.
+
 ## Thinkers and operators
 
 AoA should preserve a meaningful gap between thinking and acting roles.

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "phase": "do",
+  "tier_id": "executor",
+  "role_names": [
+    "coder"
+  ],
+  "artifact_type": "work_result"
+}

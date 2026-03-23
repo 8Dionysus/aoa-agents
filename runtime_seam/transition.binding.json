@@ -1,0 +1,10 @@
+{
+  "$schema": "https://aoa-agents/schemas/runtime-seam-binding.schema.json",
+  "phase": "transition",
+  "tier_id": "conductor",
+  "role_names": [
+    "architect",
+    "reviewer"
+  ],
+  "artifact_type": "transition_decision"
+}

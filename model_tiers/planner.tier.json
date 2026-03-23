@@ -1,0 +1,23 @@
+{
+  "$schema": "https://aoa-agents/schemas/model-tier.schema.json",
+  "id": "planner",
+  "status": "active",
+  "summary": "Bounded planning tier that shapes steps, checks, and escalation posture before or during execution.",
+  "primary_duty": "Shape a bounded plan with explicit decision points and verification posture.",
+  "output_contract": "Emit a bounded plan with named steps, checks, and escalation boundaries.",
+  "default_memory_scope": [
+    "core",
+    "selected_hot",
+    "selected_warm"
+  ],
+  "handoff_targets": [
+    "executor",
+    "verifier",
+    "conductor"
+  ],
+  "artifact_requirement": "bounded_plan",
+  "activation_conditions": [
+    "non-trivial route",
+    "need for explicit decision points"
+  ]
+}
