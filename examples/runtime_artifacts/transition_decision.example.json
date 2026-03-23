@@ -1,0 +1,6 @@
+{
+  "artifact_type": "transition_decision",
+  "decision": "continue",
+  "reason": "Verification passed and the route should move to distillation rather than escalate.",
+  "next_hop": "archivist"
+}

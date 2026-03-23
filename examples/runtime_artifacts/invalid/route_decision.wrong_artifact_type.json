@@ -1,0 +1,7 @@
+{
+  "artifact_type": "bounded_plan",
+  "summary": "Route the task to the planner before execution begins.",
+  "next_hop_kind": "tier",
+  "next_hop": "planner",
+  "reason": "The task still needs bounded planning."
+}

@@ -1,0 +1,9 @@
+{
+  "artifact_type": "bounded_plan",
+  "objective": "Shape the next bounded pass for the route.",
+  "steps": [
+    "Confirm the route boundary.",
+    "Name the next execution step."
+  ],
+  "verification_posture": "strict"
+}
