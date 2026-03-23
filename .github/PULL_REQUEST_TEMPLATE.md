@@ -1,6 +1,7 @@
 ## Summary
 
 Describe the agent-layer change in a few sentences.
+Composition hints are allowed here, but scenario composition, routing logic, memory-object meaning, and eval doctrine stay outside this repository.
 
 ## Why this belongs in `aoa-agents`
 
@@ -13,6 +14,7 @@ Mark the primary surface changed by this PR:
 - [ ] agent boundaries
 - [ ] role profiles
 - [ ] handoff or posture guidance
+- [ ] cohort composition
 - [ ] agent registry
 - [ ] schema or validation
 - [ ] contributor or entrypoint guidance

@@ -55,6 +55,12 @@ Goals:
 - clarify when agents operate solo, in pairs, or under orchestration
 - avoid turning the agent layer into a hidden runtime monolith too early
 
+Exit signals:
+- the first official cohort pattern set is documented
+- a machine-readable cohort composition registry exists
+- the validator checks cohort pattern alignment against role and tier registries
+- the self-agent checkpoint route maps to a canonical cohort pattern without absorbing playbook logic
+
 ## Phase 5: federation integration
 
 Goals:

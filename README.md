@@ -15,11 +15,12 @@ If you are new to this repository, use this path:
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
 3. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
 4. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
-5. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-6. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-7. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-8. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-9. Read [ROADMAP](ROADMAP.md) for the current direction.
+5. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
+6. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
+7. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+8. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+9. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+10. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -63,6 +64,10 @@ Within AoA:
 This repository includes a compact machine-readable agent-layer registry at:
 - `generated/agent_registry.min.json`
 - `generated/model_tier_registry.json`
+
+It also includes a compact machine-readable cohort composition surface at:
+- `schemas/cohort-composition-registry.schema.json`
+- `generated/cohort_composition_registry.json`
 
 It also includes public contract schemas for bounded runtime-facing artifacts at:
 - `schemas/artifact.route_decision.schema.json`

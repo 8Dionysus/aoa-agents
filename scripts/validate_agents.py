@@ -11,6 +11,8 @@ REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
+COHORT_COMPOSITION_REGISTRY_PATH = REPO_ROOT / "generated" / "cohort_composition_registry.json"
+COHORT_COMPOSITION_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-composition-registry.schema.json"
 RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.json"
 RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindings.schema.json"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
@@ -33,6 +35,7 @@ ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", 
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
+REQUIRED_COHORT_PATTERNS = {"solo", "pair", "checkpoint_cohort", "orchestrated_loop"}
 ALLOWED_TIER_MEMORY_SCOPE = {
     "core",
     "selected_hot",
@@ -101,6 +104,14 @@ EXPECTED_SEAM_BINDING_LINES = (
     "- `deep + evaluator/architect -> deep_synthesis_note`",
     "- `archivist + memory-keeper -> distillation_pack`",
 )
+REQUIRED_COHORT_DOC_SNIPPETS = (
+    "- `solo`",
+    "- `pair`",
+    "- `checkpoint_cohort`",
+    "- `orchestrated_loop`",
+    "Composition hints do not replace `aoa-playbooks`.",
+)
+REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
 
 
 class ValidationError(RuntimeError):
@@ -150,6 +161,10 @@ def validate_schema_surface() -> None:
 
 def validate_model_tier_schema_surface() -> None:
     validate_json_schema_surface(MODEL_TIER_SCHEMA_PATH, "model-tier schema")
+
+
+def validate_cohort_composition_schema_surface() -> None:
+    validate_json_schema_surface(COHORT_COMPOSITION_SCHEMA_PATH, "cohort composition schema")
 
 
 def validate_runtime_seam_bindings_schema_surface() -> None:
@@ -481,6 +496,79 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
     return tiers_by_id
 
 
+def validate_cohort_composition_registry(agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]) -> None:
+    validate_cohort_composition_schema_surface()
+    schema = read_json(COHORT_COMPOSITION_SCHEMA_PATH)
+    payload = read_json(COHORT_COMPOSITION_REGISTRY_PATH)
+    if not isinstance(schema, dict):
+        fail("cohort composition schema must remain a JSON object")
+    if not isinstance(payload, dict):
+        fail("cohort composition registry must be a JSON object")
+    validate_instance_against_schema(payload, schema, describe_path(COHORT_COMPOSITION_REGISTRY_PATH))
+
+    version = payload.get("version")
+    if not isinstance(version, int) or version < 1:
+        fail("cohort composition registry 'version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("cohort composition registry 'layer' must equal 'aoa-agents'")
+
+    cohort_patterns = payload.get("cohort_patterns")
+    if not isinstance(cohort_patterns, list) or not cohort_patterns:
+        fail("cohort composition registry 'cohort_patterns' must be a non-empty list")
+
+    seen_ids: set[str] = set()
+    for index, pattern in enumerate(cohort_patterns):
+        location = f"cohort_patterns[{index}]"
+        if not isinstance(pattern, dict):
+            fail(f"{location} must be an object")
+
+        pattern_id = pattern.get("id")
+        if not isinstance(pattern_id, str):
+            fail(f"{location}.id must be a string")
+        if pattern_id in seen_ids:
+            fail(f"duplicate cohort pattern id in registry: '{pattern_id}'")
+        seen_ids.add(pattern_id)
+
+        allowed_role_sets = pattern.get("allowed_role_sets")
+        preferred_tier_ids = pattern.get("preferred_tier_ids")
+
+        for field_name, value in (
+            ("activation_conditions", pattern.get("activation_conditions")),
+            ("required_handoffs", pattern.get("required_handoffs")),
+        ):
+            if not isinstance(value, list) or not value:
+                fail(f"{location}.{field_name} must be a non-empty list")
+            for item in value:
+                if not isinstance(item, str) or len(item) < 3:
+                    fail(f"{location}.{field_name} contains an invalid entry")
+
+        if not isinstance(allowed_role_sets, list) or not allowed_role_sets:
+            fail(f"{location}.allowed_role_sets must be a non-empty list")
+        for set_index, role_set in enumerate(allowed_role_sets):
+            role_location = f"{location}.allowed_role_sets[{set_index}]"
+            if not isinstance(role_set, list) or not role_set:
+                fail(f"{role_location} must be a non-empty list")
+            seen_roles: set[str] = set()
+            for role_name in role_set:
+                if role_name in seen_roles:
+                    fail(f"{role_location} contains duplicate role '{role_name}'")
+                seen_roles.add(role_name)
+                if role_name not in agent_names:
+                    fail(f"{role_location} contains unknown agent '{role_name}'")
+
+        if not isinstance(preferred_tier_ids, list) or not preferred_tier_ids:
+            fail(f"{location}.preferred_tier_ids must be a non-empty list")
+        for tier_id in preferred_tier_ids:
+            if not isinstance(tier_id, str) or len(tier_id) < 2:
+                fail(f"{location}.preferred_tier_ids contains an invalid entry")
+            if tier_id not in tiers_by_id:
+                fail(f"{location}.preferred_tier_ids contains unknown tier '{tier_id}'")
+
+    missing_patterns = sorted(REQUIRED_COHORT_PATTERNS - seen_ids)
+    if missing_patterns:
+        fail(f"cohort composition registry is missing required patterns: {', '.join(missing_patterns)}")
+
+
 def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]) -> None:
     validate_runtime_seam_bindings_schema_surface()
     schema = read_json(RUNTIME_SEAM_BINDINGS_SCHEMA_PATH)
@@ -539,9 +627,11 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
 
 
 def validate_runtime_seam_doc_coherence() -> None:
+    cohort_patterns = read_text(REPO_ROOT / "docs" / "AGENT_COHORT_PATTERNS.md")
     agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
+    self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
 
     if PUBLIC_LOOP not in agent_runtime_seam:
         fail("docs/AGENT_RUNTIME_SEAM.md must preserve the public loop string")
@@ -554,6 +644,10 @@ def validate_runtime_seam_doc_coherence() -> None:
         if line not in agent_runtime_seam:
             fail(f"docs/AGENT_RUNTIME_SEAM.md is missing runtime seam binding line: {line}")
 
+    for snippet in REQUIRED_COHORT_DOC_SNIPPETS:
+        if snippet not in cohort_patterns:
+            fail(f"docs/AGENT_COHORT_PATTERNS.md is missing required cohort guidance: {snippet}")
+
     required_transition_snippets = (
         "`transition_decision` is a governance artifact between phases.",
         "`work_result` and `deep_synthesis_note` remain agent-layer artifacts",
@@ -562,6 +656,8 @@ def validate_runtime_seam_doc_coherence() -> None:
     for snippet in required_transition_snippets:
         if snippet not in runtime_transitions:
             fail(f"docs/RUNTIME_ARTIFACT_TRANSITIONS.md is missing required transition guidance: {snippet}")
+    if REQUIRED_SELF_AGENT_COHORT_SNIPPET not in self_agent_checkpoint:
+        fail("docs/SELF_AGENT_CHECKPOINT_STACK.md must map the portable route to `checkpoint_cohort`")
 
 
 def validate_memory_rights(location: str, memory_rights: object) -> None:
@@ -718,11 +814,13 @@ def main() -> int:
     try:
         validate_schema_surface()
         validate_model_tier_schema_surface()
+        validate_cohort_composition_schema_surface()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
         validate_negative_runtime_artifact_examples()
         agent_names = validate_registry()
         tiers_by_id = validate_model_tier_registry()
+        validate_cohort_composition_registry(agent_names, tiers_by_id)
         validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_runtime_seam_doc_coherence()
         checked_roots = validate_optional_consumer_smoke_checks()
@@ -732,11 +830,13 @@ def main() -> int:
 
     print("[ok] validated agent registry schema surface")
     print("[ok] validated model-tier registry schema surface")
+    print("[ok] validated cohort composition schema surface")
     print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated runtime artifact examples")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
+    print("[ok] validated generated/cohort_composition_registry.json")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")
     else:

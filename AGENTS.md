@@ -9,6 +9,7 @@ Guidance for coding agents and humans contributing to `aoa-agents`.
 It stores explicit agent profiles, role contracts, handoff posture, memory posture, evaluation posture, and other bounded definitions of who an agent is and how it should operate across neighboring AoA layers.
 
 This repository is for role-bearing agent identity and posture, not for skills, proofs, routing, or scenario composition.
+Composition hints are allowed here, but scenario composition, routing logic, memory-object meaning, and eval doctrine stay outside this repository.
 
 ## Owns
 
@@ -19,6 +20,7 @@ This repository is the source of truth for:
 - handoff posture
 - memory posture at the agent layer
 - evaluation posture at the agent layer
+- bounded cohort composition hints
 - registry or catalog surfaces that describe agent roles
 
 ## Does not own
@@ -63,6 +65,7 @@ The most important objects in this repository are:
 - handoff rules
 - memory posture surfaces
 - evaluation posture surfaces
+- cohort composition surfaces
 - generated agent catalogs or registry outputs
 
 ## Allowed changes
@@ -73,6 +76,7 @@ Safe, normal contributions include:
 - tightening handoff wording
 - clarifying memory posture
 - clarifying evaluation posture
+- refining bounded cohort composition hints
 - fixing metadata drift between source files and generated outputs
 - adding a new bounded agent profile when it clearly belongs to the role/persona layer
 
@@ -162,6 +166,7 @@ Confirm that:
 - handoff posture remains coherent
 - memory posture remains distinct from memory objects
 - evaluation posture remains distinct from eval doctrine
+- cohort composition hints remain distinct from scenario composition
 - generated outputs remain aligned if metadata surfaces changed
 
 ### REPORT

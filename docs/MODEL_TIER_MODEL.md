@@ -30,6 +30,17 @@ The external state machine remains:
 This is a public orchestration contract.
 It should stay small and explicit.
 
+## Pattern alignment
+
+The official cohort patterns align to the tier model as bounded hints:
+
+- `solo` usually stays close to `router`, `executor`, and `verifier`
+- `pair` usually stays close to `planner`, `executor`, and `verifier`
+- `checkpoint_cohort` usually adds `archivist` after governed change work
+- `orchestrated_loop` may span the whole public loop, including `conductor`, `deep`, and `archivist`
+
+These pattern names are composition hints, not routing policy or scenario canon.
+
 ## Tier roles
 
 ### `router`

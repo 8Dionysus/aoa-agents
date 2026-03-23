@@ -4,6 +4,7 @@
 
 ## Для чего этот рой
 Используй Spark здесь для одного role-contract seam: agent profile, role contract, handoff posture, memory posture, evaluation posture или registry entry. Этот рой укрепляет actor contracts и не даёт агентному слою расползтись в vague persona folklore.
+Composition hints are allowed here, but scenario composition, routing logic, memory-object meaning, and eval doctrine stay outside this repository.
 
 ## Читать перед стартом
 - `README.md`
@@ -23,12 +24,14 @@
 - Lane A: role contract / profile text
 - Lane B: registry / generated surface
 - Lane C: handoff, memory posture, evaluation posture wording
+- Lane D: bounded cohort composition surface
 - Не запускай больше одного пишущего агента на одну и ту же семью файлов.
 
 ## Allowed
 - чинить одну role contract surface
 - прояснять handoff rules
 - прояснять memory/evaluation posture
+- уточнять bounded cohort composition hints
 - обновлять compact registry entry
 
 ## Forbidden
@@ -46,6 +49,7 @@ Pick exactly one target:
 - handoff posture
 - memory posture
 - evaluation posture
+- cohort composition surface
 - agent registry entry
 
 Return:

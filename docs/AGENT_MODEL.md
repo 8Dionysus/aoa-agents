@@ -19,6 +19,9 @@ Within `aoa-agents`, an agent should mean a reusable role-bearing actor describe
 - evaluation posture
 - compact composition hints
 
+The first official composition hint surface lives in
+[AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md).
+
 ## Agent classes
 
 The first useful distinction is between role archetypes such as:
@@ -81,6 +84,7 @@ See [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the compac
 
 When a self-agent route becomes a real scenario-level method, AoA should prefer a small visible cohort over one magical actor.
 
+The canonical cohort pattern for this route is `checkpoint_cohort`.
 Current bounded cohort pattern:
 
 - `architect` initiates the route, checks constitutional fit, and keeps scope bounded
@@ -89,6 +93,18 @@ Current bounded cohort pattern:
 - `memory-keeper` preserves provenance and the improvement log as reviewable history
 
 This keeps one role from silently becoming planner, operator, reviewer, and historian at the same time.
+
+## Official cohort patterns
+
+The current official cohort pattern set is:
+
+- `solo` for bounded single-role routes with explicit handoff triggers
+- `pair` for bounded dual-role collaboration without hidden orchestration
+- `checkpoint_cohort` for governed self-agent work
+- `orchestrated_loop` for public-loop coordination without scenario canon
+
+These remain compact composition hints.
+They do not replace playbooks, routing, or runtime implementation.
 
 ## Thinkers and operators
 
