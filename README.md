@@ -17,10 +17,11 @@ If you are new to this repository, use this path:
 4. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
 5. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
 6. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-7. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-8. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-9. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-10. Read [ROADMAP](ROADMAP.md) for the current direction.
+7. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
+8. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+9. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+10. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+11. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -94,9 +95,10 @@ Optional bounded consumer smoke checks may be enabled by setting:
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`
 - `AOA_MEMO_ROOT`
+- `AOA_ROUTING_ROOT`
 
 These checks only confirm published contract reachability.
-They do not move playbook, eval, or memo meaning into `aoa-agents`.
+They do not move playbook, eval, memo, or routing meaning into `aoa-agents`.
 
 ## Current status
 
