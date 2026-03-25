@@ -10,6 +10,7 @@ from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registr
 from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
 from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
+from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
@@ -1502,6 +1503,7 @@ def main() -> int:
         validate_runtime_seam_bindings_schema_surface()
         validate_runtime_seam_binding_item_schema_surface()
         validate_self_agent_checkpoint_schema_surface()
+        validate_nested_agents_docs()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
         validate_negative_runtime_artifact_examples()
@@ -1519,7 +1521,7 @@ def main() -> int:
         validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_runtime_seam_doc_coherence()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
-    except ValidationError as exc:
+    except (NestedAgentsValidationError, ValidationError) as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
@@ -1532,6 +1534,7 @@ def main() -> int:
     print("[ok] validated runtime seam bindings schema surface")
     print("[ok] validated runtime-seam-binding schema surface")
     print("[ok] validated self-agent-checkpoint schema surface")
+    print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")
     print("[ok] validated source-authored cohort patterns")
