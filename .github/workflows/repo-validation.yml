@@ -18,8 +18,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Build published surfaces
-        run: python scripts/build_published_surfaces.py
-
       - name: Run agent validator
         run: python scripts/validate_agents.py
+
+      - name: Run validator unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Rebuild published surfaces
+        run: python scripts/build_published_surfaces.py
+
+      - name: Check generated drift
+        run: git diff --exit-code -- generated
