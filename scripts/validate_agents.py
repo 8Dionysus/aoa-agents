@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -1049,6 +1050,8 @@ def validate_memory_rights(location: str, memory_rights: object) -> None:
         if not isinstance(value, list) or not value:
             fail(f"{location}.memory_rights.{array_name} must be a non-empty list")
         for item in value:
+            if not isinstance(item, str):
+                fail(f"{location}.memory_rights.{array_name} must contain only strings")
             if item not in allowed_values:
                 fail(f"{location}.memory_rights.{array_name} contains unsupported value '{item}'")
 
@@ -1073,6 +1076,8 @@ def validate_memory_rights(location: str, memory_rights: object) -> None:
     if not isinstance(allowed_transitions, list):
         fail(f"{location}.memory_rights.promotion_rights.allowed_transitions must be a list")
     for item in allowed_transitions:
+        if not isinstance(item, str):
+            fail(f"{location}.memory_rights.promotion_rights.allowed_transitions must contain only strings")
         if item not in ALLOWED_PROMOTION_TRANSITIONS:
             fail(
                 f"{location}.memory_rights.promotion_rights.allowed_transitions contains unsupported value '{item}'"
@@ -1126,8 +1131,18 @@ def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     prefix = "repo:aoa-agents/"
     if not ref.startswith(prefix):
         fail(f"unsupported aoa-agents repo ref: {ref}")
-    relative_path = ref.removeprefix(prefix)
-    target = REPO_ROOT / relative_path
+    relative_path = ref.removeprefix(prefix).replace("\\", "/")
+    if not relative_path:
+        fail(f"aoa-agents repo ref must include a repo-relative path: {ref}")
+    if re.match(r"^[A-Za-z]:/", relative_path) or relative_path.startswith(("/", "//")):
+        fail(f"aoa-agents repo ref must stay inside this repository: {ref}")
+    if ".." in Path(relative_path).parts:
+        fail(f"aoa-agents repo ref must stay inside this repository: {ref}")
+    target = (REPO_ROOT / relative_path).resolve()
+    try:
+        target.relative_to(REPO_ROOT.resolve())
+    except ValueError:
+        fail(f"aoa-agents repo ref must stay inside this repository: {ref}")
     if not target.exists():
         fail(f"aoa-agents repo ref does not resolve to an existing public surface: {ref}")
     return target
@@ -1470,6 +1485,8 @@ def validate_optional_consumer_smoke_checks(
         for ref in refs:
             if not isinstance(ref, str):
                 fail("aoa-evals artifact_contract_refs must contain strings")
+            if not ref.startswith("repo:aoa-agents/"):
+                continue
             resolve_aoa_agents_repo_ref(ref)
         checked.append("aoa-evals")
 
