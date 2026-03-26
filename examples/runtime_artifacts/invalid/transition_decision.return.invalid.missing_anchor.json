@@ -1,0 +1,6 @@
+{
+  "artifact_type": "transition_decision",
+  "decision": "return",
+  "reason": "Route drifted away from the approved bounded plan.",
+  "next_hop": "planner"
+}

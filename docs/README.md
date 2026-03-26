@@ -16,6 +16,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [AGENT_RUNTIME_SEAM](AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
 - Read [FEDERATION_CONSUMER_SEAMS](FEDERATION_CONSUMER_SEAMS.md) for the bounded cross-repo consumer seams.
 - Read [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) for public loop coverage and transition discipline.
+- Read [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
 - Read [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
 - Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
 - Read [ROADMAP](../ROADMAP.md) for the current direction.
@@ -31,6 +32,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGENT_RUNTIME_SEAM](AGENT_RUNTIME_SEAM.md) — how role-and-tier binding stays explicit without turning into runtime implementation
 - [FEDERATION_CONSUMER_SEAMS](FEDERATION_CONSUMER_SEAMS.md) — how neighboring repositories consume bounded agent-layer contracts without moving canon here
 - [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) — how artifact coverage and transition governance stay bounded inside the public loop
+- [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) — how recurrence stays explicit, anchor-based, and bounded without becoming runtime implementation
 - [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
 - [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb
 

@@ -65,6 +65,10 @@ EXPECTED_INVALID_FIXTURES = {
     "route_decision.wrong_artifact_type.json": ("route_decision", "wrong_artifact_type"),
     "bounded_plan.missing_required_field.json": ("bounded_plan", "missing_required_field"),
     "verification_result.forbidden_extra_property.json": ("verification_result", "forbidden_extra_property"),
+    "transition_decision.return.invalid.missing_anchor.json": ("transition_decision", "missing_required_field"),
+}
+SUPPLEMENTAL_RUNTIME_ARTIFACT_EXAMPLE_GLOBS = {
+    "transition_decision": "transition_decision.*.example.json",
 }
 EXPECTED_SELF_AGENT_CHECKPOINT_INVALID_FIXTURES = {
     "self_agent_checkpoint.missing_required_field.json": "missing_required_field",
@@ -105,6 +109,26 @@ REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
     "`aoa-routing` selects the next memo path.",
     "`aoa-agents` only states which roles may use published or routed object recall seams.",
     "the default memo path and `memory_objects` remains an explicit parallel family",
+)
+REQUIRED_AGENT_RUNTIME_RECURRENCE_SNIPPETS = (
+    "Return remains a governance move carried by `transition_decision`.",
+    "It is a re-entry between phases, not a new sovereign stage.",
+    "The agent layer may publish the public return contract, but runtime context rebuild still belongs outside this repository.",
+)
+REQUIRED_TRANSITION_RECURRENCE_SNIPPETS = (
+    "## Return Must Point To An Anchor",
+    "- `anchor_artifact`",
+    "- `reentry_note`",
+)
+REQUIRED_RECURRENCE_DISCIPLINE_SNIPPETS = (
+    "This document defines recurrence discipline at the agent layer.",
+    "`return` is carried by `transition_decision`.",
+    "`decision = \"return\"` should be able to name:",
+    "- `abyss-stack` still owns runtime context rebuild, retries, wrapper policy, and infrastructure implementation",
+)
+REQUIRED_SELF_AGENT_RETURN_SNIPPETS = (
+    "If a governed self-agent route loses the bounded change axis, it should return to the last approved anchor before more change work occurs.",
+    "It is better to re-enter from a valid anchor than to continue under drift.",
 )
 
 MEMO_OBJECT_SURFACE_PATHS = (
@@ -215,8 +239,66 @@ def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
     return schema
 
 
-def validate_instance_against_schema(instance: object, schema: dict[str, object], location: str) -> None:
+def infer_schema_type(instance: object, schema: dict[str, object]) -> str | None:
     schema_type = schema.get("type")
+    if isinstance(schema_type, str):
+        return schema_type
+    if any(key in schema for key in ("properties", "required", "additionalProperties")):
+        return "object"
+    if "items" in schema:
+        return "array"
+    if any(key in schema for key in ("const", "enum", "minLength")):
+        if isinstance(instance, str):
+            return "string"
+        if isinstance(instance, bool):
+            return "boolean"
+        if isinstance(instance, int):
+            return "integer"
+    return None
+
+
+def schema_matches(instance: object, schema: dict[str, object], location: str) -> bool:
+    try:
+        validate_instance_against_schema(instance, schema, location)
+    except SchemaValidationError:
+        return False
+    return True
+
+
+def validate_conditional_keywords(instance: object, schema: dict[str, object], location: str) -> None:
+    if_schema = schema.get("if")
+    then_schema = schema.get("then")
+    else_schema = schema.get("else")
+
+    if if_schema is None:
+        if then_schema is not None or else_schema is not None:
+            fail_schema(f"{location} conditional schema must define 'if' before 'then' or 'else'")
+        return
+
+    if not isinstance(if_schema, dict):
+        fail_schema(f"{location}.if must be an object")
+
+    matched = schema_matches(instance, if_schema, f"{location}.if")
+    branch_name = "then" if matched else "else"
+    branch_schema = then_schema if matched else else_schema
+    if branch_schema is None:
+        return
+    if not isinstance(branch_schema, dict):
+        fail_schema(f"{location}.{branch_name} must be an object")
+    validate_instance_against_schema(instance, branch_schema, f"{location}.{branch_name}")
+
+
+def validate_instance_against_schema(instance: object, schema: dict[str, object], location: str) -> None:
+    all_of = schema.get("allOf")
+    if all_of is not None:
+        if not isinstance(all_of, list):
+            fail_schema(f"{location}.allOf must be a list")
+        for index, item in enumerate(all_of):
+            if not isinstance(item, dict):
+                fail_schema(f"{location}.allOf[{index}] must be an object")
+            validate_instance_against_schema(instance, item, f"{location}.allOf[{index}]")
+
+    schema_type = infer_schema_type(instance, schema)
 
     if schema_type == "object":
         if not isinstance(instance, dict):
@@ -244,6 +326,7 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
                 if not isinstance(property_schema, dict):
                     fail_schema(f"{location}.{key} schema entry must be an object")
                 validate_instance_against_schema(value, property_schema, f"{location}.{key}")
+        validate_conditional_keywords(instance, schema, location)
         return
 
     if schema_type == "array":
@@ -260,6 +343,7 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
         if isinstance(item_schema, dict):
             for index, item in enumerate(instance):
                 validate_instance_against_schema(item, item_schema, f"{location}[{index}]")
+        validate_conditional_keywords(instance, schema, location)
         return
 
     if schema_type == "string":
@@ -277,6 +361,7 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
                 f"{location} must be one of: {', '.join(str(item) for item in enum_values)}",
                 code="invalid_enum_value",
             )
+        validate_conditional_keywords(instance, schema, location)
         return
 
     if schema_type == "integer":
@@ -285,11 +370,17 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
         minimum = schema.get("minimum")
         if isinstance(minimum, int) and instance < minimum:
             fail_schema(f"{location} must be >= {minimum}", code="below_minimum")
+        validate_conditional_keywords(instance, schema, location)
         return
 
     if schema_type == "boolean":
         if not isinstance(instance, bool):
             fail_schema(f"{location} must be a boolean")
+        validate_conditional_keywords(instance, schema, location)
+        return
+
+    if schema_type is None and any(key in schema for key in ("if", "then", "else")):
+        validate_conditional_keywords(instance, schema, location)
         return
 
     fail_schema(f"{location} uses unsupported schema type '{schema_type}'")
@@ -308,14 +399,24 @@ def validate_runtime_artifact_schema_surfaces() -> None:
             fail(f"runtime artifact schema '{artifact_name}' must pin artifact_type.const to '{artifact_name}'")
 
 
+def runtime_artifact_example_paths(artifact_name: str) -> list[Path]:
+    paths = [RUNTIME_ARTIFACT_EXAMPLES_DIR / f"{artifact_name}.example.json"]
+    pattern = SUPPLEMENTAL_RUNTIME_ARTIFACT_EXAMPLE_GLOBS.get(artifact_name)
+    if pattern is not None:
+        for path in sorted(RUNTIME_ARTIFACT_EXAMPLES_DIR.glob(pattern)):
+            if path not in paths:
+                paths.append(path)
+    return paths
+
+
 def validate_runtime_artifact_examples() -> None:
     for artifact_name, schema_path in RUNTIME_ARTIFACT_SCHEMA_PATHS.items():
-        example_path = RUNTIME_ARTIFACT_EXAMPLES_DIR / f"{artifact_name}.example.json"
         schema = read_json(schema_path)
-        payload = read_json(example_path)
         if not isinstance(schema, dict):
             fail(f"runtime artifact schema '{artifact_name}' must remain a JSON object")
-        validate_instance_against_schema(payload, schema, describe_path(example_path))
+        for example_path in runtime_artifact_example_paths(artifact_name):
+            payload = read_json(example_path)
+            validate_instance_against_schema(payload, schema, describe_path(example_path))
 
 
 def validate_negative_runtime_artifact_examples() -> None:
@@ -989,6 +1090,7 @@ def validate_runtime_seam_doc_coherence() -> None:
     federation_consumer_seams = read_text(REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md")
     agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
+    recurrence_discipline = read_text(REPO_ROOT / "docs" / "RECURRENCE_DISCIPLINE.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
     self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
 
@@ -1006,6 +1108,9 @@ def validate_runtime_seam_doc_coherence() -> None:
     for line in EXPECTED_SEAM_BINDING_LINES:
         if line not in agent_runtime_seam:
             fail(f"docs/AGENT_RUNTIME_SEAM.md is missing runtime seam binding line: {line}")
+    for snippet in REQUIRED_AGENT_RUNTIME_RECURRENCE_SNIPPETS:
+        if snippet not in agent_runtime_seam:
+            fail(f"docs/AGENT_RUNTIME_SEAM.md is missing recurrence guidance: {snippet}")
 
     for snippet in REQUIRED_COHORT_DOC_SNIPPETS:
         if snippet not in cohort_patterns:
@@ -1013,6 +1118,9 @@ def validate_runtime_seam_doc_coherence() -> None:
     for snippet in REQUIRED_FEDERATION_DOC_SNIPPETS:
         if snippet not in federation_consumer_seams:
             fail(f"docs/FEDERATION_CONSUMER_SEAMS.md is missing required federation guidance: {snippet}")
+    for snippet in REQUIRED_RECURRENCE_DISCIPLINE_SNIPPETS:
+        if snippet not in recurrence_discipline:
+            fail(f"docs/RECURRENCE_DISCIPLINE.md is missing recurrence guidance: {snippet}")
 
     required_transition_snippets = (
         "`transition_decision` is a governance artifact between phases.",
@@ -1022,8 +1130,14 @@ def validate_runtime_seam_doc_coherence() -> None:
     for snippet in required_transition_snippets:
         if snippet not in runtime_transitions:
             fail(f"docs/RUNTIME_ARTIFACT_TRANSITIONS.md is missing required transition guidance: {snippet}")
+    for snippet in REQUIRED_TRANSITION_RECURRENCE_SNIPPETS:
+        if snippet not in runtime_transitions:
+            fail(f"docs/RUNTIME_ARTIFACT_TRANSITIONS.md is missing recurrence guidance: {snippet}")
     if REQUIRED_SELF_AGENT_COHORT_SNIPPET not in self_agent_checkpoint:
         fail("docs/SELF_AGENT_CHECKPOINT_STACK.md must map the portable route to `checkpoint_cohort`")
+    for snippet in REQUIRED_SELF_AGENT_RETURN_SNIPPETS:
+        if snippet not in self_agent_checkpoint:
+            fail(f"docs/SELF_AGENT_CHECKPOINT_STACK.md is missing recurrence guidance: {snippet}")
 
 
 def validate_memory_rights(location: str, memory_rights: object) -> None:

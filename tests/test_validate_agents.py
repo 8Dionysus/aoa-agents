@@ -42,6 +42,25 @@ def valid_memory_rights() -> dict[str, object]:
     }
 
 
+def transition_decision_schema() -> dict[str, object]:
+    schema = validate_agents.read_json(
+        REPO_ROOT / "schemas" / "artifact.transition_decision.schema.json"
+    )
+    assert isinstance(schema, dict)
+    return schema
+
+
+def valid_transition_return_payload() -> dict[str, object]:
+    return {
+        "artifact_type": "transition_decision",
+        "decision": "return",
+        "reason": "Verification detected scope drift and requires bounded re-entry.",
+        "next_hop": "planner",
+        "anchor_artifact": "bounded_plan",
+        "reentry_note": "Re-enter from the last valid bounded plan without widening scope.",
+    }
+
+
 class ValidateAgentsTests(unittest.TestCase):
     def test_validate_memory_rights_rejects_non_string_band_without_typeerror(self) -> None:
         memory_rights = valid_memory_rights()
@@ -119,6 +138,95 @@ class ValidateAgentsTests(unittest.TestCase):
                     checked = validate_agents.validate_optional_consumer_smoke_checks({}, {})
 
         self.assertEqual(checked, ["aoa-evals"])
+
+    def test_transition_decision_schema_accepts_return_with_anchor_and_reentry(self) -> None:
+        validate_agents.validate_instance_against_schema(
+            valid_transition_return_payload(),
+            transition_decision_schema(),
+            "transition_decision",
+        )
+
+    def test_transition_decision_schema_rejects_return_without_anchor_artifact(self) -> None:
+        payload = valid_transition_return_payload()
+        del payload["anchor_artifact"]
+
+        with self.assertRaises(validate_agents.SchemaValidationError) as ctx:
+            validate_agents.validate_instance_against_schema(
+                payload,
+                transition_decision_schema(),
+                "transition_decision",
+            )
+
+        self.assertEqual(ctx.exception.code, "missing_required_field")
+        self.assertIn("anchor_artifact", str(ctx.exception))
+
+    def test_transition_decision_schema_rejects_return_without_reentry_note(self) -> None:
+        payload = valid_transition_return_payload()
+        del payload["reentry_note"]
+
+        with self.assertRaises(validate_agents.SchemaValidationError) as ctx:
+            validate_agents.validate_instance_against_schema(
+                payload,
+                transition_decision_schema(),
+                "transition_decision",
+            )
+
+        self.assertEqual(ctx.exception.code, "missing_required_field")
+        self.assertIn("reentry_note", str(ctx.exception))
+
+    def test_transition_decision_baseline_example_still_validates(self) -> None:
+        payload = validate_agents.read_json(
+            REPO_ROOT / "examples" / "runtime_artifacts" / "transition_decision.example.json"
+        )
+        self.assertIsInstance(payload, dict)
+        validate_agents.validate_instance_against_schema(
+            payload,
+            transition_decision_schema(),
+            "transition_decision.example",
+        )
+
+    def test_validate_runtime_artifact_examples_checks_supplemental_transition_examples(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir)
+            examples_dir = temp_root / "examples"
+            examples_dir.mkdir()
+            write_json(
+                examples_dir / "transition_decision.example.json",
+                {
+                    "artifact_type": "transition_decision",
+                    "decision": "continue",
+                    "reason": "Verification passed and the route can continue safely.",
+                    "next_hop": "archivist",
+                },
+            )
+            write_json(
+                examples_dir / "transition_decision.return.example.json",
+                {
+                    "artifact_type": "transition_decision",
+                    "decision": "return",
+                    "reason": "Scope drift requires bounded re-entry.",
+                    "next_hop": "planner",
+                },
+            )
+
+            with patch.object(validate_agents, "RUNTIME_ARTIFACT_EXAMPLES_DIR", examples_dir):
+                with patch.object(
+                    validate_agents,
+                    "RUNTIME_ARTIFACT_SCHEMA_PATHS",
+                    {
+                        "transition_decision": REPO_ROOT
+                        / "schemas"
+                        / "artifact.transition_decision.schema.json"
+                    },
+                ):
+                    with self.assertRaises(validate_agents.SchemaValidationError) as ctx:
+                        validate_agents.validate_runtime_artifact_examples()
+
+        self.assertEqual(ctx.exception.code, "missing_required_field")
+        self.assertIn("anchor_artifact", str(ctx.exception))
+
+    def test_validate_negative_runtime_artifact_examples_accepts_expanded_fixture_set(self) -> None:
+        validate_agents.validate_negative_runtime_artifact_examples()
 
 
 if __name__ == "__main__":
