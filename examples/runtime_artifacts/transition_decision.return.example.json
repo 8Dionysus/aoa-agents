@@ -1,0 +1,8 @@
+{
+  "artifact_type": "transition_decision",
+  "decision": "return",
+  "reason": "Verification detected scope drift relative to the approved route, so the route should re-enter planning rather than continue forward.",
+  "next_hop": "planner",
+  "anchor_artifact": "bounded_plan",
+  "reentry_note": "Re-enter from the last valid bounded plan and preserve the existing verification posture without widening scope."
+}

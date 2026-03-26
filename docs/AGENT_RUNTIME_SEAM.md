@@ -48,6 +48,10 @@ The public loop remains:
 
 `route -> plan -> do -> verify -> deep? -> distill`
 
+Return remains a governance move carried by `transition_decision`.
+It is a re-entry between phases, not a new sovereign stage.
+The agent layer may publish the public return contract, but runtime context rebuild still belongs outside this repository.
+
 ## Role × Tier Binding
 
 The public binding for the first planting slice is:

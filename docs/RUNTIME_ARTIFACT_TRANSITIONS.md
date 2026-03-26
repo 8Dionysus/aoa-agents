@@ -25,6 +25,19 @@ It tells the route whether to continue, pause, escalate, return to an earlier
 phase, or distill.
 It does not create a new sovereign stage that sits outside the public loop.
 
+## Return Must Point To An Anchor
+
+When `transition_decision.decision` is `return`, the artifact should name a
+prior valid anchor rather than relying on vague continuity.
+
+At the current baseline, the compact public fields are:
+
+- `anchor_artifact`
+- `reentry_note`
+
+This keeps return inspectable while leaving runtime rebuild policy outside
+`aoa-agents`.
+
 ## Artifact Coverage To Preserve
 
 The current artifact coverage is:

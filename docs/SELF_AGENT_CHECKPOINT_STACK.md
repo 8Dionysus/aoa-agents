@@ -9,6 +9,9 @@ It exists to keep self-agent work bounded, reviewable, and portable instead of t
 A self-agent is not a free myth of self-modification.
 
 If an agent can reshape important system surfaces, it should pass through a checkpoint stack.
+If a governed self-agent route loses the bounded change axis, it should return to the last approved anchor before more change work occurs.
+Return keeps rollback posture real.
+It is better to re-enter from a valid anchor than to continue under drift.
 
 ## Required checkpoints
 

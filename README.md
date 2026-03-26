@@ -21,9 +21,10 @@ If you are new to this repository, use this path:
 8. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
 9. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
 10. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-11. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-12. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-13. Read [ROADMAP](ROADMAP.md) for the current direction.
+11. Read [docs/RECURRENCE_DISCIPLINE](docs/RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
+12. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+13. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+14. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
