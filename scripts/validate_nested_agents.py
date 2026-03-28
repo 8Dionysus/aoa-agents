@@ -41,6 +41,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'public-safe, schema-backed examples',
         'runtime_artifacts/',
         'self_agent_checkpoint/',
+        'reference_routes/',
         'not the source-authored canon layer',
     ),
     'examples/runtime_artifacts/AGENTS.md': (
@@ -54,6 +55,12 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'docs/SELF_AGENT_CHECKPOINT_STACK.md',
         '`checkpoint_cohort`',
         '`invalid/` exists for negative coverage',
+    ),
+    'examples/reference_routes/AGENTS.md': (
+        'schemas/reference-route.example.schema.json',
+        'docs/REFERENCE_ROUTE_EXAMPLES.md',
+        'manifest.json',
+        'not playbooks',
     ),
 }
 

@@ -1,0 +1,9 @@
+{
+  "artifact_type": "verification_result",
+  "verdict": "pass",
+  "checked_artifacts": [
+    "bounded_plan",
+    "work_result"
+  ],
+  "summary": "The governed self-change output still matches the approved checkpoint plan and remains reviewable."
+}

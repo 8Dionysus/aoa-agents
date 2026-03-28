@@ -1,0 +1,55 @@
+{
+  "route_id": "orchestrated_loop_route",
+  "cohort_pattern": "orchestrated_loop",
+  "role_set": [
+    "architect",
+    "coder",
+    "reviewer",
+    "evaluator",
+    "memory-keeper"
+  ],
+  "steps": [
+    {
+      "phase": "route",
+      "tier_id": "router",
+      "role_name": "architect",
+      "artifact_path": "route_decision.json"
+    },
+    {
+      "phase": "plan",
+      "tier_id": "planner",
+      "role_name": "architect",
+      "artifact_path": "bounded_plan.json"
+    },
+    {
+      "phase": "do",
+      "tier_id": "executor",
+      "role_name": "coder",
+      "artifact_path": "work_result.json"
+    },
+    {
+      "phase": "verify",
+      "tier_id": "verifier",
+      "role_name": "reviewer",
+      "artifact_path": "verification_result.json"
+    },
+    {
+      "phase": "transition",
+      "tier_id": "conductor",
+      "role_name": "reviewer",
+      "artifact_path": "transition_decision.json"
+    },
+    {
+      "phase": "deep",
+      "tier_id": "deep",
+      "role_name": "evaluator",
+      "artifact_path": "deep_synthesis_note.json"
+    },
+    {
+      "phase": "distill",
+      "tier_id": "archivist",
+      "role_name": "memory-keeper",
+      "artifact_path": "distillation_pack.json"
+    }
+  ]
+}

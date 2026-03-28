@@ -1,0 +1,15 @@
+{
+  "route_id": "solo_bounded_route",
+  "cohort_pattern": "solo",
+  "role_set": [
+    "architect"
+  ],
+  "steps": [
+    {
+      "phase": "route",
+      "tier_id": "router",
+      "role_name": "architect",
+      "artifact_path": "route_decision.json"
+    }
+  ]
+}

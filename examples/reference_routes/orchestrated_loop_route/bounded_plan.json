@@ -1,0 +1,11 @@
+{
+  "artifact_type": "bounded_plan",
+  "objective": "Shape the next orchestrated pass with explicit verification and escalation posture.",
+  "steps": [
+    "Name the bounded execution slice.",
+    "Keep verification expectations explicit before execution begins.",
+    "Escalate only if review cannot resolve the route inside the ordinary loop."
+  ],
+  "verification_posture": "strict",
+  "escalation_boundary": "Move to conductor and deep only when the route remains ambiguous after ordinary verification."
+}

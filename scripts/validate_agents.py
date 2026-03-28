@@ -27,11 +27,14 @@ RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.js
 RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindings.schema.json"
 RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-binding.schema.json"
 SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json"
+REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
 SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
 SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agent_checkpoint.example.json"
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
+REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
+REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
     "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
@@ -61,6 +64,51 @@ ALLOWED_TIER_MEMORY_SCOPE = {
 }
 ALLOWED_RUNTIME_PHASES = ("route", "plan", "do", "verify", "transition", "deep", "distill")
 PUBLIC_LOOP = "route -> plan -> do -> verify -> deep? -> distill"
+PUBLISHED_AGENT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "agents")
+PUBLISHED_AGENT_REGISTRY_ITEM_KEYS = (
+    "id",
+    "name",
+    "role",
+    "status",
+    "summary",
+    "preferred_skill_families",
+    "memory_posture",
+    "memory_rights",
+    "evaluation_posture",
+    "handoff_rule",
+)
+PUBLISHED_MODEL_TIER_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "model_tiers")
+PUBLISHED_MODEL_TIER_REGISTRY_ITEM_KEYS = (
+    "id",
+    "status",
+    "summary",
+    "primary_duty",
+    "output_contract",
+    "default_memory_scope",
+    "handoff_targets",
+    "artifact_requirement",
+    "activation_conditions",
+)
+PUBLISHED_COHORT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "cohort_patterns")
+PUBLISHED_COHORT_REGISTRY_ITEM_KEYS = (
+    "id",
+    "status",
+    "summary",
+    "allowed_role_sets",
+    "preferred_tier_ids",
+    "activation_conditions",
+    "required_handoffs",
+    "boundary_note",
+)
+PUBLISHED_RUNTIME_SEAM_TOP_LEVEL_KEYS = ("version", "layer", "bindings")
+PUBLISHED_RUNTIME_SEAM_ITEM_KEYS = (
+    "phase",
+    "tier_id",
+    "role_names",
+    "artifact_type",
+)
+PUBLISHED_MODEL_TIER_ORDER = ("router", "planner", "executor", "verifier", "conductor", "deep", "archivist")
+PUBLISHED_COHORT_PATTERN_ORDER = ("solo", "pair", "checkpoint_cohort", "orchestrated_loop")
 EXPECTED_INVALID_FIXTURES = {
     "route_decision.wrong_artifact_type.json": ("route_decision", "wrong_artifact_type"),
     "bounded_plan.missing_required_field.json": ("bounded_plan", "missing_required_field"),
@@ -92,7 +140,44 @@ REQUIRED_COHORT_DOC_SNIPPETS = (
     "Composition hints do not replace `aoa-playbooks`.",
 )
 REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
+REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS = (
+    "- `profiles/*.profile.json`",
+    "- `schemas/agent-profile.schema.json`",
+    "- `generated/agent_registry.min.json`",
+    "- `scripts/build_agent_registry.py`",
+)
+REQUIRED_REGISTRY_SOURCE_SURFACE_SNIPPETS = (
+    "- `model_tiers/*.tier.json`",
+    "- `cohort_patterns/*.pattern.json`",
+    "- `runtime_seam/*.binding.json`",
+    "- `generated/model_tier_registry.json`",
+    "- `generated/cohort_composition_registry.json`",
+    "- `generated/runtime_seam_bindings.json`",
+)
+REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS = (
+    "compatibility discipline for published `aoa-agents` contract surfaces",
+    "`version` and `layer` remain required top-level fields",
+    "stable publication order",
+    "additive",
+    "breaking",
+    "generated/agent_registry.min.json",
+    "schemas/reference-route.example.schema.json",
+    "example-only",
+)
+REQUIRED_REFERENCE_ROUTE_DOC_SNIPPETS = (
+    "`examples/reference_routes/` contains example-only, non-normative route packs.",
+    "They are not playbooks.",
+    "They are not routing policy.",
+    "They are not runtime canon.",
+    "`route_id`",
+    "`artifact_path`",
+)
 REQUIRED_FEDERATION_DOC_SNIPPETS = (
+    "## Consumer Check Matrix",
+    "### `aoa-playbooks`",
+    "### `aoa-evals`",
+    "### `aoa-memo`",
+    "### `aoa-routing`",
     "- `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded",
     "- `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may",
     "- `aoa-routing` consumes model-tier registry for tier hints and selects the next",
@@ -129,6 +214,12 @@ REQUIRED_RECURRENCE_DISCIPLINE_SNIPPETS = (
 REQUIRED_SELF_AGENT_RETURN_SNIPPETS = (
     "If a governed self-agent route loses the bounded change axis, it should return to the last approved anchor before more change work occurs.",
     "It is better to re-enter from a valid anchor than to continue under drift.",
+)
+REFERENCE_ROUTE_DIR_NAMES = (
+    "solo_bounded_route",
+    "pair_change_route",
+    "checkpoint_self_change_route",
+    "orchestrated_loop_route",
 )
 
 MEMO_OBJECT_SURFACE_PATHS = (
@@ -196,6 +287,93 @@ def fail_schema(message: str, *, code: str | None = None) -> None:
     raise SchemaValidationError(message, code=code)
 
 
+def ensure_object_key_order(payload: object, expected_keys: tuple[str, ...], location: str) -> None:
+    if not isinstance(payload, dict):
+        fail(f"{location} must be a JSON object")
+    actual_keys = tuple(payload.keys())
+    if actual_keys != expected_keys:
+        fail(
+            f"{location} must publish keys in stable order: "
+            f"expected {list(expected_keys)}, got {list(actual_keys)}"
+        )
+
+
+def validate_stable_sequence_order(
+    items: object,
+    *,
+    location: str,
+    label: str,
+    key_name: str,
+    order: tuple[str, ...] | None = None,
+) -> None:
+    if not isinstance(items, list):
+        fail(f"{location} must be a list")
+
+    actual: list[str] = []
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            fail(f"{location}[{index}] must be an object")
+        value = item.get(key_name)
+        if not isinstance(value, str):
+            fail(f"{location}[{index}].{key_name} must be a string")
+        actual.append(value)
+
+    if order is None:
+        expected = sorted(actual)
+    else:
+        order_index = {value: index for index, value in enumerate(order)}
+        unknown = sorted(value for value in actual if value not in order_index)
+        if unknown:
+            fail(f"{location} contains unsupported {label} values for stable ordering: {', '.join(unknown)}")
+        expected = sorted(actual, key=lambda value: order_index[value])
+
+    if actual != expected:
+        fail(
+            f"{location} must keep {label} in stable publication order: "
+            f"expected {expected}, got {actual}"
+        )
+
+
+def validate_stable_agent_registry_order(agents: object) -> None:
+    if not isinstance(agents, list):
+        fail("agent registry 'agents' must be a list")
+
+    actual: list[tuple[str, str]] = []
+    for index, agent in enumerate(agents):
+        if not isinstance(agent, dict):
+            fail(f"agents[{index}] must be an object")
+        agent_id = agent.get("id")
+        agent_name = agent.get("name")
+        if not isinstance(agent_id, str) or not isinstance(agent_name, str):
+            fail(f"agents[{index}] must expose string 'id' and 'name' fields")
+        actual.append((agent_id, agent_name))
+
+    expected = sorted(actual)
+    if actual != expected:
+        fail(
+            "agent registry 'agents' must keep stable publication order by (id, name): "
+            f"expected {expected}, got {actual}"
+        )
+
+
+def resolve_relative_child_path(base_dir: Path, relative_path: str, *, label: str) -> Path:
+    normalized = relative_path.replace("\\", "/")
+    if not normalized:
+        fail(f"{label} must not be empty")
+    if re.match(r"^[A-Za-z]:/", normalized) or normalized.startswith(("/", "//")):
+        fail(f"{label} must stay inside {describe_path(base_dir)}")
+    if ".." in Path(normalized).parts:
+        fail(f"{label} must stay inside {describe_path(base_dir)}")
+    target = (base_dir / normalized).resolve()
+    try:
+        target.relative_to(base_dir.resolve())
+    except ValueError:
+        fail(f"{label} must stay inside {describe_path(base_dir)}")
+    if not target.exists():
+        fail(f"{label} does not resolve to an existing file: {normalized}")
+    return target
+
+
 def validate_schema_surface() -> None:
     validate_json_schema_surface(SCHEMA_PATH, "schema")
 
@@ -230,6 +408,10 @@ def validate_runtime_seam_binding_item_schema_surface() -> None:
 
 def validate_self_agent_checkpoint_schema_surface() -> None:
     validate_json_schema_surface(SELF_AGENT_CHECKPOINT_SCHEMA_PATH, "self-agent-checkpoint schema")
+
+
+def validate_reference_route_schema_surface() -> None:
+    validate_json_schema_surface(REFERENCE_ROUTE_SCHEMA_PATH, "reference-route example schema")
 
 
 def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
@@ -502,6 +684,186 @@ def validate_negative_self_agent_checkpoint_examples() -> None:
             fail(f"{describe_path(fixture_path)} unexpectedly passed validation")
 
 
+def iter_reference_route_dirs(reference_routes_dir: Path | None = None) -> list[Path]:
+    if reference_routes_dir is None:
+        reference_routes_dir = REFERENCE_ROUTES_DIR
+    if not reference_routes_dir.is_dir():
+        fail(f"missing required directory: {describe_path(reference_routes_dir)}")
+
+    paths = [path for path in reference_routes_dir.iterdir() if path.is_dir()]
+    order_index = {route_id: index for index, route_id in enumerate(REFERENCE_ROUTE_DIR_NAMES)}
+    actual_names = {path.name for path in paths}
+    expected_names = set(REFERENCE_ROUTE_DIR_NAMES)
+    if actual_names != expected_names:
+        missing = sorted(expected_names - actual_names)
+        extra = sorted(actual_names - expected_names)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"unexpected: {', '.join(extra)}")
+        fail(f"reference route packs drifted ({'; '.join(details)})")
+
+    for path in paths:
+        if path.name not in order_index:
+            fail(f"reference route pack uses unsupported id '{path.name}'")
+    return sorted(paths, key=lambda path: order_index[path.name])
+
+
+def validate_reference_route_examples(
+    tiers_by_id: dict[str, dict[str, object]],
+    cohort_patterns_by_id: dict[str, dict[str, object]],
+    bindings_by_phase: dict[str, dict[str, object]],
+) -> None:
+    schema = read_json(REFERENCE_ROUTE_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("reference-route example schema must remain a JSON object")
+
+    phase_index = {phase: index for index, phase in enumerate(ALLOWED_RUNTIME_PHASES)}
+    seen_route_ids: set[str] = set()
+
+    for route_dir in iter_reference_route_dirs():
+        manifest_path = route_dir / REFERENCE_ROUTE_MANIFEST_NAME
+        manifest = read_json(manifest_path)
+        validate_instance_against_schema(manifest, schema, describe_path(manifest_path))
+        if not isinstance(manifest, dict):
+            fail(f"{describe_path(manifest_path)} must be a JSON object")
+
+        route_id = manifest.get("route_id")
+        cohort_pattern_id = manifest.get("cohort_pattern")
+        role_set = manifest.get("role_set")
+        steps = manifest.get("steps")
+
+        if not isinstance(route_id, str):
+            fail(f"{describe_path(manifest_path)} must expose string route_id")
+        if route_id != route_dir.name:
+            fail(
+                f"{describe_path(manifest_path)} route_id '{route_id}' must match route pack directory '{route_dir.name}'"
+            )
+        if route_id in seen_route_ids:
+            fail(f"duplicate reference route id '{route_id}'")
+        seen_route_ids.add(route_id)
+
+        if not isinstance(cohort_pattern_id, str) or cohort_pattern_id not in cohort_patterns_by_id:
+            fail(f"{describe_path(manifest_path)} cohort_pattern '{cohort_pattern_id}' does not resolve in registry")
+        pattern = cohort_patterns_by_id[cohort_pattern_id]
+
+        allowed_role_sets = pattern.get("allowed_role_sets")
+        if not isinstance(role_set, list) or not isinstance(allowed_role_sets, list):
+            fail(f"{describe_path(manifest_path)} must expose a role_set allowed by cohort registry")
+        if role_set not in allowed_role_sets:
+            fail(
+                f"{describe_path(manifest_path)} role_set {role_set} must match one of "
+                f"{cohort_pattern_id}.allowed_role_sets: {format_role_sets(allowed_role_sets)}"
+            )
+
+        preferred_tier_ids = pattern.get("preferred_tier_ids")
+        if not isinstance(preferred_tier_ids, list):
+            fail(f"cohort pattern '{cohort_pattern_id}' must expose preferred_tier_ids")
+        preferred_tier_set = set(preferred_tier_ids)
+
+        if not isinstance(steps, list) or not steps:
+            fail(f"{describe_path(manifest_path)} must expose a non-empty steps list")
+
+        seen_artifact_paths: set[str] = set()
+        last_phase_position = -1
+        for index, step in enumerate(steps):
+            location = f"{describe_path(manifest_path)}.steps[{index}]"
+            if not isinstance(step, dict):
+                fail(f"{location} must be an object")
+
+            phase = step.get("phase")
+            tier_id = step.get("tier_id")
+            role_name = step.get("role_name")
+            artifact_path_value = step.get("artifact_path")
+
+            if not isinstance(phase, str) or phase not in phase_index:
+                fail(f"{location}.phase '{phase}' is not allowed")
+            current_phase_position = phase_index[phase]
+            if current_phase_position <= last_phase_position:
+                fail(f"{location}.phase '{phase}' must preserve public-loop order")
+            last_phase_position = current_phase_position
+
+            if not isinstance(tier_id, str) or tier_id not in tiers_by_id:
+                fail(f"{location}.tier_id '{tier_id}' does not resolve in model-tier registry")
+            if tier_id not in preferred_tier_set:
+                fail(
+                    f"{location}.tier_id '{tier_id}' must stay inside cohort pattern "
+                    f"'{cohort_pattern_id}' preferred_tier_ids"
+                )
+
+            binding = bindings_by_phase.get(phase)
+            if not isinstance(binding, dict):
+                fail(f"{location}.phase '{phase}' does not resolve in runtime seam bindings")
+            if binding.get("tier_id") != tier_id:
+                fail(
+                    f"{location}.tier_id '{tier_id}' must match runtime seam binding for phase "
+                    f"'{phase}' -> '{binding.get('tier_id')}'"
+                )
+
+            if not isinstance(role_name, str) or role_name not in role_set:
+                fail(f"{location}.role_name '{role_name}' must resolve inside role_set {role_set}")
+            binding_role_names = binding.get("role_names")
+            if not isinstance(binding_role_names, list) or role_name not in binding_role_names:
+                fail(
+                    f"{location}.role_name '{role_name}' must match runtime seam binding roles "
+                    f"{binding_role_names}"
+                )
+
+            if not isinstance(artifact_path_value, str):
+                fail(f"{location}.artifact_path must be a string")
+            artifact_path = resolve_relative_child_path(
+                route_dir,
+                artifact_path_value,
+                label=f"{location}.artifact_path",
+            )
+            if artifact_path.name == REFERENCE_ROUTE_MANIFEST_NAME:
+                fail(f"{location}.artifact_path must point at an artifact JSON, not manifest.json")
+            referenced_relative_path = artifact_path.relative_to(route_dir).as_posix()
+            if referenced_relative_path in seen_artifact_paths:
+                fail(f"{location}.artifact_path '{referenced_relative_path}' must be unique within the route pack")
+            seen_artifact_paths.add(referenced_relative_path)
+
+            artifact_payload = read_json(artifact_path)
+            if not isinstance(artifact_payload, dict):
+                fail(f"{describe_path(artifact_path)} must be a JSON object")
+            artifact_type = artifact_payload.get("artifact_type")
+            if not isinstance(artifact_type, str) or artifact_type not in RUNTIME_ARTIFACT_SCHEMA_PATHS:
+                fail(f"{describe_path(artifact_path)} must expose a known artifact_type")
+            if artifact_type != binding.get("artifact_type"):
+                fail(
+                    f"{describe_path(artifact_path)} artifact_type '{artifact_type}' must match "
+                    f"runtime seam binding '{binding.get('artifact_type')}' for phase '{phase}'"
+                )
+
+            tier_artifact_requirement = tiers_by_id[tier_id]["artifact_requirement"]
+            if artifact_type != tier_artifact_requirement:
+                fail(
+                    f"{describe_path(artifact_path)} artifact_type '{artifact_type}' must match "
+                    f"artifact_requirement '{tier_artifact_requirement}' for tier '{tier_id}'"
+                )
+
+            artifact_schema = read_json(RUNTIME_ARTIFACT_SCHEMA_PATHS[artifact_type])
+            if not isinstance(artifact_schema, dict):
+                fail(f"runtime artifact schema '{artifact_type}' must remain a JSON object")
+            validate_instance_against_schema(artifact_payload, artifact_schema, describe_path(artifact_path))
+
+        actual_artifact_paths = {
+            path.relative_to(route_dir).as_posix()
+            for path in route_dir.rglob("*.json")
+            if path.name != REFERENCE_ROUTE_MANIFEST_NAME
+        }
+        if actual_artifact_paths != seen_artifact_paths:
+            missing = sorted(actual_artifact_paths - seen_artifact_paths)
+            extra = sorted(seen_artifact_paths - actual_artifact_paths)
+            details: list[str] = []
+            if missing:
+                details.append(f"unreferenced: {', '.join(missing)}")
+            if extra:
+                details.append(f"missing_files: {', '.join(extra)}")
+            fail(f"{describe_path(route_dir)} artifact coverage drifted ({'; '.join(details)})")
+
+
 def validate_agent_profile_sources() -> list[dict[str, object]]:
     schema = read_json(PROFILE_SCHEMA_PATH)
     if not isinstance(schema, dict):
@@ -569,12 +931,7 @@ def validate_agent_profile_sources() -> list[dict[str, object]]:
 
 def validate_registry() -> set[str]:
     payload = read_json(REGISTRY_PATH)
-    if not isinstance(payload, dict):
-        fail("agent registry must be a JSON object")
-
-    for key in ("version", "layer", "agents"):
-        if key not in payload:
-            fail(f"agent registry is missing required key '{key}'")
+    ensure_object_key_order(payload, PUBLISHED_AGENT_REGISTRY_TOP_LEVEL_KEYS, "agent registry")
 
     if not isinstance(payload["version"], int) or payload["version"] < 1:
         fail("registry 'version' must be an integer >= 1")
@@ -593,6 +950,7 @@ def validate_registry() -> set[str]:
         location = f"agents[{index}]"
         if not isinstance(agent, dict):
             fail(f"{location} must be an object")
+        ensure_object_key_order(agent, PUBLISHED_AGENT_REGISTRY_ITEM_KEYS, location)
 
         for key in (
             "id",
@@ -652,6 +1010,7 @@ def validate_registry() -> set[str]:
     if missing_seed:
         fail(f"agent registry is missing required seed agents: {', '.join(missing_seed)}")
 
+    validate_stable_agent_registry_order(agents)
     return seen_names
 
 
@@ -856,12 +1215,7 @@ def validate_runtime_seam_binding_sources() -> list[dict[str, object]]:
 
 def validate_model_tier_registry() -> dict[str, dict[str, object]]:
     payload = read_json(MODEL_TIER_REGISTRY_PATH)
-    if not isinstance(payload, dict):
-        fail("model-tier registry must be a JSON object")
-
-    for key in ("version", "layer", "model_tiers"):
-        if key not in payload:
-            fail(f"model-tier registry is missing required key '{key}'")
+    ensure_object_key_order(payload, PUBLISHED_MODEL_TIER_REGISTRY_TOP_LEVEL_KEYS, "model-tier registry")
 
     if not isinstance(payload["version"], int) or payload["version"] < 1:
         fail("model-tier registry 'version' must be an integer >= 1")
@@ -879,6 +1233,7 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
         location = f"model_tiers[{index}]"
         if not isinstance(tier, dict):
             fail(f"{location} must be an object")
+        ensure_object_key_order(tier, PUBLISHED_MODEL_TIER_REGISTRY_ITEM_KEYS, location)
 
         for key in (
             "id",
@@ -951,6 +1306,13 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
             if handoff_target not in tiers_by_id:
                 fail(f"model tier '{tier_id}' points at unknown handoff target '{handoff_target}'")
 
+    validate_stable_sequence_order(
+        model_tiers,
+        location="model-tier registry 'model_tiers'",
+        label="model tiers",
+        key_name="id",
+        order=PUBLISHED_MODEL_TIER_ORDER,
+    )
     return tiers_by_id
 
 
@@ -962,8 +1324,7 @@ def validate_cohort_composition_registry(
     payload = read_json(COHORT_COMPOSITION_REGISTRY_PATH)
     if not isinstance(schema, dict):
         fail("cohort composition schema must remain a JSON object")
-    if not isinstance(payload, dict):
-        fail("cohort composition registry must be a JSON object")
+    ensure_object_key_order(payload, PUBLISHED_COHORT_REGISTRY_TOP_LEVEL_KEYS, "cohort composition registry")
     validate_instance_against_schema(payload, schema, describe_path(COHORT_COMPOSITION_REGISTRY_PATH))
 
     version = payload.get("version")
@@ -982,6 +1343,7 @@ def validate_cohort_composition_registry(
         location = f"cohort_patterns[{index}]"
         if not isinstance(pattern, dict):
             fail(f"{location} must be an object")
+        ensure_object_key_order(pattern, PUBLISHED_COHORT_REGISTRY_ITEM_KEYS, location)
 
         pattern_id = pattern.get("id")
         if not isinstance(pattern_id, str):
@@ -1030,17 +1392,25 @@ def validate_cohort_composition_registry(
     if missing_patterns:
         fail(f"cohort composition registry is missing required patterns: {', '.join(missing_patterns)}")
 
+    validate_stable_sequence_order(
+        cohort_patterns,
+        location="cohort composition registry 'cohort_patterns'",
+        label="cohort patterns",
+        key_name="id",
+        order=PUBLISHED_COHORT_PATTERN_ORDER,
+    )
     return patterns_by_id
 
 
-def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]) -> None:
+def validate_runtime_seam_bindings(
+    agent_names: set[str], tiers_by_id: dict[str, dict[str, object]]
+) -> dict[str, dict[str, object]]:
     validate_runtime_seam_bindings_schema_surface()
     schema = read_json(RUNTIME_SEAM_BINDINGS_SCHEMA_PATH)
     payload = read_json(RUNTIME_SEAM_BINDINGS_PATH)
     if not isinstance(schema, dict):
         fail("runtime-seam-bindings schema must remain a JSON object")
-    if not isinstance(payload, dict):
-        fail("runtime seam bindings must be a JSON object")
+    ensure_object_key_order(payload, PUBLISHED_RUNTIME_SEAM_TOP_LEVEL_KEYS, "runtime seam bindings")
     validate_instance_against_schema(payload, schema, describe_path(RUNTIME_SEAM_BINDINGS_PATH))
 
     version = payload.get("version")
@@ -1054,8 +1424,12 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
         fail("runtime seam bindings 'bindings' must be a list")
 
     seen_artifact_types: set[str] = set()
+    bindings_by_phase: dict[str, dict[str, object]] = {}
     for index, binding in enumerate(bindings):
         location = f"bindings[{index}]"
+        if not isinstance(binding, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(binding, PUBLISHED_RUNTIME_SEAM_ITEM_KEYS, location)
         phase = binding["phase"]
         tier_id = binding["tier_id"]
         artifact_type = binding["artifact_type"]
@@ -1070,6 +1444,9 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
         if artifact_type in seen_artifact_types:
             fail(f"runtime seam bindings duplicate artifact coverage for '{artifact_type}'")
         seen_artifact_types.add(artifact_type)
+        if phase in bindings_by_phase:
+            fail(f"runtime seam bindings duplicate phase '{phase}'")
+        bindings_by_phase[phase] = binding
 
         if not isinstance(role_names, list) or not role_names:
             fail(f"{location}.role_names must be a non-empty list")
@@ -1087,20 +1464,45 @@ def validate_runtime_seam_bindings(agent_names: set[str], tiers_by_id: dict[str,
         missing = sorted(set(RUNTIME_ARTIFACT_SCHEMA_PATHS) - seen_artifact_types)
         fail(f"runtime seam bindings do not cover all published artifact schemas: {', '.join(missing)}")
 
+    validate_stable_sequence_order(
+        bindings,
+        location="runtime seam bindings 'bindings'",
+        label="runtime seam phases",
+        key_name="phase",
+        order=ALLOWED_RUNTIME_PHASES,
+    )
+    return bindings_by_phase
+
 
 def validate_runtime_seam_doc_coherence() -> None:
+    agent_profile_surface = read_text(REPO_ROOT / "docs" / "AGENT_PROFILE_SURFACE.md")
     agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
     cohort_patterns = read_text(REPO_ROOT / "docs" / "AGENT_COHORT_PATTERNS.md")
     federation_consumer_seams = read_text(REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md")
     agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
+    registry_source_surfaces = read_text(REPO_ROOT / "docs" / "REGISTRY_SOURCE_SURFACES.md")
+    published_contract_compatibility = read_text(REPO_ROOT / "docs" / "PUBLISHED_CONTRACT_COMPATIBILITY.md")
+    reference_route_examples = read_text(REPO_ROOT / "docs" / "REFERENCE_ROUTE_EXAMPLES.md")
     recurrence_discipline = read_text(REPO_ROOT / "docs" / "RECURRENCE_DISCIPLINE.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
     self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
 
+    for snippet in REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS:
+        if snippet not in agent_profile_surface:
+            fail(f"docs/AGENT_PROFILE_SURFACE.md is missing required source-surface guidance: {snippet}")
     for snippet in REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS:
         if snippet not in agent_memory_posture:
             fail(f"docs/AGENT_MEMORY_POSTURE.md is missing required memory posture guidance: {snippet}")
+    for snippet in REQUIRED_REGISTRY_SOURCE_SURFACE_SNIPPETS:
+        if snippet not in registry_source_surfaces:
+            fail(f"docs/REGISTRY_SOURCE_SURFACES.md is missing required registry-source guidance: {snippet}")
+    for snippet in REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS:
+        if snippet not in published_contract_compatibility:
+            fail(f"docs/PUBLISHED_CONTRACT_COMPATIBILITY.md is missing required compatibility guidance: {snippet}")
+    for snippet in REQUIRED_REFERENCE_ROUTE_DOC_SNIPPETS:
+        if snippet not in reference_route_examples:
+            fail(f"docs/REFERENCE_ROUTE_EXAMPLES.md is missing required route-example guidance: {snippet}")
 
     if PUBLIC_LOOP not in agent_runtime_seam:
         fail("docs/AGENT_RUNTIME_SEAM.md must preserve the public loop string")
@@ -1662,6 +2064,7 @@ def main() -> int:
         validate_runtime_seam_bindings_schema_surface()
         validate_runtime_seam_binding_item_schema_surface()
         validate_self_agent_checkpoint_schema_surface()
+        validate_reference_route_schema_surface()
         validate_nested_agents_docs()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
@@ -1677,7 +2080,8 @@ def main() -> int:
         tiers_by_id = validate_model_tier_registry()
         cohort_patterns_by_id = validate_cohort_composition_registry(agent_names, tiers_by_id)
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
-        validate_runtime_seam_bindings(agent_names, tiers_by_id)
+        bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
+        validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_runtime_seam_doc_coherence()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except (NestedAgentsValidationError, ValidationError) as exc:
@@ -1693,6 +2097,7 @@ def main() -> int:
     print("[ok] validated runtime seam bindings schema surface")
     print("[ok] validated runtime-seam-binding schema surface")
     print("[ok] validated self-agent-checkpoint schema surface")
+    print("[ok] validated reference-route example schema surface")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")
@@ -1702,6 +2107,7 @@ def main() -> int:
     print("[ok] validated runtime artifact examples")
     print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated runtime seam bindings")
+    print("[ok] validated reference route examples")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
     print("[ok] validated generated/cohort_composition_registry.json")

@@ -15,16 +15,18 @@ If you are new to this repository, use this path:
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
 3. Read [docs/AGENT_PROFILE_SURFACE](docs/AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
 4. Read [docs/REGISTRY_SOURCE_SURFACES](docs/REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
-5. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
-6. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
-7. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
-8. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-9. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
-10. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-11. Read [docs/RECURRENCE_DISCIPLINE](docs/RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
-12. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-13. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-14. Read [ROADMAP](ROADMAP.md) for the current direction.
+5. Read [docs/PUBLISHED_CONTRACT_COMPATIBILITY](docs/PUBLISHED_CONTRACT_COMPATIBILITY.md) for wire-shape and publication compatibility discipline.
+6. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
+7. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
+8. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
+9. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
+10. Read [docs/REFERENCE_ROUTE_EXAMPLES](docs/REFERENCE_ROUTE_EXAMPLES.md) for example-only route packs over the public loop.
+11. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
+12. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+13. Read [docs/RECURRENCE_DISCIPLINE](docs/RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
+14. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+15. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+16. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -105,6 +107,11 @@ It also includes self-agent checkpoint contract surfaces at:
 - `examples/self_agent_checkpoint/*.json`
 - `examples/self_agent_checkpoint/invalid/*.json`
 
+It also includes example-only reference route surfaces at:
+- `schemas/reference-route.example.schema.json`
+- `examples/reference_routes/*/manifest.json`
+- `examples/reference_routes/*/*.json`
+
 To validate the current agent-layer surface locally, run:
 
 ```bash
@@ -112,11 +119,16 @@ python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 
+Validation is self-contained by default.
+
 Optional bounded consumer smoke checks may be enabled by setting:
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`
 - `AOA_MEMO_ROOT`
 - `AOA_ROUTING_ROOT`
+
+When those roots are supplied, the same validator also performs federated smoke checks against published consumer seams.
+Without those roots, validation stays local and autonomous.
 
 These checks only confirm published contract reachability.
 `AOA_MEMO_ROOT` additionally confirms object recall surface reachability.
@@ -126,8 +138,8 @@ They do not move playbook, eval, memo, or routing meaning into `aoa-agents`.
 
 ## Current status
 
-`aoa-agents` is in bootstrap.
-The goal of this first public baseline is to define the role, boundaries, memory posture, and first machine-readable agent-layer surfaces without overbuilding orchestration too early.
+The bootstrap baseline is landed.
+The current cycle hardens published contract compatibility, adds scenario-backed reference routes, and proves bounded consumer seams without turning `aoa-agents` into runtime or scenario canon.
 
 ## Principles
 

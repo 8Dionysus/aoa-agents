@@ -1,0 +1,7 @@
+{
+  "artifact_type": "route_decision",
+  "summary": "Route the non-trivial inquiry into the full public loop because it needs explicit coordination and possible deep arbitration.",
+  "next_hop_kind": "tier",
+  "next_hop": "planner",
+  "reason": "The route is multi-step and should stay inside the inspectable orchestrated loop."
+}

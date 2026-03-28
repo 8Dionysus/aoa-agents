@@ -1,0 +1,9 @@
+{
+  "artifact_type": "verification_result",
+  "verdict": "escalate",
+  "checked_artifacts": [
+    "bounded_plan",
+    "work_result"
+  ],
+  "summary": "The route remains bounded, but a conductor-guided deep pass is justified before durable distillation."
+}
