@@ -133,6 +133,7 @@ REQUIRED_SELF_AGENT_RETURN_SNIPPETS = (
 
 MEMO_OBJECT_SURFACE_PATHS = (
     "generated/memory_object_catalog.min.json",
+    "generated/memory_object_capsules.json",
     "generated/memory_object_sections.full.json",
 )
 
@@ -143,11 +144,14 @@ MEMO_OBJECT_RECALL_CONTRACTS = (
 )
 
 MEMO_OBJECT_INSPECT_SURFACE = "generated/memory_object_catalog.min.json"
+MEMO_OBJECT_CAPSULE_SURFACE = "generated/memory_object_capsules.json"
 MEMO_OBJECT_EXPAND_SURFACE = "generated/memory_object_sections.full.json"
+MEMO_CAPSULE_REQUIRED_MODES = {"semantic", "lineage"}
 ROUTING_TASK_TO_SURFACE_HINTS_PATH = "generated/task_to_surface_hints.json"
 ROUTING_TINY_MODEL_ENTRYPOINTS_PATH = "generated/tiny_model_entrypoints.json"
 ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
 ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
+ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory_capsules.json"
 ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
 
 
@@ -1281,6 +1285,10 @@ def validate_optional_memo_object_smoke_check(memo_root: Path) -> None:
             fail(
                 f"aoa-memo {contract_file} must point expand_surface at {MEMO_OBJECT_EXPAND_SURFACE}"
             )
+        if expected_mode in MEMO_CAPSULE_REQUIRED_MODES and payload.get("capsule_surface") != MEMO_OBJECT_CAPSULE_SURFACE:
+            fail(
+                f"aoa-memo {contract_file} must point capsule_surface at {MEMO_OBJECT_CAPSULE_SURFACE}"
+            )
 
 
 def format_role_sets(role_sets: object) -> str:
@@ -1439,6 +1447,17 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
                 "aoa-routing memo recall hint must publish a doctrine contract for mode "
                 f"'{mode}'"
             )
+    doctrine_capsule_surfaces_by_mode = recall.get("capsule_surfaces_by_mode")
+    if not isinstance(doctrine_capsule_surfaces_by_mode, dict):
+        fail("aoa-routing memo recall hint must expose doctrine capsule_surfaces_by_mode")
+    for mode in MEMO_CAPSULE_REQUIRED_MODES:
+        if mode not in doctrine_supported_mode_set:
+            continue
+        if doctrine_capsule_surfaces_by_mode.get(mode) != ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE:
+            fail(
+                "aoa-routing memo recall hint must publish doctrine capsule_surfaces_by_mode "
+                f"for mode '{mode}' -> '{ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE}'"
+            )
 
     parallel_families = recall.get("parallel_families")
     if not isinstance(parallel_families, dict):
@@ -1485,6 +1504,15 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
             fail(
                 "aoa-routing memory_objects recall family must mirror aoa-memo object contract "
                 f"'{contract_file}' for mode '{mode}'"
+            )
+    object_capsule_surfaces_by_mode = object_family.get("capsule_surfaces_by_mode")
+    if not isinstance(object_capsule_surfaces_by_mode, dict):
+        fail("aoa-routing memory_objects recall family must expose capsule_surfaces_by_mode")
+    for mode in MEMO_CAPSULE_REQUIRED_MODES:
+        if object_capsule_surfaces_by_mode.get(mode) != MEMO_OBJECT_CAPSULE_SURFACE:
+            fail(
+                "aoa-routing memory_objects recall family must publish capsule_surfaces_by_mode "
+                f"for mode '{mode}' -> '{MEMO_OBJECT_CAPSULE_SURFACE}'"
             )
 
     tiny_payload = read_json(routing_root / ROUTING_TINY_MODEL_ENTRYPOINTS_PATH, root=routing_root)

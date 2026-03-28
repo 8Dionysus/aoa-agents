@@ -69,6 +69,9 @@ The bounded memo-facing routing contract for this slice is:
 
 - root memo `inspect` and `expand` remain doctrine-first
 - doctrine recall stays the default tiny-model memo path
+- doctrine and object-facing semantic or lineage recall may publish
+  `capsule_surfaces_by_mode` so consumers hydrate capsules before full section
+  expansion
 - `memory_objects` remains a parallel recall family selected explicitly through
   `recall_family`
 - `aoa-agents` reads these surfaces as consumer guidance only and does not own
