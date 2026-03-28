@@ -1,14 +1,55 @@
 # AoA Agents Roadmap
 
-This roadmap tracks the bootstrap and early shaping of the AoA agent layer.
+This roadmap tracks the bootstrap baseline and the next hardening waves for the AoA agent layer.
 
 ## Current phase
 
-`aoa-agents` is in bootstrap.
-The current goal is not to build a giant orchestration engine immediately.
-The goal is to define what the agent layer is for, what it owns, and what it must not silently absorb.
+The bootstrap baseline is landed.
+
+The current goal is not to widen the catalog too early.
+The current goal is to make the existing public agent-layer surfaces stable, scenario-backed, and consumer-provable without moving runtime, playbook, routing, memo, or eval canon into this repository.
+
+## Current cycle
+
+### Wave 1: public contract stabilization
+
+Goals:
+- publish explicit compatibility discipline for source-authored and generated contract surfaces
+- harden validator checks around top-level metadata, stable publication order, and silent field drift
+- keep existing generated wire shapes and artifact schemas unchanged
+
+Exit signals:
+- published compatibility rules are documented
+- validator fails on accidental generated-surface drift
+- generated registry order remains deterministic and inspectable
+
+### Wave 2: scenario-backed reference routes
+
+Goals:
+- add example-only route packs over the current public loop
+- validate cohort fit, tier fit, seam fit, and artifact fit for each route pack
+- keep these surfaces educational and inspectable rather than normative
+
+Exit signals:
+- four reference route packs validate end-to-end
+- manifests remain schema-backed and example-only
+- no runtime logic or playbook canon is introduced
+
+### Wave 3: federation consumer proof
+
+Goals:
+- make bounded consumer promises explicit for `aoa-playbooks`, `aoa-evals`, `aoa-memo`, and `aoa-routing`
+- expand optional smoke checks around those seams without requiring cross-repo checkout by default
+- preserve self-contained local validation when consumer roots are not supplied
+
+Exit signals:
+- federated smoke checks cover all four current consumer seams
+- the consumer check matrix is documented
+- local validation remains autonomous when roots are absent
 
 ## Bootstrap substep: runtime seam hardening
+
+Status: landed as baseline.
 
 Goals:
 - add inspectable runtime artifact examples and bounded negative fixtures
@@ -72,6 +113,11 @@ Goals:
 - preserve clear boundaries relative to `aoa-routing`
 - harden bounded consumer seams against routing-published memo recall entrypoints
   without moving tiny-model family-selection policy into `aoa-agents`
+
+Near-term interpretation:
+- prove the current published seams first
+- stabilize the contract before any larger catalog growth
+- postpone new role families until after the current cycle lands
 
 ## Standing discipline
 

@@ -9,6 +9,7 @@ These files illustrate published contracts. They are not the source-authored can
 
 - `runtime_artifacts/` for public-loop artifact examples and negative fixtures
 - `self_agent_checkpoint/` for governed self-agent checkpoint examples and negative fixtures
+- `reference_routes/` for manifest-driven reference route packs over the published public loop
 
 ## Editing posture
 

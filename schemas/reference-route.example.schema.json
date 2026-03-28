@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/reference-route.example.schema.json",
+  "title": "AoA reference route example manifest",
+  "$comment": "Example-only, non-normative manifest schema for examples/reference_routes/*.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "route_id",
+    "cohort_pattern",
+    "role_set",
+    "steps"
+  ],
+  "properties": {
+    "route_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "cohort_pattern": {
+      "type": "string",
+      "enum": [
+        "solo",
+        "pair",
+        "checkpoint_cohort",
+        "orchestrated_loop"
+      ]
+    },
+    "role_set": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "architect",
+          "coder",
+          "reviewer",
+          "evaluator",
+          "memory-keeper"
+        ]
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phase",
+          "tier_id",
+          "role_name",
+          "artifact_path"
+        ],
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": [
+              "route",
+              "plan",
+              "do",
+              "verify",
+              "transition",
+              "deep",
+              "distill"
+            ]
+          },
+          "tier_id": {
+            "type": "string",
+            "enum": [
+              "router",
+              "planner",
+              "executor",
+              "verifier",
+              "conductor",
+              "deep",
+              "archivist"
+            ]
+          },
+          "role_name": {
+            "type": "string",
+            "enum": [
+              "architect",
+              "coder",
+              "reviewer",
+              "evaluator",
+              "memory-keeper"
+            ]
+          },
+          "artifact_path": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    }
+  }
+}

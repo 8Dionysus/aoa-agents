@@ -1,0 +1,11 @@
+{
+  "artifact_type": "bounded_plan",
+  "objective": "Shape the governed self-change pass before any bounded execution begins.",
+  "steps": [
+    "Name the constitutional fit for the intended change.",
+    "Keep approval and rollback posture explicit before execution.",
+    "Require post-change health review before durable distillation."
+  ],
+  "verification_posture": "strict",
+  "escalation_boundary": "Return to the approved checkpoint anchor if the self-change route widens beyond the named contract."
+}

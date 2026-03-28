@@ -1,0 +1,22 @@
+{
+  "route_id": "pair_change_route",
+  "cohort_pattern": "pair",
+  "role_set": [
+    "coder",
+    "reviewer"
+  ],
+  "steps": [
+    {
+      "phase": "do",
+      "tier_id": "executor",
+      "role_name": "coder",
+      "artifact_path": "work_result.json"
+    },
+    {
+      "phase": "verify",
+      "tier_id": "verifier",
+      "role_name": "reviewer",
+      "artifact_path": "verification_result.json"
+    }
+  ]
+}

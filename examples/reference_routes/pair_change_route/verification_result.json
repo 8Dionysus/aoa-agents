@@ -1,0 +1,8 @@
+{
+  "artifact_type": "verification_result",
+  "verdict": "pass",
+  "checked_artifacts": [
+    "work_result"
+  ],
+  "summary": "The pair route stayed bounded and the implementation output matches the named review edge."
+}

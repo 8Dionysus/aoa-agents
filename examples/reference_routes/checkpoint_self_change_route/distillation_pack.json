@@ -1,0 +1,18 @@
+{
+  "artifact_type": "distillation_pack",
+  "summaries": [
+    "The checkpoint route completed with explicit approval, review, and provenance posture."
+  ],
+  "entities": [
+    "architect",
+    "coder",
+    "reviewer",
+    "memory-keeper"
+  ],
+  "decisions": [
+    "checkpoint_change_completed"
+  ],
+  "memory_candidates": [
+    "checkpoint_route_provenance_note"
+  ]
+}

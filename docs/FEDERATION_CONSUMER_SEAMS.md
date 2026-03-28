@@ -30,6 +30,69 @@ They do not move their canon into `aoa-agents`.
   consumer guidance, where doctrine recall stays the default tiny-model path and
   `memory_objects` stays an explicit parallel family
 
+## Consumer Check Matrix
+
+### `aoa-playbooks`
+
+Promise:
+- `aoa-agents` publishes agent names, artifact names, and the bounded
+  `checkpoint_cohort` / `orchestrated_loop` compatibility slice
+
+Validator confirms:
+- `AOA-P-0006` matches `checkpoint_cohort.allowed_role_sets[0]`
+- `AOA-P-0008` matches one of `orchestrated_loop.allowed_role_sets`
+- `AOA-P-0008.expected_artifacts` stays inside published artifact names
+
+Out of scope:
+- full playbook doctrine
+- universal playbook-to-cohort mapping
+- scenario ownership
+
+### `aoa-evals`
+
+Promise:
+- `aoa-agents` publishes artifact schema refs that eval surfaces may point at
+
+Validator confirms:
+- eval example refs that target `repo:aoa-agents/...` resolve to existing
+  public surfaces
+
+Out of scope:
+- verdict logic
+- proof doctrine
+- cohort awareness inside `aoa-evals`
+
+### `aoa-memo`
+
+Promise:
+- `aoa-agents` publishes role posture and may consume memo-owned recall seams as
+  bounded consumer guidance
+
+Validator confirms:
+- writeback-facing examples can resolve public `aoa-agents` refs
+- object recall contracts keep inspect/expand/capsule surfaces aligned
+
+Out of scope:
+- memory-object canon
+- recall doctrine ownership
+- memo lifecycle policy
+
+### `aoa-routing`
+
+Promise:
+- `aoa-agents` publishes the model-tier registry and may read routing-published
+  memo entry surfaces as consumer guidance only
+
+Validator confirms:
+- routing tier hints resolve back to the published tier registry
+- doctrine-default memo recall entrypoints remain intact
+- `memory_objects` remains a parallel recall family
+
+Out of scope:
+- dispatch policy
+- recall-family selection policy
+- cohort-aware routing in this slice
+
 ## Bounded playbook-compatible cohort subset
 
 This slice treats only two playbooks as cohort-compatible reference routes:

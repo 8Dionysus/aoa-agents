@@ -1,0 +1,36 @@
+{
+  "route_id": "checkpoint_self_change_route",
+  "cohort_pattern": "checkpoint_cohort",
+  "role_set": [
+    "architect",
+    "coder",
+    "reviewer",
+    "memory-keeper"
+  ],
+  "steps": [
+    {
+      "phase": "plan",
+      "tier_id": "planner",
+      "role_name": "architect",
+      "artifact_path": "bounded_plan.json"
+    },
+    {
+      "phase": "do",
+      "tier_id": "executor",
+      "role_name": "coder",
+      "artifact_path": "work_result.json"
+    },
+    {
+      "phase": "verify",
+      "tier_id": "verifier",
+      "role_name": "reviewer",
+      "artifact_path": "verification_result.json"
+    },
+    {
+      "phase": "distill",
+      "tier_id": "archivist",
+      "role_name": "memory-keeper",
+      "artifact_path": "distillation_pack.json"
+    }
+  ]
+}

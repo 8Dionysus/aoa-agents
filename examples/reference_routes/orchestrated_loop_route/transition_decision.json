@@ -1,0 +1,6 @@
+{
+  "artifact_type": "transition_decision",
+  "decision": "continue",
+  "reason": "Verification named a bounded ambiguity, so the next hop should be a deep synthesis pass rather than immediate distillation.",
+  "next_hop": "deep"
+}
