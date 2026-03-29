@@ -1850,16 +1850,20 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
                 f"'{mode}'"
             )
     doctrine_capsule_surfaces_by_mode = recall.get("capsule_surfaces_by_mode")
-    if not isinstance(doctrine_capsule_surfaces_by_mode, dict):
-        fail("aoa-routing memo recall hint must expose doctrine capsule_surfaces_by_mode")
-    for mode in MEMO_CAPSULE_REQUIRED_MODES:
-        if mode not in doctrine_supported_mode_set:
-            continue
-        if doctrine_capsule_surfaces_by_mode.get(mode) != ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE:
-            fail(
-                "aoa-routing memo recall hint must publish doctrine capsule_surfaces_by_mode "
-                f"for mode '{mode}' -> '{ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE}'"
-            )
+    required_doctrine_capsule_modes = doctrine_supported_mode_set & MEMO_CAPSULE_REQUIRED_MODES
+    if doctrine_capsule_surfaces_by_mode is not None and not isinstance(
+        doctrine_capsule_surfaces_by_mode, dict
+    ):
+        fail("aoa-routing memo recall hint capsule_surfaces_by_mode must be an object when present")
+    if required_doctrine_capsule_modes:
+        if not isinstance(doctrine_capsule_surfaces_by_mode, dict):
+            fail("aoa-routing memo recall hint must expose doctrine capsule_surfaces_by_mode")
+        for mode in required_doctrine_capsule_modes:
+            if doctrine_capsule_surfaces_by_mode.get(mode) != ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE:
+                fail(
+                    "aoa-routing memo recall hint must publish doctrine capsule_surfaces_by_mode "
+                    f"for mode '{mode}' -> '{ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE}'"
+                )
 
     parallel_families = recall.get("parallel_families")
     if not isinstance(parallel_families, dict):
@@ -1908,14 +1912,20 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
                 f"'{contract_file}' for mode '{mode}'"
             )
     object_capsule_surfaces_by_mode = object_family.get("capsule_surfaces_by_mode")
-    if not isinstance(object_capsule_surfaces_by_mode, dict):
-        fail("aoa-routing memory_objects recall family must expose capsule_surfaces_by_mode")
-    for mode in MEMO_CAPSULE_REQUIRED_MODES:
-        if object_capsule_surfaces_by_mode.get(mode) != MEMO_OBJECT_CAPSULE_SURFACE:
-            fail(
-                "aoa-routing memory_objects recall family must publish capsule_surfaces_by_mode "
-                f"for mode '{mode}' -> '{MEMO_OBJECT_CAPSULE_SURFACE}'"
-            )
+    required_object_capsule_modes = actual_object_mode_set & MEMO_CAPSULE_REQUIRED_MODES
+    if object_capsule_surfaces_by_mode is not None and not isinstance(
+        object_capsule_surfaces_by_mode, dict
+    ):
+        fail("aoa-routing memory_objects recall family capsule_surfaces_by_mode must be an object when present")
+    if required_object_capsule_modes:
+        if not isinstance(object_capsule_surfaces_by_mode, dict):
+            fail("aoa-routing memory_objects recall family must expose capsule_surfaces_by_mode")
+        for mode in required_object_capsule_modes:
+            if object_capsule_surfaces_by_mode.get(mode) != MEMO_OBJECT_CAPSULE_SURFACE:
+                fail(
+                    "aoa-routing memory_objects recall family must publish capsule_surfaces_by_mode "
+                    f"for mode '{mode}' -> '{MEMO_OBJECT_CAPSULE_SURFACE}'"
+                )
 
     tiny_payload = read_json(routing_root / ROUTING_TINY_MODEL_ENTRYPOINTS_PATH, root=routing_root)
     if not isinstance(tiny_payload, dict):

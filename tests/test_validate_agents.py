@@ -134,11 +134,47 @@ def write_valid_memo_root(root: Path) -> None:
         write_json(root / contract_file, payload)
 
 
-def write_valid_routing_root(root: Path, tiers_by_id: dict[str, dict[str, object]]) -> None:
-    doctrine_modes = ["working", "semantic", "lineage"]
+def write_valid_routing_root(
+    root: Path,
+    tiers_by_id: dict[str, dict[str, object]],
+    *,
+    doctrine_modes: list[str] | None = None,
+) -> None:
+    if doctrine_modes is None:
+        doctrine_modes = ["working", "semantic", "lineage"]
     object_contracts = {
         mode: contract_file for contract_file, mode in validate_agents.MEMO_OBJECT_RECALL_CONTRACTS
     }
+    doctrine_capsule_surfaces_by_mode = {
+        mode: validate_agents.ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE
+        for mode in doctrine_modes
+        if mode in validate_agents.MEMO_CAPSULE_REQUIRED_MODES
+    }
+    recall_payload: dict[str, object] = {
+        "enabled": True,
+        "supported_modes": doctrine_modes,
+        "default_mode": "working",
+        "contracts_by_mode": {
+            "working": "examples/recall_contract.working.json",
+            "semantic": "examples/recall_contract.semantic.json",
+            "lineage": "examples/recall_contract.lineage.json",
+        },
+        "parallel_families": {
+            validate_agents.ROUTING_MEMO_OBJECT_RECALL_FAMILY: {
+                "inspect_surface": validate_agents.MEMO_OBJECT_INSPECT_SURFACE,
+                "expand_surface": validate_agents.MEMO_OBJECT_EXPAND_SURFACE,
+                "supported_modes": [mode for _, mode in validate_agents.MEMO_OBJECT_RECALL_CONTRACTS],
+                "default_mode": "working",
+                "contracts_by_mode": object_contracts,
+                "capsule_surfaces_by_mode": {
+                    "semantic": validate_agents.MEMO_OBJECT_CAPSULE_SURFACE,
+                    "lineage": validate_agents.MEMO_OBJECT_CAPSULE_SURFACE,
+                },
+            }
+        },
+    }
+    if doctrine_capsule_surfaces_by_mode:
+        recall_payload["capsule_surfaces_by_mode"] = doctrine_capsule_surfaces_by_mode
 
     write_json(
         root / "generated" / "task_to_tier_hints.json",
@@ -170,33 +206,7 @@ def write_valid_routing_root(root: Path, tiers_by_id: dict[str, dict[str, object
                         "expand": {
                             "surface_file": validate_agents.ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE
                         },
-                        "recall": {
-                            "enabled": True,
-                            "supported_modes": doctrine_modes,
-                            "default_mode": "working",
-                            "contracts_by_mode": {
-                                "working": "examples/recall_contract.working.json",
-                                "semantic": "examples/recall_contract.semantic.json",
-                                "lineage": "examples/recall_contract.lineage.json",
-                            },
-                            "capsule_surfaces_by_mode": {
-                                "semantic": validate_agents.ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE,
-                                "lineage": validate_agents.ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE,
-                            },
-                            "parallel_families": {
-                                validate_agents.ROUTING_MEMO_OBJECT_RECALL_FAMILY: {
-                                    "inspect_surface": validate_agents.MEMO_OBJECT_INSPECT_SURFACE,
-                                    "expand_surface": validate_agents.MEMO_OBJECT_EXPAND_SURFACE,
-                                    "supported_modes": [mode for _, mode in validate_agents.MEMO_OBJECT_RECALL_CONTRACTS],
-                                    "default_mode": "working",
-                                    "contracts_by_mode": object_contracts,
-                                    "capsule_surfaces_by_mode": {
-                                        "semantic": validate_agents.MEMO_OBJECT_CAPSULE_SURFACE,
-                                        "lineage": validate_agents.MEMO_OBJECT_CAPSULE_SURFACE,
-                                    },
-                                }
-                            },
-                        },
+                        "recall": recall_payload,
                     },
                 }
             ]
@@ -641,6 +651,27 @@ class ValidateAgentsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             routing_root = Path(tmp_dir) / "aoa-routing"
             write_valid_routing_root(routing_root, tiers_by_id)
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": "",
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_ROUTING_ROOT": str(routing_root),
+                },
+                clear=False,
+            ):
+                checked = validate_agents.validate_optional_consumer_smoke_checks(tiers_by_id, {})
+
+        self.assertEqual(checked, ["aoa-routing"])
+
+    def test_optional_consumer_smoke_checks_allow_working_only_doctrine_without_capsules(self) -> None:
+        tiers_by_id, _, _ = registry_context()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            routing_root = Path(tmp_dir) / "aoa-routing"
+            write_valid_routing_root(routing_root, tiers_by_id, doctrine_modes=["working"])
 
             with patch.dict(
                 os.environ,
