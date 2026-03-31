@@ -21,6 +21,11 @@ def write_json(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
+def write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
 def read_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -686,6 +691,88 @@ class ValidateAgentsTests(unittest.TestCase):
                 checked = validate_agents.validate_optional_consumer_smoke_checks(tiers_by_id, {})
 
         self.assertEqual(checked, ["aoa-routing"])
+
+
+class ValidateQuestbookSurfaceTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temp_dir = Path(tempfile.mkdtemp(prefix="aoa_agents_questbook_"))
+        self.questbook_path = self.temp_dir / "QUESTBOOK.md"
+        self.passport_path = self.temp_dir / "docs" / "QUEST_EXECUTION_PASSPORT.md"
+        self.quests_dir = self.temp_dir / "quests"
+        self.patches = (
+            patch.object(validate_agents, "QUESTBOOK_PATH", self.questbook_path),
+            patch.object(validate_agents, "QUEST_EXECUTION_PASSPORT_PATH", self.passport_path),
+            patch.object(validate_agents, "QUESTS_DIR", self.quests_dir),
+        )
+        for patcher in self.patches:
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.addCleanup(shutil.rmtree, self.temp_dir)
+
+    def write_valid_surface(self) -> None:
+        write_text(
+            self.questbook_path,
+            "\n".join(
+                (
+                    "# QUESTBOOK.md — aoa-agents",
+                    "",
+                    "- `AOA-AG-Q-0001` — publish the quest execution passport",
+                    "- `AOA-AG-Q-0002` — define the local-wrapper allowance matrix for leaf quests",
+                    "",
+                )
+            ),
+        )
+        write_text(
+            self.passport_path,
+            "\n".join(validate_agents.REQUIRED_QUEST_PASSPORT_SNIPPETS) + "\n",
+        )
+        self.quests_dir.mkdir(parents=True, exist_ok=True)
+        for quest_id in validate_agents.REQUIRED_QUEST_IDS:
+            (self.quests_dir / f"{quest_id}.yaml").write_text(
+                "\n".join(
+                    (
+                        "schema_version: work_quest_v1",
+                        f"id: {quest_id}",
+                        "repo: aoa-agents",
+                        "public_safe: true",
+                    )
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+    def test_validate_questbook_surface_accepts_foundation_files(self) -> None:
+        self.write_valid_surface()
+
+        validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_wrong_repo(self) -> None:
+        self.write_valid_surface()
+        (self.quests_dir / "AOA-AG-Q-0002.yaml").write_text(
+            "\n".join(
+                (
+                    "schema_version: work_quest_v1",
+                    "id: AOA-AG-Q-0002",
+                    "repo: aoa-routing",
+                    "public_safe: true",
+                )
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(validate_agents.ValidationError, "repo 'aoa-agents'"):
+            validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_missing_split_rule(self) -> None:
+        self.write_valid_surface()
+        write_text(
+            self.passport_path,
+            "\n".join(snippet for snippet in validate_agents.REQUIRED_QUEST_PASSPORT_SNIPPETS[:-1]) + "\n",
+        )
+
+        with self.assertRaisesRegex(validate_agents.ValidationError, "d3\\+ split rule"):
+            validate_agents.validate_questbook_surface()
 
 
 if __name__ == "__main__":

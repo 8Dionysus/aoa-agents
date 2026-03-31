@@ -1,0 +1,46 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0001
+title: "Publish the quest execution passport for difficulty, risk, control, and tier mapping"
+summary: ''
+repo: aoa-agents
+owner_surface: docs/QUEST_EXECUTION_PASSPORT.md
+theme_ref: ''
+milestone_ref: ''
+kind: doctrine
+state: ready
+band: frontier
+difficulty: d4_architecture
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: conductor
+fallback_tier: deep
+wrapper_class: codex_primary
+write_scope: docs_only
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on: []
+activation:
+  mode: immediate
+anchor_ref:
+  artifact: model_tier_model
+  ref: docs/MODEL_TIER_MODEL.md
+handoff_role: agent-layer-maintainer
+evidence:
+  - difficulty ladder is explicit
+  - risk ladder is explicit
+  - control modes and wrapper classes are explicit
+harvest:
+  target: agent_contract
+opened_at: '2026-03-31'
+touched_at: '2026-03-31'
+tags:
+  - tiers
+  - control
+  - delegation
+notes: ''
+public_safe: true
