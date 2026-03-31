@@ -1,0 +1,47 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0002
+title: "Define the local-wrapper allowance matrix for leaf quests under supervision"
+summary: ''
+repo: aoa-agents
+owner_surface: agent-layer/delegate-allowance
+theme_ref: ''
+milestone_ref: ''
+kind: support
+state: triaged
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: conductor
+wrapper_class: hybrid
+write_scope: docs_only
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 2
+  boundary: 2
+  verification: 1
+parent: null
+depends_on: []
+activation:
+  mode: on_review_of
+  ref: AOA-AG-Q-0001
+anchor_ref:
+  artifact: quest_execution_passport
+  ref: docs/QUEST_EXECUTION_PASSPORT.md
+handoff_role: agent-layer-maintainer
+evidence:
+  - safe initial wrapper classes are named
+  - d3+ split rule is explicit
+  - leaf-only delegation posture is reviewable
+harvest:
+  target: agent_contract
+opened_at: '2026-03-31'
+touched_at: '2026-03-31'
+tags:
+  - wrappers
+  - local-models
+  - supervision
+notes: ''
+public_safe: true

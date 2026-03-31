@@ -7,6 +7,11 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    import yaml
+except ModuleNotFoundError:
+    yaml = None
+
 from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
 from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
 from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
@@ -35,6 +40,9 @@ SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
 REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
+QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
+QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "docs" / "QUEST_EXECUTION_PASSPORT.md"
+QUESTS_DIR = REPO_ROOT / "quests"
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
     "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
@@ -244,6 +252,15 @@ ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
 ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
 ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory_capsules.json"
 ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
+REQUIRED_QUEST_IDS = ("AOA-AG-Q-0001", "AOA-AG-Q-0002")
+REQUIRED_QUEST_PASSPORT_SNIPPETS = (
+    "## Difficulty ladder",
+    "## Risk ladder",
+    "## Control modes",
+    "## Initial wrapper classes",
+    "### Split requirement",
+    "Do not delegate `d3+` quests directly.",
+)
 
 
 class ValidationError(RuntimeError):
@@ -281,6 +298,23 @@ def read_text(path: Path, *, root: Path = REPO_ROOT) -> str:
         return path.read_text(encoding="utf-8")
     except FileNotFoundError:
         fail(f"missing required file: {describe_path(path, root=root)}")
+
+
+def read_yaml(path: Path, *, root: Path = REPO_ROOT) -> dict[str, object]:
+    if yaml is None:
+        fail("PyYAML is required to validate questbook surfaces")
+
+    try:
+        payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        fail(f"missing required file: {describe_path(path, root=root)}")
+    except yaml.YAMLError as exc:
+        fail(f"invalid YAML in {describe_path(path, root=root)}: {exc}")
+
+    if not isinstance(payload, dict):
+        fail(f"{describe_path(path, root=root)} must contain a YAML object")
+
+    return payload
 
 
 def fail_schema(message: str, *, code: str | None = None) -> None:
@@ -1546,6 +1580,51 @@ def validate_runtime_seam_doc_coherence() -> None:
             fail(f"docs/SELF_AGENT_CHECKPOINT_STACK.md is missing recurrence guidance: {snippet}")
 
 
+def validate_questbook_surface() -> None:
+    questbook_text = read_text(QUESTBOOK_PATH)
+    passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
+
+    actual_ids = {path.stem for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()}
+    expected_ids = set(REQUIRED_QUEST_IDS)
+    if actual_ids != expected_ids:
+        missing = sorted(expected_ids - actual_ids)
+        extra = sorted(actual_ids - expected_ids)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"extra: {', '.join(extra)}")
+        joined = "; ".join(details) if details else "unexpected quest set"
+        fail(f"agent-layer quest set must match expected foundation quests ({joined})")
+
+    for quest_id in REQUIRED_QUEST_IDS:
+        path = QUESTS_DIR / f"{quest_id}.yaml"
+        payload = read_yaml(path)
+        if payload.get("schema_version") != "work_quest_v1":
+            fail(
+                f"{describe_path(path)} has unsupported schema_version "
+                f"'{payload.get('schema_version')}'"
+            )
+        if payload.get("repo") != "aoa-agents":
+            fail(f"{describe_path(path)} must target repo 'aoa-agents'")
+        if payload.get("id") != quest_id:
+            fail(
+                f"{describe_path(path)} id '{payload.get('id')}' does not match "
+                f"filename '{quest_id}'"
+            )
+        if payload.get("public_safe") is not True:
+            fail(f"{describe_path(path)} must set public_safe: true")
+        if quest_id not in questbook_text:
+            fail(f"QUESTBOOK.md must reference quest id '{quest_id}'")
+
+    for snippet in REQUIRED_QUEST_PASSPORT_SNIPPETS:
+        if snippet not in passport_text:
+            fail(
+                "docs/QUEST_EXECUTION_PASSPORT.md must define the difficulty/risk/control "
+                "passport, wrapper classes, and the d3+ split rule"
+            )
+
+
 def validate_memory_rights(location: str, memory_rights: object) -> None:
     if not isinstance(memory_rights, dict):
         fail(f"{location}.memory_rights must be an object")
@@ -2093,6 +2172,7 @@ def main() -> int:
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_runtime_seam_doc_coherence()
+        validate_questbook_surface()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except (NestedAgentsValidationError, ValidationError) as exc:
         print(f"[error] {exc}", file=sys.stderr)
@@ -2118,6 +2198,7 @@ def main() -> int:
     print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated reference route examples")
+    print("[ok] validated questbook execution passport surface")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
     print("[ok] validated generated/cohort_composition_registry.json")
