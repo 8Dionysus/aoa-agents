@@ -7,7 +7,7 @@ owner_surface: docs/QUEST_EXECUTION_PASSPORT.md
 theme_ref: ''
 milestone_ref: ''
 kind: doctrine
-state: ready
+state: done
 band: frontier
 difficulty: d4_architecture
 risk: r2_contract
@@ -42,5 +42,6 @@ tags:
   - tiers
   - control
   - delegation
-notes: ''
+notes: Closed in the Phase 2 manual-first hygiene pass once the passport ladders,
+  wrapper classes, and split rule were all publicly landed.
 public_safe: true
