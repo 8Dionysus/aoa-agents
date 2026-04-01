@@ -56,6 +56,7 @@ Avoid widening a tier into a hidden runtime or a brand alias.
 Run:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```

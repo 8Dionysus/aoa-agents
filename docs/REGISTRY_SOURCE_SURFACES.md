@@ -65,6 +65,7 @@ The item schemas for these source-authored surfaces are:
 Validation still runs through:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/validate_agents.py
 ```
 

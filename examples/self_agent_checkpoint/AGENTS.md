@@ -23,4 +23,4 @@ Do not turn this subtree into runtime implementation, execution logs, or scenari
 
 ## Validation
 
-`python scripts/validate_agents.py`
+Run `python -m pip install -r requirements-dev.txt`, then `python scripts/validate_agents.py`.

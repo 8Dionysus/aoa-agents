@@ -66,7 +66,7 @@ When profile sources change:
 
 1. edit the target file under `profiles/`
 2. regenerate `generated/agent_registry.min.json` with `python scripts/build_agent_registry.py`
-3. validate the repository with `python scripts/validate_agents.py`
+3. install validator deps with `python -m pip install -r requirements-dev.txt`, then validate with `python scripts/validate_agents.py`
 
 This keeps the authored role contract distinct from the compact published
 registry while preserving a deterministic review surface.

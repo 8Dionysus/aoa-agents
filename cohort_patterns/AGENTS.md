@@ -50,6 +50,7 @@ Keep each pattern compact, reviewable, and role-facing.
 Run:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```

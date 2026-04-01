@@ -130,7 +130,7 @@ They do not move scenario composition into this repository.
 
 ## Optional Consumer Smoke Checks
 
-`python scripts/validate_agents.py` stays self-contained by default.
+Run `python -m pip install -r requirements-dev.txt` before `python scripts/validate_agents.py`.
 
 When these environment variables are set, the validator may also confirm that
 published neighboring surfaces still resolve back to public agent-layer

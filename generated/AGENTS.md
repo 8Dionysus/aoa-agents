@@ -33,6 +33,7 @@ Review diffs here as public contract deltas, not as arbitrary JSON churn.
 Run:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```

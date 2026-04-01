@@ -1585,23 +1585,19 @@ def validate_questbook_surface() -> None:
     questbook_text = read_text(QUESTBOOK_PATH)
     passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
 
-    actual_ids = {path.stem for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()}
+    quest_paths = {
+        path.stem: path for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()
+    }
+    actual_ids = set(quest_paths)
     expected_ids = set(REQUIRED_QUEST_IDS)
-    if actual_ids != expected_ids:
-        missing = sorted(expected_ids - actual_ids)
-        extra = sorted(actual_ids - expected_ids)
-        details: list[str] = []
-        if missing:
-            details.append(f"missing: {', '.join(missing)}")
-        if extra:
-            details.append(f"extra: {', '.join(extra)}")
-        joined = "; ".join(details) if details else "unexpected quest set"
-        fail(f"agent-layer quest set must match expected foundation quests ({joined})")
+    missing = sorted(expected_ids - actual_ids)
+    if missing:
+        fail(f"agent-layer quest set must include required foundation quests (missing: {', '.join(missing)})")
 
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
-    for quest_id in REQUIRED_QUEST_IDS:
-        path = QUESTS_DIR / f"{quest_id}.yaml"
+    for quest_id in sorted(quest_paths):
+        path = quest_paths[quest_id]
         payload = read_yaml(path)
         if payload.get("schema_version") != "work_quest_v1":
             fail(

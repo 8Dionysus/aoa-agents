@@ -774,6 +774,80 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         with self.assertRaisesRegex(validate_agents.ValidationError, "d3\\+ split rule"):
             validate_agents.validate_questbook_surface()
 
+    def test_validate_questbook_surface_accepts_valid_extra_quest_file(self) -> None:
+        self.write_valid_surface()
+        write_text(
+            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            "\n".join(
+                (
+                    "schema_version: work_quest_v1",
+                    "id: AOA-AG-Q-0003",
+                    "repo: aoa-agents",
+                    "public_safe: true",
+                )
+            )
+            + "\n",
+        )
+        write_text(
+            self.questbook_path,
+            self.questbook_path.read_text(encoding="utf-8")
+            + "- `AOA-AG-Q-0003` — later additive quest\n",
+        )
+
+        validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_missing_required_foundation_file(self) -> None:
+        self.write_valid_surface()
+        (self.quests_dir / "AOA-AG-Q-0002.yaml").unlink()
+
+        with self.assertRaisesRegex(validate_agents.ValidationError, "missing: AOA-AG-Q-0002"):
+            validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_invalid_extra_file(self) -> None:
+        self.write_valid_surface()
+        write_text(
+            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            "\n".join(
+                (
+                    "schema_version: work_quest_v1",
+                    "id: AOA-AG-Q-0003",
+                    "repo: aoa-routing",
+                    "public_safe: true",
+                )
+            )
+            + "\n",
+        )
+
+        with self.assertRaisesRegex(validate_agents.ValidationError, "repo 'aoa-agents'"):
+            validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_listed_closed_extra_file(self) -> None:
+        self.write_valid_surface()
+        write_text(
+            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            "\n".join(
+                (
+                    "schema_version: work_quest_v1",
+                    "id: AOA-AG-Q-0003",
+                    "repo: aoa-agents",
+                    "state: done",
+                    "public_safe: true",
+                )
+            )
+            + "\n",
+        )
+        write_text(
+            self.questbook_path,
+            self.questbook_path.read_text(encoding="utf-8")
+            + "- `AOA-AG-Q-0003` — later additive quest\n",
+        )
+
+        with self.assertRaisesRegex(
+            validate_agents.ValidationError,
+            "QUESTBOOK.md must not list closed quest id 'AOA-AG-Q-0003'",
+        ):
+            validate_agents.validate_questbook_surface()
+
 
 if __name__ == "__main__":
     unittest.main()

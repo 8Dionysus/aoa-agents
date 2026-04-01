@@ -54,4 +54,4 @@ Together they show bounded role posture, review edges, governed self-change post
 
 ## Validation
 
-`python scripts/validate_agents.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
+Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
