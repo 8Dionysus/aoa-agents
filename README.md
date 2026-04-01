@@ -13,20 +13,21 @@ If you are new to this repository, use this path:
 
 1. Read [CHARTER](CHARTER.md) for the role and boundaries of the agent layer.
 2. Read [docs/AGENT_MODEL](docs/AGENT_MODEL.md) for the conceptual model.
-3. Read [docs/AGENT_PROFILE_SURFACE](docs/AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
-4. Read [docs/REGISTRY_SOURCE_SURFACES](docs/REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
-5. Read [docs/PUBLISHED_CONTRACT_COMPATIBILITY](docs/PUBLISHED_CONTRACT_COMPATIBILITY.md) for wire-shape and publication compatibility discipline.
-6. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
-7. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
-8. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
-9. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
-10. Read [docs/REFERENCE_ROUTE_EXAMPLES](docs/REFERENCE_ROUTE_EXAMPLES.md) for example-only route packs over the public loop.
-11. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
-12. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
-13. Read [docs/RECURRENCE_DISCIPLINE](docs/RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
-14. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
-15. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
-16. Read [ROADMAP](ROADMAP.md) for the current direction.
+3. Read [docs/AGENT_PROGRESSION_MODEL](docs/AGENT_PROGRESSION_MODEL.md) for the adjunct progression contour keyed by `agent_id`.
+4. Read [docs/AGENT_PROFILE_SURFACE](docs/AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
+5. Read [docs/REGISTRY_SOURCE_SURFACES](docs/REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
+6. Read [docs/PUBLISHED_CONTRACT_COMPATIBILITY](docs/PUBLISHED_CONTRACT_COMPATIBILITY.md) for wire-shape and publication compatibility discipline.
+7. Read [docs/AGENT_MEMORY_POSTURE](docs/AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
+8. Read [docs/MODEL_TIER_MODEL](docs/MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
+9. Read [docs/AGENT_COHORT_PATTERNS](docs/AGENT_COHORT_PATTERNS.md) for the first bounded cohort composition surface.
+10. Read [docs/AGENT_RUNTIME_SEAM](docs/AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
+11. Read [docs/REFERENCE_ROUTE_EXAMPLES](docs/REFERENCE_ROUTE_EXAMPLES.md) for example-only route packs over the public loop.
+12. Read [docs/FEDERATION_CONSUMER_SEAMS](docs/FEDERATION_CONSUMER_SEAMS.md) for the current bounded cross-repo consumer seams.
+13. Read [docs/RUNTIME_ARTIFACT_TRANSITIONS](docs/RUNTIME_ARTIFACT_TRANSITIONS.md) for artifact coverage and transition discipline.
+14. Read [docs/RECURRENCE_DISCIPLINE](docs/RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
+15. Read [docs/SELF_AGENT_CHECKPOINT_STACK](docs/SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+16. Read [docs/BOUNDARIES](docs/BOUNDARIES.md) for ownership rules.
+17. Read [ROADMAP](ROADMAP.md) for the current direction.
 
 ## What this repository is for
 
@@ -95,6 +96,11 @@ It also includes public contract schemas for bounded runtime-facing artifacts at
 - `schemas/artifact.transition_decision.schema.json`
 - `schemas/artifact.deep_synthesis_note.schema.json`
 - `schemas/artifact.distillation_pack.schema.json`
+
+It also includes adjunct progression reflection surfaces at:
+- `docs/AGENT_PROGRESSION_MODEL.md`
+- `schemas/agent_progression.schema.json`
+- `examples/agent_progression.example.json`
 
 It also includes inspectable runtime seam surfaces at:
 - `examples/runtime_artifacts/*.example.json`

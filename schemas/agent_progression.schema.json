@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://8dionysus.github.io/schemas/agent_progression_v1.schema.json",
+  "title": "agent_progression_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_id",
+    "rank",
+    "mastery_axes",
+    "unlocks",
+    "evidence_refs",
+    "reviewed_at",
+    "public_safe"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "agent_progression_v1"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "initiate",
+        "adept",
+        "specialist",
+        "veteran",
+        "master"
+      ]
+    },
+    "mastery_axes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boundary_integrity",
+        "execution_reliability",
+        "change_legibility",
+        "review_sharpness",
+        "proof_discipline",
+        "provenance_hygiene",
+        "deep_readiness"
+      ],
+      "properties": {
+        "boundary_integrity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "execution_reliability": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "change_legibility": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "review_sharpness": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proof_discipline": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "provenance_hygiene": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deep_readiness": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "unlocks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "difficulty_ceiling",
+        "risk_ceiling",
+        "tier_ids",
+        "cohort_patterns",
+        "skill_families",
+        "authority_rights"
+      ],
+      "properties": {
+        "difficulty_ceiling": {
+          "type": "string",
+          "enum": [
+            "d0_probe",
+            "d1_patch",
+            "d2_slice",
+            "d3_seam",
+            "d4_architecture",
+            "d5_doctrine"
+          ]
+        },
+        "risk_ceiling": {
+          "type": "string",
+          "enum": [
+            "r0_readonly",
+            "r1_repo_local",
+            "r2_contract",
+            "r3_side_effect"
+          ]
+        },
+        "tier_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "router",
+              "planner",
+              "executor",
+              "verifier",
+              "conductor",
+              "deep",
+              "archivist"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "cohort_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "skill_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "authority_rights": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "nominate",
+              "confirm",
+              "promote",
+              "demote",
+              "retire",
+              "rescue",
+              "open_cross_repo_route"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "public_safe": {
+      "type": "boolean"
+    }
+  }
+}

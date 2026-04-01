@@ -8,7 +8,7 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 
 ## Near
 
-- none yet
+- `AOA-AG-Q-0003` — define an adjunct agent progression contract keyed by agent ID
 
 ## Blocked / reanchor
 

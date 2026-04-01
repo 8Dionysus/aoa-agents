@@ -1,0 +1,42 @@
+{
+  "schema_version": "agent_progression_v1",
+  "agent_id": "AOA-A-EXAMPLE-CODER",
+  "role_ref": "coder",
+  "rank": "adept",
+  "mastery_axes": {
+    "boundary_integrity": 4,
+    "execution_reliability": 7,
+    "change_legibility": 5,
+    "review_sharpness": 3,
+    "proof_discipline": 4,
+    "provenance_hygiene": 4,
+    "deep_readiness": 1
+  },
+  "unlocks": {
+    "difficulty_ceiling": "d2_slice",
+    "risk_ceiling": "r1_repo_local",
+    "tier_ids": [
+      "executor",
+      "verifier"
+    ],
+    "cohort_patterns": [
+      "solo",
+      "pair"
+    ],
+    "skill_families": [
+      "change-protocol",
+      "verification-loop"
+    ],
+    "authority_rights": [
+      "nominate"
+    ]
+  },
+  "evidence_refs": [
+    "quest:AOA-SK-Q-0003",
+    "eval:AOA-EV-PROG-0001",
+    "memo:AOA-MEM-CHRON-EXAMPLE-0001"
+  ],
+  "notes": "Example only. Progression stays adjunct, multi-axis, and evidence-backed.",
+  "reviewed_at": "2026-04-01",
+  "public_safe": true
+}
