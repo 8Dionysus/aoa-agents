@@ -152,8 +152,8 @@ It does not consume cohort patterns in this slice.
 
 ## Optional smoke-check posture
 
-When the corresponding roots are supplied, `python scripts/validate_agents.py`
-may smoke-check:
+After `python -m pip install -r requirements-dev.txt`, `python scripts/validate_agents.py`
+may smoke-check the bounded consumer seams below when the corresponding roots are supplied:
 
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`

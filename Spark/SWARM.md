@@ -82,6 +82,7 @@ Rules:
 ## Промпт для Verifier
 ```text
 Run:
+- python -m pip install -r requirements-dev.txt
 - python scripts/validate_agents.py
 Then report:
 - commands run
@@ -101,6 +102,7 @@ Check:
 
 ## Verify
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/validate_agents.py
 ```
 

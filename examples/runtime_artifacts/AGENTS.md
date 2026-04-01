@@ -17,4 +17,4 @@ Keep coverage aligned with `docs/RUNTIME_ARTIFACT_TRANSITIONS.md` and `docs/AGEN
 
 ## Validation
 
-`python scripts/validate_agents.py`
+Run `python -m pip install -r requirements-dev.txt`, then `python scripts/validate_agents.py`.

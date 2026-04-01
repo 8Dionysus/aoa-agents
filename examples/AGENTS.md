@@ -19,4 +19,4 @@ Do not store real run history, secrets, or hidden transport assumptions.
 
 ## Validation
 
-`python scripts/validate_agents.py` validates example alignment and negative fixtures.
+Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates example alignment and negative fixtures.

@@ -115,11 +115,12 @@ It also includes example-only reference route surfaces at:
 To validate the current agent-layer surface locally, run:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 
-Validation is self-contained by default.
+Validation stays repo-relative after the documented dev dependencies in `requirements-dev.txt` are installed.
 
 Optional bounded consumer smoke checks may be enabled by setting:
 - `AOA_PLAYBOOKS_ROOT`

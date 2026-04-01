@@ -24,4 +24,4 @@ Use only already-published artifact schemas.
 
 ## Validation
 
-`python scripts/validate_agents.py`
+Run `python -m pip install -r requirements-dev.txt`, then `python scripts/validate_agents.py`.
