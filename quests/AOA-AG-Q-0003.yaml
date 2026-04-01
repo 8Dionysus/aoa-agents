@@ -1,0 +1,49 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0003
+title: Define an adjunct agent progression contract keyed by agent ID
+summary: Add a bounded progression overlay for mastery axes, rank posture, and unlock posture without mutating the source-authored profile surface.
+repo: aoa-agents
+owner_surface: agent-layer/progression
+theme_ref: ''
+milestone_ref: ''
+kind: support
+state: captured
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: conductor
+wrapper_class: hybrid
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on: []
+activation:
+  mode: manual
+  note: open when the first bounded progression slice is ready to land
+anchor_ref:
+  artifact: agent_progression_model
+  ref: docs/AGENT_PROGRESSION_MODEL.md
+  note: progression must stay adjunct to the source profile surface
+handoff_role: agent-layer-maintainer
+evidence:
+  - progression stays keyed by agent ID instead of profile mutation
+  - mastery is multi-axis rather than a universal score
+  - unlock posture is explicit and reviewable
+harvest:
+  target: agent_contract
+opened_at: '2026-04-01'
+touched_at: '2026-04-01'
+tags:
+  - progression
+  - agent-contract
+  - mastery
+notes: >
+  This quest should not widen `agent-profile.schema.json` with volatile RPG fields. Keep progression as a separate reviewed surface.
+public_safe: true
