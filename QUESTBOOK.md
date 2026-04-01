@@ -4,7 +4,6 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 
 ## Frontier
 
-- `AOA-AG-Q-0001` — publish the quest execution passport
 - `AOA-AG-Q-0002` — define the local-wrapper allowance matrix for leaf quests
 
 ## Near

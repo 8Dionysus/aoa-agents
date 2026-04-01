@@ -253,6 +253,7 @@ ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
 ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory_capsules.json"
 ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
 REQUIRED_QUEST_IDS = ("AOA-AG-Q-0001", "AOA-AG-Q-0002")
+CLOSED_QUEST_STATES = {"done", "dropped"}
 REQUIRED_QUEST_PASSPORT_SNIPPETS = (
     "## Difficulty ladder",
     "## Risk ladder",
@@ -1597,6 +1598,8 @@ def validate_questbook_surface() -> None:
         joined = "; ".join(details) if details else "unexpected quest set"
         fail(f"agent-layer quest set must match expected foundation quests ({joined})")
 
+    active_quest_ids: list[str] = []
+    closed_quest_ids: list[str] = []
     for quest_id in REQUIRED_QUEST_IDS:
         path = QUESTS_DIR / f"{quest_id}.yaml"
         payload = read_yaml(path)
@@ -1614,8 +1617,17 @@ def validate_questbook_surface() -> None:
             )
         if payload.get("public_safe") is not True:
             fail(f"{describe_path(path)} must set public_safe: true")
+        if payload.get("state") in CLOSED_QUEST_STATES:
+            closed_quest_ids.append(quest_id)
+        else:
+            active_quest_ids.append(quest_id)
+
+    for quest_id in active_quest_ids:
         if quest_id not in questbook_text:
-            fail(f"QUESTBOOK.md must reference quest id '{quest_id}'")
+            fail(f"QUESTBOOK.md must reference active quest id '{quest_id}'")
+    for quest_id in closed_quest_ids:
+        if quest_id in questbook_text:
+            fail(f"QUESTBOOK.md must not list closed quest id '{quest_id}'")
 
     for snippet in REQUIRED_QUEST_PASSPORT_SNIPPETS:
         if snippet not in passport_text:
