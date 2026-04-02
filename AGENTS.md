@@ -4,24 +4,21 @@ Guidance for coding agents and humans contributing to `aoa-agents`.
 
 ## Purpose
 
-`aoa-agents` is the role and persona layer of AoA.
-
-It stores explicit agent profiles, role contracts, handoff posture, memory posture, evaluation posture, and other bounded definitions of who an agent is and how it should operate across neighboring AoA layers.
+`aoa-agents` is the role and persona layer of AoA. It stores explicit agent profiles, role contracts, handoff posture, memory posture, evaluation posture, model-tier surfaces, and bounded cohort composition hints.
 
 This repository is for role-bearing agent identity and posture, not for skills, proofs, routing, or scenario composition.
-Composition hints are allowed here, but scenario composition, routing logic, memory-object meaning, and eval doctrine stay outside this repository.
 
 ## Owns
 
 This repository is the source of truth for:
 
-- agent profile structure
-- role-contract wording
+- agent profile structure and wording
+- role contracts
 - handoff posture
 - memory posture at the agent layer
 - evaluation posture at the agent layer
-- bounded cohort composition hints
-- registry or catalog surfaces that describe agent roles
+- model-tier and bounded cohort composition surfaces
+- generated registries and published agent-layer consumer seams
 
 ## Does not own
 
@@ -35,61 +32,36 @@ Do not treat this repository as the source of truth for:
 - higher-level scenario composition in `aoa-playbooks`
 - derived knowledge substrate semantics in `aoa-kag`
 
-An agent may point to these layers.
-It does not replace them.
+An agent may point to these layers. It does not replace them.
 
 ## Core rule
 
 An agent is not a skill.
 
-A role contract may prefer certain skills, memory posture, and evaluation posture, but it should not absorb those adjacent layers into a single blurry object.
-
-If the task requires workflow meaning, proof meaning, or memory-object meaning, route to the canonical neighboring repository instead of rewriting it here.
+A role contract may prefer certain skills, memory posture, and evaluation posture, but it should not absorb those adjacent layers into one blurry object.
 
 ## Read this first
 
 Before making changes, read in this order:
 
 1. `README.md`
-2. any role-contract or profile-schema docs referenced by the README
-3. the target source file you plan to edit
-4. any generated agent registry or capsule surfaces affected by the task
-5. neighboring repo docs if the task touches skills, memo, evals, or playbooks
+2. `CHARTER.md`
+3. `docs/BOUNDARIES.md`
+4. the target source file you plan to edit
+5. any generated registries or published surfaces affected by the task
+6. neighboring repo docs if the task touches skills, memo, evals, playbooks, or routing
+
+If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 
 ## Primary objects
 
 The most important objects in this repository are:
 
-- agent profiles
-- role contracts
-- handoff rules
-- memory posture surfaces
-- evaluation posture surfaces
-- cohort composition surfaces
-- generated agent catalogs or registry outputs
-
-## Allowed changes
-
-Safe, normal contributions include:
-
-- refining a role contract
-- tightening handoff wording
-- clarifying memory posture
-- clarifying evaluation posture
-- refining bounded cohort composition hints
-- fixing metadata drift between source files and generated outputs
-- adding a new bounded agent profile when it clearly belongs to the role/persona layer
-
-## Changes requiring extra care
-
-Use extra caution when:
-
-- changing profile names or identifiers
-- changing contract fields that other layers may reference
-- changing generated registry shape
-- changing role boundaries
-- changing handoff rules in ways that affect neighboring repos
-- adding role language that implies skills, playbooks, or proof doctrine are owned here
+- canonical profiles under `profiles/`
+- model-tier, cohort-pattern, and runtime-seam source files
+- schemas for published contracts and runtime-facing artifacts
+- generated registries and seam outputs under `generated/`
+- role, memory, progression, recurrence, and consumer-seam docs under `docs/`
 
 ## Hard NO
 
@@ -102,115 +74,53 @@ Do not:
 - store secrets, tokens, or private infrastructure details
 - introduce vague persona prose with no operational contract
 
-Do not let role identity become an excuse for unclear authority or unclear handoff.
-
-## Agent doctrine
-
-A good agent-layer change should make it easier to answer:
-
-- who this agent is
-- what role boundaries it carries
-- what it should hand off
-- how it uses memory
-- how it should be evaluated
-- which neighboring layers define the concrete work it performs
-
-A bad change usually makes the agent more mythic, more total, less bounded, or more entangled with adjacent layers than it should be.
-
-## Public hygiene
-
-Assume everything here is public, inspectable, and challengeable.
-
-Write for portability:
-
-- keep role scope explicit
-- keep handoff boundaries explicit
-- keep memory posture distinct from memory objects
-- keep evaluation posture distinct from eval doctrine
-- avoid secret operational assumptions
-- sanitize examples
-
-## Default editing posture
-
-Prefer the smallest reviewable change.
-
-Preserve canonical wording unless the task explicitly requires semantic change.
-If semantic change is made, report it explicitly.
+Do not let role identity become an excuse for unclear authority, unclear handoff, or mythic prose.
 
 ## Contribution doctrine
 
-Use this flow:
-
-`PLAN -> DIFF -> VERIFY -> REPORT`
+Use this flow: `PLAN -> DIFF -> VERIFY -> REPORT`
 
 ### PLAN
 
 State:
 
-- what agent profile or role surface is changing
-- what boundary or handoff risk exists
-- what neighboring layers may be affected
-- whether the change is semantic or metadata-only
+- which profile, contract, schema, or published surface is changing
+- whether role boundaries, handoff rules, memory posture, or evaluation posture are changing
+- whether any published registries or consumer seams will change
+- what cross-repo boundary risk exists
 
 ### DIFF
 
-Keep the change focused.
-
-Do not mix unrelated cleanup into an agent-layer change unless it is necessary for repository integrity.
+Keep the change focused. Preserve bounded role semantics and published contract clarity. Do not mix unrelated cleanup into a role change unless it is necessary for repository integrity.
 
 ### VERIFY
 
+Minimum validation for source or generated-surface changes:
+
+```bash
+python scripts/build_published_surfaces.py
+python scripts/validate_agents.py
+```
+
 Confirm that:
 
-- the role remains bounded
-- handoff posture remains coherent
-- memory posture remains distinct from memory objects
-- evaluation posture remains distinct from eval doctrine
-- cohort composition hints remain distinct from scenario composition
-- generated outputs remain aligned if metadata surfaces changed
+- role boundaries remain explicit
+- handoff stays legible
+- memory and evaluation posture remain named rather than implied
+- no neighboring layer meaning was silently pulled into this repo
 
 ### REPORT
 
 Summarize:
 
-- what profiles or contracts changed
-- whether semantics changed or only metadata changed
-- whether handoff, memory posture, or evaluation posture changed
-- what validation was run
-- any neighboring repo follow-up likely needed
+- what changed
+- whether meaning changed or only docs, metadata, schemas, or generated surfaces changed
+- whether role boundaries, handoff rules, or published consumer seams changed
+- what validation you actually ran
+- any remaining follow-up work
 
 ## Validation
 
-Run the validation commands documented in `README.md`.
-
-If catalogs, capsules, or other generated agent surfaces changed, regenerate and validate them before finishing.
-
 Do not claim checks you did not run.
 
-## Cross-repo neighbors
-
-Use these neighboring repositories when the task crosses boundaries:
-
-- `aoa-skills` for bounded execution workflows
-- `aoa-memo` for explicit memory objects
-- `aoa-evals` for proof surfaces
-- `aoa-playbooks` for higher-level scenario composition
-- `aoa-routing` for smallest-next-object navigation
-- `Agents-of-Abyss` for ecosystem-level map and boundary doctrine
-
-## Output expectations
-
-When reporting back after a change, include:
-
-- which agent profiles or contracts changed
-- whether semantics changed or only metadata changed
-- whether handoff, memory posture, or evaluation posture changed
-- whether generated outputs changed
-- what validation was run
-- any neighboring repo follow-up likely needed
-
-## Default editing posture
-
-Prefer the smallest reviewable change.
-Preserve canonical wording unless the task explicitly requires semantic change.
-If semantic change is made, report it explicitly.
+When federated reachability matters, use the documented `AOA_*_ROOT` variables to enable the optional consumer smoke checks against sibling repositories.
