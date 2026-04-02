@@ -10,22 +10,24 @@ An agent is not a skill. A skill is a bounded workflow. An agent is a role-beari
 
 Use the shortest route by need:
 
+- docs map: `docs/README.md`
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
-- model-tier orchestration contour: `docs/MODEL_TIER_MODEL.md`
-- runtime seam and consumer handoff: `docs/AGENT_RUNTIME_SEAM.md` and `docs/FEDERATION_CONSUMER_SEAMS.md`
+- model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
+- runtime seam, consumer handoff, and transition posture: `docs/AGENT_RUNTIME_SEAM.md`, `docs/FEDERATION_CONSUMER_SEAMS.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
 - ownership rules and current direction: `docs/BOUNDARIES.md` and `ROADMAP.md`
 
 ## Route by need
 
 - canonical profiles and schemas: `profiles/*.profile.json` and `schemas/agent-profile.schema.json`
 - model tiers and bounded cohort composition: `model_tiers/*.tier.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, and `generated/cohort_composition_registry.json`
+- published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
 - runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - progression, recurrence, and self-agent surfaces: `docs/AGENT_PROGRESSION_MODEL.md`, `docs/RECURRENCE_DISCIPLINE.md`, and `docs/SELF_AGENT_CHECKPOINT_STACK.md`
-- example-only reference routes and transition surfaces: `docs/REFERENCE_ROUTE_EXAMPLES.md` and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
+- example and bounded smoke surfaces: `examples/runtime_artifacts/*`, `examples/self_agent_checkpoint/*`, `docs/REFERENCE_ROUTE_EXAMPLES.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
 
 ## What this repository is for
 
