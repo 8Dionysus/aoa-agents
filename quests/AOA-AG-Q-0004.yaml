@@ -1,0 +1,60 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0004
+title: Publish the router orchestrator class contract and capsule posture
+summary: Birth the router orchestrator class as a source-authored capsule contract without letting quest metadata define router identity.
+repo: aoa-agents
+owner_surface: docs/ORCHESTRATOR_CLASS_MODEL.md
+theme_ref: ''
+milestone_ref: ''
+kind: doctrine
+state: ready
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: conductor
+wrapper_class: hybrid
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 1
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-AG-Q-0001
+activation:
+  mode: on_review_of
+  ref: AOA-AG-Q-0001
+anchor_ref:
+  artifact: orchestrator_class_model
+  ref: docs/ORCHESTRATOR_CLASS_MODEL.md
+handoff_role: agent-layer-maintainer
+orchestrator_class_ref: aoa-agents:router
+capability_target: repo_layer_selection
+playbook_family_refs:
+  - repo:aoa-playbooks/generated/playbook_activation_surfaces.min.json
+  - repo:aoa-playbooks/generated/playbook_federation_surfaces.min.json
+proof_surface_refs:
+  - repo:aoa-evals/generated/quest_dispatch.min.json
+  - repo:aoa-evals/docs/QUESTBOOK_EVAL_INTEGRATION.md
+memory_surface_refs:
+  - repo:aoa-memo/generated/memory_object_catalog.min.json
+  - repo:aoa-memo/docs/QUEST_EVIDENCE_WRITEBACK.md
+evidence:
+  - router class identity is source-authored in aoa-agents
+  - read order and forbidden surfaces are explicit
+  - quests may point at router but do not define router identity
+harvest:
+  target: agent_contract
+opened_at: '2026-04-03'
+touched_at: '2026-04-03'
+tags:
+  - orchestrators
+  - router
+  - capsules
+notes: >
+  Keep router compact and boundary-first. It chooses repo, layer, source-of-truth, and next read set without claiming mutation authority.
+public_safe: true

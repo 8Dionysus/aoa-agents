@@ -6,7 +6,11 @@ import importlib.util
 import os
 import re
 import sys
+from functools import lru_cache
 from pathlib import Path
+from typing import Any
+
+from jsonschema import Draft202012Validator
 
 try:
     import yaml
@@ -16,16 +20,30 @@ except ModuleNotFoundError:
 from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
 from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
 from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
+from orchestrator_class_registry import (
+    ORCHESTRATOR_CLASS_ORDER,
+    ORCHESTRATOR_CLASSES_DIR,
+    build_orchestrator_class_capsules_payload,
+    build_orchestrator_class_catalog_payload,
+    build_orchestrator_class_sections_payload,
+    load_orchestrator_classes,
+)
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 PROFILE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-profile.schema.json"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
 MODEL_TIER_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier.schema.json"
+ORCHESTRATOR_CLASS_SCHEMA_PATH = REPO_ROOT / "schemas" / "orchestrator-class.schema.json"
+ORCHESTRATOR_CLASS_MODEL_PATH = REPO_ROOT / "docs" / "ORCHESTRATOR_CLASS_MODEL.md"
+ORCHESTRATOR_CLASS_CATALOG_PATH = REPO_ROOT / "generated" / "orchestrator_class_catalog.min.json"
+ORCHESTRATOR_CLASS_CAPSULES_PATH = REPO_ROOT / "generated" / "orchestrator_class_capsules.json"
+ORCHESTRATOR_CLASS_SECTIONS_PATH = REPO_ROOT / "generated" / "orchestrator_class_sections.full.json"
 COHORT_COMPOSITION_REGISTRY_PATH = REPO_ROOT / "generated" / "cohort_composition_registry.json"
 COHORT_COMPOSITION_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-composition-registry.schema.json"
 COHORT_PATTERN_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-pattern.schema.json"
@@ -47,6 +65,12 @@ ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_
 QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
 QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "docs" / "QUEST_EXECUTION_PASSPORT.md"
 QUESTS_DIR = REPO_ROOT / "quests"
+QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
+QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
+QUEST_DISPATCH_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.json"
+QUEST_DISPATCH_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.example.json"
+EXTERNAL_QUEST_SCHEMA_PATH = AOA_EVALS_ROOT / "schemas" / "quest.schema.json"
+EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH = AOA_EVALS_ROOT / "schemas" / "quest_dispatch.schema.json"
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
     "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
@@ -65,6 +89,7 @@ ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", 
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
+REQUIRED_ORCHESTRATOR_CLASSES = {"router", "review", "bounded_execution"}
 REQUIRED_COHORT_PATTERNS = {"solo", "pair", "checkpoint_cohort", "orchestrated_loop", "alpha_curated"}
 ALLOWED_TIER_MEMORY_SCOPE = {
     "core",
@@ -101,6 +126,56 @@ PUBLISHED_MODEL_TIER_REGISTRY_ITEM_KEYS = (
     "artifact_requirement",
     "activation_conditions",
 )
+PUBLISHED_ORCHESTRATOR_CLASS_CATALOG_TOP_LEVEL_KEYS = (
+    "catalog_version",
+    "layer",
+    "family",
+    "orchestrator_classes",
+)
+PUBLISHED_ORCHESTRATOR_CLASS_CATALOG_ITEM_KEYS = (
+    "id",
+    "name",
+    "status",
+    "summary",
+    "primary_goal",
+    "allowed_owner_layers",
+    "source_path",
+    "inspect_key",
+    "expand_key",
+)
+PUBLISHED_ORCHESTRATOR_CLASS_CAPSULES_TOP_LEVEL_KEYS = (
+    "capsule_version",
+    "layer",
+    "family",
+    "orchestrator_classes",
+)
+PUBLISHED_ORCHESTRATOR_CLASS_CAPSULE_ITEM_KEYS = (
+    "id",
+    "name",
+    "status",
+    "summary",
+    "primary_goal",
+    "read_order",
+    "required_surfaces",
+    "forbidden_surfaces",
+    "expected_outputs",
+    "verify_refs",
+    "boundary_note",
+    "source_path",
+)
+PUBLISHED_ORCHESTRATOR_CLASS_SECTIONS_TOP_LEVEL_KEYS = (
+    "sections_version",
+    "layer",
+    "family",
+    "orchestrator_classes",
+)
+PUBLISHED_ORCHESTRATOR_CLASS_SECTION_ITEM_KEYS = (
+    "id",
+    "name",
+    "status",
+    "source_path",
+    "sections",
+)
 PUBLISHED_COHORT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "cohort_patterns")
 PUBLISHED_COHORT_REGISTRY_ITEM_KEYS = (
     "id",
@@ -120,6 +195,7 @@ PUBLISHED_RUNTIME_SEAM_ITEM_KEYS = (
     "artifact_type",
 )
 PUBLISHED_MODEL_TIER_ORDER = ("router", "planner", "executor", "verifier", "conductor", "deep", "archivist")
+PUBLISHED_ORCHESTRATOR_CLASS_ORDER = ORCHESTRATOR_CLASS_ORDER
 PUBLISHED_COHORT_PATTERN_ORDER = ("solo", "pair", "checkpoint_cohort", "orchestrated_loop", "alpha_curated")
 EXPECTED_INVALID_FIXTURES = {
     "route_decision.wrong_artifact_type.json": ("route_decision", "wrong_artifact_type"),
@@ -161,11 +237,24 @@ REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS = (
 )
 REQUIRED_REGISTRY_SOURCE_SURFACE_SNIPPETS = (
     "- `model_tiers/*.tier.json`",
+    "- `orchestrator_classes/*.class.json`",
     "- `cohort_patterns/*.pattern.json`",
     "- `runtime_seam/*.binding.json`",
     "- `generated/model_tier_registry.json`",
+    "- `generated/orchestrator_class_catalog.min.json`",
+    "- `generated/orchestrator_class_capsules.json`",
+    "- `generated/orchestrator_class_sections.full.json`",
     "- `generated/cohort_composition_registry.json`",
     "- `generated/runtime_seam_bindings.json`",
+)
+REQUIRED_ORCHESTRATOR_CLASS_DOC_SNIPPETS = (
+    "Orchestrator class identity lives in `aoa-agents`, not in quests.",
+    "inspect/catalog",
+    "capsule",
+    "expand",
+    "### `router`",
+    "### `review`",
+    "### `bounded_execution`",
 )
 REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS = (
     "compatibility discipline for published `aoa-agents` contract surfaces",
@@ -279,7 +368,17 @@ ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
 ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
 ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory_capsules.json"
 ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
-REQUIRED_QUEST_IDS = ("AOA-AG-Q-0001", "AOA-AG-Q-0002")
+ALLOWED_QUEST_CAPABILITY_TARGETS = {
+    "repo_layer_selection",
+    "evidence_closure",
+    "bounded_next_step",
+}
+REQUIRED_QUEST_IDS = ("AOA-AG-Q-0001", "AOA-AG-Q-0002", "AOA-AG-Q-0004", "AOA-AG-Q-0005", "AOA-AG-Q-0006")
+REQUIRED_ORCHESTRATOR_FOUNDATION_QUESTS = {
+    "AOA-AG-Q-0004": ("aoa-agents:router", "repo_layer_selection"),
+    "AOA-AG-Q-0005": ("aoa-agents:review", "evidence_closure"),
+    "AOA-AG-Q-0006": ("aoa-agents:bounded_execution", "bounded_next_step"),
+}
 CLOSED_QUEST_STATES = {"done", "dropped"}
 REQUIRED_QUEST_PASSPORT_SNIPPETS = (
     "## Difficulty ladder",
@@ -343,6 +442,191 @@ def read_yaml(path: Path, *, root: Path = REPO_ROOT) -> dict[str, object]:
         fail(f"{describe_path(path, root=root)} must contain a YAML object")
 
     return payload
+
+
+def format_schema_path(path_parts: list[object]) -> str:
+    parts: list[str] = []
+    for part in path_parts:
+        if isinstance(part, int):
+            parts.append(f"[{part}]")
+        else:
+            if parts:
+                parts.append(f".{part}")
+            else:
+                parts.append(str(part))
+    return "".join(parts)
+
+
+@lru_cache(maxsize=None)
+def external_schema_validator(schema_path: Path) -> Draft202012Validator:
+    schema = read_json(schema_path, root=AOA_EVALS_ROOT)
+    if not isinstance(schema, dict):
+        fail(f"{describe_path(schema_path, root=AOA_EVALS_ROOT)} must remain a JSON object")
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema)
+
+
+def validate_against_external_schema(data: object, schema_path: Path, *, location: str) -> None:
+    validator = external_schema_validator(schema_path)
+    errors = sorted(
+        validator.iter_errors(data),
+        key=lambda error: (list(error.absolute_path), error.message),
+    )
+    if not errors:
+        return
+    first = errors[0]
+    error_path = format_schema_path(list(first.absolute_path))
+    if error_path:
+        fail(f"{location} schema violation at '{error_path}': {first.message}")
+    fail(f"{location} schema violation: {first.message}")
+
+
+def quest_sort_key(quest_id: str) -> tuple[int, str]:
+    suffix = quest_id.rsplit("-", 1)[-1]
+    try:
+        return (int(suffix), quest_id)
+    except ValueError:
+        return (sys.maxsize, quest_id)
+
+
+@lru_cache(maxsize=None)
+def load_live_quest_orchestrator_refs() -> set[str]:
+    payload = read_json(ORCHESTRATOR_CLASS_CATALOG_PATH)
+    if not isinstance(payload, dict):
+        fail("generated/orchestrator_class_catalog.min.json must be a JSON object")
+    items = payload.get("orchestrator_classes")
+    if not isinstance(items, list):
+        fail("generated/orchestrator_class_catalog.min.json must expose orchestrator_classes")
+    refs: set[str] = set()
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            fail(
+                "generated/orchestrator_class_catalog.min.json "
+                f"orchestrator_classes[{index}] must be an object"
+            )
+        class_id = item.get("id")
+        if not isinstance(class_id, str) or not class_id:
+            fail(
+                "generated/orchestrator_class_catalog.min.json "
+                f"orchestrator_classes[{index}] must expose a string id"
+            )
+        refs.add(f"aoa-agents:{class_id}")
+    return refs
+
+
+def validate_quest_orchestrator_ref(orchestrator_class_ref: object, *, location: str) -> None:
+    if not isinstance(orchestrator_class_ref, str):
+        fail(f"{location}.orchestrator_class_ref must be a string")
+    repo_name, separator, class_id = orchestrator_class_ref.partition(":")
+    if separator != ":" or repo_name != "aoa-agents" or not class_id:
+        fail(f"{location}.orchestrator_class_ref must use the form 'aoa-agents:<class_id>'")
+    if orchestrator_class_ref not in load_live_quest_orchestrator_refs():
+        fail(
+            f"{location}.orchestrator_class_ref must resolve in "
+            "generated/orchestrator_class_catalog.min.json"
+        )
+
+
+def build_expected_quest_catalog_entry(
+    quest: dict[str, Any], *, source_path: str
+) -> dict[str, Any]:
+    entry = {
+        "id": quest["id"],
+        "title": quest["title"],
+        "repo": quest["repo"],
+        "theme_ref": quest.get("theme_ref", ""),
+        "milestone_ref": quest.get("milestone_ref", ""),
+        "state": quest["state"],
+        "band": quest["band"],
+        "kind": quest["kind"],
+        "difficulty": quest["difficulty"],
+        "risk": quest["risk"],
+        "owner_surface": quest["owner_surface"],
+        "source_path": source_path,
+        "public_safe": quest["public_safe"],
+    }
+    for optional_key in (
+        "orchestrator_class_ref",
+        "capability_target",
+        "playbook_family_refs",
+        "proof_surface_refs",
+        "memory_surface_refs",
+    ):
+        if optional_key in quest:
+            entry[optional_key] = quest[optional_key]
+    return entry
+
+
+def build_expected_quest_dispatch_entry(
+    quest: dict[str, Any], *, source_path: str
+) -> dict[str, Any]:
+    activation = quest.get("activation")
+    if not isinstance(activation, dict):
+        activation = {}
+    requires_artifacts = ["recurrence_evidence", "promotion_decision"] if quest.get("kind") == "harvest" else [
+        "bounded_plan",
+        "work_result",
+        "verification_result",
+    ]
+    entry = {
+        "schema_version": "quest_dispatch_v1",
+        "id": quest["id"],
+        "repo": quest["repo"],
+        "state": quest["state"],
+        "band": quest["band"],
+        "difficulty": quest["difficulty"],
+        "risk": quest["risk"],
+        "control_mode": quest["control_mode"],
+        "delegate_tier": quest["delegate_tier"],
+        "split_required": quest["split_required"],
+        "write_scope": quest["write_scope"],
+        "requires_artifacts": requires_artifacts,
+        "activation_mode": activation.get("mode"),
+        "source_path": source_path,
+        "public_safe": quest["public_safe"],
+    }
+    if "fallback_tier" in quest:
+        entry["fallback_tier"] = quest.get("fallback_tier")
+    if "wrapper_class" in quest:
+        entry["wrapper_class"] = quest.get("wrapper_class")
+    for optional_key in ("orchestrator_class_ref", "capability_target"):
+        if optional_key in quest:
+            entry[optional_key] = quest.get(optional_key)
+    return entry
+
+
+def build_quest_catalog_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    for quest_id in sorted(
+        (path.stem for path in (repo_root / "quests").glob("AOA-AG-Q-*.yaml") if path.is_file()),
+        key=quest_sort_key,
+    ):
+        path = repo_root / "quests" / f"{quest_id}.yaml"
+        payload = read_yaml(path, root=repo_root)
+        entries.append(
+            build_expected_quest_catalog_entry(
+                payload,
+                source_path=path.relative_to(repo_root).as_posix(),
+            )
+        )
+    return entries
+
+
+def build_quest_dispatch_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    for quest_id in sorted(
+        (path.stem for path in (repo_root / "quests").glob("AOA-AG-Q-*.yaml") if path.is_file()),
+        key=quest_sort_key,
+    ):
+        path = repo_root / "quests" / f"{quest_id}.yaml"
+        payload = read_yaml(path, root=repo_root)
+        entries.append(
+            build_expected_quest_dispatch_entry(
+                payload,
+                source_path=path.relative_to(repo_root).as_posix(),
+            )
+        )
+    return entries
 
 
 def fail_schema(message: str, *, code: str | None = None) -> None:
@@ -446,6 +730,10 @@ def validate_model_tier_schema_surface() -> None:
 
 def validate_model_tier_item_schema_surface() -> None:
     validate_json_schema_surface(MODEL_TIER_ITEM_SCHEMA_PATH, "model-tier item schema")
+
+
+def validate_orchestrator_class_schema_surface() -> None:
+    validate_json_schema_surface(ORCHESTRATOR_CLASS_SCHEMA_PATH, "orchestrator-class schema")
 
 
 def validate_agent_profile_schema_surface() -> None:
@@ -1336,6 +1624,58 @@ def validate_model_tier_sources() -> list[dict[str, object]]:
     return tiers
 
 
+def validate_orchestrator_class_sources() -> list[dict[str, object]]:
+    schema = read_json(ORCHESTRATOR_CLASS_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("orchestrator-class schema must remain a JSON object")
+
+    try:
+        classes = load_orchestrator_classes()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not classes:
+        fail("orchestrator_classes/ must contain at least one '*.class.json' file")
+
+    expected_catalog = build_orchestrator_class_catalog_payload(classes)
+    actual_catalog = read_json(ORCHESTRATOR_CLASS_CATALOG_PATH)
+    if actual_catalog != expected_catalog:
+        fail("generated/orchestrator_class_catalog.min.json drifted from orchestrator_classes/*.class.json")
+
+    expected_capsules = build_orchestrator_class_capsules_payload(classes)
+    actual_capsules = read_json(ORCHESTRATOR_CLASS_CAPSULES_PATH)
+    if actual_capsules != expected_capsules:
+        fail("generated/orchestrator_class_capsules.json drifted from orchestrator_classes/*.class.json")
+
+    expected_sections = build_orchestrator_class_sections_payload(classes)
+    actual_sections = read_json(ORCHESTRATOR_CLASS_SECTIONS_PATH)
+    if actual_sections != expected_sections:
+        fail("generated/orchestrator_class_sections.full.json drifted from orchestrator_classes/*.class.json")
+
+    seen_ids: set[str] = set()
+    for index, payload in enumerate(classes):
+        location = f"orchestrator_classes[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        class_id = payload.get("id")
+        if not isinstance(class_id, str):
+            fail(f"{location} must expose string 'id'")
+
+        expected_class_path = ORCHESTRATOR_CLASSES_DIR / f"{class_id}.class.json"
+        if not expected_class_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_class_path)}")
+
+        if class_id in seen_ids:
+            fail(f"duplicate orchestrator class id in source layer: '{class_id}'")
+        seen_ids.add(class_id)
+
+    missing_classes = sorted(REQUIRED_ORCHESTRATOR_CLASSES - seen_ids)
+    if missing_classes:
+        fail(f"source-authored orchestrator classes are missing required ids: {', '.join(missing_classes)}")
+
+    return classes
+
+
 def validate_cohort_pattern_sources() -> list[dict[str, object]]:
     schema = read_json(COHORT_PATTERN_SCHEMA_PATH)
     if not isinstance(schema, dict):
@@ -1521,6 +1861,179 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
         order=PUBLISHED_MODEL_TIER_ORDER,
     )
     return tiers_by_id
+
+
+def validate_orchestrator_class_catalog() -> dict[str, dict[str, object]]:
+    payload = read_json(ORCHESTRATOR_CLASS_CATALOG_PATH)
+    ensure_object_key_order(
+        payload,
+        PUBLISHED_ORCHESTRATOR_CLASS_CATALOG_TOP_LEVEL_KEYS,
+        "orchestrator class catalog",
+    )
+
+    if not isinstance(payload.get("catalog_version"), int) or payload["catalog_version"] < 1:
+        fail("orchestrator class catalog 'catalog_version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("orchestrator class catalog 'layer' must equal 'aoa-agents'")
+    if payload.get("family") != "orchestrator_classes":
+        fail("orchestrator class catalog 'family' must equal 'orchestrator_classes'")
+
+    orchestrator_classes = payload.get("orchestrator_classes")
+    if not isinstance(orchestrator_classes, list) or not orchestrator_classes:
+        fail("orchestrator class catalog 'orchestrator_classes' must be a non-empty list")
+
+    seen_ids: set[str] = set()
+    classes_by_id: dict[str, dict[str, object]] = {}
+    for index, entry in enumerate(orchestrator_classes):
+        location = f"orchestrator_class_catalog[{index}]"
+        if not isinstance(entry, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(entry, PUBLISHED_ORCHESTRATOR_CLASS_CATALOG_ITEM_KEYS, location)
+        class_id = entry.get("id")
+        if not isinstance(class_id, str):
+            fail(f"{location}.id must be a string")
+        if class_id in seen_ids:
+            fail(f"duplicate orchestrator class id in catalog: '{class_id}'")
+        seen_ids.add(class_id)
+        classes_by_id[class_id] = entry
+        if entry.get("inspect_key") != class_id:
+            fail(f"{location}.inspect_key must equal '{class_id}'")
+        if entry.get("expand_key") != class_id:
+            fail(f"{location}.expand_key must equal '{class_id}'")
+        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        if entry.get("source_path") != expected_source_path:
+            fail(f"{location}.source_path must equal '{expected_source_path}'")
+        for field_name in ("name", "status", "summary", "primary_goal"):
+            value = entry.get(field_name)
+            if not isinstance(value, str) or len(value) < 3:
+                fail(f"{location}.{field_name} must be a non-empty string")
+        allowed_owner_layers = entry.get("allowed_owner_layers")
+        if not isinstance(allowed_owner_layers, list) or not allowed_owner_layers:
+            fail(f"{location}.allowed_owner_layers must be a non-empty list")
+        for owner_layer in allowed_owner_layers:
+            if not isinstance(owner_layer, str) or len(owner_layer) < 3:
+                fail(f"{location}.allowed_owner_layers contains an invalid entry")
+
+    missing_classes = sorted(REQUIRED_ORCHESTRATOR_CLASSES - seen_ids)
+    if missing_classes:
+        fail(f"orchestrator class catalog is missing required ids: {', '.join(missing_classes)}")
+
+    validate_stable_sequence_order(
+        orchestrator_classes,
+        location="orchestrator class catalog 'orchestrator_classes'",
+        label="orchestrator classes",
+        key_name="id",
+        order=PUBLISHED_ORCHESTRATOR_CLASS_ORDER,
+    )
+    return classes_by_id
+
+
+def validate_orchestrator_class_capsules(classes_by_id: dict[str, dict[str, object]]) -> None:
+    payload = read_json(ORCHESTRATOR_CLASS_CAPSULES_PATH)
+    ensure_object_key_order(
+        payload,
+        PUBLISHED_ORCHESTRATOR_CLASS_CAPSULES_TOP_LEVEL_KEYS,
+        "orchestrator class capsules",
+    )
+
+    if not isinstance(payload.get("capsule_version"), int) or payload["capsule_version"] < 1:
+        fail("orchestrator class capsules 'capsule_version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("orchestrator class capsules 'layer' must equal 'aoa-agents'")
+    if payload.get("family") != "orchestrator_classes":
+        fail("orchestrator class capsules 'family' must equal 'orchestrator_classes'")
+
+    orchestrator_classes = payload.get("orchestrator_classes")
+    if not isinstance(orchestrator_classes, list) or not orchestrator_classes:
+        fail("orchestrator class capsules 'orchestrator_classes' must be a non-empty list")
+
+    validate_stable_sequence_order(
+        orchestrator_classes,
+        location="orchestrator class capsules 'orchestrator_classes'",
+        label="orchestrator classes",
+        key_name="id",
+        order=PUBLISHED_ORCHESTRATOR_CLASS_ORDER,
+    )
+
+    for index, entry in enumerate(orchestrator_classes):
+        location = f"orchestrator_class_capsules[{index}]"
+        if not isinstance(entry, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(entry, PUBLISHED_ORCHESTRATOR_CLASS_CAPSULE_ITEM_KEYS, location)
+        class_id = entry.get("id")
+        if not isinstance(class_id, str) or class_id not in classes_by_id:
+            fail(f"{location}.id must resolve to a known orchestrator class")
+        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        if entry.get("source_path") != expected_source_path:
+            fail(f"{location}.source_path must equal '{expected_source_path}'")
+        for field_name in ("name", "status", "summary", "primary_goal", "boundary_note"):
+            value = entry.get(field_name)
+            if not isinstance(value, str) or len(value) < 3:
+                fail(f"{location}.{field_name} must be a non-empty string")
+        for array_name in ("read_order", "required_surfaces", "forbidden_surfaces", "expected_outputs", "verify_refs"):
+            value = entry.get(array_name)
+            if not isinstance(value, list) or not value:
+                fail(f"{location}.{array_name} must be a non-empty list")
+            for item in value:
+                if not isinstance(item, str) or len(item) < 3:
+                    fail(f"{location}.{array_name} contains an invalid entry")
+
+
+def validate_orchestrator_class_sections(classes_by_id: dict[str, dict[str, object]]) -> None:
+    payload = read_json(ORCHESTRATOR_CLASS_SECTIONS_PATH)
+    ensure_object_key_order(
+        payload,
+        PUBLISHED_ORCHESTRATOR_CLASS_SECTIONS_TOP_LEVEL_KEYS,
+        "orchestrator class sections",
+    )
+
+    if not isinstance(payload.get("sections_version"), int) or payload["sections_version"] < 1:
+        fail("orchestrator class sections 'sections_version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("orchestrator class sections 'layer' must equal 'aoa-agents'")
+    if payload.get("family") != "orchestrator_classes":
+        fail("orchestrator class sections 'family' must equal 'orchestrator_classes'")
+
+    orchestrator_classes = payload.get("orchestrator_classes")
+    if not isinstance(orchestrator_classes, list) or not orchestrator_classes:
+        fail("orchestrator class sections 'orchestrator_classes' must be a non-empty list")
+
+    validate_stable_sequence_order(
+        orchestrator_classes,
+        location="orchestrator class sections 'orchestrator_classes'",
+        label="orchestrator classes",
+        key_name="id",
+        order=PUBLISHED_ORCHESTRATOR_CLASS_ORDER,
+    )
+
+    for index, entry in enumerate(orchestrator_classes):
+        location = f"orchestrator_class_sections[{index}]"
+        if not isinstance(entry, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(entry, PUBLISHED_ORCHESTRATOR_CLASS_SECTION_ITEM_KEYS, location)
+        class_id = entry.get("id")
+        if not isinstance(class_id, str) or class_id not in classes_by_id:
+            fail(f"{location}.id must resolve to a known orchestrator class")
+        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        if entry.get("source_path") != expected_source_path:
+            fail(f"{location}.source_path must equal '{expected_source_path}'")
+        sections = entry.get("sections")
+        if not isinstance(sections, list) or len(sections) < 4:
+            fail(f"{location}.sections must contain the canonical four section surfaces")
+        seen_ordinals: set[int] = set()
+        for section_index, section in enumerate(sections):
+            section_location = f"{location}.sections[{section_index}]"
+            if not isinstance(section, dict):
+                fail(f"{section_location} must be an object")
+            for required_key in ("section_id", "heading", "ordinal", "summary", "body"):
+                if required_key not in section:
+                    fail(f"{section_location} is missing required key '{required_key}'")
+            ordinal = section.get("ordinal")
+            if not isinstance(ordinal, int):
+                fail(f"{section_location}.ordinal must be an integer")
+            if ordinal in seen_ordinals:
+                fail(f"{section_location}.ordinal duplicates an earlier section ordinal")
+            seen_ordinals.add(ordinal)
 
 
 def validate_cohort_composition_registry(
@@ -1756,6 +2269,7 @@ def validate_runtime_seam_doc_coherence() -> None:
 def validate_questbook_surface() -> None:
     questbook_text = read_text(QUESTBOOK_PATH)
     passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
+    quest_surface_root = QUESTS_DIR.parent
 
     quest_paths = {
         path.stem: path for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()
@@ -1768,9 +2282,12 @@ def validate_questbook_surface() -> None:
 
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
+    expected_catalog_entries: list[dict[str, Any]] = []
+    expected_dispatch_entries: list[dict[str, Any]] = []
     for quest_id in sorted(quest_paths):
         path = quest_paths[quest_id]
         payload = read_yaml(path)
+        validate_against_external_schema(payload, EXTERNAL_QUEST_SCHEMA_PATH, location=describe_path(path))
         if payload.get("schema_version") != "work_quest_v1":
             fail(
                 f"{describe_path(path)} has unsupported schema_version "
@@ -1785,10 +2302,53 @@ def validate_questbook_surface() -> None:
             )
         if payload.get("public_safe") is not True:
             fail(f"{describe_path(path)} must set public_safe: true")
+        orchestrator_class_ref = payload.get("orchestrator_class_ref")
+        capability_target = payload.get("capability_target")
+        if orchestrator_class_ref is None and capability_target is not None:
+            fail(f"{describe_path(path)} must not declare capability_target without orchestrator_class_ref")
+        if orchestrator_class_ref is not None:
+            validate_quest_orchestrator_ref(
+                orchestrator_class_ref,
+                location=describe_path(path),
+            )
+            if capability_target not in ALLOWED_QUEST_CAPABILITY_TARGETS:
+                fail(
+                    f"{describe_path(path)} must declare a supported capability_target when orchestrator_class_ref is present"
+                )
+            for field_name in ("playbook_family_refs", "proof_surface_refs", "memory_surface_refs"):
+                if field_name in payload:
+                    value = payload.get(field_name)
+                    if not isinstance(value, list) or not value:
+                        fail(f"{describe_path(path)} {field_name} must be a non-empty list when present")
+                    for item in value:
+                        if not isinstance(item, str) or len(item) < 3:
+                            fail(
+                                f"{describe_path(path)} {field_name} must contain non-empty string refs"
+                            )
+        expected_ref_pair = REQUIRED_ORCHESTRATOR_FOUNDATION_QUESTS.get(quest_id)
+        if expected_ref_pair is not None:
+            expected_ref, expected_target = expected_ref_pair
+            if payload.get("kind") != "doctrine":
+                fail(f"{describe_path(path)} must keep kind 'doctrine' for orchestrator foundation quests")
+            if payload.get("owner_surface") != "docs/ORCHESTRATOR_CLASS_MODEL.md":
+                fail(
+                    f"{describe_path(path)} must keep owner_surface docs/ORCHESTRATOR_CLASS_MODEL.md"
+                )
+            if orchestrator_class_ref != expected_ref:
+                fail(f"{describe_path(path)} must keep orchestrator_class_ref '{expected_ref}'")
+            if capability_target != expected_target:
+                fail(f"{describe_path(path)} must keep capability_target '{expected_target}'")
         if payload.get("state") in CLOSED_QUEST_STATES:
             closed_quest_ids.append(quest_id)
         else:
             active_quest_ids.append(quest_id)
+        source_path = describe_path(path, root=quest_surface_root)
+        expected_catalog_entries.append(
+            build_expected_quest_catalog_entry(payload, source_path=source_path)
+        )
+        expected_dispatch_entries.append(
+            build_expected_quest_dispatch_entry(payload, source_path=source_path)
+        )
 
     for quest_id in active_quest_ids:
         if quest_id not in questbook_text:
@@ -1802,6 +2362,47 @@ def validate_questbook_surface() -> None:
             fail(
                 "docs/QUEST_EXECUTION_PASSPORT.md must define the difficulty/risk/control "
                 "passport, wrapper classes, and the d3+ split rule"
+            )
+
+    actual_catalog = read_json(QUEST_CATALOG_PATH)
+    if actual_catalog != expected_catalog_entries:
+        fail("generated/quest_catalog.min.json is out of date or mismatched")
+    actual_catalog_example = read_json(QUEST_CATALOG_EXAMPLE_PATH)
+    if actual_catalog_example != expected_catalog_entries:
+        fail("generated/quest_catalog.min.example.json is out of date or mismatched")
+
+    actual_dispatch = read_json(QUEST_DISPATCH_PATH)
+    if not isinstance(actual_dispatch, list):
+        fail("generated/quest_dispatch.min.json must be an array")
+    for index, item in enumerate(actual_dispatch):
+        validate_against_external_schema(
+            item,
+            EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH,
+            location=f"generated/quest_dispatch.min.json[{index}]",
+        )
+    if actual_dispatch != expected_dispatch_entries:
+        fail("generated/quest_dispatch.min.json is out of date or mismatched")
+
+    actual_dispatch_example = read_json(QUEST_DISPATCH_EXAMPLE_PATH)
+    if not isinstance(actual_dispatch_example, list):
+        fail("generated/quest_dispatch.min.example.json must be an array")
+    for index, item in enumerate(actual_dispatch_example):
+        validate_against_external_schema(
+            item,
+            EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH,
+            location=f"generated/quest_dispatch.min.example.json[{index}]",
+        )
+    if actual_dispatch_example != expected_dispatch_entries:
+        fail("generated/quest_dispatch.min.example.json is out of date or mismatched")
+
+
+def validate_orchestrator_class_doc_surface() -> None:
+    orchestrator_doc = read_text(ORCHESTRATOR_CLASS_MODEL_PATH)
+    for snippet in REQUIRED_ORCHESTRATOR_CLASS_DOC_SNIPPETS:
+        if snippet not in orchestrator_doc:
+            fail(
+                "docs/ORCHESTRATOR_CLASS_MODEL.md must define the anti-confusion rule, "
+                "reader posture, and the initial router/review/bounded_execution class set"
             )
 
 
@@ -2327,6 +2928,7 @@ def main() -> int:
         validate_schema_surface()
         validate_model_tier_schema_surface()
         validate_model_tier_item_schema_surface()
+        validate_orchestrator_class_schema_surface()
         validate_agent_profile_schema_surface()
         validate_cohort_composition_schema_surface()
         validate_cohort_pattern_schema_surface()
@@ -2343,11 +2945,15 @@ def main() -> int:
         validate_negative_self_agent_checkpoint_examples()
         profiles = validate_agent_profile_sources()
         validate_model_tier_sources()
+        validate_orchestrator_class_sources()
         validate_cohort_pattern_sources()
         validate_runtime_seam_binding_sources()
         agent_names = validate_registry()
         validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
         tiers_by_id = validate_model_tier_registry()
+        orchestrator_classes_by_id = validate_orchestrator_class_catalog()
+        validate_orchestrator_class_capsules(orchestrator_classes_by_id)
+        validate_orchestrator_class_sections(orchestrator_classes_by_id)
         cohort_patterns_by_id = validate_cohort_composition_registry(agent_names, tiers_by_id)
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
@@ -2355,6 +2961,7 @@ def main() -> int:
         validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
         validate_questbook_surface()
+        validate_orchestrator_class_doc_surface()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except (NestedAgentsValidationError, ValidationError) as exc:
         print(f"[error] {exc}", file=sys.stderr)
@@ -2363,6 +2970,7 @@ def main() -> int:
     print("[ok] validated agent registry schema surface")
     print("[ok] validated model-tier registry schema surface")
     print("[ok] validated model-tier item schema surface")
+    print("[ok] validated orchestrator-class schema surface")
     print("[ok] validated agent profile schema surface")
     print("[ok] validated cohort composition schema surface")
     print("[ok] validated cohort-pattern schema surface")
@@ -2374,6 +2982,7 @@ def main() -> int:
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")
+    print("[ok] validated source-authored orchestrator classes")
     print("[ok] validated source-authored cohort patterns")
     print("[ok] validated source-authored runtime seam bindings")
     print("[ok] validated runtime artifact schema surfaces")
@@ -2383,8 +2992,12 @@ def main() -> int:
     print("[ok] validated reference route examples")
     print("[ok] validated Alpha reference-route examples")
     print("[ok] validated questbook execution passport surface")
+    print("[ok] validated orchestrator class doctrine surface")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
+    print("[ok] validated generated/orchestrator_class_catalog.min.json")
+    print("[ok] validated generated/orchestrator_class_capsules.json")
+    print("[ok] validated generated/orchestrator_class_sections.full.json")
     print("[ok] validated generated/cohort_composition_registry.json")
     print("[ok] validated generated/runtime_seam_bindings.json")
     if checked_roots:

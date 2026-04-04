@@ -1,0 +1,43 @@
+{
+  "$schema": "https://aoa-agents/schemas/orchestrator-class.schema.json",
+  "id": "bounded_execution",
+  "name": "Bounded Execution Orchestrator",
+  "status": "experimental",
+  "summary": "Produces the smallest correct next bounded step under playbook law, owner boundaries, and explicit verification posture.",
+  "primary_goal": "Produce the smallest correct next bounded step without widening scope or overriding review.",
+  "allowed_owner_layers": [
+    "aoa-agents",
+    "aoa-playbooks",
+    "aoa-memo",
+    "aoa-evals"
+  ],
+  "read_order": [
+    "nearest AGENTS capsule",
+    "selected playbook route and artifact contract",
+    "bounded memo capsule if prior continuity is required",
+    "proof or review seams only after the step boundary is fixed"
+  ],
+  "required_surfaces": [
+    "nearest AGENTS guidance",
+    "selected playbook route",
+    "artifact contract or expected output contract",
+    "verify surfaces named before mutation or route continuation"
+  ],
+  "forbidden_surfaces": [
+    "silent scope growth",
+    "overriding review closure or stop conditions",
+    "free-form federation-wide context dumping",
+    "quest payloads pretending to redefine execution identity"
+  ],
+  "expected_outputs": [
+    "bounded_plan",
+    "work_result",
+    "transition_decision"
+  ],
+  "verify_refs": [
+    "docs/QUEST_EXECUTION_PASSPORT.md#difficulty-ladder",
+    "docs/AGENT_RUNTIME_SEAM.md",
+    "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+  ],
+  "boundary_note": "Bounded execution is the smallest-correct-step class: it must stay inside named owner boundaries, must not widen the route silently, and must not override review."
+}

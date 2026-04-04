@@ -1,0 +1,43 @@
+{
+  "$schema": "https://aoa-agents/schemas/orchestrator-class.schema.json",
+  "id": "review",
+  "name": "Review Orchestrator",
+  "status": "experimental",
+  "summary": "Closes bounded routes by naming evidence completeness, residual risk, re-entry posture, or stop conditions without replacing proof surfaces.",
+  "primary_goal": "Decide closure, residual risk, re-entry, or stop without inventing a new execution plan.",
+  "allowed_owner_layers": [
+    "aoa-agents",
+    "aoa-playbooks",
+    "aoa-memo",
+    "aoa-evals"
+  ],
+  "read_order": [
+    "nearest AGENTS capsule",
+    "reviewed-run or owner review packet contract",
+    "verification outputs and mapped eval anchors",
+    "memo capsules only after route evidence is named"
+  ],
+  "required_surfaces": [
+    "nearest AGENTS guidance",
+    "review packet or closure contract",
+    "verification and eval outputs",
+    "artifact completeness checklist"
+  ],
+  "forbidden_surfaces": [
+    "net-new execution planning",
+    "scope widening in response to incomplete evidence",
+    "claim promotion without proof or review",
+    "quest payloads pretending to redefine review identity"
+  ],
+  "expected_outputs": [
+    "verification_result",
+    "closure_verdict",
+    "residual_risk_note"
+  ],
+  "verify_refs": [
+    "docs/QUEST_EXECUTION_PASSPORT.md#control-modes",
+    "docs/FEDERATION_CONSUMER_SEAMS.md",
+    "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+  ],
+  "boundary_note": "Review decides whether the current route may close, return, or stop; it does not seize planner authority or let quest metadata rewrite review meaning."
+}

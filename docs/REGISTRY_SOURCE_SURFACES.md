@@ -13,12 +13,16 @@ without pretending that `generated/*` files are the authoring layer.
 The current source-authored registry surfaces live at:
 
 - `model_tiers/*.tier.json`
+- `orchestrator_classes/*.class.json`
 - `cohort_patterns/*.pattern.json`
 - `runtime_seam/*.binding.json`
 
 These source files publish the current compact registries:
 
 - `generated/model_tier_registry.json`
+- `generated/orchestrator_class_catalog.min.json`
+- `generated/orchestrator_class_capsules.json`
+- `generated/orchestrator_class_sections.full.json`
 - `generated/cohort_composition_registry.json`
 - `generated/runtime_seam_bindings.json`
 
@@ -59,6 +63,7 @@ They do not become the neighboring layers themselves.
 The item schemas for these source-authored surfaces are:
 
 - `schemas/model-tier.schema.json`
+- `schemas/orchestrator-class.schema.json`
 - `schemas/cohort-pattern.schema.json`
 - `schemas/runtime-seam-binding.schema.json`
 

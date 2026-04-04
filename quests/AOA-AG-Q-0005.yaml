@@ -1,0 +1,60 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0005
+title: Publish the review orchestrator class contract and closure posture
+summary: Birth the review orchestrator class as a source-authored closure contract without letting workload metadata replace review meaning.
+repo: aoa-agents
+owner_surface: docs/ORCHESTRATOR_CLASS_MODEL.md
+theme_ref: ''
+milestone_ref: ''
+kind: doctrine
+state: ready
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: conductor
+wrapper_class: hybrid
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 1
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-AG-Q-0001
+activation:
+  mode: on_review_of
+  ref: AOA-AG-Q-0001
+anchor_ref:
+  artifact: orchestrator_class_model
+  ref: docs/ORCHESTRATOR_CLASS_MODEL.md
+handoff_role: agent-layer-maintainer
+orchestrator_class_ref: aoa-agents:review
+capability_target: evidence_closure
+playbook_family_refs:
+  - repo:aoa-playbooks/generated/playbook_review_packet_contracts.min.json
+  - repo:aoa-playbooks/generated/playbook_review_status.min.json
+proof_surface_refs:
+  - repo:aoa-evals/generated/eval_catalog.min.json
+  - repo:aoa-evals/docs/QUESTBOOK_EVAL_INTEGRATION.md
+memory_surface_refs:
+  - repo:aoa-memo/generated/memory_object_capsules.json
+  - repo:aoa-memo/docs/QUEST_EVIDENCE_WRITEBACK.md
+evidence:
+  - review class identity is source-authored in aoa-agents
+  - closure, residual risk, and re-entry posture are explicit
+  - review does not seize planner authority or rewrite itself from quests
+harvest:
+  target: agent_contract
+opened_at: '2026-04-03'
+touched_at: '2026-04-03'
+tags:
+  - orchestrators
+  - review
+  - closure
+notes: >
+  Keep review conservative. It names closure, residual risk, re-entry, or stop and must not become disguised execution planning.
+public_safe: true

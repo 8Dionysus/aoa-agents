@@ -10,6 +10,9 @@ Current published outputs include:
 
 - `generated/agent_registry.min.json`
 - `generated/model_tier_registry.json`
+- `generated/orchestrator_class_catalog.min.json`
+- `generated/orchestrator_class_capsules.json`
+- `generated/orchestrator_class_sections.full.json`
 - `generated/cohort_composition_registry.json`
 - `generated/runtime_seam_bindings.json`
 
@@ -19,6 +22,7 @@ These files are derived from:
 
 - `profiles/`
 - `model_tiers/`
+- `orchestrator_classes/`
 - `cohort_patterns/`
 - `runtime_seam/`
 
