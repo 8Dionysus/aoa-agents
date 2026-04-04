@@ -20,7 +20,7 @@
     },
     "cohort_patterns": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 5,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -41,7 +41,8 @@
               "solo",
               "pair",
               "checkpoint_cohort",
-              "orchestrated_loop"
+              "orchestrated_loop",
+              "alpha_curated"
             ]
           },
           "status": {

@@ -29,6 +29,7 @@ Keep the official bounded set explicit:
 - `pair`
 - `checkpoint_cohort`
 - `orchestrated_loop`
+- `alpha_curated`
 
 ## Does not own
 
@@ -44,6 +45,7 @@ Do not turn cohort patterns into:
 Treat changes to `allowed_role_sets`, `preferred_tier_ids`, `required_handoffs`, or `boundary_note` as semantic contract changes.
 Keep each pattern compact, reviewable, and role-facing.
 `checkpoint_cohort` remains the canonical governed self-agent cohort pattern in this repository.
+`alpha_curated` remains a readiness-lane cohort pattern and must not become the generic default.
 
 ## Validation
 

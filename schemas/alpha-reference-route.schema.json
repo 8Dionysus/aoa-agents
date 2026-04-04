@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/alpha-reference-route.schema.json",
+  "title": "AoA Alpha curated reference route",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "route_id",
+    "playbook_id",
+    "playbook_name",
+    "cohort_pattern",
+    "phase_order",
+    "handoff_sequence",
+    "required_artifacts",
+    "allowed_reentry_modes",
+    "required_memo_writeback_kinds",
+    "required_eval_anchors",
+    "runtime_paths"
+  ],
+  "properties": {
+    "route_id": {
+      "type": "string",
+      "pattern": "^alpha-[a-z0-9-]+$"
+    },
+    "playbook_id": {
+      "type": "string",
+      "enum": [
+        "AOA-P-0014",
+        "AOA-P-0006",
+        "AOA-P-0018",
+        "AOA-P-0008",
+        "AOA-P-0009"
+      ]
+    },
+    "playbook_name": {
+      "type": "string",
+      "enum": [
+        "local-stack-diagnosis",
+        "self-agent-checkpoint-rollout",
+        "validation-driven-remediation",
+        "long-horizon-model-tier-orchestra",
+        "restartable-inquiry-loop"
+      ]
+    },
+    "cohort_pattern": {
+      "type": "string",
+      "const": "alpha_curated"
+    },
+    "phase_order": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "preflight",
+          "route",
+          "plan",
+          "do",
+          "verify",
+          "evaluate",
+          "writeback",
+          "rerun_prepare"
+        ]
+      }
+    },
+    "handoff_sequence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phase",
+          "role_name",
+          "responsibility"
+        ],
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": [
+              "preflight",
+              "route",
+              "plan",
+              "do",
+              "verify",
+              "evaluate",
+              "writeback",
+              "rerun_prepare"
+            ]
+          },
+          "role_name": {
+            "type": "string",
+            "enum": [
+              "architect",
+              "coder",
+              "reviewer",
+              "evaluator",
+              "memory-keeper"
+            ]
+          },
+          "responsibility": {
+            "type": "string",
+            "minLength": 12
+          }
+        }
+      }
+    },
+    "required_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      }
+    },
+    "allowed_reentry_modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "required_memo_writeback_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "state_capsule",
+          "decision",
+          "episode",
+          "audit_event",
+          "pattern",
+          "provenance_thread"
+        ]
+      }
+    },
+    "required_eval_anchors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^aoa-[a-z0-9-]+$"
+      }
+    },
+    "runtime_paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary",
+        "control"
+      ],
+      "properties": {
+        "primary": {
+          "type": "string",
+          "minLength": 10
+        },
+        "control": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    }
+  }
+}

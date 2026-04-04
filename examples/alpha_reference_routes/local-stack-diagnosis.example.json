@@ -1,0 +1,65 @@
+{
+  "route_id": "alpha-local-stack-diagnosis",
+  "playbook_id": "AOA-P-0014",
+  "playbook_name": "local-stack-diagnosis",
+  "cohort_pattern": "alpha_curated",
+  "phase_order": [
+    "preflight",
+    "route",
+    "do",
+    "verify",
+    "evaluate",
+    "writeback"
+  ],
+  "handoff_sequence": [
+    {
+      "phase": "preflight",
+      "role_name": "architect",
+      "responsibility": "Own runtime preflight, source-of-truth check, and stop conditions before any diagnosis run starts."
+    },
+    {
+      "phase": "do",
+      "role_name": "coder",
+      "responsibility": "Perform only the bounded diagnosis and evidence collection steps named by the architect."
+    },
+    {
+      "phase": "verify",
+      "role_name": "reviewer",
+      "responsibility": "Close blocker review, verify artifact completeness, and name rollback or re-entry posture."
+    },
+    {
+      "phase": "evaluate",
+      "role_name": "evaluator",
+      "responsibility": "Run the mapped tool-trajectory and verification-honesty evals without widening scope."
+    },
+    {
+      "phase": "writeback",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare episode, state_capsule, and decision writeback plus rerun-ready provenance continuity."
+    }
+  ],
+  "required_artifacts": [
+    "startup_canon_map",
+    "preview_evidence",
+    "blocker_list",
+    "verification_pack",
+    "shareable_summary"
+  ],
+  "allowed_reentry_modes": [
+    "previous_phase",
+    "safe_stop"
+  ],
+  "required_memo_writeback_kinds": [
+    "episode",
+    "state_capsule",
+    "decision"
+  ],
+  "required_eval_anchors": [
+    "aoa-verification-honesty",
+    "aoa-tool-trajectory-discipline"
+  ],
+  "runtime_paths": {
+    "primary": "qwen3.5:9b on llama.cpp via langchain-api /run at 5403 with LangGraph execution",
+    "control": "same qwen3.5:9b on llama.cpp via langchain-api /run at 5403 after controlled restart or surface refresh for recurrence proof"
+  }
+}

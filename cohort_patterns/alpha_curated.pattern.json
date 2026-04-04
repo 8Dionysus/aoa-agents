@@ -1,0 +1,37 @@
+{
+  "$schema": "https://aoa-agents/schemas/cohort-pattern.schema.json",
+  "id": "alpha_curated",
+  "status": "experimental",
+  "summary": "Curated readiness cohort that fixes preflight, execution, evaluation, and memo writeback roles for Phase Alpha on the promoted local runtime.",
+  "allowed_role_sets": [
+    [
+      "architect",
+      "coder",
+      "reviewer",
+      "evaluator",
+      "memory-keeper"
+    ]
+  ],
+  "preferred_tier_ids": [
+    "router",
+    "planner",
+    "executor",
+    "verifier",
+    "conductor",
+    "deep",
+    "archivist"
+  ],
+  "activation_conditions": [
+    "one-session curated readiness proof on the promoted local Qwen runtime",
+    "explicit preflight, bounded execution, evaluation, and memo writeback must all stay named",
+    "the route must reuse existing playbooks instead of inventing a new agent family"
+  ],
+  "required_handoffs": [
+    "architect owns preflight, source-of-truth checks, boundary selection, approval posture, and stop conditions",
+    "coder executes bounded mutation or bounded run work only after explicit architect handoff",
+    "reviewer closes verification and names rollback or re-entry posture before the route continues",
+    "evaluator runs the mapped eval bundles and interprets pass, fail, or blocked posture without replacing review",
+    "memory-keeper prepares memo writeback, provenance continuity, and rerun recall posture"
+  ],
+  "boundary_note": "Alpha_curated is the curator-facing readiness cohort for Phase Alpha and must not replace checkpoint_cohort, orchestrated_loop, or scenario canon owned by aoa-playbooks."
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import os
 import re
 import sys
@@ -33,6 +34,7 @@ RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindin
 RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-binding.schema.json"
 SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json"
 REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
+ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "alpha-reference-route.schema.json"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
 SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
@@ -40,6 +42,8 @@ SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
 REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
+ALPHA_REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "alpha_reference_routes"
+ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
 QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
 QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "docs" / "QUEST_EXECUTION_PASSPORT.md"
 QUESTS_DIR = REPO_ROOT / "quests"
@@ -61,7 +65,7 @@ ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", 
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
-REQUIRED_COHORT_PATTERNS = {"solo", "pair", "checkpoint_cohort", "orchestrated_loop"}
+REQUIRED_COHORT_PATTERNS = {"solo", "pair", "checkpoint_cohort", "orchestrated_loop", "alpha_curated"}
 ALLOWED_TIER_MEMORY_SCOPE = {
     "core",
     "selected_hot",
@@ -116,7 +120,7 @@ PUBLISHED_RUNTIME_SEAM_ITEM_KEYS = (
     "artifact_type",
 )
 PUBLISHED_MODEL_TIER_ORDER = ("router", "planner", "executor", "verifier", "conductor", "deep", "archivist")
-PUBLISHED_COHORT_PATTERN_ORDER = ("solo", "pair", "checkpoint_cohort", "orchestrated_loop")
+PUBLISHED_COHORT_PATTERN_ORDER = ("solo", "pair", "checkpoint_cohort", "orchestrated_loop", "alpha_curated")
 EXPECTED_INVALID_FIXTURES = {
     "route_decision.wrong_artifact_type.json": ("route_decision", "wrong_artifact_type"),
     "bounded_plan.missing_required_field.json": ("bounded_plan", "missing_required_field"),
@@ -145,6 +149,7 @@ REQUIRED_COHORT_DOC_SNIPPETS = (
     "- `pair`",
     "- `checkpoint_cohort`",
     "- `orchestrated_loop`",
+    "- `alpha_curated`",
     "Composition hints do not replace `aoa-playbooks`.",
 )
 REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
@@ -174,6 +179,7 @@ REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS = (
 )
 REQUIRED_REFERENCE_ROUTE_DOC_SNIPPETS = (
     "`examples/reference_routes/` contains example-only, non-normative route packs.",
+    "`examples/alpha_reference_routes/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.",
     "They are not playbooks.",
     "They are not routing policy.",
     "They are not runtime canon.",
@@ -228,6 +234,27 @@ REFERENCE_ROUTE_DIR_NAMES = (
     "pair_change_route",
     "checkpoint_self_change_route",
     "orchestrated_loop_route",
+)
+ALPHA_REFERENCE_ROUTE_FILE_ORDER = (
+    "local-stack-diagnosis.example.json",
+    "self-agent-checkpoint-rollout.example.json",
+    "validation-driven-remediation.example.json",
+    "long-horizon-model-tier-orchestra.example.json",
+    "restartable-inquiry-loop.example.json",
+)
+PHASE_ALPHA_PLAYBOOK_IDS = (
+    "AOA-P-0014",
+    "AOA-P-0006",
+    "AOA-P-0018",
+    "AOA-P-0008",
+    "AOA-P-0009",
+)
+PHASE_ALPHA_PLAYBOOK_NAMES = (
+    "local-stack-diagnosis",
+    "self-agent-checkpoint-rollout",
+    "validation-driven-remediation",
+    "long-horizon-model-tier-orchestra",
+    "restartable-inquiry-loop",
 )
 
 MEMO_OBJECT_SURFACE_PATHS = (
@@ -897,6 +924,151 @@ def validate_reference_route_examples(
             if extra:
                 details.append(f"missing_files: {', '.join(extra)}")
             fail(f"{describe_path(route_dir)} artifact coverage drifted ({'; '.join(details)})")
+
+
+def validate_alpha_reference_route_schema_surface() -> None:
+    validate_json_schema_surface(ALPHA_REFERENCE_ROUTE_SCHEMA_PATH, "alpha reference-route schema")
+
+
+def load_alpha_reference_route_builder_module():
+    module_path = REPO_ROOT / "scripts" / "generate_alpha_reference_routes.py"
+    spec = importlib.util.spec_from_file_location("generate_alpha_reference_routes", module_path)
+    if spec is None or spec.loader is None:
+        fail("unable to load Alpha reference-route generator module")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def validate_alpha_reference_routes(
+    cohort_patterns_by_id: dict[str, dict[str, object]],
+) -> None:
+    schema = read_json(ALPHA_REFERENCE_ROUTE_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("alpha reference-route schema must remain a JSON object")
+    if not ALPHA_REFERENCE_ROUTES_DIR.is_dir():
+        fail(f"missing required directory: {describe_path(ALPHA_REFERENCE_ROUTES_DIR)}")
+
+    alpha_pattern = cohort_patterns_by_id.get("alpha_curated")
+    if not isinstance(alpha_pattern, dict):
+        fail("aoa-agents cohort registry is missing pattern 'alpha_curated'")
+    allowed_role_sets = alpha_pattern.get("allowed_role_sets")
+    if not isinstance(allowed_role_sets, list) or not allowed_role_sets:
+        fail("aoa-agents alpha_curated pattern must expose at least one allowed_role_sets entry")
+    alpha_role_set = allowed_role_sets[0]
+    if not isinstance(alpha_role_set, list):
+        fail("aoa-agents alpha_curated allowed_role_sets[0] must stay a role list")
+
+    order_index = {
+        name: index for index, name in enumerate(ALPHA_REFERENCE_ROUTE_FILE_ORDER)
+    }
+    paths = [path for path in ALPHA_REFERENCE_ROUTES_DIR.glob("*.example.json") if path.is_file()]
+    actual_names = {path.name for path in paths}
+    expected_names = set(ALPHA_REFERENCE_ROUTE_FILE_ORDER)
+    if actual_names != expected_names:
+        missing = sorted(expected_names - actual_names)
+        extra = sorted(actual_names - expected_names)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"unexpected: {', '.join(extra)}")
+        fail(f"alpha reference-route examples drifted ({'; '.join(details)})")
+
+    seen_playbook_ids: set[str] = set()
+    seen_playbook_names: set[str] = set()
+    for path in sorted(paths, key=lambda candidate: order_index[candidate.name]):
+        payload = read_json(path)
+        validate_instance_against_schema(payload, schema, describe_path(path))
+        if not isinstance(payload, dict):
+            fail(f"{describe_path(path)} must contain a JSON object")
+        playbook_id = payload.get("playbook_id")
+        playbook_name = payload.get("playbook_name")
+        cohort_pattern = payload.get("cohort_pattern")
+        phase_order = payload.get("phase_order")
+        handoff_sequence = payload.get("handoff_sequence")
+        required_artifacts = payload.get("required_artifacts")
+        allowed_reentry_modes = payload.get("allowed_reentry_modes")
+        required_memo_writeback_kinds = payload.get("required_memo_writeback_kinds")
+        required_eval_anchors = payload.get("required_eval_anchors")
+        runtime_paths = payload.get("runtime_paths")
+
+        if playbook_id in seen_playbook_ids:
+            fail(f"duplicate Alpha reference-route playbook_id '{playbook_id}'")
+        if playbook_name in seen_playbook_names:
+            fail(f"duplicate Alpha reference-route playbook_name '{playbook_name}'")
+        if playbook_id not in PHASE_ALPHA_PLAYBOOK_IDS:
+            fail(f"{describe_path(path)} uses unsupported playbook_id '{playbook_id}'")
+        if playbook_name not in PHASE_ALPHA_PLAYBOOK_NAMES:
+            fail(f"{describe_path(path)} uses unsupported playbook_name '{playbook_name}'")
+        seen_playbook_ids.add(playbook_id)
+        seen_playbook_names.add(playbook_name)
+
+        if cohort_pattern != "alpha_curated":
+            fail(f"{describe_path(path)} cohort_pattern must stay 'alpha_curated'")
+        if not isinstance(phase_order, list) or len(phase_order) < 4:
+            fail(f"{describe_path(path)} phase_order must stay a non-empty ordered list")
+        if phase_order[0] != "preflight":
+            fail(f"{describe_path(path)} phase_order must start with 'preflight'")
+        if phase_order[-1] not in {"writeback", "rerun_prepare"}:
+            fail(f"{describe_path(path)} phase_order must end in 'writeback' or 'rerun_prepare'")
+
+        if not isinstance(handoff_sequence, list) or not handoff_sequence:
+            fail(f"{describe_path(path)} handoff_sequence must stay a non-empty list")
+        handoff_roles: list[str] = []
+        for index, item in enumerate(handoff_sequence):
+            location = f"{describe_path(path)}.handoff_sequence[{index}]"
+            if not isinstance(item, dict):
+                fail(f"{location} must be an object")
+            role_name = item.get("role_name")
+            responsibility = item.get("responsibility")
+            if not isinstance(role_name, str) or role_name not in alpha_role_set:
+                fail(f"{location}.role_name '{role_name}' must stay inside alpha_curated.allowed_role_sets[0]")
+            if not isinstance(responsibility, str) or len(responsibility) < 12:
+                fail(f"{location}.responsibility must be a string of length >= 12")
+            handoff_roles.append(role_name)
+        if handoff_roles[0] != "architect":
+            fail(f"{describe_path(path)} handoff_sequence must begin with architect-owned preflight")
+        if "memory-keeper" not in handoff_roles:
+            fail(f"{describe_path(path)} handoff_sequence must include memory-keeper")
+
+        for field_name, value in (
+            ("required_artifacts", required_artifacts),
+            ("allowed_reentry_modes", allowed_reentry_modes),
+            ("required_memo_writeback_kinds", required_memo_writeback_kinds),
+            ("required_eval_anchors", required_eval_anchors),
+        ):
+            if not isinstance(value, list) or not value:
+                fail(f"{describe_path(path)}.{field_name} must stay a non-empty list")
+            if len(value) != len(set(value)):
+                fail(f"{describe_path(path)}.{field_name} must not duplicate entries")
+
+        if not isinstance(runtime_paths, dict):
+            fail(f"{describe_path(path)}.runtime_paths must stay an object")
+        primary_runtime = runtime_paths.get("primary")
+        control_runtime = runtime_paths.get("control")
+        if not isinstance(primary_runtime, str) or "5403" not in primary_runtime or "LangGraph" not in primary_runtime:
+            fail(f"{describe_path(path)}.runtime_paths.primary must keep the llama.cpp + LangGraph worker path")
+        if (
+            not isinstance(control_runtime, str)
+            or "5403" not in control_runtime
+            or "llama.cpp" not in control_runtime
+            or "recurrence" not in control_runtime
+        ):
+            fail(f"{describe_path(path)}.runtime_paths.control must keep the canonical llama.cpp second-pass recurrence path")
+
+    if seen_playbook_ids != set(PHASE_ALPHA_PLAYBOOK_IDS):
+        missing = sorted(set(PHASE_ALPHA_PLAYBOOK_IDS) - seen_playbook_ids)
+        fail("Alpha reference routes are missing required playbooks: " + ", ".join(missing))
+
+    builder = load_alpha_reference_route_builder_module()
+    expected = builder.build_alpha_reference_route_payload()
+    actual = read_json(ALPHA_REFERENCE_ROUTES_OUTPUT_PATH)
+    if actual != expected:
+        fail(
+            "generated/alpha_reference_routes.min.json drifted from "
+            "examples/alpha_reference_routes/*.example.json"
+        )
 
 
 def validate_agent_profile_sources() -> list[dict[str, object]]:
@@ -2162,6 +2334,7 @@ def main() -> int:
         validate_runtime_seam_binding_item_schema_surface()
         validate_self_agent_checkpoint_schema_surface()
         validate_reference_route_schema_surface()
+        validate_alpha_reference_route_schema_surface()
         validate_nested_agents_docs()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
@@ -2179,6 +2352,7 @@ def main() -> int:
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
+        validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
         validate_questbook_surface()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
@@ -2196,6 +2370,7 @@ def main() -> int:
     print("[ok] validated runtime-seam-binding schema surface")
     print("[ok] validated self-agent-checkpoint schema surface")
     print("[ok] validated reference-route example schema surface")
+    print("[ok] validated Alpha reference-route schema surface")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")
@@ -2206,6 +2381,7 @@ def main() -> int:
     print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated reference route examples")
+    print("[ok] validated Alpha reference-route examples")
     print("[ok] validated questbook execution passport surface")
     print("[ok] validated generated/agent_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")

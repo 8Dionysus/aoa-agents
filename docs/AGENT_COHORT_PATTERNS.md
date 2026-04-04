@@ -22,6 +22,7 @@ The first official cohort pattern set is:
 - `pair`
 - `checkpoint_cohort`
 - `orchestrated_loop`
+- `alpha_curated`
 
 These patterns are composition hints.
 They stay compact, inspectable, and role-facing.
@@ -167,6 +168,46 @@ Boundary note:
 
 `orchestrated_loop` is a coordination hint over the public loop.
 It does not absorb scenario composition from `aoa-playbooks`.
+
+### `alpha_curated`
+
+Use `alpha_curated` when the local-runtime readiness lane needs all five
+published roles under one explicit curator-facing cohort.
+
+Allowed role sets:
+
+- `["architect","coder","reviewer","evaluator","memory-keeper"]`
+
+Preferred tier path:
+
+- `router`
+- `planner`
+- `executor`
+- `verifier`
+- `conductor`
+- `deep`
+- `archivist`
+
+Typical activation conditions:
+
+- one-session readiness proof on the promoted local Qwen runtime
+- explicit preflight, evaluation, and memo writeback are all mandatory
+- the route must stay inside named playbook surfaces without inventing a new family
+
+Required handoff posture:
+
+- `architect` owns preflight, source-of-truth checks, boundary selection, and stop conditions
+- `coder` executes only after explicit architect handoff
+- `reviewer` closes verification and names rollback or re-entry posture
+- `evaluator` runs the mapped eval bundles and interprets bounded verdicts
+- `memory-keeper` prepares memo writeback and rerun recall posture
+
+Boundary note:
+
+`alpha_curated` is the curated readiness cohort for Phase Alpha only.
+It does not replace `checkpoint_cohort`, does not replace
+`orchestrated_loop`, and does not absorb scenario canon from
+`aoa-playbooks`.
 
 ## Boundaries to preserve
 

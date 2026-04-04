@@ -1,0 +1,67 @@
+{
+  "route_id": "alpha-long-horizon-model-tier-orchestra",
+  "playbook_id": "AOA-P-0008",
+  "playbook_name": "long-horizon-model-tier-orchestra",
+  "cohort_pattern": "alpha_curated",
+  "phase_order": [
+    "preflight",
+    "route",
+    "plan",
+    "do",
+    "verify",
+    "evaluate",
+    "writeback"
+  ],
+  "handoff_sequence": [
+    {
+      "phase": "preflight",
+      "role_name": "architect",
+      "responsibility": "Own route framing, source-of-truth checks, and the escalation boundary before the long-horizon pass starts."
+    },
+    {
+      "phase": "do",
+      "role_name": "coder",
+      "responsibility": "Carry the bounded execution segment without widening the named route or hiding transitions."
+    },
+    {
+      "phase": "verify",
+      "role_name": "reviewer",
+      "responsibility": "Close verification, transition readiness, and return-anchor posture after the bounded run."
+    },
+    {
+      "phase": "evaluate",
+      "role_name": "evaluator",
+      "responsibility": "Run long-horizon-depth and tool-trajectory-discipline evals on the named route artifacts."
+    },
+    {
+      "phase": "writeback",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare state_capsule, decision, and episode writeback while keeping distillation claims candidate-only."
+    }
+  ],
+  "required_artifacts": [
+    "route_decision",
+    "bounded_plan",
+    "verification_result",
+    "transition_decision",
+    "distillation_pack"
+  ],
+  "allowed_reentry_modes": [
+    "previous_phase",
+    "router_reentry",
+    "safe_stop"
+  ],
+  "required_memo_writeback_kinds": [
+    "state_capsule",
+    "decision",
+    "episode"
+  ],
+  "required_eval_anchors": [
+    "aoa-long-horizon-depth",
+    "aoa-tool-trajectory-discipline"
+  ],
+  "runtime_paths": {
+    "primary": "qwen3.5:9b on llama.cpp via langchain-api /run at 5403 with LangGraph execution",
+    "control": "same qwen3.5:9b on llama.cpp via langchain-api /run at 5403 after controlled restart or surface refresh for recurrence proof"
+  }
+}

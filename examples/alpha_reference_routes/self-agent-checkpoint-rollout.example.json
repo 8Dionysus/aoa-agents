@@ -1,0 +1,65 @@
+{
+  "route_id": "alpha-self-agent-checkpoint-rollout",
+  "playbook_id": "AOA-P-0006",
+  "playbook_name": "self-agent-checkpoint-rollout",
+  "cohort_pattern": "alpha_curated",
+  "phase_order": [
+    "preflight",
+    "plan",
+    "do",
+    "verify",
+    "evaluate",
+    "writeback"
+  ],
+  "handoff_sequence": [
+    {
+      "phase": "preflight",
+      "role_name": "architect",
+      "responsibility": "Own checkpoint fit, approval posture, rollback boundary, and stop conditions before the governed change starts."
+    },
+    {
+      "phase": "do",
+      "role_name": "coder",
+      "responsibility": "Execute only the bounded self-agent change after explicit checkpoint approval is present."
+    },
+    {
+      "phase": "verify",
+      "role_name": "reviewer",
+      "responsibility": "Confirm health, boundedness, rollback marker integrity, and whether re-entry is required."
+    },
+    {
+      "phase": "evaluate",
+      "role_name": "evaluator",
+      "responsibility": "Run approval-boundary and bounded-change-quality evals as the proof layer for the governed route."
+    },
+    {
+      "phase": "writeback",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare decision, audit_event, and provenance_thread writeback for checkpoint continuity."
+    }
+  ],
+  "required_artifacts": [
+    "approval_record",
+    "rollback_marker",
+    "health_check",
+    "improvement_log"
+  ],
+  "allowed_reentry_modes": [
+    "review_gate",
+    "rollback_gate",
+    "safe_stop"
+  ],
+  "required_memo_writeback_kinds": [
+    "decision",
+    "audit_event",
+    "provenance_thread"
+  ],
+  "required_eval_anchors": [
+    "aoa-approval-boundary-adherence",
+    "aoa-bounded-change-quality"
+  ],
+  "runtime_paths": {
+    "primary": "qwen3.5:9b on llama.cpp via langchain-api /run at 5403 with LangGraph execution",
+    "control": "same qwen3.5:9b on llama.cpp via langchain-api /run at 5403 after controlled restart or surface refresh for recurrence proof"
+  }
+}

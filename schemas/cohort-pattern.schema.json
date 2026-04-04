@@ -26,7 +26,8 @@
         "solo",
         "pair",
         "checkpoint_cohort",
-        "orchestrated_loop"
+        "orchestrated_loop",
+        "alpha_curated"
       ]
     },
     "status": {
