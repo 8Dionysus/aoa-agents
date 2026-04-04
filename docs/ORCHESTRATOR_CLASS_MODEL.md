@@ -81,3 +81,22 @@ Do not let this layer absorb:
 
 The class layer answers "what kind of orchestrator is this?" and "what law governs it?"
 It does not answer "what work is active right now?".
+
+## Installed quest-harvest posture
+
+`aoa-quest-harvest` may assist this repo only as a post-session installed skill under `.agents/skills/aoa-quest-harvest`.
+
+- use it after a reviewed run, closure, or pause
+- do not use it inside an active route
+- class identity still lives in `aoa-agents`
+- the skill does not replace playbook, memo, or eval owner layers
+- one anecdotal repeat is not enough for promotion
+
+The allowed verdicts stay bounded:
+
+- `keep/open quest`
+- `promote to skill`
+- `promote to playbook`
+- `promote to orchestrator surface`
+- `promote to proof surface`
+- `promote to memo surface`
