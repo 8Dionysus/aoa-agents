@@ -3,6 +3,7 @@
 ## Purpose
 
 `examples/reference_routes/` contains example-only, non-normative route packs.
+`examples/alpha_reference_routes/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.
 
 These route packs make the public loop inspectable through small manifest-driven examples that stay inside existing artifact schemas and runtime seam bindings.
 
@@ -44,6 +45,18 @@ The current bounded set is:
 - `orchestrated_loop_route`
 
 Together they show bounded role posture, review edges, governed self-change posture, and the full orchestrated loop without adding runtime logic.
+
+The Alpha companion set is:
+
+- `local-stack-diagnosis.example.json`
+- `self-agent-checkpoint-rollout.example.json`
+- `validation-driven-remediation.example.json`
+- `long-horizon-model-tier-orchestra.example.json`
+- `restartable-inquiry-loop.example.json`
+
+These Alpha surfaces stay playbook-facing and state exact phase order,
+required artifacts, allowed re-entry modes, memo writeback kinds, and eval
+anchors for the curated readiness lane.
 
 ## Boundaries to preserve
 

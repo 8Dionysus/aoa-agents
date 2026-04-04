@@ -14,6 +14,7 @@ COHORT_PATTERN_ORDER = (
     "pair",
     "checkpoint_cohort",
     "orchestrated_loop",
+    "alpha_curated",
 )
 REGISTRY_FIELDS = (
     "id",

@@ -1,0 +1,66 @@
+{
+  "route_id": "alpha-restartable-inquiry-loop",
+  "playbook_id": "AOA-P-0009",
+  "playbook_name": "restartable-inquiry-loop",
+  "cohort_pattern": "alpha_curated",
+  "phase_order": [
+    "preflight",
+    "route",
+    "verify",
+    "evaluate",
+    "writeback",
+    "rerun_prepare"
+  ],
+  "handoff_sequence": [
+    {
+      "phase": "preflight",
+      "role_name": "architect",
+      "responsibility": "Own inquiry boundary, checkpoint posture, and stop conditions before the restartable loop begins."
+    },
+    {
+      "phase": "verify",
+      "role_name": "reviewer",
+      "responsibility": "Check contradiction handling, checkpoint integrity, and whether the next pass brief preserves bounded re-entry."
+    },
+    {
+      "phase": "evaluate",
+      "role_name": "evaluator",
+      "responsibility": "Run long-horizon-depth and return-anchor-integrity evals against the restartable route packet."
+    },
+    {
+      "phase": "writeback",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare state_capsule, decision, and provenance_thread writeback while keeping inquiry_checkpoint route-owned."
+    },
+    {
+      "phase": "rerun_prepare",
+      "role_name": "memory-keeper",
+      "responsibility": "Name the inspect then capsule then expand recall path for the next pass without widening memory access."
+    }
+  ],
+  "required_artifacts": [
+    "inquiry_checkpoint",
+    "decision_ledger",
+    "contradiction_map",
+    "memory_delta",
+    "canon_delta",
+    "next_pass_brief"
+  ],
+  "allowed_reentry_modes": [
+    "checkpoint_relaunch",
+    "safe_stop"
+  ],
+  "required_memo_writeback_kinds": [
+    "state_capsule",
+    "decision",
+    "provenance_thread"
+  ],
+  "required_eval_anchors": [
+    "aoa-long-horizon-depth",
+    "aoa-return-anchor-integrity"
+  ],
+  "runtime_paths": {
+    "primary": "qwen3.5:9b on llama.cpp via langchain-api /run at 5403 with LangGraph execution",
+    "control": "same qwen3.5:9b on llama.cpp via langchain-api /run at 5403 after controlled restart or surface refresh for recurrence proof"
+  }
+}

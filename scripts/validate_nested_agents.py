@@ -62,6 +62,12 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'manifest.json',
         'not playbooks',
     ),
+    'examples/alpha_reference_routes/AGENTS.md': (
+        'schemas/alpha-reference-route.schema.json',
+        'generated/alpha_reference_routes.min.json',
+        'curated Alpha cohort',
+        'readiness proof lane',
+    ),
 }
 
 

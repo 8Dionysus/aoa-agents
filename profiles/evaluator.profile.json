@@ -23,7 +23,8 @@
   ],
   "preferred_cohort_patterns": [
     "solo",
-    "orchestrated_loop"
+    "orchestrated_loop",
+    "alpha_curated"
   ],
   "preferred_tier_ids": [
     "deep"

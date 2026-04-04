@@ -1,0 +1,76 @@
+{
+  "route_id": "alpha-validation-driven-remediation",
+  "playbook_id": "AOA-P-0018",
+  "playbook_name": "validation-driven-remediation",
+  "cohort_pattern": "alpha_curated",
+  "phase_order": [
+    "preflight",
+    "plan",
+    "do",
+    "verify",
+    "evaluate",
+    "writeback",
+    "rerun_prepare"
+  ],
+  "handoff_sequence": [
+    {
+      "phase": "preflight",
+      "role_name": "architect",
+      "responsibility": "Own failure framing, source-of-truth boundary selection, and remediation stop conditions before mutation begins."
+    },
+    {
+      "phase": "do",
+      "role_name": "coder",
+      "responsibility": "Apply only the bounded remediation change set that the architect and reviewer kept inside scope."
+    },
+    {
+      "phase": "verify",
+      "role_name": "reviewer",
+      "responsibility": "Close revalidation, artifact completeness, and rerun eligibility after the remediation pass."
+    },
+    {
+      "phase": "evaluate",
+      "role_name": "evaluator",
+      "responsibility": "Run scope-drift, verification-honesty, and approval-boundary evals before the route is treated as ready."
+    },
+    {
+      "phase": "writeback",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare episode, decision, and audit_event writeback, keeping pattern promotion gated on recurrence."
+    },
+    {
+      "phase": "rerun_prepare",
+      "role_name": "memory-keeper",
+      "responsibility": "Prepare memo-first rerun recall posture so the final Alpha rerun does not depend on hidden scratchpad state."
+    }
+  ],
+  "required_artifacts": [
+    "failure_map",
+    "boundary_map",
+    "remediation_change_set",
+    "revalidation_pack",
+    "remediation_decision",
+    "handoff_record"
+  ],
+  "allowed_reentry_modes": [
+    "previous_phase",
+    "review_gate",
+    "rollback_gate",
+    "safe_stop"
+  ],
+  "required_memo_writeback_kinds": [
+    "episode",
+    "decision",
+    "audit_event",
+    "pattern"
+  ],
+  "required_eval_anchors": [
+    "aoa-scope-drift-detection",
+    "aoa-verification-honesty",
+    "aoa-approval-boundary-adherence"
+  ],
+  "runtime_paths": {
+    "primary": "qwen3.5:9b on llama.cpp via langchain-api /run at 5403 with LangGraph execution",
+    "control": "same qwen3.5:9b on llama.cpp via langchain-api /run at 5403 after controlled restart or surface refresh for recurrence proof"
+  }
+}

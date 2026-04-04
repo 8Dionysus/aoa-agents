@@ -24,7 +24,8 @@
   "preferred_cohort_patterns": [
     "pair",
     "checkpoint_cohort",
-    "orchestrated_loop"
+    "orchestrated_loop",
+    "alpha_curated"
   ],
   "preferred_tier_ids": [
     "verifier",
