@@ -14,6 +14,7 @@ Use the shortest route by need:
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
+- source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
@@ -23,7 +24,7 @@ Use the shortest route by need:
 ## Route by need
 
 - canonical profiles and schemas: `profiles/*.profile.json` and `schemas/agent-profile.schema.json`
-- model tiers and bounded cohort composition: `model_tiers/*.tier.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, and `generated/cohort_composition_registry.json`
+- model tiers, orchestrator classes, and bounded cohort composition: `model_tiers/*.tier.json`, `orchestrator_classes/*.class.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
 - runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - progression, recurrence, and self-agent surfaces: `docs/AGENT_PROGRESSION_MODEL.md`, `docs/RECURRENCE_DISCIPLINE.md`, and `docs/SELF_AGENT_CHECKPOINT_STACK.md`
@@ -35,6 +36,7 @@ Use the shortest route by need:
 
 - agent profiles
 - role contracts
+- orchestrator class identity and capsule law
 - handoff posture
 - preferred skill families
 - memory access posture

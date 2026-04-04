@@ -1,0 +1,118 @@
+{
+  "capsule_version": 1,
+  "layer": "aoa-agents",
+  "family": "orchestrator_classes",
+  "orchestrator_classes": [
+    {
+      "id": "router",
+      "name": "Router Orchestrator",
+      "status": "experimental",
+      "summary": "Chooses the owning repo, layer, source-of-truth surface, and next bounded read set before execution work begins.",
+      "primary_goal": "Choose repo, layer, source-of-truth, and next read set without claiming mutation authority.",
+      "read_order": [
+        "nearest AGENTS capsule",
+        "one parent AGENTS capsule when repo-level boundary still matters",
+        "owner-authored source surface named by Read first or the quest anchor",
+        "generated inspect or capsule surfaces only after owner boundaries are clear"
+      ],
+      "required_surfaces": [
+        "nearest AGENTS guidance",
+        "source-authored owner surface",
+        "playbook activation or federation surfaces when route selection matters",
+        "inspect-first memo or eval capsules when recall or proof routing is needed"
+      ],
+      "forbidden_surfaces": [
+        "mutation surfaces",
+        "full-section expansion before repo or layer selection",
+        "private scratchpad or hidden runtime state",
+        "quest payloads pretending to redefine router identity"
+      ],
+      "expected_outputs": [
+        "route_decision",
+        "source_of_truth_map",
+        "next_read_set"
+      ],
+      "verify_refs": [
+        "docs/QUEST_EXECUTION_PASSPORT.md#core-rule",
+        "docs/BOUNDARIES.md",
+        "docs/REGISTRY_SOURCE_SURFACES.md"
+      ],
+      "boundary_note": "Router selects where to look next and may not mutate owner surfaces, widen scope silently, or let quests redefine its class identity.",
+      "source_path": "orchestrator_classes/router.class.json"
+    },
+    {
+      "id": "review",
+      "name": "Review Orchestrator",
+      "status": "experimental",
+      "summary": "Closes bounded routes by naming evidence completeness, residual risk, re-entry posture, or stop conditions without replacing proof surfaces.",
+      "primary_goal": "Decide closure, residual risk, re-entry, or stop without inventing a new execution plan.",
+      "read_order": [
+        "nearest AGENTS capsule",
+        "reviewed-run or owner review packet contract",
+        "verification outputs and mapped eval anchors",
+        "memo capsules only after route evidence is named"
+      ],
+      "required_surfaces": [
+        "nearest AGENTS guidance",
+        "review packet or closure contract",
+        "verification and eval outputs",
+        "artifact completeness checklist"
+      ],
+      "forbidden_surfaces": [
+        "net-new execution planning",
+        "scope widening in response to incomplete evidence",
+        "claim promotion without proof or review",
+        "quest payloads pretending to redefine review identity"
+      ],
+      "expected_outputs": [
+        "verification_result",
+        "closure_verdict",
+        "residual_risk_note"
+      ],
+      "verify_refs": [
+        "docs/QUEST_EXECUTION_PASSPORT.md#control-modes",
+        "docs/FEDERATION_CONSUMER_SEAMS.md",
+        "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+      ],
+      "boundary_note": "Review decides whether the current route may close, return, or stop; it does not seize planner authority or let quest metadata rewrite review meaning.",
+      "source_path": "orchestrator_classes/review.class.json"
+    },
+    {
+      "id": "bounded_execution",
+      "name": "Bounded Execution Orchestrator",
+      "status": "experimental",
+      "summary": "Produces the smallest correct next bounded step under playbook law, owner boundaries, and explicit verification posture.",
+      "primary_goal": "Produce the smallest correct next bounded step without widening scope or overriding review.",
+      "read_order": [
+        "nearest AGENTS capsule",
+        "selected playbook route and artifact contract",
+        "bounded memo capsule if prior continuity is required",
+        "proof or review seams only after the step boundary is fixed"
+      ],
+      "required_surfaces": [
+        "nearest AGENTS guidance",
+        "selected playbook route",
+        "artifact contract or expected output contract",
+        "verify surfaces named before mutation or route continuation"
+      ],
+      "forbidden_surfaces": [
+        "silent scope growth",
+        "overriding review closure or stop conditions",
+        "free-form federation-wide context dumping",
+        "quest payloads pretending to redefine execution identity"
+      ],
+      "expected_outputs": [
+        "bounded_plan",
+        "work_result",
+        "transition_decision"
+      ],
+      "verify_refs": [
+        "docs/QUEST_EXECUTION_PASSPORT.md#difficulty-ladder",
+        "docs/AGENT_RUNTIME_SEAM.md",
+        "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+      ],
+      "boundary_note": "Bounded execution is the smallest-correct-step class: it must stay inside named owner boundaries, must not widen the route silently, and must not override review.",
+      "source_path": "orchestrator_classes/bounded_execution.class.json"
+    }
+  ]
+}

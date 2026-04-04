@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/orchestrator-class.schema.json",
+  "title": "AoA orchestrator class",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "name",
+    "status",
+    "summary",
+    "primary_goal",
+    "allowed_owner_layers",
+    "read_order",
+    "required_surfaces",
+    "forbidden_surfaces",
+    "expected_outputs",
+    "verify_refs",
+    "boundary_note"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/orchestrator-class.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "enum": [
+        "router",
+        "review",
+        "bounded_execution"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 5
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "planned",
+        "experimental",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "primary_goal": {
+      "type": "string",
+      "minLength": 10
+    },
+    "allowed_owner_layers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "aoa-agents",
+          "aoa-playbooks",
+          "aoa-memo",
+          "aoa-evals"
+        ]
+      }
+    },
+    "read_order": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "required_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "forbidden_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "expected_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "verify_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "boundary_note": {
+      "type": "string",
+      "minLength": 10
+    }
+  }
+}

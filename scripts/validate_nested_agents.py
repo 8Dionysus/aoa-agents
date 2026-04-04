@@ -19,6 +19,12 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'not model brands',
         'route -> plan -> do -> verify -> deep? -> distill',
     ),
+    'orchestrator_classes/AGENTS.md': (
+        'source-authored class-identity surface',
+        'generated/orchestrator_class_catalog.min.json',
+        'generated/orchestrator_class_capsules.json',
+        'generated/orchestrator_class_sections.full.json',
+    ),
     'cohort_patterns/AGENTS.md': (
         'generated/cohort_composition_registry.json',
         '`solo`',
@@ -36,6 +42,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'python scripts/build_published_surfaces.py',
         'python scripts/validate_agents.py',
         'cohort_patterns/',
+        'orchestrator_class_catalog.min.json',
     ),
     'examples/AGENTS.md': (
         'public-safe, schema-backed examples',

@@ -699,10 +699,18 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         self.questbook_path = self.temp_dir / "QUESTBOOK.md"
         self.passport_path = self.temp_dir / "docs" / "QUEST_EXECUTION_PASSPORT.md"
         self.quests_dir = self.temp_dir / "quests"
+        self.quest_catalog_path = self.temp_dir / "generated" / "quest_catalog.min.json"
+        self.quest_catalog_example_path = self.temp_dir / "generated" / "quest_catalog.min.example.json"
+        self.quest_dispatch_path = self.temp_dir / "generated" / "quest_dispatch.min.json"
+        self.quest_dispatch_example_path = self.temp_dir / "generated" / "quest_dispatch.min.example.json"
         self.patches = (
             patch.object(validate_agents, "QUESTBOOK_PATH", self.questbook_path),
             patch.object(validate_agents, "QUEST_EXECUTION_PASSPORT_PATH", self.passport_path),
             patch.object(validate_agents, "QUESTS_DIR", self.quests_dir),
+            patch.object(validate_agents, "QUEST_CATALOG_PATH", self.quest_catalog_path),
+            patch.object(validate_agents, "QUEST_CATALOG_EXAMPLE_PATH", self.quest_catalog_example_path),
+            patch.object(validate_agents, "QUEST_DISPATCH_PATH", self.quest_dispatch_path),
+            patch.object(validate_agents, "QUEST_DISPATCH_EXAMPLE_PATH", self.quest_dispatch_example_path),
         )
         for patcher in self.patches:
             patcher.start()
@@ -718,6 +726,9 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "",
                     "- `AOA-AG-Q-0001` — publish the quest execution passport",
                     "- `AOA-AG-Q-0002` — define the local-wrapper allowance matrix for leaf quests",
+                    "- `AOA-AG-Q-0004` — publish the router orchestrator class contract and capsule posture",
+                    "- `AOA-AG-Q-0005` — publish the review orchestrator class contract and closure posture",
+                    "- `AOA-AG-Q-0006` — publish the bounded-execution orchestrator class contract and smallest-step posture",
                     "",
                 )
             ),
@@ -728,18 +739,84 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         )
         self.quests_dir.mkdir(parents=True, exist_ok=True)
         for quest_id in validate_agents.REQUIRED_QUEST_IDS:
-            (self.quests_dir / f"{quest_id}.yaml").write_text(
-                "\n".join(
+            lines = [
+                "schema_version: work_quest_v1",
+                f"id: {quest_id}",
+                "title: Quest layer tracked surface",
+                "summary: ''",
+                "repo: aoa-agents",
+                "owner_surface: questbook/public-surface",
+                "theme_ref: ''",
+                "milestone_ref: ''",
+                "kind: rollout",
+                "state: captured",
+                "band: frontier",
+                "difficulty: d2_slice",
+                "risk: r1_repo_local",
+                "control_mode: codex_supervised",
+                "delegate_tier: planner",
+                "fallback_tier: verifier",
+                "wrapper_class: codex_primary",
+                "write_scope: repo_local",
+                "split_required: false",
+                "complexity_basis:",
+                "  scope: 1",
+                "  ambiguity: 1",
+                "  boundary: 1",
+                "  verification: 1",
+                "parent: null",
+                "depends_on: []",
+                "activation:",
+                "  mode: manual",
+                "anchor_ref:",
+                "  artifact: quest_execution_passport",
+                "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                "handoff_role: agent-maintainer",
+                "evidence:",
+                "  - quest surface stays repo-local",
+                "  - wrapper posture remains explicit",
+                "harvest:",
+                "  target: agent_contract",
+                "opened_at: '2026-04-03'",
+                "touched_at: '2026-04-03'",
+                "notes: ''",
+                "public_safe: true",
+            ]
+            orchestrator_fields = validate_agents.REQUIRED_ORCHESTRATOR_FOUNDATION_QUESTS.get(quest_id)
+            if orchestrator_fields is not None:
+                orchestrator_ref, capability_target = orchestrator_fields
+                lines.extend(
                     (
-                        "schema_version: work_quest_v1",
-                        f"id: {quest_id}",
-                        "repo: aoa-agents",
-                        "public_safe: true",
+                        "kind: doctrine",
+                        "state: captured",
+                        "owner_surface: docs/ORCHESTRATOR_CLASS_MODEL.md",
+                        f"orchestrator_class_ref: {orchestrator_ref}",
+                        f"capability_target: {capability_target}",
+                        "playbook_family_refs:",
+                        "  - repo:aoa-playbooks/generated/playbook_registry.min.json",
+                        "proof_surface_refs:",
+                        "  - repo:aoa-evals/generated/eval_catalog.min.json",
+                        "memory_surface_refs:",
+                        "  - repo:aoa-memo/generated/memory_object_catalog.min.json",
                     )
                 )
-                + "\n",
+            (self.quests_dir / f"{quest_id}.yaml").write_text(
+                "\n".join(lines) + "\n",
                 encoding="utf-8",
             )
+
+        catalog = validate_agents.build_quest_catalog_projection(self.temp_dir)
+        dispatch = validate_agents.build_quest_dispatch_projection(self.temp_dir)
+        write_json(self.quest_catalog_path, catalog)
+        write_text(
+            self.quest_catalog_example_path,
+            json.dumps(catalog, indent=2) + "\n",
+        )
+        write_json(self.quest_dispatch_path, dispatch)
+        write_text(
+            self.quest_dispatch_example_path,
+            json.dumps(dispatch, indent=2) + "\n",
+        )
 
     def test_validate_questbook_surface_accepts_foundation_files(self) -> None:
         self.write_valid_surface()
@@ -753,7 +830,44 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                 (
                     "schema_version: work_quest_v1",
                     "id: AOA-AG-Q-0002",
+                    "title: Quest layer tracked surface",
+                    "summary: ''",
                     "repo: aoa-routing",
+                    "owner_surface: questbook/public-surface",
+                    "theme_ref: ''",
+                    "milestone_ref: ''",
+                    "kind: rollout",
+                    "state: captured",
+                    "band: frontier",
+                    "difficulty: d2_slice",
+                    "risk: r1_repo_local",
+                    "control_mode: codex_supervised",
+                    "delegate_tier: planner",
+                    "fallback_tier: verifier",
+                    "wrapper_class: codex_primary",
+                    "write_scope: repo_local",
+                    "split_required: false",
+                    "complexity_basis:",
+                    "  scope: 1",
+                    "  ambiguity: 1",
+                    "  boundary: 1",
+                    "  verification: 1",
+                    "parent: null",
+                    "depends_on: []",
+                    "activation:",
+                    "  mode: manual",
+                    "anchor_ref:",
+                    "  artifact: quest_execution_passport",
+                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "handoff_role: agent-maintainer",
+                    "evidence:",
+                    "  - quest surface stays repo-local",
+                    "  - wrapper posture remains explicit",
+                    "harvest:",
+                    "  target: agent_contract",
+                    "opened_at: '2026-04-03'",
+                    "touched_at: '2026-04-03'",
+                    "notes: ''",
                     "public_safe: true",
                 )
             )
@@ -782,7 +896,44 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                 (
                     "schema_version: work_quest_v1",
                     "id: AOA-AG-Q-0003",
+                    "title: Additive adjunct quest",
+                    "summary: ''",
                     "repo: aoa-agents",
+                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "theme_ref: ''",
+                    "milestone_ref: ''",
+                    "kind: doctrine",
+                    "state: captured",
+                    "band: near",
+                    "difficulty: d2_slice",
+                    "risk: r1_repo_local",
+                    "control_mode: codex_supervised",
+                    "delegate_tier: planner",
+                    "fallback_tier: verifier",
+                    "wrapper_class: codex_primary",
+                    "write_scope: docs_only",
+                    "split_required: false",
+                    "complexity_basis:",
+                    "  scope: 1",
+                    "  ambiguity: 1",
+                    "  boundary: 1",
+                    "  verification: 1",
+                    "parent: null",
+                    "depends_on: []",
+                    "activation:",
+                    "  mode: manual",
+                    "anchor_ref:",
+                    "  artifact: quest_execution_passport",
+                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "handoff_role: agent-maintainer",
+                    "evidence:",
+                    "  - additive quest stays bounded",
+                    "  - repo-owned contract stays local",
+                    "harvest:",
+                    "  target: agent_contract",
+                    "opened_at: '2026-04-03'",
+                    "touched_at: '2026-04-03'",
+                    "notes: ''",
                     "public_safe: true",
                 )
             )
@@ -793,6 +944,12 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             self.questbook_path.read_text(encoding="utf-8")
             + "- `AOA-AG-Q-0003` — later additive quest\n",
         )
+        catalog = validate_agents.build_quest_catalog_projection(self.temp_dir)
+        dispatch = validate_agents.build_quest_dispatch_projection(self.temp_dir)
+        write_json(self.quest_catalog_path, catalog)
+        write_text(self.quest_catalog_example_path, json.dumps(catalog, indent=2) + "\n")
+        write_json(self.quest_dispatch_path, dispatch)
+        write_text(self.quest_dispatch_example_path, json.dumps(dispatch, indent=2) + "\n")
 
         validate_agents.validate_questbook_surface()
 
@@ -811,7 +968,44 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                 (
                     "schema_version: work_quest_v1",
                     "id: AOA-AG-Q-0003",
+                    "title: Additive adjunct quest",
+                    "summary: ''",
                     "repo: aoa-routing",
+                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "theme_ref: ''",
+                    "milestone_ref: ''",
+                    "kind: doctrine",
+                    "state: captured",
+                    "band: near",
+                    "difficulty: d2_slice",
+                    "risk: r1_repo_local",
+                    "control_mode: codex_supervised",
+                    "delegate_tier: planner",
+                    "fallback_tier: verifier",
+                    "wrapper_class: codex_primary",
+                    "write_scope: docs_only",
+                    "split_required: false",
+                    "complexity_basis:",
+                    "  scope: 1",
+                    "  ambiguity: 1",
+                    "  boundary: 1",
+                    "  verification: 1",
+                    "parent: null",
+                    "depends_on: []",
+                    "activation:",
+                    "  mode: manual",
+                    "anchor_ref:",
+                    "  artifact: quest_execution_passport",
+                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "handoff_role: agent-maintainer",
+                    "evidence:",
+                    "  - additive quest stays bounded",
+                    "  - repo-owned contract stays local",
+                    "harvest:",
+                    "  target: agent_contract",
+                    "opened_at: '2026-04-03'",
+                    "touched_at: '2026-04-03'",
+                    "notes: ''",
                     "public_safe: true",
                 )
             )
@@ -829,8 +1023,44 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                 (
                     "schema_version: work_quest_v1",
                     "id: AOA-AG-Q-0003",
+                    "title: Additive adjunct quest",
+                    "summary: ''",
                     "repo: aoa-agents",
+                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "theme_ref: ''",
+                    "milestone_ref: ''",
+                    "kind: doctrine",
                     "state: done",
+                    "band: near",
+                    "difficulty: d2_slice",
+                    "risk: r1_repo_local",
+                    "control_mode: codex_supervised",
+                    "delegate_tier: planner",
+                    "fallback_tier: verifier",
+                    "wrapper_class: codex_primary",
+                    "write_scope: docs_only",
+                    "split_required: false",
+                    "complexity_basis:",
+                    "  scope: 1",
+                    "  ambiguity: 1",
+                    "  boundary: 1",
+                    "  verification: 1",
+                    "parent: null",
+                    "depends_on: []",
+                    "activation:",
+                    "  mode: manual",
+                    "anchor_ref:",
+                    "  artifact: quest_execution_passport",
+                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "handoff_role: agent-maintainer",
+                    "evidence:",
+                    "  - additive quest stays bounded",
+                    "  - repo-owned contract stays local",
+                    "harvest:",
+                    "  target: agent_contract",
+                    "opened_at: '2026-04-03'",
+                    "touched_at: '2026-04-03'",
+                    "notes: ''",
                     "public_safe: true",
                 )
             )
