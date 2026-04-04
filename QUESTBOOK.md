@@ -21,6 +21,25 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 
 - none yet
 
+## Quest-harvest posture
+
+`aoa-quest-harvest` may be installed at `.agents/skills/aoa-quest-harvest` as a post-session aid for this repo.
+
+- use it only after a reviewed run, closure, or pause
+- do not use it inside an active route
+- it does not define orchestrator identity
+- it does not replace playbook, memo, eval, or source-owned doctrine
+- do not promote on one anecdotal repeat
+
+Allowed verdicts:
+
+- `keep/open quest`
+- `promote to skill`
+- `promote to playbook`
+- `promote to orchestrator surface`
+- `promote to proof surface`
+- `promote to memo surface`
+
 ## Backing Files
 
 - `quests/*.yaml`
