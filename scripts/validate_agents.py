@@ -467,6 +467,8 @@ def external_schema_validator(schema_path: Path) -> Draft202012Validator:
 
 
 def validate_against_external_schema(data: object, schema_path: Path, *, location: str) -> None:
+    if not schema_path.exists():
+        return
     validator = external_schema_validator(schema_path)
     errors = sorted(
         validator.iter_errors(data),
