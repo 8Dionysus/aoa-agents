@@ -83,12 +83,18 @@ Current order discipline is:
 
 ## Validation
 
-Run:
+Verify the current committed contract set with:
 
 ```bash
 python -m pip install -r requirements-dev.txt
+python scripts/validate_agents.py
+```
+
+Refresh the generated registries only after editing source-authored registry inputs:
+
+```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 
-The validator should fail on accidental drift in top-level metadata, stable publication order, published field sets, and source-to-generated registry alignment.
+The validator should fail on accidental drift in top-level metadata, stable publication order, published field sets, source-to-generated registry alignment, and the current adjunct published projections that this repository commits.

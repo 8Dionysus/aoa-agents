@@ -4,6 +4,7 @@
 
 `examples/reference_routes/` contains example-only, non-normative route packs.
 `examples/alpha_reference_routes/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.
+`generated/alpha_reference_routes.min.json` is the compact published adjunct view over those Alpha example sources.
 
 These route packs make the public loop inspectable through small manifest-driven examples that stay inside existing artifact schemas and runtime seam bindings.
 
@@ -68,3 +69,5 @@ anchors for the curated readiness lane.
 ## Validation
 
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
+
+For the Alpha companion set, validation also checks that `generated/alpha_reference_routes.min.json` stays aligned with `examples/alpha_reference_routes/*.example.json`.
