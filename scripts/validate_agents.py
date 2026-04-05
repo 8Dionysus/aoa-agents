@@ -467,7 +467,13 @@ def external_schema_validator(schema_path: Path) -> Draft202012Validator:
 
 
 def validate_against_external_schema(data: object, schema_path: Path, *, location: str) -> None:
-    if not schema_path.exists():
+    try:
+        schema_path.relative_to(AOA_EVALS_ROOT)
+    except ValueError:
+        external_repo_available = True
+    else:
+        external_repo_available = AOA_EVALS_ROOT.exists()
+    if not external_repo_available:
         return
     validator = external_schema_validator(schema_path)
     errors = sorted(

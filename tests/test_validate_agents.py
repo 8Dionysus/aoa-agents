@@ -696,6 +696,8 @@ class ValidateAgentsTests(unittest.TestCase):
 class ValidateQuestbookSurfaceTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = Path(tempfile.mkdtemp(prefix="aoa_agents_questbook_"))
+        validate_agents.external_schema_validator.cache_clear()
+        self.addCleanup(validate_agents.external_schema_validator.cache_clear)
         self.questbook_path = self.temp_dir / "QUESTBOOK.md"
         self.passport_path = self.temp_dir / "docs" / "QUEST_EXECUTION_PASSPORT.md"
         self.quests_dir = self.temp_dir / "quests"
@@ -823,18 +825,40 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
         validate_agents.validate_questbook_surface()
 
-    def test_validate_questbook_surface_skips_missing_external_eval_schemas(self) -> None:
+    def test_validate_questbook_surface_skips_external_eval_schemas_when_repo_unavailable(self) -> None:
         self.write_valid_surface()
-        missing_schema = self.temp_dir / "missing" / "quest.schema.json"
-        missing_dispatch_schema = self.temp_dir / "missing" / "quest_dispatch.schema.json"
+        missing_root = self.temp_dir / "missing-aoa-evals"
+        missing_schema = missing_root / "schemas" / "quest.schema.json"
+        missing_dispatch_schema = missing_root / "schemas" / "quest_dispatch.schema.json"
 
-        with patch.object(validate_agents, "EXTERNAL_QUEST_SCHEMA_PATH", missing_schema):
-            with patch.object(
-                validate_agents,
-                "EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH",
-                missing_dispatch_schema,
-            ):
-                validate_agents.validate_questbook_surface()
+        with patch.object(validate_agents, "AOA_EVALS_ROOT", missing_root):
+            with patch.object(validate_agents, "EXTERNAL_QUEST_SCHEMA_PATH", missing_schema):
+                with patch.object(
+                    validate_agents,
+                    "EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH",
+                    missing_dispatch_schema,
+                ):
+                    validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_missing_external_eval_schema_when_repo_exists(self) -> None:
+        self.write_valid_surface()
+        evals_root = self.temp_dir / "aoa-evals"
+        evals_root.mkdir(parents=True, exist_ok=True)
+        missing_schema = evals_root / "schemas" / "quest.schema.json"
+        missing_dispatch_schema = evals_root / "schemas" / "quest_dispatch.schema.json"
+
+        with patch.object(validate_agents, "AOA_EVALS_ROOT", evals_root):
+            with patch.object(validate_agents, "EXTERNAL_QUEST_SCHEMA_PATH", missing_schema):
+                with patch.object(
+                    validate_agents,
+                    "EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH",
+                    missing_dispatch_schema,
+                ):
+                    with self.assertRaisesRegex(
+                        validate_agents.ValidationError,
+                        "missing required file: schemas/quest.schema.json",
+                    ):
+                        validate_agents.validate_questbook_surface()
 
     def test_validate_questbook_surface_rejects_wrong_repo(self) -> None:
         self.write_valid_surface()
