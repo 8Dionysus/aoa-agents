@@ -823,6 +823,19 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
         validate_agents.validate_questbook_surface()
 
+    def test_validate_questbook_surface_skips_missing_external_eval_schemas(self) -> None:
+        self.write_valid_surface()
+        missing_schema = self.temp_dir / "missing" / "quest.schema.json"
+        missing_dispatch_schema = self.temp_dir / "missing" / "quest_dispatch.schema.json"
+
+        with patch.object(validate_agents, "EXTERNAL_QUEST_SCHEMA_PATH", missing_schema):
+            with patch.object(
+                validate_agents,
+                "EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH",
+                missing_dispatch_schema,
+            ):
+                validate_agents.validate_questbook_surface()
+
     def test_validate_questbook_surface_rejects_wrong_repo(self) -> None:
         self.write_valid_surface()
         (self.quests_dir / "AOA-AG-Q-0002.yaml").write_text(
