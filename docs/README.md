@@ -19,6 +19,8 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) for public loop coverage and transition discipline.
 - Read [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
 - Read [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+- Read [REFERENCE_ROUTE_EXAMPLES](REFERENCE_ROUTE_EXAMPLES.md) for example-only and Alpha route packs.
+- Read [QUEST_EXECUTION_PASSPORT](QUEST_EXECUTION_PASSPORT.md) for quest-facing execution posture.
 - Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
 - Read [ROADMAP](../ROADMAP.md) for the current direction.
 
@@ -36,7 +38,16 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) — how artifact coverage and transition governance stay bounded inside the public loop
 - [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) — how recurrence stays explicit, anchor-based, and bounded without becoming runtime implementation
 - [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
+- [REFERENCE_ROUTE_EXAMPLES](REFERENCE_ROUTE_EXAMPLES.md) — how reference route packs and Alpha companions stay example-only and playbook-facing
+- [QUEST_EXECUTION_PASSPORT](QUEST_EXECUTION_PASSPORT.md) — how quest difficulty, risk, control, and delegate-tier posture stay inspectable
 - [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb
+
+## Verify current published surfaces
+
+- Run `python scripts/validate_agents.py` for the local non-mutating contract and example checks.
+- Run `python -m pytest -q tests` for the local test suite.
+- Add `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, and `AOA_ROUTING_ROOT` only when you want bounded consumer-smoke checks against sibling repositories.
+- Use `python scripts/build_published_surfaces.py` only after editing source-authored registry inputs.
 
 ## Notes
 
@@ -45,4 +56,5 @@ If a document starts trying to become a technique corpus, workflow corpus, proof
 
 Inspectable runtime seam examples live in `examples/runtime_artifacts/`.
 Inspectable self-agent checkpoint examples live in `examples/self_agent_checkpoint/`.
+Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`.
 Optional validator smoke checks may read neighboring published surfaces when `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, or `AOA_ROUTING_ROOT` are set, but they only test bounded contract reachability and do not import neighboring meaning into this repo.

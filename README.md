@@ -29,6 +29,7 @@ Use the shortest route by need:
 - runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - progression, recurrence, and self-agent surfaces: `docs/AGENT_PROGRESSION_MODEL.md`, `docs/RECURRENCE_DISCIPLINE.md`, and `docs/SELF_AGENT_CHECKPOINT_STACK.md`
 - example and bounded smoke surfaces: `examples/runtime_artifacts/*`, `examples/self_agent_checkpoint/*`, `docs/REFERENCE_ROUTE_EXAMPLES.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
+- adjunct quest and Alpha readiness surfaces: `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, `examples/alpha_reference_routes/*`, and `generated/alpha_reference_routes.min.json`
 
 ## What this repository is for
 
@@ -73,14 +74,29 @@ Install local dependencies:
 python -m pip install -r requirements-dev.txt
 ```
 
-Build published surfaces and validate them:
+Verify the current committed surfaces without rewriting files:
+
+```bash
+python scripts/validate_agents.py
+python -m pytest -q tests
+```
+
+Optional bounded consumer smoke checks can be enabled with the documented `AOA_*_ROOT` variables when you want federated reachability checks against sibling repositories.
+
+```bash
+AOA_PLAYBOOKS_ROOT=/path/to/aoa-playbooks \
+AOA_EVALS_ROOT=/path/to/aoa-evals \
+AOA_MEMO_ROOT=/path/to/aoa-memo \
+AOA_ROUTING_ROOT=/path/to/aoa-routing \
+python scripts/validate_agents.py
+```
+
+Refresh published registries only after editing source-authored registry inputs under `profiles/`, `model_tiers/`, `orchestrator_classes/`, `cohort_patterns/`, or `runtime_seam/`:
 
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
-
-Optional bounded consumer smoke checks can be enabled with the documented `AOA_*_ROOT` variables when you want federated reachability checks against sibling repositories.
 
 ## License
 
