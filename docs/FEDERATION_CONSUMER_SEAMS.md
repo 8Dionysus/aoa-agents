@@ -26,6 +26,8 @@ They do not move their canon into `aoa-agents`.
   consume published object recall seams as role posture only
 - `aoa-routing` consumes model-tier registry for tier hints and selects the next
   memo path
+- `aoa-sdk` may consume agent-layer workspace trigger posture as additive
+  guidance for when `aoa surfaces detect` should open after ingress and guard
 - `aoa-agents` may read routing-published memo recall entrypoints as bounded
   consumer guidance, where doctrine recall stays the default tiny-model path and
   `memory_objects` stays an explicit parallel family
@@ -92,6 +94,24 @@ Out of scope:
 - dispatch policy
 - recall-family selection policy
 - cohort-aware routing in this slice
+
+### `aoa-sdk`
+
+Promise:
+- `aoa-agents` may publish bounded workspace trigger posture for when additive
+  `aoa surfaces detect` should open after ingress and mutation gate passes
+
+Validator confirms:
+- the trigger posture keeps `aoa skills enter`, `aoa skills guard`, and
+  `aoa surfaces detect` in explicit order
+- the trigger posture keeps shortlist and ambiguity hints advisory-only
+- `aoa-skills` remains the only immediate activation lane in this slice
+
+Out of scope:
+- routing verdicts
+- non-skill activation
+- playbook promotion doctrine
+- owner-layer truth
 
 ## Bounded playbook-compatible cohort subset
 
@@ -164,6 +184,9 @@ These checks confirm bounded consumer contract reachability only.
 They do not validate whole neighboring repositories or import their meaning.
 `AOA_MEMO_ROOT` also confirms published object recall surface reachability for
 `aoa-agents` consumer posture only.
+
+The workspace-trigger posture for `aoa-sdk` remains a docs-level consumer seam
+rather than an optional smoke-check target.
 
 ## Boundaries to preserve
 
