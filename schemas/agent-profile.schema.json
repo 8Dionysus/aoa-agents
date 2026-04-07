@@ -160,7 +160,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "enum": ["repo", "project", "ecosystem"]
+            "enum": ["thread", "session", "repo", "project", "workspace", "ecosystem"]
           }
         },
         "promotion_rights": {

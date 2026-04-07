@@ -24,6 +24,23 @@ An agent posture should answer:
 - what it may nominate for promotion
 - what it must hand off instead of deciding alone
 
+## Shared recall scope classes
+
+`aoa-agents` names recall scope classes, not memo object identifiers.
+`aoa-memo` may still publish concrete object scopes such as `thread:contract-hardening` or `repo:aoa-memo`.
+
+The current shared recall scope grammar is:
+
+- `thread` for one bounded working thread or named active route
+- `session` for restartable near-term continuity inside one active session band
+- `repo` for one owning repository's local doctrine, examples, or checkpoints
+- `project` for cross-session memory inside one named project lane
+- `workspace` for sibling-repo coordination inside one checked-out workspace
+- `ecosystem` for AoA-wide cross-repo recall
+
+These are scope classes.
+They are not memory posture labels and they are not direct grants to read every object carrying a similarly prefixed scope identifier.
+
 ## Public memory bands
 
 Use the public memo temperature scale:
@@ -42,6 +59,7 @@ Also respect the `core` overlay as a constitutional band.
 
 - default read bands: `core`, selected `warm`, selected `cool`
 - default write bands: `warm`
+- default recall scope classes: `repo`, `project`, `workspace`, `ecosystem`
 - promotion rights: may nominate `warm -> cool`
 - freeze rights: no default freeze authority
 - handoff posture: hand off durable object shaping to `memory-keeper` when memory design becomes first-class work
@@ -50,6 +68,7 @@ Also respect the `core` overlay as a constitutional band.
 
 - default read bands: `core`, selected `hot`, narrow `warm`
 - default write bands: `hot`
+- default recall scope classes: `thread`, `session`, `repo`, `project`
 - promotion rights: may nominate `hot -> warm`
 - freeze rights: none
 - handoff posture: hand off durable writeback and retention questions when the route becomes cross-session or policy-relevant
@@ -58,6 +77,7 @@ Also respect the `core` overlay as a constitutional band.
 
 - default read bands: `core`, `warm`, selected `cool`
 - default write bands: `warm`
+- default recall scope classes: `thread`, `session`, `repo`, `project`
 - promotion rights: may confirm or block promotion proposals
 - freeze rights: may recommend freeze, but should not freeze alone by default
 - handoff posture: hand off durable memory capture to `memory-keeper` after review posture is explicit
@@ -66,6 +86,7 @@ Also respect the `core` overlay as a constitutional band.
 
 - default read bands: `core`, selected `warm`
 - default write bands: `warm` for bounded evaluation traces only
+- default recall scope classes: `session`, `repo`, `project`, `workspace`
 - promotion rights: may nominate stable evaluation patterns
 - freeze rights: none
 - handoff posture: keep eval doctrine separate from memo truth and hand off durable memory capture when needed
@@ -74,6 +95,7 @@ Also respect the `core` overlay as a constitutional band.
 
 - default read bands: `core`, `warm`, `cool`, selected `cold`
 - default write bands: `warm`, `cool`, `cold`
+- default recall scope classes: `thread`, `session`, `repo`, `project`, `workspace`, `ecosystem`
 - promotion rights: may promote, demote, retire, and rescue within named policy
 - freeze rights: may prepare freeze candidates, but human review remains preferred for `frozen`
 - handoff posture: should hand off source-authored canon questions to neighboring source-of-truth layers instead of absorbing them
@@ -126,6 +148,6 @@ Machine-readable agent surfaces should keep this split explicit:
 - `memory_posture` for the coarse recall stance
 - `memory_rights.default_read_bands` for public memo bands plus `core`
 - `memory_rights.default_write_bands` for direct write authority
-- `memory_rights.allowed_recall_scopes` for bounded recall scope
+- `memory_rights.allowed_recall_scopes` for bounded recall scope classes
 - `memory_rights.promotion_rights` for nomination, confirmation, and lifecycle actions
 - `memory_rights.freeze_rights` for recommend, prepare, and finalize posture

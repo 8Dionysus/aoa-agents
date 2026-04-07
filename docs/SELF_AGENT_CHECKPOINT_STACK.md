@@ -44,6 +44,11 @@ A self-agent surface should be able to state:
 This repository owns the role-facing contract for those fields.
 It does not own the runtime implementation beneath them.
 
+`memory_scope` is a recall scope class, not a memory posture label.
+For the current shared grammar, keep it inside:
+`thread`, `session`, `repo`, `project`, `workspace`, or `ecosystem`.
+The field should name the default highest recall scope class allowed for the governed route, not a vague statement like `bounded_recall`.
+
 ## Current public schema
 
 The current public schema at `schemas/self-agent-checkpoint.schema.json` is a

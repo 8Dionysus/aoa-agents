@@ -3,7 +3,7 @@
   "role": "architect",
   "alignment_profile": "constitution-first",
   "sandbox": "repo-bounded",
-  "memory_scope": "bounded_recall",
+  "memory_scope": "project",
   "audit_policy": "checkpoint-log-required",
   "approval_mode": "optional",
   "rollback_marker": "pre-change checkpoint tag",

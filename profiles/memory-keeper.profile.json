@@ -48,8 +48,11 @@
       "cold"
     ],
     "allowed_recall_scopes": [
+      "thread",
+      "session",
       "repo",
       "project",
+      "workspace",
       "ecosystem"
     ],
     "promotion_rights": {

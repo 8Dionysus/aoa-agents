@@ -35,7 +35,14 @@
     },
     "memory_scope": {
       "type": "string",
-      "minLength": 1
+      "enum": [
+        "thread",
+        "session",
+        "repo",
+        "project",
+        "workspace",
+        "ecosystem"
+      ]
     },
     "audit_policy": {
       "type": "string",
