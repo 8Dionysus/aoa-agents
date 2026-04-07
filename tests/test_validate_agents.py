@@ -34,7 +34,7 @@ def valid_memory_rights() -> dict[str, object]:
     return {
         "default_read_bands": ["core"],
         "default_write_bands": ["hot"],
-        "allowed_recall_scopes": ["repo"],
+        "allowed_recall_scopes": ["project"],
         "promotion_rights": {
             "can_nominate": True,
             "can_confirm": True,
@@ -294,6 +294,31 @@ class ValidateAgentsTests(unittest.TestCase):
             "profiles[0].memory_rights.promotion_rights.allowed_transitions must contain only strings",
             str(ctx.exception),
         )
+
+    def test_validate_self_agent_checkpoint_example_coherence_rejects_scope_outside_profile_rights(self) -> None:
+        profiles = validate_agents.load_profiles()
+        agent_names = validate_agents.validate_registry()
+        payload = {
+            "agent_id": "AOA-A-0001",
+            "role": "architect",
+            "memory_scope": "thread",
+        }
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_self_agent_checkpoint_example_coherence(payload, profiles, agent_names)
+
+        self.assertIn("allowed_recall_scopes", str(ctx.exception))
+
+    def test_validate_self_agent_checkpoint_example_coherence_accepts_profile_scope(self) -> None:
+        profiles = validate_agents.load_profiles()
+        agent_names = validate_agents.validate_registry()
+        payload = {
+            "agent_id": "AOA-A-0001",
+            "role": "architect",
+            "memory_scope": "project",
+        }
+
+        validate_agents.validate_self_agent_checkpoint_example_coherence(payload, profiles, agent_names)
 
     def test_resolve_aoa_agents_repo_ref_rejects_path_traversal(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:

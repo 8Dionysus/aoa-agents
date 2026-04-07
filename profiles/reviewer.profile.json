@@ -48,6 +48,8 @@
       "warm"
     ],
     "allowed_recall_scopes": [
+      "thread",
+      "session",
       "repo",
       "project"
     ],

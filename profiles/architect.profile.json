@@ -52,6 +52,7 @@
     "allowed_recall_scopes": [
       "repo",
       "project",
+      "workspace",
       "ecosystem"
     ],
     "promotion_rights": {

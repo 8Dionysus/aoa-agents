@@ -44,8 +44,10 @@
       "warm"
     ],
     "allowed_recall_scopes": [
+      "session",
       "repo",
-      "project"
+      "project",
+      "workspace"
     ],
     "promotion_rights": {
       "can_nominate": true,

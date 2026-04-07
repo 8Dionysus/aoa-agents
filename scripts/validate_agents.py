@@ -84,7 +84,7 @@ RUNTIME_ARTIFACT_SCHEMA_PATHS = {
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
 ALLOWED_MEMORY_POSTURE = {"none", "light_recall", "bounded_recall", "deep_recall"}
 ALLOWED_MEMORY_BANDS = {"core", "hot", "warm", "cool", "cold", "frozen"}
-ALLOWED_RECALL_SCOPES = {"repo", "project", "ecosystem"}
+ALLOWED_RECALL_SCOPES = {"thread", "session", "repo", "project", "workspace", "ecosystem"}
 ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", "cold_to_cool"}
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
@@ -1566,8 +1566,9 @@ def validate_self_agent_checkpoint_example_coherence(
 ) -> None:
     agent_id = payload.get("agent_id")
     role = payload.get("role")
-    if not isinstance(agent_id, str) or not isinstance(role, str):
-        fail("self-agent checkpoint example must expose string-valued 'agent_id' and 'role'")
+    memory_scope = payload.get("memory_scope")
+    if not isinstance(agent_id, str) or not isinstance(role, str) or not isinstance(memory_scope, str):
+        fail("self-agent checkpoint example must expose string-valued 'agent_id', 'role', and 'memory_scope'")
 
     profiles_by_id = {
         profile["id"]: profile
@@ -1588,6 +1589,20 @@ def validate_self_agent_checkpoint_example_coherence(
         )
     if role not in agent_names:
         fail(f"self-agent checkpoint example role '{role}' does not resolve in generated/agent_registry.min.json")
+
+    memory_rights = matched_profile.get("memory_rights")
+    if not isinstance(memory_rights, dict):
+        fail(f"source-authored agent profile '{agent_id}' must expose object-valued memory_rights")
+    allowed_recall_scopes = memory_rights.get("allowed_recall_scopes")
+    if not isinstance(allowed_recall_scopes, list) or not all(
+        isinstance(item, str) for item in allowed_recall_scopes
+    ):
+        fail(f"source-authored agent profile '{agent_id}' must expose string-valued allowed_recall_scopes")
+    if memory_scope not in allowed_recall_scopes:
+        fail(
+            "self-agent checkpoint example memory_scope must stay inside the matched profile "
+            f"allowed_recall_scopes for '{agent_id}': got '{memory_scope}', allowed={allowed_recall_scopes}"
+        )
 
 
 def validate_model_tier_sources() -> list[dict[str, object]]:
