@@ -18,7 +18,7 @@ Use the shortest route by need:
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
-- runtime seam, consumer handoff, and transition posture: `docs/AGENT_RUNTIME_SEAM.md`, `docs/FEDERATION_CONSUMER_SEAMS.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
+- runtime seam, consumer handoff, trigger posture, and transition posture: `docs/AGENT_RUNTIME_SEAM.md`, `docs/FEDERATION_CONSUMER_SEAMS.md`, `docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
 - ownership rules and current direction: `docs/BOUNDARIES.md` and `ROADMAP.md`
 
 ## Route by need
