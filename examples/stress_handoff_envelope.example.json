@@ -1,0 +1,46 @@
+{
+  "schema_version": "stress_handoff_envelope_v1",
+  "envelope_id": "handoff:stress:architect->reviewer:2026-04-07T15:10:00Z",
+  "from_role": "architect",
+  "to_role": "reviewer",
+  "scope": {
+    "repo": "ATM10-Agent",
+    "surface": "hybrid-query",
+    "stressor_family": "derived_knowledge_unavailable",
+    "severity": "high"
+  },
+  "bounded_scope": {
+    "kind": "surface_family",
+    "value": "hybrid-query",
+    "notes": "Retrieval remains bounded and available. KAG expansion is unavailable or empty."
+  },
+  "requested_posture": "route_to_playbook",
+  "playbook_refs": [
+    "aoa-playbooks:playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#stress-lane",
+    "aoa-playbooks:playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#reentry-gate"
+  ],
+  "blocked_actions": [
+    "auto-mutate workspace state",
+    "promote derived output to memory",
+    "treat degraded result as full-success"
+  ],
+  "evidence_refs": [
+    "ATM10-Agent:stressor_receipt_v1#stress:2026-04-07:retrieval-only-fallback",
+    "aoa-routing:stress_navigation_hint_v1#route:stress:atm10-hybrid-query:retrieval-only-fallback"
+  ],
+  "unresolved_questions": [
+    "Was the KAG failure caused by donor drift or only transient unavailability?",
+    "Is there a reviewed playbook gate that permits resume_degraded?"
+  ],
+  "required_artifacts": [
+    "ATM10-Agent:run/hybrid_query_results.json#session:2026-04-07T15:09:40Z",
+    "abyss-stack:repair_safe_closeout_receipt_v1#closeout:2026-04-07T15:05:00Z"
+  ],
+  "reentry_conditions": [
+    "source-first retrieval result remains bounded and operator-visible",
+    "playbook re-entry gate cites explicit evidence",
+    "no blocked action family is reopened without review"
+  ],
+  "expires_at_utc": null,
+  "notes": "The reviewer may hold the route, resume_degraded, or open regrounding work. The architect may not widen mutation authority."
+}

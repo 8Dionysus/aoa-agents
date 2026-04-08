@@ -41,6 +41,12 @@ MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.jso
 MODEL_TIER_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier.schema.json"
 ORCHESTRATOR_CLASS_SCHEMA_PATH = REPO_ROOT / "schemas" / "orchestrator-class.schema.json"
 ORCHESTRATOR_CLASS_MODEL_PATH = REPO_ROOT / "docs" / "ORCHESTRATOR_CLASS_MODEL.md"
+AGENT_STRESS_POSTURE_DOC_PATH = REPO_ROOT / "docs" / "AGENT_STRESS_POSTURE.md"
+AGENT_STRESS_HANDOFFS_DOC_PATH = REPO_ROOT / "docs" / "AGENT_STRESS_HANDOFFS.md"
+AGENT_STRESS_POSTURE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent_stress_posture_v1.json"
+STRESS_HANDOFF_ENVELOPE_SCHEMA_PATH = REPO_ROOT / "schemas" / "stress_handoff_envelope_v1.json"
+AGENT_STRESS_POSTURE_EXAMPLE_PATH = REPO_ROOT / "examples" / "agent_stress_posture.example.json"
+STRESS_HANDOFF_ENVELOPE_EXAMPLE_PATH = REPO_ROOT / "examples" / "stress_handoff_envelope.example.json"
 ORCHESTRATOR_CLASS_CATALOG_PATH = REPO_ROOT / "generated" / "orchestrator_class_catalog.min.json"
 ORCHESTRATOR_CLASS_CAPSULES_PATH = REPO_ROOT / "generated" / "orchestrator_class_capsules.json"
 ORCHESTRATOR_CLASS_SECTIONS_PATH = REPO_ROOT / "generated" / "orchestrator_class_sections.full.json"
@@ -297,6 +303,20 @@ REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
     "`aoa-routing` selects the next memo path.",
     "`aoa-agents` only states which roles may use published or routed object recall seams.",
     "the default memo path and `memory_objects` remains an explicit parallel family",
+)
+REQUIRED_AGENT_STRESS_POSTURE_SNIPPETS = (
+    "Teach agent profiles to become narrower, clearer, and easier to hand off under stress.",
+    "mutation appetite",
+    "proof expectations",
+    "memory writeback strictness",
+    "do not let a stress profile silently widen authority",
+)
+REQUIRED_AGENT_STRESS_HANDOFF_SNIPPETS = (
+    "Make stressed agent-to-agent handoffs explicit, bounded, and reusable.",
+    "what actions are blocked",
+    "what evidence already exists",
+    "what conditions permit re-entry later",
+    "do not use a handoff envelope as proof",
 )
 REQUIRED_AGENT_RUNTIME_RECURRENCE_SNIPPETS = (
     "Return remains a governance move carried by `transition_decision`.",
@@ -772,6 +792,56 @@ def validate_reference_route_schema_surface() -> None:
     validate_json_schema_surface(REFERENCE_ROUTE_SCHEMA_PATH, "reference-route example schema")
 
 
+def validate_antifragility_stress_surfaces() -> None:
+    posture_schema = validate_json_schema_surface(
+        AGENT_STRESS_POSTURE_SCHEMA_PATH,
+        "agent stress posture schema",
+    )
+    handoff_schema = validate_json_schema_surface(
+        STRESS_HANDOFF_ENVELOPE_SCHEMA_PATH,
+        "stress handoff envelope schema",
+    )
+
+    posture_example = read_json(AGENT_STRESS_POSTURE_EXAMPLE_PATH)
+    handoff_example = read_json(STRESS_HANDOFF_ENVELOPE_EXAMPLE_PATH)
+
+    for schema, payload, path in (
+        (posture_schema, posture_example, AGENT_STRESS_POSTURE_EXAMPLE_PATH),
+        (handoff_schema, handoff_example, STRESS_HANDOFF_ENVELOPE_EXAMPLE_PATH),
+    ):
+        Draft202012Validator.check_schema(schema)
+        errors = sorted(
+            Draft202012Validator(schema).iter_errors(payload),
+            key=lambda error: (list(error.absolute_path), error.message),
+        )
+        if errors:
+            first = errors[0]
+            error_path = format_schema_path(list(first.absolute_path))
+            if error_path:
+                fail(f"{describe_path(path)} schema violation at '{error_path}': {first.message}")
+            fail(f"{describe_path(path)} schema violation: {first.message}")
+
+    readme = read_text(REPO_ROOT / "README.md")
+    docs_readme = read_text(REPO_ROOT / "docs" / "README.md")
+    posture_doc = read_text(AGENT_STRESS_POSTURE_DOC_PATH)
+    handoff_doc = read_text(AGENT_STRESS_HANDOFFS_DOC_PATH)
+
+    for token in ("docs/AGENT_STRESS_POSTURE.md", "docs/AGENT_STRESS_HANDOFFS.md"):
+        if token not in readme:
+            fail(f"README.md must link {token}")
+    for token in ("AGENT_STRESS_POSTURE", "AGENT_STRESS_HANDOFFS"):
+        if token not in docs_readme:
+            fail(f"docs/README.md must mention {token}")
+    for snippet in REQUIRED_AGENT_STRESS_POSTURE_SNIPPETS:
+        if snippet not in posture_doc:
+            fail(f"docs/AGENT_STRESS_POSTURE.md is missing required stress posture guidance: {snippet}")
+    for snippet in REQUIRED_AGENT_STRESS_HANDOFF_SNIPPETS:
+        if snippet not in handoff_doc:
+            fail(f"docs/AGENT_STRESS_HANDOFFS.md is missing required stress handoff guidance: {snippet}")
+    if not (REPO_ROOT / "profiles" / "architect.profile.json").is_file():
+        fail("profiles/architect.profile.json must exist for the additive stress posture example")
+
+
 def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
     schema = read_json(path)
     if not isinstance(schema, dict):
@@ -787,6 +857,20 @@ def infer_schema_type(instance: object, schema: dict[str, object]) -> str | None
     schema_type = schema.get("type")
     if isinstance(schema_type, str):
         return schema_type
+    if isinstance(schema_type, list):
+        allowed = {item for item in schema_type if isinstance(item, str)}
+        if instance is None and "null" in allowed:
+            return "null"
+        if isinstance(instance, dict) and "object" in allowed:
+            return "object"
+        if isinstance(instance, list) and "array" in allowed:
+            return "array"
+        if isinstance(instance, str) and "string" in allowed:
+            return "string"
+        if isinstance(instance, bool) and "boolean" in allowed:
+            return "boolean"
+        if isinstance(instance, int) and not isinstance(instance, bool) and "integer" in allowed:
+            return "integer"
     if any(key in schema for key in ("properties", "required", "additionalProperties")):
         return "object"
     if "items" in schema:
@@ -920,6 +1004,12 @@ def validate_instance_against_schema(instance: object, schema: dict[str, object]
     if schema_type == "boolean":
         if not isinstance(instance, bool):
             fail_schema(f"{location} must be a boolean")
+        validate_conditional_keywords(instance, schema, location)
+        return
+
+    if schema_type == "null":
+        if instance is not None:
+            fail_schema(f"{location} must be null")
         validate_conditional_keywords(instance, schema, location)
         return
 
@@ -2959,6 +3049,7 @@ def main() -> int:
         validate_runtime_seam_binding_item_schema_surface()
         validate_self_agent_checkpoint_schema_surface()
         validate_reference_route_schema_surface()
+        validate_antifragility_stress_surfaces()
         validate_alpha_reference_route_schema_surface()
         validate_nested_agents_docs()
         validate_runtime_artifact_schema_surfaces()
@@ -3001,6 +3092,7 @@ def main() -> int:
     print("[ok] validated runtime-seam-binding schema surface")
     print("[ok] validated self-agent-checkpoint schema surface")
     print("[ok] validated reference-route example schema surface")
+    print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated Alpha reference-route schema surface")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
