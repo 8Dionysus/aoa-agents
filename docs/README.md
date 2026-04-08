@@ -12,6 +12,8 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
 - Read [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
 - Read [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
+- Read [AGENT_STRESS_POSTURE](AGENT_STRESS_POSTURE.md) for additive role narrowing under stress.
+- Read [AGENT_STRESS_HANDOFFS](AGENT_STRESS_HANDOFFS.md) for bounded stress handoff envelopes between actors.
 - Read [MODEL_TIER_MODEL](MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
 - Read [AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md) for the bounded cohort composition surface.
 - Read [AGENT_RUNTIME_SEAM](AGENT_RUNTIME_SEAM.md) for the contract-first runtime seam.
@@ -32,6 +34,8 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
 - [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
+- [AGENT_STRESS_POSTURE](AGENT_STRESS_POSTURE.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority
+- [AGENT_STRESS_HANDOFFS](AGENT_STRESS_HANDOFFS.md) — how stressed actors pass bounded evidence, blocked actions, and re-entry conditions without turning handoff envelopes into proof
 - [MODEL_TIER_MODEL](MODEL_TIER_MODEL.md) — how the tier-oriented orchestration side stays explicit and bounded
 - [AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md) — how official cohort patterns stay compact and distinct from playbooks
 - [AGENT_RUNTIME_SEAM](AGENT_RUNTIME_SEAM.md) — how role-and-tier binding stays explicit without turning into runtime implementation

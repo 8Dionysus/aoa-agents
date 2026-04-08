@@ -1,0 +1,92 @@
+{
+  "schema_version": "agent_stress_posture_v1",
+  "posture_id": "agent:stress:architect:v1",
+  "applies_to": {
+    "repo": "aoa-agents",
+    "agent_profile": "profiles/architect.profile.json",
+    "role": "architect"
+  },
+  "summary": "Architect narrows quickly under derived-surface stress and escalates before mutation when source evidence is thin.",
+  "default_posture": {
+    "mutation_appetite": "normal",
+    "reground_threshold": "none",
+    "escalation_threshold": "after_failed_fallback",
+    "proof_threshold": "standard",
+    "memory_writeback": "standard",
+    "preferred_navigation": "continue_bounded",
+    "handoff_required": false,
+    "preferred_skill_families": [
+      "context-mapping",
+      "change-protocol"
+    ],
+    "preferred_playbook_refs": [],
+    "blocked_action_families": [],
+    "notes": "Normal posture allows bounded architectural framing and routine checks."
+  },
+  "stress_bands": {
+    "low": {
+      "mutation_appetite": "narrowed",
+      "reground_threshold": "uncertain_source",
+      "escalation_threshold": "before_mutation",
+      "proof_threshold": "evidence_first",
+      "memory_writeback": "reviewed_only",
+      "preferred_navigation": "reground_first",
+      "handoff_required": false,
+      "preferred_skill_families": [
+        "source-of-truth-check",
+        "boundary-checks"
+      ],
+      "preferred_playbook_refs": [
+        "aoa-playbooks:playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md"
+      ],
+      "blocked_action_families": [
+        "broad_mutation"
+      ],
+      "notes": "Low stress still permits bounded progress, but only from source evidence."
+    },
+    "medium": {
+      "mutation_appetite": "narrowed",
+      "reground_threshold": "projection_drift",
+      "escalation_threshold": "before_mutation",
+      "proof_threshold": "proof_or_stop",
+      "memory_writeback": "reviewed_only",
+      "preferred_navigation": "human_review_first",
+      "handoff_required": true,
+      "preferred_skill_families": [
+        "source-of-truth-check",
+        "degrade-reground-recover"
+      ],
+      "preferred_playbook_refs": [
+        "aoa-playbooks:playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#stress-lane"
+      ],
+      "blocked_action_families": [
+        "broad_mutation",
+        "memory_promotion_without_review"
+      ],
+      "notes": "Medium stress requires a bounded handoff before any broader state change."
+    },
+    "high": {
+      "mutation_appetite": "blocked",
+      "reground_threshold": "any_derived_gap",
+      "escalation_threshold": "immediate",
+      "proof_threshold": "proof_or_stop",
+      "memory_writeback": "disabled",
+      "preferred_navigation": "stop_before_mutation",
+      "handoff_required": true,
+      "preferred_skill_families": [
+        "source-of-truth-check"
+      ],
+      "preferred_playbook_refs": [
+        "aoa-playbooks:playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#reentry-gate"
+      ],
+      "blocked_action_families": [
+        "any_mutation",
+        "memory_writeback",
+        "derived_surface_promotion"
+      ],
+      "notes": "High stress converts the role into an evidence-and-handoff actor only."
+    }
+  },
+  "supersedes": [],
+  "notes": "This is an additive adjunct for role posture, not a replacement for the full profile."
+}

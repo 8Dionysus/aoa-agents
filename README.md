@@ -17,6 +17,7 @@ Use the shortest route by need:
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
+- stress posture and stress handoff doctrine: `docs/AGENT_STRESS_POSTURE.md` and `docs/AGENT_STRESS_HANDOFFS.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
 - runtime seam, consumer handoff, trigger posture, and transition posture: `docs/AGENT_RUNTIME_SEAM.md`, `docs/FEDERATION_CONSUMER_SEAMS.md`, `docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
 - ownership rules and current direction: `docs/BOUNDARIES.md` and `ROADMAP.md`
@@ -27,6 +28,7 @@ Use the shortest route by need:
 - model tiers, orchestrator classes, and bounded cohort composition: `model_tiers/*.tier.json`, `orchestrator_classes/*.class.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
 - runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
+- additive stress posture and handoff adjuncts: `schemas/agent_stress_posture_v1.json`, `schemas/stress_handoff_envelope_v1.json`, `examples/agent_stress_posture.example.json`, `examples/stress_handoff_envelope.example.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - progression, recurrence, and self-agent surfaces: `docs/AGENT_PROGRESSION_MODEL.md`, `docs/RECURRENCE_DISCIPLINE.md`, and `docs/SELF_AGENT_CHECKPOINT_STACK.md`
 - example and bounded smoke surfaces: `examples/runtime_artifacts/*`, `examples/self_agent_checkpoint/*`, `docs/REFERENCE_ROUTE_EXAMPLES.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
 - adjunct quest and Alpha readiness surfaces: `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, `examples/alpha_reference_routes/*`, and `generated/alpha_reference_routes.min.json`

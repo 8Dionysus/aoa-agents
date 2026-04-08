@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/agent_stress_posture_v1.json",
+  "title": "agent_stress_posture_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "posture_id",
+    "applies_to",
+    "summary",
+    "default_posture",
+    "stress_bands"
+  ],
+  "$defs": {
+    "band": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mutation_appetite",
+        "reground_threshold",
+        "escalation_threshold",
+        "proof_threshold",
+        "memory_writeback",
+        "preferred_navigation",
+        "handoff_required"
+      ],
+      "properties": {
+        "mutation_appetite": {
+          "enum": [
+            "normal",
+            "narrowed",
+            "blocked"
+          ]
+        },
+        "reground_threshold": {
+          "enum": [
+            "none",
+            "uncertain_source",
+            "projection_drift",
+            "any_derived_gap"
+          ]
+        },
+        "escalation_threshold": {
+          "enum": [
+            "none",
+            "after_failed_fallback",
+            "before_mutation",
+            "immediate"
+          ]
+        },
+        "proof_threshold": {
+          "enum": [
+            "standard",
+            "evidence_first",
+            "proof_or_stop"
+          ]
+        },
+        "memory_writeback": {
+          "enum": [
+            "standard",
+            "reviewed_only",
+            "disabled"
+          ]
+        },
+        "preferred_navigation": {
+          "enum": [
+            "continue_bounded",
+            "reground_first",
+            "degrade_preferred",
+            "human_review_first",
+            "stop_before_mutation"
+          ]
+        },
+        "handoff_required": {
+          "type": "boolean"
+        },
+        "preferred_skill_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "preferred_playbook_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "blocked_action_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "agent_stress_posture_v1"
+    },
+    "posture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applies_to": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo",
+        "agent_profile",
+        "role"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "default_posture": {
+      "$ref": "#/$defs/band"
+    },
+    "stress_bands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "properties": {
+        "low": {
+          "$ref": "#/$defs/band"
+        },
+        "medium": {
+          "$ref": "#/$defs/band"
+        },
+        "high": {
+          "$ref": "#/$defs/band"
+        }
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
