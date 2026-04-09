@@ -12,6 +12,7 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 ## Near
 
 - `AOA-AG-Q-0003` — define an adjunct agent progression contract keyed by agent ID
+- `AOA-AG-Q-0007` — carry the workspace role-posture closeout candidate into bounded agent follow-through
 
 ## Blocked / reanchor
 
