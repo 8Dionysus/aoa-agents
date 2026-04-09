@@ -1,0 +1,55 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0007
+title: Carry the workspace role-posture closeout candidate into bounded agent follow-through
+summary: Keep the reviewed role-posture candidate visible at the agent layer until it either lands as a bounded contract adjunct or is dismissed, without mutating source profiles into workflow canon.
+repo: aoa-agents
+owner_surface: docs/AGENT_RUNTIME_SEAM.md
+theme_ref: ''
+milestone_ref: ''
+kind: support
+state: captured
+band: near
+difficulty: d3_seam
+risk: r2_contract
+control_mode: codex_supervised
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-AG-Q-0003
+activation:
+  mode: on_review_of
+  ref: docs/AGENT_RUNTIME_SEAM.md
+  note: open when reviewed closeout says a role-posture unit survived donor harvest but does not yet justify profile mutation
+anchor_ref:
+  artifact: agent_runtime_seam
+  ref: docs/AGENT_RUNTIME_SEAM.md
+  note: role posture and handoff boundary must stay agent-layer meaning, not skill or playbook spillover
+handoff_role: agent-layer-maintainer
+evidence:
+  - the reviewed workspace closeout kept a role-posture unit alive for aoa-agents
+  - progression closed with reanchor on boundary integrity, so the role question needs bounded follow-through rather than profile inflation
+  - runtime seam bindings remain the right first inspect surface for this candidate
+harvest:
+  target: agent_contract
+opened_at: '2026-04-09'
+touched_at: '2026-04-09'
+tags:
+  - role-posture
+  - runtime-seam
+  - checkpoint
+  - closeout
+notes: >
+  Start from the workspace reviewed closeout handoff, not from chat memory.
+  If a later run proves this is really progression doctrine or self-agent
+  checkpoint policy, route it to the proper adjunct instead of widening
+  profiles directly.
+public_safe: true
