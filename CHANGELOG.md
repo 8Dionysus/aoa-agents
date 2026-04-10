@@ -7,6 +7,24 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-10
+
+### Added
+
+- workspace checkpoint growth role posture, progression feed surfaces, and
+  role-focused follow-through quest capture
+- third-wave antifragility stress adjuncts, workspace surface-trigger posture,
+  and a via negativa checklist for the agent layer
+- checkpoint closeout bridge install plus repo-local project-foundation and
+  session-harvest skill surfaces for agent-owned closeout follow-through
+
+### Changed
+
+- tightened progression-feed contracts, quest schema validation, and d3
+  contract role-posture wording across source-authored agent surfaces
+- clarified verify paths and adjunct routing around generated registries,
+  runtime seams, and checkpoint posture
+
 ## [0.1.0] - 2026-04-01
 
 First public baseline release of `aoa-agents` as the role and persona layer in the AoA public surface.
