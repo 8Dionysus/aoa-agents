@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://8dionysus.github.io/schemas/agent_progression_v1.schema.json",
+  "$id": "https://8dionysus.github.io/schemas/agent_progression.schema.json",
   "title": "agent_progression_v1",
   "type": "object",
   "additionalProperties": false,

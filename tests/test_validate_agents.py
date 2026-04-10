@@ -364,6 +364,44 @@ class ValidateAgentsTests(unittest.TestCase):
 
         self.assertEqual(checked, ["aoa-evals"])
 
+    def test_optional_consumer_smoke_checks_require_at_least_one_aoa_agents_eval_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            evals_root = Path(tmp_dir) / "aoa-evals"
+            payload = {
+                "artifact_contract_refs": [
+                    "repo:aoa-evals/generated/eval_catalog.min.json",
+                ]
+            }
+            write_json(
+                evals_root
+                / "examples"
+                / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+                payload,
+            )
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": str(evals_root),
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_ROUTING_ROOT": "",
+                },
+                clear=False,
+            ):
+                with self.assertRaises(validate_agents.ValidationError) as ctx:
+                    validate_agents.validate_optional_consumer_smoke_checks({}, {})
+
+        self.assertIn("at least one repo:aoa-agents/... ref", str(ctx.exception))
+
+    def test_agent_progression_schema_id_matches_canonical_path(self) -> None:
+        schema = read_json(REPO_ROOT / "schemas" / "agent_progression.schema.json")
+        self.assertIsInstance(schema, dict)
+        self.assertEqual(
+            schema["$id"],
+            "https://8dionysus.github.io/schemas/agent_progression.schema.json",
+        )
+
     def test_transition_decision_schema_accepts_return_with_anchor_and_reentry(self) -> None:
         validate_agents.validate_instance_against_schema(
             valid_transition_return_payload(),
