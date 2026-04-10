@@ -147,7 +147,7 @@
     "schema_version": "quest_dispatch_v1",
     "id": "AOA-AG-Q-0007",
     "repo": "aoa-agents",
-    "state": "captured",
+    "state": "done",
     "band": "near",
     "difficulty": "d3_seam",
     "risk": "r2_contract",

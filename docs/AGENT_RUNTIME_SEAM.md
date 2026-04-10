@@ -118,6 +118,16 @@ Use these as reference scenarios and future example runs only:
 They inform the seam.
 They do not move scenario composition into this repository.
 
+## Reviewed Follow-through Notes
+
+The April 9 workspace checkpoint-growth route now has one bounded role-posture
+adjunct at
+[WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE](WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md).
+
+It preserves the surviving role-and-handoff pressure from reviewed closeout
+without mutating profiles, inventing a new orchestrator class, or turning
+`aoa-agents` into a playbook ledger.
+
 ## Boundaries To Preserve
 
 - runtime may read `generated/agent_registry.min.json` and `generated/model_tier_registry.json`
