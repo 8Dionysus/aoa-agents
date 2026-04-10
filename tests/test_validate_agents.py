@@ -988,6 +988,67 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         with self.assertRaisesRegex(validate_agents.ValidationError, "d3\\+ split rule"):
             validate_agents.validate_questbook_surface()
 
+    def test_validate_questbook_surface_rejects_codex_supervised_for_d3_contract_quest(self) -> None:
+        self.write_valid_surface()
+        write_text(
+            self.quests_dir / "AOA-AG-Q-0002.yaml",
+            "\n".join(
+                (
+                    "schema_version: work_quest_v1",
+                    "id: AOA-AG-Q-0002",
+                    "title: Quest layer tracked surface",
+                    "summary: ''",
+                    "repo: aoa-agents",
+                    "owner_surface: questbook/public-surface",
+                    "theme_ref: ''",
+                    "milestone_ref: ''",
+                    "kind: rollout",
+                    "state: captured",
+                    "band: frontier",
+                    "difficulty: d3_seam",
+                    "risk: r2_contract",
+                    "control_mode: codex_supervised",
+                    "delegate_tier: planner",
+                    "fallback_tier: verifier",
+                    "wrapper_class: codex_primary",
+                    "write_scope: repo_local",
+                    "split_required: true",
+                    "complexity_basis:",
+                    "  scope: 1",
+                    "  ambiguity: 1",
+                    "  boundary: 1",
+                    "  verification: 1",
+                    "parent: null",
+                    "depends_on: []",
+                    "activation:",
+                    "  mode: manual",
+                    "anchor_ref:",
+                    "  artifact: quest_execution_passport",
+                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "handoff_role: agent-maintainer",
+                    "evidence:",
+                    "  - quest surface stays repo-local",
+                    "  - wrapper posture remains explicit",
+                    "harvest:",
+                    "  target: agent_contract",
+                    "opened_at: '2026-04-03'",
+                    "touched_at: '2026-04-03'",
+                    "notes: ''",
+                    "public_safe: true",
+                )
+            )
+            + "\n",
+        )
+        catalog = validate_agents.build_quest_catalog_projection(self.temp_dir)
+        dispatch = validate_agents.build_quest_dispatch_projection(self.temp_dir)
+        write_json(self.quest_catalog_path, catalog)
+        write_text(self.quest_catalog_example_path, json.dumps(catalog, indent=2) + "\n")
+        write_json(self.quest_dispatch_path, dispatch)
+        write_text(self.quest_dispatch_example_path, json.dumps(dispatch, indent=2) + "\n")
+
+        with self.assertRaisesRegex(validate_agents.ValidationError, "human-in-the-loop"):
+            validate_agents.validate_questbook_surface()
+
     def test_validate_questbook_surface_accepts_valid_extra_quest_file(self) -> None:
         self.write_valid_surface()
         write_text(

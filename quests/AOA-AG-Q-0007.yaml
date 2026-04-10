@@ -11,7 +11,7 @@ state: done
 band: near
 difficulty: d3_seam
 risk: r2_contract
-control_mode: codex_supervised
+control_mode: human_codex_copilot
 delegate_tier: planner
 fallback_tier: verifier
 wrapper_class: codex_primary
