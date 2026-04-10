@@ -94,6 +94,8 @@ ALLOWED_RECALL_SCOPES = {"thread", "session", "repo", "project", "workspace", "e
 ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", "cold_to_cool"}
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
+LOW_RISK_QUEST_DIFFICULTIES = {"d0_probe", "d1_patch", "d2_slice"}
+LOW_RISK_QUEST_RISKS = {"r0_readonly", "r1_repo_local"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
 REQUIRED_ORCHESTRATOR_CLASSES = {"router", "review", "bounded_execution"}
 REQUIRED_COHORT_PATTERNS = {"solo", "pair", "checkpoint_cohort", "orchestrated_loop", "alpha_curated"}
@@ -2415,6 +2417,14 @@ def validate_questbook_surface() -> None:
             )
         if payload.get("public_safe") is not True:
             fail(f"{describe_path(path)} must set public_safe: true")
+        if payload.get("control_mode") == "codex_supervised" and (
+            payload.get("difficulty") not in LOW_RISK_QUEST_DIFFICULTIES
+            or payload.get("risk") not in LOW_RISK_QUEST_RISKS
+        ):
+            fail(
+                f"{describe_path(path)} must keep higher-risk or d3+ quests in a human-in-the-loop "
+                "control_mode"
+            )
         orchestrator_class_ref = payload.get("orchestrator_class_ref")
         capability_target = payload.get("capability_target")
         if orchestrator_class_ref is None and capability_target is not None:

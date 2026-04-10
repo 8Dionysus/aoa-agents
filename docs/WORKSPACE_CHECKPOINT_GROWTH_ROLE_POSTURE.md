@@ -10,8 +10,8 @@ playbook surface.
 ## Source-owned boundary
 
 - reviewed closeout preserved `candidate:role:aoa-agents-runtime-seam-bindings`
-  as an agent-layer request in
-  `/srv/aoa-sdk/.aoa/session-growth/current/workspace/reviewed-closeout/session-2026-04-09-workspace-checkpoint-growth/HARVEST_PACKET.json`
+  as an agent-layer request in the reviewed closeout harvest packet for
+  `session:2026-04-09-workspace-checkpoint-growth`
 - `aoa-playbooks` owns the route canon and questline follow-through for the
   workspace checkpoint-growth run
 - `aoa-skills` and `aoa-memo` keep their own surviving follow-through surfaces
