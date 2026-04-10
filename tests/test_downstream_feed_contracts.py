@@ -52,10 +52,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         tier_registry = load_json("generated/model_tier_registry.json")
         seam_bindings = load_json("generated/runtime_seam_bindings.json")
 
-        known_roles = {entry["role"] for entry in agent_registry["agents"]}
-        known_runtime_roles = {
-            role for role in known_roles
-        } | {role.replace("_", "-") for role in known_roles}
+        known_runtime_roles = {entry["name"] for entry in agent_registry["agents"]}
         known_tier_ids = {entry["id"] for entry in tier_registry["model_tiers"]}
 
         self.assertEqual(seam_bindings["version"], 1)

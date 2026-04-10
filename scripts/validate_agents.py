@@ -3009,12 +3009,19 @@ def validate_optional_consumer_smoke_checks(
         refs = payload.get("artifact_contract_refs")
         if not isinstance(refs, list) or not refs:
             fail("aoa-evals long-horizon hook example must expose artifact_contract_refs")
+        found_aoa_agents_ref = False
         for ref in refs:
             if not isinstance(ref, str):
                 fail("aoa-evals artifact_contract_refs must contain strings")
             if not ref.startswith("repo:aoa-agents/"):
                 continue
             resolve_aoa_agents_repo_ref(ref)
+            found_aoa_agents_ref = True
+        if not found_aoa_agents_ref:
+            fail(
+                "aoa-evals long-horizon hook example must contain at least one "
+                "repo:aoa-agents/... ref"
+            )
         checked.append("aoa-evals")
 
     memo_root = env_repo_root("AOA_MEMO_ROOT")
