@@ -20,6 +20,7 @@ Use the shortest route by need:
 - stress posture and stress handoff doctrine: `docs/AGENT_STRESS_POSTURE.md` and `docs/AGENT_STRESS_HANDOFFS.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
 - runtime seam, consumer handoff, trigger posture, and transition posture: `docs/AGENT_RUNTIME_SEAM.md`, `docs/FEDERATION_CONSUMER_SEAMS.md`, `docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md`, and `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
+- reviewed role-posture adjunct for the workspace checkpoint-growth closeout: `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`
 - ownership rules and current direction: `docs/BOUNDARIES.md` and `ROADMAP.md`
 
 ## Route by need

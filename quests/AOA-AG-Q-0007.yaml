@@ -7,7 +7,7 @@ owner_surface: docs/AGENT_RUNTIME_SEAM.md
 theme_ref: ''
 milestone_ref: ''
 kind: support
-state: captured
+state: done
 band: near
 difficulty: d3_seam
 risk: r2_contract
@@ -51,5 +51,7 @@ notes: >
   Start from the workspace reviewed closeout handoff, not from chat memory.
   If a later run proves this is really progression doctrine or self-agent
   checkpoint policy, route it to the proper adjunct instead of widening
-  profiles directly.
+  profiles directly. Closed once
+  docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md preserved the role-posture
+  follow-through as a bounded adjunct beside docs/AGENT_RUNTIME_SEAM.md.
 public_safe: true
