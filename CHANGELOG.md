@@ -9,6 +9,20 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [0.2.0] - 2026-04-10
 
+### Summary
+
+- this release adds checkpoint-growth role posture, antifragility/via-negativa adjuncts, and closeout-oriented follow-through skill surfaces
+- progression-feed contracts, quest-schema validation, and role-posture wording are hardened across source-authored agent surfaces
+- `aoa-agents` stays bounded to role contracts and execution posture rather than absorbing memo, eval, skill, or playbook ownership
+
+### Validation
+
+- `python scripts/release_check.py`
+
+### Notes
+
+- detailed profile, cohort, orchestrator, and generated-surface coverage for this release remains enumerated below under `Added`, `Changed`, and `Included in this release`
+
 ### Added
 
 - workspace checkpoint growth role posture, progression feed surfaces, and
