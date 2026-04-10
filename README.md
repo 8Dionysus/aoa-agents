@@ -6,6 +6,8 @@ This repository does not own reusable techniques, skill bundles, proof bundles, 
 
 An agent is not a skill. A skill is a bounded workflow. An agent is a role-bearing actor that uses skills.
 
+> Current release: `v0.2.0`. See [CHANGELOG](CHANGELOG.md) for release notes.
+
 ## Start here
 
 Use the shortest route by need:
