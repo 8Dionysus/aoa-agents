@@ -25,6 +25,17 @@ Tracking starts with the community-docs baseline for this repository.
 - clarified verify paths and adjunct routing around generated registries,
   runtime seams, and checkpoint posture
 
+### Included in this release
+
+- source-authored role surfaces across `profiles/`, `cohort_patterns/`,
+  `orchestrator_classes/`, `docs/`, `schemas/`, `examples/`, and `generated/`,
+  including Phase Alpha cohort additions, orchestrator capsules, and
+  progression-feed updates
+- repo-local quest, follow-through, and validation surfaces under `.agents/`,
+  `.github/`, `QUESTBOOK.md`, `quests/`, `AGENTS.md`, `README.md`, `scripts/`,
+  and `tests/`, including quest harvest, project-foundation installs, and
+  stricter external quest-schema handling
+
 ## [0.1.0] - 2026-04-01
 
 First public baseline release of `aoa-agents` as the role and persona layer in the AoA public surface.
