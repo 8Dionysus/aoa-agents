@@ -28,6 +28,8 @@ They do not move their canon into `aoa-agents`.
   memo path
 - `aoa-sdk` may consume agent-layer workspace trigger posture as additive
   guidance for when `aoa surfaces detect` should open after ingress and guard
+- workspace `.codex/` may consume the generated Codex custom-agent projection
+  for the five active role seeds
 - `aoa-agents` may read routing-published memo recall entrypoints as bounded
   consumer guidance, where doctrine recall stays the default tiny-model path and
   `memory_objects` stays an explicit parallel family
@@ -112,6 +114,22 @@ Out of scope:
 - non-skill activation
 - playbook promotion doctrine
 - owner-layer truth
+
+### workspace `.codex/`
+
+Promise:
+- `aoa-agents` publishes a bounded Codex custom-agent projection for the five
+  active role seeds
+
+Validator confirms:
+- generated TOML files remain aligned with active profiles and projection wiring
+- the generated config snippet uses config-relative `agents/*.toml` paths
+- sandbox posture stays bounded per projected role
+
+Out of scope:
+- MCP server ownership
+- runtime autonomy implementation
+- widening recursive delegation
 
 ## Bounded playbook-compatible cohort subset
 

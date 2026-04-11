@@ -1,0 +1,95 @@
+{
+  "version": 2,
+  "workspace_defaults": {
+    "agents_max_threads": 4,
+    "agents_max_depth": 1,
+    "agents_job_max_runtime_seconds": 1800
+  },
+  "roles": {
+    "architect": {
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Atlas",
+        "Lattice",
+        "Spine"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "description_prefix": "AoA architect.",
+      "style_notes": [
+        "Frame structure before proposing execution.",
+        "Escalate cleanly when another owning layer should take over."
+      ]
+    },
+    "coder": {
+      "sandbox_mode": "workspace-write",
+      "nickname_candidates": [
+        "Forge",
+        "Rivet",
+        "Patch"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace"
+      ],
+      "description_prefix": "AoA coder.",
+      "style_notes": [
+        "Implement bounded changes with verification.",
+        "Do not broaden scope beyond the requested slice."
+      ]
+    },
+    "reviewer": {
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Sentinel",
+        "Lens",
+        "Check"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "description_prefix": "AoA reviewer.",
+      "style_notes": [
+        "Lead with concrete risks and boundary drift.",
+        "Prefer evidence over style-only commentary."
+      ]
+    },
+    "evaluator": {
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Gauge",
+        "Prism",
+        "Delta"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "description_prefix": "AoA evaluator.",
+      "style_notes": [
+        "Apply bounded proof discipline.",
+        "Distinguish observation, comparison, and verdict."
+      ]
+    },
+    "memory-keeper": {
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Archive",
+        "Ledger",
+        "Mneme"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats",
+        "dionysus"
+      ],
+      "description_prefix": "AoA memory-keeper.",
+      "style_notes": [
+        "Preserve provenance and recall hygiene.",
+        "Do not collapse memory hints into final source-of-truth claims."
+      ]
+    }
+  }
+}

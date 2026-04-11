@@ -15,6 +15,9 @@ Current published outputs include:
 - `generated/orchestrator_class_sections.full.json`
 - `generated/cohort_composition_registry.json`
 - `generated/runtime_seam_bindings.json`
+- `generated/codex_agents/agents/*.toml`
+- `generated/codex_agents/config.subagents.generated.toml`
+- `generated/codex_agents/projection_manifest.json`
 
 ## Source layers
 
@@ -25,6 +28,7 @@ These files are derived from:
 - `orchestrator_classes/`
 - `cohort_patterns/`
 - `runtime_seam/`
+- `config/codex_subagent_wiring.v2.json`
 
 ## Editing posture
 
