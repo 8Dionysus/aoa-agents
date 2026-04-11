@@ -1,0 +1,56 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0008
+title: Reanchor checkpoint automation role-pressure in the runtime seam
+summary: Preserve the reviewed checkpoint automation role-pressure candidate as an agent-layer runtime-seam follow-through without mutating profiles or orchestrator classes from one session.
+repo: aoa-agents
+owner_surface: docs/AGENT_RUNTIME_SEAM.md
+theme_ref: ''
+milestone_ref: ''
+kind: support
+state: reanchor
+band: near
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-AG-Q-0007
+activation:
+  mode: on_review_of
+  ref: session:2026-04-10T19-59-19-444382Z-aoa-sdk-checkpoint-growth-228d9e46-6c8
+  note: open when reviewed checkpoint automation closeout preserves role-posture pressure that needs agent-layer reanchor
+anchor_ref:
+  artifact: agent_runtime_seam
+  ref: docs/AGENT_RUNTIME_SEAM.md
+  note: role pressure should stay seam-bound until repeated reviewed evidence proves a profile, cohort, or orchestrator-class adjustment
+handoff_role: agent-layer-maintainer
+evidence:
+  - candidate:role:aoa-agents-runtime-seam-bindings survived with high confidence and 2 checkpoint hits
+  - the candidate stayed reviewable but owner-ambiguous, so it should not directly mutate source profiles
+  - boundary_integrity remained reanchor-shaped in the reviewed closeout signals
+harvest:
+  target: agent_contract
+  trigger_count: 2
+  note: keep as runtime-seam evidence until another reviewed run clarifies whether a bounded adjunct is warranted
+opened_at: '2026-04-11'
+touched_at: '2026-04-11'
+tags:
+  - checkpoint
+  - runtime-seam
+  - role-posture
+  - reanchor
+notes: >
+  This is an early tracked role-pressure marker. It closes the loss window from
+  runtime-only checkpoint state while explicitly refusing to treat one reviewed
+  closeout as agent profile or orchestrator-class authority.
+public_safe: true
