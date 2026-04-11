@@ -11,6 +11,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
 - Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
 - Read [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
+- Read [CODEX_SUBAGENT_PROJECTION](CODEX_SUBAGENT_PROJECTION.md) for the projected Codex custom-agent install surface.
 - Read [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
 - Read [AGENT_STRESS_POSTURE](AGENT_STRESS_POSTURE.md) for additive role narrowing under stress.
 - Read [AGENT_STRESS_HANDOFFS](AGENT_STRESS_HANDOFFS.md) for bounded stress handoff envelopes between actors.
@@ -33,6 +34,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
+- [CODEX_SUBAGENT_PROJECTION](CODEX_SUBAGENT_PROJECTION.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `profiles/`
 - [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
 - [AGENT_STRESS_POSTURE](AGENT_STRESS_POSTURE.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority
 - [AGENT_STRESS_HANDOFFS](AGENT_STRESS_HANDOFFS.md) — how stressed actors pass bounded evidence, blocked actions, and re-entry conditions without turning handoff envelopes into proof
@@ -63,5 +65,6 @@ If a document starts trying to become a technique corpus, workflow corpus, proof
 
 Inspectable runtime seam examples live in `examples/runtime_artifacts/`.
 Inspectable self-agent checkpoint examples live in `examples/self_agent_checkpoint/`.
-Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`.
+Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
+`generated/codex_agents/` is the repo-side install surface for workspace `.codex/agents/`.
 Optional validator smoke checks may read neighboring published surfaces when `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, or `AOA_ROUTING_ROOT` are set, but they only test bounded contract reachability and do not import neighboring meaning into this repo.

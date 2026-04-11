@@ -18,6 +18,7 @@ Use the shortest route by need:
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
+- Codex custom-agent projection surface: `docs/CODEX_SUBAGENT_PROJECTION.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - stress posture and stress handoff doctrine: `docs/AGENT_STRESS_POSTURE.md` and `docs/AGENT_STRESS_HANDOFFS.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `docs/AGENT_COHORT_PATTERNS.md`
@@ -30,6 +31,7 @@ Use the shortest route by need:
 - canonical profiles and schemas: `profiles/*.profile.json` and `schemas/agent-profile.schema.json`
 - model tiers, orchestrator classes, and bounded cohort composition: `model_tiers/*.tier.json`, `orchestrator_classes/*.class.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
+- Codex subagent projection and workspace install seam: `docs/CODEX_SUBAGENT_PROJECTION.md`, `generated/codex_agents/agents/*.toml`, `generated/codex_agents/config.subagents.generated.toml`, and `scripts/build_codex_subagents_v2.py`
 - runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - additive stress posture and handoff adjuncts: `schemas/agent_stress_posture_v1.json`, `schemas/stress_handoff_envelope_v1.json`, `examples/agent_stress_posture.example.json`, `examples/stress_handoff_envelope.example.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
@@ -102,6 +104,7 @@ Refresh published registries only after editing source-authored registry inputs 
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
+python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 ## License

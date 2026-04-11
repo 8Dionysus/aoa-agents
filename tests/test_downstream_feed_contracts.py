@@ -18,6 +18,9 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             "generated/agent_registry.min.json",
             "generated/model_tier_registry.json",
             "generated/runtime_seam_bindings.json",
+            "generated/codex_agents/config.subagents.generated.toml",
+            "generated/codex_agents/projection_manifest.json",
+            "generated/codex_agents/agents/architect.toml",
         ):
             with self.subTest(path=relative_path):
                 self.assertTrue((REPO_ROOT / relative_path).is_file())
@@ -91,6 +94,17 @@ class DownstreamFeedContractsTests(unittest.TestCase):
 
         self.assertIn("### `aoa-sdk`", seams)
         self.assertIn("trigger posture", seams)
+
+    def test_codex_subagent_projection_matches_active_agent_names(self) -> None:
+        agent_registry = load_json("generated/agent_registry.min.json")
+        projection_manifest = load_json("generated/codex_agents/projection_manifest.json")
+
+        active_names = {
+            entry["name"] for entry in agent_registry["agents"] if entry["status"] == "active"
+        }
+        projected_names = {entry["name"] for entry in projection_manifest["generated_agents"]}
+
+        self.assertEqual(active_names, projected_names)
 
 
 if __name__ == "__main__":

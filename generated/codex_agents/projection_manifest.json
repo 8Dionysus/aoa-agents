@@ -1,0 +1,72 @@
+{
+  "version": 2,
+  "wiring_version": 2,
+  "workspace_defaults": {
+    "agents_max_threads": 4,
+    "agents_max_depth": 1,
+    "agents_job_max_runtime_seconds": 1800
+  },
+  "config_file_prefix": "agents",
+  "generated_agents": [
+    {
+      "name": "architect",
+      "description": "AoA architect. Shapes structure, boundaries, and system-level direction across AoA surfaces.",
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Atlas",
+        "Lattice",
+        "Spine"
+      ],
+      "source_profile": "profiles/architect.profile.json",
+      "role_key": "architect"
+    },
+    {
+      "name": "coder",
+      "description": "AoA coder. Implements bounded changes through explicit workflows, verification, and concise reporting.",
+      "sandbox_mode": "workspace-write",
+      "nickname_candidates": [
+        "Forge",
+        "Rivet",
+        "Patch"
+      ],
+      "source_profile": "profiles/coder.profile.json",
+      "role_key": "coder"
+    },
+    {
+      "name": "evaluator",
+      "description": "AoA evaluator. Applies bounded proof surfaces and comparison discipline to agent-shaped work.",
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Gauge",
+        "Prism",
+        "Delta"
+      ],
+      "source_profile": "profiles/evaluator.profile.json",
+      "role_key": "evaluator"
+    },
+    {
+      "name": "memory-keeper",
+      "description": "AoA memory-keeper. Preserves provenance, recall hygiene, and bounded memory-layer discipline across AoA surfaces.",
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Archive",
+        "Ledger",
+        "Mneme"
+      ],
+      "source_profile": "profiles/memory-keeper.profile.json",
+      "role_key": "memory-keeper"
+    },
+    {
+      "name": "reviewer",
+      "description": "AoA reviewer. Inspects work for drift, boundedness, review quality, and handoff readiness.",
+      "sandbox_mode": "read-only",
+      "nickname_candidates": [
+        "Sentinel",
+        "Lens",
+        "Check"
+      ],
+      "source_profile": "profiles/reviewer.profile.json",
+      "role_key": "reviewer"
+    }
+  ]
+}

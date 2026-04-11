@@ -19,6 +19,7 @@ except ModuleNotFoundError:
 
 from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
 from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
+from codex_subagent_projection import collect_repo_projection_errors
 from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
 from orchestrator_class_registry import (
     ORCHESTRATOR_CLASS_ORDER,
@@ -2309,6 +2310,11 @@ def validate_runtime_seam_bindings(
     return bindings_by_phase
 
 
+def validate_codex_subagent_projection() -> None:
+    for error in collect_repo_projection_errors():
+        fail(error)
+
+
 def validate_runtime_seam_doc_coherence() -> None:
     agent_profile_surface = read_text(REPO_ROOT / "docs" / "AGENT_PROFILE_SURFACE.md")
     agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
@@ -3088,6 +3094,7 @@ def main() -> int:
         cohort_patterns_by_id = validate_cohort_composition_registry(agent_names, tiers_by_id)
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
+        validate_codex_subagent_projection()
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
@@ -3132,6 +3139,7 @@ def main() -> int:
     print("[ok] validated generated/orchestrator_class_sections.full.json")
     print("[ok] validated generated/cohort_composition_registry.json")
     print("[ok] validated generated/runtime_seam_bindings.json")
+    print("[ok] validated generated/codex_agents projection surfaces")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")
     else:

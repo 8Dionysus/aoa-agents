@@ -80,6 +80,7 @@ Then branch by task:
 - recurrence, return, or transition vocabulary: `docs/RECURRENCE_DISCIPLINE.md`
 - self-agent checkpoint posture: `docs/SELF_AGENT_CHECKPOINT_STACK.md`
 - orchestrator class or runtime seam work: `docs/ORCHESTRATOR_CLASS_MODEL.md` and `docs/AGENT_RUNTIME_SEAM.md`
+- Codex custom-agent projection work: `docs/CODEX_SUBAGENT_PROJECTION.md`
 
 If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 
@@ -88,6 +89,7 @@ If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 The most important objects in this repository are:
 
 - canonical profiles under `profiles/`
+- projection-time Codex wiring under `config/codex_subagent_wiring.v2.json`
 - model-tier, orchestrator-class, cohort-pattern, progression, and runtime-seam source files
 - schemas for published contracts and runtime-facing artifacts
 - generated registries and seam outputs under `generated/`
@@ -109,6 +111,7 @@ Do not:
 - treat progression as live routing policy
 - bypass approval, rollback, or checkpoint posture under the label `self-agent`
 - let self-agent language become mythic identity with no reviewable contract
+- hand-author project-level custom-agent TOML as the source of truth for role meaning
 
 Do not let role identity become an excuse for unclear authority, unclear
 handoff, or hidden runtime ownership.
@@ -141,6 +144,7 @@ Minimum validation for source or generated-surface changes:
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
+python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 Confirm that:
@@ -159,7 +163,7 @@ Summarize:
 
 - what changed
 - whether meaning changed or only docs, metadata, schemas, or generated surfaces changed
-- whether role boundaries, handoff rules, progression posture, checkpoint posture, or published consumer seams changed
+- whether role boundaries, handoff rules, progression posture, checkpoint posture, Codex custom-agent projection/workspace install seams, or published consumer seams changed
 - what validation you actually ran
 - any remaining follow-up work
 
