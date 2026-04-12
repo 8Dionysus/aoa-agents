@@ -100,6 +100,7 @@ ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", 
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
 ALLOWED_CONTINUITY_STATUS = {"active", "reanchor_needed", "reanchored", "closed"}
+ANCHOR_ARTIFACT_REF_RE = re.compile(r"^(artifact:|repo:).+")
 LOW_RISK_QUEST_DIFFICULTIES = {"d0_probe", "d1_patch", "d2_slice"}
 LOW_RISK_QUEST_RISKS = {"r0_readonly", "r1_repo_local"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
@@ -1746,7 +1747,9 @@ def validate_self_agency_continuity_window_example_coherence(
             "self-agency continuity window example continuity_status must stay inside "
             f"{sorted(ALLOWED_CONTINUITY_STATUS)}"
         )
-    if not isinstance(anchor_artifact_ref, str) or not anchor_artifact_ref.startswith(("artifact:", "repo:")):
+    if not isinstance(anchor_artifact_ref, str) or not ANCHOR_ARTIFACT_REF_RE.fullmatch(
+        anchor_artifact_ref
+    ):
         fail(
             "self-agency continuity window example anchor_artifact_ref must point to a named "
             "artifact or repo surface"
