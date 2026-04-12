@@ -80,7 +80,7 @@ Then branch by task:
 - recurrence, return, or transition vocabulary: `docs/RECURRENCE_DISCIPLINE.md`
 - self-agent checkpoint posture: `docs/SELF_AGENT_CHECKPOINT_STACK.md`
 - orchestrator class or runtime seam work: `docs/ORCHESTRATOR_CLASS_MODEL.md` and `docs/AGENT_RUNTIME_SEAM.md`
-- Codex custom-agent projection work: `docs/CODEX_SUBAGENT_PROJECTION.md`
+- Codex custom-agent projection work or repeated projection drift: `docs/CODEX_SUBAGENT_PROJECTION.md` and `docs/CODEX_SUBAGENT_REFRESH_LAW.md`
 
 If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 

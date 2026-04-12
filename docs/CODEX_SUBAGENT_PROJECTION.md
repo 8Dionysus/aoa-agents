@@ -6,6 +6,11 @@ This document explains how `aoa-agents` projects source-authored role profiles
 into Codex custom-agent TOML files without turning the projection into a second
 source of truth.
 
+When repeated drift or stale generated/install surfaces show up around this
+projection, use `CODEX_SUBAGENT_REFRESH_LAW.md` as the owner refresh route.
+That law stays subordinate to the same source profiles and wiring described
+here.
+
 ## Boundary rule
 
 Keep this order:
