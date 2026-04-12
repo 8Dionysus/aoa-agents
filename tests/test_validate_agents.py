@@ -357,6 +357,26 @@ class ValidateAgentsTests(unittest.TestCase):
             agent_names,
         )
 
+    def test_validate_self_agency_continuity_window_coherence_rejects_empty_anchor_ref_suffix(self) -> None:
+        profiles = validate_agents.load_profiles()
+        agent_names = validate_agents.validate_registry()
+        payload = {
+            "agent_id": "AOA-A-0001",
+            "role": "architect",
+            "memory_scope": "workspace",
+            "continuity_status": "active",
+            "anchor_artifact_ref": "artifact:",
+        }
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_self_agency_continuity_window_example_coherence(
+                payload,
+                profiles,
+                agent_names,
+            )
+
+        self.assertIn("anchor_artifact_ref", str(ctx.exception))
+
     def test_resolve_aoa_agents_repo_ref_rejects_path_traversal(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             repo_root = Path(tmp_dir) / "aoa-agents"
