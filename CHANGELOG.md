@@ -7,6 +7,30 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-04-12
+
+### Summary
+
+- this patch lands checkpoint role follow-through, Codex subagent projection,
+  and self-agency continuity posture updates
+- continuity-anchor validation is tightened without widening the role layer
+  beyond agent posture and contracts
+- `aoa-agents` stays bounded to role-bearing execution semantics
+
+### Added
+
+- checkpoint role follow-through quest capture, Codex subagent projection
+  surfaces, and the self-agency continuity lane contract.
+
+### Changed
+
+- continuity-anchor validation and adjacent role-posture wording are tightened
+  across the current continuity wave.
+
+### Validation
+
+- `python scripts/release_check.py`
+
 ## [0.2.0] - 2026-04-10
 
 ### Summary
