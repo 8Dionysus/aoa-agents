@@ -1,0 +1,15 @@
+{
+  "schema_version": "self_agency_continuity_window_v1",
+  "continuity_ref": "CONT-20260412-architect-01",
+  "revision_window_ref": "REV-20260412-architect-01",
+  "reanchor_ref": "REA-20260412-architect-01",
+  "anchor_artifact_ref": "artifact:verification_result:AOA-VERIFY-20260412-0001",
+  "continuity_status": "active",
+  "agent_id": "AOA-A-0001",
+  "role": "architect",
+  "memory_scope": "workspace",
+  "approval_mode": "required",
+  "rollback_marker": "ROLL-20260412-architect-01",
+  "max_iterations": 3,
+  "notes": "Continuity stays active only while the route keeps the same bounded revision window and can still return to the named verification anchor."
+}

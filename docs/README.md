@@ -23,6 +23,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) for public loop coverage and transition discipline.
 - Read [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) for explicit recurrence discipline and bounded return governance.
 - Read [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the bounded self-agent contract.
+- Read [SELF_AGENCY_CONTINUITY_LANE](SELF_AGENCY_CONTINUITY_LANE.md) for the bounded continuity window and anchor-return contract.
 - Read [REFERENCE_ROUTE_EXAMPLES](REFERENCE_ROUTE_EXAMPLES.md) for example-only and Alpha route packs.
 - Read [QUEST_EXECUTION_PASSPORT](QUEST_EXECUTION_PASSPORT.md) for quest-facing execution posture.
 - Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
@@ -47,6 +48,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) — how artifact coverage and transition governance stay bounded inside the public loop
 - [RECURRENCE_DISCIPLINE](RECURRENCE_DISCIPLINE.md) — how recurrence stays explicit, anchor-based, and bounded without becoming runtime implementation
 - [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
+- [SELF_AGENCY_CONTINUITY_LANE](SELF_AGENCY_CONTINUITY_LANE.md) — how continuity windows, bounded revision, and anchor-return posture stay explicit at the agent layer
 - [REFERENCE_ROUTE_EXAMPLES](REFERENCE_ROUTE_EXAMPLES.md) — how reference route packs and Alpha companions stay example-only and playbook-facing
 - [QUEST_EXECUTION_PASSPORT](QUEST_EXECUTION_PASSPORT.md) — how quest difficulty, risk, control, and delegate-tier posture stay inspectable
 - [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb

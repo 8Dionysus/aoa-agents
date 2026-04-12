@@ -58,12 +58,16 @@ RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.js
 RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindings.schema.json"
 RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-binding.schema.json"
 SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json"
+SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agency-continuity-window.schema.json"
 REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
 ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "alpha-reference-route.schema.json"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
 SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
 SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agent_checkpoint.example.json"
+SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH = (
+    SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agency_continuity_window.example.json"
+)
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
 REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
@@ -95,6 +99,7 @@ ALLOWED_RECALL_SCOPES = {"thread", "session", "repo", "project", "workspace", "e
 ALLOWED_PROMOTION_TRANSITIONS = {"hot_to_warm", "warm_to_cool", "cool_to_cold", "cold_to_cool"}
 ALLOWED_EVAL_POSTURE = {"minimal", "required", "strict", "paired_eval"}
 ALLOWED_HANDOFF = {"solo_ok", "handoff_on_ambiguity", "handoff_on_risk", "review_required"}
+ALLOWED_CONTINUITY_STATUS = {"active", "reanchor_needed", "reanchored", "closed"}
 LOW_RISK_QUEST_DIFFICULTIES = {"d0_probe", "d1_patch", "d2_slice"}
 LOW_RISK_QUEST_RISKS = {"r0_readonly", "r1_repo_local"}
 REQUIRED_MODEL_TIERS = {"router", "planner", "executor", "verifier", "conductor", "deep", "archivist"}
@@ -340,6 +345,13 @@ REQUIRED_RECURRENCE_DISCIPLINE_SNIPPETS = (
 REQUIRED_SELF_AGENT_RETURN_SNIPPETS = (
     "If a governed self-agent route loses the bounded change axis, it should return to the last approved anchor before more change work occurs.",
     "It is better to re-enter from a valid anchor than to continue under drift.",
+)
+REQUIRED_SELF_AGENCY_CONTINUITY_SNIPPETS = (
+    "The schema-backed continuity window lives at",
+    "`continuity_ref`",
+    "`anchor_artifact_ref`",
+    "Return must target a prior valid public artifact.",
+    "No new role family is required.",
 )
 REFERENCE_ROUTE_DIR_NAMES = (
     "solo_bounded_route",
@@ -791,6 +803,13 @@ def validate_self_agent_checkpoint_schema_surface() -> None:
     validate_json_schema_surface(SELF_AGENT_CHECKPOINT_SCHEMA_PATH, "self-agent-checkpoint schema")
 
 
+def validate_self_agency_continuity_window_schema_surface() -> None:
+    validate_json_schema_surface(
+        SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH,
+        "self-agency-continuity-window schema",
+    )
+
+
 def validate_reference_route_schema_surface() -> None:
     validate_json_schema_surface(REFERENCE_ROUTE_SCHEMA_PATH, "reference-route example schema")
 
@@ -1097,6 +1116,17 @@ def validate_self_agent_checkpoint_example() -> dict[str, object]:
     if not isinstance(payload, dict):
         fail("self-agent checkpoint example must be a JSON object")
     validate_instance_against_schema(payload, schema, describe_path(SELF_AGENT_CHECKPOINT_EXAMPLE_PATH))
+    return payload
+
+
+def validate_self_agency_continuity_window_example() -> dict[str, object]:
+    schema = read_json(SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH)
+    payload = read_json(SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH)
+    if not isinstance(schema, dict):
+        fail("self-agency-continuity-window schema must remain a JSON object")
+    if not isinstance(payload, dict):
+        fail("self-agency continuity window example must be a JSON object")
+    validate_instance_against_schema(payload, schema, describe_path(SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH))
     return payload
 
 
@@ -1695,6 +1725,72 @@ def validate_self_agent_checkpoint_example_coherence(
         fail(
             "self-agent checkpoint example memory_scope must stay inside the matched profile "
             f"allowed_recall_scopes for '{agent_id}': got '{memory_scope}', allowed={allowed_recall_scopes}"
+        )
+
+
+def validate_self_agency_continuity_window_example_coherence(
+    payload: dict[str, object], profiles: list[dict[str, object]], agent_names: set[str]
+) -> None:
+    agent_id = payload.get("agent_id")
+    role = payload.get("role")
+    memory_scope = payload.get("memory_scope")
+    continuity_status = payload.get("continuity_status")
+    anchor_artifact_ref = payload.get("anchor_artifact_ref")
+    if not isinstance(agent_id, str) or not isinstance(role, str) or not isinstance(memory_scope, str):
+        fail(
+            "self-agency continuity window example must expose string-valued "
+            "'agent_id', 'role', and 'memory_scope'"
+        )
+    if continuity_status not in ALLOWED_CONTINUITY_STATUS:
+        fail(
+            "self-agency continuity window example continuity_status must stay inside "
+            f"{sorted(ALLOWED_CONTINUITY_STATUS)}"
+        )
+    if not isinstance(anchor_artifact_ref, str) or not anchor_artifact_ref.startswith(("artifact:", "repo:")):
+        fail(
+            "self-agency continuity window example anchor_artifact_ref must point to a named "
+            "artifact or repo surface"
+        )
+
+    profiles_by_id = {
+        profile["id"]: profile
+        for profile in profiles
+        if isinstance(profile, dict) and isinstance(profile.get("id"), str)
+    }
+    matched_profile = profiles_by_id.get(agent_id)
+    if not isinstance(matched_profile, dict):
+        fail(
+            "self-agency continuity window example agent_id "
+            f"'{agent_id}' does not resolve in source-authored agent profiles"
+        )
+
+    expected_role_name = matched_profile.get("name")
+    if not isinstance(expected_role_name, str):
+        fail(f"source-authored agent profile '{agent_id}' must expose a string 'name'")
+    if role != expected_role_name:
+        fail(
+            "self-agency continuity window example role must match the public role-facing agent "
+            f"name for '{agent_id}': expected '{expected_role_name}', got '{role}'"
+        )
+    if role not in agent_names:
+        fail(
+            "self-agency continuity window example role "
+            f"'{role}' does not resolve in generated/agent_registry.min.json"
+        )
+
+    memory_rights = matched_profile.get("memory_rights")
+    if not isinstance(memory_rights, dict):
+        fail(f"source-authored agent profile '{agent_id}' must expose object-valued memory_rights")
+    allowed_recall_scopes = memory_rights.get("allowed_recall_scopes")
+    if not isinstance(allowed_recall_scopes, list) or not all(
+        isinstance(item, str) for item in allowed_recall_scopes
+    ):
+        fail(f"source-authored agent profile '{agent_id}' must expose string-valued allowed_recall_scopes")
+    if memory_scope not in allowed_recall_scopes:
+        fail(
+            "self-agency continuity window example memory_scope must stay inside the matched "
+            f"profile allowed_recall_scopes for '{agent_id}': got '{memory_scope}', "
+            f"allowed={allowed_recall_scopes}"
         )
 
 
@@ -2328,6 +2424,7 @@ def validate_runtime_seam_doc_coherence() -> None:
     recurrence_discipline = read_text(REPO_ROOT / "docs" / "RECURRENCE_DISCIPLINE.md")
     runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
     self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
+    self_agency_continuity = read_text(REPO_ROOT / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md")
 
     for snippet in REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS:
         if snippet not in agent_profile_surface:
@@ -2385,6 +2482,9 @@ def validate_runtime_seam_doc_coherence() -> None:
     for snippet in REQUIRED_SELF_AGENT_RETURN_SNIPPETS:
         if snippet not in self_agent_checkpoint:
             fail(f"docs/SELF_AGENT_CHECKPOINT_STACK.md is missing recurrence guidance: {snippet}")
+    for snippet in REQUIRED_SELF_AGENCY_CONTINUITY_SNIPPETS:
+        if snippet not in self_agency_continuity:
+            fail(f"docs/SELF_AGENCY_CONTINUITY_LANE.md is missing continuity guidance: {snippet}")
 
 
 def validate_questbook_surface() -> None:
@@ -3071,6 +3171,7 @@ def main() -> int:
         validate_runtime_seam_bindings_schema_surface()
         validate_runtime_seam_binding_item_schema_surface()
         validate_self_agent_checkpoint_schema_surface()
+        validate_self_agency_continuity_window_schema_surface()
         validate_reference_route_schema_surface()
         validate_antifragility_stress_surfaces()
         validate_alpha_reference_route_schema_surface()
@@ -3079,6 +3180,7 @@ def main() -> int:
         validate_runtime_artifact_examples()
         validate_negative_runtime_artifact_examples()
         self_agent_checkpoint_example = validate_self_agent_checkpoint_example()
+        self_agency_continuity_window_example = validate_self_agency_continuity_window_example()
         validate_negative_self_agent_checkpoint_examples()
         profiles = validate_agent_profile_sources()
         validate_model_tier_sources()
@@ -3087,6 +3189,11 @@ def main() -> int:
         validate_runtime_seam_binding_sources()
         agent_names = validate_registry()
         validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
+        validate_self_agency_continuity_window_example_coherence(
+            self_agency_continuity_window_example,
+            profiles,
+            agent_names,
+        )
         tiers_by_id = validate_model_tier_registry()
         orchestrator_classes_by_id = validate_orchestrator_class_catalog()
         validate_orchestrator_class_capsules(orchestrator_classes_by_id)
@@ -3115,6 +3222,7 @@ def main() -> int:
     print("[ok] validated runtime seam bindings schema surface")
     print("[ok] validated runtime-seam-binding schema surface")
     print("[ok] validated self-agent-checkpoint schema surface")
+    print("[ok] validated self-agency continuity window schema surface")
     print("[ok] validated reference-route example schema surface")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated Alpha reference-route schema surface")
@@ -3127,6 +3235,7 @@ def main() -> int:
     print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated runtime artifact examples")
     print("[ok] validated self-agent checkpoint examples")
+    print("[ok] validated self-agency continuity window example")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated reference route examples")
     print("[ok] validated Alpha reference-route examples")

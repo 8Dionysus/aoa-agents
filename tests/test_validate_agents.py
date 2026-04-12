@@ -320,6 +320,43 @@ class ValidateAgentsTests(unittest.TestCase):
 
         validate_agents.validate_self_agent_checkpoint_example_coherence(payload, profiles, agent_names)
 
+    def test_validate_self_agency_continuity_window_coherence_rejects_scope_outside_profile_rights(self) -> None:
+        profiles = validate_agents.load_profiles()
+        agent_names = validate_agents.validate_registry()
+        payload = {
+            "agent_id": "AOA-A-0001",
+            "role": "architect",
+            "memory_scope": "thread",
+            "continuity_status": "active",
+            "anchor_artifact_ref": "artifact:verification_result:AOA-VERIFY-20260412-0001",
+        }
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_self_agency_continuity_window_example_coherence(
+                payload,
+                profiles,
+                agent_names,
+            )
+
+        self.assertIn("allowed_recall_scopes", str(ctx.exception))
+
+    def test_validate_self_agency_continuity_window_coherence_accepts_profile_scope(self) -> None:
+        profiles = validate_agents.load_profiles()
+        agent_names = validate_agents.validate_registry()
+        payload = {
+            "agent_id": "AOA-A-0001",
+            "role": "architect",
+            "memory_scope": "workspace",
+            "continuity_status": "active",
+            "anchor_artifact_ref": "artifact:verification_result:AOA-VERIFY-20260412-0001",
+        }
+
+        validate_agents.validate_self_agency_continuity_window_example_coherence(
+            payload,
+            profiles,
+            agent_names,
+        )
+
     def test_resolve_aoa_agents_repo_ref_rejects_path_traversal(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             repo_root = Path(tmp_dir) / "aoa-agents"
