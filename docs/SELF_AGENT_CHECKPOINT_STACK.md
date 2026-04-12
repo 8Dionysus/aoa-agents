@@ -85,6 +85,13 @@ The current portable cohort pattern for a self-agent checkpoint route is:
 AoA does not need a new role family for this route.
 It needs the existing roles to stay explicit and coordinated.
 
+When the route must preserve duration across bounded revision windows instead
+of only one checkpointed change pass, the adjacent continuity contract lives in
+`docs/SELF_AGENCY_CONTINUITY_LANE.md`.
+That continuity lane still inherits the same anchor-first, approval-aware, and
+rollback-aware posture rather than widening self-agent work into runtime
+autonomy.
+
 ## Anti-goals
 
 Avoid treating self-agent as:

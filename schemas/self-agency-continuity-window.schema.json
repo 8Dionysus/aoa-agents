@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/self-agency-continuity-window.schema.json",
+  "title": "self_agency_continuity_window_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "continuity_ref",
+    "revision_window_ref",
+    "reanchor_ref",
+    "anchor_artifact_ref",
+    "continuity_status",
+    "agent_id",
+    "role",
+    "memory_scope",
+    "approval_mode",
+    "rollback_marker",
+    "max_iterations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "self_agency_continuity_window_v1"
+    },
+    "continuity_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision_window_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reanchor_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "anchor_artifact_ref": {
+      "type": "string",
+      "pattern": "^(artifact:|repo:).+"
+    },
+    "continuity_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "reanchor_needed",
+        "reanchored",
+        "closed"
+      ]
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "memory_scope": {
+      "type": "string",
+      "enum": [
+        "thread",
+        "session",
+        "repo",
+        "project",
+        "workspace",
+        "ecosystem"
+      ]
+    },
+    "approval_mode": {
+      "type": "string",
+      "enum": [
+        "required",
+        "conditional",
+        "advisory"
+      ]
+    },
+    "rollback_marker": {
+      "type": "string",
+      "minLength": 1
+    },
+    "max_iterations": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
