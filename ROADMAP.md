@@ -1,13 +1,25 @@
 # AoA Agents Roadmap
 
-This roadmap tracks the bootstrap baseline and the next hardening waves for the AoA agent layer.
+This roadmap tracks the bootstrap baseline and the current `v0.2.x`
+contract-hardening waves for the AoA agent layer.
 
 ## Current phase
 
 The bootstrap baseline is landed.
 
 The current goal is not to widen the catalog too early.
-The current goal is to make the existing public agent-layer surfaces stable, scenario-backed, and consumer-provable without moving runtime, playbook, routing, memo, or eval canon into this repository.
+The current goal is to make the existing public agent-layer surfaces stable,
+scenario-backed, projection-aware, and consumer-provable without moving
+runtime, playbook, routing, memo, or eval canon into this repository.
+
+The current `v0.2.x` release line already carries:
+- checkpoint role follow-through, Codex subagent projection, and self-agency continuity posture as live repo-owned surfaces rather than future ideas
+- Codex custom-agent projection and owner refresh-law surfaces in `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
+- runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
+- adjunct quest and Alpha readiness surfaces in `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
+
+The near-term roadmap should therefore read as projection and contract
+hardening, not as a pre-projection bootstrap placeholder.
 
 ## Current cycle
 
@@ -46,6 +58,19 @@ Exit signals:
 - federated smoke checks cover all four current consumer seams
 - the consumer check matrix is documented
 - local validation remains autonomous when roots are absent
+
+## Current published contour
+
+The currently published agent-layer contour already includes:
+- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `profiles/`, `model_tiers/`, `orchestrator_classes/`, `cohort_patterns/`, and `runtime_seam/`
+- published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
+- Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`
+- role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `docs/AGENT_STRESS_POSTURE.md`, `docs/AGENT_STRESS_HANDOFFS.md`, `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`, `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
+
+The main near-term risk is roadmap drift: Codex subagent projection, stress
+adjuncts, quest capture, and Alpha readiness are already shipped surfaces and
+should stay visible in current-direction docs instead of hiding only in
+README or release notes.
 
 ## Bootstrap substep: runtime seam hardening
 
