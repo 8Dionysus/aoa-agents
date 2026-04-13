@@ -19,6 +19,11 @@ Within `aoa-agents`, an agent should mean a reusable role-bearing actor describe
 - evaluation posture
 - compact composition hints
 
+Future subject-bearing preparation may widen this layer later, but only through
+bounded role-authored surfaces. See [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md)
+for the local stop-lines before doctrine seed, resistance posture, or delta
+obligations are treated as agent-layer canon.
+
 The first official composition hint surface lives in
 [AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md).
 
