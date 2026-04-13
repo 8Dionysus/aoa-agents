@@ -60,7 +60,10 @@
       "can_demote": false,
       "can_retire": false,
       "can_rescue": false,
-      "allowed_transitions": []
+      "allowed_transitions": [
+        "hot_to_warm",
+        "warm_to_cool"
+      ]
     },
     "freeze_rights": {
       "can_recommend": true,
