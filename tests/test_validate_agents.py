@@ -295,6 +295,100 @@ class ValidateAgentsTests(unittest.TestCase):
             str(ctx.exception),
         )
 
+    def test_validate_memory_rights_rejects_direct_core_write_authority(self) -> None:
+        memory_rights = valid_memory_rights()
+        memory_rights["default_write_bands"] = ["core", "hot"]
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights)
+
+        self.assertIn("default_write_bands must not grant direct default write authority", str(ctx.exception))
+        self.assertIn("core", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_direct_frozen_write_authority(self) -> None:
+        memory_rights = valid_memory_rights()
+        memory_rights["default_write_bands"] = ["frozen"]
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights)
+
+        self.assertIn("default_write_bands must not grant direct default write authority", str(ctx.exception))
+        self.assertIn("frozen", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_promote_without_named_transition(self) -> None:
+        memory_rights = valid_memory_rights()
+        promotion_rights = dict(memory_rights["promotion_rights"])
+        promotion_rights["allowed_transitions"] = []
+        memory_rights["promotion_rights"] = promotion_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights)
+
+        self.assertIn("allowed_transitions must name at least one transition", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_transition_without_lifecycle_right(self) -> None:
+        memory_rights = valid_memory_rights()
+        promotion_rights = {
+            "can_nominate": False,
+            "can_confirm": False,
+            "can_promote": False,
+            "can_demote": False,
+            "can_retire": False,
+            "can_rescue": False,
+            "allowed_transitions": ["hot_to_warm"],
+        }
+        memory_rights["promotion_rights"] = promotion_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights)
+
+        self.assertIn("allowed_transitions must not be set without", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_freeze_prepare_without_recommend(self) -> None:
+        memory_rights = valid_memory_rights()
+        freeze_rights = dict(memory_rights["freeze_rights"])
+        freeze_rights["can_recommend"] = False
+        freeze_rights["can_prepare"] = True
+        memory_rights["freeze_rights"] = freeze_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights, handoff_rule="review_required")
+
+        self.assertIn("can_prepare requires can_recommend", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_freeze_finalize_without_prepare(self) -> None:
+        memory_rights = valid_memory_rights()
+        freeze_rights = dict(memory_rights["freeze_rights"])
+        freeze_rights["can_finalize"] = True
+        memory_rights["freeze_rights"] = freeze_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights, handoff_rule="review_required")
+
+        self.assertIn("can_finalize requires can_prepare", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_freeze_finalize_without_review_required_handoff(self) -> None:
+        memory_rights = valid_memory_rights()
+        freeze_rights = {
+            "can_recommend": True,
+            "can_prepare": True,
+            "can_finalize": True,
+        }
+        memory_rights["freeze_rights"] = freeze_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights, handoff_rule="handoff_on_risk")
+
+        self.assertIn("can_finalize requires handoff_rule 'review_required'", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_lifecycle_mutation_with_solo_handoff(self) -> None:
+        memory_rights = valid_memory_rights()
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights, handoff_rule="solo_ok")
+
+        self.assertIn("handoff_rule must be handoff_on_risk or review_required", str(ctx.exception))
+
     def test_validate_self_agent_checkpoint_example_coherence_rejects_scope_outside_profile_rights(self) -> None:
         profiles = validate_agents.load_profiles()
         agent_names = validate_agents.validate_registry()

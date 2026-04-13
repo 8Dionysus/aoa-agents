@@ -1533,6 +1533,13 @@ def validate_agent_profile_sources() -> list[dict[str, object]]:
             fail(f"duplicate agent profile name in source layer: '{profile_name}'")
         seen_names.add(profile_name)
 
+        handoff_rule = payload.get("handoff_rule")
+        validate_memory_rights(
+            location,
+            payload.get("memory_rights"),
+            handoff_rule=handoff_rule if isinstance(handoff_rule, str) else None,
+        )
+
         owns = payload.get("owns")
         does_not_own = payload.get("does_not_own")
         if not isinstance(owns, list) or not isinstance(does_not_own, list):
@@ -1625,13 +1632,13 @@ def validate_registry() -> set[str]:
         for skill_family in preferred_skill_families:
             if not isinstance(skill_family, str) or len(skill_family) < 2:
                 fail(f"{location}.preferred_skill_families contains an invalid entry")
-        if memory_posture not in ALLOWED_MEMORY_POSTURE:
-            fail(f"{location}.memory_posture '{memory_posture}' is not allowed")
-        validate_memory_rights(location, memory_rights)
-        if evaluation_posture not in ALLOWED_EVAL_POSTURE:
-            fail(f"{location}.evaluation_posture '{evaluation_posture}' is not allowed")
         if handoff_rule not in ALLOWED_HANDOFF:
             fail(f"{location}.handoff_rule '{handoff_rule}' is not allowed")
+        if memory_posture not in ALLOWED_MEMORY_POSTURE:
+            fail(f"{location}.memory_posture '{memory_posture}' is not allowed")
+        validate_memory_rights(location, memory_rights, handoff_rule=handoff_rule)
+        if evaluation_posture not in ALLOWED_EVAL_POSTURE:
+            fail(f"{location}.evaluation_posture '{evaluation_posture}' is not allowed")
 
     missing_seed = sorted(required_seed - seen_names)
     if missing_seed:
@@ -2638,7 +2645,12 @@ def validate_orchestrator_class_doc_surface() -> None:
             )
 
 
-def validate_memory_rights(location: str, memory_rights: object) -> None:
+def validate_memory_rights(
+    location: str,
+    memory_rights: object,
+    *,
+    handoff_rule: str | None = None,
+) -> None:
     if not isinstance(memory_rights, dict):
         fail(f"{location}.memory_rights must be an object")
 
@@ -2667,6 +2679,14 @@ def validate_memory_rights(location: str, memory_rights: object) -> None:
             if item not in allowed_values:
                 fail(f"{location}.memory_rights.{array_name} contains unsupported value '{item}'")
 
+    default_write_bands = memory_rights["default_write_bands"]
+    blocked_default_write_bands = sorted({"core", "frozen"} & set(default_write_bands))
+    if blocked_default_write_bands:
+        fail(
+            f"{location}.memory_rights.default_write_bands must not grant direct default write "
+            f"authority for: {', '.join(blocked_default_write_bands)}"
+        )
+
     promotion_rights = memory_rights["promotion_rights"]
     if not isinstance(promotion_rights, dict):
         fail(f"{location}.memory_rights.promotion_rights must be an object")
@@ -2694,6 +2714,19 @@ def validate_memory_rights(location: str, memory_rights: object) -> None:
             fail(
                 f"{location}.memory_rights.promotion_rights.allowed_transitions contains unsupported value '{item}'"
             )
+    transition_lifecycle_rights = ("can_promote", "can_demote", "can_rescue")
+    if any(promotion_rights[key] for key in transition_lifecycle_rights) and not allowed_transitions:
+        fail(
+            f"{location}.memory_rights.promotion_rights.allowed_transitions must name at least one "
+            "transition when promote, demote, or rescue rights are granted"
+        )
+    if allowed_transitions and not any(
+        promotion_rights[key] for key in ("can_nominate", "can_confirm", "can_promote", "can_demote", "can_rescue")
+    ):
+        fail(
+            f"{location}.memory_rights.promotion_rights.allowed_transitions must not be set without "
+            "nomination, confirmation, promotion, demotion, or rescue rights"
+        )
 
     freeze_rights = memory_rights["freeze_rights"]
     if not isinstance(freeze_rights, dict):
@@ -2703,6 +2736,35 @@ def validate_memory_rights(location: str, memory_rights: object) -> None:
             fail(f"{location}.memory_rights.freeze_rights is missing required key '{key}'")
         if not isinstance(freeze_rights[key], bool):
             fail(f"{location}.memory_rights.freeze_rights.{key} must be a boolean")
+    if freeze_rights["can_prepare"] and not freeze_rights["can_recommend"]:
+        fail(
+            f"{location}.memory_rights.freeze_rights.can_prepare requires can_recommend "
+            "so freeze preparation stays reviewable"
+        )
+    if freeze_rights["can_finalize"] and not freeze_rights["can_prepare"]:
+        fail(
+            f"{location}.memory_rights.freeze_rights.can_finalize requires can_prepare "
+            "so freeze finalization cannot bypass candidate preparation"
+        )
+    if freeze_rights["can_finalize"] and handoff_rule != "review_required":
+        fail(
+            f"{location}.memory_rights.freeze_rights.can_finalize requires handoff_rule "
+            "'review_required'"
+        )
+    if handoff_rule in {"solo_ok", "handoff_on_ambiguity"}:
+        lifecycle_mutation_rights = (
+            promotion_rights["can_promote"]
+            or promotion_rights["can_demote"]
+            or promotion_rights["can_retire"]
+            or promotion_rights["can_rescue"]
+            or freeze_rights["can_prepare"]
+            or freeze_rights["can_finalize"]
+        )
+        if lifecycle_mutation_rights:
+            fail(
+                f"{location}.handoff_rule must be handoff_on_risk or review_required when "
+                "promotion lifecycle or freeze preparation/finalization rights are granted"
+            )
 
 
 def env_repo_root(name: str) -> Path | None:
