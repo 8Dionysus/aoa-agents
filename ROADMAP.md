@@ -17,7 +17,7 @@ The current `v0.2.x` release line already carries:
 - Codex custom-agent projection and owner refresh-law surfaces in `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
 - runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - adjunct quest and Alpha readiness surfaces in `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
-- pre-Agon subject-prep holding boundaries in `docs/AGENT_SUBJECT_PREP.md`,
+- future subject-prep holding boundaries in `docs/AGENT_SUBJECT_PREP.md`,
   including the future agonic/assistant kind split and civil/service assistant
   path without changing profile schemas yet
 

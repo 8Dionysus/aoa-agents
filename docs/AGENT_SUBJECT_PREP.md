@@ -3,8 +3,8 @@
 ## Purpose
 
 This note clarifies what `aoa-agents` may own when the federation prepares a
-future first Agon wave around more subject-shaped agents, and what must remain
-outside this repository.
+future center-owned route around more subject-shaped agents, and what must
+remain outside this repository.
 
 It does not claim that current profiles already implement full subjecthood.
 It names the local preparation boundary so future changes do not smear role,
@@ -23,15 +23,15 @@ Today the agent layer already owns:
 - progression and authority posture through separate progression surfaces
 
 That is enough to make actors explicit as role-bearing agents.
-It is not yet the same thing as a full subject-bearing Agon vessel.
+It is not yet the same thing as a full subject-bearing actor.
 
-## Pre-Agon holding boundary
+## Future Actor Boundary
 
 The present preparation boundary is not just "more subjecthood".
-The agent layer must be able to distinguish two forms before an arena opens:
+The agent layer must be able to distinguish two forms before a later
+center-owned route opens:
 
-- `agonic` actors that may later become contestants under a lawful arena
-  charter
+- `agonic` actors that may later become contestants under a lawful charter
 - `assistant` actors that serve the civil/service pole: clear mandates,
   predictable execution, transparent receipts, external review, certification,
   and versioning
@@ -44,14 +44,14 @@ Do not hide both under one hybrid profile.
 
 This repository may prepare the role-facing split and future additive adjunct
 families that make it concrete.
-It must not decide arena law, verdict logic, memory storage, runtime transport,
+It must not decide protocol law, verdict logic, memory storage, runtime transport,
 or ToS promotion.
 This note does not land any seed pack; reviewed wave work should still decide
 the exact source paths, schemas, generated indexes, and release checks.
 
 ## What may belong here later
 
-If the future Agon-preparation route widens the agent layer, this repository may
+If a future center-owned route widens the agent layer, this repository may
 own source-authored role-adjacent surfaces such as:
 
 - doctrine seed or explicit stance seed
@@ -61,7 +61,7 @@ own source-authored role-adjacent surfaces such as:
 - model-of-other posture or prediction obligations
 - battle-facing self-description of what the role is trying to protect
 - an explicit `kind` split such as `agonic` or `assistant`
-- subjectivity, office, and arena-authority adjuncts for agonic actors when
+- subjectivity, office, and authority adjuncts for agonic actors when
   those surfaces stay role-owned and do not become protocol law
 - office/kind pairing rules that prevent one office from hiding two different
   forms in one profile
@@ -70,8 +70,8 @@ own source-authored role-adjacent surfaces such as:
 - civil/service assistant variant surfaces, such as service identity,
   governance, certification, and receipt posture, when they remain anchored to
   explicit role variants rather than silently widening the public role catalog
-- contestant-eligibility or arena-role hints, as long as the arena protocol
-  itself remains center-owned
+- contestant-eligibility or role hints, as long as the protocol itself remains
+  center-owned
 
 Those surfaces still belong here only when they remain role-authored and
 bounded.
@@ -122,7 +122,7 @@ surface sounds important.
 
 Do not:
 
-- treat current profiles as if they already carry full Agon subjecthood
+- treat current profiles as if they already carry full subjecthood
 - treat current profiles as if they already carry the agonic/assistant split
 - store scars or battle history directly in role profiles
 - store assistant version history, incident logs, or certification ledgers
