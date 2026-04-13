@@ -78,7 +78,8 @@ Also respect the `core` overlay as a constitutional band.
 - default read bands: `core`, `warm`, selected `cool`
 - default write bands: `warm`
 - default recall scope classes: `thread`, `session`, `repo`, `project`
-- promotion rights: may confirm or block promotion proposals
+- promotion rights: may confirm or block `hot -> warm` and `warm -> cool`
+  promotion proposals
 - freeze rights: may recommend freeze, but should not freeze alone by default
 - handoff posture: hand off durable memory capture to `memory-keeper` after review posture is explicit
 
@@ -87,7 +88,7 @@ Also respect the `core` overlay as a constitutional band.
 - default read bands: `core`, selected `warm`
 - default write bands: `warm` for bounded evaluation traces only
 - default recall scope classes: `session`, `repo`, `project`, `workspace`
-- promotion rights: may nominate stable evaluation patterns
+- promotion rights: may nominate stable evaluation patterns for `warm -> cool`
 - freeze rights: none
 - handoff posture: keep eval doctrine separate from memo truth and hand off durable memory capture when needed
 

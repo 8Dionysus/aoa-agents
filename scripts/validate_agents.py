@@ -2714,11 +2714,11 @@ def validate_memory_rights(
             fail(
                 f"{location}.memory_rights.promotion_rights.allowed_transitions contains unsupported value '{item}'"
             )
-    transition_lifecycle_rights = ("can_promote", "can_demote", "can_rescue")
-    if any(promotion_rights[key] for key in transition_lifecycle_rights) and not allowed_transitions:
+    transition_scoped_rights = ("can_nominate", "can_confirm", "can_promote", "can_demote", "can_rescue")
+    if any(promotion_rights[key] for key in transition_scoped_rights) and not allowed_transitions:
         fail(
             f"{location}.memory_rights.promotion_rights.allowed_transitions must name at least one "
-            "transition when promote, demote, or rescue rights are granted"
+            "transition when nomination, confirmation, promotion, demotion, or rescue rights are granted"
         )
     if allowed_transitions and not any(
         promotion_rights[key] for key in ("can_nominate", "can_confirm", "can_promote", "can_demote", "can_rescue")

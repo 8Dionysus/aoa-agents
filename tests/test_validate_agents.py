@@ -315,9 +315,26 @@ class ValidateAgentsTests(unittest.TestCase):
         self.assertIn("default_write_bands must not grant direct default write authority", str(ctx.exception))
         self.assertIn("frozen", str(ctx.exception))
 
-    def test_validate_memory_rights_rejects_promote_without_named_transition(self) -> None:
+    def test_validate_memory_rights_rejects_nominate_without_named_transition(self) -> None:
         memory_rights = valid_memory_rights()
         promotion_rights = dict(memory_rights["promotion_rights"])
+        promotion_rights["can_promote"] = False
+        promotion_rights["can_confirm"] = False
+        promotion_rights["can_nominate"] = True
+        promotion_rights["allowed_transitions"] = []
+        memory_rights["promotion_rights"] = promotion_rights
+
+        with self.assertRaises(validate_agents.ValidationError) as ctx:
+            validate_agents.validate_memory_rights("profiles[0]", memory_rights)
+
+        self.assertIn("allowed_transitions must name at least one transition", str(ctx.exception))
+
+    def test_validate_memory_rights_rejects_confirm_without_named_transition(self) -> None:
+        memory_rights = valid_memory_rights()
+        promotion_rights = dict(memory_rights["promotion_rights"])
+        promotion_rights["can_promote"] = False
+        promotion_rights["can_nominate"] = False
+        promotion_rights["can_confirm"] = True
         promotion_rights["allowed_transitions"] = []
         memory_rights["promotion_rights"] = promotion_rights
 
