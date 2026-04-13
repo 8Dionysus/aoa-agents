@@ -68,11 +68,12 @@ It does not own the runtime implementation beneath those contracts.
 Before making changes, read in this order:
 
 1. `README.md`
-2. `CHARTER.md`
-3. `docs/BOUNDARIES.md`
-4. the target source file you plan to edit
-5. any generated registries or published surfaces affected by the task
-6. neighboring repo docs if the task touches skills, memo, evals, playbooks, or routing
+2. `ROADMAP.md`
+3. `CHARTER.md`
+4. `docs/BOUNDARIES.md`
+5. the target source file you plan to edit
+6. any generated registries or published surfaces affected by the task
+7. neighboring repo docs if the task touches skills, memo, evals, playbooks, or routing
 
 Then branch by task:
 
