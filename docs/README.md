@@ -8,7 +8,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
-- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded future-prep note on subject-bearing agent surfaces and the agonic/assistant kind split.
+- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded future-prep note on subject-bearing agent surfaces, the agonic/assistant kind split, and the civil/service assistant path.
 - Read [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
 - Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
 - Read [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
@@ -34,7 +34,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 ## Docs in this repository
 
 - [AGENT_MODEL](AGENT_MODEL.md) — what the agent layer is for
-- [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) — what future subject-bearing agent preparation and agonic/assistant kind separation may and may not move into the agent layer
+- [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) — what future subject-bearing agent preparation, agonic/assistant kind separation, and civil/service assistant formation may and may not move into the agent layer
 - [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries

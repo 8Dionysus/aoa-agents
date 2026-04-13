@@ -12,6 +12,9 @@ class RoadmapParityTestCase(unittest.TestCase):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+        subject_prep = (REPO_ROOT / "docs" / "AGENT_SUBJECT_PREP.md").read_text(
+            encoding="utf-8"
+        )
 
         self.assertIn("v0.2.1", readme)
         self.assertIn("[0.2.1]", changelog)
@@ -38,6 +41,9 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("Codex subagent projection", changelog)
         self.assertIn("self-agency continuity posture", changelog)
         self.assertIn("agonic/assistant kind split", roadmap)
+        self.assertIn("civil/service", subject_prep)
+        self.assertIn("This note does not land any seed pack", subject_prep)
+        self.assertIn("future additive adjunct", subject_prep)
         self.assertIn("roadmap drift", roadmap)
 
 
