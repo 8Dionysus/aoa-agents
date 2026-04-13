@@ -25,15 +25,16 @@ Today the agent layer already owns:
 That is enough to make actors explicit as role-bearing agents.
 It is not yet the same thing as a full subject-bearing Agon vessel.
 
-## Pre-Agon kind split
+## Pre-Agon holding boundary
 
-The next preparation boundary is not just "more subjecthood".
+The present preparation boundary is not just "more subjecthood".
 The agent layer must be able to distinguish two forms before an arena opens:
 
 - `agonic` actors that may later become contestants under a lawful arena
   charter
-- `assistant` actors that serve clear mandates, remain predictable, and change
-  through external review, certification, and versioning
+- `assistant` actors that serve the civil/service pole: clear mandates,
+  predictable execution, transparent receipts, external review, certification,
+  and versioning
 
 Keep `kind` separate from `office`.
 A `verifier` office, for example, could later have an `agonic` form and an
@@ -41,9 +42,12 @@ A `verifier` office, for example, could later have an `agonic` form and an
 revision authority.
 Do not hide both under one hybrid profile.
 
-This repository may prepare the role-facing split.
+This repository may prepare the role-facing split and future additive adjunct
+families that make it concrete.
 It must not decide arena law, verdict logic, memory storage, runtime transport,
 or ToS promotion.
+This note does not land any seed pack; reviewed wave work should still decide
+the exact source paths, schemas, generated indexes, and release checks.
 
 ## What may belong here later
 
@@ -57,10 +61,15 @@ own source-authored role-adjacent surfaces such as:
 - model-of-other posture or prediction obligations
 - battle-facing self-description of what the role is trying to protect
 - an explicit `kind` split such as `agonic` or `assistant`
+- subjectivity, office, and arena-authority adjuncts for agonic actors when
+  those surfaces stay role-owned and do not become protocol law
 - office/kind pairing rules that prevent one office from hiding two different
   forms in one profile
 - service-contract posture for assistant actors, including scope, escalation,
   operator-owned revision, and certification expectations
+- civil/service assistant variant surfaces, such as service identity,
+  governance, certification, and receipt posture, when they remain anchored to
+  explicit role variants rather than silently widening the public role catalog
 - contestant-eligibility or arena-role hints, as long as the arena protocol
   itself remains center-owned
 
@@ -88,10 +97,10 @@ Even in a future subject-preparation lane, keep these boundaries explicit:
 It must not silently absorb memory truth, proof truth, runtime truth, or
 source-owned canonization.
 
-For the assistant form, version history, incident records, revision records, and
-certification history may be named as posture here, but durable memory objects
-and retention logic still belong outside this repository. The agent layer should
-not become a service ledger.
+For the assistant form, version history, incident records, revision records,
+certification posture, and receipt expectations may be named here as civil/service
+actor governance, but durable memory objects and retention logic still belong
+outside this repository. The agent layer should not become a service ledger.
 
 ## Preferred implementation posture
 
@@ -103,6 +112,8 @@ That keeps the current role-contract profile stable while the federation proves:
 - which fields are truly role-owned
 - which fields are only memory, proof, or runtime projections
 - which fields deserve source-authored permanence
+- which assistant variants should remain anchored adjuncts and which, if any,
+  deserve explicit public-profile reissue later
 
 Do not overload the current base profile just because a future subject-prep
 surface sounds important.
