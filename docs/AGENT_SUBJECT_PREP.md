@@ -25,6 +25,26 @@ Today the agent layer already owns:
 That is enough to make actors explicit as role-bearing agents.
 It is not yet the same thing as a full subject-bearing Agon vessel.
 
+## Pre-Agon kind split
+
+The next preparation boundary is not just "more subjecthood".
+The agent layer must be able to distinguish two forms before an arena opens:
+
+- `agonic` actors that may later become contestants under a lawful arena
+  charter
+- `assistant` actors that serve clear mandates, remain predictable, and change
+  through external review, certification, and versioning
+
+Keep `kind` separate from `office`.
+A `verifier` office, for example, could later have an `agonic` form and an
+`assistant` form with different rights, memory posture, evaluation posture, and
+revision authority.
+Do not hide both under one hybrid profile.
+
+This repository may prepare the role-facing split.
+It must not decide arena law, verdict logic, memory storage, runtime transport,
+or ToS promotion.
+
 ## What may belong here later
 
 If the future Agon-preparation route widens the agent layer, this repository may
@@ -36,6 +56,13 @@ own source-authored role-adjacent surfaces such as:
 - revision obligations and explicit delta expectations
 - model-of-other posture or prediction obligations
 - battle-facing self-description of what the role is trying to protect
+- an explicit `kind` split such as `agonic` or `assistant`
+- office/kind pairing rules that prevent one office from hiding two different
+  forms in one profile
+- service-contract posture for assistant actors, including scope, escalation,
+  operator-owned revision, and certification expectations
+- contestant-eligibility or arena-role hints, as long as the arena protocol
+  itself remains center-owned
 
 Those surfaces still belong here only when they remain role-authored and
 bounded.
@@ -61,6 +88,11 @@ Even in a future subject-preparation lane, keep these boundaries explicit:
 It must not silently absorb memory truth, proof truth, runtime truth, or
 source-owned canonization.
 
+For the assistant form, version history, incident records, revision records, and
+certification history may be named as posture here, but durable memory objects
+and retention logic still belong outside this repository. The agent layer should
+not become a service ledger.
+
 ## Preferred implementation posture
 
 If this future lane becomes real, prefer a separate source-authored adjunct
@@ -80,7 +112,12 @@ surface sounds important.
 Do not:
 
 - treat current profiles as if they already carry full Agon subjecthood
+- treat current profiles as if they already carry the agonic/assistant split
 - store scars or battle history directly in role profiles
+- store assistant version history, incident logs, or certification ledgers
+  directly in role profiles
+- let an assistant actor drift into an agonic contestant without an explicit
+  owner-reviewed recharter
 - hide proof doctrine inside role posture fields
 - hide skill steps inside stance or doctrine fields
 - treat runtime packet shape as agent canon
