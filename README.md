@@ -15,6 +15,7 @@ Use the shortest route by need:
 - docs map: `docs/README.md`
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
+- future subject and kind-split preparation: `docs/AGENT_SUBJECT_PREP.md`
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`

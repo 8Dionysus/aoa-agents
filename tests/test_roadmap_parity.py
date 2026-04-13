@@ -30,12 +30,14 @@ class RoadmapParityTestCase(unittest.TestCase):
             "generated/alpha_reference_routes.min.json",
             "generated/codex_agents/config.subagents.generated.toml",
             "docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md",
+            "docs/AGENT_SUBJECT_PREP.md",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)
 
         self.assertIn("Codex subagent projection", changelog)
         self.assertIn("self-agency continuity posture", changelog)
+        self.assertIn("agonic/assistant kind split", roadmap)
         self.assertIn("roadmap drift", roadmap)
 
 
