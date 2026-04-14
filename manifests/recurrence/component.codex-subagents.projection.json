@@ -1,0 +1,136 @@
+{
+  "schema_version": "aoa_recurrence_component_v1",
+  "component_ref": "component:codex-subagents:projection",
+  "owner_repo": "aoa-agents",
+  "description": "Codex custom-agent projection from source profiles and wiring into repo-owned and workspace-installed surfaces.",
+  "source_inputs": [
+    "profiles/*.profile.json",
+    "config/codex_subagent_wiring.v2.json"
+  ],
+  "generated_surfaces": [
+    "generated/codex_agents/agents/*.toml",
+    "generated/codex_agents/config.subagents.generated.toml",
+    "generated/codex_agents/projection_manifest.json"
+  ],
+  "projected_surfaces": [
+    ".codex/agents/"
+  ],
+  "contract_surfaces": [
+    "docs/CODEX_SUBAGENT_PROJECTION.md",
+    "docs/CODEX_SUBAGENT_REFRESH_LAW.md"
+  ],
+  "proof_surfaces": [
+    "python scripts/build_published_surfaces.py",
+    "python scripts/build_codex_subagents_v2.py",
+    "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+    "python scripts/validate_agents.py"
+  ],
+  "refresh_routes": [
+    {
+      "action": "regenerate",
+      "commands": [
+        "python scripts/build_published_surfaces.py",
+        "python scripts/build_codex_subagents_v2.py",
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
+      ],
+      "notes": "regenerate repo-owned custom-agent projection surfaces"
+    },
+    {
+      "action": "reproject",
+      "commands": [
+        "python scripts/build_published_surfaces.py",
+        "python scripts/build_codex_subagents_v2.py",
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
+      ],
+      "notes": "refresh repo-owned projection and then explicitly install into workspace .codex/agents/"
+    },
+    {
+      "action": "repair",
+      "commands": [
+        "python scripts/build_published_surfaces.py",
+        "python scripts/build_codex_subagents_v2.py",
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
+      ],
+      "notes": "repair bounded projection drift before any explicit workspace install step"
+    }
+  ],
+  "consumer_edges": [
+    {
+      "kind": "projects_to",
+      "target": ".codex/agents/",
+      "target_repo": "8Dionysus",
+      "required": true,
+      "suggested_action": "reproject",
+      "suggested_commands": [],
+      "notes": "explicit workspace install step remains outside hidden automation"
+    },
+    {
+      "kind": "summarized_by",
+      "target": "generated/component_refresh_summary.min.json",
+      "target_repo": "aoa-stats",
+      "required": true,
+      "suggested_action": "restat",
+      "suggested_commands": [
+        "python scripts/build_views.py",
+        "python scripts/validate_repo.py"
+      ],
+      "notes": "publish descriptive closure after projection refresh"
+    },
+    {
+      "kind": "routes_via",
+      "target": "generated/return_navigation_hints.min.json",
+      "target_repo": "aoa-routing",
+      "required": false,
+      "suggested_action": "reroute",
+      "suggested_commands": [
+        "python scripts/build_router.py",
+        "python scripts/validate_router.py"
+      ],
+      "notes": "refresh return navigation hints when subagent projection meaning changes"
+    },
+    {
+      "kind": "handoff_home",
+      "target": "AOA-P-0030",
+      "target_repo": "aoa-playbooks",
+      "required": true,
+      "suggested_action": "handoff",
+      "suggested_commands": [],
+      "notes": "component refresh opener when projection drift becomes a real owner route"
+    }
+  ],
+  "drift_signals": [
+    {
+      "signal": "profile_changed_without_projection_refresh",
+      "recommended_action": "regenerate",
+      "severity": "medium"
+    },
+    {
+      "signal": "workspace_install_projection_stale",
+      "recommended_action": "reproject",
+      "severity": "medium"
+    },
+    {
+      "signal": "codex_subagent_validation_failed",
+      "recommended_action": "repair",
+      "severity": "high"
+    }
+  ],
+  "freshness": {
+    "stale_after_days": 7,
+    "repeat_trigger_threshold": 2,
+    "open_window_days": 5
+  },
+  "rollback_anchors": [
+    "docs/CODEX_SUBAGENT_PROJECTION.md",
+    "generated/codex_agents/projection_manifest.json",
+    "generated/codex_agents/config.subagents.generated.toml"
+  ],
+  "tags": [
+    "agents",
+    "codex",
+    "projection"
+  ]
+}
