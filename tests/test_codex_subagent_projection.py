@@ -136,10 +136,19 @@ class CodexSubagentProjectionTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, msg=result.stderr)
             payload = json.loads(manifest.read_text(encoding="utf-8"))
-            names = [entry["name"] for entry in payload["generated_agents"]]
-            self.assertIn("architect", names)
-            self.assertIn("memory-keeper", names)
-            self.assertTrue(all("source_profile" in entry for entry in payload["generated_agents"]))
+            generated_agents = {entry["name"]: entry for entry in payload["generated_agents"]}
+            self.assertIn("architect", generated_agents)
+            self.assertIn("memory-keeper", generated_agents)
+            self.assertTrue(all("source_profile" in entry for entry in generated_agents.values()))
+            self.assertEqual(generated_agents["architect"]["config_path"], "agents/architect.toml")
+            self.assertEqual(
+                generated_agents["architect"]["mcp_affinity"],
+                ["aoa_workspace", "aoa_stats"],
+            )
+            self.assertEqual(
+                generated_agents["memory-keeper"]["mcp_affinity"],
+                ["aoa_workspace", "aoa_stats", "dionysus"],
+            )
 
     def test_validator_accepts_generated_projection(self) -> None:
         with tempfile.TemporaryDirectory(prefix="aoa-agents-codex-projection-") as temp_dir:

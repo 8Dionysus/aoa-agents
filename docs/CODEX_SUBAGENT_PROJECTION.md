@@ -58,6 +58,9 @@ surface instead of mixing them together.
   surface.
 - `generated/codex_agents/config.subagents.generated.toml` is the generated
   workspace registration snippet.
+- `generated/codex_agents/projection_manifest.json` is the bounded downstream
+  contract for consumers that need role projection metadata without taking over
+  role meaning or workspace MCP ownership.
 - workspace `.codex/config.toml` keeps the final project-scoped registration.
 
 ## Current mapping
@@ -72,6 +75,12 @@ The current projection keeps the AoA role seed narrow:
 
 The generated agents keep MCP affinity in their instructions instead of
 duplicating project-level MCP server definitions in every agent file.
+
+The projection manifest may repeat bounded planning fields such as
+`sandbox_mode`, `nickname_candidates`, `mcp_affinity`, and config-relative
+`config_path` so neighboring control-plane consumers can plan against the same
+projection wiring without treating installed `.codex/agents/` files as source
+truth.
 
 ## Build and validate
 

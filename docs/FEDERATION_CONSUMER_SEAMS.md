@@ -27,7 +27,8 @@ They do not move their canon into `aoa-agents`.
 - `aoa-routing` consumes model-tier registry for tier hints and selects the next
   memo path
 - `aoa-sdk` may consume agent-layer workspace trigger posture as additive
-  guidance for when `aoa surfaces detect` should open after ingress and guard
+  guidance for when `aoa surfaces detect` should open after ingress and guard,
+  and may consume the Codex projection manifest for local child-target planning
 - workspace `.codex/` may consume the generated Codex custom-agent projection
   for the five active role seeds
 - `aoa-agents` may read routing-published memo recall entrypoints as bounded
@@ -102,18 +103,27 @@ Out of scope:
 Promise:
 - `aoa-agents` may publish bounded workspace trigger posture for when additive
   `aoa surfaces detect` should open after ingress and mutation gate passes
+- `aoa-agents` may publish bounded Codex projection-manifest fields for
+  `aoa-sdk` local child-target planning: `sandbox_mode`,
+  `nickname_candidates`, `mcp_affinity`, and config-relative `config_path`
 
 Validator confirms:
 - the trigger posture keeps `aoa skills enter`, `aoa skills guard`, and
   `aoa surfaces detect` in explicit order
 - the trigger posture keeps shortlist and ambiguity hints advisory-only
 - `aoa-skills` remains the only immediate activation lane in this slice
+- the projection manifest keeps those child-target planning fields aligned with
+  active profiles and projection wiring
+- the manifest stays config-relative and does not duplicate workspace MCP
+  server declarations
 
 Out of scope:
 - routing verdicts
 - non-skill activation
 - playbook promotion doctrine
 - owner-layer truth
+- child-agent execution authority
+- runtime launch implementation
 
 ### workspace `.codex/`
 
@@ -203,8 +213,8 @@ They do not validate whole neighboring repositories or import their meaning.
 `AOA_MEMO_ROOT` also confirms published object recall surface reachability for
 `aoa-agents` consumer posture only.
 
-The workspace-trigger posture for `aoa-sdk` remains a docs-level consumer seam
-rather than an optional smoke-check target.
+The workspace-trigger posture and Codex projection-manifest seam for `aoa-sdk`
+remain docs-and-contract surfaces rather than optional smoke-check targets.
 
 ## Boundaries to preserve
 

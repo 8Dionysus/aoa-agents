@@ -94,6 +94,8 @@ class DownstreamFeedContractsTests(unittest.TestCase):
 
         self.assertIn("### `aoa-sdk`", seams)
         self.assertIn("trigger posture", seams)
+        self.assertIn("local child-target planning", seams)
+        self.assertIn("projection-manifest", seams)
 
     def test_codex_subagent_projection_matches_active_agent_names(self) -> None:
         agent_registry = load_json("generated/agent_registry.min.json")
@@ -105,6 +107,15 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         projected_names = {entry["name"] for entry in projection_manifest["generated_agents"]}
 
         self.assertEqual(active_names, projected_names)
+
+    def test_codex_subagent_projection_publishes_bounded_planning_fields(self) -> None:
+        projection_manifest = load_json("generated/codex_agents/projection_manifest.json")
+        generated_agents = {entry["name"]: entry for entry in projection_manifest["generated_agents"]}
+
+        reviewer = generated_agents["reviewer"]
+        self.assertEqual(reviewer["config_path"], "agents/reviewer.toml")
+        self.assertEqual(reviewer["sandbox_mode"], "read-only")
+        self.assertEqual(reviewer["mcp_affinity"], ["aoa_workspace", "aoa_stats"])
 
 
 if __name__ == "__main__":
