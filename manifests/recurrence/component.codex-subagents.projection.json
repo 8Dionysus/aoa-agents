@@ -22,7 +22,8 @@
   "proof_surfaces": [
     "python scripts/build_published_surfaces.py",
     "python scripts/build_codex_subagents_v2.py",
-    "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json"
+    "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+    "python scripts/validate_agents.py"
   ],
   "refresh_routes": [
     {
@@ -30,7 +31,8 @@
       "commands": [
         "python scripts/build_published_surfaces.py",
         "python scripts/build_codex_subagents_v2.py",
-        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json"
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
       ],
       "notes": "regenerate repo-owned custom-agent projection surfaces"
     },
@@ -39,9 +41,20 @@
       "commands": [
         "python scripts/build_published_surfaces.py",
         "python scripts/build_codex_subagents_v2.py",
-        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json"
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
       ],
       "notes": "refresh repo-owned projection and then explicitly install into workspace .codex/agents/"
+    },
+    {
+      "action": "repair",
+      "commands": [
+        "python scripts/build_published_surfaces.py",
+        "python scripts/build_codex_subagents_v2.py",
+        "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python scripts/validate_agents.py"
+      ],
+      "notes": "repair bounded projection drift before any explicit workspace install step"
     }
   ],
   "consumer_edges": [
