@@ -138,6 +138,31 @@ def write_valid_memo_root(root: Path) -> None:
             payload["capsule_surface"] = validate_agents.MEMO_OBJECT_CAPSULE_SURFACE
         write_json(root / contract_file, payload)
 
+    governance_targets = [
+        {
+            "runtime_surface": runtime_surface,
+            "target_kind": target_kind,
+            "writeback_class": "reviewed_candidate",
+            "requires_human_review": True,
+            "review_state_default": "proposed",
+            "intake_posture": "review_candidate_only",
+            "in_writeback_targets": True,
+            "in_writeback_intake": True,
+            "governance_passed": True,
+            "blockers": [],
+        }
+        for runtime_surface, target_kind in validate_agents.MEMO_REVIEWED_CANDIDATE_TARGETS
+    ]
+    write_json(
+        root / validate_agents.MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE,
+        {
+            "schema_version": 1,
+            "layer": "aoa-memo",
+            "scope": "runtime-writeback",
+            "targets": governance_targets,
+        },
+    )
+
 
 def write_valid_routing_root(
     root: Path,
@@ -880,6 +905,38 @@ class ValidateAgentsTests(unittest.TestCase):
                 checked = validate_agents.validate_optional_consumer_smoke_checks({}, {})
 
         self.assertEqual(checked, ["aoa-memo"])
+
+    def test_optional_consumer_smoke_checks_reject_memo_missing_reviewed_candidate_lane(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            memo_root = Path(tmp_dir) / "aoa-memo"
+            write_valid_memo_root(memo_root)
+            governance_path = memo_root / validate_agents.MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE
+            governance = read_json(governance_path)
+            assert isinstance(governance, dict)
+            targets = governance["targets"]
+            assert isinstance(targets, list)
+            governance["targets"] = [
+                target
+                for target in targets
+                if isinstance(target, dict)
+                and target.get("runtime_surface") != "distillation_pattern_candidate"
+            ]
+            write_json(governance_path, governance)
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": "",
+                    "AOA_MEMO_ROOT": str(memo_root),
+                    "AOA_ROUTING_ROOT": "",
+                },
+                clear=False,
+            ):
+                with self.assertRaises(validate_agents.ValidationError) as ctx:
+                    validate_agents.validate_optional_consumer_smoke_checks({}, {})
+
+        self.assertIn("distillation_pattern_candidate", str(ctx.exception))
 
     def test_optional_consumer_smoke_checks_validate_routing_root(self) -> None:
         tiers_by_id, _, _ = registry_context()

@@ -398,6 +398,12 @@ MEMO_OBJECT_INSPECT_SURFACE = "generated/memory_object_catalog.min.json"
 MEMO_OBJECT_CAPSULE_SURFACE = "generated/memory_object_capsules.json"
 MEMO_OBJECT_EXPAND_SURFACE = "generated/memory_object_sections.full.json"
 MEMO_CAPSULE_REQUIRED_MODES = {"semantic", "lineage"}
+MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE = "generated/runtime_writeback_governance.min.json"
+MEMO_REVIEWED_CANDIDATE_TARGETS = (
+    ("distillation_bridge_candidate", "bridge"),
+    ("distillation_claim_candidate", "claim"),
+    ("distillation_pattern_candidate", "pattern"),
+)
 ROUTING_TASK_TO_SURFACE_HINTS_PATH = "generated/task_to_surface_hints.json"
 ROUTING_TINY_MODEL_ENTRYPOINTS_PATH = "generated/tiny_model_entrypoints.json"
 ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
@@ -2847,6 +2853,68 @@ def validate_optional_memo_object_smoke_check(memo_root: Path) -> None:
             )
 
 
+def validate_optional_memo_reviewed_candidate_smoke_check(memo_root: Path) -> None:
+    payload = read_json(memo_root / MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE, root=memo_root)
+    if not isinstance(payload, dict):
+        fail(f"aoa-memo {MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE} must be a JSON object")
+    targets = payload.get("targets")
+    if not isinstance(targets, list) or not targets:
+        fail(f"aoa-memo {MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE} must expose targets")
+
+    targets_by_surface = {
+        item.get("runtime_surface"): item
+        for item in targets
+        if isinstance(item, dict) and isinstance(item.get("runtime_surface"), str)
+    }
+    for runtime_surface, target_kind in MEMO_REVIEWED_CANDIDATE_TARGETS:
+        target = targets_by_surface.get(runtime_surface)
+        if not isinstance(target, dict):
+            fail(
+                "aoa-memo runtime writeback governance must publish reviewed_candidate "
+                f"target '{runtime_surface}'"
+            )
+        if target.get("target_kind") != target_kind:
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must point at target_kind '{target_kind}'"
+            )
+        if target.get("writeback_class") != "reviewed_candidate":
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must stay reviewed_candidate"
+            )
+        if target.get("requires_human_review") is not True:
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must require human review"
+            )
+        if target.get("review_state_default") != "proposed":
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must default review_state to proposed"
+            )
+        if target.get("intake_posture") != "review_candidate_only":
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must stay review_candidate_only"
+            )
+        if target.get("in_writeback_targets") is not True or target.get("in_writeback_intake") is not True:
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must resolve in writeback targets and intake"
+            )
+        if target.get("governance_passed") is not True:
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must keep governance_passed true"
+            )
+        if target.get("blockers") != []:
+            fail(
+                "aoa-memo runtime writeback governance target "
+                f"'{runtime_surface}' must not expose governance blockers"
+            )
+
+
 def format_role_sets(role_sets: object) -> str:
     if not isinstance(role_sets, list):
         return "<invalid role set payload>"
@@ -3214,6 +3282,7 @@ def validate_optional_consumer_smoke_checks(
         for ref in refs:
             resolve_aoa_agents_repo_ref(ref)
         validate_optional_memo_object_smoke_check(memo_root)
+        validate_optional_memo_reviewed_candidate_smoke_check(memo_root)
         checked.append("aoa-memo")
 
     routing_root = env_repo_root("AOA_ROUTING_ROOT")
