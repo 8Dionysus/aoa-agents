@@ -284,6 +284,7 @@ def build_agents(
             "description": derive_description(profile, role_wiring),
             "sandbox_mode": role_wiring.get("sandbox_mode"),
             "nickname_candidates": list(role_wiring.get("nickname_candidates", [])),
+            "mcp_affinity": list(role_wiring.get("mcp_affinity", [])),
             "model": role_wiring.get("model"),
             "model_reasoning_effort": role_wiring.get("model_reasoning_effort"),
             "developer_instructions": build_developer_instructions(profile, role_wiring),
@@ -370,6 +371,8 @@ def build_manifest(
                 "description": agent["description"],
                 "sandbox_mode": agent.get("sandbox_mode"),
                 "nickname_candidates": agent.get("nickname_candidates", []),
+                "mcp_affinity": agent.get("mcp_affinity", []),
+                "config_path": f"{config_file_prefix}/{agent['name']}.toml",
                 "source_profile": agent["source_profile"],
                 "role_key": agent["role_key"],
             }
@@ -572,13 +575,58 @@ def collect_projection_validation_errors(
                 if not isinstance(generated_agents, list):
                     errors.append(f"{manifest_path}: generated_agents must be a list")
                 else:
-                    manifest_names = {
-                        str(item.get("name", "")).strip()
-                        for item in generated_agents
-                        if isinstance(item, Mapping)
-                    }
+                    config_file_prefix = str(manifest_payload.get("config_file_prefix", "agents"))
+                    manifest_names = set()
+                    manifest_by_name: dict[str, Mapping[str, Any]] = {}
+                    for item in generated_agents:
+                        if not isinstance(item, Mapping):
+                            errors.append(f"{manifest_path}: generated_agents entries must be objects")
+                            continue
+                        name = str(item.get("name", "")).strip()
+                        if not name:
+                            errors.append(f"{manifest_path}: generated_agents entry missing name")
+                            continue
+                        manifest_names.add(name)
+                        manifest_by_name[name] = item
                     if manifest_names != set(profiles):
                         errors.append(f"{manifest_path}: generated_agents do not match active profiles")
+                    for name, profile in sorted(profiles.items()):
+                        entry = manifest_by_name.get(name)
+                        if entry is None:
+                            continue
+                        role_key = normalize_role_key(profile)
+                        role_wiring = dict((wiring.get("roles") or {}).get(role_key, {}))
+                        if entry.get("role_key") != role_key:
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] role_key does not match profile wiring"
+                            )
+                        if entry.get("sandbox_mode") != role_wiring.get("sandbox_mode"):
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] sandbox_mode does not match projection wiring"
+                            )
+                        if entry.get("nickname_candidates") != list(
+                            role_wiring.get("nickname_candidates", [])
+                        ):
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] nickname_candidates do not match projection wiring"
+                            )
+                        if entry.get("mcp_affinity") != list(role_wiring.get("mcp_affinity", [])):
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] mcp_affinity does not match projection wiring"
+                            )
+                        expected_config_path = f"{config_file_prefix}/{name}.toml"
+                        if entry.get("config_path") != expected_config_path:
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] config_path must be {expected_config_path!r}"
+                            )
+                        expected_source = path_reference(
+                            profiles_root / f"{name}.profile.json",
+                            profiles_root.parent,
+                        )
+                        if entry.get("source_profile") != expected_source:
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] source_profile does not match active profile path"
+                            )
 
     return errors
 

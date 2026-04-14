@@ -17,6 +17,11 @@
         "Lattice",
         "Spine"
       ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "config_path": "agents/architect.toml",
       "source_profile": "profiles/architect.profile.json",
       "role_key": "architect"
     },
@@ -29,6 +34,10 @@
         "Rivet",
         "Patch"
       ],
+      "mcp_affinity": [
+        "aoa_workspace"
+      ],
+      "config_path": "agents/coder.toml",
       "source_profile": "profiles/coder.profile.json",
       "role_key": "coder"
     },
@@ -41,6 +50,11 @@
         "Prism",
         "Delta"
       ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "config_path": "agents/evaluator.toml",
       "source_profile": "profiles/evaluator.profile.json",
       "role_key": "evaluator"
     },
@@ -53,6 +67,12 @@
         "Ledger",
         "Mneme"
       ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats",
+        "dionysus"
+      ],
+      "config_path": "agents/memory-keeper.toml",
       "source_profile": "profiles/memory-keeper.profile.json",
       "role_key": "memory-keeper"
     },
@@ -65,6 +85,11 @@
         "Lens",
         "Check"
       ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "config_path": "agents/reviewer.toml",
       "source_profile": "profiles/reviewer.profile.json",
       "role_key": "reviewer"
     }
