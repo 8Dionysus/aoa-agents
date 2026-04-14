@@ -47,6 +47,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md) — how official cohort patterns stay compact and distinct from playbooks
 - [AGENT_RUNTIME_SEAM](AGENT_RUNTIME_SEAM.md) — how role-and-tier binding stays explicit without turning into runtime implementation
 - [WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE](WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md) — how the April 9 workspace checkpoint-growth closeout leaves one bounded agent-layer role-posture adjunct without widening profiles
+- [WAVE5_A2A_SUMMON_RETURN_ROLE_POSTURE_HOLD](WAVE5_A2A_SUMMON_RETURN_ROLE_POSTURE_HOLD.md) — how the Wave5 A2A summon return closeout leaves one bounded agent-layer hold without widening profiles
 - [FEDERATION_CONSUMER_SEAMS](FEDERATION_CONSUMER_SEAMS.md) — how neighboring repositories consume bounded agent-layer contracts without moving canon here
 - [WORKSPACE_SURFACE_TRIGGER_POSTURE](WORKSPACE_SURFACE_TRIGGER_POSTURE.md) — how workspace sessions open additive `aoa surfaces detect` without turning the agent layer into routing or skill canon
 - [RUNTIME_ARTIFACT_TRANSITIONS](RUNTIME_ARTIFACT_TRANSITIONS.md) — how artifact coverage and transition governance stay bounded inside the public loop
