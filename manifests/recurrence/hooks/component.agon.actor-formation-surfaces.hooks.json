@@ -1,0 +1,142 @@
+{
+  "bindings": [
+    {
+      "binding_ref": "agon.actor-formation-surfaces.agon-agent-formation-surfaces.watch",
+      "component_ref": "component:agon:actor-formation-surfaces",
+      "config": {
+        "json_field_signals": [
+          {
+            "attributes_from_fields": [
+              "schema_version",
+              "status",
+              "wave"
+            ],
+            "category": "review_signal",
+            "field": "schema_version",
+            "match": "exists",
+            "signal": "agon_recurrence_surface_seen"
+          },
+          {
+            "attributes_from_fields": [
+              "live_protocol",
+              "runtime_effect"
+            ],
+            "category": "overclaim_risk",
+            "field": "live_protocol",
+            "match": "equals",
+            "signal": "live_protocol_claim_present",
+            "value": true
+          }
+        ],
+        "phrase_signals": [
+          {
+            "category": "repeat_pattern",
+            "mode": "any",
+            "notes": "documentation repeats a pre-protocol stop-line",
+            "phrases": [
+              "no verdict",
+              "no scar",
+              "no arena"
+            ],
+            "signal": "agon_stop_line_repeated"
+          }
+        ],
+        "record_id_field": "surface_ref"
+      },
+      "event": "generated_surface_refreshed",
+      "input_ref": "agon-agent-formation-surfaces",
+      "notes": "Observation only. This hook binding must not create arena sessions, verdicts, scars, or automatic owner mutations.",
+      "owner_repo": "aoa-agents",
+      "path_globs": [
+        "generated/agent_*formation*.min.json",
+        "generated/assistant_civil_formation_index.min.json"
+      ],
+      "producer": "runtime_candidate_watch",
+      "signal_rules": [
+        {
+          "attributes_from_fields": [
+            "schema_version",
+            "status"
+          ],
+          "category": "change_pressure",
+          "match": "always",
+          "signal": "agon_recurrence_surface_changed",
+          "source_inputs": [
+            "agon-agent-formation-surfaces"
+          ]
+        }
+      ]
+    },
+    {
+      "binding_ref": "agon.actor-formation-surfaces.agon-agent-boundary-docs.watch",
+      "component_ref": "component:agon:actor-formation-surfaces",
+      "config": {
+        "json_field_signals": [
+          {
+            "attributes_from_fields": [
+              "schema_version",
+              "status",
+              "wave"
+            ],
+            "category": "review_signal",
+            "field": "schema_version",
+            "match": "exists",
+            "signal": "agon_recurrence_surface_seen"
+          },
+          {
+            "attributes_from_fields": [
+              "live_protocol",
+              "runtime_effect"
+            ],
+            "category": "overclaim_risk",
+            "field": "live_protocol",
+            "match": "equals",
+            "signal": "live_protocol_claim_present",
+            "value": true
+          }
+        ],
+        "phrase_signals": [
+          {
+            "category": "repeat_pattern",
+            "mode": "any",
+            "notes": "documentation repeats a pre-protocol stop-line",
+            "phrases": [
+              "no verdict",
+              "no scar",
+              "no arena"
+            ],
+            "signal": "agon_stop_line_repeated"
+          }
+        ],
+        "record_id_field": "surface_ref"
+      },
+      "event": "session_stop",
+      "input_ref": "agon-agent-boundary-docs",
+      "notes": "Observation only. This hook binding must not create arena sessions, verdicts, scars, or automatic owner mutations.",
+      "owner_repo": "aoa-agents",
+      "path_globs": [
+        "docs/*AGON*.md",
+        "docs/ASSISTANT_*RECHARTERING.md"
+      ],
+      "producer": "harvest_pattern_watch",
+      "signal_rules": [
+        {
+          "attributes_from_fields": [
+            "schema_version",
+            "status"
+          ],
+          "category": "change_pressure",
+          "match": "always",
+          "signal": "agon_recurrence_surface_changed",
+          "source_inputs": [
+            "agon-agent-boundary-docs"
+          ]
+        }
+      ]
+    }
+  ],
+  "component_ref": "component:agon:actor-formation-surfaces",
+  "notes": "Agon recurrence adapter hook bindings. Hooks produce observations and review pressure only.",
+  "owner_repo": "aoa-agents",
+  "schema_version": "aoa_hook_binding_set_v1"
+}
