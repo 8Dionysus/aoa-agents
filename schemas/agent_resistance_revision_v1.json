@@ -1,0 +1,85 @@
+{
+  "$id": "https://aoa-agents/schemas/agent_resistance_revision_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://aoa-agents/schemas/agent_resistance_revision_v1.json",
+      "type": "string"
+    },
+    "agent_id": {
+      "minLength": 3,
+      "type": "string"
+    },
+    "external_boundaries": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "failure_conditions": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "profile_id": {
+      "pattern": "^AOA-A-[0-9]{4}$",
+      "type": "string"
+    },
+    "resistance_rights": {
+      "additionalProperties": false,
+      "properties": {
+        "challenge_scope_bleed": {
+          "type": "boolean"
+        },
+        "refuse_false_closure": {
+          "type": "boolean"
+        },
+        "reject_unsupported_claim": {
+          "type": "boolean"
+        },
+        "request_source_owner_handoff": {
+          "type": "boolean"
+        },
+        "request_witness": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "refuse_false_closure",
+        "challenge_scope_bleed",
+        "request_witness",
+        "request_source_owner_handoff",
+        "reject_unsupported_claim"
+      ],
+      "type": "object"
+    },
+    "revision_obligations": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "$schema",
+    "agent_id",
+    "profile_id",
+    "resistance_rights",
+    "revision_obligations",
+    "failure_conditions",
+    "external_boundaries"
+  ],
+  "title": "AoA Agon Wave I resistance and revision adjunct",
+  "type": "object"
+}

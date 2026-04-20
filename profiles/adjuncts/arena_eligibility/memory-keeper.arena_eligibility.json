@@ -1,0 +1,31 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+  "agent_id": "memory-keeper",
+  "candidate_seats": {
+    "boundary_challenger": false,
+    "chronicler": true,
+    "closer": false,
+    "contestant": false,
+    "executor": false,
+    "judge": false,
+    "skeptic": false,
+    "summon_initiator": false,
+    "verifier": false,
+    "witness": true
+  },
+  "eligibility_status": "support_candidate",
+  "forbidden_seats": [
+    "summon_initiator",
+    "closer",
+    "judge",
+    "protocol_sovereign",
+    "tree_promoter"
+  ],
+  "not_live_authority": true,
+  "notes": [
+    "May serve as future witness or chronicler candidate under charter.",
+    "Cannot store durable scar history in role profiles."
+  ],
+  "profile_id": "AOA-A-0005",
+  "requires_center_charter": true
+}

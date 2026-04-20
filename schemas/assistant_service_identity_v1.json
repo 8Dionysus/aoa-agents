@@ -1,0 +1,66 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_service_identity_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "honor_conditions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "operational_affects": {
+      "additionalProperties": {
+        "maximum": 1,
+        "minimum": 0,
+        "type": "number"
+      },
+      "type": "object"
+    },
+    "reputation_axes": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema_version": {
+      "const": "assistant_service_identity_v1"
+    },
+    "service_promise": {
+      "type": "string"
+    },
+    "shame_conditions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "uniform": {
+      "type": "string"
+    },
+    "variant_id": {
+      "type": "string"
+    },
+    "voice_posture": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "uniform",
+    "service_promise",
+    "reputation_axes",
+    "honor_conditions",
+    "shame_conditions",
+    "operational_affects"
+  ],
+  "title": "Assistant Service Identity v1",
+  "type": "object"
+}

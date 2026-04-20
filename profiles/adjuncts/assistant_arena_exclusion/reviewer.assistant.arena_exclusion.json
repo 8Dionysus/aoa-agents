@@ -1,0 +1,40 @@
+{
+  "agonic_recharter_required": true,
+  "allowed_service_moves": [
+    "validate_input_shape",
+    "normalize_output",
+    "emit_receipt",
+    "flag_boundary",
+    "request_missing_fields",
+    "escalate_to_agonic_actor",
+    "handoff_with_receipt"
+  ],
+  "closer_eligible": false,
+  "contestant_eligible": false,
+  "escalation_triggers": [
+    "contradiction_above_service_scope",
+    "contested_closure",
+    "canonical_risk",
+    "missing_evidence",
+    "request_for_policy_change",
+    "need_for_thesis_under_risk",
+    "repeated_service_failure",
+    "pressure_to_become_contestant"
+  ],
+  "judge_eligible": false,
+  "prohibited_moves": [
+    "assert_under_risk",
+    "challenge_thesis",
+    "issue_verdict",
+    "initiate_summon",
+    "grant_closure",
+    "write_scar",
+    "promote_to_ToS",
+    "self_promote"
+  ],
+  "scar_writer_eligible": false,
+  "schema_version": "assistant_arena_exclusion_v1",
+  "summon_initiator_eligible": false,
+  "tos_promotion_eligible": false,
+  "variant_id": "reviewer.assistant"
+}

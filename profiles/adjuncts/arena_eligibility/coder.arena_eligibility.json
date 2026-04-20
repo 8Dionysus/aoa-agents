@@ -1,0 +1,31 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+  "agent_id": "coder",
+  "candidate_seats": {
+    "boundary_challenger": false,
+    "chronicler": false,
+    "closer": false,
+    "contestant": true,
+    "executor": true,
+    "judge": false,
+    "skeptic": false,
+    "summon_initiator": false,
+    "verifier": false,
+    "witness": false
+  },
+  "eligibility_status": "limited_candidate",
+  "forbidden_seats": [
+    "summon_initiator",
+    "closer",
+    "judge",
+    "protocol_sovereign",
+    "tree_promoter"
+  ],
+  "not_live_authority": true,
+  "notes": [
+    "May contest only bounded execution and validation-legibility questions.",
+    "Workspace-write permission must not become arena authority."
+  ],
+  "profile_id": "AOA-A-0002",
+  "requires_center_charter": true
+}

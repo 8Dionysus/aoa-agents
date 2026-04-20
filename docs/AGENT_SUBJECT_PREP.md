@@ -10,6 +10,28 @@ It does not claim that current profiles already implement full subjecthood.
 It names the local preparation boundary so future changes do not smear role,
 memory, proof, runtime, and canonization into one agent file.
 
+Wave I Agonic Actor Rechartering has now landed the first agonic companion
+surfaces under:
+
+- `docs/AGONIC_ACTOR_RECHARTERING.md`
+- `profiles/adjuncts/`
+- `generated/agent_agonic_formation_index.min.json`
+
+That landing does not erase this boundary note. It means the agonic side is no
+longer only hypothetical.
+
+Wave II Assistant Civil Rechartering has now landed the first assistant
+companion surfaces under:
+
+- `docs/ASSISTANT_CIVIL_RECHARTERING.md`
+- `profiles/adjuncts/assistant_*`
+- `generated/assistant_civil_formation_index.min.json`
+
+That second landing does not erase this boundary note either. It means the
+agonic side and the assistant side are now both explicit at the actor layer,
+while protocol law, verdicts, scars, retention, runtime transport, and
+canonization still remain outside this repository.
+
 ## Current truth
 
 Today the agent layer already owns:
@@ -46,8 +68,10 @@ This repository may prepare the role-facing split and future additive adjunct
 families that make it concrete.
 It must not decide protocol law, verdict logic, memory storage, runtime transport,
 or ToS promotion.
-This note does not land any seed pack; reviewed wave work should still decide
-the exact source paths, schemas, generated indexes, and release checks.
+Wave I and Wave II have now decided the first agonic and assistant source
+paths, schemas, and generated indexes for the current five role homes. Any
+protocol-bearing follow-through, runtime transport, or canon-facing follow-up
+still remains future reviewed work.
 
 ## What may belong here later
 

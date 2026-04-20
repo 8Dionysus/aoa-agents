@@ -1,0 +1,117 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_variant_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "anchoring": {
+      "additionalProperties": false,
+      "properties": {
+        "does_not_create_public_role": {
+          "const": true
+        },
+        "does_not_override_base_profile": {
+          "const": true
+        },
+        "profile_path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_path",
+        "does_not_create_public_role",
+        "does_not_override_base_profile"
+      ],
+      "type": "object"
+    },
+    "arena_status": {
+      "additionalProperties": false,
+      "properties": {
+        "closer_eligible": {
+          "const": false
+        },
+        "contestant_eligible": {
+          "const": false
+        },
+        "judge_eligible": {
+          "const": false
+        },
+        "service_seats_allowed": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "summon_initiator_eligible": {
+          "const": false
+        }
+      },
+      "required": [
+        "contestant_eligible",
+        "judge_eligible",
+        "closer_eligible",
+        "summon_initiator_eligible",
+        "service_seats_allowed"
+      ],
+      "type": "object"
+    },
+    "base_role_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "evolution_mode": {
+      "const": "exogenous_reactive"
+    },
+    "forbidden_authority": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "kind": {
+      "const": "assistant"
+    },
+    "schema_version": {
+      "const": "assistant_variant_v1"
+    },
+    "service_office": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "owner_repo": {
+          "const": "aoa-agents"
+        },
+        "wave": {
+          "const": "agon_wave2_assistant_civil_rechartering"
+        }
+      },
+      "required": [
+        "wave",
+        "owner_repo"
+      ],
+      "type": "object"
+    },
+    "variant_id": {
+      "pattern": "^[a-z0-9-]+\\.assistant$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "base_role_id",
+    "kind",
+    "evolution_mode",
+    "service_office",
+    "anchoring",
+    "arena_status",
+    "forbidden_authority",
+    "source"
+  ],
+  "title": "Assistant Variant v1",
+  "type": "object"
+}

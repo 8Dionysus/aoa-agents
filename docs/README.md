@@ -8,7 +8,11 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
-- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded future-prep note on subject-bearing agent surfaces, the agonic/assistant kind split, and the civil/service assistant path.
+- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded boundary note that now routes from legacy role contracts into landed Wave I agonic adjuncts and landed Wave II assistant civil adjuncts while keeping protocol law out of this repository.
+- Read [AGONIC_ACTOR_RECHARTERING](AGONIC_ACTOR_RECHARTERING.md) and [AGON_WAVE1_LANDING](AGON_WAVE1_LANDING.md) for the first landed Agon-facing actor turn.
+- Read [ASSISTANT_CIVIL_RECHARTERING](ASSISTANT_CIVIL_RECHARTERING.md) and [AGON_WAVE2_LANDING](AGON_WAVE2_LANDING.md) for the landed civil/service turn that prevents assistant drift into hidden contestants.
+- Read [ASSISTANT_KIND_MODEL](ASSISTANT_KIND_MODEL.md), [ASSISTANT_SERVICE_IDENTITY_MODEL](ASSISTANT_SERVICE_IDENTITY_MODEL.md), [ASSISTANT_SERVICE_CONTRACT_MODEL](ASSISTANT_SERVICE_CONTRACT_MODEL.md), [ASSISTANT_SERVICE_GOVERNANCE_MODEL](ASSISTANT_SERVICE_GOVERNANCE_MODEL.md), [ASSISTANT_SERVICE_CERTIFICATION_MODEL](ASSISTANT_SERVICE_CERTIFICATION_MODEL.md), [ASSISTANT_ARENA_EXCLUSION_MODEL](ASSISTANT_ARENA_EXCLUSION_MODEL.md), and [ASSISTANT_ESCALATION_TO_AGON](ASSISTANT_ESCALATION_TO_AGON.md) for the six assistant companion families and their escalation law.
+- Read [AGENT_KIND_MODEL](AGENT_KIND_MODEL.md), [AGENT_SUBJECTIVITY_MODEL](AGENT_SUBJECTIVITY_MODEL.md), [AGENT_OFFICE_MODEL](AGENT_OFFICE_MODEL.md), [AGENT_ARENA_ELIGIBILITY_MODEL](AGENT_ARENA_ELIGIBILITY_MODEL.md), and [AGENT_RESISTANCE_REVISION_POSTURE](AGENT_RESISTANCE_REVISION_POSTURE.md) for the five companion adjunct families.
 - Read [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
 - Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
 - Read [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) for the source-authored machine-readable registry layer.
@@ -35,6 +39,22 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - [AGENT_MODEL](AGENT_MODEL.md) — what the agent layer is for
 - [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) — what future subject-bearing agent preparation, agonic/assistant kind separation, and civil/service assistant formation may and may not move into the agent layer
+- [AGONIC_ACTOR_RECHARTERING](AGONIC_ACTOR_RECHARTERING.md) — how existing role homes survive Agon scrutiny through reviewed companion surfaces rather than profile-schema widening
+- [AGON_WAVE1_LANDING](AGON_WAVE1_LANDING.md) — the Wave I landing law, acceptance signals, and downstream handoff
+- [ASSISTANT_CIVIL_RECHARTERING](ASSISTANT_CIVIL_RECHARTERING.md) — how assistant variants become explicit civil/service forms instead of hidden contestants
+- [AGON_WAVE2_LANDING](AGON_WAVE2_LANDING.md) — the Wave II landing law, exit signals, and downstream bridge
+- [AGENT_KIND_MODEL](AGENT_KIND_MODEL.md) — how `kind` separates agonic form from office while keeping agonic files distinct from landed assistant files
+- [AGENT_SUBJECTIVITY_MODEL](AGENT_SUBJECTIVITY_MODEL.md) — how beliefs, image, affects, and thought posture stay role-owned without becoming scars, verdicts, or runtime packets
+- [AGENT_OFFICE_MODEL](AGENT_OFFICE_MODEL.md) — how battle-facing office overlays stay adjunct and do not widen the public profile catalog too early
+- [AGENT_ARENA_ELIGIBILITY_MODEL](AGENT_ARENA_ELIGIBILITY_MODEL.md) — how eligibility remains candidate posture rather than live arena authority
+- [AGENT_RESISTANCE_REVISION_POSTURE](AGENT_RESISTANCE_REVISION_POSTURE.md) — how role-owned resistance rights and revision duties stay explicit without becoming battle history
+- [ASSISTANT_KIND_MODEL](ASSISTANT_KIND_MODEL.md) — how assistant form becomes an explicit second side of the kind split
+- [ASSISTANT_SERVICE_IDENTITY_MODEL](ASSISTANT_SERVICE_IDENTITY_MODEL.md) — how assistant dignity stays service-shaped and low-variance
+- [ASSISTANT_SERVICE_CONTRACT_MODEL](ASSISTANT_SERVICE_CONTRACT_MODEL.md) — how mandate, scope, receipts, and escalation stay explicit for assistant variants
+- [ASSISTANT_SERVICE_GOVERNANCE_MODEL](ASSISTANT_SERVICE_GOVERNANCE_MODEL.md) — how assistant revision stays external, release-governed, and rollback-aware
+- [ASSISTANT_SERVICE_CERTIFICATION_MODEL](ASSISTANT_SERVICE_CERTIFICATION_MODEL.md) — how assistant trust stays tied to certification profiles rather than victory
+- [ASSISTANT_ARENA_EXCLUSION_MODEL](ASSISTANT_ARENA_EXCLUSION_MODEL.md) — how service actors remain excluded from contestant, judge, closer, scar-writer, and ToS promotion authority
+- [ASSISTANT_ESCALATION_TO_AGON](ASSISTANT_ESCALATION_TO_AGON.md) — how assistants lawfully escalate pressure upward without becoming agonic actors
 - [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
@@ -62,6 +82,8 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - Run `python scripts/validate_agents.py` for the local non-mutating contract and example checks.
 - Run `python -m pytest -q tests` for the local test suite.
+- Run `python scripts/build_agent_agonic_formation_index.py --check`, `python scripts/validate_agent_agonic_formation.py`, and `python -m pytest -q tests/test_agent_agonic_formation.py` for the explicit Wave I agonic actor recharter lane.
+- Run `python scripts/build_assistant_civil_formation_index.py --check`, `python scripts/validate_assistant_civil_formation.py`, and `python -m pytest -q tests/test_assistant_civil_formation.py` for the explicit Wave II assistant civil recharter lane.
 - Add `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, and `AOA_ROUTING_ROOT` only when you want bounded consumer-smoke checks against sibling repositories.
 - Use `python scripts/build_published_surfaces.py` only after editing source-authored registry inputs.
 

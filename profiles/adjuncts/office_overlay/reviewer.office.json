@@ -1,0 +1,48 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "agent_id": "reviewer",
+  "forbidden_offices": [
+    "summoner",
+    "closer",
+    "protocol_sovereign"
+  ],
+  "offices": [
+    {
+      "forbidden_claims": [
+        "proof doctrine owner",
+        "final verdict owner",
+        "durable memory owner"
+      ],
+      "future_seat_hint": [
+        "contestant",
+        "witness"
+      ],
+      "office_id": "verifier",
+      "primary": true,
+      "protects": [
+        "evidence floor",
+        "readiness claim",
+        "bounded review"
+      ]
+    },
+    {
+      "forbidden_claims": [
+        "protocol sovereign",
+        "closure owner"
+      ],
+      "future_seat_hint": [
+        "contestant",
+        "challenge_actor"
+      ],
+      "office_id": "skeptic",
+      "primary": false,
+      "protects": [
+        "contradiction visibility",
+        "false consensus resistance",
+        "drift detection"
+      ]
+    }
+  ],
+  "overlay_status": "battle_facing_overlay_not_public_profile",
+  "profile_id": "AOA-A-0003"
+}

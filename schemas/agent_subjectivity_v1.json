@@ -1,0 +1,253 @@
+{
+  "$id": "https://aoa-agents/schemas/agent_subjectivity_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://aoa-agents/schemas/agent_subjectivity_v1.json",
+      "type": "string"
+    },
+    "agent_id": {
+      "minLength": 3,
+      "type": "string"
+    },
+    "beliefs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence_seed": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "evidence_floor": {
+            "minLength": 10,
+            "type": "string"
+          },
+          "id": {
+            "minLength": 4,
+            "type": "string"
+          },
+          "revision_conditions": {
+            "items": {
+              "minLength": 8,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "stake_label": {
+            "minLength": 8,
+            "type": "string"
+          },
+          "thesis": {
+            "minLength": 20,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "thesis",
+          "confidence_seed",
+          "evidence_floor",
+          "revision_conditions",
+          "stake_label"
+        ],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "doctrine_seed": {
+      "additionalProperties": false,
+      "properties": {
+        "protects": {
+          "items": {
+            "minLength": 4,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "refuses": {
+          "items": {
+            "minLength": 4,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "statement": {
+          "minLength": 20,
+          "type": "string"
+        }
+      },
+      "required": [
+        "statement",
+        "protects",
+        "refuses"
+      ],
+      "type": "object"
+    },
+    "operational_affects": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "baseline": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "behavioral_effects": {
+            "items": {
+              "minLength": 6,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "decreases_when": {
+            "items": {
+              "minLength": 6,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "id": {
+            "minLength": 4,
+            "type": "string"
+          },
+          "increases_when": {
+            "items": {
+              "minLength": 6,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "baseline",
+          "increases_when",
+          "decreases_when",
+          "behavioral_effects"
+        ],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "profile_id": {
+      "pattern": "^AOA-A-[0-9]{4}$",
+      "type": "string"
+    },
+    "self_image": {
+      "additionalProperties": false,
+      "properties": {
+        "honor_conditions": {
+          "items": {
+            "minLength": 6,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "protected_image": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "public_claim": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "shame_conditions": {
+          "items": {
+            "minLength": 6,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "public_claim",
+        "protected_image",
+        "honor_conditions",
+        "shame_conditions"
+      ],
+      "type": "object"
+    },
+    "stop_lines": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 3,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "thought_posture": {
+      "additionalProperties": false,
+      "properties": {
+        "concept_focus": {
+          "items": {
+            "minLength": 3,
+            "type": "string"
+          },
+          "minItems": 3,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "delta_obligation": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "model_of_other_obligation": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "prediction_obligation": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "preferred_moves": {
+          "items": {
+            "minLength": 3,
+            "type": "string"
+          },
+          "minItems": 2,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "revision_obligation": {
+          "minLength": 20,
+          "type": "string"
+        }
+      },
+      "required": [
+        "concept_focus",
+        "preferred_moves",
+        "model_of_other_obligation",
+        "prediction_obligation",
+        "revision_obligation",
+        "delta_obligation"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "$schema",
+    "agent_id",
+    "profile_id",
+    "doctrine_seed",
+    "beliefs",
+    "self_image",
+    "operational_affects",
+    "thought_posture",
+    "stop_lines"
+  ],
+  "title": "AoA Agon Wave I agent subjectivity adjunct",
+  "type": "object"
+}

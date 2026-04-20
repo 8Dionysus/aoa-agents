@@ -1,0 +1,70 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_service_governance_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "change_process": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "memory_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "durable_incident_ledger_owner": {
+          "type": "string"
+        },
+        "durable_revision_ledger_owner": {
+          "type": "string"
+        },
+        "stores_durable_memory_here": {
+          "const": false
+        }
+      },
+      "required": [
+        "durable_incident_ledger_owner",
+        "durable_revision_ledger_owner",
+        "stores_durable_memory_here"
+      ],
+      "type": "object"
+    },
+    "persistent_policy_change_allowed": {
+      "const": false
+    },
+    "revision_authority": {
+      "enum": [
+        "operator_review",
+        "owner_review"
+      ]
+    },
+    "rollback_required": {
+      "const": true
+    },
+    "schema_version": {
+      "const": "assistant_service_governance_v1"
+    },
+    "self_revision_allowed": {
+      "const": false
+    },
+    "variant_id": {
+      "type": "string"
+    },
+    "versioning": {
+      "const": "release_governed"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "revision_authority",
+    "self_revision_allowed",
+    "persistent_policy_change_allowed",
+    "versioning",
+    "rollback_required",
+    "memory_boundary"
+  ],
+  "title": "Assistant Service Governance v1",
+  "type": "object"
+}

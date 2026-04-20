@@ -1,0 +1,74 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_arena_exclusion_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agonic_recharter_required": {
+      "const": true
+    },
+    "allowed_service_moves": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "closer_eligible": {
+      "const": false
+    },
+    "contestant_eligible": {
+      "const": false
+    },
+    "escalation_triggers": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "judge_eligible": {
+      "const": false
+    },
+    "prohibited_moves": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "scar_writer_eligible": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "assistant_arena_exclusion_v1"
+    },
+    "summon_initiator_eligible": {
+      "const": false
+    },
+    "tos_promotion_eligible": {
+      "const": false
+    },
+    "variant_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "contestant_eligible",
+    "judge_eligible",
+    "summon_initiator_eligible",
+    "closer_eligible",
+    "scar_writer_eligible",
+    "tos_promotion_eligible",
+    "agonic_recharter_required",
+    "allowed_service_moves",
+    "prohibited_moves",
+    "escalation_triggers"
+  ],
+  "title": "Assistant Arena Exclusion v1",
+  "type": "object"
+}

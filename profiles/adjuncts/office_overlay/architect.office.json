@@ -1,0 +1,48 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "agent_id": "architect",
+  "forbidden_offices": [
+    "summoner",
+    "closer",
+    "protocol_sovereign"
+  ],
+  "offices": [
+    {
+      "forbidden_claims": [
+        "proof verdict owner",
+        "runtime owner",
+        "memory ledger owner"
+      ],
+      "future_seat_hint": [
+        "contestant",
+        "boundary_challenger"
+      ],
+      "office_id": "boundary_keeper",
+      "primary": true,
+      "protects": [
+        "source ownership",
+        "layer boundary",
+        "scope discipline"
+      ]
+    },
+    {
+      "forbidden_claims": [
+        "durable scar writer",
+        "final closer"
+      ],
+      "future_seat_hint": [
+        "contestant",
+        "witness_support"
+      ],
+      "office_id": "tracer",
+      "primary": false,
+      "protects": [
+        "structural continuity",
+        "handoff line",
+        "route shape"
+      ]
+    }
+  ],
+  "overlay_status": "battle_facing_overlay_not_public_profile",
+  "profile_id": "AOA-A-0001"
+}

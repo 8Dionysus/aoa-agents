@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_kind_v1.json",
+  "agent_id": "coder",
+  "evolution_mode": "endogenous_under_future_charter",
+  "kind": "agonic",
+  "legacy_profile_status": "base_profile_remains_role_contract",
+  "not_protocol_law": true,
+  "notes": [
+    "Rechartered as a limited agonic actor candidate for bounded execution disputes only.",
+    "Workspace-write projection must not be confused with arena authority."
+  ],
+  "owner_review_required": true,
+  "profile_id": "AOA-A-0002",
+  "status": "rechartered_candidate"
+}

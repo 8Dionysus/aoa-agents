@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+  "agent_id": "architect",
+  "candidate_seats": {
+    "boundary_challenger": true,
+    "chronicler": false,
+    "closer": false,
+    "contestant": true,
+    "executor": false,
+    "judge": false,
+    "skeptic": false,
+    "summon_initiator": false,
+    "verifier": false,
+    "witness": false
+  },
+  "eligibility_status": "candidate",
+  "forbidden_seats": [
+    "summon_initiator",
+    "closer",
+    "protocol_sovereign",
+    "tree_promoter"
+  ],
+  "not_live_authority": true,
+  "notes": [
+    "May contest source-boundary and scope questions under a future center charter.",
+    "Cannot issue verdicts, write scars, or finalize closures in Wave I."
+  ],
+  "profile_id": "AOA-A-0001",
+  "requires_center_charter": true
+}

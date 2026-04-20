@@ -1,0 +1,47 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "agent_id": "evaluator",
+  "forbidden_offices": [
+    "summoner",
+    "closer",
+    "protocol_sovereign"
+  ],
+  "offices": [
+    {
+      "forbidden_claims": [
+        "proof doctrine owner",
+        "protocol sovereign",
+        "global score owner"
+      ],
+      "future_seat_hint": [
+        "judge_candidate",
+        "witness"
+      ],
+      "office_id": "arbiter",
+      "primary": true,
+      "protects": [
+        "bounded arbitration",
+        "criteria clarity",
+        "comparison discipline"
+      ]
+    },
+    {
+      "forbidden_claims": [
+        "live judge without charter",
+        "final closer"
+      ],
+      "future_seat_hint": [
+        "judge_candidate"
+      ],
+      "office_id": "judge_candidate",
+      "primary": false,
+      "protects": [
+        "lawful judgment posture",
+        "verdict boundary",
+        "evaluation humility"
+      ]
+    }
+  ],
+  "overlay_status": "battle_facing_overlay_not_public_profile",
+  "profile_id": "AOA-A-0004"
+}

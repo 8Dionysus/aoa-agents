@@ -9,6 +9,8 @@
 Current published outputs include:
 
 - `generated/agent_registry.min.json`
+- `generated/agent_agonic_formation_index.min.json`
+- `generated/assistant_civil_formation_index.min.json`
 - `generated/model_tier_registry.json`
 - `generated/orchestrator_class_catalog.min.json`
 - `generated/orchestrator_class_capsules.json`
@@ -24,6 +26,7 @@ Current published outputs include:
 These files are derived from:
 
 - `profiles/`
+- `profiles/adjuncts/`
 - `model_tiers/`
 - `orchestrator_classes/`
 - `cohort_patterns/`
@@ -35,6 +38,13 @@ These files are derived from:
 Do not hand edit anything under `generated/`.
 Change the source-authored layer or the builder if regeneration is wrong.
 Review diffs here as public contract deltas, not as arbitrary JSON churn.
+For `generated/agent_agonic_formation_index.min.json`, use
+`scripts/build_agent_agonic_formation_index.py` as the canonical builder and
+`scripts/validate_agent_agonic_formation.py` as the explicit Wave I validator.
+For `generated/assistant_civil_formation_index.min.json`, use
+`scripts/build_assistant_civil_formation_index.py` as the canonical builder and
+`scripts/validate_assistant_civil_formation.py` as the explicit Wave II
+validator.
 
 ## Regenerate and validate
 
@@ -44,4 +54,20 @@ Run:
 python -m pip install -r requirements-dev.txt
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
+```
+
+If the Agon Wave I generated index changed, also run:
+
+```bash
+python scripts/build_agent_agonic_formation_index.py --check
+python scripts/validate_agent_agonic_formation.py
+python -m pytest -q tests/test_agent_agonic_formation.py
+```
+
+If the Agon Wave II generated index changed, also run:
+
+```bash
+python scripts/build_assistant_civil_formation_index.py --check
+python scripts/validate_assistant_civil_formation.py
+python -m pytest -q tests/test_assistant_civil_formation.py
 ```

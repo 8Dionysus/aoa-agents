@@ -1,0 +1,113 @@
+{
+  "$id": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+      "type": "string"
+    },
+    "agent_id": {
+      "minLength": 3,
+      "type": "string"
+    },
+    "candidate_seats": {
+      "additionalProperties": false,
+      "properties": {
+        "boundary_challenger": {
+          "type": "boolean"
+        },
+        "chronicler": {
+          "type": "boolean"
+        },
+        "closer": {
+          "type": "boolean"
+        },
+        "contestant": {
+          "type": "boolean"
+        },
+        "executor": {
+          "type": "boolean"
+        },
+        "judge": {
+          "type": "boolean"
+        },
+        "skeptic": {
+          "type": "boolean"
+        },
+        "summon_initiator": {
+          "type": "boolean"
+        },
+        "verifier": {
+          "type": "boolean"
+        },
+        "witness": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "contestant",
+        "witness",
+        "chronicler",
+        "judge",
+        "executor",
+        "boundary_challenger",
+        "verifier",
+        "skeptic",
+        "summon_initiator",
+        "closer"
+      ],
+      "type": "object"
+    },
+    "eligibility_status": {
+      "enum": [
+        "candidate",
+        "limited_candidate",
+        "support_candidate"
+      ],
+      "type": "string"
+    },
+    "forbidden_seats": {
+      "items": {
+        "minLength": 3,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "not_live_authority": {
+      "const": true,
+      "type": "boolean"
+    },
+    "notes": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "profile_id": {
+      "pattern": "^AOA-A-[0-9]{4}$",
+      "type": "string"
+    },
+    "requires_center_charter": {
+      "const": true,
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "$schema",
+    "agent_id",
+    "profile_id",
+    "eligibility_status",
+    "candidate_seats",
+    "forbidden_seats",
+    "requires_center_charter",
+    "not_live_authority",
+    "notes"
+  ],
+  "title": "AoA Agon Wave I arena eligibility adjunct",
+  "type": "object"
+}

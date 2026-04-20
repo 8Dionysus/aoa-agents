@@ -1,0 +1,22 @@
+{
+  "actor": "reviewer",
+  "interpretation": {
+    "arena_eligibility": "candidate posture only; not live protocol authority",
+    "base_profile": "legacy role contract",
+    "kind": "Agon-readiness identity",
+    "office_overlay": "battle-facing office hints without widening public catalog",
+    "resistance_revision": "rights to resist false closure and obligations to revise under pressure",
+    "subjectivity": "beliefs, image, affects, thought posture"
+  },
+  "purpose": "Example reader path for the Wave I agonic formation surfaces.",
+  "read_order": [
+    "profiles/reviewer.profile.json",
+    "profiles/adjuncts/kind/reviewer.kind.json",
+    "profiles/adjuncts/subjectivity/reviewer.subjectivity.json",
+    "profiles/adjuncts/office_overlay/reviewer.office.json",
+    "profiles/adjuncts/arena_eligibility/reviewer.arena_eligibility.json",
+    "profiles/adjuncts/resistance_revision/reviewer.resistance_revision.json",
+    "generated/agent_agonic_formation_index.min.json"
+  ],
+  "stop_line": "This example is not an arena session and does not define protocol packets."
+}

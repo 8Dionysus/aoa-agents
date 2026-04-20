@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_kind_v1.json",
+  "agent_id": "architect",
+  "evolution_mode": "endogenous_under_future_charter",
+  "kind": "agonic",
+  "legacy_profile_status": "base_profile_remains_role_contract",
+  "not_protocol_law": true,
+  "notes": [
+    "Rechartered as an agonic actor candidate because boundary shape becomes contested under future Agon.",
+    "The base architect profile remains the compact source role contract."
+  ],
+  "owner_review_required": true,
+  "profile_id": "AOA-A-0001",
+  "status": "rechartered_candidate"
+}

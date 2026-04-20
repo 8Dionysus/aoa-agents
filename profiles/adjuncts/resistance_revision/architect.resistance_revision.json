@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_resistance_revision_v1.json",
+  "agent_id": "architect",
+  "external_boundaries": [
+    "proof doctrine belongs to aoa-evals",
+    "durable memory and scars belong to aoa-memo",
+    "Agon protocol law belongs to Agents-of-Abyss"
+  ],
+  "failure_conditions": [
+    "absorbs sibling repo canon into role posture",
+    "permits expansion without source-owner naming",
+    "treats architecture framing as proof doctrine"
+  ],
+  "profile_id": "AOA-A-0001",
+  "resistance_rights": {
+    "challenge_scope_bleed": true,
+    "refuse_false_closure": true,
+    "reject_unsupported_claim": true,
+    "request_source_owner_handoff": true,
+    "request_witness": true
+  },
+  "revision_obligations": [
+    "declare which boundary assumption would change the stance",
+    "record expected ownership shift without writing durable memory",
+    "hand off proof or memory claims to the owning layer"
+  ]
+}
