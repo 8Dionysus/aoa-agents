@@ -6,12 +6,12 @@
       "kind": "progression_evidence_candidate",
       "match_categories": [
         "evidence_pressure",
+        "repeat_pattern",
         "review_signal"
       ],
       "match_signals": [
-        "formation_trial_changed",
-        "contestant_ready_count_changed",
-        "witness_ready_count_changed"
+        "agon_stop_line_repeated",
+        "agon_recurrence_surface_seen"
       ],
       "notes": "Formation regression should block later arena wiring until reviewed.",
       "observation_inputs": [
@@ -45,17 +45,13 @@
       "decision_surface": "docs/ASSISTANT_CIVIL_RECHARTERING.md",
       "kind": "overclaim_alarm",
       "match_categories": [
-        "overclaim_risk",
-        "review_signal"
+        "overclaim_risk"
       ],
       "match_signals": [
-        "assistant_contestant_claim_seen",
-        "assistant_arena_authority_claim_seen",
-        "codex_projection_boundary_changed"
+        "live_protocol_claim_present"
       ],
       "notes": "Assistant drift is a quarantine-level recurrence signal, not an upgrade path.",
       "observation_inputs": [
-        "agon-agent-boundary-docs",
         "agon-agent-formation-surfaces"
       ],
       "recommended_actions": [
@@ -69,7 +65,6 @@
         "review_ready"
       ],
       "suppress_when": [
-        "live_protocol_claim_present",
         "hidden_authority_detected"
       ],
       "target_repo": "aoa-agents",
