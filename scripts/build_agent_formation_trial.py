@@ -12,6 +12,14 @@ OUTPUT = "generated/agent_formation_trial.min.json"
 AGONIC_INDEX = "generated/agent_agonic_formation_index.min.json"
 ASSISTANT_INDEX = "generated/assistant_civil_formation_index.min.json"
 EXPECTED_BASE_ROLES = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
+ASSISTANT_FORBIDDEN_ARENA_RIGHTS = (
+    "contestant_eligible",
+    "judge_eligible",
+    "closer_eligible",
+    "summon_initiator_eligible",
+    "scar_writer_eligible",
+    "tos_promotion_eligible",
+)
 
 TRIAL_LAW = [
     "base_profiles_survive_only_as_role_houses",
@@ -84,21 +92,30 @@ def role_risk(agent_id: str, actor: dict[str, Any], assistant: dict[str, Any]) -
     return risks
 
 
+def assistant_is_civil_only(assistant: dict[str, Any]) -> bool:
+    return assistant.get("kind") == "assistant" and all(
+        assistant.get(flag) is False for flag in ASSISTANT_FORBIDDEN_ARENA_RIGHTS
+    )
+
+
 def role_verdict(actor: dict[str, Any] | None, assistant: dict[str, Any] | None) -> str:
     if actor and assistant:
         actor_ready = actor.get("readiness", {}).get("agonic_actor_ready") is True
-        assistant_ok = (
-            assistant.get("kind") == "assistant"
-            and assistant.get("contestant_eligible") is False
-            and assistant.get("judge_eligible") is False
-            and assistant.get("closer_eligible") is False
-            and assistant.get("summon_initiator_eligible") is False
-        )
+        assistant_ok = assistant_is_civil_only(assistant)
         if actor_ready and assistant_ok:
             return "survive_with_split_forms"
     if actor or assistant:
         return "partial_recharter_required"
     return "quarantine_from_agon"
+
+
+def global_trial_verdict(role_trials: list[dict[str, Any]], passed: bool) -> str:
+    verdicts = {trial.get("verdict") for trial in role_trials if isinstance(trial, dict)}
+    if "quarantine_from_agon" in verdicts:
+        return "fail_quarantine_from_agon"
+    if passed:
+        return "pass_pre_protocol_formation_trial"
+    return "partial_recharter_required"
 
 
 def build_role_trial(agent_id: str, profile_id: str, actor: dict[str, Any] | None, assistant: dict[str, Any] | None) -> dict[str, Any]:
@@ -229,7 +246,7 @@ def build_index(root: Path) -> dict[str, Any]:
             "codex_projection_consumed": False,
         },
         "trial_law": TRIAL_LAW,
-        "global_verdict": "pass_pre_protocol_formation_trial" if passed else "partial_recharter_required",
+        "global_verdict": global_trial_verdict(role_trials, passed),
         "readiness_summary": summary,
         "role_trials": role_trials,
         "stop_lines": STOP_LINES,

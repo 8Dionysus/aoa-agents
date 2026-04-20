@@ -36,3 +36,38 @@ def test_formation_trial_validator_passes():
         check=False,
     )
     assert result.returncode == 0, result.stderr + result.stdout
+
+
+def test_role_verdict_rejects_assistant_scar_or_tos_authority() -> None:
+    builder = load_builder()
+    actor = {"readiness": {"agonic_actor_ready": True}}
+    assistant = {
+        "kind": "assistant",
+        "contestant_eligible": False,
+        "judge_eligible": False,
+        "closer_eligible": False,
+        "summon_initiator_eligible": False,
+        "scar_writer_eligible": True,
+        "tos_promotion_eligible": False,
+    }
+    assert builder.role_verdict(actor, assistant) == "partial_recharter_required"
+
+    assistant["scar_writer_eligible"] = False
+    assistant["tos_promotion_eligible"] = True
+    assert builder.role_verdict(actor, assistant) == "partial_recharter_required"
+
+
+def test_global_trial_verdict_escalates_quarantine_to_fail() -> None:
+    builder = load_builder()
+    assert (
+        builder.global_trial_verdict([{"verdict": "quarantine_from_agon"}], passed=False)
+        == "fail_quarantine_from_agon"
+    )
+    assert (
+        builder.global_trial_verdict([{"verdict": "partial_recharter_required"}], passed=False)
+        == "partial_recharter_required"
+    )
+    assert (
+        builder.global_trial_verdict([{"verdict": "survive_with_split_forms"}], passed=True)
+        == "pass_pre_protocol_formation_trial"
+    )
