@@ -1,114 +1,67 @@
-# Agon Wave II Seed: Assistant Civil Rechartering
+# Seed Manifest: Agon Wave II.5 / Formation Trial
 
-Target repository: `aoa-agents`
+This seed lands the first **Formation Trial** for `aoa-agents`.
 
-This seed lands the second Agon imposition wave for the agent layer.
+It assumes Agon Wave I and Wave II have already landed:
 
-Wave 0 made the current system subject to Agon.
-Wave I rechartered current role-bearing actors into agonic-ready forms.
-Wave II recharters the civil/service pole: assistant actors that must stay transparent, predictable, externally revised, receipt-bearing, and excluded from contestant authority unless a later explicit owner-reviewed recharter creates a different form.
+- `generated/agent_agonic_formation_index.min.json`
+- `generated/assistant_civil_formation_index.min.json`
 
-## What this seed adds
+Wave II.5 does not create new roles, new assistants, arena sessions, lawful moves, verdicts, scars, retention checks, runtime packets, or ToS promotion paths. It judges whether the actor forms created by Waves I and II are coherent enough to be read by the next wave.
 
-```text
-docs/
-  ASSISTANT_CIVIL_RECHARTERING.md
-  ASSISTANT_KIND_MODEL.md
-  ASSISTANT_SERVICE_IDENTITY_MODEL.md
-  ASSISTANT_SERVICE_CONTRACT_MODEL.md
-  ASSISTANT_SERVICE_GOVERNANCE_MODEL.md
-  ASSISTANT_SERVICE_CERTIFICATION_MODEL.md
-  ASSISTANT_ARENA_EXCLUSION_MODEL.md
-  ASSISTANT_ESCALATION_TO_AGON.md
-  AGON_WAVE2_LANDING.md
+## Landing target
 
-schemas/
-  assistant_variant_v1.json
-  assistant_service_identity_v1.json
-  assistant_service_contract_v1.json
-  assistant_service_governance_v1.json
-  assistant_service_certification_v1.json
-  assistant_arena_exclusion_v1.json
+Merge the contents of `repo/` into the root of `aoa-agents`.
 
-profiles/adjuncts/
-  assistant_variant/
-  assistant_service_identity/
-  assistant_service_contract/
-  assistant_service_governance/
-  assistant_service_certification/
-  assistant_arena_exclusion/
-
-generated/
-  assistant_civil_formation_index.min.json
-
-scripts/
-  build_assistant_civil_formation_index.py
-  validate_assistant_civil_formation.py
-
-tests/
-  test_assistant_civil_formation.py
-
-examples/
-  assistant_civil_formation.example.json
-
-quests/
-  AOA-AG-Q-AGON-0004-assistant-civil-recharter.md
-  AOA-AG-Q-AGON-0005-assistant-formation-index-integration.md
-  AOA-AG-Q-AGON-0006-assistant-projection-boundary.md
-```
-
-## What this seed does not do
-
-It does not change:
+## Added surfaces
 
 ```text
-schemas/agent-profile.schema.json
-profiles/*.profile.json
-generated/agent_registry.min.json
-generated/codex_agents/
-runtime_seam/
+docs/AGENT_FORMATION_TRIAL.md
+docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md
+docs/FORMATION_TRIAL_READINESS.md
+docs/CODEX_PROJECTION_AGON_BOUNDARY.md
+docs/AGON_WAVE2_5_LANDING.md
+schemas/agent_formation_trial_v1.json
+generated/agent_formation_trial.min.json
+scripts/build_agent_formation_trial.py
+scripts/validate_agent_formation_trial.py
+tests/test_agent_formation_trial.py
+examples/agent_formation_trial.example.json
+quests/AOA-AG-Q-AGON-0007-formation-trial.md
+quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md
+quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md
 ```
 
-It does not define:
-
-```text
-arena sessions
-sealed commits
-lawful moves
-verdict logic
-scar storage
-retention checks
-runtime packets
-ToS promotion
-```
-
-Those belong to later center-owned Agon protocol work and other owner repositories.
-
-## Merge posture
-
-Copy the contents of `repo/` into the root of `aoa-agents`.
-
-Then run:
+## Commands after merge
 
 ```bash
-python scripts/build_assistant_civil_formation_index.py --check
-python scripts/validate_assistant_civil_formation.py
-python -m pytest -q tests/test_assistant_civil_formation.py
+python scripts/build_agent_formation_trial.py --check
+python scripts/validate_agent_formation_trial.py
+python -m pytest -q tests/test_agent_formation_trial.py
 ```
 
-The validator expects the five current base profiles to exist:
+## Expected first verdict
+
+The expected global verdict is:
 
 ```text
-profiles/architect.profile.json
-profiles/coder.profile.json
-profiles/reviewer.profile.json
-profiles/evaluator.profile.json
-profiles/memory-keeper.profile.json
+pass_pre_protocol_formation_trial
 ```
 
-## Core invariant
+Expected counts:
 
-Assistant actors are not weaker warriors.
-They are a separate civil/service form.
+- five base role homes
+- five agonic actor forms
+- five assistant variants
+- three contestant candidates
+- three witness candidates
+- one judge candidate
+- zero closer candidates
+- zero summon initiator candidates
+- zero assistant arena candidates
 
-They may support arena infrastructure later as notaries, monitors, stewards, couriers, librarians, or other service seats, but they must not silently become contestants, judges, closers, summoners, scar writers, or canonical interpreters.
+## Main invariant
+
+A passed Formation Trial is not permission to open an arena.
+
+It is permission for the next wave to design lawful movement against actor forms that are no longer vague.

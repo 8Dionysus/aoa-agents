@@ -17,6 +17,7 @@ Published derived surface:
 - `generated/agent_registry.min.json`
 - `generated/agent_agonic_formation_index.min.json`
 - `generated/assistant_civil_formation_index.min.json`
+- `generated/agent_formation_trial.min.json`
 
 Read with:
 
@@ -39,6 +40,9 @@ Keep this directory focused on role-bearing agent identity and posture:
   resistance/revision posture, service identity, service contract,
   service governance, certification, and arena exclusion separate from the
   base profile contract
+- role-house survival inputs that the Wave II.5 formation trial reads without
+  widening the base profile contract or turning candidate seats into live
+  authority
 
 ## Does not own
 
@@ -80,4 +84,7 @@ python -m pytest -q tests/test_agent_agonic_formation.py
 python scripts/build_assistant_civil_formation_index.py --check
 python scripts/validate_assistant_civil_formation.py
 python -m pytest -q tests/test_assistant_civil_formation.py
+python scripts/build_agent_formation_trial.py --check
+python scripts/validate_agent_formation_trial.py
+python -m pytest -q tests/test_agent_formation_trial.py
 ```

@@ -44,6 +44,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("civil/service", subject_prep)
         self.assertIn("Wave I Agonic Actor Rechartering has now landed", subject_prep)
         self.assertIn("Wave II Assistant Civil Rechartering has now landed", subject_prep)
+        self.assertIn("Wave II.5 Formation Trial has now landed", subject_prep)
         self.assertIn("future additive adjunct", subject_prep)
         self.assertIn("roadmap drift", roadmap)
 
@@ -102,6 +103,28 @@ class RoadmapParityTestCase(unittest.TestCase):
             "scripts/build_assistant_civil_formation_index.py",
             "scripts/validate_assistant_civil_formation.py",
             "tests/test_assistant_civil_formation.py",
+        ):
+            self.assertTrue((REPO_ROOT / relative_path).is_file())
+            self.assertIn(relative_path, roadmap)
+
+    def test_roadmap_names_unreleased_wave2_5_formation_trial(self) -> None:
+        roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+
+        self.assertIn("## Unreleased follow-on turn: Formation Trial", roadmap)
+        self.assertIn("explicit Wave II.5 validation lane", roadmap)
+
+        for relative_path in (
+            "docs/AGENT_FORMATION_TRIAL.md",
+            "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
+            "docs/FORMATION_TRIAL_READINESS.md",
+            "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
+            "docs/AGON_WAVE2_5_LANDING.md",
+            "schemas/agent_formation_trial_v1.json",
+            "generated/agent_formation_trial.min.json",
+            "examples/agent_formation_trial.example.json",
+            "scripts/build_agent_formation_trial.py",
+            "scripts/validate_agent_formation_trial.py",
+            "tests/test_agent_formation_trial.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)

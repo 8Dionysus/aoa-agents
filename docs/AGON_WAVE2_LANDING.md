@@ -30,7 +30,15 @@ Wave II is landed when:
 - core role profiles remain stable
 - protocol law remains outside `aoa-agents`
 
-## Future bridge
+## Next bridge
+
+Wave II.5 Formation Trial has now landed as the next reviewed bridge:
+
+```text
+docs/AGENT_FORMATION_TRIAL.md
+docs/AGON_WAVE2_5_LANDING.md
+generated/agent_formation_trial.min.json
+```
 
 Later waves may connect these assistant variants to:
 
@@ -42,4 +50,5 @@ aoa-memo
 Agents-of-Abyss / aoa-agon
 ```
 
-But this wave only lands actor-side civil form.
+But this wave only lands actor-side civil form. The formation trial can judge
+that civil form. It still cannot turn it into live arena law.

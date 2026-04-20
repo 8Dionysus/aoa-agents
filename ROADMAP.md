@@ -17,9 +17,10 @@ The current `v0.2.x` release line already carries:
 - Codex custom-agent projection and owner refresh-law surfaces in `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
 - runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - adjunct quest and Alpha readiness surfaces in `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
-- subject-prep boundary plus unreleased companion turns in
-  `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`, and
-  `docs/ASSISTANT_CIVIL_RECHARTERING.md`, keeping the agonic/assistant kind split
+- subject-prep boundary plus unreleased companion turns and the first formation
+  trial in `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`,
+  `docs/ASSISTANT_CIVIL_RECHARTERING.md`, `docs/AGENT_FORMATION_TRIAL.md`, and
+  `generated/agent_formation_trial.min.json`, keeping the agonic/assistant kind split
   additive without changing profile schemas yet
 
 The near-term roadmap should therefore read as projection and contract
@@ -154,6 +155,32 @@ This turn keeps assistant variants as civil/service forms anchored to the same
 five role houses without widening the public role catalog, without granting
 contestant or judge authority, and without pulling runtime packets, scars,
 verdicts, durable incident logs, or ToS promotion into `aoa-agents`.
+
+## Unreleased follow-on turn: Formation Trial
+
+The next unreleased follow-on turn after Wave II is Wave II.5 Formation Trial.
+Its checked surface is:
+
+- Wave II.5 doctrine and landing docs:
+  `docs/AGENT_FORMATION_TRIAL.md`,
+  `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md`,
+  `docs/FORMATION_TRIAL_READINESS.md`,
+  `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`, and
+  `docs/AGON_WAVE2_5_LANDING.md`
+- Wave II.5 companion contract and publication:
+  `schemas/agent_formation_trial_v1.json`,
+  `generated/agent_formation_trial.min.json`, and
+  `examples/agent_formation_trial.example.json`
+- explicit Wave II.5 validation lane:
+  `scripts/build_agent_formation_trial.py`,
+  `scripts/validate_agent_formation_trial.py`, and
+  `tests/test_agent_formation_trial.py`
+
+This turn judges whether the current five role houses survive as readable split
+forms after Waves I and II. It opens Wave III design only as pre-protocol
+readability, and it does not open arena sessions, lawful moves, sealed commits,
+verdict logic, scars, retention checks, runtime packets, or ToS promotion
+inside `aoa-agents`.
 
 ## Bootstrap substep: runtime seam hardening
 

@@ -13,6 +13,8 @@ Tracking starts with the community-docs baseline for this repository.
   explicit formation-index builder / validator / test lane
 - Wave II Assistant Civil Rechartering doctrine, companion adjunct surfaces,
   and explicit assistant-formation builder / validator / test lane
+- Wave II.5 Formation Trial doctrine, pre-protocol boundary docs, and explicit
+  formation-trial builder / validator / test lane
 
 ### Changed
 
@@ -22,6 +24,8 @@ Tracking starts with the community-docs baseline for this repository.
 - role-facing guidance now also distinguishes assistant civil/service variants
   from agonic actors without widening the public role catalog or the base
   profile schema
+- route and generated-surface guidance now also expose the first formation
+  trial as a pre-protocol readability judgment rather than hidden future lore
 
 ### Validation
 
@@ -31,6 +35,9 @@ Tracking starts with the community-docs baseline for this repository.
 - `python scripts/build_assistant_civil_formation_index.py --check`
 - `python scripts/validate_assistant_civil_formation.py`
 - `python -m pytest -q tests/test_assistant_civil_formation.py`
+- `python scripts/build_agent_formation_trial.py --check`
+- `python scripts/validate_agent_formation_trial.py`
+- `python -m pytest -q tests/test_agent_formation_trial.py`
 
 ## [0.2.2] - 2026-04-19
 
