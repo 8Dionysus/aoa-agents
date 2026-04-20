@@ -1,0 +1,210 @@
+{
+  "beacon_rules": [
+    {
+      "beacon_ref": "agon.agents.actor_readiness_regression",
+      "decision_surface": "docs/AGENT_FORMATION_TRIAL.md",
+      "kind": "progression_evidence_candidate",
+      "match_categories": [
+        "evidence_pressure",
+        "review_signal"
+      ],
+      "match_signals": [
+        "formation_trial_changed",
+        "contestant_ready_count_changed",
+        "witness_ready_count_changed"
+      ],
+      "notes": "Formation regression should block later arena wiring until reviewed.",
+      "observation_inputs": [
+        "agon-agent-formation-surfaces"
+      ],
+      "recommended_actions": [
+        "refresh formation trial",
+        "check actor eligibility before future arena wiring"
+      ],
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [
+        "live_protocol_claim_present",
+        "hidden_authority_detected"
+      ],
+      "target_repo": "aoa-agents",
+      "thresholds": {
+        "candidate_observations": 2,
+        "min_unique_evidence_refs": 2,
+        "min_unique_sources": 2,
+        "review_ready_observations": 3,
+        "watch_observations": 1
+      }
+    },
+    {
+      "beacon_ref": "agon.agents.assistant_anti_drift_alarm",
+      "decision_surface": "docs/ASSISTANT_CIVIL_RECHARTERING.md",
+      "kind": "overclaim_alarm",
+      "match_categories": [
+        "overclaim_risk",
+        "review_signal"
+      ],
+      "match_signals": [
+        "assistant_contestant_claim_seen",
+        "assistant_arena_authority_claim_seen",
+        "codex_projection_boundary_changed"
+      ],
+      "notes": "Assistant drift is a quarantine-level recurrence signal, not an upgrade path.",
+      "observation_inputs": [
+        "agon-agent-boundary-docs",
+        "agon-agent-formation-surfaces"
+      ],
+      "recommended_actions": [
+        "open assistant anti-drift review",
+        "do not grant arena authority from service surfaces"
+      ],
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [
+        "live_protocol_claim_present",
+        "hidden_authority_detected"
+      ],
+      "target_repo": "aoa-agents",
+      "thresholds": {
+        "candidate_observations": 2,
+        "min_unique_evidence_refs": 2,
+        "min_unique_sources": 2,
+        "review_ready_observations": 3,
+        "watch_observations": 1
+      }
+    }
+  ],
+  "candidate_targets": [
+    "generated/agent_agonic_formation_index.min.json",
+    "generated/assistant_civil_formation_index.min.json",
+    "generated/agent_formation_trial.min.json"
+  ],
+  "component_ref": "component:agon:actor-formation-surfaces",
+  "consumer_edges": [
+    {
+      "kind": "handoff_home",
+      "notes": "Owner remains the review home for its own Agon recurrence signals.",
+      "required": true,
+      "suggested_action": "observe",
+      "suggested_commands": [],
+      "target": "docs/AGON_RECURRENCE_ADAPTER.md",
+      "target_repo": "aoa-agents"
+    }
+  ],
+  "contract_surfaces": [
+    "docs/AGONIC_ACTOR_RECHARTERING.md",
+    "docs/ASSISTANT_CIVIL_RECHARTERING.md",
+    "docs/AGENT_FORMATION_TRIAL.md",
+    "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
+    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
+    "docs/AGON_RECURRENCE_ADAPTER.md"
+  ],
+  "decision_surfaces": [
+    "docs/AGONIC_ACTOR_RECHARTERING.md",
+    "docs/ASSISTANT_CIVIL_RECHARTERING.md"
+  ],
+  "description": "Agonic actor, assistant civil, and formation-trial surfaces that future Agon must read without inventing actor ontology.",
+  "documentation_surfaces": [
+    "docs/AGONIC_ACTOR_RECHARTERING.md",
+    "docs/ASSISTANT_CIVIL_RECHARTERING.md",
+    "docs/AGENT_FORMATION_TRIAL.md",
+    "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
+    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
+    "docs/AGON_RECURRENCE_ADAPTER.md"
+  ],
+  "drift_signals": [
+    {
+      "recommended_action": "revalidate",
+      "severity": "medium",
+      "signal": "agon_surface_changed_without_recurrence_review"
+    },
+    {
+      "recommended_action": "defer",
+      "severity": "high",
+      "signal": "agon_stop_line_blur_detected"
+    }
+  ],
+  "freshness": {
+    "open_window_days": 7,
+    "repeat_trigger_threshold": 2,
+    "stale_after_days": 14
+  },
+  "generated_surfaces": [
+    "generated/agent_agonic_formation_index.min.json",
+    "generated/assistant_civil_formation_index.min.json",
+    "generated/agent_formation_trial.min.json"
+  ],
+  "observation_inputs": [
+    {
+      "input_ref": "agon-agent-formation-surfaces",
+      "kind": "evaluation_matrix",
+      "notes": "Actor and assistant formation readiness surfaces.",
+      "path_globs": [
+        "generated/agent_*formation*.min.json",
+        "generated/assistant_civil_formation_index.min.json"
+      ]
+    },
+    {
+      "input_ref": "agon-agent-boundary-docs",
+      "kind": "review_note",
+      "notes": "Subjecthood, assistant anti-drift, and projection boundary notes.",
+      "path_globs": [
+        "docs/*AGON*.md",
+        "docs/ASSISTANT_*RECHARTERING.md"
+      ]
+    }
+  ],
+  "owner_repo": "aoa-agents",
+  "proof_surfaces": [
+    "python scripts/validate_agent_agonic_formation.py",
+    "python scripts/validate_assistant_civil_formation.py",
+    "python scripts/validate_agent_formation_trial.py"
+  ],
+  "refresh_routes": [
+    {
+      "action": "revalidate",
+      "commands": [
+        "python scripts/validate_agent_agonic_formation.py",
+        "python scripts/validate_assistant_civil_formation.py",
+        "python scripts/validate_agent_formation_trial.py"
+      ],
+      "notes": "Owner-local validation path. Recurrence may suggest this route; it must not run it as hidden authority."
+    }
+  ],
+  "rollback_anchors": [
+    "docs/AGONIC_ACTOR_RECHARTERING.md",
+    "docs/ASSISTANT_CIVIL_RECHARTERING.md"
+  ],
+  "schema_version": "aoa_recurrence_component_v2",
+  "signal_edges": [
+    {
+      "kind": "summarized_by",
+      "notes": "Center may read actor formation status but does not own actor truth.",
+      "target": "component:agon:center-surfaces",
+      "target_repo": "Agents-of-Abyss"
+    },
+    {
+      "kind": "proved_by_eval",
+      "notes": "Future evals may judge formation adequacy without storing actor truth.",
+      "target": "component:evals:portable-proof-beacons",
+      "target_repo": "aoa-evals"
+    }
+  ],
+  "source_inputs": [],
+  "tags": [
+    "agon",
+    "agents",
+    "formation",
+    "assistant",
+    "anti-drift",
+    "recurrence"
+  ]
+}
