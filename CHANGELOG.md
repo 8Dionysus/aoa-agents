@@ -7,6 +7,36 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-04-19
+
+### Summary
+
+- this patch adds recurrence-aware Codex subagent projection,
+  reviewed-closeout role posture holds, and richer SDK planning metadata
+- memory-rights transitions and pre-Agon boundary wording are tightened
+  without widening agent-layer ownership
+- `aoa-agents` remains the bounded role-contract and execution-posture layer
+
+### Added
+
+- a recurrence manifest for Codex subagent projection, Codex projection
+  metadata for SDK planning, and reviewed closeout role posture hold notes
+
+### Changed
+
+- memory-rights validation, memo reviewed-candidate adoption seams,
+  pre-Agon preparation boundaries, and CI/protection surfaces are tightened
+  for the current role wave
+
+### Validation
+
+- `python scripts/release_check.py`
+
+### Notes
+
+- this patch strengthens role-bearing execution posture while keeping routing,
+  runtime, and memo authority in sibling repositories
+
 ## [0.2.1] - 2026-04-12
 
 ### Summary
