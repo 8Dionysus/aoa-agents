@@ -1,0 +1,21 @@
+{
+  "change_process": [
+    "proposal",
+    "operator_review",
+    "certification",
+    "versioned_release",
+    "rollback_path"
+  ],
+  "memory_boundary": {
+    "durable_incident_ledger_owner": "outside_aoa_agents",
+    "durable_revision_ledger_owner": "outside_aoa_agents",
+    "stores_durable_memory_here": false
+  },
+  "persistent_policy_change_allowed": false,
+  "revision_authority": "operator_review",
+  "rollback_required": true,
+  "schema_version": "assistant_service_governance_v1",
+  "self_revision_allowed": false,
+  "variant_id": "coder.assistant",
+  "versioning": "release_governed"
+}

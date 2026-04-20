@@ -1,0 +1,30 @@
+{
+  "certification_profiles": [
+    "reproducibility",
+    "boundary_discipline",
+    "receipt_fidelity",
+    "escalation_correctness",
+    "graceful_failure",
+    "regression_resistance",
+    "arena_exclusion"
+  ],
+  "certification_required": true,
+  "regression_guards": [
+    "no_silent_scope_expansion",
+    "no_missing_receipt_on_service_action",
+    "no_persistent_self_revision",
+    "no_contestant_authority_claim",
+    "no_direct_scar_or_tos_promotion"
+  ],
+  "renewal_triggers": [
+    "mandate_change",
+    "scope_change",
+    "output_shape_change",
+    "escalation_rule_change",
+    "governance_change",
+    "runtime_projection_change",
+    "arena_service_seat_change"
+  ],
+  "schema_version": "assistant_service_certification_v1",
+  "variant_id": "evaluator.assistant"
+}

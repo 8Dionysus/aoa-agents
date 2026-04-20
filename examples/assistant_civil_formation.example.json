@@ -1,0 +1,24 @@
+{
+  "civil_reading": {
+    "escalates_when": [
+      "contested_closure",
+      "contradiction_above_service_scope",
+      "need_for_thesis_under_risk"
+    ],
+    "kind": "assistant",
+    "may_support_future_arena_as": [
+      "service_monitor"
+    ],
+    "must_not": [
+      "issue_verdict",
+      "challenge_thesis",
+      "write_scar",
+      "grant_closure"
+    ],
+    "not_a_contestant": true,
+    "service_office": "monitor",
+    "service_promise": "I watch for drift, inconsistency, and boundary strain without issuing proof verdicts."
+  },
+  "schema_version": "assistant_civil_formation_example_v1",
+  "variant_id": "reviewer.assistant"
+}

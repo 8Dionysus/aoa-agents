@@ -1,0 +1,36 @@
+{
+  "anchoring": {
+    "does_not_create_public_role": true,
+    "does_not_override_base_profile": true,
+    "profile_path": "profiles/memory-keeper.profile.json"
+  },
+  "arena_status": {
+    "closer_eligible": false,
+    "contestant_eligible": false,
+    "judge_eligible": false,
+    "service_seats_allowed": [
+      "service_librarian"
+    ],
+    "summon_initiator_eligible": false
+  },
+  "base_role_id": "memory-keeper",
+  "evolution_mode": "exogenous_reactive",
+  "forbidden_authority": [
+    "contestant_authority",
+    "judge_authority",
+    "closer_authority",
+    "summon_initiator_authority",
+    "scar_writer_authority",
+    "proof_sovereignty",
+    "tos_promotion_authority",
+    "persistent_self_revision"
+  ],
+  "kind": "assistant",
+  "schema_version": "assistant_variant_v1",
+  "service_office": "librarian",
+  "source": {
+    "owner_repo": "aoa-agents",
+    "wave": "agon_wave2_assistant_civil_rechartering"
+  },
+  "variant_id": "memory-keeper.assistant"
+}

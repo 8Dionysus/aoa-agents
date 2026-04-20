@@ -7,6 +7,31 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Added
+
+- Wave I Agonic Actor Rechartering doctrine, companion adjunct surfaces, and
+  explicit formation-index builder / validator / test lane
+- Wave II Assistant Civil Rechartering doctrine, companion adjunct surfaces,
+  and explicit assistant-formation builder / validator / test lane
+
+### Changed
+
+- README, docs map, roadmap, and local guidance now distinguish legacy role
+  contracts from landed agonic companion surfaces without widening the base
+  profile schema or the current release baseline
+- role-facing guidance now also distinguishes assistant civil/service variants
+  from agonic actors without widening the public role catalog or the base
+  profile schema
+
+### Validation
+
+- `python scripts/build_agent_agonic_formation_index.py --check`
+- `python scripts/validate_agent_agonic_formation.py`
+- `python -m pytest -q tests/test_agent_agonic_formation.py`
+- `python scripts/build_assistant_civil_formation_index.py --check`
+- `python scripts/validate_assistant_civil_formation.py`
+- `python -m pytest -q tests/test_assistant_civil_formation.py`
+
 ## [0.2.2] - 2026-04-19
 
 ### Summary

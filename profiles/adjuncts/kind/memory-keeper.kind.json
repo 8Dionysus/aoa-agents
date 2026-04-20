@@ -1,0 +1,15 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_kind_v1.json",
+  "agent_id": "memory-keeper",
+  "evolution_mode": "endogenous_under_future_charter",
+  "kind": "agonic",
+  "legacy_profile_status": "base_profile_remains_role_contract",
+  "not_protocol_law": true,
+  "notes": [
+    "Rechartered as a chronicler and witness-facing actor without becoming a durable memory ledger.",
+    "The actor may name memory posture but durable scars and retention stay outside aoa-agents."
+  ],
+  "owner_review_required": true,
+  "profile_id": "AOA-A-0005",
+  "status": "rechartered_candidate"
+}

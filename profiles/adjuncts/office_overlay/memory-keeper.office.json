@@ -1,0 +1,48 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "agent_id": "memory-keeper",
+  "forbidden_offices": [
+    "summoner",
+    "closer",
+    "protocol_sovereign",
+    "tree_promoter"
+  ],
+  "offices": [
+    {
+      "forbidden_claims": [
+        "durable ledger owner inside profiles",
+        "proof verdict owner",
+        "canon owner"
+      ],
+      "future_seat_hint": [
+        "chronicler",
+        "witness"
+      ],
+      "office_id": "chronicler",
+      "primary": true,
+      "protects": [
+        "provenance continuity",
+        "memory handoff",
+        "learning trace"
+      ]
+    },
+    {
+      "forbidden_claims": [
+        "judge",
+        "final closer"
+      ],
+      "future_seat_hint": [
+        "witness"
+      ],
+      "office_id": "witness",
+      "primary": false,
+      "protects": [
+        "event legibility",
+        "handoff trace",
+        "owner-aware recall"
+      ]
+    }
+  ],
+  "overlay_status": "battle_facing_overlay_not_public_profile",
+  "profile_id": "AOA-A-0005"
+}

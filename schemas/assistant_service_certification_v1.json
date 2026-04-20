@@ -1,0 +1,50 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_service_certification_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "certification_profiles": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "certification_required": {
+      "const": true
+    },
+    "regression_guards": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "renewal_triggers": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema_version": {
+      "const": "assistant_service_certification_v1"
+    },
+    "variant_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "certification_required",
+    "certification_profiles",
+    "regression_guards",
+    "renewal_triggers"
+  ],
+  "title": "Assistant Service Certification v1",
+  "type": "object"
+}

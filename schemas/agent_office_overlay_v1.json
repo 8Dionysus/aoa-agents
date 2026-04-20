@@ -1,0 +1,92 @@
+{
+  "$id": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+      "type": "string"
+    },
+    "agent_id": {
+      "minLength": 3,
+      "type": "string"
+    },
+    "forbidden_offices": {
+      "items": {
+        "minLength": 3,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "offices": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "forbidden_claims": {
+            "items": {
+              "minLength": 6,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "future_seat_hint": {
+            "items": {
+              "minLength": 4,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "office_id": {
+            "minLength": 3,
+            "type": "string"
+          },
+          "primary": {
+            "type": "boolean"
+          },
+          "protects": {
+            "items": {
+              "minLength": 4,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "office_id",
+          "primary",
+          "protects",
+          "future_seat_hint",
+          "forbidden_claims"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "overlay_status": {
+      "enum": [
+        "battle_facing_overlay_not_public_profile"
+      ],
+      "type": "string"
+    },
+    "profile_id": {
+      "pattern": "^AOA-A-[0-9]{4}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "$schema",
+    "agent_id",
+    "profile_id",
+    "overlay_status",
+    "offices",
+    "forbidden_offices"
+  ],
+  "title": "AoA Agon Wave I agent office overlay",
+  "type": "object"
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_office_overlay_v1.json",
+  "agent_id": "coder",
+  "forbidden_offices": [
+    "summoner",
+    "closer",
+    "protocol_sovereign",
+    "judge"
+  ],
+  "offices": [
+    {
+      "forbidden_claims": [
+        "final closer",
+        "proof judge",
+        "memory canon owner"
+      ],
+      "future_seat_hint": [
+        "limited_contestant",
+        "executor"
+      ],
+      "office_id": "executor",
+      "primary": true,
+      "protects": [
+        "bounded implementation",
+        "state delta",
+        "verification report"
+      ]
+    }
+  ],
+  "overlay_status": "battle_facing_overlay_not_public_profile",
+  "profile_id": "AOA-A-0002"
+}

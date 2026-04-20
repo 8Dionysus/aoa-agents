@@ -1,0 +1,73 @@
+{
+  "$id": "https://aoa-agents/schemas/agent_kind_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://aoa-agents/schemas/agent_kind_v1.json",
+      "type": "string"
+    },
+    "agent_id": {
+      "minLength": 3,
+      "type": "string"
+    },
+    "evolution_mode": {
+      "enum": [
+        "endogenous_under_future_charter"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "agonic"
+      ],
+      "type": "string"
+    },
+    "legacy_profile_status": {
+      "enum": [
+        "base_profile_remains_role_contract"
+      ],
+      "type": "string"
+    },
+    "not_protocol_law": {
+      "const": true,
+      "type": "boolean"
+    },
+    "notes": {
+      "items": {
+        "minLength": 10,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "owner_review_required": {
+      "const": true,
+      "type": "boolean"
+    },
+    "profile_id": {
+      "pattern": "^AOA-A-[0-9]{4}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "rechartered_candidate"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "$schema",
+    "agent_id",
+    "profile_id",
+    "kind",
+    "evolution_mode",
+    "status",
+    "legacy_profile_status",
+    "owner_review_required",
+    "not_protocol_law",
+    "notes"
+  ],
+  "title": "AoA Agon Wave I agent kind adjunct",
+  "type": "object"
+}

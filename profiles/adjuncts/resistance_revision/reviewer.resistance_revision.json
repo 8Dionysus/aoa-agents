@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_resistance_revision_v1.json",
+  "agent_id": "reviewer",
+  "external_boundaries": [
+    "formal verdict doctrine belongs to aoa-evals",
+    "durable contradiction history belongs to future Agon or memo surfaces",
+    "routing consequences belong to aoa-routing"
+  ],
+  "failure_conditions": [
+    "approves unsupported readiness",
+    "misses a material contradiction",
+    "turns review posture into proof canon"
+  ],
+  "profile_id": "AOA-A-0003",
+  "resistance_rights": {
+    "challenge_scope_bleed": true,
+    "refuse_false_closure": true,
+    "reject_unsupported_claim": true,
+    "request_source_owner_handoff": true,
+    "request_witness": true
+  },
+  "revision_obligations": [
+    "declare which evidence would satisfy the review challenge",
+    "separate bounded review from proof doctrine",
+    "name unresolved contradiction without storing battle history"
+  ]
+}

@@ -17,9 +17,10 @@ The current `v0.2.x` release line already carries:
 - Codex custom-agent projection and owner refresh-law surfaces in `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
 - runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - adjunct quest and Alpha readiness surfaces in `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
-- future subject-prep holding boundaries in `docs/AGENT_SUBJECT_PREP.md`,
-  including the future agonic/assistant kind split and civil/service assistant
-  path without changing profile schemas yet
+- subject-prep boundary plus unreleased companion turns in
+  `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`, and
+  `docs/ASSISTANT_CIVIL_RECHARTERING.md`, keeping the agonic/assistant kind split
+  additive without changing profile schemas yet
 
 The near-term roadmap should therefore read as projection and contract
 hardening, not as a pre-projection bootstrap placeholder.
@@ -74,6 +75,85 @@ The main near-term risk is roadmap drift: Codex subagent projection, stress
 adjuncts, quest capture, and Alpha readiness are already shipped surfaces and
 should stay visible in current-direction docs instead of hiding only in
 README or release notes.
+
+## Unreleased next turn: Agonic Actor Rechartering
+
+The next unreleased agent-layer turn after `v0.2.2` is Wave I Agonic Actor
+Rechartering. Its checked surface is:
+
+- Wave I doctrine and landing docs:
+  `docs/AGONIC_ACTOR_RECHARTERING.md`,
+  `docs/AGON_WAVE1_LANDING.md`,
+  `docs/AGENT_KIND_MODEL.md`,
+  `docs/AGENT_SUBJECTIVITY_MODEL.md`,
+  `docs/AGENT_OFFICE_MODEL.md`,
+  `docs/AGENT_ARENA_ELIGIBILITY_MODEL.md`, and
+  `docs/AGENT_RESISTANCE_REVISION_POSTURE.md`
+- additive companion source surfaces:
+  `profiles/adjuncts/kind/*.kind.json`,
+  `profiles/adjuncts/subjectivity/*.subjectivity.json`,
+  `profiles/adjuncts/office_overlay/*.office.json`,
+  `profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
+  `profiles/adjuncts/resistance_revision/*.resistance_revision.json`
+- Wave I companion contracts and publication:
+  `schemas/agent_kind_v1.json`,
+  `schemas/agent_subjectivity_v1.json`,
+  `schemas/agent_office_overlay_v1.json`,
+  `schemas/agent_arena_eligibility_v1.json`,
+  `schemas/agent_resistance_revision_v1.json`,
+  `generated/agent_agonic_formation_index.min.json`, and
+  `examples/agent_agonic_formation.example.json`
+- explicit Wave I validation lane:
+  `scripts/build_agent_agonic_formation_index.py`,
+  `scripts/validate_agent_agonic_formation.py`, and
+  `tests/test_agent_agonic_formation.py`
+
+This turn keeps the base `profiles/*.profile.json` files as legacy role
+contracts while Wave I lands reviewed companion surfaces for agonic actor
+readiness. It does not widen `schemas/agent-profile.schema.json`, does not
+rewrite generated role registries, and does not start arena protocol, scars,
+retention, runtime packets, or ToS promotion.
+
+## Unreleased follow-on turn: Assistant Civil Rechartering
+
+The next unreleased follow-on turn after Wave I is Wave II Assistant Civil
+Rechartering. Its checked surface is:
+
+- Wave II doctrine and landing docs:
+  `docs/ASSISTANT_CIVIL_RECHARTERING.md`,
+  `docs/AGON_WAVE2_LANDING.md`,
+  `docs/ASSISTANT_KIND_MODEL.md`,
+  `docs/ASSISTANT_SERVICE_IDENTITY_MODEL.md`,
+  `docs/ASSISTANT_SERVICE_CONTRACT_MODEL.md`,
+  `docs/ASSISTANT_SERVICE_GOVERNANCE_MODEL.md`,
+  `docs/ASSISTANT_SERVICE_CERTIFICATION_MODEL.md`,
+  `docs/ASSISTANT_ARENA_EXCLUSION_MODEL.md`, and
+  `docs/ASSISTANT_ESCALATION_TO_AGON.md`
+- additive assistant companion source surfaces:
+  `profiles/adjuncts/assistant_variant/*.assistant.variant.json`,
+  `profiles/adjuncts/assistant_service_identity/*.assistant.identity.json`,
+  `profiles/adjuncts/assistant_service_contract/*.assistant.contract.json`,
+  `profiles/adjuncts/assistant_service_governance/*.assistant.governance.json`,
+  `profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
+  `profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
+- Wave II companion contracts and publication:
+  `schemas/assistant_variant_v1.json`,
+  `schemas/assistant_service_identity_v1.json`,
+  `schemas/assistant_service_contract_v1.json`,
+  `schemas/assistant_service_governance_v1.json`,
+  `schemas/assistant_service_certification_v1.json`,
+  `schemas/assistant_arena_exclusion_v1.json`,
+  `generated/assistant_civil_formation_index.min.json`, and
+  `examples/assistant_civil_formation.example.json`
+- explicit Wave II validation lane:
+  `scripts/build_assistant_civil_formation_index.py`,
+  `scripts/validate_assistant_civil_formation.py`, and
+  `tests/test_assistant_civil_formation.py`
+
+This turn keeps assistant variants as civil/service forms anchored to the same
+five role houses without widening the public role catalog, without granting
+contestant or judge authority, and without pulling runtime packets, scars,
+verdicts, durable incident logs, or ToS promotion into `aoa-agents`.
 
 ## Bootstrap substep: runtime seam hardening
 

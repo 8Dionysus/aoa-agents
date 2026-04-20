@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent_arena_eligibility_v1.json",
+  "agent_id": "evaluator",
+  "candidate_seats": {
+    "boundary_challenger": false,
+    "chronicler": false,
+    "closer": false,
+    "contestant": false,
+    "executor": false,
+    "judge": true,
+    "skeptic": false,
+    "summon_initiator": false,
+    "verifier": false,
+    "witness": true
+  },
+  "eligibility_status": "candidate",
+  "forbidden_seats": [
+    "summon_initiator",
+    "closer",
+    "protocol_sovereign",
+    "tree_promoter"
+  ],
+  "not_live_authority": true,
+  "notes": [
+    "May become a judge candidate only under future center charter.",
+    "Cannot create proof doctrine or live verdict law inside aoa-agents."
+  ],
+  "profile_id": "AOA-A-0004",
+  "requires_center_charter": true
+}

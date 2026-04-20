@@ -1,0 +1,98 @@
+{
+  "$id": "https://8dionysus.github.io/aoa-agents/schemas/assistant_service_contract_v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed_scope": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "escalation_rules": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "inputs": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "mandate": {
+      "type": "string"
+    },
+    "outputs": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "prohibited_scope": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "receipts": {
+      "additionalProperties": false,
+      "properties": {
+        "must_include": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "required": {
+          "const": true
+        }
+      },
+      "required": [
+        "required",
+        "must_include"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "assistant_service_contract_v1"
+    },
+    "service_invariants": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "variant_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "variant_id",
+    "mandate",
+    "allowed_scope",
+    "prohibited_scope",
+    "inputs",
+    "outputs",
+    "receipts",
+    "escalation_rules",
+    "service_invariants"
+  ],
+  "title": "Assistant Service Contract v1",
+  "type": "object"
+}
