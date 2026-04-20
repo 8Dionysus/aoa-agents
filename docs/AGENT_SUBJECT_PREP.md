@@ -32,6 +32,20 @@ agonic side and the assistant side are now both explicit at the actor layer,
 while protocol law, verdicts, scars, retention, runtime transport, and
 canonization still remain outside this repository.
 
+Wave II.5 Formation Trial has now landed the first pre-protocol judgment
+surfaces under:
+
+- `docs/AGENT_FORMATION_TRIAL.md`
+- `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md`
+- `docs/FORMATION_TRIAL_READINESS.md`
+- `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`
+- `generated/agent_formation_trial.min.json`
+
+That third landing does not erase this boundary note either. It means the
+current role houses can now be read as explicit split forms before lawful-move
+language exists, while arena sessions, verdict logic, scars, retention,
+runtime transport, and canonization still remain outside this repository.
+
 ## Current truth
 
 Today the agent layer already owns:
@@ -68,10 +82,11 @@ This repository may prepare the role-facing split and future additive adjunct
 families that make it concrete.
 It must not decide protocol law, verdict logic, memory storage, runtime transport,
 or ToS promotion.
-Wave I and Wave II have now decided the first agonic and assistant source
-paths, schemas, and generated indexes for the current five role homes. Any
-protocol-bearing follow-through, runtime transport, or canon-facing follow-up
-still remains future reviewed work.
+Wave I, Wave II, and Wave II.5 have now decided the first agonic and assistant
+source paths, the first formation-trial judgment, and the generated indexes
+for the current five role homes. Any protocol-bearing follow-through, runtime
+transport, Codex projection widening, or canon-facing follow-up still remains
+future reviewed work.
 
 ## What may belong here later
 

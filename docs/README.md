@@ -8,9 +8,11 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
-- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded boundary note that now routes from legacy role contracts into landed Wave I agonic adjuncts and landed Wave II assistant civil adjuncts while keeping protocol law out of this repository.
+- Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded boundary note that now routes from legacy role contracts into landed Wave I agonic adjuncts, landed Wave II assistant civil adjuncts, and landed Wave II.5 formation-trial judgment while keeping protocol law out of this repository.
 - Read [AGONIC_ACTOR_RECHARTERING](AGONIC_ACTOR_RECHARTERING.md) and [AGON_WAVE1_LANDING](AGON_WAVE1_LANDING.md) for the first landed Agon-facing actor turn.
 - Read [ASSISTANT_CIVIL_RECHARTERING](ASSISTANT_CIVIL_RECHARTERING.md) and [AGON_WAVE2_LANDING](AGON_WAVE2_LANDING.md) for the landed civil/service turn that prevents assistant drift into hidden contestants.
+- Read [AGENT_FORMATION_TRIAL](AGENT_FORMATION_TRIAL.md) and [AGON_WAVE2_5_LANDING](AGON_WAVE2_5_LANDING.md) for the first landed pre-protocol judgment that decides whether the split forms are readable enough for Wave III.
+- Read [AGON_PRE_PROTOCOL_AGENT_BOUNDARY](AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md), [FORMATION_TRIAL_READINESS](FORMATION_TRIAL_READINESS.md), and [CODEX_PROJECTION_AGON_BOUNDARY](CODEX_PROJECTION_AGON_BOUNDARY.md) for the stop-lines that keep formation judgment from quietly becoming arena protocol or live Codex prompt law.
 - Read [ASSISTANT_KIND_MODEL](ASSISTANT_KIND_MODEL.md), [ASSISTANT_SERVICE_IDENTITY_MODEL](ASSISTANT_SERVICE_IDENTITY_MODEL.md), [ASSISTANT_SERVICE_CONTRACT_MODEL](ASSISTANT_SERVICE_CONTRACT_MODEL.md), [ASSISTANT_SERVICE_GOVERNANCE_MODEL](ASSISTANT_SERVICE_GOVERNANCE_MODEL.md), [ASSISTANT_SERVICE_CERTIFICATION_MODEL](ASSISTANT_SERVICE_CERTIFICATION_MODEL.md), [ASSISTANT_ARENA_EXCLUSION_MODEL](ASSISTANT_ARENA_EXCLUSION_MODEL.md), and [ASSISTANT_ESCALATION_TO_AGON](ASSISTANT_ESCALATION_TO_AGON.md) for the six assistant companion families and their escalation law.
 - Read [AGENT_KIND_MODEL](AGENT_KIND_MODEL.md), [AGENT_SUBJECTIVITY_MODEL](AGENT_SUBJECTIVITY_MODEL.md), [AGENT_OFFICE_MODEL](AGENT_OFFICE_MODEL.md), [AGENT_ARENA_ELIGIBILITY_MODEL](AGENT_ARENA_ELIGIBILITY_MODEL.md), and [AGENT_RESISTANCE_REVISION_POSTURE](AGENT_RESISTANCE_REVISION_POSTURE.md) for the five companion adjunct families.
 - Read [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
@@ -43,6 +45,11 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGON_WAVE1_LANDING](AGON_WAVE1_LANDING.md) — the Wave I landing law, acceptance signals, and downstream handoff
 - [ASSISTANT_CIVIL_RECHARTERING](ASSISTANT_CIVIL_RECHARTERING.md) — how assistant variants become explicit civil/service forms instead of hidden contestants
 - [AGON_WAVE2_LANDING](AGON_WAVE2_LANDING.md) — the Wave II landing law, exit signals, and downstream bridge
+- [AGENT_FORMATION_TRIAL](AGENT_FORMATION_TRIAL.md) — how the first pre-protocol judgment decides whether current role houses survive as readable split forms
+- [AGON_WAVE2_5_LANDING](AGON_WAVE2_5_LANDING.md) — the Wave II.5 landing law and the first passed formation-trial result
+- [AGON_PRE_PROTOCOL_AGENT_BOUNDARY](AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md) — how candidate seats, eligibility, and assistant escalation remain distinct from live protocol authority
+- [FORMATION_TRIAL_READINESS](FORMATION_TRIAL_READINESS.md) — how disciplined incompleteness becomes enough actor clarity for Wave III without opening an arena
+- [CODEX_PROJECTION_AGON_BOUNDARY](CODEX_PROJECTION_AGON_BOUNDARY.md) — how Codex projection stays outside live Agon formation law until owner-reviewed projection work exists
 - [AGENT_KIND_MODEL](AGENT_KIND_MODEL.md) — how `kind` separates agonic form from office while keeping agonic files distinct from landed assistant files
 - [AGENT_SUBJECTIVITY_MODEL](AGENT_SUBJECTIVITY_MODEL.md) — how beliefs, image, affects, and thought posture stay role-owned without becoming scars, verdicts, or runtime packets
 - [AGENT_OFFICE_MODEL](AGENT_OFFICE_MODEL.md) — how battle-facing office overlays stay adjunct and do not widen the public profile catalog too early
@@ -84,6 +91,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Run `python -m pytest -q tests` for the local test suite.
 - Run `python scripts/build_agent_agonic_formation_index.py --check`, `python scripts/validate_agent_agonic_formation.py`, and `python -m pytest -q tests/test_agent_agonic_formation.py` for the explicit Wave I agonic actor recharter lane.
 - Run `python scripts/build_assistant_civil_formation_index.py --check`, `python scripts/validate_assistant_civil_formation.py`, and `python -m pytest -q tests/test_assistant_civil_formation.py` for the explicit Wave II assistant civil recharter lane.
+- Run `python scripts/build_agent_formation_trial.py --check`, `python scripts/validate_agent_formation_trial.py`, and `python -m pytest -q tests/test_agent_formation_trial.py` for the explicit Wave II.5 formation-trial lane.
 - Add `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, and `AOA_ROUTING_ROOT` only when you want bounded consumer-smoke checks against sibling repositories.
 - Use `python scripts/build_published_surfaces.py` only after editing source-authored registry inputs.
 

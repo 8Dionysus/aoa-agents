@@ -15,7 +15,7 @@ Use the shortest route by need:
 - docs map: `docs/README.md`
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
-- subject prep boundary plus landed Agon actor and assistant recharters: `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`, `docs/ASSISTANT_CIVIL_RECHARTERING.md`, `generated/agent_agonic_formation_index.min.json`, and `generated/assistant_civil_formation_index.min.json`
+- subject prep boundary plus landed Agon actor and assistant recharters and the first formation trial: `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`, `docs/ASSISTANT_CIVIL_RECHARTERING.md`, `docs/AGENT_FORMATION_TRIAL.md`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
@@ -30,7 +30,8 @@ Use the shortest route by need:
 ## Route by need
 
 - canonical profiles and schemas: `profiles/*.profile.json` and `schemas/agent-profile.schema.json`
-- Agon-facing companion actor surfaces: `profiles/adjuncts/*`, `schemas/agent_kind_v1.json`, `schemas/agent_subjectivity_v1.json`, `schemas/agent_office_overlay_v1.json`, `schemas/agent_arena_eligibility_v1.json`, `schemas/agent_resistance_revision_v1.json`, `schemas/assistant_variant_v1.json`, `schemas/assistant_service_identity_v1.json`, `schemas/assistant_service_contract_v1.json`, `schemas/assistant_service_governance_v1.json`, `schemas/assistant_service_certification_v1.json`, `schemas/assistant_arena_exclusion_v1.json`, `generated/agent_agonic_formation_index.min.json`, and `generated/assistant_civil_formation_index.min.json`
+- Agon-facing companion actor surfaces: `profiles/adjuncts/*`, `schemas/agent_kind_v1.json`, `schemas/agent_subjectivity_v1.json`, `schemas/agent_office_overlay_v1.json`, `schemas/agent_arena_eligibility_v1.json`, `schemas/agent_resistance_revision_v1.json`, `schemas/assistant_variant_v1.json`, `schemas/assistant_service_identity_v1.json`, `schemas/assistant_service_contract_v1.json`, `schemas/assistant_service_governance_v1.json`, `schemas/assistant_service_certification_v1.json`, `schemas/assistant_arena_exclusion_v1.json`, `schemas/agent_formation_trial_v1.json`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
+- pre-protocol formation-trial judgment and Codex boundary: `docs/AGENT_FORMATION_TRIAL.md`, `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md`, `docs/FORMATION_TRIAL_READINESS.md`, `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`, `docs/AGON_WAVE2_5_LANDING.md`, `schemas/agent_formation_trial_v1.json`, and `generated/agent_formation_trial.min.json`
 - model tiers, orchestrator classes, and bounded cohort composition: `model_tiers/*.tier.json`, `orchestrator_classes/*.class.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
 - Codex subagent projection, owner refresh law, and workspace install seam: `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `generated/codex_agents/agents/*.toml`, `generated/codex_agents/config.subagents.generated.toml`, and `scripts/build_codex_subagents_v2.py`
@@ -105,6 +106,14 @@ Verify the additive Wave II assistant civil surfaces explicitly:
 python scripts/build_assistant_civil_formation_index.py --check
 python scripts/validate_assistant_civil_formation.py
 python -m pytest -q tests/test_assistant_civil_formation.py
+```
+
+Verify the additive Wave II.5 formation trial surfaces explicitly:
+
+```bash
+python scripts/build_agent_formation_trial.py --check
+python scripts/validate_agent_formation_trial.py
+python -m pytest -q tests/test_agent_formation_trial.py
 ```
 
 Optional bounded consumer smoke checks can be enabled with the documented `AOA_*_ROOT` variables when you want federated reachability checks against sibling repositories.

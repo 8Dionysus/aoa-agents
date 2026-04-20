@@ -11,6 +11,8 @@ These files illustrate published contracts. They are not the source-authored can
   across base role contract plus agonic companion surfaces
 - `assistant_civil_formation.example.json` for the additive Wave II reader path
   across base role contract plus assistant civil companion surfaces
+- `agent_formation_trial.example.json` for the additive Wave II.5 reader path
+  across base role house plus agonic and assistant split-form judgment
 - `runtime_artifacts/` for public-loop artifact examples and negative fixtures
 - `self_agent_checkpoint/` for governed self-agent checkpoint examples and negative fixtures
 - `reference_routes/` for manifest-driven reference route packs over the published public loop
@@ -29,3 +31,4 @@ runtime state.
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates example alignment and negative fixtures.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
+For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.
