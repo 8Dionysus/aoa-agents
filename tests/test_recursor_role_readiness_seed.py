@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,10 +57,16 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertEqual(projection["projection_status"], "candidate_only")
         self.assertFalse(projection["install_by_default"])
         self.assertTrue(projection["requires_owner_review"])
+        self.assertEqual(
+            {agent["recursor_id"] for agent in projection["candidate_agents"]},
+            {"recursor.witness", "recursor.executor"},
+        )
         for agent in projection["candidate_agents"]:
             self.assertEqual(agent["activation_status"], "candidate_only")
             self.assertIn("agent_spawn", agent["forbidden"])
             self.assertIn("arena_session", agent["forbidden"])
+            self.assertIn("rank_mutation", agent["forbidden"])
+            self.assertIn("no_agonic_runtime_claim", agent["activation_requires"])
 
     def test_boundary_report_has_no_violations(self):
         common = load_common()
@@ -67,6 +74,43 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertEqual(report["status"], "pass")
         self.assertEqual(report["violations"], [])
         self.assertIn("no_hidden_scheduler", report["checked_stop_lines"])
+
+    def test_projection_rejects_unexpected_candidate_role(self):
+        common = load_common()
+        projection = json.loads((ROOT / "config" / "codex_recursor_projection.candidate.json").read_text(encoding="utf-8"))
+        projection["candidate_agents"].append(
+            {
+                "recursor_id": "recursor.admin",
+                "activation_status": "candidate_only",
+                "activation_requires": [
+                    "explicit_main_codex_call",
+                    "no_agonic_runtime_claim",
+                ],
+                "forbidden": [
+                    "agent_spawn",
+                    "arena_session",
+                    "verdict",
+                    "scar_write",
+                    "rank_mutation",
+                    "hidden_scheduler",
+                ],
+            }
+        )
+        errors = common.validate_projection_candidate(projection)
+        self.assertTrue(any(error["kind"] == "unexpected_projection_agent" for error in errors))
+
+    def test_projection_requires_full_forbidden_tokens(self):
+        common = load_common()
+        projection = json.loads((ROOT / "config" / "codex_recursor_projection.candidate.json").read_text(encoding="utf-8"))
+        broken = deepcopy(projection)
+        for agent in broken["candidate_agents"]:
+            if agent["recursor_id"] == "recursor.executor":
+                agent["forbidden"].remove("rank_mutation")
+                agent["forbidden"].remove("self_verify_as_final")
+        errors = common.validate_projection_candidate(broken)
+        messages = " ".join(error["message"] for error in errors)
+        self.assertIn("rank_mutation", messages)
+        self.assertIn("self_verify_as_final", messages)
 
 
 if __name__ == "__main__":

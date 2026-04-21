@@ -28,6 +28,26 @@ REQUIRED_FORBIDDEN = {
     },
 }
 
+PROJECTION_REQUIRED_ROLES = {"recursor.witness", "recursor.executor"}
+PROJECTION_REQUIRED_FORBIDDEN = {
+    "global": {
+        "agent_spawn",
+        "arena_session",
+        "verdict",
+        "scar_write",
+        "rank_mutation",
+        "hidden_scheduler",
+    },
+    "recursor.witness": {
+        "workspace_write",
+    },
+    "recursor.executor": {
+        "execute_without_plan",
+        "self_verify_as_final",
+    },
+}
+PROJECTION_REQUIRED_ACTIVATION = {"explicit_main_codex_call", "no_agonic_runtime_claim"}
+
 STOP_LINES = [
     "no_arena_session",
     "no_verdict",
@@ -146,19 +166,34 @@ def validate_projection_candidate(projection: Dict[str, Any]) -> List[Dict[str, 
     if projection.get("requires_owner_review") is not True:
         add("projection_lacks_owner_review", "Projection candidate requires owner review.")
     agents = projection.get("candidate_agents", [])
-    if len(agents) < 2:
-        add("missing_candidate_agents", "Projection candidate should include witness and executor.")
-    by_id = {agent.get("recursor_id"): agent for agent in agents if isinstance(agent, dict)}
+    agent_ids = [str(agent.get("recursor_id", "<missing>")) for agent in agents if isinstance(agent, dict)]
+    agent_id_set = set(agent_ids)
+    unexpected = agent_id_set - PROJECTION_REQUIRED_ROLES
+    missing_roles = PROJECTION_REQUIRED_ROLES - agent_id_set
+    duplicate_ids = sorted({rid for rid in agent_ids if agent_ids.count(rid) > 1})
+    if unexpected:
+        add("unexpected_projection_agent", f"Unexpected projection candidate roles: {sorted(unexpected)}")
+    if missing_roles:
+        add("missing_projection_agent", f"Missing projection candidates: {sorted(missing_roles)}")
+    if duplicate_ids:
+        add("duplicate_projection_agent", f"Duplicate projection candidate roles: {duplicate_ids}")
+    if len(agents) != len(PROJECTION_REQUIRED_ROLES):
+        add("invalid_projection_agent_count", "Projection candidate must contain exactly witness and executor.")
+    by_id = {str(agent.get("recursor_id", "<missing>")): agent for agent in agents if isinstance(agent, dict)}
     for rid in ("recursor.witness", "recursor.executor"):
         if rid not in by_id:
-            add("missing_projection_agent", f"Missing projection candidate for {rid}.")
             continue
         agent = by_id[rid]
         forbidden = set(agent.get("forbidden", []))
-        required_tokens = {"agent_spawn", "arena_session", "verdict", "scar_write", "hidden_scheduler"}
+        required_tokens = set(PROJECTION_REQUIRED_FORBIDDEN["global"])
+        required_tokens |= PROJECTION_REQUIRED_FORBIDDEN.get(rid, set())
         missing = required_tokens - forbidden
         if missing:
             add("projection_missing_forbidden", f"{rid} projection missing forbidden tokens: {sorted(missing)}")
+        activation_requires = set(agent.get("activation_requires", []))
+        missing_activation = PROJECTION_REQUIRED_ACTIVATION - activation_requires
+        if missing_activation:
+            add("projection_missing_activation_guard", f"{rid} projection missing activation guards: {sorted(missing_activation)}")
         if agent.get("activation_status") != "candidate_only":
             add("projection_agent_not_candidate_only", f"{rid} must remain candidate_only.")
     return errors
