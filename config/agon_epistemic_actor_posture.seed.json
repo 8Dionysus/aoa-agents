@@ -1,0 +1,197 @@
+{
+  "postures": [
+    {
+      "agent_id": "architect",
+      "agonic_offices": [
+        "boundary_keeper",
+        "tracer"
+      ],
+      "assistant_boundary": "assistant variants remain service-only and cannot emit contestant epistemic commitments",
+      "candidate_outputs": [
+        "epistemic_actor_posture_candidate",
+        "model_of_other_obligation_candidate",
+        "concept_delta_obligation_candidate"
+      ],
+      "concept_map_delta_required": true,
+      "epistemic_obligations": [
+        "concept_boundary_discipline",
+        "model_scope_prediction",
+        "architecture_doctrine_revision_request",
+        "prediction_before_reveal",
+        "delta_candidate_after_pressure"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "model_of_other_required": true,
+      "owner_repo": "aoa-agents",
+      "posture_id": "agon.actor.epistemic.architect.v1",
+      "runtime_effect": "candidate_only"
+    },
+    {
+      "agent_id": "coder",
+      "agonic_offices": [
+        "executor",
+        "implementation_reasoning_carrier"
+      ],
+      "assistant_boundary": "assistant variants remain service-only and cannot emit contestant epistemic commitments",
+      "candidate_outputs": [
+        "epistemic_actor_posture_candidate",
+        "model_of_other_obligation_candidate",
+        "concept_delta_obligation_candidate"
+      ],
+      "concept_map_delta_required": true,
+      "epistemic_obligations": [
+        "inference_chain_exposure",
+        "evidence_interpretation_boundary",
+        "execution_concept_delta",
+        "prediction_before_reveal",
+        "delta_candidate_after_pressure"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "model_of_other_required": true,
+      "owner_repo": "aoa-agents",
+      "posture_id": "agon.actor.epistemic.coder.v1",
+      "runtime_effect": "candidate_only"
+    },
+    {
+      "agent_id": "reviewer",
+      "agonic_offices": [
+        "verifier",
+        "skeptic"
+      ],
+      "assistant_boundary": "assistant variants remain service-only and cannot emit contestant epistemic commitments",
+      "candidate_outputs": [
+        "epistemic_actor_posture_candidate",
+        "model_of_other_obligation_candidate",
+        "concept_delta_obligation_candidate"
+      ],
+      "concept_map_delta_required": true,
+      "epistemic_obligations": [
+        "model_of_other_prediction",
+        "false_consensus_resistance",
+        "inference_chain_challenge",
+        "prediction_before_reveal",
+        "delta_candidate_after_pressure"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "model_of_other_required": true,
+      "owner_repo": "aoa-agents",
+      "posture_id": "agon.actor.epistemic.reviewer.v1",
+      "runtime_effect": "candidate_only"
+    },
+    {
+      "agent_id": "evaluator",
+      "agonic_offices": [
+        "arbiter",
+        "judge_candidate"
+      ],
+      "assistant_boundary": "assistant variants remain service-only and cannot emit contestant epistemic commitments",
+      "candidate_outputs": [
+        "epistemic_actor_posture_candidate",
+        "model_of_other_obligation_candidate",
+        "concept_delta_obligation_candidate"
+      ],
+      "concept_map_delta_required": true,
+      "epistemic_obligations": [
+        "bifurcation_legitimacy_review",
+        "epistemic_rupture_legitimacy",
+        "explanatory_competition_axes",
+        "prediction_before_reveal",
+        "delta_candidate_after_pressure"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "model_of_other_required": true,
+      "owner_repo": "aoa-agents",
+      "posture_id": "agon.actor.epistemic.evaluator.v1",
+      "runtime_effect": "candidate_only"
+    },
+    {
+      "agent_id": "memory-keeper",
+      "agonic_offices": [
+        "chronicler",
+        "witness"
+      ],
+      "assistant_boundary": "assistant variants remain service-only and cannot emit contestant epistemic commitments",
+      "candidate_outputs": [
+        "epistemic_actor_posture_candidate",
+        "model_of_other_obligation_candidate",
+        "concept_delta_obligation_candidate"
+      ],
+      "concept_map_delta_required": true,
+      "epistemic_obligations": [
+        "epistemic_delta_chronicle",
+        "branch_lineage_candidate",
+        "rupture_candidate_intake_boundary",
+        "prediction_before_reveal",
+        "delta_candidate_after_pressure"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "model_of_other_required": true,
+      "owner_repo": "aoa-agents",
+      "posture_id": "agon.actor.epistemic.memory-keeper.v1",
+      "runtime_effect": "candidate_only"
+    }
+  ],
+  "registry_id": "agon.epistemic_actor_posture.registry.v1",
+  "runtime_posture": "candidate_only",
+  "wave": "XV"
+}

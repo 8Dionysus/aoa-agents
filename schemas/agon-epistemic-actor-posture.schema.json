@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "agonic_offices": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "assistant_boundary": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "candidate_outputs": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "concept_map_delta_required": {
+      "type": "boolean"
+    },
+    "epistemic_obligations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "forbidden_effects": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 10,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "live_protocol": {
+      "const": false
+    },
+    "model_of_other_required": {
+      "type": "boolean"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "posture_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "runtime_effect": {
+      "enum": [
+        "none",
+        "candidate_only",
+        "local_dry_run_candidate_only",
+        "local_rehearsal_candidate_only"
+      ]
+    }
+  },
+  "required": [
+    "agent_id",
+    "agonic_offices",
+    "assistant_boundary",
+    "candidate_outputs",
+    "concept_map_delta_required",
+    "epistemic_obligations",
+    "forbidden_effects",
+    "live_protocol",
+    "model_of_other_required",
+    "owner_repo",
+    "posture_id",
+    "runtime_effect"
+  ],
+  "title": "Agon Epistemic Actor Posture",
+  "type": "object"
+}
