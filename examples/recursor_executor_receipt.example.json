@@ -1,0 +1,19 @@
+{
+  "schema_version": "recursor-handoff-ledger/v1",
+  "handoff_ref": "recursor-handoff:example:executor:001",
+  "role": "recursor.executor",
+  "inputs": [
+    "approved_propagation_plan:example",
+    "bounded_task_slice:example"
+  ],
+  "outputs": [
+    "execution_receipt:example",
+    "verification_request:example"
+  ],
+  "stop_lines_checked": [
+    "executor_requires_approved_plan",
+    "executor_is_not_self_verifier"
+  ],
+  "mutation_applied": false,
+  "notes": "Example is dry-run/readiness only."
+}

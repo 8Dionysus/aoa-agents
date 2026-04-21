@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-projection-candidate.v1.schema.json",
+  "title": "Codex Recursor Projection Candidate v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "projection_status",
+    "install_by_default",
+    "requires_owner_review",
+    "candidate_agents"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "codex-recursor-projection-candidate/v1"
+    },
+    "projection_status": {
+      "const": "candidate_only"
+    },
+    "install_by_default": {
+      "const": false
+    },
+    "requires_owner_review": {
+      "const": true
+    },
+    "candidate_agents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "minItems": 2
+    }
+  },
+  "additionalProperties": true
+}

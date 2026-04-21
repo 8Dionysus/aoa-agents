@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-role-contract.v1.schema.json",
+  "title": "Recursor Role Contract v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "recursor_id",
+    "owner_repo",
+    "readiness_status",
+    "default_form",
+    "future_agonic_candidate",
+    "allowed_inputs",
+    "allowed_outputs",
+    "forbidden_actions",
+    "memory_policy",
+    "codex_projection",
+    "receipts_required",
+    "stop_lines"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "recursor-role-contract/v1"
+    },
+    "recursor_id": {
+      "type": "string",
+      "pattern": "^recursor\\.(witness|executor)$"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "readiness_status": {
+      "enum": [
+        "candidate",
+        "review_ready",
+        "projectable",
+        "active"
+      ]
+    },
+    "default_form": {
+      "type": "object",
+      "required": [
+        "kind",
+        "base_role_gravity",
+        "service_offices",
+        "arena_eligible"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "assistant"
+          ]
+        },
+        "base_role_gravity": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "service_offices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "arena_eligible": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "future_agonic_candidate": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "candidate_seats",
+        "live_authority"
+      ],
+      "properties": {
+        "enabled": {
+          "const": false
+        },
+        "candidate_seats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "live_authority": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "allowed_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "memory_policy": {
+      "type": "object",
+      "required": [
+        "direct_durable_write_allowed",
+        "may_prepare_memo_candidate",
+        "memo_owner_repo"
+      ],
+      "properties": {
+        "direct_durable_write_allowed": {
+          "const": false
+        },
+        "may_prepare_memo_candidate": {
+          "type": "boolean"
+        },
+        "memo_owner_repo": {
+          "const": "aoa-memo"
+        }
+      },
+      "additionalProperties": true
+    },
+    "codex_projection": {
+      "type": "object",
+      "required": [
+        "status",
+        "install_by_default",
+        "requires_owner_review"
+      ],
+      "properties": {
+        "status": {
+          "const": "candidate_only"
+        },
+        "install_by_default": {
+          "const": false
+        },
+        "requires_owner_review": {
+          "const": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "receipts_required": {
+      "const": true
+    },
+    "stop_lines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": true
+}

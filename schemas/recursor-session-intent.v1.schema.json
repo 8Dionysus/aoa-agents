@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-session-intent.v1.schema.json",
+  "title": "Recursor Session Intent v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "intent_ref",
+    "requested_roles",
+    "activation_status",
+    "approved_plan_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "recursor-session-intent/v1"
+    },
+    "intent_ref": {
+      "type": "string"
+    },
+    "requested_roles": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "recursor.witness",
+          "recursor.executor"
+        ]
+      }
+    },
+    "activation_status": {
+      "enum": [
+        "readiness_only",
+        "candidate_projection_review",
+        "explicit_future_activation"
+      ]
+    },
+    "approved_plan_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

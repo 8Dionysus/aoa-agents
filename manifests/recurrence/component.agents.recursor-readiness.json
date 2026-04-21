@@ -1,0 +1,97 @@
+{
+  "schema_version": "aoa_recurrence_component_v2",
+  "manifest_kind": "recurrence_component",
+  "component_ref": "component:agents:recursor-readiness",
+  "owner_repo": "aoa-agents",
+  "component_kind": "agent_readiness",
+  "authority_level": "owner_role_readiness",
+  "source_inputs": [
+    "config/recursor_roles.seed.json",
+    "config/recursor_pair.seed.json",
+    "config/codex_recursor_projection.candidate.json",
+    "docs/RECURSOR_AGENT_READINESS.md",
+    "docs/RECURSOR_WITNESS_CONTRACT.md",
+    "docs/RECURSOR_EXECUTOR_CONTRACT.md",
+    "docs/RECURSOR_PAIR_SEPARATION_LAW.md",
+    "docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md",
+    "docs/AGON_RECURSOR_BOUNDARY.md"
+  ],
+  "generated_surfaces": [
+    "generated/recursor_role_readiness.min.json",
+    "generated/recursor_pair_contract.min.json",
+    "generated/recursor_projection_candidates.min.json",
+    "generated/recursor_agon_boundary_report.min.json"
+  ],
+  "contract_surfaces": [
+    "docs/RECURSOR_WITNESS_CONTRACT.md",
+    "docs/RECURSOR_EXECUTOR_CONTRACT.md",
+    "docs/RECURSOR_PAIR_SEPARATION_LAW.md",
+    "docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md",
+    "docs/AGON_RECURSOR_BOUNDARY.md"
+  ],
+  "proof_surfaces": [
+    "python scripts/build_recursor_role_readiness.py --check",
+    "python scripts/build_recursor_projection_candidates.py --check",
+    "python scripts/validate_recursor_role_readiness.py",
+    "python scripts/validate_recursor_boundary.py"
+  ],
+  "consumer_edges": [
+    {
+      "kind": "observed_by",
+      "target_repo": "aoa-sdk",
+      "target": "recurrence.agent_readiness",
+      "strength": "required"
+    },
+    {
+      "kind": "proved_by_eval",
+      "target_repo": "aoa-evals",
+      "target": "aoa-recurrence-control-plane-integrity:recursor-boundary-extension",
+      "strength": "recommended"
+    },
+    {
+      "kind": "projection_candidate",
+      "target_repo": "8Dionysus",
+      "target": ".codex/agents/",
+      "required": false,
+      "strength": "blocked_until_owner_review",
+      "notes": "Candidate only; no install without owner-reviewed projection law."
+    }
+  ],
+  "drift_signals": [
+    {
+      "signal": "recursor_contract_changed_without_boundary_report",
+      "recommended_action": "revalidate",
+      "severity": "high"
+    },
+    {
+      "signal": "recursor_projection_candidate_enabled_without_review",
+      "recommended_action": "block",
+      "severity": "critical"
+    },
+    {
+      "signal": "assistant_recursor_gained_contestant_authority",
+      "recommended_action": "quarantine",
+      "severity": "critical"
+    }
+  ],
+  "forbidden_actions": [
+    "spawn_agent",
+    "open_arena_session",
+    "issue_verdict",
+    "write_scar",
+    "mutate_rank",
+    "promote_to_tree_of_sophia",
+    "hidden_scheduler_action",
+    "install_codex_agent_by_default"
+  ],
+  "freshness": {
+    "stale_after_days": 14,
+    "repeat_trigger_threshold": 1,
+    "open_window_days": 7
+  },
+  "rollback_anchors": [
+    "config/recursor_roles.seed.json",
+    "config/recursor_pair.seed.json",
+    "config/codex_recursor_projection.candidate.json"
+  ]
+}

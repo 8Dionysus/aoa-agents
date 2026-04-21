@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-handoff-ledger.v1.schema.json",
+  "title": "Recursor Handoff Ledger v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "handoff_ref",
+    "role",
+    "inputs",
+    "outputs",
+    "stop_lines_checked"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "recursor-handoff-ledger/v1"
+    },
+    "handoff_ref": {
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "recursor.witness",
+        "recursor.executor"
+      ]
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_lines_checked": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

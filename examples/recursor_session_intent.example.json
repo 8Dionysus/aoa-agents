@@ -1,0 +1,11 @@
+{
+  "schema_version": "recursor-session-intent/v1",
+  "intent_ref": "recursor-session-intent:example:readiness-only",
+  "requested_roles": [
+    "recursor.witness",
+    "recursor.executor"
+  ],
+  "activation_status": "readiness_only",
+  "approved_plan_ref": null,
+  "notes": "Example only. This is not a spawn request."
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-readiness-index.v1.schema.json",
+  "title": "Recursor Role Readiness Index v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "owner_repo",
+    "readiness_status",
+    "roles",
+    "pair_ref",
+    "projection_status",
+    "boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "recursor-readiness-index/v1"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "readiness_status": {
+      "const": "candidate"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "pair_ref": {
+      "type": "string"
+    },
+    "projection_status": {
+      "const": "candidate_only"
+    },
+    "boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

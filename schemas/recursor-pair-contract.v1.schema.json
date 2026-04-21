@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/recursor-pair-contract.v1.schema.json",
+  "title": "Recursor Pair Contract v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pair_ref",
+    "roles",
+    "required_separation",
+    "handoff_order",
+    "activation_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "recursor-pair-contract/v1"
+    },
+    "pair_ref": {
+      "const": "recursor_pair:witness_executor:v1"
+    },
+    "roles": {
+      "type": "object",
+      "required": [
+        "witness",
+        "executor"
+      ],
+      "properties": {
+        "witness": {
+          "const": "recursor.witness"
+        },
+        "executor": {
+          "const": "recursor.executor"
+        }
+      }
+    },
+    "required_separation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4
+    },
+    "handoff_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4
+    },
+    "activation_status": {
+      "const": "readiness_only"
+    }
+  },
+  "additionalProperties": true
+}
