@@ -1,0 +1,31 @@
+{
+  "agent_id": "architect",
+  "allowed_effect": "actor_rank_surface_candidate_only",
+  "candidate_only": true,
+  "description": "Prepares rank and jurisdiction candidate posture for architect without mutating the base profile.",
+  "eligible_jurisdiction_candidates": [
+    "jurisdiction.witness_seat"
+  ],
+  "forbidden_effects": [
+    "profile_rewrite",
+    "rank_mutation",
+    "trust_mutation",
+    "live_closure",
+    "live_summon"
+  ],
+  "forbidden_jurisdictions_without_future_review": [
+    "jurisdiction.closure_candidate",
+    "jurisdiction.summon_intent_initiator"
+  ],
+  "id": "agon.agent.rank_surface.architect",
+  "kind": "agent_rank_jurisdiction_surface",
+  "live_authority": false,
+  "offices": [
+    "boundary_keeper",
+    "tracer"
+  ],
+  "owner": "aoa-agents",
+  "review_required": true,
+  "standing_floor": "rank.novice",
+  "status": "seeded_rank_surface_candidate"
+}

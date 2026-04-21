@@ -1,0 +1,17 @@
+{
+  "bindings": [
+    {
+      "decision_authority": false,
+      "emits": "recurrence.observation.retention_rank_pressure",
+      "source": "generated/agon_agent_rank_jurisdiction_registry.min.json"
+    },
+    {
+      "decision_authority": false,
+      "emits": "recurrence.observation.owner_review_needed",
+      "source": "config/agon_agent_rank_jurisdiction.seed.json"
+    }
+  ],
+  "hidden_scheduler_allowed": false,
+  "hook_binding_set_id": "hooks:agon.agent-rank-jurisdiction-surfaces",
+  "wave": "XIV"
+}
