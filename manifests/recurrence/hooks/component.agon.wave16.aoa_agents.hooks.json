@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "does_not_emit": [
+        "verdict",
+        "scar",
+        "rank_mutation",
+        "tos_promotion"
+      ],
+      "emits": [
+        "recurrence_observation",
+        "owner_review_candidate"
+      ],
+      "hook_id": "component.agon.wave16.aoa_agents.drift_watch",
+      "surface_globs": [
+        "generated/agon_agent_school_campaign_posture_registry.min.json",
+        "config/agon_agent_school_campaign_posture.seed.json",
+        "docs/AGON_AGENT_SCHOOL_CAMPAIGN_POSTURE.md",
+        "docs/AGON_SCHOOL_AFFILIATION_BOUNDARY.md",
+        "docs/AGON_ASSISTANT_CAMPAIGN_BOUNDARY.md",
+        "docs/AGON_WAVE16_AGENTS_LANDING.md"
+      ]
+    }
+  ],
+  "component_id": "component.agon.wave16.aoa_agents",
+  "hook_binding_set_id": "component.agon.wave16.aoa_agents.hooks",
+  "wave": "XVI"
+}
