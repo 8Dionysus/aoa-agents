@@ -35,8 +35,8 @@
             "notes": "documentation repeats a pre-protocol stop-line",
             "phrases": [
               "arena session",
-              "verdict",
-              "scar",
+              "verdict logic",
+              "scar ledger",
               "retention schedule"
             ],
             "signal": "agon_stop_line_repeated"
@@ -103,8 +103,8 @@
             "notes": "documentation repeats a pre-protocol stop-line",
             "phrases": [
               "arena session",
-              "verdict",
-              "scar",
+              "verdict logic",
+              "scar ledger",
               "retention schedule"
             ],
             "signal": "agon_stop_line_repeated"
