@@ -1,0 +1,276 @@
+{
+  "entries": [
+    {
+      "agent_id": "architect",
+      "allowed_effect": "actor_rank_surface_candidate_only",
+      "candidate_only": true,
+      "description": "Prepares rank and jurisdiction candidate posture for architect without mutating the base profile.",
+      "eligible_jurisdiction_candidates": [
+        "jurisdiction.witness_seat"
+      ],
+      "forbidden_effects": [
+        "profile_rewrite",
+        "rank_mutation",
+        "trust_mutation",
+        "live_closure",
+        "live_summon"
+      ],
+      "forbidden_jurisdictions_without_future_review": [
+        "jurisdiction.closure_candidate",
+        "jurisdiction.summon_intent_initiator"
+      ],
+      "id": "agon.agent.rank_surface.architect",
+      "kind": "agent_rank_jurisdiction_surface",
+      "live_authority": false,
+      "offices": [
+        "boundary_keeper",
+        "tracer"
+      ],
+      "owner": "aoa-agents",
+      "review_required": true,
+      "standing_floor": "rank.novice",
+      "status": "seeded_rank_surface_candidate"
+    },
+    {
+      "agent_id": "coder",
+      "allowed_effect": "actor_rank_surface_candidate_only",
+      "candidate_only": true,
+      "description": "Prepares rank and jurisdiction candidate posture for coder without mutating the base profile.",
+      "eligible_jurisdiction_candidates": [],
+      "forbidden_effects": [
+        "profile_rewrite",
+        "rank_mutation",
+        "trust_mutation",
+        "live_closure",
+        "live_summon"
+      ],
+      "forbidden_jurisdictions_without_future_review": [
+        "jurisdiction.closure_candidate",
+        "jurisdiction.summon_intent_initiator",
+        "jurisdiction.judge_candidate_seat"
+      ],
+      "id": "agon.agent.rank_surface.coder",
+      "kind": "agent_rank_jurisdiction_surface",
+      "live_authority": false,
+      "offices": [
+        "executor"
+      ],
+      "owner": "aoa-agents",
+      "review_required": true,
+      "standing_floor": "rank.novice",
+      "status": "seeded_rank_surface_candidate"
+    },
+    {
+      "agent_id": "reviewer",
+      "allowed_effect": "actor_rank_surface_candidate_only",
+      "candidate_only": true,
+      "description": "Prepares rank and jurisdiction candidate posture for reviewer without mutating the base profile.",
+      "eligible_jurisdiction_candidates": [
+        "jurisdiction.witness_seat"
+      ],
+      "forbidden_effects": [
+        "profile_rewrite",
+        "rank_mutation",
+        "trust_mutation",
+        "live_closure",
+        "live_summon"
+      ],
+      "forbidden_jurisdictions_without_future_review": [
+        "jurisdiction.closure_candidate",
+        "jurisdiction.summon_intent_initiator"
+      ],
+      "id": "agon.agent.rank_surface.reviewer",
+      "kind": "agent_rank_jurisdiction_surface",
+      "live_authority": false,
+      "offices": [
+        "verifier",
+        "skeptic"
+      ],
+      "owner": "aoa-agents",
+      "review_required": true,
+      "standing_floor": "rank.novice",
+      "status": "seeded_rank_surface_candidate"
+    },
+    {
+      "agent_id": "evaluator",
+      "allowed_effect": "actor_rank_surface_candidate_only",
+      "candidate_only": true,
+      "description": "Prepares rank and jurisdiction candidate posture for evaluator without mutating the base profile.",
+      "eligible_jurisdiction_candidates": [
+        "jurisdiction.judge_candidate_seat"
+      ],
+      "forbidden_effects": [
+        "profile_rewrite",
+        "rank_mutation",
+        "trust_mutation",
+        "live_closure",
+        "live_summon"
+      ],
+      "forbidden_jurisdictions_without_future_review": [
+        "jurisdiction.closure_candidate",
+        "jurisdiction.summon_intent_initiator"
+      ],
+      "id": "agon.agent.rank_surface.evaluator",
+      "kind": "agent_rank_jurisdiction_surface",
+      "live_authority": false,
+      "offices": [
+        "arbiter",
+        "judge_candidate"
+      ],
+      "owner": "aoa-agents",
+      "review_required": true,
+      "standing_floor": "rank.novice",
+      "status": "seeded_rank_surface_candidate"
+    },
+    {
+      "agent_id": "memory-keeper",
+      "allowed_effect": "actor_rank_surface_candidate_only",
+      "candidate_only": true,
+      "description": "Prepares rank and jurisdiction candidate posture for memory-keeper without mutating the base profile.",
+      "eligible_jurisdiction_candidates": [
+        "jurisdiction.witness_seat"
+      ],
+      "forbidden_effects": [
+        "profile_rewrite",
+        "rank_mutation",
+        "trust_mutation",
+        "live_closure",
+        "live_summon"
+      ],
+      "forbidden_jurisdictions_without_future_review": [
+        "jurisdiction.closure_candidate",
+        "jurisdiction.summon_intent_initiator"
+      ],
+      "id": "agon.agent.rank_surface.memory-keeper",
+      "kind": "agent_rank_jurisdiction_surface",
+      "live_authority": false,
+      "offices": [
+        "chronicler",
+        "witness"
+      ],
+      "owner": "aoa-agents",
+      "review_required": true,
+      "standing_floor": "rank.novice",
+      "status": "seeded_rank_surface_candidate"
+    },
+    {
+      "agent_id": "architect.assistant",
+      "allowed_effect": "assistant_rank_exclusion_surface_only",
+      "assistant_rank_mode": "service_certification_only",
+      "candidate_only": true,
+      "description": "Defines that architect.assistant uses service certification, not arena rank or jurisdiction.",
+      "forbidden_effects": [
+        "contestant_eligibility",
+        "rank_mutation",
+        "closure_candidate",
+        "summon_initiator",
+        "judge_candidate"
+      ],
+      "id": "agon.agent.assistant_rank_boundary.architect.assistant",
+      "kind": "assistant_rank_boundary",
+      "live_authority": false,
+      "owner": "aoa-agents",
+      "review_required": true,
+      "status": "seeded_assistant_anti_drift_boundary"
+    },
+    {
+      "agent_id": "coder.assistant",
+      "allowed_effect": "assistant_rank_exclusion_surface_only",
+      "assistant_rank_mode": "service_certification_only",
+      "candidate_only": true,
+      "description": "Defines that coder.assistant uses service certification, not arena rank or jurisdiction.",
+      "forbidden_effects": [
+        "contestant_eligibility",
+        "rank_mutation",
+        "closure_candidate",
+        "summon_initiator",
+        "judge_candidate"
+      ],
+      "id": "agon.agent.assistant_rank_boundary.coder.assistant",
+      "kind": "assistant_rank_boundary",
+      "live_authority": false,
+      "owner": "aoa-agents",
+      "review_required": true,
+      "status": "seeded_assistant_anti_drift_boundary"
+    },
+    {
+      "agent_id": "reviewer.assistant",
+      "allowed_effect": "assistant_rank_exclusion_surface_only",
+      "assistant_rank_mode": "service_certification_only",
+      "candidate_only": true,
+      "description": "Defines that reviewer.assistant uses service certification, not arena rank or jurisdiction.",
+      "forbidden_effects": [
+        "contestant_eligibility",
+        "rank_mutation",
+        "closure_candidate",
+        "summon_initiator",
+        "judge_candidate"
+      ],
+      "id": "agon.agent.assistant_rank_boundary.reviewer.assistant",
+      "kind": "assistant_rank_boundary",
+      "live_authority": false,
+      "owner": "aoa-agents",
+      "review_required": true,
+      "status": "seeded_assistant_anti_drift_boundary"
+    },
+    {
+      "agent_id": "evaluator.assistant",
+      "allowed_effect": "assistant_rank_exclusion_surface_only",
+      "assistant_rank_mode": "service_certification_only",
+      "candidate_only": true,
+      "description": "Defines that evaluator.assistant uses service certification, not arena rank or jurisdiction.",
+      "forbidden_effects": [
+        "contestant_eligibility",
+        "rank_mutation",
+        "closure_candidate",
+        "summon_initiator",
+        "judge_candidate"
+      ],
+      "id": "agon.agent.assistant_rank_boundary.evaluator.assistant",
+      "kind": "assistant_rank_boundary",
+      "live_authority": false,
+      "owner": "aoa-agents",
+      "review_required": true,
+      "status": "seeded_assistant_anti_drift_boundary"
+    },
+    {
+      "agent_id": "memory-keeper.assistant",
+      "allowed_effect": "assistant_rank_exclusion_surface_only",
+      "assistant_rank_mode": "service_certification_only",
+      "candidate_only": true,
+      "description": "Defines that memory-keeper.assistant uses service certification, not arena rank or jurisdiction.",
+      "forbidden_effects": [
+        "contestant_eligibility",
+        "rank_mutation",
+        "closure_candidate",
+        "summon_initiator",
+        "judge_candidate"
+      ],
+      "id": "agon.agent.assistant_rank_boundary.memory-keeper.assistant",
+      "kind": "assistant_rank_boundary",
+      "live_authority": false,
+      "owner": "aoa-agents",
+      "review_required": true,
+      "status": "seeded_assistant_anti_drift_boundary"
+    }
+  ],
+  "live_protocol": false,
+  "registry_id": "agon.agent.rank_jurisdiction.registry.v1",
+  "runtime_effect": "candidate_only",
+  "source_config": "config/agon_agent_rank_jurisdiction.seed.json",
+  "status": "seeded_wave14_actor_rank_surfaces",
+  "stop_lines": [
+    "no_live_verdict_authority",
+    "no_durable_scar_write",
+    "no_retention_execution_without_owner_review",
+    "no_rank_or_trust_mutation",
+    "no_closure_grant",
+    "no_live_summon",
+    "no_tree_of_sophia_promotion",
+    "no_kag_promotion",
+    "no_hidden_scheduler_action",
+    "no_assistant_contestant_drift",
+    "no_center_takeover_of_agent_eval_memo_stats_truth"
+  ],
+  "wave": "XIV"
+}
