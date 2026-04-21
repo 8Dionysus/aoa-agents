@@ -16,7 +16,7 @@ def build():
     data = json.loads(SRC.read_text(encoding='utf-8'))
     items = data.get(ITEM_KEY, [])
     return {
-        'registry_id': data.get('registry_id', REGISTRY_ID),
+        'registry_id': data['registry_id'],
         'wave': data.get('wave', WAVE),
         'wave_name': data.get('wave_name', WAVE_NAME),
         'runtime_posture': data.get('runtime_posture', 'candidate_only'),
