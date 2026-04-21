@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "count": {
+      "const": 5
+    },
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "postures": {
+      "items": {
+        "$ref": "agon-epistemic-actor-posture.schema.json"
+      },
+      "maxItems": 5,
+      "minItems": 5,
+      "type": "array"
+    },
+    "registry_id": {
+      "const": "agon.epistemic_actor_posture.registry.v1"
+    },
+    "runtime_posture": {
+      "const": "candidate_only"
+    },
+    "wave": {
+      "const": "XV"
+    }
+  },
+  "required": [
+    "registry_id",
+    "wave",
+    "runtime_posture",
+    "count",
+    "postures",
+    "digest"
+  ],
+  "title": "Agon Epistemic Actor Posture Registry",
+  "type": "object"
+}
