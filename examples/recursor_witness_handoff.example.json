@@ -1,0 +1,19 @@
+{
+  "schema_version": "recursor-handoff-ledger/v1",
+  "handoff_ref": "recursor-handoff:example:witness:001",
+  "role": "recursor.witness",
+  "inputs": [
+    "graph_closure_report:example",
+    "beacon_packet:example"
+  ],
+  "outputs": [
+    "observation_summary:example",
+    "boundary_gap_note:example"
+  ],
+  "stop_lines_checked": [
+    "no_scar_write",
+    "no_hidden_scheduler",
+    "projection_candidate_is_not_install"
+  ],
+  "mutation_applied": false
+}

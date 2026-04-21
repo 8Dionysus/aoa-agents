@@ -1,0 +1,50 @@
+{
+  "schema_version": "aoa_recurrence_component_v2",
+  "manifest_kind": "recurrence_component",
+  "component_ref": "component:agents:recursor-codex-projection-candidates",
+  "owner_repo": "aoa-agents",
+  "component_kind": "projection_candidate",
+  "authority_level": "candidate_only",
+  "source_inputs": [
+    "config/codex_recursor_projection.candidate.json",
+    "docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md",
+    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md"
+  ],
+  "generated_surfaces": [
+    "generated/recursor_projection_candidates.min.json"
+  ],
+  "projected_surfaces": [],
+  "contract_surfaces": [
+    "docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md"
+  ],
+  "proof_surfaces": [
+    "python scripts/build_recursor_projection_candidates.py --check",
+    "python scripts/validate_recursor_boundary.py"
+  ],
+  "consumer_edges": [
+    {
+      "kind": "must_not_project_to_live_codex_without_review",
+      "target_repo": "8Dionysus",
+      "target": ".codex/agents/",
+      "strength": "forbidden_until_owner_review"
+    }
+  ],
+  "drift_signals": [
+    {
+      "signal": "install_by_default_true",
+      "recommended_action": "block",
+      "severity": "critical"
+    },
+    {
+      "signal": "candidate_agent_activation_status_not_candidate_only",
+      "recommended_action": "block",
+      "severity": "critical"
+    }
+  ],
+  "forbidden_actions": [
+    "install_codex_agent_by_default",
+    "edit_live_codex_agents",
+    "edit_codex_subagent_wiring_v2",
+    "spawn_agent"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "codex-recursor-projection-candidate/v1",
+  "projection_status": "candidate_only",
+  "install_by_default": false,
+  "requires_owner_review": true,
+  "must_not_modify": [
+    "config/codex_subagent_wiring.v2.json",
+    "generated/codex_agents/agents/*.toml",
+    "generated/codex_agents/config.subagents.generated.toml",
+    ".codex/agents/"
+  ],
+  "candidate_agents": [
+    {
+      "recursor_id": "recursor.witness",
+      "suggested_codex_name": "aoa-recursor-witness",
+      "sandbox_mode": "read-only",
+      "activation_status": "candidate_only",
+      "allowed_summary_outputs": [
+        "recursor_handoff_ledger",
+        "boundary_gap_note",
+        "observation_summary",
+        "return_handoff_candidate"
+      ],
+      "activation_requires": [
+        "owner_reviewed_projection_law",
+        "explicit_main_codex_call",
+        "no_agonic_runtime_claim"
+      ],
+      "forbidden": [
+        "workspace_write",
+        "agent_spawn",
+        "arena_session",
+        "verdict",
+        "scar_write",
+        "rank_mutation",
+        "hidden_scheduler"
+      ]
+    },
+    {
+      "recursor_id": "recursor.executor",
+      "suggested_codex_name": "aoa-recursor-executor",
+      "sandbox_mode": "workspace-write-candidate",
+      "activation_status": "candidate_only",
+      "allowed_summary_outputs": [
+        "execution_receipt",
+        "patch_summary",
+        "blocked_action_report",
+        "verification_request"
+      ],
+      "activation_requires": [
+        "approved_plan",
+        "explicit_main_codex_call",
+        "witness_preflight",
+        "owner_or_human_review_boundary"
+      ],
+      "forbidden": [
+        "execute_without_plan",
+        "self_verify_as_final",
+        "agent_spawn",
+        "arena_session",
+        "verdict",
+        "scar_write",
+        "rank_mutation",
+        "hidden_scheduler"
+      ]
+    }
+  ]
+}
