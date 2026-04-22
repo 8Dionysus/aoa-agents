@@ -79,7 +79,8 @@
           }
         },
         "persistent_self_rewrite": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": false
         }
       }
     }
