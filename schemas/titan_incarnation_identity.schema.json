@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/titan_incarnation_identity.schema.json",
+  "title": "AoA Titan incarnation identity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bearer_id",
+    "titan_name",
+    "role_key",
+    "role_class",
+    "incarnation_id",
+    "session_id"
+  ],
+  "properties": {
+    "bearer_id": {
+      "type": "string",
+      "pattern": "^titan:"
+    },
+    "titan_name": {
+      "enum": [
+        "Atlas",
+        "Sentinel",
+        "Mneme",
+        "Forge",
+        "Delta"
+      ]
+    },
+    "role_key": {
+      "type": "string"
+    },
+    "role_class": {
+      "type": "string"
+    },
+    "incarnation_id": {
+      "type": "string",
+      "pattern": "^inc:"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^titan-session:"
+    }
+  }
+}
