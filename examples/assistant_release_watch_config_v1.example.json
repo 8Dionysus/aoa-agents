@@ -1,0 +1,14 @@
+{
+  "allowed": true,
+  "created_at": "2026-04-22T00:00:00Z",
+  "evidence_refs": [
+    "generated/sovereign_release_clean_flow/release_candidate.json"
+  ],
+  "id": "assistant_release_watch_config_example",
+  "kind": "assistant_release_watch_config_v1",
+  "notes": "Example artifact for assistant_release_watch_config_v1.",
+  "owner_repo": "aoa-agents",
+  "status": "draft",
+  "surface": "assistant_release_watch_config_v1",
+  "version": "1.0.0"
+}

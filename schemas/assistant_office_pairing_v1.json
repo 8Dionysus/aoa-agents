@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/assistant_office_pairing_v1.json",
+  "title": "Assistant Office Pairing V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "compatibility",
+    "created_at",
+    "evidence_refs",
+    "id",
+    "kind",
+    "notes",
+    "office_a",
+    "office_b",
+    "owner_repo",
+    "status",
+    "version"
+  ],
+  "properties": {
+    "compatibility": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "format": "date-time"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "const": "assistant_office_pairing_v1"
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "office_a": {
+      "type": "string",
+      "minLength": 1
+    },
+    "office_b": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_repo": {
+      "type": "string",
+      "minLength": 1,
+      "const": "aoa-agents"
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "active",
+        "allowed",
+        "applied",
+        "blocked",
+        "completed",
+        "draft",
+        "failed",
+        "held",
+        "passed",
+        "proposed",
+        "rejected",
+        "rolled_back",
+        "sealed"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "const": "1.1.0"
+    }
+  }
+}

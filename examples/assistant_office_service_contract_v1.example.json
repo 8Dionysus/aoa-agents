@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-04-22T00:00:00Z",
+  "evidence_refs": [
+    "generated/multi_office_train_clean_flow/release_train.json"
+  ],
+  "id": "assistant_office_service_contract_v1_example",
+  "kind": "assistant_office_service_contract_v1",
+  "notes": "Example artifact for assistant_office_service_contract_v1.",
+  "office_id": "notary.assistant",
+  "owner_repo": "aoa-agents",
+  "prohibited": [
+    "self_release",
+    "invent_evidence",
+    "write_tree_of_sophia"
+  ],
+  "scope": [
+    "emit_receipt",
+    "preserve_trace"
+  ],
+  "status": "draft",
+  "version": "1.1.0"
+}
