@@ -1,0 +1,8 @@
+{
+  "bearer_id": "titan:atlas:founder",
+  "titan_name": "Atlas",
+  "role_key": "architect",
+  "role_class": "structure",
+  "incarnation_id": "inc:atlas:example",
+  "session_id": "titan-session:example"
+}
