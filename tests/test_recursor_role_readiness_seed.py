@@ -124,6 +124,28 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertIn("rank_mutation", messages)
         self.assertIn("self_verify_as_final", messages)
 
+    def test_readiness_rejects_missing_recursor_role(self):
+        common = load_common()
+        roles = load_json("config/recursor_roles.seed.json")
+        broken = deepcopy(roles)
+        broken["roles"] = [
+            role for role in broken["roles"] if role["recursor_id"] != "recursor.executor"
+        ]
+        errors = common.validate_role_set(broken)
+        self.assertTrue(any(error["kind"] == "missing_recursor_role" for error in errors))
+        self.assertTrue(any(error["kind"] == "invalid_recursor_role_count" for error in errors))
+
+    def test_readiness_rejects_unexpected_recursor_role(self):
+        common = load_common()
+        roles = load_json("config/recursor_roles.seed.json")
+        broken = deepcopy(roles)
+        extra = deepcopy(broken["roles"][0])
+        extra["recursor_id"] = "recursor.admin"
+        broken["roles"].append(extra)
+        errors = common.validate_role_set(broken)
+        self.assertTrue(any(error["kind"] == "unexpected_recursor_role" for error in errors))
+        self.assertTrue(any(error["kind"] == "invalid_recursor_role_count" for error in errors))
+
     def test_published_schemas_accept_seed_sources(self):
         projection_validator = schema_validator(
             "schemas/recursor-projection-candidate.v1.schema.json"
