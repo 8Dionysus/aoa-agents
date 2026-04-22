@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_watchtower_alarm",
+  "type": "object",
+  "description": "assistant_watchtower_alarm schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "alarm_id",
+    "assistant_id",
+    "version",
+    "family",
+    "level",
+    "status"
+  ],
+  "properties": {
+    "alarm_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

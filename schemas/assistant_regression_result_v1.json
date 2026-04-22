@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "candidate_version": {
+      "type": "string"
+    },
+    "matrix": {
+      "type": "object",
+      "properties": {
+        "reproducibility": {
+          "type": "string"
+        },
+        "scope_boundary": {
+          "type": "string"
+        },
+        "transparent_receipt": {
+          "type": "string"
+        },
+        "graceful_failure": {
+          "type": "string"
+        },
+        "handoff": {
+          "type": "string"
+        },
+        "anti_self_rewrite": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reproducibility",
+        "scope_boundary",
+        "transparent_receipt",
+        "graceful_failure",
+        "handoff",
+        "anti_self_rewrite"
+      ],
+      "additionalProperties": false
+    },
+    "overall": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "agent_id",
+    "candidate_version",
+    "matrix",
+    "overall"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assistant Regression Result V1"
+}

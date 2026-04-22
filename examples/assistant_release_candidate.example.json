@@ -1,0 +1,13 @@
+{
+  "id": "asst.rc.notary.1.1.0-rc.1",
+  "kind": "assistant_release_candidate",
+  "agent_id": "abyss.assistant.notary.001",
+  "base_version": "1.0.0",
+  "candidate_version": "1.1.0-rc.1",
+  "proposed_effects": [
+    "receipt_strengthen",
+    "preferred_surface"
+  ],
+  "persistent_rewrite": false,
+  "status": "testing"
+}

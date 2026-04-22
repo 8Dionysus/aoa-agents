@@ -1,0 +1,8 @@
+{
+  "alarm_id": "asst.alarm.001",
+  "assistant_id": "assistant.notary",
+  "version": "1.1.0",
+  "family": "scope_drift",
+  "level": "material",
+  "status": "open"
+}

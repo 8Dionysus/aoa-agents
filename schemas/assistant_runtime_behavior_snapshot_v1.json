@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_runtime_behavior_snapshot",
+  "type": "object",
+  "description": "assistant_runtime_behavior_snapshot schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "snapshot_id",
+    "assistant_id",
+    "version",
+    "ring_id",
+    "observed_behaviors",
+    "variance_score"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "ring_id": {
+      "type": "string"
+    },
+    "observed_behaviors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "variance_score": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,10 @@
+{
+  "id": "retention.watch.notary.001",
+  "kind": "assistant_post_release_watch",
+  "agent_id": "abyss.assistant.notary.001",
+  "version": "1.1.0",
+  "target_recurrence_family": "verification_overclaim",
+  "watch_cycles": 3,
+  "success_condition": "no_false_completion_without_evidence_refs",
+  "status": "scheduled"
+}

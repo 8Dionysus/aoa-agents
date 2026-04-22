@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "target_recurrence_family": {
+      "type": "string"
+    },
+    "watch_cycles": {
+      "type": "integer"
+    },
+    "success_condition": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "agent_id",
+    "version",
+    "target_recurrence_family",
+    "watch_cycles",
+    "success_condition",
+    "status"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assistant Post Release Watch V1"
+}

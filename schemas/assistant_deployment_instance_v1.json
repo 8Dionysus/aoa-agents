@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_deployment_instance",
+  "type": "object",
+  "description": "assistant_deployment_instance schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "instance_id",
+    "assistant_id",
+    "version",
+    "ring_id",
+    "state",
+    "deployment_plan_id"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "ring_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "deployment_plan_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

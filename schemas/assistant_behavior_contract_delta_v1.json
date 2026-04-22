@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "base_contract": {
+      "type": "string"
+    },
+    "candidate_contract": {
+      "type": "string"
+    },
+    "allowed_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recharter_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "agent_id",
+    "base_contract",
+    "candidate_contract",
+    "allowed_changes",
+    "forbidden_changes",
+    "recharter_required"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assistant Behavior Contract Delta V1"
+}

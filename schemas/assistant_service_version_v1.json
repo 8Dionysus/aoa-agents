@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "office": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "certification": {
+      "type": "string"
+    },
+    "service_contract": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "agent_id",
+    "office",
+    "version",
+    "certification",
+    "service_contract",
+    "active"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assistant Service Version V1"
+}

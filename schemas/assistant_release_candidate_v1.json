@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "base_version": {
+      "type": "string"
+    },
+    "candidate_version": {
+      "type": "string"
+    },
+    "proposed_effects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "persistent_rewrite": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "agent_id",
+    "base_version",
+    "candidate_version",
+    "proposed_effects",
+    "persistent_rewrite",
+    "status"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assistant Release Candidate V1"
+}

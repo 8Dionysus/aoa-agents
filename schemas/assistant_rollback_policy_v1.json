@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_rollback_policy",
+  "type": "object",
+  "description": "assistant_rollback_policy schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "policy_id",
+    "assistant_id",
+    "rollback_allowed",
+    "rollback_version",
+    "approval_required"
+  ],
+  "properties": {
+    "policy_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "rollback_allowed": {
+      "type": "boolean"
+    },
+    "rollback_version": {
+      "type": "string"
+    },
+    "approval_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

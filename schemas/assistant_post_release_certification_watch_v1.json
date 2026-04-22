@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_post_release_certification_watch",
+  "type": "object",
+  "description": "assistant_post_release_certification_watch schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "watch_id",
+    "assistant_id",
+    "version",
+    "certification_ref",
+    "retention_due_cycle",
+    "status"
+  ],
+  "properties": {
+    "watch_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "certification_ref": {
+      "type": "string"
+    },
+    "retention_due_cycle": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

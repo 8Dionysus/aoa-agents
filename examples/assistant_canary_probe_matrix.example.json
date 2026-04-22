@@ -1,0 +1,11 @@
+{
+  "matrix_id": "probe.matrix.notary.001",
+  "assistant_id": "assistant.notary",
+  "version": "1.1.0",
+  "probes": [
+    {
+      "probe_id": "canary.scope.001"
+    }
+  ],
+  "required_pass_rate": 1.0
+}

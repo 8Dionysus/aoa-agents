@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_ring_state",
+  "type": "object",
+  "description": "assistant_ring_state schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "state_id",
+    "assistant_id",
+    "version",
+    "ring_id",
+    "state",
+    "promotion_blockers"
+  ],
+  "properties": {
+    "state_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "ring_id": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "promotion_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
