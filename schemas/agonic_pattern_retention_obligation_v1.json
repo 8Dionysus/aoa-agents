@@ -72,7 +72,7 @@
         },
         "retention_cycles": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 1
         },
         "scar_required": {
           "type": "boolean"

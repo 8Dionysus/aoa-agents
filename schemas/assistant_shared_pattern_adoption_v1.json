@@ -74,7 +74,12 @@
           "type": "string"
         },
         "adoption_mode": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "release_patch",
+            "versioned_release",
+            "reviewed_release"
+          ]
         }
       }
     }
