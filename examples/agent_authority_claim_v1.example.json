@@ -1,0 +1,6 @@
+{
+  "actor_id": "assistant.notary",
+  "claim_id": "claim_001",
+  "claim_state": "denied",
+  "claimed_action": "self_recharter"
+}

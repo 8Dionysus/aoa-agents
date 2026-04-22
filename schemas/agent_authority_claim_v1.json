@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/agent_authority_claim_v1.json",
+  "title": "agent_authority_claim_v1",
+  "description": "Seed schema for agent_authority_claim_v1 in Experience Constitution Runtime v0.9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "actor_id",
+    "claim_id",
+    "claim_state",
+    "claimed_action"
+  ],
+  "properties": {
+    "actor_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claimed_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

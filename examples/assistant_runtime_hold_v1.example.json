@@ -1,0 +1,7 @@
+{
+  "assistant_id": "assistant.notary",
+  "case_id": "case_runtime_001",
+  "hold_id": "assist_hold_001",
+  "scope": "release",
+  "state": "active"
+}

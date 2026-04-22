@@ -1,0 +1,21 @@
+{
+  "agonic_ref": "agonic.verifier.001",
+  "assistant_ref": "assistant.verifier.001",
+  "authority": {
+    "actor": "operator.sovereign",
+    "mode": "reviewed"
+  },
+  "conflict": "boundary_overlap",
+  "created_at": "2026-04-22T12:00:00-06:00",
+  "decision_refs": [],
+  "evidence_refs": [
+    "receipt:example:001"
+  ],
+  "id": "agent.kind_conflict_case.example.001",
+  "kind": "agent.kind_conflict_case",
+  "notes": [
+    "seed example for v0.8 polis governance"
+  ],
+  "schema_version": "v1",
+  "status": "proposed"
+}
