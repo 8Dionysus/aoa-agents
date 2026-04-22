@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/assistant_civil_formation_v1.json",
+  "title": "assistant_civil_formation_v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "variant_id",
+    "civil_reading"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "assistant_civil_formation_example_v1"
+    },
+    "variant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "civil_reading": {
+      "type": "object",
+      "required": [
+        "kind",
+        "service_office",
+        "service_promise",
+        "not_a_contestant",
+        "escalates_when",
+        "may_support_future_arena_as",
+        "must_not"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "assistant"
+        },
+        "service_office": {
+          "type": "string",
+          "minLength": 1
+        },
+        "service_promise": {
+          "type": "string",
+          "minLength": 1
+        },
+        "not_a_contestant": {
+          "type": "boolean",
+          "const": true
+        },
+        "escalates_when": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "may_support_future_arena_as": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "must_not": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

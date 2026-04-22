@@ -23,12 +23,23 @@
     "probes": {
       "type": "array",
       "items": {
-        "type": "object"
-      }
+        "type": "object",
+        "required": [
+          "probe_id"
+        ],
+        "properties": {
+          "probe_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
     },
     "required_pass_rate": {
       "type": "number"
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
