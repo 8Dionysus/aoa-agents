@@ -38,14 +38,58 @@
       "items": {
         "type": "string"
       },
-      "minItems": 4
+      "minItems": 4,
+      "allOf": [
+        {
+          "contains": {
+            "const": "witness_cannot_apply_mutations"
+          }
+        },
+        {
+          "contains": {
+            "const": "executor_cannot_close_review"
+          }
+        },
+        {
+          "contains": {
+            "const": "executor_cannot_self_verify_without_external_check"
+          }
+        },
+        {
+          "contains": {
+            "const": "neither_can_spawn_additional_agents"
+          }
+        }
+      ]
     },
     "handoff_order": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "minItems": 4
+      "minItems": 4,
+      "allOf": [
+        {
+          "contains": {
+            "const": "witness_preflight"
+          }
+        },
+        {
+          "contains": {
+            "const": "executor_bounded_work"
+          }
+        },
+        {
+          "contains": {
+            "const": "witness_trace_check"
+          }
+        },
+        {
+          "contains": {
+            "const": "owner_or_main_codex_review"
+          }
+        }
+      ]
     },
     "activation_status": {
       "const": "readiness_only"
