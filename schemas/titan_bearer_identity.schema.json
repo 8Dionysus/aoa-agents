@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/titan_bearer_identity.schema.json",
+  "title": "Titan Bearer Identity",
+  "type": "object",
+  "required": [
+    "bearer_id",
+    "titan_name",
+    "role_key",
+    "generation",
+    "status",
+    "first_appeared_at",
+    "source_seed_ref",
+    "memory_policy"
+  ],
+  "properties": {
+    "bearer_id": {
+      "type": "string",
+      "pattern": "^titan:[a-z0-9_-]+:[a-z0-9_-]+$"
+    },
+    "titan_name": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9_-]*$"
+    },
+    "role_key": {
+      "type": "string"
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "dormant",
+        "retired",
+        "fallen",
+        "quarantined",
+        "succeeded",
+        "archived"
+      ]
+    },
+    "first_appeared_at": {
+      "type": "string"
+    },
+    "last_seen_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_seed_ref": {
+      "type": "string"
+    },
+    "personality": {
+      "type": "object",
+      "properties": {
+        "temperament": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "watchwords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taboos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "memory_policy": {
+      "type": "object",
+      "required": [
+        "remember_as_person",
+        "allow_successor_inheritance",
+        "allow_name_reuse"
+      ],
+      "properties": {
+        "remember_as_person": {
+          "type": "boolean"
+        },
+        "allow_successor_inheritance": {
+          "type": "boolean"
+        },
+        "allow_name_reuse": {
+          "type": "boolean"
+        },
+        "retention_class": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "successor_of": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "successors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "epitaph": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

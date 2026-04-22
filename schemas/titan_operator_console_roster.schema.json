@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Titan Operator Console Roster",
+  "type": "object",
+  "required": [
+    "version",
+    "titans"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "titans": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role",
+          "lane",
+          "default_active",
+          "sandbox_mode"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "Atlas",
+              "Sentinel",
+              "Mneme",
+              "Forge",
+              "Delta"
+            ]
+          },
+          "role": {
+            "type": "string"
+          },
+          "lane": {
+            "type": "string"
+          },
+          "default_active": {
+            "type": "boolean"
+          },
+          "sandbox_mode": {
+            "enum": [
+              "read-only",
+              "workspace-write"
+            ]
+          },
+          "activation_gate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "ledger_id": "titan-lineage-ledger.v0",
+  "role_classes_ref": "config/titan_role_classes.v0.json",
+  "bearers_ref": "config/titan_bearers.v0.json",
+  "events": [
+    {
+      "event_id": "evt:2026-04-22:atlas:first-appearance",
+      "event_type": "first_appearance",
+      "bearer_id": "titan:atlas:founder",
+      "occurred_at": "2026-04-22",
+      "summary": "Atlas first appears as a named bearer of role class `architect`.",
+      "source_ref": "Dionysus/tenth_wave.manifest.json",
+      "related_bearer_id": null,
+      "lessons": [],
+      "metadata": {
+        "titan_name": "Atlas",
+        "role_key": "architect"
+      }
+    },
+    {
+      "event_id": "evt:2026-04-22:sentinel:first-appearance",
+      "event_type": "first_appearance",
+      "bearer_id": "titan:sentinel:founder",
+      "occurred_at": "2026-04-22",
+      "summary": "Sentinel first appears as a named bearer of role class `reviewer`.",
+      "source_ref": "Dionysus/tenth_wave.manifest.json",
+      "related_bearer_id": null,
+      "lessons": [],
+      "metadata": {
+        "titan_name": "Sentinel",
+        "role_key": "reviewer"
+      }
+    },
+    {
+      "event_id": "evt:2026-04-22:mneme:first-appearance",
+      "event_type": "first_appearance",
+      "bearer_id": "titan:mneme:founder",
+      "occurred_at": "2026-04-22",
+      "summary": "Mneme first appears as a named bearer of role class `memory-keeper`.",
+      "source_ref": "Dionysus/tenth_wave.manifest.json",
+      "related_bearer_id": null,
+      "lessons": [],
+      "metadata": {
+        "titan_name": "Mneme",
+        "role_key": "memory-keeper"
+      }
+    },
+    {
+      "event_id": "evt:2026-04-22:forge:first-appearance",
+      "event_type": "first_appearance",
+      "bearer_id": "titan:forge:founder",
+      "occurred_at": "2026-04-22",
+      "summary": "Forge first appears as a named bearer of role class `coder`.",
+      "source_ref": "Dionysus/tenth_wave.manifest.json",
+      "related_bearer_id": null,
+      "lessons": [],
+      "metadata": {
+        "titan_name": "Forge",
+        "role_key": "coder"
+      }
+    },
+    {
+      "event_id": "evt:2026-04-22:delta:first-appearance",
+      "event_type": "first_appearance",
+      "bearer_id": "titan:delta:founder",
+      "occurred_at": "2026-04-22",
+      "summary": "Delta first appears as a named bearer of role class `evaluator`.",
+      "source_ref": "Dionysus/tenth_wave.manifest.json",
+      "related_bearer_id": null,
+      "lessons": [],
+      "metadata": {
+        "titan_name": "Delta",
+        "role_key": "evaluator"
+      }
+    }
+  ]
+}

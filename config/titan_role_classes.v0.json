@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "role_classes": [
+    {
+      "role_key": "architect",
+      "class_name": "structure",
+      "description": "Maps structure, owner boundaries, source-of-truth surfaces, and route frames.",
+      "default_sandbox": "read-only",
+      "allowed_gates": [],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "dionysus"
+      ],
+      "skills": [],
+      "write_policy": "never writes files"
+    },
+    {
+      "role_key": "reviewer",
+      "class_name": "review",
+      "description": "Finds drift, risk, weak evidence, broken gates, and boundary violations.",
+      "default_sandbox": "read-only",
+      "allowed_gates": [],
+      "mcp_affinity": [
+        "aoa_workspace"
+      ],
+      "skills": [],
+      "write_policy": "never writes files"
+    },
+    {
+      "role_key": "memory-keeper",
+      "class_name": "memory",
+      "description": "Maintains provenance, recall candidates, lineage hygiene, and memory humility.",
+      "default_sandbox": "read-only",
+      "allowed_gates": [],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats",
+        "dionysus"
+      ],
+      "skills": [],
+      "write_policy": "never writes truth; proposes memory candidates"
+    },
+    {
+      "role_key": "coder",
+      "class_name": "implementation",
+      "description": "Implements bounded changes after explicit mutation gate approval.",
+      "default_sandbox": "workspace-write",
+      "allowed_gates": [
+        "mutation"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace"
+      ],
+      "skills": [],
+      "write_policy": "workspace-write only after mutation gate"
+    },
+    {
+      "role_key": "evaluator",
+      "class_name": "judgment",
+      "description": "Compares evidence, runs verdict posture, and judges regression only after judgment gate.",
+      "default_sandbox": "read-only",
+      "allowed_gates": [
+        "judgment"
+      ],
+      "mcp_affinity": [
+        "aoa_workspace",
+        "aoa_stats"
+      ],
+      "skills": [],
+      "write_policy": "never writes files"
+    }
+  ]
+}

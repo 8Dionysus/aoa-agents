@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "projection": "titan_bearer_codex_agents",
+  "identity_law": "codex_visible_name_is_active_bearer_name; role_key_is_class",
+  "agents": [
+    {
+      "codex_name": "Atlas",
+      "titan_name": "Atlas",
+      "bearer_id": "titan:atlas:founder",
+      "role_key": "architect",
+      "role_class": "structure",
+      "generation": 0,
+      "status": "active",
+      "sandbox_mode": "read-only",
+      "config_path": "agents/Atlas.toml",
+      "source_bearer_ref": "config/titan_bearers.v0.json",
+      "source_role_ref": "config/titan_role_classes.v0.json"
+    },
+    {
+      "codex_name": "Sentinel",
+      "titan_name": "Sentinel",
+      "bearer_id": "titan:sentinel:founder",
+      "role_key": "reviewer",
+      "role_class": "review",
+      "generation": 0,
+      "status": "active",
+      "sandbox_mode": "read-only",
+      "config_path": "agents/Sentinel.toml",
+      "source_bearer_ref": "config/titan_bearers.v0.json",
+      "source_role_ref": "config/titan_role_classes.v0.json"
+    },
+    {
+      "codex_name": "Mneme",
+      "titan_name": "Mneme",
+      "bearer_id": "titan:mneme:founder",
+      "role_key": "memory-keeper",
+      "role_class": "memory",
+      "generation": 0,
+      "status": "active",
+      "sandbox_mode": "read-only",
+      "config_path": "agents/Mneme.toml",
+      "source_bearer_ref": "config/titan_bearers.v0.json",
+      "source_role_ref": "config/titan_role_classes.v0.json"
+    },
+    {
+      "codex_name": "Forge",
+      "titan_name": "Forge",
+      "bearer_id": "titan:forge:founder",
+      "role_key": "coder",
+      "role_class": "implementation",
+      "generation": 0,
+      "status": "active",
+      "sandbox_mode": "workspace-write",
+      "config_path": "agents/Forge.toml",
+      "source_bearer_ref": "config/titan_bearers.v0.json",
+      "source_role_ref": "config/titan_role_classes.v0.json"
+    },
+    {
+      "codex_name": "Delta",
+      "titan_name": "Delta",
+      "bearer_id": "titan:delta:founder",
+      "role_key": "evaluator",
+      "role_class": "judgment",
+      "generation": 0,
+      "status": "active",
+      "sandbox_mode": "read-only",
+      "config_path": "agents/Delta.toml",
+      "source_bearer_ref": "config/titan_bearers.v0.json",
+      "source_role_ref": "config/titan_role_classes.v0.json"
+    }
+  ]
+}

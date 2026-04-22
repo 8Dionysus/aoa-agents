@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Titan Memory Roster",
+  "type": "object",
+  "required": [
+    "version",
+    "titans",
+    "memory_authority"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "memory_authority": {
+      "type": "string",
+      "enum": [
+        "candidate_only"
+      ]
+    },
+    "titans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role",
+          "memory_lane"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "memory_lane": {
+            "type": "string"
+          },
+          "gate": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

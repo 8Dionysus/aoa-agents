@@ -1,0 +1,36 @@
+{
+  "version": 0,
+  "memory_authority": "candidate_only",
+  "titans": [
+    {
+      "name": "Atlas",
+      "role": "architect",
+      "memory_lane": "structure",
+      "gate": "none"
+    },
+    {
+      "name": "Sentinel",
+      "role": "reviewer",
+      "memory_lane": "risk",
+      "gate": "none"
+    },
+    {
+      "name": "Mneme",
+      "role": "memory-keeper",
+      "memory_lane": "memory",
+      "gate": "none"
+    },
+    {
+      "name": "Forge",
+      "role": "coder",
+      "memory_lane": "implementation",
+      "gate": "mutation"
+    },
+    {
+      "name": "Delta",
+      "role": "evaluator",
+      "memory_lane": "verdict",
+      "gate": "judgment"
+    }
+  ]
+}
