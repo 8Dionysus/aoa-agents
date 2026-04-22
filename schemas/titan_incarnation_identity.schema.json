@@ -38,7 +38,7 @@
     },
     "session_id": {
       "type": "string",
-      "pattern": "^titan-session:"
+      "pattern": "^(titan-session:|session-)"
     }
   }
 }
