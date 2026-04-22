@@ -11,6 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 WAVE2_PREFIXES = ("assistant_",)
 
 
+def schema_path_for_stem(stem: str) -> Path:
+    if stem.endswith("_v1"):
+        return ROOT / "schemas" / f"{stem}.json"
+    return ROOT / "schemas" / f"{stem}_v1.json"
+
+
 def wave2_pairs() -> tuple[list[tuple[Path, Path]], list[str]]:
     pairs: list[tuple[Path, Path]] = []
     missing_pairs: list[str] = []
@@ -18,7 +24,7 @@ def wave2_pairs() -> tuple[list[tuple[Path, Path]], list[str]]:
         stem = example_path.name.removesuffix(".example.json")
         if not stem.startswith(WAVE2_PREFIXES):
             continue
-        schema_path = ROOT / "schemas" / f"{stem}_v1.json"
+        schema_path = schema_path_for_stem(stem)
         if schema_path.exists():
             pairs.append((schema_path, example_path))
         else:

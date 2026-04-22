@@ -1,0 +1,21 @@
+{
+  "authority": {
+    "actor": "operator.sovereign",
+    "mode": "reviewed"
+  },
+  "change_class": "scope_tightening",
+  "created_at": "2026-04-22T12:00:00-06:00",
+  "decision_refs": [],
+  "evidence_refs": [
+    "receipt:example:001"
+  ],
+  "id": "agent.office_charter_change.example.001",
+  "kind": "agent.office_charter_change",
+  "notes": [
+    "seed example for v0.8 polis governance"
+  ],
+  "office": "verifier",
+  "owner_consent": true,
+  "schema_version": "v1",
+  "status": "proposed"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/assistant_runtime_hold_v1.json",
+  "title": "assistant_runtime_hold_v1",
+  "description": "Seed schema for assistant_runtime_hold_v1 in Experience Constitution Runtime v0.9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "assistant_id",
+    "case_id",
+    "hold_id",
+    "scope",
+    "state"
+  ],
+  "properties": {
+    "assistant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hold_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "release"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "active"
+      ]
+    }
+  }
+}
