@@ -86,6 +86,38 @@ def role_map(role_set: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     roles = role_set.get("roles", [])
     return {role.get("recursor_id", ""): role for role in roles if isinstance(role, dict)}
 
+def validate_role_set(role_set: Dict[str, Any]) -> List[Dict[str, Any]]:
+    errors: List[Dict[str, Any]] = []
+
+    def add(kind: str, message: str, severity: str = "critical") -> None:
+        errors.append({"kind": kind, "severity": severity, "message": message})
+
+    roles = role_set.get("roles", [])
+    if not isinstance(roles, list):
+        add("invalid_role_set_shape", "roles must be an array.")
+        return errors
+    role_ids = [
+        str(role.get("recursor_id", "<missing>"))
+        for role in roles
+        if isinstance(role, dict)
+    ]
+    invalid_entries = len(roles) - len(role_ids)
+    if invalid_entries:
+        add("invalid_role_entry", f"Role set has {invalid_entries} non-object entrie(s).")
+    role_id_set = set(role_ids)
+    unexpected = role_id_set - PROJECTION_REQUIRED_ROLES
+    missing = PROJECTION_REQUIRED_ROLES - role_id_set
+    duplicate_ids = sorted({rid for rid in role_ids if role_ids.count(rid) > 1})
+    if unexpected:
+        add("unexpected_recursor_role", f"Unexpected recursor roles: {sorted(unexpected)}")
+    if missing:
+        add("missing_recursor_role", f"Missing recursor roles: {sorted(missing)}")
+    if duplicate_ids:
+        add("duplicate_recursor_role", f"Duplicate recursor roles: {duplicate_ids}")
+    if len(roles) != len(PROJECTION_REQUIRED_ROLES):
+        add("invalid_recursor_role_count", "Role set must contain exactly witness and executor.")
+    return errors
+
 def validate_role_contract(role: Dict[str, Any]) -> List[Dict[str, Any]]:
     errors: List[Dict[str, Any]] = []
     rid = role.get("recursor_id", "<missing>")
@@ -202,9 +234,10 @@ def build_readiness_index(root: Path = ROOT) -> Dict[str, Any]:
     roles = read_json(root / "config" / "recursor_roles.seed.json")
     pair = read_json(root / "config" / "recursor_pair.seed.json")
     projection = read_json(root / "config" / "codex_recursor_projection.candidate.json")
-    role_errors = []
+    role_errors = validate_role_set(roles)
     for role in roles.get("roles", []):
-        role_errors.extend(validate_role_contract(role))
+        if isinstance(role, dict):
+            role_errors.extend(validate_role_contract(role))
     pair_errors = validate_pair_contract(pair)
     projection_errors = validate_projection_candidate(projection)
     all_errors = role_errors + pair_errors + projection_errors
@@ -251,8 +284,10 @@ def build_boundary_report(root: Path = ROOT) -> Dict[str, Any]:
     violations: List[Dict[str, Any]] = []
     warnings: List[Dict[str, Any]] = []
 
+    violations.extend(validate_role_set(roles))
     for role in roles.get("roles", []):
-        violations.extend(validate_role_contract(role))
+        if isinstance(role, dict):
+            violations.extend(validate_role_contract(role))
     violations.extend(validate_pair_contract(pair))
     violations.extend(validate_projection_candidate(projection))
 
