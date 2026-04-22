@@ -1,0 +1,7 @@
+{
+  "policy_id": "rollback.policy.notary.001",
+  "assistant_id": "assistant.notary",
+  "rollback_allowed": true,
+  "rollback_version": "1.0.3",
+  "approval_required": true
+}

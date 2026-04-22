@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assistant_release_activation",
+  "type": "object",
+  "description": "assistant_release_activation schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "activation_id",
+    "assistant_id",
+    "version",
+    "activated_by",
+    "rollback_version",
+    "status"
+  ],
+  "properties": {
+    "activation_id": {
+      "type": "string"
+    },
+    "assistant_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "activated_by": {
+      "type": "string"
+    },
+    "rollback_version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,16 @@
+{
+  "id": "asst.contract.delta.notary.001",
+  "kind": "assistant_behavior_contract_delta",
+  "agent_id": "abyss.assistant.notary.001",
+  "base_contract": "notary.service.contract.v1",
+  "candidate_contract": "notary.service.contract.v1.1",
+  "allowed_changes": [
+    "requires_evidence_refs_before_closure"
+  ],
+  "forbidden_changes": [
+    "direct_tree_write",
+    "self_certification",
+    "hidden_summon"
+  ],
+  "recharter_required": false
+}

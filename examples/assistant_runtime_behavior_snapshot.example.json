@@ -1,0 +1,11 @@
+{
+  "snapshot_id": "behavior.snapshot.001",
+  "assistant_id": "assistant.notary",
+  "version": "1.1.0",
+  "ring_id": "ring_0_internal",
+  "observed_behaviors": [
+    "emits_receipt",
+    "escalates_out_of_scope"
+  ],
+  "variance_score": 0.03
+}

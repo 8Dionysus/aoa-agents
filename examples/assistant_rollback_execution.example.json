@@ -1,0 +1,10 @@
+{
+  "id": "asst.rollback.exec.notary.001",
+  "kind": "assistant_rollback_execution",
+  "agent_id": "abyss.assistant.notary.001",
+  "from_version": "1.1.0",
+  "to_version": "1.0.0",
+  "reason": "operator_revoke",
+  "verification_after_rollback": "golden_cases_passed",
+  "status": "ready"
+}

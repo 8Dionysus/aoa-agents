@@ -1,0 +1,12 @@
+{
+  "id": "asst.approval.notary.001",
+  "kind": "assistant_release_approval",
+  "candidate": "asst.rc.notary.1.1.0-rc.1",
+  "approved_by": "operator",
+  "approval_scope": "activate_candidate_version",
+  "conditions": [
+    "retention_watch",
+    "rollback_available"
+  ],
+  "approved": true
+}

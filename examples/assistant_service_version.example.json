@@ -1,0 +1,10 @@
+{
+  "id": "asst.version.notary.1.1.0",
+  "kind": "assistant_service_version",
+  "agent_id": "abyss.assistant.notary.001",
+  "office": "notary",
+  "version": "1.1.0",
+  "certification": "cert.result.notary.001",
+  "service_contract": "notary.service.contract.v1",
+  "active": true
+}
