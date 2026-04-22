@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "cohort": [
+    {
+      "name": "Atlas",
+      "role_key": "architect",
+      "codex_agent": "architect",
+      "default_state": "active_after_explicit_summon",
+      "gate": "none"
+    },
+    {
+      "name": "Sentinel",
+      "role_key": "reviewer",
+      "codex_agent": "reviewer",
+      "default_state": "active_after_explicit_summon",
+      "gate": "none"
+    },
+    {
+      "name": "Mneme",
+      "role_key": "memory-keeper",
+      "codex_agent": "memory-keeper",
+      "default_state": "active_after_explicit_summon",
+      "gate": "none"
+    },
+    {
+      "name": "Forge",
+      "role_key": "coder",
+      "codex_agent": "coder",
+      "default_state": "locked",
+      "gate": "mutation"
+    },
+    {
+      "name": "Delta",
+      "role_key": "evaluator",
+      "codex_agent": "evaluator",
+      "default_state": "locked",
+      "gate": "judgment"
+    }
+  ],
+  "default_active": [
+    "Atlas",
+    "Sentinel",
+    "Mneme"
+  ],
+  "gates": {
+    "Forge": "mutation",
+    "Delta": "judgment"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Titan Service Cohort",
+  "type": "object",
+  "required": [
+    "version",
+    "cohort",
+    "default_summon",
+    "conditional_summon",
+    "boundaries"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "cohort": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "titan",
+          "role",
+          "sandbox_posture",
+          "gate"
+        ],
+        "properties": {
+          "titan": {
+            "type": "string",
+            "enum": [
+              "Atlas",
+              "Sentinel",
+              "Mneme",
+              "Forge",
+              "Delta"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "architect",
+              "reviewer",
+              "memory-keeper",
+              "coder",
+              "evaluator"
+            ]
+          },
+          "sandbox_posture": {
+            "type": "string",
+            "enum": [
+              "read-only",
+              "workspace-write"
+            ]
+          },
+          "gate": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "default_summon": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditional_summon": {
+      "type": "object"
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

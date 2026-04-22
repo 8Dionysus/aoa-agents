@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://8dionysus.github.io/schemas/titan_runtime_roster.schema.json",
+  "title": "Titan Runtime Roster",
+  "type": "object",
+  "required": [
+    "version",
+    "cohort",
+    "default_active",
+    "gates"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "cohort": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role_key",
+          "codex_agent",
+          "default_state",
+          "gate"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "Atlas",
+              "Sentinel",
+              "Mneme",
+              "Forge",
+              "Delta"
+            ]
+          },
+          "role_key": {
+            "type": "string"
+          },
+          "codex_agent": {
+            "type": "string"
+          },
+          "default_state": {
+            "enum": [
+              "active_after_explicit_summon",
+              "locked"
+            ]
+          },
+          "gate": {
+            "enum": [
+              "none",
+              "mutation",
+              "judgment"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "default_active": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "Atlas",
+          "Sentinel",
+          "Mneme"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "gates": {
+      "type": "object",
+      "required": [
+        "Forge",
+        "Delta"
+      ],
+      "properties": {
+        "Forge": {
+          "const": "mutation"
+        },
+        "Delta": {
+          "const": "judgment"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,41 @@
+{
+  "titans": [
+    {
+      "name": "Atlas",
+      "role": "architect",
+      "state": "active",
+      "lane": "structure"
+    },
+    {
+      "name": "Sentinel",
+      "role": "reviewer",
+      "state": "active",
+      "lane": "risk"
+    },
+    {
+      "name": "Mneme",
+      "role": "memory-keeper",
+      "state": "active",
+      "lane": "memory"
+    },
+    {
+      "name": "Forge",
+      "role": "coder",
+      "state": "locked",
+      "gate": "mutation",
+      "lane": "implementation"
+    },
+    {
+      "name": "Delta",
+      "role": "evaluator",
+      "state": "locked",
+      "gate": "judgment",
+      "lane": "verdict"
+    }
+  ],
+  "forbidden": [
+    "hidden spawn",
+    "auto approval",
+    "silent mutation"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "titans": [
+    {
+      "name": "Atlas",
+      "role": "architect",
+      "lane": "structure",
+      "default_active": true,
+      "sandbox_mode": "read-only",
+      "activation_gate": null
+    },
+    {
+      "name": "Sentinel",
+      "role": "reviewer",
+      "lane": "risk",
+      "default_active": true,
+      "sandbox_mode": "read-only",
+      "activation_gate": null
+    },
+    {
+      "name": "Mneme",
+      "role": "memory-keeper",
+      "lane": "memory",
+      "default_active": true,
+      "sandbox_mode": "read-only",
+      "activation_gate": null
+    },
+    {
+      "name": "Forge",
+      "role": "coder",
+      "lane": "implementation",
+      "default_active": false,
+      "sandbox_mode": "workspace-write",
+      "activation_gate": "mutation"
+    },
+    {
+      "name": "Delta",
+      "role": "evaluator",
+      "lane": "verdict",
+      "default_active": false,
+      "sandbox_mode": "read-only",
+      "activation_gate": "judgment"
+    }
+  ]
+}

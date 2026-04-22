@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/titan_role_class.schema.json",
+  "title": "Titan Role Class",
+  "type": "object",
+  "required": [
+    "role_key",
+    "class_name",
+    "default_sandbox",
+    "allowed_gates",
+    "description"
+  ],
+  "properties": {
+    "role_key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "default_sandbox": {
+      "type": "string",
+      "enum": [
+        "read-only",
+        "workspace-write"
+      ]
+    },
+    "allowed_gates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "mcp_affinity": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "write_policy": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

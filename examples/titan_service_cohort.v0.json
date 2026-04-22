@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "cohort": [
+    {
+      "titan": "Atlas",
+      "role": "architect",
+      "sandbox_posture": "read-only",
+      "gate": "explicit summon"
+    },
+    {
+      "titan": "Sentinel",
+      "role": "reviewer",
+      "sandbox_posture": "read-only",
+      "gate": "explicit summon"
+    },
+    {
+      "titan": "Mneme",
+      "role": "memory-keeper",
+      "sandbox_posture": "read-only",
+      "gate": "explicit summon"
+    },
+    {
+      "titan": "Forge",
+      "role": "coder",
+      "sandbox_posture": "workspace-write",
+      "gate": "mutation intent"
+    },
+    {
+      "titan": "Delta",
+      "role": "evaluator",
+      "sandbox_posture": "read-only",
+      "gate": "judgment intent"
+    }
+  ],
+  "default_summon": [
+    "Atlas",
+    "Sentinel",
+    "Mneme"
+  ],
+  "conditional_summon": {
+    "Forge": "requires mutation intent, target surfaces, validation, and rollback posture",
+    "Delta": "requires judgment, comparison, regression, or verdict intent"
+  },
+  "boundaries": [
+    "no hidden arena",
+    "no silent mutation",
+    "no proof sovereignty",
+    "no memory canonization",
+    "no self-rewriting policy"
+  ]
+}

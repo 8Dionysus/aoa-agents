@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/titan_lineage_ledger.schema.json",
+  "title": "Titan Lineage Ledger",
+  "type": "object",
+  "required": [
+    "version",
+    "ledger_id",
+    "role_classes_ref",
+    "bearers_ref",
+    "events"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "ledger_id": {
+      "type": "string"
+    },
+    "role_classes_ref": {
+      "type": "string"
+    },
+    "bearers_ref": {
+      "type": "string"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "event_type",
+          "bearer_id",
+          "occurred_at",
+          "summary",
+          "source_ref"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "first_appearance",
+              "summon",
+              "incarnation_opened",
+              "incarnation_closed",
+              "gate_opened",
+              "fall",
+              "lesson_recorded",
+              "successor_named",
+              "retired",
+              "reinstated",
+              "remembrance"
+            ]
+          },
+          "bearer_id": {
+            "type": "string"
+          },
+          "occurred_at": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "related_bearer_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
