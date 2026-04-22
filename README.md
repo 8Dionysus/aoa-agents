@@ -20,6 +20,7 @@ Use the shortest route by need:
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `docs/REGISTRY_SOURCE_SURFACES.md`
 - Codex custom-agent projection surface and owner refresh law: `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
+- Wave 1 assistant projection resolver and no-self-rewrite posture: `docs/CODEX_SUBAGENT_PROJECTION.md`, `schemas/assistant-projection-resolver.schema.json`, and `examples/assistant_projection_resolver.example.json`
 - Titan service-cohort role and bearer lineage surfaces: `docs/TITAN_SERVICE_COHORT.md`, `docs/TITAN_SUMMON_BOUNDARY.md`, `docs/TITAN_ROLE_BEARER_ONTOLOGY.md`, `docs/TITAN_LINEAGE_LEDGER.md`, `config/titan_role_classes.v0.json`, `config/titan_bearers.v0.json`, and `config/titan_lineage_ledger.v0.json`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - stress posture and stress handoff doctrine: `docs/AGENT_STRESS_POSTURE.md` and `docs/AGENT_STRESS_HANDOFFS.md`

@@ -2427,6 +2427,38 @@ def validate_codex_subagent_projection() -> None:
         fail(error)
 
 
+def validate_assistant_projection_resolver_surface() -> None:
+    doc = read_text(REPO_ROOT / "docs" / "CODEX_SUBAGENT_PROJECTION.md")
+    schema = validate_json_schema_surface(
+        REPO_ROOT / "schemas" / "assistant-projection-resolver.schema.json",
+        "assistant projection resolver schema",
+    )
+    example_path = REPO_ROOT / "examples" / "assistant_projection_resolver.example.json"
+    example = read_json(example_path)
+
+    for token in (
+        "schemas/assistant-projection-resolver.schema.json",
+        "examples/assistant_projection_resolver.example.json",
+        "source profile",
+        "projection wiring",
+        "no-self-rewrite",
+    ):
+        if token not in doc:
+            fail(f"docs/CODEX_SUBAGENT_PROJECTION.md is missing required projection guidance: {token}")
+
+    Draft202012Validator.check_schema(schema)
+    validate_instance_against_schema(example, schema, describe_path(example_path))
+
+    if example.get("contract_id") != "aoa-agents.assistant-projection-resolver.v1":
+        fail(
+            "assistant_projection_resolver.example.json must keep contract_id aoa-agents.assistant-projection-resolver.v1"
+        )
+    if example.get("owner_repo") != "aoa-agents":
+        fail("assistant_projection_resolver.example.json must keep owner_repo aoa-agents")
+    if example.get("no_self_rewrite_posture", {}).get("allowed") is not False:
+        fail("assistant_projection_resolver.example.json must keep no_self_rewrite_posture.allowed false")
+
+
 def validate_runtime_seam_doc_coherence() -> None:
     agent_profile_surface = read_text(REPO_ROOT / "docs" / "AGENT_PROFILE_SURFACE.md")
     agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
@@ -3336,6 +3368,7 @@ def main() -> int:
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_codex_subagent_projection()
+        validate_assistant_projection_resolver_surface()
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
