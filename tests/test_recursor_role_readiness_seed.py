@@ -6,6 +6,8 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -16,6 +18,16 @@ def load_common():
     assert spec.loader is not None
     spec.loader.exec_module(module)
     return module
+
+
+def load_json(relative: str):
+    return json.loads((ROOT / relative).read_text(encoding="utf-8"))
+
+
+def schema_validator(relative: str) -> Draft202012Validator:
+    schema = load_json(relative)
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema)
 
 
 class RecursorRoleReadinessSeedTest(unittest.TestCase):
@@ -111,6 +123,61 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         messages = " ".join(error["message"] for error in errors)
         self.assertIn("rank_mutation", messages)
         self.assertIn("self_verify_as_final", messages)
+
+    def test_published_schemas_accept_seed_sources(self):
+        projection_validator = schema_validator(
+            "schemas/recursor-projection-candidate.v1.schema.json"
+        )
+        role_validator = schema_validator("schemas/recursor-role-contract.v1.schema.json")
+        pair_validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
+        projection_validator.validate(load_json("config/codex_recursor_projection.candidate.json"))
+        pair_validator.validate(load_json("config/recursor_pair.seed.json"))
+        for role in load_json("config/recursor_roles.seed.json")["roles"]:
+            role_validator.validate(role)
+
+    def test_projection_schema_rejects_unexpected_candidate_role(self):
+        validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
+        projection = load_json("config/codex_recursor_projection.candidate.json")
+        broken = deepcopy(projection)
+        broken["candidate_agents"].append(
+            {
+                "recursor_id": "recursor.admin",
+                "activation_status": "candidate_only",
+                "activation_requires": [
+                    "explicit_main_codex_call",
+                    "no_agonic_runtime_claim",
+                ],
+                "forbidden": [
+                    "agent_spawn",
+                    "arena_session",
+                    "verdict",
+                    "scar_write",
+                    "rank_mutation",
+                    "hidden_scheduler",
+                ],
+            }
+        )
+        self.assertTrue(list(validator.iter_errors(broken)))
+
+    def test_projection_schema_rejects_missing_required_guards(self):
+        validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
+        projection = load_json("config/codex_recursor_projection.candidate.json")
+        broken = deepcopy(projection)
+        for agent in broken["candidate_agents"]:
+            if agent["recursor_id"] == "recursor.witness":
+                agent["activation_requires"].remove("no_agonic_runtime_claim")
+            if agent["recursor_id"] == "recursor.executor":
+                agent["forbidden"].remove("rank_mutation")
+                agent["forbidden"].remove("self_verify_as_final")
+        self.assertTrue(list(validator.iter_errors(broken)))
+
+    def test_pair_schema_rejects_missing_required_boundary_tokens(self):
+        validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
+        pair = load_json("config/recursor_pair.seed.json")
+        broken = deepcopy(pair)
+        broken["required_separation"].remove("executor_cannot_close_review")
+        broken["handoff_order"].remove("witness_trace_check")
+        self.assertTrue(list(validator.iter_errors(broken)))
 
 
 if __name__ == "__main__":

@@ -26,9 +26,178 @@
     "candidate_agents": {
       "type": "array",
       "items": {
-        "type": "object"
+        "oneOf": [
+          {
+            "$ref": "#/$defs/witness_candidate"
+          },
+          {
+            "$ref": "#/$defs/executor_candidate"
+          }
+        ]
       },
-      "minItems": 2
+      "minItems": 2,
+      "maxItems": 2,
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "recursor_id": {
+                "const": "recursor.witness"
+              }
+            },
+            "required": [
+              "recursor_id"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "recursor_id": {
+                "const": "recursor.executor"
+              }
+            },
+            "required": [
+              "recursor_id"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "activation_requires": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "explicit_main_codex_call"
+          }
+        },
+        {
+          "contains": {
+            "const": "no_agonic_runtime_claim"
+          }
+        }
+      ]
+    },
+    "global_forbidden": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "agent_spawn"
+          }
+        },
+        {
+          "contains": {
+            "const": "arena_session"
+          }
+        },
+        {
+          "contains": {
+            "const": "verdict"
+          }
+        },
+        {
+          "contains": {
+            "const": "scar_write"
+          }
+        },
+        {
+          "contains": {
+            "const": "rank_mutation"
+          }
+        },
+        {
+          "contains": {
+            "const": "hidden_scheduler"
+          }
+        }
+      ]
+    },
+    "witness_candidate": {
+      "type": "object",
+      "required": [
+        "recursor_id",
+        "activation_status",
+        "activation_requires",
+        "forbidden"
+      ],
+      "properties": {
+        "recursor_id": {
+          "const": "recursor.witness"
+        },
+        "activation_status": {
+          "const": "candidate_only"
+        },
+        "activation_requires": {
+          "$ref": "#/$defs/activation_requires"
+        },
+        "forbidden": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/global_forbidden"
+            },
+            {
+              "contains": {
+                "const": "workspace_write"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "executor_candidate": {
+      "type": "object",
+      "required": [
+        "recursor_id",
+        "activation_status",
+        "activation_requires",
+        "forbidden"
+      ],
+      "properties": {
+        "recursor_id": {
+          "const": "recursor.executor"
+        },
+        "activation_status": {
+          "const": "candidate_only"
+        },
+        "activation_requires": {
+          "$ref": "#/$defs/activation_requires"
+        },
+        "forbidden": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/global_forbidden"
+            },
+            {
+              "contains": {
+                "const": "execute_without_plan"
+              }
+            },
+            {
+              "contains": {
+                "const": "self_verify_as_final"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
     }
   },
   "additionalProperties": true

@@ -30,12 +30,7 @@
       "const": "aoa-agents"
     },
     "readiness_status": {
-      "enum": [
-        "candidate",
-        "review_ready",
-        "projectable",
-        "active"
-      ]
+      "const": "candidate"
     },
     "default_form": {
       "type": "object",
@@ -110,7 +105,44 @@
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "spawn_agent"
+          }
+        },
+        {
+          "contains": {
+            "const": "open_arena_session"
+          }
+        },
+        {
+          "contains": {
+            "const": "issue_verdict"
+          }
+        },
+        {
+          "contains": {
+            "const": "write_scar"
+          }
+        },
+        {
+          "contains": {
+            "const": "mutate_rank"
+          }
+        },
+        {
+          "contains": {
+            "const": "promote_to_tree_of_sophia"
+          }
+        },
+        {
+          "contains": {
+            "const": "hidden_scheduler_action"
+          }
+        }
+      ]
     },
     "memory_policy": {
       "type": "object",
@@ -160,8 +192,82 @@
       "items": {
         "type": "string"
       },
-      "minItems": 1
+      "minItems": 1,
+      "allOf": [
+        {
+          "contains": {
+            "const": "projection_candidate_is_not_install"
+          }
+        },
+        {
+          "contains": {
+            "const": "assistant_is_not_contestant"
+          }
+        }
+      ]
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "recursor_id": {
+            "const": "recursor.witness"
+          }
+        },
+        "required": [
+          "recursor_id"
+        ]
+      },
+      "then": {
+        "properties": {
+          "forbidden_actions": {
+            "allOf": [
+              {
+                "contains": {
+                  "const": "close_review_decision"
+                }
+              },
+              {
+                "contains": {
+                  "const": "apply_patch"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "recursor_id": {
+            "const": "recursor.executor"
+          }
+        },
+        "required": [
+          "recursor_id"
+        ]
+      },
+      "then": {
+        "properties": {
+          "forbidden_actions": {
+            "allOf": [
+              {
+                "contains": {
+                  "const": "execute_without_approved_plan"
+                }
+              },
+              {
+                "contains": {
+                  "const": "self_verify_final_truth"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
   "additionalProperties": true
 }
