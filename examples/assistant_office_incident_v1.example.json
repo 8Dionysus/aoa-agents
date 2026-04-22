@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-04-22T00:00:00Z",
+  "evidence_refs": [
+    "generated/multi_office_train_clean_flow/release_train.json"
+  ],
+  "id": "assistant_office_incident_v1_example",
+  "incident_family": "handoff_gap",
+  "kind": "assistant_office_incident_v1",
+  "notes": "Example artifact for assistant_office_incident_v1.",
+  "office_id": "courier.assistant",
+  "owner_repo": "aoa-agents",
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-04-22T00:00:00Z",
+  "evidence_refs": [
+    "generated/multi_office_train_clean_flow/release_train.json"
+  ],
+  "id": "assistant_multi_office_release_result_v1_example",
+  "kind": "assistant_multi_office_release_result_v1",
+  "notes": "Example artifact for assistant_multi_office_release_result_v1.",
+  "owner_repo": "aoa-agents",
+  "result": "activated_under_watch",
+  "status": "draft",
+  "train_id": "train-service-001",
+  "version": "1.1.0"
+}
