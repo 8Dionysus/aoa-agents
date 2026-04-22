@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "cross_repo_adoption_readiness",
+  "id": "cross_repo_adoption_readiness.example",
+  "status": "candidate",
+  "summary": "Example cross_repo_adoption_readiness object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-agents",
+  "evidence_refs": [
+    "receipt://v0.6/cross_repo_adoption_readiness/example"
+  ],
+  "payload": {
+    "office": "router",
+    "ready": true,
+    "blockers": []
+  }
+}

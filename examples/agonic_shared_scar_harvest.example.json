@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "agonic_shared_scar_harvest",
+  "id": "agonic_shared_scar_harvest.example",
+  "status": "candidate",
+  "summary": "Example agonic_shared_scar_harvest object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-agents",
+  "evidence_refs": [
+    "receipt://v0.6/agonic_shared_scar_harvest/example"
+  ],
+  "payload": {
+    "agent_id": "abyss.verifier.001",
+    "scar_family": "verification_overclaim",
+    "pattern_candidate": "pattern.verification.001"
+  }
+}

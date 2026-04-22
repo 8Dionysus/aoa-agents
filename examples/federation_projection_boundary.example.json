@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "kind": "federation_projection_boundary",
+  "id": "federation_projection_boundary.example",
+  "status": "candidate",
+  "summary": "Example federation_projection_boundary object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-agents",
+  "evidence_refs": [
+    "receipt://v0.6/federation_projection_boundary/example"
+  ],
+  "payload": {
+    "actor_kind": "assistant",
+    "allowed_effects": [
+      "hint",
+      "escalate",
+      "receipt_strengthen"
+    ],
+    "persistent_self_rewrite": false
+  }
+}

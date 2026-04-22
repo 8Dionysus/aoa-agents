@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "kind": "office_pattern_compatibility",
+  "id": "office_pattern_compatibility.example",
+  "status": "candidate",
+  "summary": "Example office_pattern_compatibility object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-agents",
+  "evidence_refs": [
+    "receipt://v0.6/office_pattern_compatibility/example"
+  ],
+  "payload": {
+    "office": "verifier",
+    "compatible_patterns": [
+      "verification_overclaim",
+      "evidence_floor_gap"
+    ]
+  }
+}
