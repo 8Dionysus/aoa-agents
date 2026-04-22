@@ -71,7 +71,8 @@
           "type": "string"
         },
         "retention_cycles": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "scar_required": {
           "type": "boolean"
