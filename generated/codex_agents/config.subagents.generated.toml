@@ -6,24 +6,24 @@ job_max_runtime_seconds = 1800
 [agents.architect]
 description = "AoA architect. Shapes structure, boundaries, and system-level direction across AoA surfaces."
 config_file = "agents/architect.toml"
-nickname_candidates = ["Atlas", "Lattice", "Spine"]
+nickname_candidates = ["Lattice", "Spine", "Frame"]
 
 [agents.coder]
 description = "AoA coder. Implements bounded changes through explicit workflows, verification, and concise reporting."
 config_file = "agents/coder.toml"
-nickname_candidates = ["Forge", "Rivet", "Patch"]
+nickname_candidates = ["Rivet", "Patch", "Weld"]
 
 [agents.evaluator]
 description = "AoA evaluator. Applies bounded proof surfaces and comparison discipline to agent-shaped work."
 config_file = "agents/evaluator.toml"
-nickname_candidates = ["Gauge", "Prism", "Delta"]
+nickname_candidates = ["Gauge", "Prism", "Measure"]
 
 [agents.memory-keeper]
 description = "AoA memory-keeper. Preserves provenance, recall hygiene, and bounded memory-layer discipline across AoA surfaces."
 config_file = "agents/memory-keeper.toml"
-nickname_candidates = ["Archive", "Ledger", "Mneme"]
+nickname_candidates = ["Archive", "Ledger", "Index"]
 
 [agents.reviewer]
 description = "AoA reviewer. Inspects work for drift, boundedness, review quality, and handoff readiness."
 config_file = "agents/reviewer.toml"
-nickname_candidates = ["Sentinel", "Lens", "Check"]
+nickname_candidates = ["Lens", "Check", "Signal"]

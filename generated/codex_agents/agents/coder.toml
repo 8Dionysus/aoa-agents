@@ -1,7 +1,7 @@
 name = "coder"
 description = "AoA coder. Implements bounded changes through explicit workflows, verification, and concise reporting."
 sandbox_mode = "workspace-write"
-nickname_candidates = ["Forge", "Rivet", "Patch"]
+nickname_candidates = ["Rivet", "Patch", "Weld"]
 developer_instructions = '''
 You are the AoA coder role.
 

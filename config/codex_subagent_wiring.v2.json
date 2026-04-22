@@ -9,9 +9,9 @@
     "architect": {
       "sandbox_mode": "read-only",
       "nickname_candidates": [
-        "Atlas",
         "Lattice",
-        "Spine"
+        "Spine",
+        "Frame"
       ],
       "mcp_affinity": [
         "aoa_workspace",
@@ -26,9 +26,9 @@
     "coder": {
       "sandbox_mode": "workspace-write",
       "nickname_candidates": [
-        "Forge",
         "Rivet",
-        "Patch"
+        "Patch",
+        "Weld"
       ],
       "mcp_affinity": [
         "aoa_workspace"
@@ -42,9 +42,9 @@
     "reviewer": {
       "sandbox_mode": "read-only",
       "nickname_candidates": [
-        "Sentinel",
         "Lens",
-        "Check"
+        "Check",
+        "Signal"
       ],
       "mcp_affinity": [
         "aoa_workspace",
@@ -61,7 +61,7 @@
       "nickname_candidates": [
         "Gauge",
         "Prism",
-        "Delta"
+        "Measure"
       ],
       "mcp_affinity": [
         "aoa_workspace",
@@ -78,7 +78,7 @@
       "nickname_candidates": [
         "Archive",
         "Ledger",
-        "Mneme"
+        "Index"
       ],
       "mcp_affinity": [
         "aoa_workspace",
