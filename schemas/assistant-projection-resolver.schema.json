@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/assistant-projection-resolver.schema.json",
+  "title": "aoa-agents assistant projection resolver",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_id",
+    "owner_repo",
+    "projection_resolver",
+    "no_self_rewrite_posture",
+    "source_refs"
+  ],
+  "properties": {
+    "contract_id": {
+      "const": "aoa-agents.assistant-projection-resolver.v1"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "projection_resolver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_profile",
+        "wiring_config",
+        "generated_agent",
+        "workspace_install"
+      ],
+      "properties": {
+        "source_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wiring_config": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_agent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workspace_install": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "no_self_rewrite_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "posture_note"
+      ],
+      "properties": {
+        "allowed": {
+          "const": false
+        },
+        "posture_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}

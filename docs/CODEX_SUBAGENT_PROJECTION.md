@@ -32,6 +32,25 @@ Keep MCP server ownership in the workspace `.codex/config.toml` only.
 The generated agent files may name MCP affinity in instructions, but they must
 not duplicate project-level MCP server declarations.
 
+## Wave 1 assistant projection resolver
+
+Wave 1 adds one compact contract surface for the assistant projection
+resolver and its no-self-rewrite posture:
+
+- `schemas/assistant-projection-resolver.schema.json`
+- `examples/assistant_projection_resolver.example.json`
+
+The resolver keeps the following order explicit:
+
+1. source profile
+2. projection wiring
+3. generated Codex agent files
+4. workspace install surface
+
+The no-self-rewrite posture stays separate from projection. Generated agents
+may be refreshed by the owner repo, but they do not rewrite their own role
+meaning, their source profile, or the projection law that produced them.
+
 ## Main alternatives rejected
 
 - hand-authoring `/srv/.codex/agents/*.toml` as if installed files were the
