@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/assistant_shared_pattern_adoption_v1.json",
+  "title": "assistant_shared_pattern_adoption_v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kind",
+    "id",
+    "status",
+    "summary",
+    "evidence_refs",
+    "payload",
+    "owner_repo"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "assistant_shared_pattern_adoption"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "captured",
+        "candidate",
+        "review",
+        "approved",
+        "blocked",
+        "rejected",
+        "promoted",
+        "active",
+        "retired",
+        "scheduled",
+        "passed",
+        "failed"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_repo": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "assistant_office",
+        "pattern_id",
+        "adoption_mode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assistant_office": {
+          "type": "string"
+        },
+        "pattern_id": {
+          "type": "string"
+        },
+        "adoption_mode": {
+          "type": "string",
+          "enum": [
+            "release_patch",
+            "versioned_release",
+            "reviewed_release"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

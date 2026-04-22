@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/agonic_shared_scar_harvest_v1.json",
+  "title": "agonic_shared_scar_harvest_v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kind",
+    "id",
+    "status",
+    "summary",
+    "evidence_refs",
+    "payload",
+    "owner_repo"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "kind": {
+      "type": "string",
+      "const": "agonic_shared_scar_harvest"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "captured",
+        "candidate",
+        "review",
+        "approved",
+        "blocked",
+        "rejected",
+        "promoted",
+        "active",
+        "retired",
+        "scheduled",
+        "passed",
+        "failed"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_repo": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "agent_id",
+        "scar_family",
+        "pattern_candidate"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "type": "string"
+        },
+        "scar_family": {
+          "type": "string"
+        },
+        "pattern_candidate": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

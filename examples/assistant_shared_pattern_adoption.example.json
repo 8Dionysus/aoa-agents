@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "assistant_shared_pattern_adoption",
+  "id": "assistant_shared_pattern_adoption.example",
+  "status": "candidate",
+  "summary": "Example assistant_shared_pattern_adoption object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-agents",
+  "evidence_refs": [
+    "receipt://v0.6/assistant_shared_pattern_adoption/example"
+  ],
+  "payload": {
+    "assistant_office": "router.assistant",
+    "pattern_id": "pattern.wrong_surface.cross_repo.001",
+    "adoption_mode": "release_patch"
+  }
+}
