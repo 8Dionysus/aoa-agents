@@ -1,0 +1,21 @@
+{
+  "task_id": "task:delta:residual-example",
+  "titan_name": "Delta",
+  "bearer_id": "titan:delta:founder",
+  "role_key": "evaluator",
+  "mode": "bounded_judgment",
+  "scope": [
+    "closeout evidence bundle"
+  ],
+  "question": "Is the closeout PASS justified, and what residual risk remains?",
+  "expected_output": "titan_agent_report.v1",
+  "diff_excerpt_required": false,
+  "residual_question_required": true,
+  "source_refs": [
+    "receipt:closeout-example"
+  ],
+  "must_not": [
+    "certify release",
+    "explore new owner surfaces"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "task:sentinel:compact-example",
+  "titan_name": "Sentinel",
+  "bearer_id": "titan:sentinel:founder",
+  "role_key": "reviewer",
+  "mode": "compact_review",
+  "scope": [
+    "diff excerpt: docs/SEED_SURFACE_MAP.md"
+  ],
+  "question": "Does the excerpt confuse staged lineage with landed owner truth?",
+  "expected_output": "titan_agent_report.v1",
+  "diff_excerpt_required": true,
+  "residual_question_required": false,
+  "source_refs": [
+    "diff:example"
+  ],
+  "must_not": [
+    "expand scope",
+    "review uncited surfaces"
+  ]
+}
