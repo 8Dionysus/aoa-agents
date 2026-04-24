@@ -7,6 +7,21 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-04-23
+
+### Summary
+
+- this patch lands Agon actor, assistant, and formation-trial posture from
+  agonic/civil recharter waves through formation trials, recurrence actor
+  formation, rank jurisdiction, schools, lineages, campaigns, and Wave XV
+  actor posture
+- recursor readiness, Titan service-cohort lineage, Titan bearer reservations,
+  Titan incarnation identity, and Experience assistant projection, release,
+  certification, adoption, governance, and office posture are added or
+  tightened
+- `aoa-agents` remains the role, bearer, and handoff-contract layer rather
+  than a skill, runtime, memo, proof, or routing owner
+
 ### Added
 
 - Wave I Agonic Actor Rechartering doctrine, companion adjunct surfaces, and
@@ -15,6 +30,17 @@ Tracking starts with the community-docs baseline for this repository.
   and explicit assistant-formation builder / validator / test lane
 - Wave II.5 Formation Trial doctrine, pre-protocol boundary docs, and explicit
   formation-trial builder / validator / test lane
+- Agon recurrence actor-formation manifests, recursor role readiness seeds,
+  rank-jurisdiction and schools/lineages/campaign posture, Wave XV actor
+  posture, and assistant/actor boundary docs for arena eligibility,
+  escalation, retention readiness, campaign boundaries, and epistemic/rank
+  separation
+- Titan service-cohort lineage, Titan bearer reservations, Titan role classes,
+  Titan lineage ledger, and Titan incarnation identity/session surfaces
+- Experience assistant projection, assistant release, certification,
+  deployment/watch, adoption, governance, rollback, office, service identity,
+  service contract, incident reentry, and post-release behavior posture
+  surfaces
 
 ### Changed
 
@@ -26,9 +52,13 @@ Tracking starts with the community-docs baseline for this repository.
   profile schema
 - route and generated-surface guidance now also expose the first formation
   trial as a pre-protocol readability judgment rather than hidden future lore
+- formation-trial guards, recursor readiness schemas, exact role-set checks,
+  adoption contract guards, assistant-service boundary checks, and Titan
+  incarnation session identifiers were tightened
 
 ### Validation
 
+- `python scripts/release_check.py`
 - `python scripts/build_agent_agonic_formation_index.py --check`
 - `python scripts/validate_agent_agonic_formation.py`
 - `python -m pytest -q tests/test_agent_agonic_formation.py`
@@ -38,6 +68,11 @@ Tracking starts with the community-docs baseline for this repository.
 - `python scripts/build_agent_formation_trial.py --check`
 - `python scripts/validate_agent_formation_trial.py`
 - `python -m pytest -q tests/test_agent_formation_trial.py`
+
+### Notes
+
+- this patch strengthens role-bearing surfaces and incarnation lineage without
+  making agent profiles executable skills, runtime ledgers, or memory truth
 
 ## [0.2.2] - 2026-04-19
 

@@ -79,7 +79,7 @@ README or release notes.
 
 ## Unreleased next turn: Agonic Actor Rechartering
 
-The next unreleased agent-layer turn after `v0.2.2` is Wave I Agonic Actor
+The next unreleased agent-layer turn after `v0.2.3` is Wave I Agonic Actor
 Rechartering. Its checked surface is:
 
 - Wave I doctrine and landing docs:

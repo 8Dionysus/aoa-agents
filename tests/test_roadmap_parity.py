@@ -16,8 +16,8 @@ class RoadmapParityTestCase(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn("v0.2.2", readme)
-        self.assertIn("[0.2.2]", changelog)
+        self.assertIn("v0.2.3", readme)
+        self.assertIn("[0.2.3]", changelog)
         self.assertIn("v0.2.x", roadmap)
 
         for relative_path in (
