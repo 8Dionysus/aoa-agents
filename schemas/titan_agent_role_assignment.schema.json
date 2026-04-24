@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/schemas/titan_agent_task.schema.json",
+  "title": "Titan agent task contract",
+  "type": "object",
+  "required": [
+    "task_id",
+    "titan_name",
+    "bearer_id",
+    "role_key",
+    "mode",
+    "scope",
+    "question",
+    "expected_output"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "titan_name": {
+      "enum": [
+        "Atlas",
+        "Sentinel",
+        "Mneme",
+        "Forge",
+        "Delta"
+      ]
+    },
+    "bearer_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_output": {
+      "const": "titan_agent_report.v1"
+    },
+    "diff_excerpt_required": {
+      "type": "boolean"
+    },
+    "residual_question_required": {
+      "type": "boolean"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_not": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
