@@ -42,9 +42,9 @@ present:
 ## Route
 
 1. Choose the workspace root and primary `repo_root`.
-2. Run `aoa skills enter <repo_root> --root /srv ...` before substantial work.
-3. Before risky mutation, run `aoa skills guard <repo_root> --root /srv ...`.
-4. If one or more trigger signals is present, run `aoa surfaces detect <repo_root> --root /srv ...`.
+2. Run `aoa skills enter <repo_root> --root /srv/AbyssOS ...` before substantial work.
+3. Before risky mutation, run `aoa skills guard <repo_root> --root /srv/AbyssOS ...`.
+4. If one or more trigger signals is present, run `aoa surfaces detect <repo_root> --root /srv/AbyssOS ...`.
 5. Treat shortlist hints, owner-layer notes, and ambiguity notes as advisory
    consumer guidance only.
 6. Keep `aoa skills ...` skill-only and keep reviewed `aoa surfaces handoff`

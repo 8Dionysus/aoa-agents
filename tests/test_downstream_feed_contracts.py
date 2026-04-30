@@ -88,7 +88,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             "recall need",
             "role posture pressure",
             "recurring scenario pressure",
-            "aoa surfaces detect <repo_root> --root /srv",
+            "aoa surfaces detect <repo_root> --root /srv/AbyssOS",
         ):
             self.assertIn(token, posture)
 

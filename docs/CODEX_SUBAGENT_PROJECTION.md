@@ -53,7 +53,7 @@ meaning, their source profile, or the projection law that produced them.
 
 ## Main alternatives rejected
 
-- hand-authoring `/srv/.codex/agents/*.toml` as if installed files were the
+- hand-authoring `/srv/AbyssOS/.codex/agents/*.toml` as if installed files were the
   role source of truth
 - copying archive-pack fixtures straight into the workspace without regenerating
   from live `profiles/*.profile.json`
