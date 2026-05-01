@@ -1,0 +1,68 @@
+schema_version: work_quest_v1
+id: AOA-AG-Q-0009
+title: Reanchor Agents-of-Abyss v0.4.0 role-pressure in the runtime seam
+summary: Preserve the Agents-of-Abyss v0.4.0 closeout role-pressure candidate
+  as agent-layer runtime-seam follow-through without mutating profiles,
+  cohorts, or orchestrator classes from one center release.
+repo: aoa-agents
+owner_surface: docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md
+theme_ref: ''
+milestone_ref: ''
+kind: support
+state: reanchor
+band: near
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-AG-Q-0008
+activation:
+  mode: on_review_of
+  ref: session:2026-04-24T00-40-24-854570Z-Agents-of-Abyss-checkpoint-growth-6737c0da-e58
+  note: open when the AoA v0.4.0 release closeout preserves runtime-seam role
+    pressure that should remain hold-shaped until proof clarifies the agent
+    contract change
+anchor_ref:
+  artifact: reviewed_closeout_role_posture_hold
+  ref: docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md
+  note: role pressure should stay seam-bound until repeated reviewed evidence
+    proves a profile, cohort, or orchestrator-class adjustment
+handoff_role: agent-layer-maintainer
+evidence:
+  - candidate:role:aoa-agents-runtime-seam-bindings survived the AoA v0.4.0
+    release closeout as agent-shaped owner handoff evidence
+  - candidate:growth:aoa-agents-commit-code remained a growth trail and should
+    not directly author a new profile or orchestrator class
+  - the release closeout named sibling owner repos, so agent work should keep
+    only the role-posture hold while proof, route, recall, skill, and technique
+    follow-through stay owner-local
+harvest:
+  target: agent_contract
+  trigger_count: 3
+  note: keep as runtime-seam evidence until another reviewed route clarifies
+    whether a bounded adjunct, profile contract, cohort pattern, or
+    orchestrator-class adjustment is warranted
+opened_at: '2026-05-01'
+touched_at: '2026-05-01'
+tags:
+  - agents-of-abyss
+  - release
+  - runtime-seam
+  - role-posture
+  - reanchor
+notes: >
+  This quest keeps repeated role pressure visible while refusing to turn one
+  release closeout into profile authority. Later work should prove the exact
+  role, right, handoff, or seam delta before authoring agent canon.
+public_safe: true

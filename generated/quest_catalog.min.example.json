@@ -160,5 +160,20 @@
     "owner_surface": "docs/AGENT_RUNTIME_SEAM.md",
     "source_path": "quests/AOA-AG-Q-0008.yaml",
     "public_safe": true
+  },
+  {
+    "id": "AOA-AG-Q-0009",
+    "title": "Reanchor Agents-of-Abyss v0.4.0 role-pressure in the runtime seam",
+    "repo": "aoa-agents",
+    "theme_ref": "",
+    "milestone_ref": "",
+    "state": "reanchor",
+    "band": "near",
+    "kind": "support",
+    "difficulty": "d3_seam",
+    "risk": "r2_contract",
+    "owner_surface": "docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md",
+    "source_path": "quests/AOA-AG-Q-0009.yaml",
+    "public_safe": true
   }
 ]
