@@ -70,3 +70,12 @@ new orchestrator class.
 - treat later work here as proof-first adjunct work, not as immediate profile
   widening
 - preserve the trail survivors as evidence, not as a substitute for proof
+
+## 2026-05-01 Reinforcement
+
+The `Agents-of-Abyss` v0.4.0 release closeout preserved
+`candidate:role:aoa-agents-runtime-seam-bindings` again, beside
+`candidate:growth:aoa-agents-commit-code`.
+That repeat strengthens the runtime-seam hold but still does not authorize a
+new profile, cohort, or orchestrator class. The active owner move is tracked as
+`AOA-AG-Q-0009` until later proof identifies the exact agent contract delta.

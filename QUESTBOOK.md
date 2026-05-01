@@ -16,10 +16,12 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 ## Blocked / reanchor
 
 - `AOA-AG-Q-0008` — reanchor checkpoint automation role-pressure in the runtime seam
+- `AOA-AG-Q-0009` — reanchor Agents-of-Abyss v0.4.0 role-pressure in the runtime seam
 
 ## Harvest candidates
 
 - `AOA-AG-Q-0008` — reanchor checkpoint automation role-pressure in the runtime seam
+- `AOA-AG-Q-0009` — reanchor Agents-of-Abyss v0.4.0 role-pressure in the runtime seam
 
 ## Quest-harvest posture
 
