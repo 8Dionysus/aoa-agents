@@ -14,6 +14,7 @@
     "approval_mode",
     "rollback_marker",
     "health_check",
+    "improvement_log",
     "max_iterations"
   ],
   "properties": {
@@ -61,6 +62,10 @@
       "minLength": 1
     },
     "health_check": {
+      "type": "string",
+      "minLength": 1
+    },
+    "improvement_log": {
       "type": "string",
       "minLength": 1
     },

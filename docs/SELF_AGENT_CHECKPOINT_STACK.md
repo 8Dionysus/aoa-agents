@@ -39,6 +39,7 @@ A self-agent surface should be able to state:
 - `approval_mode`
 - `rollback_marker`
 - `health_check`
+- `improvement_log`
 - `max_iterations`
 
 This repository owns the role-facing contract for those fields.

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://aoa.local/schemas/titan_agent_task.schema.json",
-  "title": "Titan agent task contract",
+  "$id": "https://aoa.local/schemas/titan_agent_role_assignment.schema.json",
+  "title": "Titan agent role assignment contract",
   "type": "object",
   "required": [
     "task_id",
