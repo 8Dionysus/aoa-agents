@@ -21,6 +21,7 @@ VALID_EVENTS = {
     "reinstated",
     "remembrance",
 }
+REQUIRED_EVENT_FIELDS = ("event_id", "event_type", "bearer_id", "occurred_at", "summary", "source_ref")
 
 
 def load(path: Path):
@@ -53,6 +54,7 @@ def main() -> int:
         name = b.get("titan_name")
         role_key = b.get("role_key")
         status = b.get("status")
+        mp = b.get("memory_policy") or {}
         if not bid:
             errors.append("bearer missing bearer_id")
             continue
@@ -67,13 +69,18 @@ def main() -> int:
             errors.append(f"bearer {bid} missing titan_name")
         else:
             if name in seen_names:
-                errors.append(f"duplicate titan_name without explicit lineage relation: {name}")
+                predecessor_id = seen_names[name]
+                lineage_reuse_allowed = (
+                    mp.get("allow_name_reuse") is True
+                    and b.get("successor_of") == predecessor_id
+                )
+                if not lineage_reuse_allowed:
+                    errors.append(f"duplicate titan_name without explicit lineage relation: {name}")
             seen_names[name] = bid
             if status == "active":
                 if name in active_names:
                     errors.append(f"duplicate active titan_name: {name}")
                 active_names.add(name)
-        mp = b.get("memory_policy") or {}
         if mp.get("remember_as_person") is not True:
             errors.append(f"bearer {bid} must remember_as_person=true")
         if mp.get("allow_name_reuse") is True and not b.get("successor_of"):
@@ -84,15 +91,18 @@ def main() -> int:
         eid = ev.get("event_id")
         etype = ev.get("event_type")
         bid = ev.get("bearer_id")
-        if eid in event_ids:
+        event_label = eid or "<missing>"
+        for field in REQUIRED_EVENT_FIELDS:
+            if not ev.get(field):
+                errors.append(f"event {event_label} missing required field {field}")
+        if eid and eid in event_ids:
             errors.append(f"duplicate event_id: {eid}")
-        event_ids.add(eid)
+        if eid:
+            event_ids.add(eid)
         if etype not in VALID_EVENTS:
-            errors.append(f"event {eid} has invalid event_type {etype!r}")
+            errors.append(f"event {event_label} has invalid event_type {etype!r}")
         if bid not in seen_bearers:
-            errors.append(f"event {eid} references unknown bearer_id {bid!r}")
-        if not ev.get("source_ref"):
-            errors.append(f"event {eid} missing source_ref")
+            errors.append(f"event {event_label} references unknown bearer_id {bid!r}")
 
     fall_events = {ev.get("bearer_id") for ev in ledger_doc.get("events", []) if ev.get("event_type") == "fall"}
     for bid, b in seen_bearers.items():

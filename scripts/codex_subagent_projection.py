@@ -528,6 +528,7 @@ def collect_projection_validation_errors(
         if key not in agents_table:
             errors.append(f"{config_snippet_path}: [agents] missing {key}")
 
+    config_files_by_name: dict[str, str] = {}
     for name, profile in sorted(profiles.items()):
         entry = agents_table.get(name)
         if entry is None:
@@ -540,6 +541,7 @@ def collect_projection_validation_errors(
         if not isinstance(config_file, str):
             errors.append(f"{config_snippet_path}: [agents.{name}] missing config_file")
         else:
+            config_files_by_name[name] = config_file
             resolved = config_snippet_path.parent / config_file
             fallback = agents_dir / f"{name}.toml"
             if not resolved.exists() and not fallback.exists():
@@ -575,7 +577,6 @@ def collect_projection_validation_errors(
                 if not isinstance(generated_agents, list):
                     errors.append(f"{manifest_path}: generated_agents must be a list")
                 else:
-                    config_file_prefix = str(manifest_payload.get("config_file_prefix", "agents"))
                     manifest_names = set()
                     manifest_by_name: dict[str, Mapping[str, Any]] = {}
                     for item in generated_agents:
@@ -614,7 +615,9 @@ def collect_projection_validation_errors(
                             errors.append(
                                 f"{manifest_path}: generated_agents[{name!r}] mcp_affinity does not match projection wiring"
                             )
-                        expected_config_path = f"{config_file_prefix}/{name}.toml"
+                        expected_config_path = config_files_by_name.get(name)
+                        if expected_config_path is None:
+                            continue
                         if entry.get("config_path") != expected_config_path:
                             errors.append(
                                 f"{manifest_path}: generated_agents[{name!r}] config_path must be {expected_config_path!r}"

@@ -5,6 +5,7 @@ import json
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
@@ -145,6 +146,26 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         errors = common.validate_role_set(broken)
         self.assertTrue(any(error["kind"] == "unexpected_recursor_role" for error in errors))
         self.assertTrue(any(error["kind"] == "invalid_recursor_role_count" for error in errors))
+
+    def test_readiness_index_reports_non_object_roles_without_crashing(self):
+        common = load_common()
+        roles = load_json("config/recursor_roles.seed.json")
+        broken = deepcopy(roles)
+        broken["roles"].append("not-a-role-object")
+        original_read_json = common.read_json
+
+        def fake_read_json(path):
+            if str(path).endswith("config/recursor_roles.seed.json"):
+                return broken
+            return original_read_json(path)
+
+        with patch.object(common, "read_json", side_effect=fake_read_json):
+            index = common.build_readiness_index(ROOT)
+
+        self.assertEqual(index["boundary"]["status"], "fail")
+        self.assertTrue(
+            any(error["kind"] == "invalid_role_entry" for error in index["boundary"]["violations"])
+        )
 
     def test_published_schemas_accept_seed_sources(self):
         projection_validator = schema_validator(

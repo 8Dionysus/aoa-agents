@@ -196,6 +196,60 @@ class CodexSubagentProjectionTests(unittest.TestCase):
             )
             self.assertEqual(validate.returncode, 0, msg=validate.stderr)
 
+    def test_validator_rejects_manifest_config_path_drift_from_config_snippet(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="aoa-agents-codex-projection-") as temp_dir:
+            root = Path(temp_dir)
+            agents_dir = root / "agents"
+            config_snippet = root / "config.toml"
+            manifest = root / "manifest.json"
+            build = subprocess.run(
+                [
+                    sys.executable,
+                    str(BUILD_SCRIPT),
+                    "--profiles-root",
+                    str(PROFILES_ROOT),
+                    "--wiring",
+                    str(WIRING_PATH),
+                    "--output-dir",
+                    str(agents_dir),
+                    "--emit-config-snippet",
+                    str(config_snippet),
+                    "--emit-manifest",
+                    str(manifest),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(build.returncode, 0, msg=build.stderr)
+
+            payload = json.loads(manifest.read_text(encoding="utf-8"))
+            payload["config_file_prefix"] = "foo"
+            for entry in payload["generated_agents"]:
+                entry["config_path"] = f"foo/{entry['name']}.toml"
+            manifest.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+            validate = subprocess.run(
+                [
+                    sys.executable,
+                    str(VALIDATE_SCRIPT),
+                    "--profiles-root",
+                    str(PROFILES_ROOT),
+                    "--wiring",
+                    str(WIRING_PATH),
+                    "--agents-dir",
+                    str(agents_dir),
+                    "--config-snippet",
+                    str(config_snippet),
+                    "--manifest",
+                    str(manifest),
+                ],
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertNotEqual(validate.returncode, 0)
+            self.assertIn("config_path must be 'agents/architect.toml'", validate.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

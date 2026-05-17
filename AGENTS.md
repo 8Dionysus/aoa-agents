@@ -24,7 +24,7 @@ It does not own:
 ## Start here
 
 1. `README.md`
-2. `ROADMAP.md`
+2. [ROADMAP.md](ROADMAP.md)
 3. `CHARTER.md`
 4. `docs/BOUNDARIES.md`
 5. `docs/CODEX_SUBAGENT_REFRESH_LAW.md` when Codex projection freshness or workspace subagent refresh is in scope

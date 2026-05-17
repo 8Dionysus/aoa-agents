@@ -8,5 +8,6 @@
   "approval_mode": "required",
   "rollback_marker": "pre-change checkpoint tag",
   "health_check": "post-change validation pass",
+  "improvement_log": "bounded improvement note after reviewed closeout",
   "max_iterations": 0
 }

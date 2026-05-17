@@ -235,9 +235,11 @@ def build_readiness_index(root: Path = ROOT) -> Dict[str, Any]:
     pair = read_json(root / "config" / "recursor_pair.seed.json")
     projection = read_json(root / "config" / "codex_recursor_projection.candidate.json")
     role_errors = validate_role_set(roles)
-    for role in roles.get("roles", []):
-        if isinstance(role, dict):
-            role_errors.extend(validate_role_contract(role))
+    raw_roles = roles.get("roles", [])
+    role_entries = raw_roles if isinstance(raw_roles, list) else []
+    valid_roles = [role for role in role_entries if isinstance(role, dict)]
+    for role in valid_roles:
+        role_errors.extend(validate_role_contract(role))
     pair_errors = validate_pair_contract(pair)
     projection_errors = validate_projection_candidate(projection)
     all_errors = role_errors + pair_errors + projection_errors
@@ -258,7 +260,7 @@ def build_readiness_index(root: Path = ROOT) -> Dict[str, Any]:
                 "forbidden_action_count": len(role.get("forbidden_actions", [])),
                 "stop_lines": role.get("stop_lines", []),
             }
-            for role in roles.get("roles", [])
+            for role in valid_roles
         ],
         "pair_ref": pair.get("pair_ref"),
         "pair_activation_status": pair.get("activation_status"),

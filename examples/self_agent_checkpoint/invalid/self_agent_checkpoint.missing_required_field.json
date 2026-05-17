@@ -7,5 +7,6 @@
   "audit_policy": "checkpoint-log-required",
   "approval_mode": "required",
   "health_check": "post-change validation pass",
+  "improvement_log": "bounded improvement note after reviewed closeout",
   "max_iterations": 3
 }

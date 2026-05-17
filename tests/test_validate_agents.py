@@ -456,6 +456,23 @@ class ValidateAgentsTests(unittest.TestCase):
 
         validate_agents.validate_self_agent_checkpoint_example_coherence(payload, profiles, agent_names)
 
+    def test_self_agent_checkpoint_schema_requires_improvement_log(self) -> None:
+        schema = read_json(REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json")
+        payload = read_json(REPO_ROOT / "examples" / "self_agent_checkpoint" / "self_agent_checkpoint.example.json")
+        self.assertIsInstance(schema, dict)
+        self.assertIsInstance(payload, dict)
+        del payload["improvement_log"]
+
+        with self.assertRaises(validate_agents.SchemaValidationError) as ctx:
+            validate_agents.validate_instance_against_schema(
+                payload,
+                schema,
+                "self_agent_checkpoint.example",
+            )
+
+        self.assertEqual(ctx.exception.code, "missing_required_field")
+        self.assertIn("improvement_log", str(ctx.exception))
+
     def test_validate_self_agency_continuity_window_coherence_rejects_scope_outside_profile_rights(self) -> None:
         profiles = validate_agents.load_profiles()
         agent_names = validate_agents.validate_registry()
