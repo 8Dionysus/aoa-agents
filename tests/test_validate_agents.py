@@ -863,6 +863,32 @@ class ValidateAgentsTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, "missing_required_field")
         self.assertIn("verification_notes", str(ctx.exception))
 
+    def test_validate_alpha_reference_routes_rejects_playbook_id_name_mismatch(self) -> None:
+        _, cohort_patterns_by_id, _ = registry_context()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            alpha_routes_dir = Path(tmp_dir) / "alpha_reference_routes"
+            shutil.copytree(REPO_ROOT / "examples" / "alpha_reference_routes", alpha_routes_dir)
+            first_path = alpha_routes_dir / "local-stack-diagnosis.example.json"
+            second_path = alpha_routes_dir / "self-agent-checkpoint-rollout.example.json"
+            first = read_json(first_path)
+            second = read_json(second_path)
+            assert isinstance(first, dict)
+            assert isinstance(second, dict)
+            first["playbook_name"], second["playbook_name"] = (
+                second["playbook_name"],
+                first["playbook_name"],
+            )
+            write_json(first_path, first)
+            write_json(second_path, second)
+
+            with patch.object(validate_agents, "ALPHA_REFERENCE_ROUTES_DIR", alpha_routes_dir):
+                with self.assertRaises(validate_agents.ValidationError) as ctx:
+                    validate_agents.validate_alpha_reference_routes(cohort_patterns_by_id)
+
+        self.assertIn("pairs playbook_id", str(ctx.exception))
+        self.assertIn("expected 'local-stack-diagnosis'", str(ctx.exception))
+
     def test_optional_consumer_smoke_checks_validate_playbooks_root(self) -> None:
         tiers_by_id, cohort_patterns_by_id, _ = registry_context()
         del tiers_by_id
