@@ -151,6 +151,41 @@ class ValidateTitanLineageTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
 
+    def test_rejects_branching_titan_name_reuse_chain(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="aoa-agents-titan-lineage-") as temp_dir:
+            tmp = Path(temp_dir)
+            result = run_validator(
+                tmp,
+                {
+                    "bearers": [
+                        bearer("titan:atlas:founder", "Atlas", status="retired"),
+                        bearer(
+                            "titan:atlas:first-successor",
+                            "Atlas",
+                            status="retired",
+                            successor_of="titan:atlas:founder",
+                            allow_name_reuse=True,
+                        ),
+                        bearer(
+                            "titan:atlas:second-successor",
+                            "Atlas",
+                            successor_of="titan:atlas:founder",
+                            allow_name_reuse=True,
+                        ),
+                    ]
+                },
+                {
+                    "events": [
+                        event("evt:atlas:first", "titan:atlas:founder"),
+                        event("evt:atlas:first-successor", "titan:atlas:first-successor"),
+                        event("evt:atlas:second-successor", "titan:atlas:second-successor"),
+                    ]
+                },
+            )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("successor chain branches", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

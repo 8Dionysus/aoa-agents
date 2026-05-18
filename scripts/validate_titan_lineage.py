@@ -102,6 +102,36 @@ def main() -> int:
             if not lineage_reuse_allowed:
                 errors.append(f"duplicate titan_name without explicit lineage relation: {name}")
 
+        same_name_bearer_ids = {b.get("bearer_id") for b in name_bearers}
+        successor_ids_by_predecessor: dict[str, list[str]] = {}
+        for b in name_bearers:
+            bearer_id = b.get("bearer_id")
+            predecessor_id = b.get("successor_of")
+            if (
+                isinstance(bearer_id, str)
+                and isinstance(predecessor_id, str)
+                and predecessor_id in same_name_bearer_ids
+            ):
+                successor_ids_by_predecessor.setdefault(predecessor_id, []).append(bearer_id)
+
+        for predecessor_id, successor_ids in successor_ids_by_predecessor.items():
+            if len(successor_ids) > 1:
+                errors.append(
+                    f"duplicate titan_name successor chain branches for {name}: "
+                    f"{predecessor_id} -> {sorted(successor_ids)}"
+                )
+
+        if len(root_bearers) == 1:
+            root_id = root_bearers[0].get("bearer_id")
+            visited_ids: set[str] = set()
+            current_id = root_id if isinstance(root_id, str) else None
+            while current_id and current_id not in visited_ids:
+                visited_ids.add(current_id)
+                next_ids = successor_ids_by_predecessor.get(current_id, [])
+                current_id = next_ids[0] if len(next_ids) == 1 else None
+            if len(visited_ids) != len(name_bearers):
+                errors.append(f"duplicate titan_name successor chain is not linear from root: {name}")
+
     event_ids: set[str] = set()
     for ev in ledger_doc.get("events", []):
         eid = ev.get("event_id")
