@@ -45,9 +45,8 @@ def main() -> int:
     if not roles:
         errors.append("no role_classes found")
 
-    seen_names: dict[str, str] = {}
+    bearers_by_name: dict[str, list[dict]] = {}
     seen_bearers: dict[str, dict] = {}
-    active_names: set[str] = set()
 
     for b in bearers_doc.get("bearers", []):
         bid = b.get("bearer_id")
@@ -68,23 +67,40 @@ def main() -> int:
         if not name:
             errors.append(f"bearer {bid} missing titan_name")
         else:
-            if name in seen_names:
-                predecessor_id = seen_names[name]
-                lineage_reuse_allowed = (
-                    mp.get("allow_name_reuse") is True
-                    and b.get("successor_of") == predecessor_id
-                )
-                if not lineage_reuse_allowed:
-                    errors.append(f"duplicate titan_name without explicit lineage relation: {name}")
-            seen_names[name] = bid
-            if status == "active":
-                if name in active_names:
-                    errors.append(f"duplicate active titan_name: {name}")
-                active_names.add(name)
+            bearers_by_name.setdefault(name, []).append(b)
         if mp.get("remember_as_person") is not True:
             errors.append(f"bearer {bid} must remember_as_person=true")
         if mp.get("allow_name_reuse") is True and not b.get("successor_of"):
             errors.append(f"bearer {bid} allows name reuse without successor_of")
+
+    for bid, b in seen_bearers.items():
+        predecessor_id = b.get("successor_of")
+        if predecessor_id and predecessor_id not in seen_bearers:
+            errors.append(f"bearer {bid} references unknown successor_of {predecessor_id!r}")
+
+    for name, name_bearers in bearers_by_name.items():
+        active_count = sum(1 for b in name_bearers if b.get("status") == "active")
+        if active_count > 1:
+            errors.append(f"duplicate active titan_name: {name}")
+        if len(name_bearers) <= 1:
+            continue
+
+        root_bearers = [b for b in name_bearers if not b.get("successor_of")]
+        if len(root_bearers) != 1:
+            errors.append(f"duplicate titan_name without a single root bearer: {name}")
+
+        for b in name_bearers:
+            predecessor_id = b.get("successor_of")
+            if not predecessor_id:
+                continue
+            predecessor = seen_bearers.get(predecessor_id)
+            lineage_reuse_allowed = (
+                (b.get("memory_policy") or {}).get("allow_name_reuse") is True
+                and predecessor is not None
+                and predecessor.get("titan_name") == name
+            )
+            if not lineage_reuse_allowed:
+                errors.append(f"duplicate titan_name without explicit lineage relation: {name}")
 
     event_ids: set[str] = set()
     for ev in ledger_doc.get("events", []):
