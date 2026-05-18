@@ -381,6 +381,13 @@ PHASE_ALPHA_PLAYBOOK_NAMES = (
     "long-horizon-model-tier-orchestra",
     "restartable-inquiry-loop",
 )
+PHASE_ALPHA_PLAYBOOK_NAMES_BY_ID = {
+    "AOA-P-0014": "local-stack-diagnosis",
+    "AOA-P-0006": "self-agent-checkpoint-rollout",
+    "AOA-P-0018": "validation-driven-remediation",
+    "AOA-P-0008": "long-horizon-model-tier-orchestra",
+    "AOA-P-0009": "restartable-inquiry-loop",
+}
 
 MEMO_OBJECT_SURFACE_PATHS = (
     "generated/memory_object_catalog.min.json",
@@ -1427,6 +1434,12 @@ def validate_alpha_reference_routes(
             fail(f"{describe_path(path)} uses unsupported playbook_id '{playbook_id}'")
         if playbook_name not in PHASE_ALPHA_PLAYBOOK_NAMES:
             fail(f"{describe_path(path)} uses unsupported playbook_name '{playbook_name}'")
+        expected_playbook_name = PHASE_ALPHA_PLAYBOOK_NAMES_BY_ID.get(playbook_id)
+        if playbook_name != expected_playbook_name:
+            fail(
+                f"{describe_path(path)} pairs playbook_id '{playbook_id}' with "
+                f"playbook_name '{playbook_name}', expected '{expected_playbook_name}'"
+            )
         seen_playbook_ids.add(playbook_id)
         seen_playbook_names.add(playbook_name)
 
