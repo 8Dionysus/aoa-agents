@@ -125,6 +125,32 @@ class ValidateTitanLineageTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
 
+    def test_allows_lineage_linked_titan_name_reuse_before_predecessor(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="aoa-agents-titan-lineage-") as temp_dir:
+            tmp = Path(temp_dir)
+            result = run_validator(
+                tmp,
+                {
+                    "bearers": [
+                        bearer(
+                            "titan:atlas:successor",
+                            "Atlas",
+                            successor_of="titan:atlas:founder",
+                            allow_name_reuse=True,
+                        ),
+                        bearer("titan:atlas:founder", "Atlas", status="retired"),
+                    ]
+                },
+                {
+                    "events": [
+                        event("evt:atlas:first", "titan:atlas:founder"),
+                        event("evt:atlas:successor", "titan:atlas:successor"),
+                    ]
+                },
+            )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()
