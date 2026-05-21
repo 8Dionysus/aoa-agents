@@ -42,6 +42,14 @@ It does not own:
 - Self-agency, recurrence, quest, progression, checkpoint, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
 - Report what changed, what was verified, what was not verified, and where the next agent should resume.
 
+## Memory route
+
+For recall, continuity, compaction recovery, comparison with past work, or
+preserved lessons, start with `aoa-memo` and the workspace memory map. Session
+grounding routes through `.aoa`; local candidate writing routes through this
+repository's `memo/` port when that port exists; durable reviewed memory lands
+through `aoa-memo`.
+
 ## Route away when
 
 - an agent profile starts becoming a skill, playbook, memory schema, proof doctrine, or runtime implementation
