@@ -7,6 +7,15 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Changed
+
+- Tightened role-level memory posture so agents route reviewed recall through
+  `aoa-memo` object ids/read models and local writeback through `memo/`
+  candidates, receipts, and exports.
+- Named the `aoa_memo` MCP access-plane boundary for agent roles: brief/search,
+  validation, local candidate work, and landing-plan dry-runs can support
+  reviewed handoff, but they do not grant durable memory authority.
+
 ## [0.2.3] - 2026-04-23
 
 ### Summary

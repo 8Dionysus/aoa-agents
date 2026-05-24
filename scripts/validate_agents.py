@@ -34,6 +34,28 @@ from validate_nested_agents import NestedAgentsValidationError, validate_nested_
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
+
+
+def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
+    legacy_path = AOA_EVALS_ROOT / "schemas" / legacy_name
+    current_path = AOA_EVALS_ROOT / current_relative
+    if legacy_path.exists():
+        return legacy_path
+    if current_path.exists():
+        return current_path
+    return legacy_path
+
+
+def resolve_aoa_evals_hook_example_path(evals_root: Path, filename: str) -> Path:
+    legacy_path = evals_root / "examples" / filename
+    current_path = evals_root / "mechanics" / "audit" / "parts" / "artifact-verdict-hooks" / "examples" / filename
+    if legacy_path.exists():
+        return legacy_path
+    if current_path.exists():
+        return current_path
+    return legacy_path
+
+
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 PROFILE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-profile.schema.json"
@@ -80,8 +102,14 @@ QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
 QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
 QUEST_DISPATCH_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.json"
 QUEST_DISPATCH_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.example.json"
-EXTERNAL_QUEST_SCHEMA_PATH = AOA_EVALS_ROOT / "schemas" / "quest.schema.json"
-EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH = AOA_EVALS_ROOT / "schemas" / "quest_dispatch.schema.json"
+EXTERNAL_QUEST_SCHEMA_PATH = resolve_aoa_evals_schema_path(
+    "quest.schema.json",
+    "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json",
+)
+EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH = resolve_aoa_evals_schema_path(
+    "quest_dispatch.schema.json",
+    "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json",
+)
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
     "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
@@ -312,6 +340,13 @@ REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
     "`aoa-routing` selects the next memo path.",
     "`aoa-agents` only states which roles may use published or routed object recall seams.",
     "the default memo path and `memory_objects` remains an explicit parallel family",
+    "Read reviewed memory through `aoa-memo` object ids, provenance, lifecycle, and",
+    "Local memory candidates go through `memo/candidates/` with source refs or",
+    "`aoa_memo` MCP may support brief/search/pending-export discovery",
+    "`aoa_memo_landing_plan` stays dry-run evidence.",
+    "No MCP call grants durable",
+    "memory authority or direct central object writes.",
+    "Durable reviewed memory lands only in `aoa-memo`.",
 )
 REQUIRED_AGENT_STRESS_POSTURE_SNIPPETS = (
     "Teach agent profiles to become narrower, clearer, and easier to hand off under stress.",
@@ -3295,7 +3330,10 @@ def validate_optional_consumer_smoke_checks(
     evals_root = env_repo_root("AOA_EVALS_ROOT")
     if evals_root is not None:
         payload = read_json(
-            evals_root / "examples" / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+            resolve_aoa_evals_hook_example_path(
+                evals_root,
+                "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+            ),
             root=evals_root,
         )
         if not isinstance(payload, dict):
