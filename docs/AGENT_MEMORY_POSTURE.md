@@ -24,6 +24,31 @@ An agent posture should answer:
 - what it may nominate for promotion
 - what it must hand off instead of deciding alone
 
+## Agent-layer memory route
+
+Read reviewed memory through `aoa-memo` object ids, provenance, lifecycle, and
+generated read models such as
+`repo:aoa-memo/generated/memory-objects/memory_object_catalog.min.json`.
+When routing is needed first, use the routing-published `memory_objects` recall
+family rather than inventing an agent-local family.
+
+Local memory candidates go through `memo/candidates/` with source refs or
+`.aoa` session evidence refs. Validate candidate shape before export, keep
+receipts under `memo/receipts/`, and use `memo/exports/` only for reviewed
+intake packets that `aoa-memo` may accept or reject.
+
+`aoa_memo` MCP may support brief/search/pending-export discovery, local port
+and candidate validation, local candidate creation, reviewed-intake packet
+preparation, and landing-plan dry-runs. Treat these as access-plane actions:
+`aoa_memo_review_intake` writes local check receipts, and
+`aoa_memo_landing_plan` stays dry-run evidence. No MCP call grants durable
+memory authority or direct central object writes.
+
+Durable reviewed memory lands only in `aoa-memo`. `aoa-agents` may define
+which roles are allowed to prepare, review, or hand off candidate memory, but it
+must not mint central memory objects, change lifecycle status, or treat role
+posture as proof.
+
 ## Shared recall scope classes
 
 `aoa-agents` names recall scope classes, not memo object identifiers.

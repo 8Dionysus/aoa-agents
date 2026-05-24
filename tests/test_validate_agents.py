@@ -114,6 +114,25 @@ def write_valid_evals_root(root: Path) -> None:
     )
 
 
+def write_valid_current_evals_hook_root(root: Path) -> None:
+    payload = {
+        "artifact_contract_refs": [
+            "repo:aoa-evals/generated/eval_catalog.min.json",
+            "repo:aoa-agents/docs/PUBLISHED_CONTRACT_COMPATIBILITY.md",
+        ]
+    }
+    write_json(
+        root
+        / "mechanics"
+        / "audit"
+        / "parts"
+        / "artifact-verdict-hooks"
+        / "examples"
+        / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+        payload,
+    )
+
+
 def write_valid_memo_root(root: Path) -> None:
     write_json(
         root / "examples" / "checkpoint_to_memory_contract.example.json",
@@ -559,6 +578,25 @@ class ValidateAgentsTests(unittest.TestCase):
                 / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
                 payload,
             )
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": str(evals_root),
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_ROUTING_ROOT": "",
+                },
+                clear=False,
+            ):
+                checked = validate_agents.validate_optional_consumer_smoke_checks({}, {})
+
+        self.assertEqual(checked, ["aoa-evals"])
+
+    def test_optional_consumer_smoke_checks_accept_current_evals_hook_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            evals_root = Path(tmp_dir) / "aoa-evals"
+            write_valid_current_evals_hook_root(evals_root)
 
             with patch.dict(
                 os.environ,
@@ -1049,6 +1087,28 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             patcher.start()
             self.addCleanup(patcher.stop)
         self.addCleanup(shutil.rmtree, self.temp_dir)
+
+    def test_aoa_evals_schema_resolution_accepts_current_mechanics_layout(self) -> None:
+        evals_root = self.temp_dir / "aoa-evals"
+        current_schema = (
+            evals_root
+            / "mechanics"
+            / "questbook"
+            / "parts"
+            / "source-record-contract"
+            / "schemas"
+            / "quest.schema.json"
+        )
+        write_json(current_schema, {"$schema": "https://json-schema.org/draft/2020-12/schema", "type": "object"})
+
+        with patch.object(validate_agents, "AOA_EVALS_ROOT", evals_root):
+            self.assertEqual(
+                validate_agents.resolve_aoa_evals_schema_path(
+                    "quest.schema.json",
+                    "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json",
+                ),
+                current_schema,
+            )
 
     def write_valid_surface(self) -> None:
         write_text(
