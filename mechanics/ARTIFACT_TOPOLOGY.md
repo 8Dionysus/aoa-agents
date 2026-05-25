@@ -30,15 +30,19 @@ Move a payload only when the target mechanic has:
 - a route card that explains whether the payload is source, support,
   generated, example, or legacy
 
-## Current First Slice
+## Current Slices
 
 The first topology refactor moves the source-authored agent object districts
 under `agents/` and activates `mechanics/` as an operation atlas.
 
-It does not yet move the flat public docs and shared contract artifacts into
-mechanic-local packages. Those moves should be smaller later slices, because
-many tests, validators, generated references, and public docs currently use
-the existing paths as contract anchors.
+The next slice adds package skeletons under `mechanics/` after a root payload
+sweep. It still does not move the flat public docs and shared contract
+artifacts into mechanic-local packages. Those moves should be smaller later
+slices, because many tests, validators, generated references, and public docs
+currently use the existing paths as contract anchors.
+
+Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
+target package `PARTS.md` as evidence before proposing a move.
 
 ## Stronger Owners
 
@@ -54,3 +58,25 @@ mechanic-localizing it here:
 | playbook scenario choreography | `aoa-playbooks` |
 | reusable skill or technique | `aoa-skills` or `aoa-techniques` |
 
+## Package Skeleton Rule
+
+Package skeletons may be added before payload movement when they make current
+root pressure legible. A skeleton should name:
+
+- the repeatable operation
+- current payload classes
+- package parts
+- stronger-owner stop-lines
+- validation route
+
+Skeletons must not claim that payloads already moved or that a mechanic owns a
+root district wholesale.
+
+## Legacy Rule
+
+Do not call a current root payload legacy merely because it is waiting for a
+future package-local move. In this repository, `legacy/` means provenance and
+old-route accounting.
+
+Add raw legacy receipts only when there is real historical material to
+preserve. Empty raw inventories should say they are empty.
