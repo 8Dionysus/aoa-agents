@@ -13,6 +13,9 @@ An agent is not a skill. A skill is a bounded workflow. An agent is a role-beari
 Use the shortest route by need:
 
 - docs map: `docs/README.md`
+- repository design: `DESIGN.md`
+- source object district: `agents/README.md`
+- mechanics atlas: `mechanics/README.md`
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
 - subject prep boundary plus landed Agon actor and assistant recharters and the first formation trial: `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`, `docs/ASSISTANT_CIVIL_RECHARTERING.md`, `docs/AGENT_FORMATION_TRIAL.md`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
@@ -31,14 +34,16 @@ Use the shortest route by need:
 
 ## Route by need
 
-- canonical profiles and schemas: `profiles/*.profile.json` and `schemas/agent-profile.schema.json`
-- Agon-facing companion actor surfaces: `profiles/adjuncts/*`, `schemas/agent_kind_v1.json`, `schemas/agent_subjectivity_v1.json`, `schemas/agent_office_overlay_v1.json`, `schemas/agent_arena_eligibility_v1.json`, `schemas/agent_resistance_revision_v1.json`, `schemas/assistant_variant_v1.json`, `schemas/assistant_service_identity_v1.json`, `schemas/assistant_service_contract_v1.json`, `schemas/assistant_service_governance_v1.json`, `schemas/assistant_service_certification_v1.json`, `schemas/assistant_arena_exclusion_v1.json`, `schemas/agent_formation_trial_v1.json`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
+- source-authored agent objects: `agents/README.md`, then the nearest `agents/**/AGENTS.md`
+- repeatable agent-layer operations: `mechanics/README.md` and `mechanics/ARTIFACT_TOPOLOGY.md`
+- canonical profiles and schemas: `agents/profiles/*.profile.json` and `schemas/agent-profile.schema.json`
+- Agon-facing companion actor surfaces: `agents/profiles/adjuncts/*`, `schemas/agent_kind_v1.json`, `schemas/agent_subjectivity_v1.json`, `schemas/agent_office_overlay_v1.json`, `schemas/agent_arena_eligibility_v1.json`, `schemas/agent_resistance_revision_v1.json`, `schemas/assistant_variant_v1.json`, `schemas/assistant_service_identity_v1.json`, `schemas/assistant_service_contract_v1.json`, `schemas/assistant_service_governance_v1.json`, `schemas/assistant_service_certification_v1.json`, `schemas/assistant_arena_exclusion_v1.json`, `schemas/agent_formation_trial_v1.json`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
 - pre-protocol formation-trial judgment and Codex boundary: `docs/AGENT_FORMATION_TRIAL.md`, `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md`, `docs/FORMATION_TRIAL_READINESS.md`, `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`, `docs/AGON_WAVE2_5_LANDING.md`, `schemas/agent_formation_trial_v1.json`, and `generated/agent_formation_trial.min.json`
-- model tiers, orchestrator classes, and bounded cohort composition: `model_tiers/*.tier.json`, `orchestrator_classes/*.class.json`, `cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
+- model tiers, orchestrator classes, and bounded cohort composition: `agents/model_tiers/*.tier.json`, `agents/orchestrator_classes/*.class.json`, `agents/cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `docs/FEDERATION_CONSUMER_SEAMS.md`
 - Codex subagent projection, owner refresh law, and workspace install seam: `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `generated/codex_agents/agents/*.toml`, `generated/codex_agents/config.subagents.generated.toml`, and `scripts/build_codex_subagents_v2.py`
 - Titan role classes, named bearers, runtime roster boundaries, incarnation identity, and generated Codex-agent identity projection: `docs/TITAN_ROLE_BEARER_ONTOLOGY.md`, `docs/TITAN_RUNTIME_ROSTER.md`, `docs/TITAN_APPSERVER_BRIDGE_BOUNDARY.md`, `docs/TITAN_INCARNATION_SPINE.md`, `docs/TITAN_PRAXIS_PLANE.md`, `schemas/titan_role_class.schema.json`, `schemas/titan_bearer.schema.json`, `schemas/titan_lineage_ledger.schema.json`, `schemas/titan_incarnation_identity.schema.json`, `examples/titan_incarnation_identity.example.json`, and `scripts/render_titan_codex_agents.py`
-- runtime seam bindings and runtime-facing artifact contracts: `runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
+- runtime seam bindings and runtime-facing artifact contracts: `agents/runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - additive stress posture and handoff adjuncts: `schemas/agent_stress_posture_v1.json`, `schemas/stress_handoff_envelope_v1.json`, `examples/agent_stress_posture.example.json`, `examples/stress_handoff_envelope.example.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
 - progression, recurrence, and self-agent surfaces: `docs/AGENT_PROGRESSION_MODEL.md`, `docs/RECURRENCE_DISCIPLINE.md`, `docs/SELF_AGENT_CHECKPOINT_STACK.md`, and `docs/SELF_AGENCY_CONTINUITY_LANE.md`
@@ -91,6 +96,8 @@ python -m pip install -r requirements-dev.txt
 Verify the current committed surfaces without rewriting files:
 
 ```bash
+python scripts/validate_semantic_agents.py
+python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 python -m pytest -q tests
 ```
@@ -129,12 +136,12 @@ AOA_ROUTING_ROOT=/path/to/aoa-routing \
 python scripts/validate_agents.py
 ```
 
-Refresh published registries only after editing source-authored registry inputs under `profiles/`, `model_tiers/`, `orchestrator_classes/`, `cohort_patterns/`, or `runtime_seam/`:
+Refresh published registries only after editing source-authored registry inputs under `agents/profiles/`, `agents/model_tiers/`, `agents/orchestrator_classes/`, `agents/cohort_patterns/`, or `agents/runtime_seam/`:
 
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
-python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 ## License

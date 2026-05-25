@@ -24,13 +24,17 @@ It does not own:
 ## Start here
 
 1. `README.md`
-2. [ROADMAP.md](ROADMAP.md)
-3. `CHARTER.md`
-4. `docs/BOUNDARIES.md`
-5. `docs/CODEX_SUBAGENT_REFRESH_LAW.md` when Codex projection freshness or workspace subagent refresh is in scope
-6. the target profile, model-tier, orchestrator, schema, or generated surface
-7. neighboring repo docs when skills, memo, evals, playbooks, or routing are touched
-8. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+2. `DESIGN.md`
+3. `DESIGN.AGENTS.md` for design/topology work
+4. [ROADMAP.md](ROADMAP.md)
+5. `CHARTER.md`
+6. `docs/BOUNDARIES.md`
+7. `agents/README.md` when source-authored agent objects are in scope
+8. `mechanics/README.md` when repeatable operation topology is in scope
+9. `docs/CODEX_SUBAGENT_REFRESH_LAW.md` when Codex projection freshness or workspace subagent refresh is in scope
+10. the target profile, model-tier, orchestrator, schema, or generated surface
+11. neighboring repo docs when skills, memo, evals, playbooks, or routing are touched
+12. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law
@@ -78,8 +82,10 @@ Minimum source or generated-surface validation:
 
 ```bash
 python scripts/build_published_surfaces.py
+python scripts/validate_semantic_agents.py
+python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
-python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 Use optional federation smoke checks when sibling reachability matters.

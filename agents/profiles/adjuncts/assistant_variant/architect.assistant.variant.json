@@ -2,7 +2,7 @@
   "anchoring": {
     "does_not_create_public_role": true,
     "does_not_override_base_profile": true,
-    "profile_path": "profiles/architect.profile.json"
+    "profile_path": "agents/profiles/architect.profile.json"
   },
   "arena_status": {
     "closer_eligible": false,

@@ -273,16 +273,16 @@ REQUIRED_COHORT_DOC_SNIPPETS = (
 )
 REQUIRED_SELF_AGENT_COHORT_SNIPPET = "The portable self-agent cohort pattern is the canonical `checkpoint_cohort` pattern."
 REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS = (
-    "- `profiles/*.profile.json`",
+    "- `agents/profiles/*.profile.json`",
     "- `schemas/agent-profile.schema.json`",
     "- `generated/agent_registry.min.json`",
     "- `scripts/build_agent_registry.py`",
 )
 REQUIRED_REGISTRY_SOURCE_SURFACE_SNIPPETS = (
-    "- `model_tiers/*.tier.json`",
-    "- `orchestrator_classes/*.class.json`",
-    "- `cohort_patterns/*.pattern.json`",
-    "- `runtime_seam/*.binding.json`",
+    "- `agents/model_tiers/*.tier.json`",
+    "- `agents/orchestrator_classes/*.class.json`",
+    "- `agents/cohort_patterns/*.pattern.json`",
+    "- `agents/runtime_seam/*.binding.json`",
     "- `generated/model_tier_registry.json`",
     "- `generated/orchestrator_class_catalog.min.json`",
     "- `generated/orchestrator_class_capsules.json`",
@@ -909,8 +909,8 @@ def validate_antifragility_stress_surfaces() -> None:
     for snippet in REQUIRED_AGENT_STRESS_HANDOFF_SNIPPETS:
         if snippet not in handoff_doc:
             fail(f"docs/AGENT_STRESS_HANDOFFS.md is missing required stress handoff guidance: {snippet}")
-    if not (REPO_ROOT / "profiles" / "architect.profile.json").is_file():
-        fail("profiles/architect.profile.json must exist for the additive stress posture example")
+    if not (REPO_ROOT / "agents" / "profiles" / "architect.profile.json").is_file():
+        fail("agents/profiles/architect.profile.json must exist for the additive stress posture example")
 
 
 def validate_json_schema_surface(path: Path, label: str) -> dict[str, object]:
@@ -1556,12 +1556,12 @@ def validate_agent_profile_sources() -> list[dict[str, object]]:
         fail(str(exc))
 
     if not profiles:
-        fail("profiles/ must contain at least one '*.profile.json' file")
+        fail("agents/profiles/ must contain at least one '*.profile.json' file")
 
     expected_registry = build_agent_registry_payload(profiles)
     actual_registry = read_json(REGISTRY_PATH)
     if actual_registry != expected_registry:
-        fail("generated/agent_registry.min.json drifted from profiles/*.profile.json")
+        fail("generated/agent_registry.min.json drifted from agents/profiles/*.profile.json")
 
     seen_ids: set[str] = set()
     seen_names: set[str] = set()
@@ -1869,12 +1869,12 @@ def validate_model_tier_sources() -> list[dict[str, object]]:
         fail(str(exc))
 
     if not tiers:
-        fail("model_tiers/ must contain at least one '*.tier.json' file")
+        fail("agents/model_tiers/ must contain at least one '*.tier.json' file")
 
     expected_registry = build_model_tier_registry_payload(tiers)
     actual_registry = read_json(MODEL_TIER_REGISTRY_PATH)
     if actual_registry != expected_registry:
-        fail("generated/model_tier_registry.json drifted from model_tiers/*.tier.json")
+        fail("generated/model_tier_registry.json drifted from agents/model_tiers/*.tier.json")
 
     seen_ids: set[str] = set()
     for index, payload in enumerate(tiers):
@@ -1911,22 +1911,22 @@ def validate_orchestrator_class_sources() -> list[dict[str, object]]:
         fail(str(exc))
 
     if not classes:
-        fail("orchestrator_classes/ must contain at least one '*.class.json' file")
+        fail("agents/orchestrator_classes/ must contain at least one '*.class.json' file")
 
     expected_catalog = build_orchestrator_class_catalog_payload(classes)
     actual_catalog = read_json(ORCHESTRATOR_CLASS_CATALOG_PATH)
     if actual_catalog != expected_catalog:
-        fail("generated/orchestrator_class_catalog.min.json drifted from orchestrator_classes/*.class.json")
+        fail("generated/orchestrator_class_catalog.min.json drifted from agents/orchestrator_classes/*.class.json")
 
     expected_capsules = build_orchestrator_class_capsules_payload(classes)
     actual_capsules = read_json(ORCHESTRATOR_CLASS_CAPSULES_PATH)
     if actual_capsules != expected_capsules:
-        fail("generated/orchestrator_class_capsules.json drifted from orchestrator_classes/*.class.json")
+        fail("generated/orchestrator_class_capsules.json drifted from agents/orchestrator_classes/*.class.json")
 
     expected_sections = build_orchestrator_class_sections_payload(classes)
     actual_sections = read_json(ORCHESTRATOR_CLASS_SECTIONS_PATH)
     if actual_sections != expected_sections:
-        fail("generated/orchestrator_class_sections.full.json drifted from orchestrator_classes/*.class.json")
+        fail("generated/orchestrator_class_sections.full.json drifted from agents/orchestrator_classes/*.class.json")
 
     seen_ids: set[str] = set()
     for index, payload in enumerate(classes):
@@ -1963,12 +1963,12 @@ def validate_cohort_pattern_sources() -> list[dict[str, object]]:
         fail(str(exc))
 
     if not patterns:
-        fail("cohort_patterns/ must contain at least one '*.pattern.json' file")
+        fail("agents/cohort_patterns/ must contain at least one '*.pattern.json' file")
 
     expected_registry = build_cohort_registry_payload(patterns)
     actual_registry = read_json(COHORT_COMPOSITION_REGISTRY_PATH)
     if actual_registry != expected_registry:
-        fail("generated/cohort_composition_registry.json drifted from cohort_patterns/*.pattern.json")
+        fail("generated/cohort_composition_registry.json drifted from agents/cohort_patterns/*.pattern.json")
 
     seen_ids: set[str] = set()
     for index, payload in enumerate(patterns):
@@ -2005,12 +2005,12 @@ def validate_runtime_seam_binding_sources() -> list[dict[str, object]]:
         fail(str(exc))
 
     if not bindings:
-        fail("runtime_seam/ must contain at least one '*.binding.json' file")
+        fail("agents/runtime_seam/ must contain at least one '*.binding.json' file")
 
     expected_registry = build_runtime_seam_registry_payload(bindings)
     actual_registry = read_json(RUNTIME_SEAM_BINDINGS_PATH)
     if actual_registry != expected_registry:
-        fail("generated/runtime_seam_bindings.json drifted from runtime_seam/*.binding.json")
+        fail("generated/runtime_seam_bindings.json drifted from agents/runtime_seam/*.binding.json")
 
     seen_phases: set[str] = set()
     for index, payload in enumerate(bindings):
@@ -2176,7 +2176,7 @@ def validate_orchestrator_class_catalog() -> dict[str, dict[str, object]]:
             fail(f"{location}.inspect_key must equal '{class_id}'")
         if entry.get("expand_key") != class_id:
             fail(f"{location}.expand_key must equal '{class_id}'")
-        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        expected_source_path = f"agents/orchestrator_classes/{class_id}.class.json"
         if entry.get("source_path") != expected_source_path:
             fail(f"{location}.source_path must equal '{expected_source_path}'")
         for field_name in ("name", "status", "summary", "primary_goal"):
@@ -2239,7 +2239,7 @@ def validate_orchestrator_class_capsules(classes_by_id: dict[str, dict[str, obje
         class_id = entry.get("id")
         if not isinstance(class_id, str) or class_id not in classes_by_id:
             fail(f"{location}.id must resolve to a known orchestrator class")
-        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        expected_source_path = f"agents/orchestrator_classes/{class_id}.class.json"
         if entry.get("source_path") != expected_source_path:
             fail(f"{location}.source_path must equal '{expected_source_path}'")
         for field_name in ("name", "status", "summary", "primary_goal", "boundary_note"):
@@ -2290,7 +2290,7 @@ def validate_orchestrator_class_sections(classes_by_id: dict[str, dict[str, obje
         class_id = entry.get("id")
         if not isinstance(class_id, str) or class_id not in classes_by_id:
             fail(f"{location}.id must resolve to a known orchestrator class")
-        expected_source_path = f"orchestrator_classes/{class_id}.class.json"
+        expected_source_path = f"agents/orchestrator_classes/{class_id}.class.json"
         if entry.get("source_path") != expected_source_path:
             fail(f"{location}.source_path must equal '{expected_source_path}'")
         sections = entry.get("sections")

@@ -54,7 +54,7 @@ def fail(message: str) -> None:
 
 
 def read_family(root: Path, family: str, suffix: str) -> dict[str, dict[str, Any]]:
-    path = root / "profiles" / "adjuncts" / family
+    path = root / "agents" / "profiles" / "adjuncts" / family
     if not path.exists():
         fail(f"missing adjunct family: {path}")
     out: dict[str, dict[str, Any]] = {}
@@ -92,7 +92,7 @@ def import_builder(root: Path):
 
 def validate(root: Path) -> None:
     for role in EXPECTED_BASE_ROLES:
-        profile = root / "profiles" / f"{role}.profile.json"
+        profile = root / "agents" / "profiles" / f"{role}.profile.json"
         if not profile.exists():
             fail(f"missing base profile expected by Wave II: {profile}")
 
@@ -138,7 +138,7 @@ def validate(root: Path) -> None:
             fail(f"{variant_id}: assistant must not create public role")
         if anchoring.get("does_not_override_base_profile") is not True:
             fail(f"{variant_id}: assistant must not override base profile")
-        if anchoring.get("profile_path") != f"profiles/{base_role}.profile.json":
+        if anchoring.get("profile_path") != f"agents/profiles/{base_role}.profile.json":
             fail(f"{variant_id}: wrong profile_path")
 
         arena_status = variant.get("arena_status", {})

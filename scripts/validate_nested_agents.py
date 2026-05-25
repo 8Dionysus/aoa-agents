@@ -7,41 +7,61 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
-    'profiles/AGENTS.md': (
+    'agents/AGENTS.md': (
+        'Operating Card',
+        'source-authored agent district',
+        'agents/README.md',
+        'agents/profiles/',
+        'mechanics/',
+    ),
+    'agents/profiles/AGENTS.md': (
         'source-authored role-contract surface',
-        'profiles/*.profile.json',
+        'agents/profiles/*.profile.json',
         'generated/agent_registry.min.json',
         'docs/AGENT_PROFILE_SURFACE.md',
     ),
-    'model_tiers/AGENTS.md': (
+    'agents/model_tiers/AGENTS.md': (
         'tier-oriented source-authored surface',
         'generated/model_tier_registry.json',
         'not model brands',
         'route -> plan -> do -> verify -> deep? -> distill',
     ),
-    'orchestrator_classes/AGENTS.md': (
+    'agents/orchestrator_classes/AGENTS.md': (
         'source-authored class-identity surface',
         'generated/orchestrator_class_catalog.min.json',
         'generated/orchestrator_class_capsules.json',
         'generated/orchestrator_class_sections.full.json',
     ),
-    'cohort_patterns/AGENTS.md': (
+    'agents/cohort_patterns/AGENTS.md': (
         'generated/cohort_composition_registry.json',
         '`solo`',
         '`checkpoint_cohort`',
         'scenario composition',
     ),
-    'runtime_seam/AGENTS.md': (
+    'agents/runtime_seam/AGENTS.md': (
         'generated/runtime_seam_bindings.json',
         'route -> plan -> do -> verify -> deep? -> distill',
         'examples/runtime_artifacts/',
         'runtime infrastructure implementation',
     ),
+    'mechanics/AGENTS.md': (
+        'Operating Card',
+        'operation atlas',
+        'mechanics/README.md',
+        'mechanics/ARTIFACT_TOPOLOGY.md',
+        'runtime implementation',
+    ),
+    'docs/decisions/AGENTS.md': (
+        'docs/decisions/',
+        'route-law',
+        'topology decisions',
+        'validate_nested_agents.py',
+    ),
     'generated/AGENTS.md': (
         'Do not hand edit anything under `generated/`.',
         'python scripts/build_published_surfaces.py',
         'python scripts/validate_agents.py',
-        'cohort_patterns/',
+        'agents/cohort_patterns/',
         'orchestrator_class_catalog.min.json',
     ),
     'examples/AGENTS.md': (

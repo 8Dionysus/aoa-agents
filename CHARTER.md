@@ -24,6 +24,8 @@ This repository owns agent-layer truth about:
 - handoff posture
 - memory posture
 - evaluation posture
+- source-authored agent objects under `agents/`
+- repeatable agent-layer operation topology under `mechanics/`
 - compact agent registries
 - agent-layer schemas and validation rules
 
@@ -57,6 +59,14 @@ Examples:
 - `aoa-routing` owns navigation and dispatch surfaces
 - `aoa-memo` owns memory and recall meaning
 - `aoa-agents` owns role and persona meaning
+
+## Repository topology
+
+- `agents/` is the source-authored agent object district.
+- `mechanics/` is the operation atlas for repeatable agent-layer mechanics.
+- `docs/`, `schemas/`, `examples/`, `generated/`, `config/`, `scripts/`, and
+  `tests/` keep their existing roles unless a later route decision narrows a
+  payload into a mechanic-local package.
 
 ## Role in the federation
 

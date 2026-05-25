@@ -14,7 +14,7 @@ The trial reads:
 
 - `generated/agent_agonic_formation_index.min.json`
 - `generated/assistant_civil_formation_index.min.json`
-- the five current base role profiles under `profiles/*.profile.json`
+- the five current base role profiles under `agents/profiles/*.profile.json`
 
 ## What it judges
 

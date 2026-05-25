@@ -26,6 +26,18 @@ The current `v0.2.x` release line already carries:
 The near-term roadmap should therefore read as projection and contract
 hardening, not as a pre-projection bootstrap placeholder.
 
+The current topology line also now separates source-authored agent objects from
+repeatable operation mechanics:
+
+- `agents/` owns role, tier, orchestrator-class, cohort, and runtime-seam
+  source inputs.
+- `mechanics/` owns the operation atlas for formation, projection,
+  runtime-seam binding, checkpoint posture, quest posture, Titan role-bearing
+  movement, and release-support pressure.
+- Large public docs, shared schemas, examples, scripts, tests, and generated
+  readers stay in their current districts until a later mechanic package has a
+  local contract and validator support.
+
 ## Current cycle
 
 ### Wave 1: public contract stabilization
@@ -67,7 +79,8 @@ Exit signals:
 ## Current published contour
 
 The currently published agent-layer contour already includes:
-- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `profiles/`, `model_tiers/`, `orchestrator_classes/`, `cohort_patterns/`, and `runtime_seam/`
+- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `agents/profiles/`, `agents/model_tiers/`, `agents/orchestrator_classes/`, `agents/cohort_patterns/`, and `agents/runtime_seam/`
+- the mechanics atlas under `mechanics/`
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
 - Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`
 - role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `docs/AGENT_STRESS_POSTURE.md`, `docs/AGENT_STRESS_HANDOFFS.md`, `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`, `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
@@ -91,11 +104,11 @@ Rechartering. Its checked surface is:
   `docs/AGENT_ARENA_ELIGIBILITY_MODEL.md`, and
   `docs/AGENT_RESISTANCE_REVISION_POSTURE.md`
 - additive companion source surfaces:
-  `profiles/adjuncts/kind/*.kind.json`,
-  `profiles/adjuncts/subjectivity/*.subjectivity.json`,
-  `profiles/adjuncts/office_overlay/*.office.json`,
-  `profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
-  `profiles/adjuncts/resistance_revision/*.resistance_revision.json`
+  `agents/profiles/adjuncts/kind/*.kind.json`,
+  `agents/profiles/adjuncts/subjectivity/*.subjectivity.json`,
+  `agents/profiles/adjuncts/office_overlay/*.office.json`,
+  `agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
+  `agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json`
 - Wave I companion contracts and publication:
   `schemas/agent_kind_v1.json`,
   `schemas/agent_subjectivity_v1.json`,
@@ -109,7 +122,7 @@ Rechartering. Its checked surface is:
   `scripts/validate_agent_agonic_formation.py`, and
   `tests/test_agent_agonic_formation.py`
 
-This turn keeps the base `profiles/*.profile.json` files as legacy role
+This turn keeps the base `agents/profiles/*.profile.json` files as legacy role
 contracts while Wave I lands reviewed companion surfaces for agonic actor
 readiness. It does not widen `schemas/agent-profile.schema.json`, does not
 rewrite generated role registries, and does not start arena protocol, scars,
@@ -131,12 +144,12 @@ Rechartering. Its checked surface is:
   `docs/ASSISTANT_ARENA_EXCLUSION_MODEL.md`, and
   `docs/ASSISTANT_ESCALATION_TO_AGON.md`
 - additive assistant companion source surfaces:
-  `profiles/adjuncts/assistant_variant/*.assistant.variant.json`,
-  `profiles/adjuncts/assistant_service_identity/*.assistant.identity.json`,
-  `profiles/adjuncts/assistant_service_contract/*.assistant.contract.json`,
-  `profiles/adjuncts/assistant_service_governance/*.assistant.governance.json`,
-  `profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
-  `profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
+  `agents/profiles/adjuncts/assistant_variant/*.assistant.variant.json`,
+  `agents/profiles/adjuncts/assistant_service_identity/*.assistant.identity.json`,
+  `agents/profiles/adjuncts/assistant_service_contract/*.assistant.contract.json`,
+  `agents/profiles/adjuncts/assistant_service_governance/*.assistant.governance.json`,
+  `agents/profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
+  `agents/profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
 - Wave II companion contracts and publication:
   `schemas/assistant_variant_v1.json`,
   `schemas/assistant_service_identity_v1.json`,

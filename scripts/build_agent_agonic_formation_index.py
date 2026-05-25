@@ -10,11 +10,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 
 SOURCE_DIRS = {
-    "kind": Path("profiles/adjuncts/kind"),
-    "subjectivity": Path("profiles/adjuncts/subjectivity"),
-    "office": Path("profiles/adjuncts/office_overlay"),
-    "arena": Path("profiles/adjuncts/arena_eligibility"),
-    "resistance": Path("profiles/adjuncts/resistance_revision"),
+    "kind": Path("agents/profiles/adjuncts/kind"),
+    "subjectivity": Path("agents/profiles/adjuncts/subjectivity"),
+    "office": Path("agents/profiles/adjuncts/office_overlay"),
+    "arena": Path("agents/profiles/adjuncts/arena_eligibility"),
+    "resistance": Path("agents/profiles/adjuncts/resistance_revision"),
 }
 
 REQUIRED_AGENTS = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
@@ -153,11 +153,11 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
         "formation": "Agon Wave I / Agonic Actor Rechartering",
         "generated_by": "scripts/build_agent_agonic_formation_index.py",
         "source_surfaces": [
-            "profiles/adjuncts/kind/*.kind.json",
-            "profiles/adjuncts/subjectivity/*.subjectivity.json",
-            "profiles/adjuncts/office_overlay/*.office.json",
-            "profiles/adjuncts/arena_eligibility/*.arena_eligibility.json",
-            "profiles/adjuncts/resistance_revision/*.resistance_revision.json",
+            "agents/profiles/adjuncts/kind/*.kind.json",
+            "agents/profiles/adjuncts/subjectivity/*.subjectivity.json",
+            "agents/profiles/adjuncts/office_overlay/*.office.json",
+            "agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json",
+            "agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json",
         ],
         "readiness_summary": summary,
         "actors": actors,

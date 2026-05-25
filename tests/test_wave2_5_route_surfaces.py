@@ -28,7 +28,7 @@ class Wave25RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("Wave II.5 Formation Trial has now landed", wave2_landing)
 
     def test_local_guides_name_wave2_5_companion_surfaces(self) -> None:
-        profiles_agents = read_text("profiles/AGENTS.md")
+        profiles_agents = read_text("agents/profiles/AGENTS.md")
         generated_agents = read_text("generated/AGENTS.md")
         examples_agents = read_text("examples/AGENTS.md")
 

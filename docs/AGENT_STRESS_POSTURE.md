@@ -28,7 +28,7 @@ Prefer one additive adjunct surface such as:
 - `schemas/agent_stress_posture_v1.json`
 - `examples/agent_stress_posture.example.json`
 
-If the live repo prefers fields inside `profiles/*.profile.json`, preserve that local convention.
+If the live repo prefers fields inside `agents/profiles/*.profile.json`, preserve that local convention.
 Wave 3 does not require a profile rewrite.
 
 ## Stress-band contract
