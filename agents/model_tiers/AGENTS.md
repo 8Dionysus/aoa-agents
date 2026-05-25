@@ -1,15 +1,15 @@
-# model_tiers/AGENTS.md
+# agents/model_tiers/AGENTS.md
 
 ## Purpose
 
-`model_tiers/` is the tier-oriented source-authored surface for orchestration-shaped duties in `aoa-agents`.
+`agents/model_tiers/` is the tier-oriented source-authored surface for orchestration-shaped duties in `aoa-agents`.
 Model tiers are effort classes and handoff posture, not model brands and not human role archetypes.
 
 ## Source of truth
 
 Canonical authoring lives in:
 
-- `model_tiers/*.tier.json`
+- `agents/model_tiers/*.tier.json`
 - `schemas/model-tier.schema.json`
 
 Published derived surface:

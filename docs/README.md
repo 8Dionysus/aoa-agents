@@ -7,6 +7,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 ## Start here
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
+- Read [DESIGN](../DESIGN.md), [agents/README](../agents/README.md), and [mechanics/README](../mechanics/README.md) for the current source-object and operation-topology split.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
 - Read [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the bounded boundary note that now routes from legacy role contracts into landed Wave I agonic adjuncts, landed Wave II assistant civil adjuncts, and landed Wave II.5 formation-trial judgment while keeping protocol law out of this repository.
 - Read [AGONIC_ACTOR_RECHARTERING](AGONIC_ACTOR_RECHARTERING.md) and [AGON_WAVE1_LANDING](AGON_WAVE1_LANDING.md) for the first landed Agon-facing actor turn.
@@ -65,7 +66,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [REGISTRY_SOURCE_SURFACES](REGISTRY_SOURCE_SURFACES.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
-- [CODEX_SUBAGENT_PROJECTION](CODEX_SUBAGENT_PROJECTION.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `profiles/`
+- [CODEX_SUBAGENT_PROJECTION](CODEX_SUBAGENT_PROJECTION.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `agents/profiles/`
 - [CODEX_SUBAGENT_REFRESH_LAW](CODEX_SUBAGENT_REFRESH_LAW.md) — how repeated projection drift turns into owner-owned refresh work without making generated or installed agent files canonical
 - [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
 - [AGENT_STRESS_POSTURE](AGENT_STRESS_POSTURE.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority

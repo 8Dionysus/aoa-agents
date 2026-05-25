@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PROFILES_DIR = REPO_ROOT / "profiles"
+PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
 AGENT_REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 PROFILE_SUFFIX = ".profile.json"
 REGISTRY_FIELDS = (

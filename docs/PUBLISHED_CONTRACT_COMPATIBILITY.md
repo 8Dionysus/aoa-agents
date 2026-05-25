@@ -11,10 +11,10 @@ It exists to keep source-authored role surfaces reviewable while protecting the 
 This compatibility discipline applies to:
 
 - `schemas/*.json`
-- `profiles/*.profile.json`
-- `model_tiers/*.tier.json`
-- `cohort_patterns/*.pattern.json`
-- `runtime_seam/*.binding.json`
+- `agents/profiles/*.profile.json`
+- `agents/model_tiers/*.tier.json`
+- `agents/cohort_patterns/*.pattern.json`
+- `agents/runtime_seam/*.binding.json`
 - `generated/*.json`
 
 The current published contract set includes:

@@ -553,8 +553,8 @@ class ValidateAgentsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             repo_root = Path(tmp_dir) / "aoa-agents"
             repo_root.mkdir()
-            (repo_root / "profiles").mkdir()
-            (repo_root / "profiles" / "architect.profile.json").write_text("{}", encoding="utf-8")
+            (repo_root / "agents" / "profiles").mkdir(parents=True)
+            (repo_root / "agents" / "profiles" / "architect.profile.json").write_text("{}", encoding="utf-8")
             (repo_root.parent / "escape.json").write_text("{}", encoding="utf-8")
 
             with patch.object(validate_agents, "REPO_ROOT", repo_root):

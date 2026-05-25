@@ -24,11 +24,11 @@ class Wave1RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("AGENT_RESISTANCE_REVISION_POSTURE", docs_readme)
 
     def test_local_guides_name_wave1_companion_surfaces(self) -> None:
-        profiles_agents = read_text("profiles/AGENTS.md")
+        profiles_agents = read_text("agents/profiles/AGENTS.md")
         generated_agents = read_text("generated/AGENTS.md")
         examples_agents = read_text("examples/AGENTS.md")
 
-        self.assertIn("profiles/adjuncts/*", profiles_agents)
+        self.assertIn("agents/profiles/adjuncts/*", profiles_agents)
         self.assertIn("generated/agent_agonic_formation_index.min.json", profiles_agents)
         self.assertIn("generated/agent_agonic_formation_index.min.json", generated_agents)
         self.assertIn("scripts/build_agent_agonic_formation_index.py", generated_agents)

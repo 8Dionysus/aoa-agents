@@ -1,15 +1,15 @@
-# profiles/AGENTS.md
+# agents/profiles/AGENTS.md
 
 ## Purpose
 
-`profiles/` is the source-authored role-contract surface for reusable agent roles in `aoa-agents`.
+`agents/profiles/` is the source-authored role-contract surface for reusable agent roles in `aoa-agents`.
 
 ## Source of truth
 
 Canonical authoring lives in:
 
-- `profiles/*.profile.json`
-- `profiles/adjuncts/*`
+- `agents/profiles/*.profile.json`
+- `agents/profiles/adjuncts/*`
 - `schemas/agent-profile.schema.json`
 
 Published derived surface:
@@ -35,7 +35,7 @@ Keep this directory focused on role-bearing agent identity and posture:
 - `memory_posture` and `memory_rights`
 - `evaluation_posture` and `evaluation_focus`
 - references to preferred skill families, cohort patterns, and tier ids
-- additive agonic and assistant companion surfaces under `profiles/adjuncts/`
+- additive agonic and assistant companion surfaces under `agents/profiles/adjuncts/`
   that keep `kind`, subjectivity, office overlay, arena eligibility,
   resistance/revision posture, service identity, service contract,
   service governance, certification, and arena exclusion separate from the
@@ -62,7 +62,7 @@ Treat changes to `id`, `name`, `role`, handoff posture, memory rights, evaluatio
 Keep profiles compact and reviewable.
 Do not add giant persona prose, hidden orchestration logic, or secret operational assumptions.
 Keep the base `*.profile.json` files stable. When Agon-facing actor form is the
-real change, prefer the adjunct families under `profiles/adjuncts/` instead of
+real change, prefer the adjunct families under `agents/profiles/adjuncts/` instead of
 widening `schemas/agent-profile.schema.json` casually.
 
 ## Validation
@@ -75,7 +75,7 @@ python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 
-If `profiles/adjuncts/` changed, also run:
+If `agents/profiles/adjuncts/` changed, also run:
 
 ```bash
 python scripts/build_agent_agonic_formation_index.py --check

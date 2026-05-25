@@ -87,8 +87,8 @@ def validate_schema_files() -> None:
 
 
 def validate_profile_cross_refs() -> dict[str, str]:
-    profiles_dir = ROOT / "profiles"
-    require(profiles_dir.exists(), "profiles/ directory missing; run after merging seed into aoa-agents")
+    profiles_dir = ROOT / "agents" / "profiles"
+    require(profiles_dir.exists(), "agents/profiles/ directory missing; run after merging seed into aoa-agents")
     profiles: dict[str, str] = {}
     for path in sorted(profiles_dir.glob("*.profile.json")):
         payload = read_json(path)
@@ -98,7 +98,7 @@ def validate_profile_cross_refs() -> dict[str, str]:
             profiles[name] = profile_id
 
     for agent_id in REQUIRED_AGENTS:
-        require(agent_id in profiles, f"base profile for {agent_id!r} not found under profiles/*.profile.json")
+        require(agent_id in profiles, f"base profile for {agent_id!r} not found under agents/profiles/*.profile.json")
 
     return profiles
 

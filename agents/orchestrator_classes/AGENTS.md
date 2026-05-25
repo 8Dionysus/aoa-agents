@@ -1,15 +1,15 @@
-# orchestrator_classes/AGENTS.md
+# agents/orchestrator_classes/AGENTS.md
 
 ## Purpose
 
-`orchestrator_classes/` is the source-authored class-identity surface for orchestrators in `aoa-agents`.
+`agents/orchestrator_classes/` is the source-authored class-identity surface for orchestrators in `aoa-agents`.
 It defines what a class is, what it reads first, what it may touch, and what it must never absorb.
 
 ## Source of truth
 
 Canonical authoring lives in:
 
-- `orchestrator_classes/*.class.json`
+- `agents/orchestrator_classes/*.class.json`
 - `schemas/orchestrator-class.schema.json`
 
 Published derived surfaces:

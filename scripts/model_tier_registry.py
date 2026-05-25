@@ -6,7 +6,7 @@ from pathlib import Path
 from agent_profile_registry import BuildError, describe_path, read_json
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-MODEL_TIERS_DIR = REPO_ROOT / "model_tiers"
+MODEL_TIERS_DIR = REPO_ROOT / "agents" / "model_tiers"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SUFFIX = ".tier.json"
 MODEL_TIER_ORDER = (

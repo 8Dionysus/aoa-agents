@@ -1,15 +1,15 @@
-# cohort_patterns/AGENTS.md
+# agents/cohort_patterns/AGENTS.md
 
 ## Purpose
 
-`cohort_patterns/` is the source-authored cohort composition hint surface for `aoa-agents`.
+`agents/cohort_patterns/` is the source-authored cohort composition hint surface for `aoa-agents`.
 These files make bounded role cohorts inspectable without turning this repository into the owner of scenario composition.
 
 ## Source of truth
 
 Canonical authoring lives in:
 
-- `cohort_patterns/*.pattern.json`
+- `agents/cohort_patterns/*.pattern.json`
 - `schemas/cohort-pattern.schema.json`
 
 Published derived surface:

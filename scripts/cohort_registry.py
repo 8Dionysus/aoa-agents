@@ -6,7 +6,7 @@ from pathlib import Path
 from agent_profile_registry import BuildError, describe_path, read_json
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-COHORT_PATTERNS_DIR = REPO_ROOT / "cohort_patterns"
+COHORT_PATTERNS_DIR = REPO_ROOT / "agents" / "cohort_patterns"
 COHORT_REGISTRY_PATH = REPO_ROOT / "generated" / "cohort_composition_registry.json"
 COHORT_PATTERN_SUFFIX = ".pattern.json"
 COHORT_PATTERN_ORDER = (

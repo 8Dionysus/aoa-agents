@@ -13,7 +13,7 @@ from agent_profile_registry import BuildError
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PROFILES_DIR = REPO_ROOT / "profiles"
+PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
 WIRING_CONFIG_PATH = REPO_ROOT / "config" / "codex_subagent_wiring.v2.json"
 GENERATED_CODEX_ROOT = REPO_ROOT / "generated" / "codex_agents"
 GENERATED_AGENTS_DIR = GENERATED_CODEX_ROOT / "agents"
@@ -270,7 +270,7 @@ def build_agents(
     wiring: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     profiles = load_active_profiles(profiles_root)
-    source_root = profiles_root.parent
+    source_root = REPO_ROOT if profiles_root.resolve().is_relative_to(REPO_ROOT) else profiles_root.parent
     agents: list[dict[str, Any]] = []
     for profile_path in iter_profiles(profiles_root):
         payload = read_json(profile_path)
@@ -622,9 +622,14 @@ def collect_projection_validation_errors(
                             errors.append(
                                 f"{manifest_path}: generated_agents[{name!r}] config_path must be {expected_config_path!r}"
                             )
+                        source_root = (
+                            REPO_ROOT
+                            if profiles_root.resolve().is_relative_to(REPO_ROOT)
+                            else profiles_root.parent
+                        )
                         expected_source = path_reference(
                             profiles_root / f"{name}.profile.json",
-                            profiles_root.parent,
+                            source_root,
                         )
                         if entry.get("source_profile") != expected_source:
                             errors.append(

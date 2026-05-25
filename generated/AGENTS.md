@@ -26,12 +26,12 @@ Current published outputs include:
 
 These files are derived from:
 
-- `profiles/`
-- `profiles/adjuncts/`
-- `model_tiers/`
-- `orchestrator_classes/`
-- `cohort_patterns/`
-- `runtime_seam/`
+- `agents/profiles/`
+- `agents/profiles/adjuncts/`
+- `agents/model_tiers/`
+- `agents/orchestrator_classes/`
+- `agents/cohort_patterns/`
+- `agents/runtime_seam/`
 - `config/codex_subagent_wiring.v2.json`
 
 ## Editing posture

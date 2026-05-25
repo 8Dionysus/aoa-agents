@@ -38,7 +38,7 @@
         "docs/REGISTRY_SOURCE_SURFACES.md"
       ],
       "boundary_note": "Router selects where to look next and may not mutate owner surfaces, widen scope silently, or let quests redefine its class identity.",
-      "source_path": "orchestrator_classes/router.class.json"
+      "source_path": "agents/orchestrator_classes/router.class.json"
     },
     {
       "id": "review",
@@ -75,7 +75,7 @@
         "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
       ],
       "boundary_note": "Review decides whether the current route may close, return, or stop; it does not seize planner authority or let quest metadata rewrite review meaning.",
-      "source_path": "orchestrator_classes/review.class.json"
+      "source_path": "agents/orchestrator_classes/review.class.json"
     },
     {
       "id": "bounded_execution",
@@ -112,7 +112,7 @@
         "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
       ],
       "boundary_note": "Bounded execution is the smallest-correct-step class: it must stay inside named owner boundaries, must not widen the route silently, and must not override review.",
-      "source_path": "orchestrator_classes/bounded_execution.class.json"
+      "source_path": "agents/orchestrator_classes/bounded_execution.class.json"
     }
   ]
 }

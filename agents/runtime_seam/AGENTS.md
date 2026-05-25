@@ -1,15 +1,15 @@
-# runtime_seam/AGENTS.md
+# agents/runtime_seam/AGENTS.md
 
 ## Purpose
 
-`runtime_seam/` is the source-authored role x tier binding surface for the public agent runtime seam.
+`agents/runtime_seam/` is the source-authored role x tier binding surface for the public agent runtime seam.
 It keeps phase, tier, role, and artifact contracts explicit without moving runtime implementation into `aoa-agents`.
 
 ## Source of truth
 
 Canonical authoring lives in:
 
-- `runtime_seam/*.binding.json`
+- `agents/runtime_seam/*.binding.json`
 - `schemas/runtime-seam-binding.schema.json`
 
 Published derived surface:

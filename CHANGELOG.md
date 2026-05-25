@@ -9,6 +9,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Moved source-authored agent object families under `agents/` and added the
+  `mechanics/` operation atlas with design and decision records for the new
+  topology split.
 - Tightened role-level memory posture so agents route reviewed recall through
   `aoa-memo` object ids/read models and local writeback through `memo/`
   candidates, receipts, and exports.

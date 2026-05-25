@@ -4,7 +4,7 @@
   "component_title": "AoA Codex subagent projection",
   "owner_repo": "aoa-agents",
   "source_authored_inputs": [
-    "profiles/*.profile.json",
+    "agents/profiles/*.profile.json",
     "config/codex_subagent_wiring.v2.json"
   ],
   "generated_surfaces": [
@@ -50,7 +50,7 @@
   "refresh_routes": {
     "check": [
       "python scripts/validate_agents.py",
-      "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json"
+      "python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json"
     ],
     "execute": [
       "python scripts/build_published_surfaces.py",
@@ -58,13 +58,13 @@
     ],
     "validate": [
       "python scripts/validate_agents.py",
-      "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+      "python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
       "python -m pytest -q tests"
     ]
   },
   "proof_commands": [
     "python scripts/validate_agents.py",
-    "python scripts/validate_codex_subagents.py --profiles-root profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+    "python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
     "python -m pytest -q tests"
   ],
   "rollback_anchors": [

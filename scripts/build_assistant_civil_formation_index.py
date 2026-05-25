@@ -35,7 +35,7 @@ def compact_json(data: Any) -> str:
 
 
 def read_family(root: Path, family: str, suffix: str) -> dict[str, dict[str, Any]]:
-    family_dir = root / "profiles" / "adjuncts" / family
+    family_dir = root / "agents" / "profiles" / "adjuncts" / family
     if not family_dir.exists():
         raise SystemExit(f"missing assistant adjunct family: {family_dir}")
 
@@ -121,12 +121,12 @@ def build_index(root: Path) -> dict[str, Any]:
         "owner_repo": "aoa-agents",
         "wave": "agon_wave2_assistant_civil_rechartering",
         "source_families": [
-            "profiles/adjuncts/assistant_variant",
-            "profiles/adjuncts/assistant_service_identity",
-            "profiles/adjuncts/assistant_service_contract",
-            "profiles/adjuncts/assistant_service_governance",
-            "profiles/adjuncts/assistant_service_certification",
-            "profiles/adjuncts/assistant_arena_exclusion",
+            "agents/profiles/adjuncts/assistant_variant",
+            "agents/profiles/adjuncts/assistant_service_identity",
+            "agents/profiles/adjuncts/assistant_service_contract",
+            "agents/profiles/adjuncts/assistant_service_governance",
+            "agents/profiles/adjuncts/assistant_service_certification",
+            "agents/profiles/adjuncts/assistant_arena_exclusion",
         ],
         "invariants": [
             "assistant_variants_do_not_create_public_roles",

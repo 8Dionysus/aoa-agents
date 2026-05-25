@@ -17,6 +17,17 @@ class AgentsDocSpec:
 
 REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
     AgentsDocSpec(
+        Path('agents/AGENTS.md'),
+        (
+            'Operating Card',
+            'source-authored agent district',
+            'agents/README.md',
+            'agents/profiles/',
+            'mechanics/',
+            'validate_agents.py',
+        ),
+    ),
+    AgentsDocSpec(
         Path('.agents/skills/AGENTS.md'),
         (
             'role-layer maintenance',
@@ -44,6 +55,17 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'memory posture',
             'bounded',
             'validate_agents.py',
+        ),
+    ),
+    AgentsDocSpec(
+        Path('mechanics/AGENTS.md'),
+        (
+            'Operating Card',
+            'operation atlas',
+            'mechanics/README.md',
+            'mechanics/ARTIFACT_TOPOLOGY.md',
+            'runtime implementation',
+            'validate_nested_agents.py',
         ),
     ),
     AgentsDocSpec(
