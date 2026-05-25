@@ -9,4 +9,4 @@ validator route, or workflow boundary changed.
 ## Records
 
 - [2026-05-25: agents and mechanics districts](2026-05-25-agents-and-mechanics-districts.md)
-
+- [2026-05-25: mechanics package skeleton](2026-05-25-mechanics-package-skeleton.md)

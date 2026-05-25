@@ -8,10 +8,12 @@ This card applies to `mechanics/` and every nested path until a nearer
 ## Role
 
 `mechanics/` is the operation atlas for repeatable agent-layer mechanics.
-It routes recurring pressure around formation, projection, runtime-seam
-binding, checkpoint posture, Titan role-bearing surfaces, quest-facing posture,
-release support, and consumer handoff without turning those operations into
-runtime implementation or proof authority.
+It routes recurring pressure around Agon formation, assistant experience,
+Titan role-bearing, recurrence, Codex projection, runtime-seam binding,
+checkpoint posture, questbook posture, progression, antifragility,
+boundary-bridge handoff, and release support without turning those operations
+into runtime implementation, proof authority, memory truth, or playbook
+choreography.
 
 ## Operating Card
 
@@ -20,8 +22,8 @@ runtime implementation or proof authority.
 | role | operation atlas for repeatable agent-layer mechanics |
 | input | recurring operation pressure, artifact movement pressure, package-boundary changes, validation-route changes |
 | output | operation route, package-growth decision, source-owner route, validator update, or stronger-owner handoff |
-| owner | `mechanics/README.md` for atlas shape; future `mechanics/<slug>/AGENTS.md` for package law |
-| next route | `mechanics/ARTIFACT_TOPOLOGY.md`, target source family under `agents/`, owning docs, decision record |
+| owner | `mechanics/README.md` for atlas shape; package `README.md` and `PARTS.md` for child package route law |
+| next route | `mechanics/PAYLOAD_RECON.md`, `mechanics/ARTIFACT_TOPOLOGY.md`, target package `PARTS.md`, target source family under `agents/`, owning docs, decision record |
 | tools | semantic AGENTS validator, nested AGENTS validator, source builders when payloads move |
 | validation | this card's `Validation` section plus package-specific checks when packages exist |
 
@@ -42,10 +44,17 @@ Read:
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
 4. `mechanics/README.md`
-5. `mechanics/ARTIFACT_TOPOLOGY.md` before moving docs, schemas, examples,
+5. `mechanics/PAYLOAD_RECON.md` before deciding which mechanic a root payload
+   belongs to
+6. `mechanics/LEGACY_TOPOLOGY.md` before creating, editing, or using package
+   `legacy/` surfaces
+7. `mechanics/ARTIFACT_TOPOLOGY.md` before moving docs, schemas, examples,
    scripts, tests, or generated companions into a mechanic
-6. `docs/decisions/` before changing active mechanics topology
-7. the source family under `agents/` or `docs/` that the mechanic routes
+8. target package `README.md`, `PARTS.md`, and `parts/README.md` when a nearer
+   package exists
+9. target package `PROVENANCE.md` before opening package `legacy/`
+10. `docs/decisions/` before changing active mechanics topology
+11. the source family under `agents/` or `docs/` that the mechanic routes
 
 ## Route Instead
 
@@ -55,6 +64,8 @@ Read:
 | public explanation change | route to `docs/` and link back to the mechanic |
 | shared schema/example change | keep `schemas/` or `examples/` until package-local validation exists |
 | generated drift | update source and builder, then regenerate |
+| file-name cluster pressure | use `mechanics/PAYLOAD_RECON.md` and target `PARTS.md`; do not promote a topic into a mechanic by filename alone |
+| old-path or provenance pressure | use target package `PROVENANCE.md`; legacy is an accounting route, not current behavior |
 | proof, memo, route, playbook, skill, runtime, or infra authority | hand off to the owning repository |
 
 ## Compact Rules
@@ -66,6 +77,8 @@ Read:
 - Public explanation can stay in `docs/` while this atlas is still the active
   route owner for operation topology.
 - Generated companions stay weaker than builders and source surfaces.
+- `legacy/` preserves lineage and path accounting; it is not the default route
+  for current edits.
 - Runtime autonomy, proof verdicts, durable memory truth, routing policy,
   playbook choreography, and infrastructure implementation route to their
   owning repositories.
@@ -79,6 +92,9 @@ A new child mechanic should appear only when it has:
 - owner split and stop-lines
 - validation route
 - a decision or explicit route note when it changes repository topology
+
+The current child packages are skeletons. They own route and part maps; they do
+not yet own migrated payloads from root districts.
 
 ## Validation
 
