@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 19 |
+| candidates | 20 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 19 |
+| `reviewed_intake` | 20 |
 
 ## Open Items
 
@@ -40,6 +40,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T074158Z:70c42c69-aoa-agents-cleaned-active-mechan` | `candidate` | `reviewed_intake` | `candidates/20260526T074158Z.70c42c69.aoa-agents-cleaned-active-mechanics-route-card-w.candidate.json` |
 | `candidate:aoa-agents:20260526T075158Z:134810cc-aoa-agents-shaped-every-mechanic` | `candidate` | `reviewed_intake` | `candidates/20260526T075158Z.134810cc.aoa-agents-shaped-every-mechanics-package-proven.candidate.json` |
 | `candidate:aoa-agents:20260526T080631Z:143f7cad-aoa-agents-localized-the-antifra` | `candidate` | `reviewed_intake` | `candidates/20260526T080631Z.143f7cad.aoa-agents-localized-the-antifragility-stress-po.candidate.json` |
+| `candidate:aoa-agents:20260526T081536Z:627aa3ba-aoa-agents-localized-titan-packa` | `candidate` | `reviewed_intake` | `candidates/20260526T081536Z.627aa3ba.aoa-agents-localized-titan-package-owned-validat.candidate.json` |
 
 ## Agent Route
 
