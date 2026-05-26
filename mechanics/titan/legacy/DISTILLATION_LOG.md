@@ -64,3 +64,13 @@ lookup.
 | Route | Moved scripts | Moved tests |
 | --- | ---: | ---: |
 | `titan` package | 3 | 3 |
+
+## 2026-05-26 Titan Codex Projection Builder To Active Part
+
+Moved 1 Titan-specific generated companion builder out of root `scripts/` and
+into active `mechanics/titan/parts/codex-projection/scripts/`. The generated
+companions stayed root-published under `generated/titan_codex_agents/`.
+
+| Part | Moved scripts | Root generated projections moved |
+| --- | ---: | ---: |
+| `codex-projection` | 1 | 0 |

@@ -60,6 +60,36 @@ COMMANDS = [
         ],
     ),
     (
+        "check Titan Codex projection",
+        [
+            sys.executable,
+            "mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py",
+            "--roles",
+            "mechanics/titan/parts/role-bearing/config/role-classes.v0.json",
+            "--bearers",
+            "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+            "--out-dir",
+            "generated/titan_codex_agents/agents",
+            "--manifest",
+            "generated/titan_codex_agents/projection_manifest.json",
+            "--prune",
+            "--check",
+        ],
+    ),
+    (
+        "run Titan Codex projection tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/titan/parts/codex-projection/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
+    (
         "run runtime artifact contract tests",
         [
             sys.executable,

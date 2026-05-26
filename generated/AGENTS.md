@@ -28,6 +28,8 @@ Current published outputs include:
 - `generated/codex_agents/agents/*.toml`
 - `generated/codex_agents/config.subagents.generated.toml`
 - `generated/codex_agents/projection_manifest.json`
+- `generated/titan_codex_agents/agents/*.toml`
+- `generated/titan_codex_agents/projection_manifest.json`
 
 Mechanic-local generated companions are documented at their owning part.
 The Alpha reference-route reader lives at
@@ -45,6 +47,9 @@ Formation readers stay root-published because they summarize `agents/` source
 objects and feed repo-wide role readiness, while `mechanics/agon/` and
 `mechanics/experience/` own the operation contracts and stop-lines around those
 readers.
+Titan Codex projection readers stay root-published because they are Codex
+custom-agent install companions, while `mechanics/titan/parts/codex-projection/`
+owns their builder and freshness check.
 
 ## Source layers
 
@@ -95,6 +100,9 @@ For `generated/agent_formation_trial.min.json`, use
 the canonical builder and
 `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py` as
 the explicit Wave II.5 validator.
+For `generated/titan_codex_agents/`, use
+`mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py`
+as the canonical builder and freshness checker.
 
 ## Regenerate and validate
 
@@ -128,4 +136,11 @@ If the Agon Wave II.5 formation-trial output changed, also run:
 python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
 python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
 python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
+```
+
+If Titan Codex projection output changed, also run:
+
+```bash
+python mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --out-dir generated/titan_codex_agents/agents --manifest generated/titan_codex_agents/projection_manifest.json --prune --check
+python -m unittest discover -s mechanics/titan/parts/codex-projection/tests -p "test_*.py"
 ```

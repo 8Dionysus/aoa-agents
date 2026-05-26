@@ -114,6 +114,16 @@ the package-local validators and tests through `scripts/validate_agents.py` and
 | `tests/test_titan_schemas.py` | [tests/test_titan_schemas.py](tests/test_titan_schemas.py) | `titan` package |
 | `tests/test_titan_examples.py` | [tests/test_titan_examples.py](tests/test_titan_examples.py) | `titan` package |
 
+## 2026-05-26 Titan Codex Projection Builder Move
+
+The root-published generated Titan Codex companions stayed under
+`generated/titan_codex_agents/`, but their dedicated Titan-specific builder
+moved into the active `codex-projection` part.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/render_titan_codex_agents.py` | [parts/codex-projection/scripts/render_titan_codex_agents.py](parts/codex-projection/scripts/render_titan_codex_agents.py) | `codex-projection` |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the
