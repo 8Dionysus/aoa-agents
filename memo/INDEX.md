@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 11 |
+| candidates | 12 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 11 |
+| `reviewed_intake` | 12 |
 
 ## Open Items
 
@@ -32,6 +32,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T055310Z:9411065e-aoa-agents-localized-the-alpha-r` | `candidate` | `reviewed_intake` | `candidates/20260526T055310Z.9411065e.aoa-agents-localized-the-alpha-reference-route-g.candidate.json` |
 | `candidate:aoa-agents:20260526T060812Z:e12406a2-aoa-agents-localized-agon-rank-g` | `candidate` | `reviewed_intake` | `candidates/20260526T060812Z.e12406a2.aoa-agents-localized-agon-rank-generated-read.candidate.json` |
 | `candidate:aoa-agents:20260526T061950Z:3bd6fe60-aoa-agents-localized-recursor-gener` | `candidate` | `reviewed_intake` | `candidates/20260526T061950Z.3bd6fe60.aoa-agents-localized-recursor-generated-rea.candidate.json` |
+| `candidate:aoa-agents:20260526T064913Z:27745909-aoa-agents-repaired-questbook-to` | `candidate` | `reviewed_intake` | `candidates/20260526T064913Z.27745909.aoa-agents-repaired-questbook-topology-after-sou.candidate.json` |
 
 ## Agent Route
 
