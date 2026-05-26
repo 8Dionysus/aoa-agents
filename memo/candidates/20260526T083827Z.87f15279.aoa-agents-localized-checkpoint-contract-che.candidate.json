@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T083827Z:87f15279-aoa-agents-localized-checkpoi",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Checkpoint package-owned contract validator and focused tests into mechanics/checkpoint/{scripts,tests}/ because the check spans self-agent-checkpoint and continuity-lane parts; validate_agents.py loads the package validator and release_check.py runs the package-local tests.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-checkpoint-check-localization.md",
+    "mechanics/checkpoint/PROVENANCE.md",
+    "mechanics/checkpoint/scripts/validate_checkpoint_contracts.py",
+    "mechanics/checkpoint/tests/test_checkpoint_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/cb8332b19b7d9736e1f19bd236b30945e5e34d33",
+    "repo:aoa-agents/pull/185",
+    "mechanics/checkpoint/scripts/validate_checkpoint_contracts.py",
+    "mechanics/checkpoint/tests/test_checkpoint_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T08:38:27Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
