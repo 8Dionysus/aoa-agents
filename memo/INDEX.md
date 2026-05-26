@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 32 |
+| candidates | 33 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 32 |
+| `reviewed_intake` | 33 |
 
 ## Open Items
 
@@ -53,6 +53,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T102223Z:5fd235cd-aoa-agents-localized-experience-assistant-civil-checks` | `candidate` | `reviewed_intake` | `candidates/20260526T102223Z.5fd235cd.aoa-agents-localized-experience-assistant-civil-checks.candidate.json` |
 | `candidate:aoa-agents:20260526T103250Z:b4600ae3-aoa-agents-localized-experience-adoption-boundary-checks` | `candidate` | `reviewed_intake` | `candidates/20260526T103250Z.b4600ae3.aoa-agents-localized-experience-adoption-boundary-checks.candidate.json` |
 | `candidate:aoa-agents:20260526T150921Z:d9635b70-aoa-agents-localized-the-titan-c` | `candidate` | `reviewed_intake` | `candidates/20260526T150921Z.d9635b70.aoa-agents-localized-the-titan-codex-projection.candidate.json` |
+| `candidate:aoa-agents:20260526T152137Z:1ae84f3c-aoa-agents-localized-the-codex-s` | `candidate` | `reviewed_intake` | `candidates/20260526T152137Z.1ae84f3c.aoa-agents-localized-the-codex-subagent-projecti.candidate.json` |
 
 ## Agent Route
 
