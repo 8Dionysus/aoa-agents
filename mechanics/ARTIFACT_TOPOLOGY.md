@@ -119,6 +119,14 @@ into active `mechanics/checkpoint/parts/*/{schemas,examples}/` routes after
 adding a part-local validator. Stable schema `$id` values remain public
 contract identifiers, not active repo paths.
 
+The 2026-05-26 checkpoint check localization moves the checkpoint package-owned
+validator and focused tests from root `scripts/` and `tests/` into
+`mechanics/checkpoint/{scripts,tests}/`. The check stays package-local, not
+part-local, because it spans `self-agent-checkpoint` and `continuity-lane`.
+`scripts/validate_agents.py` remains the repo-wide coordinator by loading the
+checkpoint validator directly, and `scripts/release_check.py` runs the
+package-local tests explicitly.
+
 The 2026-05-26 recursor contract localization moves recursor readiness,
 projection-candidate, and Agon-boundary schemas/examples from root `schemas/`
 and `examples/` into active `mechanics/recurrence/parts/*/{schemas,examples}/`

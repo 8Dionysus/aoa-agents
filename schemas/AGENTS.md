@@ -14,7 +14,7 @@ Mechanic-specific runtime artifact schemas live under
 Mechanic-specific self-agent checkpoint schemas live under
 `mechanics/checkpoint/parts/self-agent-checkpoint/schemas/` and
 `mechanics/checkpoint/parts/continuity-lane/schemas/`. They are validated by
-`scripts/validate_checkpoint_contracts.py`.
+`mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 
 Mechanic-specific reference-route schemas live under
 `mechanics/checkpoint/parts/reference-routes/schemas/` and

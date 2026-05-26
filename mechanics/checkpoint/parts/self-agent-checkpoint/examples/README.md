@@ -32,6 +32,6 @@ Do not turn this subtree into runtime implementation, execution logs, or scenari
 Run `python -m pip install -r requirements-dev.txt`, then:
 
 ```bash
-python scripts/validate_checkpoint_contracts.py
+python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python scripts/validate_agents.py
 ```

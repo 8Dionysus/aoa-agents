@@ -23,8 +23,8 @@ These files illustrate published contracts. They are not the source-authored can
 
 Mechanic-specific self-agent checkpoint examples and negative fixtures live
 under `mechanics/checkpoint/parts/self-agent-checkpoint/examples/` and are
-validated by `scripts/validate_checkpoint_contracts.py`. The adjacent
-continuity-window example lives under
+validated by `mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
+The adjacent continuity-window example lives under
 `mechanics/checkpoint/parts/continuity-lane/examples/`.
 
 Mechanic-specific runtime artifact examples and negative fixtures live under
@@ -123,7 +123,7 @@ For RPG progression part-local examples, also run `python scripts/validate_rpg_p
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
-For checkpoint contract part-local examples, also run `python scripts/validate_checkpoint_contracts.py`.
+For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
 For Agon formation part-local examples, also run `python scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
