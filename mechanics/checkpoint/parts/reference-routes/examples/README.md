@@ -25,5 +25,5 @@ Use only already-published artifact schemas.
 
 ## Validation
 
-Run `python scripts/validate_reference_route_contracts.py` and then
+Run `python mechanics/checkpoint/scripts/validate_reference_route_contracts.py` and then
 `python scripts/validate_agents.py`.

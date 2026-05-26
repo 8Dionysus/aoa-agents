@@ -11,7 +11,7 @@ This part routes `alpha-reference-routes` pressure inside `mechanics/questbook/`
 The compact generated companion is part-local because it is derived only from
 this part's Alpha route examples.
 
-Validate with `python scripts/validate_reference_route_contracts.py` and
-`python scripts/generate_alpha_reference_routes.py --check`.
+Validate with `python mechanics/questbook/scripts/validate_alpha_reference_routes.py` and
+`python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check`.
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

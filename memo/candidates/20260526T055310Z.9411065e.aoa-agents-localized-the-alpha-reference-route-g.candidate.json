@@ -5,20 +5,20 @@
   "kind": "decision",
   "family": "agent-role-memory",
   "scope": "repo",
-  "claim": "aoa-agents localized the Alpha reference-route generated reader into the Questbook alpha-reference-routes part-local generated route; root generated no longer owns that mechanics-specific derived reader, and scripts/generate_alpha_reference_routes.py plus scripts/validate_reference_route_contracts.py and scripts/validate_agents.py guard the new route and former-root absence.",
+  "claim": "aoa-agents localized the Alpha reference-route generated reader into the Questbook alpha-reference-routes part-local generated route; root generated no longer owns that mechanics-specific derived reader, and the part-local Alpha builder plus Questbook validator and scripts/validate_agents.py guard the new route and former-root absence.",
   "source_refs": [
     "docs/decisions/2026-05-26-alpha-reference-generated-reader-localization.md",
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json",
-    "scripts/generate_alpha_reference_routes.py",
-    "scripts/validate_reference_route_contracts.py",
+    "mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py",
+    "mechanics/questbook/scripts/validate_alpha_reference_routes.py",
     "scripts/validate_agents.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/ba02a1f",
     "repo:aoa-agents/pull/159",
     "scripts/release_check.py",
-    "tests/test_validate_agents.py",
+    "mechanics/questbook/tests/test_alpha_reference_routes.py",
     "tests/test_roadmap_parity.py"
   ],
   "route": "reviewed_intake",

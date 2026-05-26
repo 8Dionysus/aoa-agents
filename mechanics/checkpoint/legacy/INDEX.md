@@ -17,3 +17,5 @@ This index is for old-path lookup only. Current behavior lives in the active par
 | `tests/test_checkpoint_contracts.py` | [mechanics/checkpoint/tests/test_checkpoint_contracts.py](../tests/test_checkpoint_contracts.py) | moved into checkpoint package tests on 2026-05-26 |
 | `schemas/reference-route.example.schema.json` | [mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json](../parts/reference-routes/schemas/reference-route-manifest.schema.json) | moved into `reference-routes` schemas on 2026-05-26 |
 | `examples/reference_routes/` | [mechanics/checkpoint/parts/reference-routes/examples/](../parts/reference-routes/examples/) | moved into `reference-routes` examples on 2026-05-26 |
+| `scripts/validate_reference_route_contracts.py` | [mechanics/checkpoint/scripts/validate_reference_route_contracts.py](../scripts/validate_reference_route_contracts.py) | moved into checkpoint package scripts on 2026-05-26 |
+| `tests/test_validate_agents.py` reference-route cases | [mechanics/checkpoint/tests/test_reference_route_contracts.py](../tests/test_reference_route_contracts.py) | moved into checkpoint package tests on 2026-05-26 |

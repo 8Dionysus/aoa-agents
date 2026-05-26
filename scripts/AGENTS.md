@@ -4,8 +4,8 @@
 
 `scripts/` contains repo-level builders, validators, and publication helpers
 for the agent role layer. Mechanic-specific scripts may live under the owning
-`mechanics/*/parts/*/scripts/` route once the part has local validation and
-provenance accounting.
+`mechanics/*/scripts/` or `mechanics/*/parts/*/scripts/` route once the package
+or part has local validation and provenance accounting.
 
 Keep scripts deterministic and repo-relative. Avoid hidden network calls, private prompts, local-only paths, and ambient credentials.
 

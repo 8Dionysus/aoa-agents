@@ -99,6 +99,16 @@ manifest `route_id` values remain contract identifiers.
 | `examples/reference_routes/orchestrated_loop_route/verification_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/verification_result.json](parts/reference-routes/examples/orchestrated-loop-route/verification_result.json) | `reference-routes` |
 | `examples/reference_routes/orchestrated_loop_route/work_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/work_result.json](parts/reference-routes/examples/orchestrated-loop-route/work_result.json) | `reference-routes` |
 
+## 2026-05-26 Reference Route Check Move
+
+The dedicated Checkpoint reference-route validator and focused tests moved from
+root support districts into the owning Checkpoint package.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_reference_route_contracts.py` | [scripts/validate_reference_route_contracts.py](scripts/validate_reference_route_contracts.py) | package-local |
+| `tests/test_validate_agents.py` reference-route cases | [tests/test_reference_route_contracts.py](tests/test_reference_route_contracts.py) | package-local |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

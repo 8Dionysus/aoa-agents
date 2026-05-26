@@ -51,6 +51,9 @@ contract routes.
 The Alpha reference-route generated reader localization moved the derived
 Alpha reader into the Questbook `alpha-reference-routes` part because its only
 source truth is that part's examples.
+The reference-route check localization moved the Checkpoint reference-route
+validator/tests and the Questbook Alpha builder/validator/tests into owning
+package and part-local routes.
 The Agon rank/school/epistemic generated reader localization moved
 candidate-only rank, school/campaign, and epistemic registries into their
 owning Agon parts because their source truth is already part-local config.

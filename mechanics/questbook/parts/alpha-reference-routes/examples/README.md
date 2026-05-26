@@ -29,6 +29,6 @@ They do not replace playbooks, memo doctrine, or eval doctrine.
 
 ## Validation
 
-Run `python scripts/generate_alpha_reference_routes.py --check`,
-`python scripts/validate_reference_route_contracts.py`, and
+Run `python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check`,
+`python mechanics/questbook/scripts/validate_alpha_reference_routes.py`, and
 `python scripts/validate_agents.py`.
