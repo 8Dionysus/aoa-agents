@@ -38,6 +38,9 @@ example validator.
 The Titan schema localization moved Titan-specific schemas into
 part-local `mechanics/titan/parts/*/schemas/` routes while preserving stable
 schema `$id` values.
+The adoption/boundary localization moved adoption, retention, office, and
+boundary bridge schemas/examples into their owning Experience, Agon, and
+Boundary Bridge part-local contract routes.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -69,6 +72,9 @@ mechanics packages from empty route skeletons into active route homes:
   `mechanics/titan/parts/*/examples/`;
 - Titan-specific schemas live under
   `mechanics/titan/parts/*/schemas/`;
+- adoption, retention, office, and boundary bridge contracts live under their
+  owning Experience, Agon, and Boundary Bridge part-local `schemas/` and
+  `examples/` routes;
 - quest catalog records and Agon quest notes live under
   `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;
@@ -79,9 +85,10 @@ mechanics packages from empty route skeletons into active route homes:
   root quest-source lookup maps without
   duplicating active authority.
 
-Shared non-Titan schemas, non-Titan examples, scripts, tests, agent source
-objects, and generated readers remain in their current owner districts until
-they receive their own package-local contract and validation coverage.
+Shared schemas/examples that have not received a package-local contract,
+scripts, tests, agent source objects, and generated readers remain in their
+current owner districts until they receive their own package-local contract and
+validation coverage.
 
 ## Traversal
 

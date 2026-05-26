@@ -46,6 +46,10 @@ from validate_agon_rank_epistemic_contracts import (
     AgonRankEpistemicContractsValidationError,
     validate_agon_rank_epistemic_contracts,
 )
+from validate_adoption_boundary_contracts import (
+    AdoptionBoundaryContractsValidationError,
+    validate_adoption_boundary_contracts,
+)
 from validate_agon_formation_contracts import (
     AgonFormationContractsValidationError,
     validate_agon_formation_contracts,
@@ -3464,6 +3468,7 @@ def main() -> int:
         validate_titan_schemas()
         validate_agon_formation_contracts(REPO_ROOT)
         validate_agon_rank_epistemic_contracts(REPO_ROOT)
+        validate_adoption_boundary_contracts(REPO_ROOT)
         validate_experience_assistant_civil_contracts(REPO_ROOT)
         validate_antifragility_stress_surfaces()
         validate_rpg_progression(REPO_ROOT)
@@ -3510,6 +3515,7 @@ def main() -> int:
     except (
         ManifestValidationError,
         RecursorContractsValidationError,
+        AdoptionBoundaryContractsValidationError,
         AgonFormationContractsValidationError,
         AgonRankEpistemicContractsValidationError,
         ExperienceAssistantCivilContractsValidationError,
@@ -3540,6 +3546,7 @@ def main() -> int:
     print("[ok] validated Titan part-local schemas")
     print("[ok] validated Agon formation part-local contracts")
     print("[ok] validated Agon rank/school/epistemic part-local contracts")
+    print("[ok] validated adoption and boundary part-local contracts")
     print("[ok] validated experience assistant civil part-local contracts")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated RPG progression schema and example")

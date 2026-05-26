@@ -23,3 +23,15 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `docs/PUBLISHED_CONTRACT_COMPATIBILITY.md` | [parts/published-compatibility/docs/published-contract-compatibility.md](parts/published-compatibility/docs/published-contract-compatibility.md) | `published-compatibility` |
 | `docs/REGISTRY_SOURCE_SURFACES.md` | [parts/source-surface-registry/docs/registry-source-surfaces.md](parts/source-surface-registry/docs/registry-source-surfaces.md) | `source-surface-registry` |
 | `docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md` | [parts/workspace-trigger/docs/workspace-surface-trigger-posture.md](parts/workspace-trigger/docs/workspace-surface-trigger-posture.md) | `workspace-trigger` |
+
+## 2026-05-26 Root Boundary Adoption Contract Move
+
+2 boundary adoption schemas plus 2 examples moved from root `schemas/` and
+`examples/` into active Boundary Bridge part-local contract routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/cross_repo_adoption_readiness_v1.json` | [parts/consumer-handoff/schemas/cross-repo-adoption-readiness.schema.json](parts/consumer-handoff/schemas/cross-repo-adoption-readiness.schema.json) | `consumer-handoff` |
+| `examples/cross_repo_adoption_readiness.example.json` | [parts/consumer-handoff/examples/cross-repo-adoption-readiness.example.json](parts/consumer-handoff/examples/cross-repo-adoption-readiness.example.json) | `consumer-handoff` |
+| `schemas/federation_projection_boundary_v1.json` | [parts/federation-consumer-seams/schemas/federation-projection-boundary.schema.json](parts/federation-consumer-seams/schemas/federation-projection-boundary.schema.json) | `federation-consumer-seams` |
+| `examples/federation_projection_boundary.example.json` | [parts/federation-consumer-seams/examples/federation-projection-boundary.example.json](parts/federation-consumer-seams/examples/federation-projection-boundary.example.json) | `federation-consumer-seams` |

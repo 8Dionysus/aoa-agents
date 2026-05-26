@@ -94,3 +94,21 @@ civil contract localization later landed under `mechanics/experience/`.
 | `schemas/agent_arena_eligibility_v1.json` | [parts/arena-rank-school/schemas/arena-eligibility.schema.json](parts/arena-rank-school/schemas/arena-eligibility.schema.json) | `arena-rank-school` |
 | `examples/agent_agonic_formation.example.json` | [parts/formation/examples/agent-agonic-formation.example.json](parts/formation/examples/agent-agonic-formation.example.json) | `formation` |
 | `examples/agent_formation_trial.example.json` | [parts/formation/examples/formation-trial.example.json](parts/formation/examples/formation-trial.example.json) | `formation` |
+
+## 2026-05-26 Root Agon Adoption/Retention Contract Move
+
+5 Agon adoption/retention schemas plus 5 examples moved from root
+`schemas/` and `examples/` into active Agon part-local contract routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/agent_kind_adoption_boundary_v1.json` | [parts/adoption-retention/schemas/agent-kind-adoption-boundary.schema.json](parts/adoption-retention/schemas/agent-kind-adoption-boundary.schema.json) | `adoption-retention` |
+| `schemas/agonic_adoption_scar_candidate_v1.json` | [parts/adoption-retention/schemas/agonic-adoption-scar-candidate.schema.json](parts/adoption-retention/schemas/agonic-adoption-scar-candidate.schema.json) | `adoption-retention` |
+| `schemas/agonic_pattern_adoption_trial_v1.json` | [parts/adoption-retention/schemas/agonic-pattern-adoption-trial.schema.json](parts/adoption-retention/schemas/agonic-pattern-adoption-trial.schema.json) | `adoption-retention` |
+| `schemas/agonic_pattern_retention_obligation_v1.json` | [parts/adoption-retention/schemas/agonic-pattern-retention-obligation.schema.json](parts/adoption-retention/schemas/agonic-pattern-retention-obligation.schema.json) | `adoption-retention` |
+| `schemas/agonic_shared_scar_harvest_v1.json` | [parts/adoption-retention/schemas/agonic-shared-scar-harvest.schema.json](parts/adoption-retention/schemas/agonic-shared-scar-harvest.schema.json) | `adoption-retention` |
+| `examples/agent_kind_adoption_boundary.example.json` | [parts/adoption-retention/examples/agent-kind-adoption-boundary.example.json](parts/adoption-retention/examples/agent-kind-adoption-boundary.example.json) | `adoption-retention` |
+| `examples/agonic_adoption_scar_candidate.example.json` | [parts/adoption-retention/examples/agonic-adoption-scar-candidate.example.json](parts/adoption-retention/examples/agonic-adoption-scar-candidate.example.json) | `adoption-retention` |
+| `examples/agonic_pattern_adoption_trial.example.json` | [parts/adoption-retention/examples/agonic-pattern-adoption-trial.example.json](parts/adoption-retention/examples/agonic-pattern-adoption-trial.example.json) | `adoption-retention` |
+| `examples/agonic_pattern_retention_obligation.example.json` | [parts/adoption-retention/examples/agonic-pattern-retention-obligation.example.json](parts/adoption-retention/examples/agonic-pattern-retention-obligation.example.json) | `adoption-retention` |
+| `examples/agonic_shared_scar_harvest.example.json` | [parts/adoption-retention/examples/agonic-shared-scar-harvest.example.json](parts/adoption-retention/examples/agonic-shared-scar-harvest.example.json) | `adoption-retention` |

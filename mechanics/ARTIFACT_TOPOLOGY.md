@@ -138,6 +138,15 @@ subagent projection refresh-law example from root `examples/` into active
 `mechanics/codex-projection/parts/refresh-law/examples/` after adding a
 part-local validator.
 
+The 2026-05-26 adoption/boundary contract localization moves adoption,
+retention, office, and boundary bridge schemas/examples from root `schemas/`
+and `examples/` into active Experience, Agon, and Boundary Bridge part-local
+contract routes after adding a validator that protects the active file sets,
+schema/example alignment, guardrail booleans, numeric ranges, enum closure,
+and former root path absence. Stable schema `$id`, `kind`, and
+`schema_id`/`schema_version` values remain public contract identifiers, not
+active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

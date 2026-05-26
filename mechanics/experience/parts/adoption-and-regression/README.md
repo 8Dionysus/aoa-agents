@@ -11,4 +11,9 @@ This part routes `adoption-and-regression` pressure inside `mechanics/experience
 - [Assistant Regression Matrix](docs/regression-matrix.md)
 - [Assistant Shared Pattern Adoption](docs/shared-pattern-adoption.md)
 
+## Contract Routes
+
+- [schema set](schemas/README.md)
+- [example set](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.
