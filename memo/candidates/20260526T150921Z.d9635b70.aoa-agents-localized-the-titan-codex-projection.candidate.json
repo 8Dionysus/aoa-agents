@@ -1,0 +1,33 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T150921Z:d9635b70-aoa-agents-localized-the-titan-c",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Titan Codex projection builder into mechanics/titan/parts/codex-projection, superseding the temporary root-builder route from the Titan check localization decision while keeping generated/titan_codex_agents root-published as a derived Codex install seam.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-titan-codex-projection-builder-localization.md",
+    "docs/decisions/2026-05-26-titan-check-localization.md",
+    "mechanics/titan/parts/codex-projection/README.md",
+    "mechanics/titan/PROVENANCE.md",
+    "generated/AGENTS.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/21a0eda0f137e666f32de2bff8b5de0fb42fd2eb",
+    "repo:aoa-agents/pull/210",
+    "repo:aoa-agents/actions/runs/26456781977",
+    "repo:aoa-agents/memo/candidates/20260526T081536Z.627aa3ba.aoa-agents-localized-titan-package-owned-validat.candidate.json"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T15:09:21Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
