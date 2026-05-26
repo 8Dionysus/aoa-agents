@@ -121,8 +121,8 @@ and adding the part-local validator under
 
 The assistant projection resolver localization satisfies that rule for
 Codex-facing assistant projection resolver schemas and example by moving them
-into the `assistant-projection` part and adding
-`scripts/validate_assistant_projection_resolver.py`.
+into the `assistant-projection` part and keeping the focused validator under
+`mechanics/codex-projection/parts/assistant-projection/scripts/`.
 
 The runtime artifact contract localization satisfies that rule for runtime
 artifact schemas, examples, and invalid fixtures by moving them into the

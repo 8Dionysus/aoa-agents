@@ -57,6 +57,20 @@ public contract identifiers, not active repo paths.
 | `schemas/assistant_projection_resolver_v1.json` | [parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json](parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json) | `assistant-projection` |
 | `examples/assistant_projection_resolver.example.json` | [parts/assistant-projection/examples/assistant-projection-resolver.example.json](parts/assistant-projection/examples/assistant-projection-resolver.example.json) | `assistant-projection` |
 
+## 2026-05-26 Assistant Projection Check Move
+
+The assistant projection resolver validator moved from root `scripts/` into
+the active `assistant-projection` part after the resolver payloads themselves
+had already moved there. The focused resolver test moved beside the part and
+was converted to the repo's release-check `unittest` route. Root
+`scripts/validate_agents.py` remains the repo-wide coordinator and loads the
+part-local validator explicitly.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_assistant_projection_resolver.py` | [parts/assistant-projection/scripts/validate_assistant_projection_resolver.py](parts/assistant-projection/scripts/validate_assistant_projection_resolver.py) | `assistant-projection` |
+| `tests/test_wave1_assistant_projection.py` | [parts/assistant-projection/tests/test_assistant_projection_resolver.py](parts/assistant-projection/tests/test_assistant_projection_resolver.py) | `assistant-projection` |
+
 ## 2026-05-26 Refresh Law Example Move
 
 1 refresh-law route example moved from root `examples/` into

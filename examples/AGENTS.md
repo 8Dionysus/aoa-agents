@@ -53,8 +53,9 @@ Their schemas live beside them under
 
 Mechanic-specific assistant projection resolver examples live under
 `mechanics/codex-projection/parts/assistant-projection/examples/` and are
-validated by `scripts/validate_assistant_projection_resolver.py`. Their
-schemas live beside them under
+validated by
+`mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py`.
+Their schemas live beside them under
 `mechanics/codex-projection/parts/assistant-projection/schemas/`.
 
 Mechanic-specific Codex refresh-law examples live under
@@ -121,7 +122,7 @@ Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/
 For Titan part-local examples, also run `python mechanics/titan/scripts/validate_titan_examples.py`.
 For antifragility stress part-local examples, also run `python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
 For RPG progression part-local examples, also run `python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
-For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
+For assistant projection resolver part-local examples, also run `python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py`.
 For Codex refresh-law part-local examples, also run `python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py`.
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.

@@ -15,12 +15,17 @@ active narrative anchor remains the Wave 1 section in
 
 - [Assistant Projection Resolver Example](examples/assistant-projection-resolver.example.json)
 
+## Active Checks
+
+- [Assistant Projection Resolver Validator](scripts/validate_assistant_projection_resolver.py)
+- [Assistant Projection Resolver Tests](tests/test_assistant_projection_resolver.py)
+
 ## Validation
 
 ```bash
-python scripts/validate_assistant_projection_resolver.py
+python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
+python -m unittest discover -s mechanics/codex-projection/parts/assistant-projection/tests -p 'test_*.py'
 python scripts/validate_agents.py
-python -m pytest -q tests/test_wave1_assistant_projection.py
 ```
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

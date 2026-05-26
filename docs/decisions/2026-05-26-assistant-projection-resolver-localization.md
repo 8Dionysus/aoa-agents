@@ -21,16 +21,19 @@ Move the assistant projection resolver schemas and example into
 using part-local names. Keep stable schema `$id` values unchanged because they
 are public contract identifiers, not active repository path authority.
 
-Add `scripts/validate_assistant_projection_resolver.py` and wire it into
-`scripts/validate_agents.py` so the active file set, schema validity, example
-validation, doc references, and old-route absence are checked explicitly.
+Add a validator and wire it into `scripts/validate_agents.py` so the active
+file set, schema validity, example validation, doc references, and old-route
+absence are checked explicitly. A later check-localization slice moved that
+validator into `mechanics/codex-projection/parts/assistant-projection/scripts/`
+and moved the focused resolver test beside the part.
 
 Preserve former root lookup only through Codex projection `PROVENANCE.md` and
 `legacy/`.
 
 ## Consequences
 
-- The `assistant-projection` part now owns the resolver schemas and example.
+- The `assistant-projection` part now owns the resolver schemas, example,
+  validator, and focused tests.
 - Root `schemas/` and `examples/` remain active for shared or not-yet-localized
   contracts.
 - Existing schema `$id` values remain stable for consumers.
@@ -39,11 +42,11 @@ Preserve former root lookup only through Codex projection `PROVENANCE.md` and
 ## Verification
 
 ```bash
-python scripts/validate_assistant_projection_resolver.py
+python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
+python -m unittest discover -s mechanics/codex-projection/parts/assistant-projection/tests -p 'test_*.py'
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests/test_wave1_assistant_projection.py
 python -m pytest -q tests
 python scripts/release_check.py
 ```

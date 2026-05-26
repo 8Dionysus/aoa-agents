@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 ASSISTANT_PART_ROOT = Path("mechanics/codex-projection/parts/assistant-projection")
 PUBLIC_SCHEMA_PATH = ASSISTANT_PART_ROOT / "schemas" / "assistant-projection-resolver.schema.json"
 LOCAL_V1_SCHEMA_PATH = ASSISTANT_PART_ROOT / "schemas" / "assistant-projection-resolver-v1.schema.json"
@@ -21,6 +21,7 @@ FORMER_ROOT_PATHS = {
     Path("schemas") / "assistant-projection-resolver.schema.json",
     Path("schemas") / ("assistant" + "_projection_resolver_v1.json"),
     Path("examples") / ("assistant" + "_projection_resolver.example.json"),
+    Path("scripts") / "validate_assistant_projection_resolver.py",
 }
 
 

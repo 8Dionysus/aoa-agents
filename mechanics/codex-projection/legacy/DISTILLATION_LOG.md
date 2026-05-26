@@ -30,6 +30,17 @@ Moved 2 schemas and 1 example out of root support districts and into the active
 | --- | ---: | ---: |
 | `assistant-projection` | 2 | 1 |
 
+## 2026-05-26 Assistant Projection Validator To Active Part
+
+Moved the assistant projection resolver validator out of root `scripts/` and
+into the active `assistant-projection` part. Moved the focused resolver test
+beside that part and converted it to `unittest` so `release_check.py` runs it
+explicitly.
+
+| Part | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `assistant-projection` | 1 | 1 |
+
 ## 2026-05-26 Refresh Law Example To Active Part
 
 Moved 1 refresh-law example out of root `examples/` and into the active
