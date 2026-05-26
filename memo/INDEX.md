@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 4 |
+| candidates | 5 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 4 |
+| `reviewed_intake` | 5 |
 
 ## Open Items
 
@@ -25,6 +25,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T034728Z:f76675eb-aoa-agents-localized-mechanics-o` | `candidate` | `reviewed_intake` | `candidates/20260526T034728Z.f76675eb.aoa-agents-localized-mechanics-owned-role-layer.candidate.json` |
 | `candidate:aoa-agents:20260526T040157Z:54ac8820-aoa-agents-localized-agon-format` | `candidate` | `reviewed_intake` | `candidates/20260526T040157Z.54ac8820.aoa-agents-localized-agon-formation-contracts-in.candidate.json` |
 | `candidate:aoa-agents:20260526T041817Z:192ec659-aoa-agents-localized-wave-ii-ass` | `candidate` | `reviewed_intake` | `candidates/20260526T041817Z.192ec659.aoa-agents-localized-wave-ii-assistant-civil-con.candidate.json` |
+| `candidate:aoa-agents:20260526T042756Z:fb667e3c-aoa-agents-localized-the-codex-s` | `candidate` | `reviewed_intake` | `candidates/20260526T042756Z.fb667e3c.aoa-agents-localized-the-codex-subagent-projecti.candidate.json` |
 
 ## Agent Route
 

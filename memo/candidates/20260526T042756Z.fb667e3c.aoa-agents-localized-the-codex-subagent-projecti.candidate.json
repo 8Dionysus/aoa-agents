@@ -1,0 +1,35 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T042756Z:fb667e3c-aoa-agents-localized-the-codex-s",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Codex subagent projection refresh-law example into the Codex Projection refresh-law part-local examples route; root examples no longer own that mechanic contract, and scripts/validate_codex_refresh_law_contracts.py now guards the part-local route.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-codex-refresh-law-example-localization.md",
+    "mechanics/codex-projection/PARTS.md",
+    "mechanics/codex-projection/PROVENANCE.md",
+    "mechanics/codex-projection/parts/refresh-law/README.md",
+    "mechanics/codex-projection/parts/refresh-law/examples/README.md",
+    "scripts/validate_codex_refresh_law_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/08534fa",
+    "repo:aoa-agents/pull/151",
+    "repo:aoa-agents/commit-range/3f18ff6..08534fa",
+    "tests/test_codex_subagent_refresh_law.py",
+    "tests/test_roadmap_parity.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T04:27:56Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
