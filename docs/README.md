@@ -20,6 +20,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
 - Read [Registry Source Surfaces](../mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md) for the source-authored machine-readable registry layer.
 - Read [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) for the projected Codex custom-agent install surface.
+- Read [Codex Specialization Eligibility](../mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md) for the gate between role-local specializations and any future Codex custom-agent projection.
 - Read [Codex Subagent Refresh Law](../mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md) for the owner refresh route when source profiles, projection wiring, generated agent TOML, or workspace install seams drift.
 - Read [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
 - Read [Agent Stress Posture](../mechanics/antifragility/parts/stress-posture/docs/stress-posture.md) for additive role narrowing under stress.
@@ -68,6 +69,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [Registry Source Surfaces](../mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
 - [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `agents/roles/`
+- [Codex Specialization Eligibility](../mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md) — how role-local specializations can be considered for future Codex projection without becoming installed agents by default
 - [Codex Subagent Refresh Law](../mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md) — how repeated projection drift turns into owner-owned refresh work without making generated or installed agent files canonical
 - [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
 - [Agent Stress Posture](../mechanics/antifragility/parts/stress-posture/docs/stress-posture.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority

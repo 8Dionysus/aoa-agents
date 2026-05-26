@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-agents/schemas/codex_specialization_eligibility_v1.json",
+  "title": "codex_specialization_eligibility v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "id",
+    "owner_repo",
+    "projection_scope",
+    "specialization_id",
+    "specialization_ref",
+    "base_role_id",
+    "capability_pack_ref",
+    "codex_install",
+    "permission_posture",
+    "owner_consent",
+    "evidence",
+    "decision",
+    "refresh_law_ref",
+    "guardrails"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "codex_specialization_eligibility_v1"
+    },
+    "kind": {
+      "const": "codex_specialization_eligibility"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^codex-specialization-eligibility\\.[a-z0-9-]+\\.[a-z0-9-]+$"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "projection_scope": {
+      "const": "base_role_profiles_only"
+    },
+    "specialization_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$"
+    },
+    "specialization_ref": {
+      "type": "string",
+      "pattern": "^agents/roles/[a-z0-9-]+/specializations/[a-z0-9-]+/specialization\\.json$"
+    },
+    "base_role_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "capability_pack_ref": {
+      "type": "string",
+      "pattern": "^agents/operating-model/capabilities/packs/[a-z0-9.-]+\\.capability\\.json$"
+    },
+    "codex_install": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "install_state",
+        "proposed_agent_name",
+        "generated_surface_policy",
+        "workspace_install_policy"
+      ],
+      "properties": {
+        "install_state": {
+          "enum": [
+            "not_projected",
+            "eligible_not_projected",
+            "installed",
+            "rejected"
+          ]
+        },
+        "proposed_agent_name": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "generated_surface_policy": {
+          "enum": [
+            "no_generated_change",
+            "future_builder_change_required"
+          ]
+        },
+        "workspace_install_policy": {
+          "enum": [
+            "no_workspace_install",
+            "future_workspace_install_required"
+          ]
+        }
+      }
+    },
+    "permission_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sandbox_mode",
+        "approval_gate",
+        "tool_policy_refs",
+        "skill_refs",
+        "technique_refs",
+        "memory_routes",
+        "proof_routes"
+      ],
+      "properties": {
+        "sandbox_mode": {
+          "enum": [
+            "read-only",
+            "workspace-write",
+            "danger-full-access"
+          ]
+        },
+        "approval_gate": {
+          "enum": [
+            "required",
+            "not_required"
+          ]
+        },
+        "tool_policy_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "skill_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "technique_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "memory_routes": {
+          "$ref": "#/$defs/string_list"
+        },
+        "proof_routes": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "owner_consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consent_state",
+        "required_owners",
+        "granted_owners"
+      ],
+      "properties": {
+        "consent_state": {
+          "enum": [
+            "not_requested",
+            "partial",
+            "granted",
+            "rejected"
+          ]
+        },
+        "required_owners": {
+          "$ref": "#/$defs/string_list"
+        },
+        "granted_owners": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_refs",
+        "observed_refs",
+        "missing_refs",
+        "proof_commands"
+      ],
+      "properties": {
+        "required_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "observed_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "missing_refs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "proof_commands": {
+          "$ref": "#/$defs/string_list"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "decided_by",
+        "decided_at",
+        "rationale",
+        "next_review_trigger"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "candidate_only",
+            "eligible",
+            "rejected",
+            "retired"
+          ]
+        },
+        "decided_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decided_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_review_trigger": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "refresh_law_ref": {
+      "const": "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md"
+    },
+    "guardrails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "no_generated_agent_change",
+        "no_workspace_install",
+        "no_runtime_activation",
+        "requires_reviewed_intake"
+      ],
+      "properties": {
+        "no_generated_agent_change": {
+          "const": true
+        },
+        "no_workspace_install": {
+          "const": true
+        },
+        "no_runtime_activation": {
+          "const": true
+        },
+        "requires_reviewed_intake": {
+          "const": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "string_list": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

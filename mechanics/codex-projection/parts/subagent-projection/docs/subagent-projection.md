@@ -29,6 +29,9 @@ and catalog entries, not Codex custom-agent install entries. Promotion of a
 specialization into `.codex/agents/` needs a new projection eligibility surface
 that names the install identity, permission posture, refresh law, and owner
 consent.
+That surface now starts at
+`mechanics/codex-projection/parts/specialization-eligibility/`, but it remains a
+gate and does not widen this builder's projection scope.
 
 ## Decision
 

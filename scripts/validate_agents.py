@@ -229,6 +229,17 @@ validate_assistant_projection_resolver = (
     _ASSISTANT_PROJECTION_RESOLVER_MODULE.validate_assistant_projection_resolver
 )
 
+_SPECIALIZATION_ELIGIBILITY_MODULE = load_repo_python_module(
+    "specialization_eligibility_validator",
+    "mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py",
+)
+SpecializationEligibilityValidationError = (
+    _SPECIALIZATION_ELIGIBILITY_MODULE.SpecializationEligibilityValidationError
+)
+validate_specialization_eligibility = (
+    _SPECIALIZATION_ELIGIBILITY_MODULE.validate_specialization_eligibility
+)
+
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
     legacy_path = AOA_EVALS_ROOT / "schemas" / legacy_name
@@ -4121,6 +4132,7 @@ def main() -> int:
         validate_titan_codex_projection_route()
         validate_assistant_projection_resolver_surface()
         validate_codex_refresh_law_contracts(REPO_ROOT)
+        validate_specialization_eligibility(REPO_ROOT)
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
@@ -4137,6 +4149,7 @@ def main() -> int:
         AgentServiceContractsValidationError,
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
+        SpecializationEligibilityValidationError,
         CodexRefreshLawContractsValidationError,
         NestedAgentsValidationError,
         RPGProgressionValidationError,
@@ -4206,6 +4219,7 @@ def main() -> int:
     print("[ok] validated generated/codex_agents projection surfaces")
     print("[ok] validated assistant projection resolver part-local contracts")
     print("[ok] validated Codex refresh-law part-local contracts")
+    print("[ok] validated Codex specialization eligibility part-local contracts")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")
     else:
