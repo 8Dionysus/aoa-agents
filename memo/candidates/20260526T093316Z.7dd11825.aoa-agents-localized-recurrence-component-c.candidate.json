@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T093316Z:7dd11825-aoa-agents-localized-recurrence-comp",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the recurrence component manifest validator and focused tests into mechanics/recurrence/parts/component-manifests/{scripts,tests}/; validate_agents.py loads the part-local validator and release_check.py runs the part-local manifest tests.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-recurrence-component-check-localization.md",
+    "mechanics/recurrence/PROVENANCE.md",
+    "mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py",
+    "mechanics/recurrence/parts/component-manifests/tests/test_recurrence_component_manifests.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/e64c82f6e01ac96ff26db14e0507302821a2a505",
+    "repo:aoa-agents/pull/195",
+    "mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py",
+    "mechanics/recurrence/parts/component-manifests/tests/test_recurrence_component_manifests.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T09:33:16Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
