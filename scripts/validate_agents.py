@@ -156,11 +156,9 @@ FORMER_REFERENCE_ROUTE_ROOTS = (
     REPO_ROOT / "schemas" / ("reference-route" + ".example.schema.json"),
     REPO_ROOT / "schemas" / ("alpha-reference-route" + ".schema.json"),
 )
-QUESTBOOK_PATH = (
-    REPO_ROOT / "mechanics" / "questbook" / "parts" / "quest-catalog" / "docs" / "quest-catalog.md"
-)
+QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
 QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "mechanics" / "questbook" / "parts" / "execution-passport" / "docs" / "quest-execution-passport.md"
-QUESTS_RELATIVE_DIR = Path("mechanics/questbook/parts/quest-catalog/quests")
+QUESTS_RELATIVE_DIR = Path("quests")
 QUESTS_DIR = REPO_ROOT / QUESTS_RELATIVE_DIR
 QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
 QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
@@ -764,11 +762,11 @@ def build_expected_quest_dispatch_entry(
 def build_quest_catalog_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     quests_dir = repo_root / QUESTS_RELATIVE_DIR
-    for quest_id in sorted(
-        (path.stem for path in quests_dir.glob("AOA-AG-Q-*.yaml") if path.is_file()),
-        key=quest_sort_key,
-    ):
-        path = quests_dir / f"{quest_id}.yaml"
+    quest_paths = sorted(
+        (path for path in quests_dir.rglob("AOA-AG-Q-*.yaml") if path.is_file()),
+        key=lambda path: quest_sort_key(path.stem),
+    )
+    for path in quest_paths:
         payload = read_yaml(path, root=repo_root)
         entries.append(
             build_expected_quest_catalog_entry(
@@ -782,11 +780,11 @@ def build_quest_catalog_projection(repo_root: Path = REPO_ROOT) -> list[dict[str
 def build_quest_dispatch_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     quests_dir = repo_root / QUESTS_RELATIVE_DIR
-    for quest_id in sorted(
-        (path.stem for path in quests_dir.glob("AOA-AG-Q-*.yaml") if path.is_file()),
-        key=quest_sort_key,
-    ):
-        path = quests_dir / f"{quest_id}.yaml"
+    quest_paths = sorted(
+        (path for path in quests_dir.rglob("AOA-AG-Q-*.yaml") if path.is_file()),
+        key=lambda path: quest_sort_key(path.stem),
+    )
+    for path in quest_paths:
         payload = read_yaml(path, root=repo_root)
         entries.append(
             build_expected_quest_dispatch_entry(
@@ -2701,9 +2699,14 @@ def validate_questbook_surface() -> None:
     passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
     source_root = quest_source_root()
 
-    quest_paths = {
-        path.stem: path for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()
-    }
+    quest_paths: dict[str, Path] = {}
+    for path in QUESTS_DIR.rglob("AOA-AG-Q-*.yaml"):
+        if not path.is_file():
+            continue
+        quest_id = path.stem
+        if quest_id in quest_paths:
+            fail(f"duplicate quest id '{quest_id}' under {describe_path(QUESTS_DIR)}")
+        quest_paths[quest_id] = path
     actual_ids = set(quest_paths)
     expected_ids = set(REQUIRED_QUEST_IDS)
     missing = sorted(expected_ids - actual_ids)
@@ -2730,6 +2733,14 @@ def validate_questbook_surface() -> None:
                 f"{describe_path(path)} id '{payload.get('id')}' does not match "
                 f"filename '{quest_id}'"
             )
+        relative_parts = path.relative_to(QUESTS_DIR).parts
+        if len(relative_parts) != 3:
+            fail(f"{describe_path(path)} must live under quests/<lane>/<state>/<quest-id>.yaml")
+        lane, state_dir, _filename = relative_parts
+        if lane != "agents":
+            fail(f"{describe_path(path)} must keep YAML quest records in quests/agents/<state>/")
+        if payload.get("state") != state_dir:
+            fail(f"{describe_path(path)} state must match its lifecycle directory '{state_dir}'")
         if payload.get("public_safe") is not True:
             fail(f"{describe_path(path)} must set public_safe: true")
         if payload.get("control_mode") == "codex_supervised" and (
@@ -2790,10 +2801,10 @@ def validate_questbook_surface() -> None:
 
     for quest_id in active_quest_ids:
         if quest_id not in questbook_text:
-            fail(f"quest-catalog.md must reference active quest id '{quest_id}'")
+            fail(f"QUESTBOOK.md must reference active quest id '{quest_id}'")
     for quest_id in closed_quest_ids:
         if quest_id in questbook_text:
-            fail(f"quest-catalog.md must not list closed quest id '{quest_id}'")
+            fail(f"QUESTBOOK.md must not list closed quest id '{quest_id}'")
 
     for snippet in REQUIRED_QUEST_PASSPORT_SNIPPETS:
         if snippet not in passport_text:
@@ -2804,34 +2815,34 @@ def validate_questbook_surface() -> None:
 
     actual_catalog = read_json(QUEST_CATALOG_PATH)
     if actual_catalog != expected_catalog_entries:
-        fail("generated/quest_catalog.min.json is out of date or mismatched")
+        fail(f"{describe_path(QUEST_CATALOG_PATH)} is out of date or mismatched")
     actual_catalog_example = read_json(QUEST_CATALOG_EXAMPLE_PATH)
     if actual_catalog_example != expected_catalog_entries:
-        fail("generated/quest_catalog.min.example.json is out of date or mismatched")
+        fail(f"{describe_path(QUEST_CATALOG_EXAMPLE_PATH)} is out of date or mismatched")
 
     actual_dispatch = read_json(QUEST_DISPATCH_PATH)
     if not isinstance(actual_dispatch, list):
-        fail("generated/quest_dispatch.min.json must be an array")
+        fail(f"{describe_path(QUEST_DISPATCH_PATH)} must be an array")
     for index, item in enumerate(actual_dispatch):
         validate_against_external_schema(
             item,
             EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH,
-            location=f"generated/quest_dispatch.min.json[{index}]",
+            location=f"{describe_path(QUEST_DISPATCH_PATH)}[{index}]",
         )
     if actual_dispatch != expected_dispatch_entries:
-        fail("generated/quest_dispatch.min.json is out of date or mismatched")
+        fail(f"{describe_path(QUEST_DISPATCH_PATH)} is out of date or mismatched")
 
     actual_dispatch_example = read_json(QUEST_DISPATCH_EXAMPLE_PATH)
     if not isinstance(actual_dispatch_example, list):
-        fail("generated/quest_dispatch.min.example.json must be an array")
+        fail(f"{describe_path(QUEST_DISPATCH_EXAMPLE_PATH)} must be an array")
     for index, item in enumerate(actual_dispatch_example):
         validate_against_external_schema(
             item,
             EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH,
-            location=f"generated/quest_dispatch.min.example.json[{index}]",
+            location=f"{describe_path(QUEST_DISPATCH_EXAMPLE_PATH)}[{index}]",
         )
     if actual_dispatch_example != expected_dispatch_entries:
-        fail("generated/quest_dispatch.min.example.json is out of date or mismatched")
+        fail(f"{describe_path(QUEST_DISPATCH_EXAMPLE_PATH)} is out of date or mismatched")
 
 
 def validate_orchestrator_class_doc_surface() -> None:

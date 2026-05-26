@@ -40,10 +40,10 @@ manifests from root `manifests/` into active part-local manifests under
 manifest paths are now legacy lookup facts and are accounted for in recurrence
 `PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
-The 2026-05-26 questbook localization moved the root quest catalog doc and
-quest source files into active part-local questbook routes. Former root
-questbook and quest-source paths are now legacy lookup facts and are accounted
-for in questbook `PROVENANCE.md`, `legacy/INDEX.md`, and
+The 2026-05-26 Questbook source-store repair restored root `QUESTBOOK.md`,
+root `quests/`, and root quest generated readers as active source/read-model
+districts. Former flat quest source paths are now lane/state lookup facts and
+are accounted for in questbook `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`.
 
 The 2026-05-26 Titan example localization moved schema-backed Titan examples
@@ -169,6 +169,9 @@ Recurrence part-local `generated/` routes. Former root generated paths are now
 legacy lookup facts and are accounted for in Recurrence `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
+Quest catalog and dispatch readers remain active root generated surfaces; they
+are not legacy paths in this topology.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
 non-Agon-rank/epistemic, non-Agon-formation, and
@@ -179,7 +182,8 @@ remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
 non-adoption/boundary, non-agent-service, non-reference-route `examples/`, `agents/`,
-remaining non-Alpha, non-Agon-rank/epistemic, non-recursor `generated/`, `scripts/`, and
+remaining non-Alpha, non-Agon-rank/epistemic, non-recursor, non-Questbook
+`generated/`, `scripts/`, and
 `tests/`. They are not automatically legacy.
 They remain current source, support, generated, or validation districts until
 a package-local move changes their lookup topology.

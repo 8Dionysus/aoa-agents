@@ -1078,15 +1078,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         self.temp_dir = Path(tempfile.mkdtemp(prefix="aoa_agents_questbook_"))
         validate_agents.external_schema_validator.cache_clear()
         self.addCleanup(validate_agents.external_schema_validator.cache_clear)
-        self.questbook_path = (
-            self.temp_dir
-            / "mechanics"
-            / "questbook"
-            / "parts"
-            / "quest-catalog"
-            / "docs"
-            / "quest-catalog.md"
-        )
+        self.questbook_path = self.temp_dir / "QUESTBOOK.md"
         self.passport_path = (
             self.temp_dir
             / "mechanics"
@@ -1114,6 +1106,9 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             patcher.start()
             self.addCleanup(patcher.stop)
         self.addCleanup(shutil.rmtree, self.temp_dir)
+
+    def quest_path(self, quest_id: str, *, state: str = "captured") -> Path:
+        return self.quests_dir / "agents" / state / f"{quest_id}.yaml"
 
     def test_aoa_evals_schema_resolution_accepts_current_mechanics_layout(self) -> None:
         evals_root = self.temp_dir / "aoa-evals"
@@ -1220,7 +1215,9 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                         "  - repo:aoa-memo/generated/memory_object_catalog.min.json",
                     )
                 )
-            (self.quests_dir / f"{quest_id}.yaml").write_text(
+            path = self.quest_path(quest_id)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
                 "\n".join(lines) + "\n",
                 encoding="utf-8",
             )
@@ -1280,7 +1277,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
     def test_validate_questbook_surface_rejects_wrong_repo(self) -> None:
         self.write_valid_surface()
-        (self.quests_dir / "AOA-AG-Q-0002.yaml").write_text(
+        self.quest_path("AOA-AG-Q-0002").write_text(
             "\n".join(
                 (
                     "schema_version: work_quest_v1",
@@ -1346,7 +1343,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
     def test_validate_questbook_surface_rejects_codex_supervised_for_d3_contract_quest(self) -> None:
         self.write_valid_surface()
         write_text(
-            self.quests_dir / "AOA-AG-Q-0002.yaml",
+            self.quest_path("AOA-AG-Q-0002"),
             "\n".join(
                 (
                     "schema_version: work_quest_v1",
@@ -1407,7 +1404,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
     def test_validate_questbook_surface_accepts_valid_extra_quest_file(self) -> None:
         self.write_valid_surface()
         write_text(
-            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            self.quest_path("AOA-AG-Q-0003"),
             "\n".join(
                 (
                     "schema_version: work_quest_v1",
@@ -1471,7 +1468,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
     def test_validate_questbook_surface_rejects_missing_required_foundation_file(self) -> None:
         self.write_valid_surface()
-        (self.quests_dir / "AOA-AG-Q-0002.yaml").unlink()
+        self.quest_path("AOA-AG-Q-0002").unlink()
 
         with self.assertRaisesRegex(validate_agents.ValidationError, "missing: AOA-AG-Q-0002"):
             validate_agents.validate_questbook_surface()
@@ -1479,7 +1476,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
     def test_validate_questbook_surface_rejects_invalid_extra_file(self) -> None:
         self.write_valid_surface()
         write_text(
-            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            self.quest_path("AOA-AG-Q-0003"),
             "\n".join(
                 (
                     "schema_version: work_quest_v1",
@@ -1534,7 +1531,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
     def test_validate_questbook_surface_rejects_listed_closed_extra_file(self) -> None:
         self.write_valid_surface()
         write_text(
-            self.quests_dir / "AOA-AG-Q-0003.yaml",
+            self.quest_path("AOA-AG-Q-0003", state="done"),
             "\n".join(
                 (
                     "schema_version: work_quest_v1",
@@ -1590,7 +1587,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
         with self.assertRaisesRegex(
             validate_agents.ValidationError,
-            "quest-catalog.md must not list closed quest id 'AOA-AG-Q-0003'",
+            "QUESTBOOK.md must not list closed quest id 'AOA-AG-Q-0003'",
         ):
             validate_agents.validate_questbook_surface()
 

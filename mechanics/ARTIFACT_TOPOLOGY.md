@@ -59,10 +59,10 @@ manifests from root `manifests/` into
 manifest validator. Root `manifests/` is not the active owner for recurrence
 component declarations.
 
-The 2026-05-26 questbook localization moves the quest catalog doc, YAML quest
-records, and Agon quest notes into `mechanics/questbook/parts/*` after updating
-the questbook validator route and generated quest readers. Generated quest
-catalog and dispatch readers remain derived surfaces under `generated/`.
+The 2026-05-26 Questbook source-store repair keeps `QUESTBOOK.md`, `quests/`,
+and root quest generated readers in their root districts while
+`mechanics/questbook/parts/*` owns public-index, quest-item-store, and
+dispatch-reader route law.
 
 The 2026-05-26 Titan example localization moves schema-backed Titan examples
 from root `examples/` into active `mechanics/titan/parts/*/examples/` routes
@@ -189,6 +189,11 @@ and component manifests already had part-local routes and validators. Root
 `generated/` continues to own repo-level registries and formation readers;
 these readers are part-local because they summarize Recurrence part-local
 config and contract surfaces.
+
+The 2026-05-26 Questbook source-store repair keeps quest catalog and dispatch
+readers root-published under `generated/` because they summarize root
+`quests/` source records. `mechanics/questbook/parts/dispatch-reader/` owns the
+projection contract and validation route, not the generated files themselves.
 
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.

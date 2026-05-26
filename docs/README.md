@@ -34,7 +34,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Read [Self-Agent Checkpoint Stack](../mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md) for the bounded self-agent contract.
 - Read [Self-Agency Continuity Lane](../mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md) for the bounded continuity window and anchor-return contract.
 - Read [Reference Route Examples](../mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md) for example-only and Alpha route packs.
-- Read [Quest Catalog](../mechanics/questbook/parts/quest-catalog/docs/quest-catalog.md) for active quest records and dispatch posture.
+- Read [QUESTBOOK](../QUESTBOOK.md) and [quests](../quests/README.md) for active quest records and dispatch posture.
 - Read [QUEST execution passport](../mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md) for quest-facing execution posture.
 - Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
 - Read [ROADMAP](../ROADMAP.md) for the current direction.
@@ -84,7 +84,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [Self-Agent Checkpoint Stack](../mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
 - [Self-Agency Continuity Lane](../mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md) — how continuity windows, bounded revision, and anchor-return posture stay explicit at the agent layer
 - [Reference Route Examples](../mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md) — how reference route packs and Alpha companions stay example-only and playbook-facing
-- [Quest Catalog](../mechanics/questbook/parts/quest-catalog/docs/quest-catalog.md) — how active quest records and dispatch readers stay agent-layer and bounded
+- [QUESTBOOK](../QUESTBOOK.md) - how active quest records and dispatch readers stay agent-layer and bounded
 - [QUEST execution passport](../mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md) — how quest difficulty, risk, control, and delegate-tier posture stay inspectable
 - [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb
 
