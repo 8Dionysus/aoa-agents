@@ -79,8 +79,8 @@ For recursor generated readers, use `scripts/build_recursor_role_readiness.py`,
 `scripts/validate_recursor_boundary.py`; the outputs are part-local under the
 owning Recurrence parts.
 For Questbook catalog and dispatch readers, use
-`scripts/generate_questbook_readers.py`; the outputs are root-published under
-`generated/`.
+`mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py`;
+the outputs are root-published under `generated/`.
 For `generated/agent_agonic_formation_index.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`
 as the canonical builder and

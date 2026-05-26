@@ -955,6 +955,18 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         self.quest_catalog_example_path = self.temp_dir / "generated" / "quest_catalog.min.example.json"
         self.quest_dispatch_path = self.temp_dir / "generated" / "quest_dispatch.min.json"
         self.quest_dispatch_example_path = self.temp_dir / "generated" / "quest_dispatch.min.example.json"
+        self.questbook_reader_builder_path = (
+            self.temp_dir
+            / "mechanics"
+            / "questbook"
+            / "parts"
+            / "dispatch-reader"
+            / "scripts"
+            / "generate_questbook_readers.py"
+        )
+        self.former_questbook_reader_builder_path = (
+            self.temp_dir / "scripts" / "generate_questbook_readers.py"
+        )
         self.patches = (
             patch.object(validate_agents, "QUESTBOOK_PATH", self.questbook_path),
             patch.object(validate_agents, "QUEST_EXECUTION_PASSPORT_PATH", self.passport_path),
@@ -963,6 +975,12 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             patch.object(validate_agents, "QUEST_CATALOG_EXAMPLE_PATH", self.quest_catalog_example_path),
             patch.object(validate_agents, "QUEST_DISPATCH_PATH", self.quest_dispatch_path),
             patch.object(validate_agents, "QUEST_DISPATCH_EXAMPLE_PATH", self.quest_dispatch_example_path),
+            patch.object(validate_agents, "QUESTBOOK_READER_BUILDER_PATH", self.questbook_reader_builder_path),
+            patch.object(
+                validate_agents,
+                "FORMER_QUESTBOOK_READER_BUILDER_PATH",
+                self.former_questbook_reader_builder_path,
+            ),
         )
         for patcher in self.patches:
             patcher.start()
@@ -1014,6 +1032,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             self.passport_path,
             "\n".join(validate_agents.REQUIRED_QUEST_PASSPORT_SNIPPETS) + "\n",
         )
+        write_text(self.questbook_reader_builder_path, "# test placeholder\n")
         self.quests_dir.mkdir(parents=True, exist_ok=True)
         for quest_id in validate_agents.REQUIRED_QUEST_IDS:
             lines = [
@@ -1101,6 +1120,16 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         self.write_valid_surface()
 
         validate_agents.validate_questbook_surface()
+
+    def test_validate_questbook_surface_rejects_former_root_reader_builder(self) -> None:
+        self.write_valid_surface()
+        write_text(self.former_questbook_reader_builder_path, "# stale root path\n")
+
+        with self.assertRaisesRegex(
+            validate_agents.ValidationError,
+            "former Questbook reader builder root path must stay absent",
+        ):
+            validate_agents.validate_questbook_surface()
 
     def test_validate_questbook_surface_skips_external_eval_schemas_when_repo_unavailable(self) -> None:
         self.write_valid_surface()

@@ -14,11 +14,16 @@ in `QUESTBOOK.md`. Generated readers remain root-published consumer seams under
 - [quest dispatch](../../../../generated/quest_dispatch.min.json)
 - [quest catalog example](../../../../generated/quest_catalog.min.example.json)
 - [quest dispatch example](../../../../generated/quest_dispatch.min.example.json)
+- [builder](scripts/generate_questbook_readers.py)
+
+## Part-Local Artifacts
+
+- [scripts/generate_questbook_readers.py](scripts/generate_questbook_readers.py)
 
 ## Validation
 
 ```bash
-python scripts/generate_questbook_readers.py --check
+python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python scripts/validate_agents.py
 ```
 

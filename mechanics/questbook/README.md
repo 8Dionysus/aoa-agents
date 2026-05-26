@@ -1,6 +1,6 @@
 # Questbook Mechanic
 
-Status: skeleton.
+Status: active package.
 
 `mechanics/questbook/` routes quest-facing role posture for `aoa-agents`.
 It keeps quest passports, quest catalog readers, dispatch posture, and Alpha
@@ -15,14 +15,15 @@ reference routes legible without taking playbook scenario authority.
 | output | bounded quest posture, generated quest reader, passport route, or playbook handoff |
 | owner | this package for agent-layer quest posture |
 | next route | `PARTS.md`, root `QUESTBOOK.md`, root `quests/`, root generated quest readers |
-| validation | quest/read-model checks plus repo validators |
+| validation | dispatch-reader checks plus repo validators |
 
 ## Agent Layer Owns
 
 - role posture and eligibility for quest-facing agent work
 - execution passport contracts from the agent side
-- quest catalog, dispatch, and Alpha reference route readers as derived
-  companions
+- quest catalog and dispatch reader contract/builder posture while the
+  generated outputs stay root-published
+- Alpha reference route readers as part-local derived companions
 - Alpha reference route posture where it describes agent roles
 
 ## Stronger Owner Split
@@ -38,7 +39,7 @@ reference routes legible without taking playbook scenario authority.
 ## Validation
 
 ```bash
-python scripts/generate_questbook_readers.py --check
+python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
 python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_semantic_agents.py

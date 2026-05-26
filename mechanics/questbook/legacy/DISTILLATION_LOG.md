@@ -59,4 +59,15 @@ routes.
 
 Quest catalog and dispatch generated readers stay root-published under
 `generated/` because they summarize root `quests/` source records.
-`scripts/generate_questbook_readers.py` rebuilds and checks them.
+`mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py`
+rebuilds and checks them.
+
+## 2026-05-26 Questbook Reader Builder To Active Part
+
+Moved the dedicated Questbook catalog/dispatch builder out of root `scripts/`
+and into the active `dispatch-reader` part. The generated reader files stayed
+root-published.
+
+| Part | Moved scripts | Root generated readers moved |
+| --- | ---: | ---: |
+| `dispatch-reader` | 1 | 0 |

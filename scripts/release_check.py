@@ -24,6 +24,14 @@ def _env() -> dict[str, str]:
 
 
 COMMANDS = [
+    (
+        "check Questbook generated readers",
+        [
+            sys.executable,
+            "mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py",
+            "--check",
+        ],
+    ),
     ("validate agents", [sys.executable, "scripts/validate_agents.py"]),
     (
         "run antifragility stress tests",
@@ -244,6 +252,7 @@ COMMANDS = [
             "--",
             "generated",
             ":(exclude)generated/AGENTS.md",
+            ":(exclude)generated/README.md",
         ],
     ),
 ]

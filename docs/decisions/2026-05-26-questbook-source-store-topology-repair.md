@@ -33,7 +33,7 @@ quests/agon/captured/*.md
 Keep quest catalog and dispatch readers root-published under `generated/`
 because they summarize root `quests/` for low-context consumers. Add a
 dedicated Questbook reader builder/checker at
-`scripts/generate_questbook_readers.py`.
+`mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py`.
 
 Retire the part-local `quest-catalog` and `agon-quest-surfaces` source-store
 shape in favor of `public-index`, `quest-item-store`, and `dispatch-reader`
@@ -54,7 +54,7 @@ parts that route to root-owned source/index/generated surfaces.
 ## Validation
 
 ```bash
-python scripts/generate_questbook_readers.py --check
+python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python scripts/validate_agents.py
 python scripts/validate_nested_agents.py
 python -m pytest -q tests/test_validate_agents.py tests/test_roadmap_parity.py

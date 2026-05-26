@@ -226,6 +226,12 @@ root `QUESTBOOK.md` owns human visibility, root `quests/` owns source records,
 root `generated/quest_*` readers summarize those records, and
 `mechanics/questbook/` owns the route law plus builder-backed validation.
 
+The Questbook reader-builder localization follows the same source-first rule
+at the support-script layer: the root-generated quest catalog and dispatch
+readers remain root-published, but their dedicated builder now lives under
+`mechanics/questbook/parts/dispatch-reader/scripts/` because it exists only to
+protect that Questbook projection contract.
+
 The formation generated-reader posture follows the same source-first rule in
 the opposite direction from the part-local generated moves: formation schemas
 and examples live in Agon and Experience parts, but

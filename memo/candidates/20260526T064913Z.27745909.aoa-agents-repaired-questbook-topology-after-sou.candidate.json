@@ -13,7 +13,7 @@
     "quests/AGENTS.md",
     "mechanics/questbook/PARTS.md",
     "mechanics/questbook/PROVENANCE.md",
-    "scripts/generate_questbook_readers.py",
+    "mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py",
     "scripts/validate_agents.py"
   ],
   "evidence_refs": [
