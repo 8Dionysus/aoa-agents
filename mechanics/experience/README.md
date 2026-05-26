@@ -15,7 +15,7 @@ and arena-exclusion boundaries.
 | output | bounded service posture, office operation route, adoption/watch route, release-hold handoff, or stronger-owner handoff |
 | owner | this package for experience routing; `agents/profiles/adjuncts/assistant_*` for source adjuncts |
 | next route | `PARTS.md`, `mechanics/agon/` for formation pressure, `mechanics/release-support/` for repo release pressure |
-| validation | assistant formation builders, assistant route tests, semantic/nested/repo validators |
+| validation | assistant formation builders, experience assistant civil contract validator, assistant route tests, semantic/nested/repo validators |
 
 ## Agent Layer Owns
 
@@ -37,6 +37,7 @@ Run affected assistant builders/tests, then:
 
 ```bash
 python scripts/validate_assistant_civil_formation.py
+python scripts/validate_experience_assistant_civil_contracts.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

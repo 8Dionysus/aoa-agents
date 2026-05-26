@@ -151,18 +151,21 @@ Rechartering. Its checked surface is:
   `agents/profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
   `agents/profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
 - Wave II companion contracts and publication:
-  `schemas/assistant_variant_v1.json`,
-  `schemas/assistant_service_identity_v1.json`,
-  `schemas/assistant_service_contract_v1.json`,
-  `schemas/assistant_service_governance_v1.json`,
-  `schemas/assistant_service_certification_v1.json`,
-  `schemas/assistant_arena_exclusion_v1.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json`,
+  `mechanics/experience/parts/assistant-civil-service/schemas/civil-formation.schema.json`,
+  `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json`,
   `generated/assistant_civil_formation_index.min.json`, and
-  `examples/assistant_civil_formation.example.json`
+  `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`
 - explicit Wave II validation lane:
   `scripts/build_assistant_civil_formation_index.py`,
-  `scripts/validate_assistant_civil_formation.py`, and
-  `tests/test_assistant_civil_formation.py`
+  `scripts/validate_assistant_civil_formation.py`,
+  `scripts/validate_experience_assistant_civil_contracts.py`, and
+  `tests/test_assistant_civil_formation.py` plus
+  `tests/test_experience_assistant_civil_contracts.py`
 
 This turn keeps assistant variants as civil/service forms anchored to the same
 five role houses without widening the public role catalog, without granting

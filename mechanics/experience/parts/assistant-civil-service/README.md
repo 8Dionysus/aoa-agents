@@ -13,4 +13,23 @@ This part routes `assistant-civil-service` pressure inside `mechanics/experience
 - [Assistant Service Governance Model](docs/service-governance-model.md)
 - [Assistant Service Identity Model](docs/service-identity-model.md)
 
+## Active Schemas
+
+- [Assistant Variant](schemas/assistant-variant.schema.json)
+- [Assistant Service Identity](schemas/service-identity.schema.json)
+- [Assistant Service Contract](schemas/service-contract.schema.json)
+- [Assistant Service Governance](schemas/service-governance.schema.json)
+- [Assistant Service Certification](schemas/service-certification.schema.json)
+- [Assistant Civil Formation](schemas/civil-formation.schema.json)
+
+## Active Examples
+
+- [Assistant Civil Formation](examples/civil-formation.example.json)
+
+## Validation
+
+```bash
+python scripts/validate_experience_assistant_civil_contracts.py
+```
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -39,6 +39,7 @@ Run the narrow builder or validator for the affected part, then:
 ```bash
 python scripts/validate_agent_agonic_formation.py
 python scripts/validate_assistant_civil_formation.py
+python scripts/validate_experience_assistant_civil_contracts.py
 python scripts/build_agent_formation_trial.py --check
 python scripts/validate_agent_formation_trial.py
 python scripts/validate_agon_formation_contracts.py

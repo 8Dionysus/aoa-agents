@@ -60,3 +60,19 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `docs/ASSISTANT_ROLLBACK_DRILL.md` | [parts/watch-and-rollback/docs/rollback-drill.md](parts/watch-and-rollback/docs/rollback-drill.md) | `watch-and-rollback` |
 | `docs/ASSISTANT_ROLLOUT_RINGS.md` | [parts/watch-and-rollback/docs/rollout-rings.md](parts/watch-and-rollback/docs/rollout-rings.md) | `watch-and-rollback` |
 | `docs/ASSISTANT_SAFE_ROLLBACK.md` | [parts/watch-and-rollback/docs/safe-rollback.md](parts/watch-and-rollback/docs/safe-rollback.md) | `watch-and-rollback` |
+
+## 2026-05-26 Assistant Civil Contract Move
+
+Wave II assistant civil schemas/examples moved from root contract districts
+into Experience part-local contract routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/assistant_variant_v1.json` | [parts/assistant-civil-service/schemas/assistant-variant.schema.json](parts/assistant-civil-service/schemas/assistant-variant.schema.json) | `assistant-civil-service` |
+| `schemas/assistant_service_identity_v1.json` | [parts/assistant-civil-service/schemas/service-identity.schema.json](parts/assistant-civil-service/schemas/service-identity.schema.json) | `assistant-civil-service` |
+| `schemas/assistant_service_contract_v1.json` | [parts/assistant-civil-service/schemas/service-contract.schema.json](parts/assistant-civil-service/schemas/service-contract.schema.json) | `assistant-civil-service` |
+| `schemas/assistant_service_governance_v1.json` | [parts/assistant-civil-service/schemas/service-governance.schema.json](parts/assistant-civil-service/schemas/service-governance.schema.json) | `assistant-civil-service` |
+| `schemas/assistant_service_certification_v1.json` | [parts/assistant-civil-service/schemas/service-certification.schema.json](parts/assistant-civil-service/schemas/service-certification.schema.json) | `assistant-civil-service` |
+| `schemas/assistant_civil_formation_v1.json` | [parts/assistant-civil-service/schemas/civil-formation.schema.json](parts/assistant-civil-service/schemas/civil-formation.schema.json) | `assistant-civil-service` |
+| `examples/assistant_civil_formation.example.json` | [parts/assistant-civil-service/examples/civil-formation.example.json](parts/assistant-civil-service/examples/civil-formation.example.json) | `assistant-civil-service` |
+| `schemas/assistant_arena_exclusion_v1.json` | [parts/arena-exclusion/schemas/arena-exclusion.schema.json](parts/arena-exclusion/schemas/arena-exclusion.schema.json) | `arena-exclusion` |
