@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import io
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -12,10 +13,8 @@ from typing import Any
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
-import validate_assistant_civil_formation
 
-
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 ASSISTANT_PART = Path("mechanics/experience/parts/assistant-civil-service")
 ARENA_PART = Path("mechanics/experience/parts/arena-exclusion")
 ASSISTANT_SCHEMA_DIR = ASSISTANT_PART / "schemas"
@@ -57,6 +56,13 @@ FORMER_SCHEMA_NAMES = (
     "assistant" + "_arena_exclusion_v1.json",
 )
 FORMER_EXAMPLE_NAMES = ("assistant" + "_civil_formation.example.json",)
+FORMER_CHECK_PATHS = (
+    "scripts/build_assistant_civil_formation_index.py",
+    "scripts/validate_assistant_civil_formation.py",
+    "scripts/validate_experience_assistant_civil_contracts.py",
+    "tests/test_assistant_civil_formation.py",
+    "tests/test_experience_assistant_civil_contracts.py",
+)
 
 
 def _read_json(path: Path) -> Any:
@@ -155,13 +161,35 @@ def _validate_examples(root: Path, civil_schema: dict[str, Any], errors: list[st
         errors.append("civil-formation.example.json must preserve issue_verdict prohibition")
 
 
+def _load_formation_validator(root: Path):
+    path = (
+        root
+        / "mechanics"
+        / "experience"
+        / "parts"
+        / "assistant-civil-service"
+        / "scripts"
+        / "validate_assistant_civil_formation.py"
+    )
+    spec = importlib.util.spec_from_file_location("validate_assistant_civil_formation", path)
+    if spec is None or spec.loader is None:
+        raise ExperienceAssistantCivilContractsValidationError(f"cannot load validator: {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def _collect_dependency_errors(root: Path) -> list[str]:
     errors: list[str] = []
+    try:
+        formation_validator = _load_formation_validator(root)
+    except ExperienceAssistantCivilContractsValidationError as exc:
+        return [str(exc)]
     captured_stdout = io.StringIO()
     captured_stderr = io.StringIO()
     with contextlib.redirect_stdout(captured_stdout), contextlib.redirect_stderr(captured_stderr):
         try:
-            if validate_assistant_civil_formation.main(["--root", str(root)]) != 0:
+            if formation_validator.main(["--root", str(root)]) != 0:
                 errors.append("validate_assistant_civil_formation.py failed")
         except SystemExit as exc:
             errors.append(f"validate_assistant_civil_formation.py exited with {exc.code}")
@@ -187,6 +215,11 @@ def collect_experience_assistant_civil_contract_errors(root: Path = ROOT) -> lis
                 "former root experience assistant civil example is still active: "
                 f"{former_path.relative_to(root).as_posix()}"
             )
+
+    for relative_path in FORMER_CHECK_PATHS:
+        former_path = root / relative_path
+        if former_path.exists():
+            errors.append(f"former root experience assistant civil check is still active: {relative_path}")
 
     _check_file_set(root, ASSISTANT_SCHEMA_DIR, EXPECTED_ASSISTANT_SCHEMAS, label="assistant civil schema", errors=errors)
     _check_file_set(root, ASSISTANT_EXAMPLE_DIR, EXPECTED_ASSISTANT_EXAMPLES, label="assistant civil example", errors=errors)

@@ -93,6 +93,22 @@ into Experience part-local contract routes.
 | `examples/assistant_civil_formation.example.json` | [parts/assistant-civil-service/examples/civil-formation.example.json](parts/assistant-civil-service/examples/civil-formation.example.json) | `assistant-civil-service` |
 | `schemas/assistant_arena_exclusion_v1.json` | [parts/arena-exclusion/schemas/arena-exclusion.schema.json](parts/arena-exclusion/schemas/arena-exclusion.schema.json) | `arena-exclusion` |
 
+## 2026-05-26 Assistant Civil Check Move
+
+Wave II assistant civil builder/validator support moved from root `scripts/`
+and `tests/` into Experience package and part-local routes. The formation
+builder/validator live beside the `assistant-civil-service` part. The
+cross-part contract validator lives at package level because it checks
+`assistant-civil-service` and `arena-exclusion` together.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/build_assistant_civil_formation_index.py` | [parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py](parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py) | `assistant-civil-service` |
+| `scripts/validate_assistant_civil_formation.py` | [parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py](parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py) | `assistant-civil-service` |
+| `scripts/validate_experience_assistant_civil_contracts.py` | [scripts/validate_experience_assistant_civil_contracts.py](scripts/validate_experience_assistant_civil_contracts.py) | `experience` package |
+| `tests/test_assistant_civil_formation.py` | [parts/assistant-civil-service/tests/test_assistant_civil_formation.py](parts/assistant-civil-service/tests/test_assistant_civil_formation.py) | `assistant-civil-service` |
+| `tests/test_experience_assistant_civil_contracts.py` | [tests/test_experience_assistant_civil_contracts.py](tests/test_experience_assistant_civil_contracts.py) | `experience` package |
+
 ## 2026-05-26 Root Adoption/Office Contract Move
 
 14 adoption/office schemas plus 14 examples moved from root `schemas/` and

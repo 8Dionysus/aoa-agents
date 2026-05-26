@@ -58,7 +58,13 @@ validate_agent_formation_trial = _load_repo_python_module(
 )
 validate_assistant_civil_formation = _load_repo_python_module(
     "validate_assistant_civil_formation",
-    ROOT / "scripts" / "validate_assistant_civil_formation.py",
+    ROOT
+    / "mechanics"
+    / "experience"
+    / "parts"
+    / "assistant-civil-service"
+    / "scripts"
+    / "validate_assistant_civil_formation.py",
 )
 
 

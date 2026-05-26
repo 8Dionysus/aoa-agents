@@ -29,7 +29,7 @@ part-local contract routes:
 - old root path lookup is preserved through Experience `PROVENANCE.md` and
   `legacy/`
 
-Add `scripts/validate_experience_assistant_civil_contracts.py` to keep the
+Add `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py` to keep the
 part-local file set, moved example, source adjunct payloads, and former root
 paths bounded.
 
@@ -48,8 +48,8 @@ contract identifiers.
 Validation for this route is:
 
 ```bash
-python scripts/validate_experience_assistant_civil_contracts.py
-python scripts/validate_assistant_civil_formation.py
-python scripts/build_assistant_civil_formation_index.py --check
+python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
+python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
+python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
 python scripts/validate_agents.py
 ```

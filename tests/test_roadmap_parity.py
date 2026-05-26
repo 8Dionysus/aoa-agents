@@ -102,11 +102,11 @@ class RoadmapParityTestCase(unittest.TestCase):
             "mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json",
             "generated/assistant_civil_formation_index.min.json",
             "mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json",
-            "scripts/build_assistant_civil_formation_index.py",
-            "scripts/validate_assistant_civil_formation.py",
-            "scripts/validate_experience_assistant_civil_contracts.py",
-            "tests/test_assistant_civil_formation.py",
-            "tests/test_experience_assistant_civil_contracts.py",
+            "mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py",
+            "mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+            "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
+            "mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py",
+            "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)

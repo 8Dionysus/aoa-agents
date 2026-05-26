@@ -25,6 +25,20 @@ routes. Git history preserves the verbatim file bodies; `PROVENANCE.md` and
 | `assistant-civil-service` | 6 | 1 |
 | `arena-exclusion` | 1 | 0 |
 
+## 2026-05-26 Assistant Civil Checks To Active Routes
+
+Moved 3 Wave II assistant civil builders/validators and 2 focused tests out
+of root `scripts/` and `tests`. Formation-reader support moved into the
+`assistant-civil-service` part; the cross-part contract validator moved to
+Experience package-level `scripts/` because it spans `assistant-civil-service`
+and `arena-exclusion`. Git history preserves the file bodies; root paths are
+lookup facts only.
+
+| Route | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `assistant-civil-service` | 2 | 1 |
+| Experience package | 1 | 1 |
+
 ## 2026-05-26 Root Adoption/Office Contracts To Active Parts
 
 Moved 14 adoption and office-operation schemas plus 14 matching examples out

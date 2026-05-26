@@ -82,7 +82,7 @@ adjacent `arena-rank-school` schema route.
 
 Mechanic-specific Experience assistant civil examples live under
 `mechanics/experience/parts/assistant-civil-service/examples/`. They are
-validated by `scripts/validate_experience_assistant_civil_contracts.py`. Their
+validated by `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`. Their
 schemas live beside them under
 `mechanics/experience/parts/assistant-civil-service/schemas/`, with arena
 exclusion in the adjacent `arena-exclusion` schema route.
@@ -129,10 +129,10 @@ For checkpoint contract part-local examples, also run `python mechanics/checkpoi
 For recursor part-local examples, also run `python mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 For Agon formation part-local examples, also run `python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
-For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.
+For Experience assistant civil part-local examples, also run `python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`.
 For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.
 For reference-route part-local examples, also run `python scripts/validate_reference_route_contracts.py`.
 For the Wave I reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`.
-For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
+For the Wave II reader path example, also run `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`.

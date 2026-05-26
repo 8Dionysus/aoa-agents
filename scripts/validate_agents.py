@@ -34,10 +34,6 @@ from validate_adoption_boundary_contracts import (
     AdoptionBoundaryContractsValidationError,
     validate_adoption_boundary_contracts,
 )
-from validate_experience_assistant_civil_contracts import (
-    ExperienceAssistantCivilContractsValidationError,
-    validate_experience_assistant_civil_contracts,
-)
 from validate_agent_service_contracts import (
     AgentServiceContractsValidationError,
     validate_agent_service_contracts,
@@ -89,6 +85,17 @@ AgonRankEpistemicContractsValidationError = (
 )
 validate_agon_rank_epistemic_contracts = (
     _AGON_RANK_EPISTEMIC_CONTRACTS_MODULE.validate_agon_rank_epistemic_contracts
+)
+
+_EXPERIENCE_ASSISTANT_CIVIL_CONTRACTS_MODULE = load_repo_python_module(
+    "experience_assistant_civil_contracts_validator",
+    "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
+)
+ExperienceAssistantCivilContractsValidationError = (
+    _EXPERIENCE_ASSISTANT_CIVIL_CONTRACTS_MODULE.ExperienceAssistantCivilContractsValidationError
+)
+validate_experience_assistant_civil_contracts = (
+    _EXPERIENCE_ASSISTANT_CIVIL_CONTRACTS_MODULE.validate_experience_assistant_civil_contracts
 )
 
 _TITAN_SCHEMAS_MODULE = load_repo_python_module(

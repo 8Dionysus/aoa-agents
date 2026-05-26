@@ -37,7 +37,7 @@ FORBIDDEN_KEYS = {
 
 
 def repo_root_from_script() -> Path:
-    return Path(__file__).resolve().parents[1]
+    return Path(__file__).resolve().parents[5]
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -81,7 +81,15 @@ def assert_no_forbidden_keys(data: Any, path: str) -> None:
 
 
 def import_builder(root: Path):
-    builder_path = root / "scripts" / "build_assistant_civil_formation_index.py"
+    builder_path = (
+        root
+        / "mechanics"
+        / "experience"
+        / "parts"
+        / "assistant-civil-service"
+        / "scripts"
+        / "build_assistant_civil_formation_index.py"
+    )
     spec = importlib.util.spec_from_file_location("assistant_civil_builder", builder_path)
     if spec is None or spec.loader is None:
         fail(f"cannot import builder: {builder_path}")

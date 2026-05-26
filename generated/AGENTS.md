@@ -86,8 +86,8 @@ as the canonical builder and
 `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`
 as the explicit Wave I validator.
 For `generated/assistant_civil_formation_index.min.json`, use
-`scripts/build_assistant_civil_formation_index.py` as the canonical builder and
-`scripts/validate_assistant_civil_formation.py` as the explicit Wave II
+`mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py` as the canonical builder and
+`mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py` as the explicit Wave II
 validator.
 For `generated/agent_formation_trial.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` as
@@ -116,9 +116,9 @@ python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_forma
 If the Agon Wave II generated index changed, also run:
 
 ```bash
-python scripts/build_assistant_civil_formation_index.py --check
-python scripts/validate_assistant_civil_formation.py
-python -m pytest -q tests/test_assistant_civil_formation.py
+python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
+python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
+python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py
 ```
 
 If the Agon Wave II.5 formation-trial output changed, also run:

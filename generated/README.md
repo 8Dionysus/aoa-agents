@@ -25,7 +25,7 @@ ownership.
 | --- | --- | --- |
 | `generated/agent_registry.min.json` | base role profiles under `agents/profiles/` | `scripts/build_published_surfaces.py` |
 | `generated/agent_agonic_formation_index.min.json` | agonic adjunct source records under `agents/profiles/adjuncts/` | `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py` |
-| `generated/assistant_civil_formation_index.min.json` | assistant adjunct source records under `agents/profiles/adjuncts/` | `scripts/build_assistant_civil_formation_index.py` |
+| `generated/assistant_civil_formation_index.min.json` | assistant adjunct source records under `agents/profiles/adjuncts/` | `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py` |
 | `generated/agent_formation_trial.min.json` | base profiles plus agonic and assistant formation readers | `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` |
 | `generated/model_tier_registry.json` | model-tier source records under `agents/model_tiers/` | `scripts/build_published_surfaces.py` |
 | `generated/orchestrator_class_catalog.min.json` | orchestrator-class source records under `agents/orchestrator_classes/` | `scripts/build_published_surfaces.py` |
