@@ -60,6 +60,9 @@ truth is already part-local config/schema/example material.
 The Questbook topology repair keeps quest source truth in root `quests/` and
 quest catalog/dispatch readers in root `generated/` while `mechanics/questbook/`
 owns the operation law, source-store route, index route, and reader contract.
+The mechanics package route-card pass adds `mechanics/<package>/AGENTS.md`
+for every active package so agents can enter a mechanic through a nearest
+package card before dropping into part-local cards.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -110,6 +113,7 @@ mechanics packages from empty route skeletons into active route homes:
   because they summarize root quest records;
 - quest catalog records and Agon quest notes live under root `quests/`;
 - package `PARTS.md` files are the active part maps;
+- package `AGENTS.md` files are the nearest package route cards;
 - package `PROVENANCE.md` files are the only active bridge into old-path
   accounting;
 - package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the

@@ -216,6 +216,11 @@ root `Spark/` was moved to `.agents/spark/` because it is agent-facing
 fast-loop guidance, not a mechanic package, generated reader, schema contract,
 or source-authored role object.
 
+The mechanics package route-card pass follows the established refactored-repo
+mechanics pattern by adding `mechanics/<package>/AGENTS.md` to every active
+package. The cards make nearest-owner entry legible between `mechanics/AGENTS.md`
+and `parts/AGENTS.md`; no payload class moves in this slice.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
