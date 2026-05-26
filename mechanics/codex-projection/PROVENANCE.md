@@ -66,6 +66,17 @@ public contract identifiers, not active repo paths.
 | --- | --- | --- |
 | `examples/subagent_projection_refresh_law.example.json` | [parts/refresh-law/examples/subagent-refresh-law.example.json](parts/refresh-law/examples/subagent-refresh-law.example.json) | `refresh-law` |
 
+## 2026-05-26 Refresh Law Check Move
+
+The Codex refresh-law validator moved from root `scripts/` into the active
+`refresh-law` part after the example itself had already moved there. Root
+`scripts/validate_agents.py` remains the repo-wide coordinator and loads the
+part-local validator explicitly.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_codex_refresh_law_contracts.py` | [parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py](parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py) | `refresh-law` |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

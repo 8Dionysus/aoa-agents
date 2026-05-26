@@ -11,5 +11,5 @@ and not installed workspace state.
 Validate with:
 
 ```bash
-python scripts/validate_codex_refresh_law_contracts.py
+python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
 ```

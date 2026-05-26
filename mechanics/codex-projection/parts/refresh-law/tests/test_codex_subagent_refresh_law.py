@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[5]
 EXAMPLE_PATH = (
     REPO_ROOT
     / "mechanics"
@@ -16,6 +16,7 @@ EXAMPLE_PATH = (
     / "subagent-refresh-law.example.json"
 )
 FORMER_EXAMPLE_PATH = REPO_ROOT / "examples" / ("subagent" + "_projection_refresh_law.example.json")
+FORMER_VALIDATOR_PATH = REPO_ROOT / "scripts" / "validate_codex_refresh_law_contracts.py"
 ALLOWED_ROUTE_CLASSES = {
     "observe",
     "revalidate",
@@ -63,6 +64,7 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
 
     def test_projection_refresh_example_tracks_live_surfaces(self) -> None:
         self.assertFalse(FORMER_EXAMPLE_PATH.exists())
+        self.assertFalse(FORMER_VALIDATOR_PATH.exists())
         payload = _load_json(EXAMPLE_PATH)
 
         self.assertEqual(payload["schema_version"], "aoa_component_refresh_law_v1")

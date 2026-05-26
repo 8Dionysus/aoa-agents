@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 REFRESH_LAW_PART = Path("mechanics/codex-projection/parts/refresh-law")
 EXAMPLE_DIR = REFRESH_LAW_PART / "examples"
 EXAMPLE_NAME = "subagent-refresh-law.example.json"
@@ -23,7 +23,10 @@ ALLOWED_ROUTE_CLASSES = {
     "repair",
     "defer",
 }
-FORMER_EXAMPLE_NAMES = ("subagent" + "_projection_refresh_law.example.json",)
+FORMER_ROOT_PATHS = {
+    Path("examples") / ("subagent" + "_projection_refresh_law.example.json"),
+    Path("scripts") / "validate_codex_refresh_law_contracts.py",
+}
 
 
 class CodexRefreshLawContractsValidationError(RuntimeError):
@@ -50,10 +53,10 @@ def collect_codex_refresh_law_contract_errors(root: Path = ROOT) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
 
-    for file_name in FORMER_EXAMPLE_NAMES:
-        former_path = root / "examples" / file_name
+    for former_path in sorted(FORMER_ROOT_PATHS):
+        former_path = root / former_path
         if former_path.exists():
-            errors.append(f"former root Codex refresh-law example is still active: {former_path.relative_to(root).as_posix()}")
+            errors.append(f"former root Codex refresh-law path is still active: {former_path.relative_to(root).as_posix()}")
 
     actual_examples = {path.name for path in (root / EXAMPLE_DIR).glob("*.json")}
     if actual_examples != {EXAMPLE_NAME}:
