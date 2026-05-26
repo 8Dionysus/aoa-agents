@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 34 |
+| candidates | 35 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 34 |
+| `reviewed_intake` | 35 |
 
 ## Open Items
 
@@ -55,6 +55,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T150921Z:d9635b70-aoa-agents-localized-the-titan-c` | `candidate` | `reviewed_intake` | `candidates/20260526T150921Z.d9635b70.aoa-agents-localized-the-titan-codex-projection.candidate.json` |
 | `candidate:aoa-agents:20260526T152137Z:1ae84f3c-aoa-agents-localized-the-codex-s` | `candidate` | `reviewed_intake` | `candidates/20260526T152137Z.1ae84f3c.aoa-agents-localized-the-codex-subagent-projecti.candidate.json` |
 | `candidate:aoa-agents:20260526T153334Z:4a37ef73-aoa-agents-localized-the-remaini` | `candidate` | `reviewed_intake` | `candidates/20260526T153334Z.4a37ef73.aoa-agents-localized-the-remaining-titan-only-co.candidate.json` |
+| `candidate:aoa-agents:20260526T171836Z:b9641a86-aoa-agents-cleaned-active-legacy` | `candidate` | `reviewed_intake` | `candidates/20260526T171836Z.b9641a86.aoa-agents-cleaned-active-legacy-route-names-fro.candidate.json` |
 
 ## Agent Route
 

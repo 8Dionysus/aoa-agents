@@ -1,0 +1,31 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T171836Z:b9641a86-aoa-agents-cleaned-active-legacy",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents cleaned active legacy route names from tests, mechanics docs, generated surfaces, and route references while preserving old names only in legacy/provenance/memo evidence zones and adding a guard test for future active-path noise.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-active-legacy-name-cleanup.md",
+    "tests/test_active_legacy_name_noise.py",
+    "ROADMAP.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/217",
+    "repo:aoa-agents/commit/3328b85fe57aea7ec8aa2ef20c4f6146324184d0",
+    "repo:aoa-agents/actions/runs/26463661426"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T17:18:36Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
