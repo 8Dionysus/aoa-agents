@@ -12,3 +12,15 @@ Moved 44 mechanics-facing docs out of root `docs/` and into active part-local `d
 | `office-operations` | 12 |
 | `runtime-release-holds` | 7 |
 | `watch-and-rollback` | 8 |
+
+## 2026-05-26 Assistant Civil Contracts To Active Parts
+
+Moved 7 Wave II assistant civil schemas and 1 public reader example out of
+root `schemas/`/`examples/` and into active Experience part-local contract
+routes. Git history preserves the verbatim file bodies; `PROVENANCE.md` and
+`legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `assistant-civil-service` | 6 | 1 |
+| `arena-exclusion` | 1 | 0 |

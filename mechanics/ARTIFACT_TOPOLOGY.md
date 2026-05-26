@@ -124,9 +124,14 @@ formation and Wave II.5 formation-trial schemas/examples from root `schemas/`
 and `examples/` into active `mechanics/agon/parts/formation/` and
 `mechanics/agon/parts/arena-rank-school/` contract routes after adding a
 part-local validator. Stable schema `$id` values remain public contract
-identifiers, not active repo paths. Wave II assistant civil contracts remain
-with their current shared/experience route until a separate localization slice
-lands.
+identifiers, not active repo paths.
+
+The 2026-05-26 Experience assistant civil contract localization moves Wave II
+assistant civil schemas/examples from root `schemas/` and `examples/` into
+active `mechanics/experience/parts/assistant-civil-service/` and
+`mechanics/experience/parts/arena-exclusion/` contract routes after adding a
+part-local validator. Stable schema `$id` values remain public contract
+identifiers, not active repo paths.
 
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.

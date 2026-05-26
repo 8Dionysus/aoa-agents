@@ -82,8 +82,7 @@ root `schemas/` and `examples/` into active Agon part-local contract routes.
 
 6 Agon formation schemas plus 2 examples moved from root `schemas/` and
 `examples/` into active Agon part-local contract routes. Wave II assistant
-civil contracts remain in their current shared/experience route for a separate
-localization slice.
+civil contract localization later landed under `mechanics/experience/`.
 
 | Former root path | Active route | Part |
 | --- | --- | --- |

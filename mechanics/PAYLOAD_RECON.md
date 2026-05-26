@@ -144,9 +144,17 @@ formation contracts under `mechanics/agon/parts/formation/`, arena eligibility
 under `mechanics/agon/parts/arena-rank-school/schemas/`, and adding
 `scripts/validate_agon_formation_contracts.py`.
 
+The Experience assistant civil contract localization satisfies that rule for
+Wave II assistant civil schemas/examples by placing service contracts under
+`mechanics/experience/parts/assistant-civil-service/`, arena exclusion under
+`mechanics/experience/parts/arena-exclusion/schemas/`, and adding
+`scripts/validate_experience_assistant_civil_contracts.py`.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
-non-recursor, non-Agon-rank/epistemic, and non-Agon-formation schemas,
+non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
+non-Experience-assistant-civil schemas,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
-non-Agon-rank/epistemic, and non-Agon-formation examples,
+non-Agon-rank/epistemic, non-Agon-formation, and
+non-Experience-assistant-civil examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

@@ -53,8 +53,8 @@ paths are lookup facts only.
 Moved 6 Agon formation schemas plus 2 examples out of root `schemas/` and
 `examples/` and into active part-local `schemas/` and `examples/` directories.
 Git history preserves the verbatim file bodies; root paths are lookup facts
-only. Wave II assistant civil contracts stay in their current route for a
-separate localization pass.
+only. Wave II assistant civil contracts are accounted for by the later
+Experience assistant civil localization pass.
 
 | Part | Moved schemas | Moved examples |
 | --- | ---: | ---: |

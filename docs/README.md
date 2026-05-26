@@ -93,7 +93,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - Run `python scripts/validate_agents.py` for the local non-mutating contract and example checks.
 - Run `python -m pytest -q tests` for the local test suite.
 - Run `python scripts/build_agent_agonic_formation_index.py --check`, `python scripts/validate_agent_agonic_formation.py`, and `python -m pytest -q tests/test_agent_agonic_formation.py` for the explicit Wave I agonic actor recharter lane.
-- Run `python scripts/build_assistant_civil_formation_index.py --check`, `python scripts/validate_assistant_civil_formation.py`, and `python -m pytest -q tests/test_assistant_civil_formation.py` for the explicit Wave II assistant civil recharter lane.
+- Run `python scripts/build_assistant_civil_formation_index.py --check`, `python scripts/validate_assistant_civil_formation.py`, `python scripts/validate_experience_assistant_civil_contracts.py`, and `python -m pytest -q tests/test_assistant_civil_formation.py tests/test_experience_assistant_civil_contracts.py` for the explicit Wave II assistant civil recharter lane.
 - Run `python scripts/build_agent_formation_trial.py --check`, `python scripts/validate_agent_formation_trial.py`, and `python -m pytest -q tests/test_agent_formation_trial.py` for the explicit Wave II.5 formation-trial lane.
 - Add `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, and `AOA_ROUTING_ROOT` only when you want bounded consumer-smoke checks against sibling repositories.
 - Use `python scripts/build_published_surfaces.py` only after editing source-authored registry inputs.

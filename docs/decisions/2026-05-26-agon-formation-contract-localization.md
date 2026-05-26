@@ -37,8 +37,9 @@ Former root paths are recorded only through Agon `PROVENANCE.md` and `legacy/`.
 
 Formation contract edits now start in the Agon part that owns the operation.
 Root `schemas/` and `examples/` no longer act as active homes for these
-contracts, while Wave II assistant civil contracts remain in their current root
-district until the experience package gets its own localization slice.
+contracts. Wave II assistant civil contracts were intentionally left for a
+separate Experience-owned localization slice, which later landed under
+`mechanics/experience/`.
 
 Validation for this route is:
 

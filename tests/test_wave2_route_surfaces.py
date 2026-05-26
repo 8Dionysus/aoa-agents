@@ -36,7 +36,8 @@ class Wave2RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("validate_assistant_civil_formation.py", profiles_agents)
         self.assertIn("generated/assistant_civil_formation_index.min.json", generated_agents)
         self.assertIn("build_assistant_civil_formation_index.py", generated_agents)
-        self.assertIn("assistant_civil_formation.example.json", examples_agents)
+        self.assertIn("mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json", examples_agents)
+        self.assertIn("validate_experience_assistant_civil_contracts.py", examples_agents)
         self.assertIn("validate_assistant_civil_formation.py", examples_agents)
 
 

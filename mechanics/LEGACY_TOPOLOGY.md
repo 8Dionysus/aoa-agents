@@ -112,11 +112,20 @@ are now legacy lookup facts and are accounted for in Agon `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`. Stable schema `$id`
 values remain public contract identifiers, not active repo paths.
 
+The 2026-05-26 Experience assistant civil contract localization moved Wave II
+assistant civil schemas/examples into active part-local Experience routes.
+Former root assistant civil schema and example paths are now legacy lookup
+facts and are accounted for in Experience `PROVENANCE.md`, `legacy/INDEX.md`,
+and `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public
+contract identifiers, not active repo paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
-non-recursor, non-Agon-rank/epistemic, and non-Agon-formation `schemas/`,
+non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
+non-Experience-assistant-civil `schemas/`,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
-non-Agon-rank/epistemic, and non-Agon-formation
+non-Agon-rank/epistemic, non-Agon-formation, and
+non-Experience-assistant-civil
 `examples/`, `agents/`, `generated/`, `scripts/`, and `tests/`. They are not
 automatically legacy. They remain current source, support, generated, or
 validation districts until a package-local move changes their lookup topology.

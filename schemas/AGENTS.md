@@ -44,6 +44,11 @@ Mechanic-specific Agon formation schemas live under
 `mechanics/agon/parts/arena-rank-school/schemas/`. They are validated by
 `scripts/validate_agon_formation_contracts.py`.
 
+Mechanic-specific Experience assistant civil schemas live under
+`mechanics/experience/parts/assistant-civil-service/schemas/`, with arena
+exclusion in `mechanics/experience/parts/arena-exclusion/schemas/`. They are
+validated by `scripts/validate_experience_assistant_civil_contracts.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.
