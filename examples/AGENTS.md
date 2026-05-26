@@ -48,6 +48,12 @@ validated by `scripts/validate_assistant_projection_resolver.py`. Their
 schemas live beside them under
 `mechanics/codex-projection/parts/assistant-projection/schemas/`.
 
+Mechanic-specific recursor examples live under
+`mechanics/recurrence/parts/recursor-readiness/examples/` and
+`mechanics/recurrence/parts/agon-recursor-boundary/examples/`. They are
+validated by `scripts/validate_recursor_contracts.py`. Their schemas live
+beside them under the corresponding recurrence parts.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -65,6 +71,7 @@ For RPG progression part-local examples, also run `python scripts/validate_rpg_p
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For runtime artifact contract part-local examples, also run `python scripts/validate_runtime_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python scripts/validate_checkpoint_contracts.py`.
+For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

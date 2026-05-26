@@ -21,3 +21,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: assistant projection resolver localization](2026-05-26-assistant-projection-resolver-localization.md)
 - [2026-05-26: runtime artifact contract localization](2026-05-26-runtime-artifact-contract-localization.md)
 - [2026-05-26: checkpoint contract localization](2026-05-26-checkpoint-contract-localization.md)
+- [2026-05-26: recursor contract localization](2026-05-26-recursor-contract-localization.md)

@@ -15,7 +15,7 @@ anchor-return posture, and recurrence discipline.
 | output | bounded recurrence route, generated recursor reader, projection handoff, or stronger-owner handoff |
 | owner | this package for agent-layer recurrence routing |
 | next route | `PARTS.md`, recursor builders, `mechanics/codex-projection/`, `mechanics/agon/` for Agon boundary pressure |
-| validation | recursor builders/tests plus repo validators |
+| validation | recursor contract validator, recursor builders/tests, plus repo validators |
 
 ## Agent Layer Owns
 
@@ -36,6 +36,7 @@ anchor-return posture, and recurrence discipline.
 ```bash
 python scripts/build_recursor_role_readiness.py --check
 python scripts/build_recursor_projection_candidates.py --check
+python scripts/validate_recursor_contracts.py
 python scripts/validate_recursor_role_readiness.py
 python scripts/validate_recursor_boundary.py
 python scripts/validate_recurrence_component_manifests.py

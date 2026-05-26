@@ -21,6 +21,19 @@ file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | `codex-recursor-projection` | 1 |
 | `recursor-readiness` | 2 |
 
+## 2026-05-26 Root Recursor Contracts To Active Parts
+
+Moved 7 recursor schemas and 4 recursor examples out of root `schemas/` and
+`examples/` and into active part-local `schemas/` and `examples/` directories.
+Git history preserves the verbatim file bodies; stable schema `$id` values
+remain public contract identifiers rather than active repo paths.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `agon-recursor-boundary` | 1 | 1 |
+| `codex-recursor-projection` | 1 | 0 |
+| `recursor-readiness` | 5 | 3 |
+
 ## 2026-05-26 Root Manifests To Active Parts
 
 Moved 11 recurrence component and hook manifests out of root `manifests/` and

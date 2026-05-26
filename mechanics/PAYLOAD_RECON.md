@@ -128,7 +128,13 @@ checkpoint and continuity-window schemas/examples by splitting them into the
 `checkpoint/self-agent-checkpoint` and `checkpoint/continuity-lane` parts and
 adding `scripts/validate_checkpoint_contracts.py`.
 
-Shared remaining non-Titan, non-runtime-artifact, and non-checkpoint schemas,
-remaining non-Titan, non-runtime-artifact, and non-checkpoint examples,
+The recursor contract localization satisfies that rule for recurrence recursor
+schemas/examples by splitting them into `recursor-readiness`,
+`codex-recursor-projection`, and `agon-recursor-boundary` parts and adding
+`scripts/validate_recursor_contracts.py`.
+
+Shared remaining non-Titan, non-runtime-artifact, non-checkpoint, and
+non-recursor schemas, remaining non-Titan, non-runtime-artifact,
+non-checkpoint, and non-recursor examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.
