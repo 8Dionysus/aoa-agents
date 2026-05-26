@@ -6,9 +6,42 @@
   "role": "source-authored home for role-bearing agent objects and compact role-facing contract inputs",
   "home_rules": [
     "Agents source objects own role posture, not execution workflows, proof verdicts, memory truth, routing policy, playbook choreography, or runtime implementation.",
+    "The active topology is tree-shaped: role-bearing forms live under role houses, while cross-role operating contracts live under the operating model branch.",
     "Every source family must have a local route card, a schema or mechanic-local contract, a generated or consumer output route, and an explicit validator.",
     "Generated readers summarize this home; they do not become stronger than source objects.",
     "Mechanics may route operation pressure around source objects, but the source object family remains the owner of role-facing inputs."
+  ],
+  "branches": [
+    {
+      "id": "role_houses",
+      "path": "agents/roles",
+      "role": "Role-centered source houses for base profiles and their reviewed agonic and assistant forms.",
+      "families": [
+        "base_profiles",
+        "profile_adjuncts"
+      ],
+      "owner_surface": "agents/roles/AGENTS.md",
+      "stop_lines": [
+        "Do not split one role house across type-first directories.",
+        "Do not hide workflows, runtime behavior, proof verdicts, or memory truth inside role forms."
+      ]
+    },
+    {
+      "id": "operating_model",
+      "path": "agents/operating-model",
+      "role": "Cross-role operating contracts for tiers, orchestrators, cohorts, and runtime-seam bindings.",
+      "families": [
+        "model_tiers",
+        "orchestrator_classes",
+        "cohort_patterns",
+        "runtime_seam_bindings"
+      ],
+      "owner_surface": "agents/operating-model/AGENTS.md",
+      "stop_lines": [
+        "Do not turn operating model inputs into runtime implementation.",
+        "Do not collapse tiers, orchestration, cohorts, and runtime seams into one flat registry bucket."
+      ]
+    }
   ],
   "stronger_owner_routes": [
     {
@@ -39,11 +72,11 @@
   "families": [
     {
       "id": "base_profiles",
-      "path": "agents/profiles",
-      "object_pattern": "*.profile.json",
+      "path": "agents/roles",
+      "object_pattern": "*/profile.json",
       "source_kind": "role_contract",
       "meaning": "Base role houses for reusable agent identities: mission, role boundaries, handoff, memory posture, eval posture, preferred skills, tiers, and cohorts.",
-      "owner_surface": "agents/profiles/AGENTS.md",
+      "owner_surface": "agents/roles/AGENTS.md",
       "schema_refs": [
         "schemas/agent-profile.schema.json"
       ],
@@ -68,11 +101,11 @@
     },
     {
       "id": "profile_adjuncts",
-      "path": "agents/profiles/adjuncts",
-      "object_pattern": "*/*.json",
+      "path": "agents/roles",
+      "object_pattern": "*/forms/*/*.json",
       "source_kind": "role_companion",
-      "meaning": "Additive agonic and assistant companion surfaces that let role houses gain reviewed forms without rewriting base role contracts.",
-      "owner_surface": "agents/profiles/adjuncts/AGENTS.md",
+      "meaning": "Additive agonic and assistant forms nested inside role houses so companion pressure stays attached to the role it changes.",
+      "owner_surface": "agents/roles/AGENTS.md",
       "schema_refs": [
         "mechanics/agon/parts/formation/schemas/agent-kind.schema.json",
         "mechanics/agon/parts/formation/schemas/subjectivity.schema.json",
@@ -113,11 +146,11 @@
     },
     {
       "id": "model_tiers",
-      "path": "agents/model_tiers",
+      "path": "agents/operating-model/tiers",
       "object_pattern": "*.tier.json",
       "source_kind": "effort_tier",
       "meaning": "Effort and handoff classes for the public role loop, independent of vendor model brands.",
-      "owner_surface": "agents/model_tiers/AGENTS.md",
+      "owner_surface": "agents/operating-model/tiers/AGENTS.md",
       "schema_refs": [
         "schemas/model-tier.schema.json"
       ],
@@ -141,11 +174,11 @@
     },
     {
       "id": "orchestrator_classes",
-      "path": "agents/orchestrator_classes",
+      "path": "agents/operating-model/orchestrators",
       "object_pattern": "*.class.json",
       "source_kind": "orchestrator_class",
       "meaning": "Source identity for bounded orchestrator classes: what they read, may touch, and must never absorb.",
-      "owner_surface": "agents/orchestrator_classes/AGENTS.md",
+      "owner_surface": "agents/operating-model/orchestrators/AGENTS.md",
       "schema_refs": [
         "schemas/orchestrator-class.schema.json"
       ],
@@ -171,11 +204,11 @@
     },
     {
       "id": "cohort_patterns",
-      "path": "agents/cohort_patterns",
+      "path": "agents/operating-model/cohorts",
       "object_pattern": "*.pattern.json",
       "source_kind": "cohort_pattern",
       "meaning": "Bounded role cohort hints that make collaboration inspectable without owning scenario choreography.",
-      "owner_surface": "agents/cohort_patterns/AGENTS.md",
+      "owner_surface": "agents/operating-model/cohorts/AGENTS.md",
       "schema_refs": [
         "schemas/cohort-pattern.schema.json"
       ],
@@ -199,11 +232,11 @@
     },
     {
       "id": "runtime_seam_bindings",
-      "path": "agents/runtime_seam",
+      "path": "agents/operating-model/runtime-seams",
       "object_pattern": "*.binding.json",
       "source_kind": "runtime_seam_binding",
       "meaning": "Role x tier binding source for the public runtime seam, kept separate from runtime implementation.",
-      "owner_surface": "agents/runtime_seam/AGENTS.md",
+      "owner_surface": "agents/operating-model/runtime-seams/AGENTS.md",
       "schema_refs": [
         "schemas/runtime-seam-binding.schema.json"
       ],

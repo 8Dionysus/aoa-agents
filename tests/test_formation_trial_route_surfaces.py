@@ -30,7 +30,7 @@ class FormationTrialRouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("Formation Trial has now landed", assistant_civil_landing)
 
     def test_local_guides_name_formation_trial_companion_surfaces(self) -> None:
-        profiles_agents = read_text("agents/profiles/AGENTS.md")
+        profiles_agents = read_text("agents/roles/AGENTS.md")
         generated_agents = read_text("generated/AGENTS.md")
         examples_agents = read_text("examples/AGENTS.md")
 

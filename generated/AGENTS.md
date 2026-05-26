@@ -55,12 +55,12 @@ owns their builder and freshness check.
 
 These files are derived from:
 
-- `agents/profiles/`
-- `agents/profiles/adjuncts/`
-- `agents/model_tiers/`
-- `agents/orchestrator_classes/`
-- `agents/cohort_patterns/`
-- `agents/runtime_seam/`
+- `agents/roles/`
+- `agents/roles/*/forms/`
+- `agents/operating-model/tiers/`
+- `agents/operating-model/orchestrators/`
+- `agents/operating-model/cohorts/`
+- `agents/operating-model/runtime-seams/`
 - `quests/`
 - `mechanics/agon/parts/*/config/`
 - `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
@@ -154,6 +154,6 @@ If Codex subagent projection output changed, also run:
 
 ```bash
 python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 ```

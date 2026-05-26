@@ -17,12 +17,12 @@ from typing import Any
 
 EXPECTED_BASE_ROLES = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
 REQUIRED_FAMILIES = {
-    "assistant_variant": ".variant",
-    "assistant_service_identity": ".identity",
-    "assistant_service_contract": ".contract",
-    "assistant_service_governance": ".governance",
-    "assistant_service_certification": ".certification",
-    "assistant_arena_exclusion": ".arena_exclusion",
+    "assistant_variant": "variant.json",
+    "assistant_service_identity": "service-identity.json",
+    "assistant_service_contract": "service-contract.json",
+    "assistant_service_governance": "service-governance.json",
+    "assistant_service_certification": "service-certification.json",
+    "assistant_arena_exclusion": "arena-exclusion.json",
 }
 FORBIDDEN_KEYS = {
     "scar_ledger",
@@ -54,18 +54,23 @@ def fail(message: str) -> None:
 
 
 def read_family(root: Path, family: str, suffix: str) -> dict[str, dict[str, Any]]:
-    path = root / "agents" / "profiles" / "adjuncts" / family
-    if not path.exists():
-        fail(f"missing adjunct family: {path}")
+    roles_dir = root / "agents" / "roles"
+    if not roles_dir.exists():
+        fail(f"missing role source directory: {roles_dir}")
     out: dict[str, dict[str, Any]] = {}
-    for file in sorted(path.glob(f"*{suffix}.json")):
+    for role_dir in sorted(path for path in roles_dir.iterdir() if path.is_dir()):
+        file = role_dir / "forms" / "assistant" / suffix
+        if not file.exists():
+            continue
         data = load_json(file)
         variant_id = data.get("variant_id")
         if not isinstance(variant_id, str):
             fail(f"{file} missing string variant_id")
+        if variant_id.removesuffix(".assistant") != role_dir.name:
+            fail(f"{file} role directory does not match variant_id {variant_id}")
         out[variant_id] = data
     if not out:
-        fail(f"empty adjunct family: {path}")
+        fail(f"empty adjunct family: {family} under {roles_dir}")
     return out
 
 
@@ -100,7 +105,7 @@ def import_builder(root: Path):
 
 def validate(root: Path) -> None:
     for role in EXPECTED_BASE_ROLES:
-        profile = root / "agents" / "profiles" / f"{role}.profile.json"
+        profile = root / "agents" / "roles" / role / "profile.json"
         if not profile.exists():
             fail(f"missing base profile expected by Assistant Civil Rechartering: {profile}")
 
@@ -146,7 +151,7 @@ def validate(root: Path) -> None:
             fail(f"{variant_id}: assistant must not create public role")
         if anchoring.get("does_not_override_base_profile") is not True:
             fail(f"{variant_id}: assistant must not override base profile")
-        if anchoring.get("profile_path") != f"agents/profiles/{base_role}.profile.json":
+        if anchoring.get("profile_path") != f"agents/roles/{base_role}/profile.json":
             fail(f"{variant_id}: wrong profile_path")
 
         arena_status = variant.get("arena_status", {})

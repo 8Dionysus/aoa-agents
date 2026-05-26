@@ -104,7 +104,7 @@ If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 
 The most important objects in this repository are:
 
-- canonical profiles under `agents/profiles/`
+- canonical profiles under `agents/roles/`
 - projection-time Codex wiring under `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
 - model-tier, orchestrator-class, cohort-pattern, progression, and runtime-seam source files
 - schemas for published contracts and runtime-facing artifacts
@@ -160,7 +160,7 @@ Minimum validation for source or generated-surface changes:
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 Confirm that:

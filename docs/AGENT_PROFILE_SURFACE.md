@@ -13,7 +13,7 @@ is authored.
 
 The canonical source-authored profile files live at:
 
-- `agents/profiles/*.profile.json`
+- `agents/roles/*/profile.json`
 - `schemas/agent-profile.schema.json`
 
 The compact published registry remains:
@@ -70,7 +70,7 @@ repository instead.
 
 When profile sources change:
 
-1. edit the target file under `agents/profiles/`
+1. edit the target file under `agents/roles/`
 2. regenerate `generated/agent_registry.min.json` with `python scripts/build_agent_registry.py`
 3. install validator deps with `python -m pip install -r requirements-dev.txt`, then validate with `python scripts/validate_agents.py`
 

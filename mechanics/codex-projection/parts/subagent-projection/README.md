@@ -8,7 +8,7 @@ This part routes source profile to Codex custom-agent projection pressure inside
 | Field | Route |
 | --- | --- |
 | role | Codex subagent projection builder, module, validator, and freshness tests |
-| input | active `agents/profiles/*.profile.json` records and part-local wiring config |
+| input | active `agents/roles/*/profile.json` records and part-local wiring config |
 | output | root-published generated Codex custom-agent TOML, config snippet, and manifest |
 | owner | this part owns projection behavior; `generated/` owns published output edit law |
 | next route | source profiles, wiring config, generated Codex agents, refresh law, release check |
@@ -46,7 +46,7 @@ generated TOML.
 
 ```bash
 python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 ```
 

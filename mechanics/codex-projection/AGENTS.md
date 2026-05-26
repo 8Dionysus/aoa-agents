@@ -18,7 +18,7 @@ wiring route inside `aoa-agents`; it does not own Codex runtime behavior.
 | role | Codex-facing projection operation package |
 | input | profile, wiring, generated subagent, refresh-law, manifest, and projection-boundary pressure |
 | output | refreshed projection route, generated manifest, compatibility note, or runtime/config handoff |
-| owner | this package for projection routing; `agents/profiles/` and part-local wiring config own source inputs |
+| owner | this package for projection routing; `agents/roles/` and part-local wiring config own source inputs |
 | next route | `README.md`, `PARTS.md`, `parts/AGENTS.md`, target part README, `PROVENANCE.md`, Codex projection builders, `mechanics/agon/` |
 | tools | Codex projection validator, refresh-law validator, repo validators |
 | validation | Codex projection checks plus repo validators |
@@ -31,7 +31,7 @@ wiring route inside `aoa-agents`; it does not own Codex runtime behavior.
 4. this package `README.md`
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
-7. `agents/profiles/AGENTS.md` when profile source affects projection
+7. `agents/roles/AGENTS.md` when profile source affects projection
 8. `PROVENANCE.md` for provenance accounting
 
 ## Boundaries
@@ -45,7 +45,7 @@ wiring route inside `aoa-agents`; it does not own Codex runtime behavior.
 
 ```bash
 python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
 python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py

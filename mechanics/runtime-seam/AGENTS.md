@@ -18,8 +18,8 @@ steps, runtime artifact contracts, and transition discipline.
 | role | agent-layer runtime seam operation package |
 | input | runtime seam binding, artifact transition, tier, registry, and runtime-facing contract pressure |
 | output | bounded role x tier binding, generated runtime seam registry, artifact contract route, or runtime-owner handoff |
-| owner | this package for seam routing; `agents/runtime_seam/` owns source bindings |
-| next route | `README.md`, `PARTS.md`, `parts/AGENTS.md`, target part README, `PROVENANCE.md`, `agents/runtime_seam/AGENTS.md`, runtime seam builders |
+| owner | this package for seam routing; `agents/operating-model/runtime-seams/` owns source bindings |
+| next route | `README.md`, `PARTS.md`, `parts/AGENTS.md`, target part README, `PROVENANCE.md`, `agents/operating-model/runtime-seams/AGENTS.md`, runtime seam builders |
 | tools | published surface builder, runtime artifact validator, repo validators |
 | validation | runtime seam registry checks plus repo validators |
 
@@ -31,7 +31,7 @@ steps, runtime artifact contracts, and transition discipline.
 4. this package `README.md`
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
-7. `agents/runtime_seam/AGENTS.md` when source bindings change
+7. `agents/operating-model/runtime-seams/AGENTS.md` when source bindings change
 8. `PROVENANCE.md` for provenance accounting
 
 ## Boundaries

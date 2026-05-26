@@ -38,7 +38,7 @@ Arena eligibility is active in the adjacent
 - [`generated/agent_formation_trial.min.json`](../../../../generated/agent_formation_trial.min.json)
 
 These readers stay root-published because their source truth is the agent
-source district under `agents/profiles/` and `agents/profiles/adjuncts/`, and
+source district under `agents/roles/` and `agents/roles/*/forms/`, and
 because the trial is a repo-wide role-readiness view. This part owns the Agon
 formation contracts, examples, docs, and stop-lines around those readers; it
 does not own the source adjunct records or turn generated readers into source

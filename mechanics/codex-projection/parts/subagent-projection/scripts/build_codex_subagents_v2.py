@@ -24,7 +24,7 @@ from codex_subagent_projection import (
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--profiles-root", type=Path, default=Path("agents/profiles"))
+    parser.add_argument("--profiles-root", type=Path, default=Path("agents/roles"))
     parser.add_argument("--wiring", type=Path, default=Path("mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("generated/codex_agents/agents"))
     parser.add_argument(

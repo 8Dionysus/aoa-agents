@@ -9,7 +9,7 @@ Accepted.
 Wave II assistant civil schemas and examples already live under their owning
 Experience parts. The generated assistant civil formation reader intentionally
 remains root-published because it summarizes source adjunct records under
-`agents/profiles/adjuncts/`.
+`agents/roles/*/forms/`.
 
 The dedicated builder, validator, and focused tests still lived in root
 `scripts/` and `tests/`, which made the active Experience part depend on root

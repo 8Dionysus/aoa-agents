@@ -87,8 +87,7 @@ def require(condition: bool, message: str) -> None:
 
 
 def load_adjunct(agent_id: str, family: str, suffix: str) -> dict[str, Any]:
-    rel_dir = formation_builder.SOURCE_DIRS[family]
-    path = ROOT / rel_dir / f"{agent_id}{suffix}"
+    path = ROOT / formation_builder.ROLES_DIR / agent_id / formation_builder.AGONIC_FILES[family]
     payload = read_json(path)
     require(payload.get("agent_id") == agent_id, f"{path} agent_id mismatch")
     return payload
@@ -102,10 +101,10 @@ def validate_schema_files() -> None:
 
 
 def validate_profile_cross_refs() -> dict[str, str]:
-    profiles_dir = ROOT / "agents" / "profiles"
-    require(profiles_dir.exists(), "agents/profiles/ directory missing; run after merging seed into aoa-agents")
+    profiles_dir = ROOT / "agents" / "roles"
+    require(profiles_dir.exists(), "agents/roles/ directory missing; run after merging seed into aoa-agents")
     profiles: dict[str, str] = {}
-    for path in sorted(profiles_dir.glob("*.profile.json")):
+    for path in sorted(profiles_dir.glob("*/profile.json")):
         payload = read_json(path)
         name = payload.get("name")
         profile_id = payload.get("id")
@@ -113,7 +112,7 @@ def validate_profile_cross_refs() -> dict[str, str]:
             profiles[name] = profile_id
 
     for agent_id in REQUIRED_AGENTS:
-        require(agent_id in profiles, f"base profile for {agent_id!r} not found under agents/profiles/*.profile.json")
+        require(agent_id in profiles, f"base profile for {agent_id!r} not found under agents/roles/*/profile.json")
 
     return profiles
 

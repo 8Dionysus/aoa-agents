@@ -24,14 +24,14 @@ families. They are shared contracts, not mechanic payloads.
 
 | Schema | Source family or reader |
 | --- | --- |
-| `agent-profile.schema.json` | `agents/profiles/*.profile.json` |
+| `agent-profile.schema.json` | `agents/roles/*/profile.json` |
 | `agent-registry.schema.json` | `generated/agent_registry.min.json` |
-| `model-tier.schema.json` | `agents/model_tiers/*.tier.json` |
+| `model-tier.schema.json` | `agents/operating-model/tiers/*.tier.json` |
 | `model-tier-registry.schema.json` | `generated/model_tier_registry.json` |
-| `orchestrator-class.schema.json` | `agents/orchestrator_classes/*.class.json` and orchestrator readers |
-| `cohort-pattern.schema.json` | `agents/cohort_patterns/*.pattern.json` |
+| `orchestrator-class.schema.json` | `agents/operating-model/orchestrators/*.class.json` and orchestrator readers |
+| `cohort-pattern.schema.json` | `agents/operating-model/cohorts/*.pattern.json` |
 | `cohort-composition-registry.schema.json` | `generated/cohort_composition_registry.json` |
-| `runtime-seam-binding.schema.json` | `agents/runtime_seam/*.binding.json` |
+| `runtime-seam-binding.schema.json` | `agents/operating-model/runtime-seams/*.binding.json` |
 | `runtime-seam-bindings.schema.json` | `generated/runtime_seam_bindings.json` |
 | `agent-source-home.schema.json` | `agents/source_home.manifest.json` |
 

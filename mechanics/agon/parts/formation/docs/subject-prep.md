@@ -14,7 +14,7 @@ Agonic Actor Rechartering has now landed the first agonic companion
 surfaces under:
 
 - `mechanics/agon/parts/formation/docs/actor-rechartering.md`
-- `agents/profiles/adjuncts/`
+- `agents/roles/*/forms/`
 - `generated/agent_agonic_formation_index.min.json`
 
 That landing does not erase this boundary note. It means the agonic side is no
@@ -24,7 +24,7 @@ Assistant Civil Rechartering has now landed the first assistant
 companion surfaces under:
 
 - `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`
-- `agents/profiles/adjuncts/assistant_*`
+- `agents/roles/*/forms/assistant/`
 - `generated/assistant_civil_formation_index.min.json`
 
 That second landing does not erase this boundary note either. It means the

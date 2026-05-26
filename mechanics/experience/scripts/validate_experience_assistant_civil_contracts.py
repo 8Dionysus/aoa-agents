@@ -33,13 +33,13 @@ EXPECTED_ASSISTANT_EXAMPLES = {"civil-formation.example.json"}
 EXPECTED_ARENA_SCHEMAS = {"arena-exclusion.schema.json"}
 
 ADJUNCT_SCHEMA_ROUTES = {
-    "assistant-variant.schema.json": ("assistant_variant", "*.assistant.variant.json"),
-    "service-identity.schema.json": ("assistant_service_identity", "*.assistant.identity.json"),
-    "service-contract.schema.json": ("assistant_service_contract", "*.assistant.contract.json"),
-    "service-governance.schema.json": ("assistant_service_governance", "*.assistant.governance.json"),
-    "service-certification.schema.json": ("assistant_service_certification", "*.assistant.certification.json"),
+    "assistant-variant.schema.json": ("assistant_variant", "variant.json"),
+    "service-identity.schema.json": ("assistant_service_identity", "service-identity.json"),
+    "service-contract.schema.json": ("assistant_service_contract", "service-contract.json"),
+    "service-governance.schema.json": ("assistant_service_governance", "service-governance.json"),
+    "service-certification.schema.json": ("assistant_service_certification", "service-certification.json"),
 }
-ARENA_ADJUNCT_ROUTE = ("assistant_arena_exclusion", "*.assistant.arena_exclusion.json")
+ARENA_ADJUNCT_ROUTE = ("assistant_arena_exclusion", "arena-exclusion.json")
 
 
 class ExperienceAssistantCivilContractsValidationError(RuntimeError):
@@ -133,13 +133,17 @@ def _validate_adjunct_family(
     schema: dict[str, Any],
     *,
     family: str,
-    pattern: str,
+    filename: str,
     errors: list[str],
 ) -> None:
-    family_dir = root / "agents" / "profiles" / "adjuncts" / family
-    files = sorted(family_dir.glob(pattern))
+    roles_dir = root / "agents" / "roles"
+    files = sorted(
+        role_dir / "forms" / "assistant" / filename
+        for role_dir in roles_dir.iterdir()
+        if role_dir.is_dir() and (role_dir / "forms" / "assistant" / filename).is_file()
+    ) if roles_dir.is_dir() else []
     if not files:
-        errors.append(f"missing adjunct payloads for {family}: {family_dir}")
+        errors.append(f"missing adjunct payloads for {family}: agents/roles/*/forms/assistant/{filename}")
         return
     for path in files:
         _validate_payload(schema, _read_json(path), location=path.relative_to(root).as_posix(), errors=errors)
@@ -235,11 +239,11 @@ def collect_experience_assistant_civil_contract_errors(root: Path = ROOT) -> lis
         errors.append(str(exc))
         return errors
 
-    for schema_name, (family, pattern) in ADJUNCT_SCHEMA_ROUTES.items():
-        _validate_adjunct_family(root, assistant_schemas[schema_name], family=family, pattern=pattern, errors=errors)
+    for schema_name, (family, filename) in ADJUNCT_SCHEMA_ROUTES.items():
+        _validate_adjunct_family(root, assistant_schemas[schema_name], family=family, filename=filename, errors=errors)
 
-    arena_family, arena_pattern = ARENA_ADJUNCT_ROUTE
-    _validate_adjunct_family(root, arena_schema, family=arena_family, pattern=arena_pattern, errors=errors)
+    arena_family, arena_filename = ARENA_ADJUNCT_ROUTE
+    _validate_adjunct_family(root, arena_schema, family=arena_family, filename=arena_filename, errors=errors)
     _validate_examples(root, assistant_schemas["civil-formation.schema.json"], errors)
     errors.extend(_collect_dependency_errors(root))
     return errors

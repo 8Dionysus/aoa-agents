@@ -12,10 +12,10 @@ This compatibility discipline applies to:
 
 - `schemas/*.json`
 - `mechanics/runtime-seam/parts/artifact-contracts/schemas/*.json`
-- `agents/profiles/*.profile.json`
-- `agents/model_tiers/*.tier.json`
-- `agents/cohort_patterns/*.pattern.json`
-- `agents/runtime_seam/*.binding.json`
+- `agents/roles/*/profile.json`
+- `agents/operating-model/tiers/*.tier.json`
+- `agents/operating-model/cohorts/*.pattern.json`
+- `agents/operating-model/runtime-seams/*.binding.json`
 - `generated/*.json`
 
 The current published contract set includes:

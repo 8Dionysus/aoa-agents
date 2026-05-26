@@ -58,7 +58,7 @@ def load_json(path: Path) -> Any:
 def profile_ids(root: Path) -> dict[str, str]:
     out: dict[str, str] = {}
     for agent_id in EXPECTED_BASE_ROLES:
-        path = root / "agents" / "profiles" / f"{agent_id}.profile.json"
+        path = root / "agents" / "roles" / agent_id / "profile.json"
         payload = load_json(path)
         profile_id = payload.get("id")
         name = payload.get("name")
@@ -240,7 +240,7 @@ def build_index(root: Path) -> dict[str, Any]:
         "wave": "agon_wave2_5_formation_trial",
         "generated_by": "mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py",
         "inputs": {
-            "base_profiles": [f"agents/profiles/{role}.profile.json" for role in EXPECTED_BASE_ROLES],
+            "base_profiles": [f"agents/roles/{role}/profile.json" for role in EXPECTED_BASE_ROLES],
             "agonic_index": AGONIC_INDEX,
             "assistant_index": ASSISTANT_INDEX,
             "codex_projection_consumed": False,

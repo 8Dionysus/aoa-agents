@@ -22,8 +22,8 @@ agent-layer source meaning.
 | role | source-authored agent object home |
 | input | role, tier, class, cohort, adjunct, and runtime-seam source edits |
 | output | updated source object, source-home manifest route, regenerated reader, validation result, or stronger-owner handoff |
-| owner | `agents/source_home.manifest.json`, nearest `agents/<family>/AGENTS.md`, and source JSON family |
-| next route | `agents/README.md`, `agents/source_home.manifest.json`, target family `AGENTS.md`, owning docs, builder, validator |
+| owner | `agents/source_home.manifest.json`, nearest branch `AGENTS.md`, and source JSON family |
+| next route | `agents/README.md`, `agents/source_home.manifest.json`, target branch `AGENTS.md`, owning docs, builder, validator |
 | tools | `scripts/validate_agent_source_home.py`, `scripts/build_published_surfaces.py`, formation builders, projection builders |
 | validation | this card's `Validation` section plus target family checks |
 
@@ -32,9 +32,9 @@ agent-layer source meaning.
 - Above: root `AGENTS.md` owns repo identity, boundaries, and verification.
 - Here: `agents/README.md` owns the source home map and
   `agents/source_home.manifest.json` owns the checked family topology.
-- Below: `agents/profiles/`, `agents/model_tiers/`,
-  `agents/orchestrator_classes/`, `agents/cohort_patterns/`, and
-  `agents/runtime_seam/` own local contracts and checks.
+- Below: `agents/roles/` owns role houses and their nested forms;
+  `agents/operating-model/` owns cross-role tiers, orchestrators, cohorts, and
+  runtime-seam bindings.
 
 ## Read Before Editing
 
@@ -52,12 +52,12 @@ Read:
 
 | Need | Owner route |
 | --- | --- |
-| base role contracts | `agents/profiles/*.profile.json` |
-| agonic and assistant adjuncts | `agents/profiles/adjuncts/` |
-| tier-shaped execution posture | `agents/model_tiers/*.tier.json` |
-| orchestrator class identity | `agents/orchestrator_classes/*.class.json` |
-| bounded role cohort hints | `agents/cohort_patterns/*.pattern.json` |
-| role x tier runtime seam bindings | `agents/runtime_seam/*.binding.json` |
+| base role contracts | `agents/roles/*/profile.json` |
+| agonic and assistant adjuncts | `agents/roles/*/forms/` |
+| tier-shaped execution posture | `agents/operating-model/tiers/*.tier.json` |
+| orchestrator class identity | `agents/operating-model/orchestrators/*.class.json` |
+| bounded role cohort hints | `agents/operating-model/cohorts/*.pattern.json` |
+| role x tier runtime seam bindings | `agents/operating-model/runtime-seams/*.binding.json` |
 | checked source-home topology | `agents/source_home.manifest.json` |
 | generated readers | `generated/` and the owning builder |
 | operation topology | `mechanics/` |
@@ -102,4 +102,4 @@ python scripts/validate_nested_agents.py
 
 If adjunct formation surfaces changed, also run the agonic actor, assistant
 civil, and formation-trial builders and validators named in
-`agents/profiles/AGENTS.md`.
+`agents/roles/AGENTS.md`.

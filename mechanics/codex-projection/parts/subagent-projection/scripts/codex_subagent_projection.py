@@ -18,7 +18,7 @@ if str(ROOT_SCRIPTS_DIR) not in sys.path:
 from agent_profile_registry import BuildError
 
 
-PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
+PROFILES_DIR = REPO_ROOT / "agents" / "roles"
 WIRING_CONFIG_PATH = (
     REPO_ROOT
     / "mechanics"
@@ -141,7 +141,7 @@ def load_wiring(path: Path | None = None) -> dict[str, Any]:
 
 
 def iter_profiles(profiles_root: Path) -> Iterable[Path]:
-    return sorted(profiles_root.glob("*.profile.json"))
+    return sorted(profiles_root.glob("*/profile.json"))
 
 
 def load_active_profiles(profiles_root: Path) -> dict[str, dict[str, Any]]:
@@ -641,7 +641,7 @@ def collect_projection_validation_errors(
                             else profiles_root.parent
                         )
                         expected_source = path_reference(
-                            profiles_root / f"{name}.profile.json",
+                            profiles_root / name / "profile.json",
                             source_root,
                         )
                         if entry.get("source_profile") != expected_source:

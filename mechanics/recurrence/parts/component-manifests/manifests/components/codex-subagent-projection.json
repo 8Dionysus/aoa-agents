@@ -4,7 +4,7 @@
   "owner_repo": "aoa-agents",
   "description": "Codex custom-agent projection from source profiles and wiring into repo-owned and workspace-installed surfaces.",
   "source_inputs": [
-    "agents/profiles/*.profile.json",
+    "agents/roles/*/profile.json",
     "mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json"
   ],
   "generated_surfaces": [
@@ -22,7 +22,7 @@
   "proof_surfaces": [
     "python scripts/build_published_surfaces.py",
     "python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py",
-    "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+    "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
     "python scripts/validate_agents.py"
   ],
   "refresh_routes": [
@@ -31,7 +31,7 @@
       "commands": [
         "python scripts/build_published_surfaces.py",
         "python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py",
-        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
         "python scripts/validate_agents.py"
       ],
       "notes": "regenerate repo-owned custom-agent projection surfaces"
@@ -41,7 +41,7 @@
       "commands": [
         "python scripts/build_published_surfaces.py",
         "python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py",
-        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
         "python scripts/validate_agents.py"
       ],
       "notes": "refresh repo-owned projection and then explicitly install into workspace .codex/agents/"
@@ -51,7 +51,7 @@
       "commands": [
         "python scripts/build_published_surfaces.py",
         "python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py",
-        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
+        "python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json",
         "python scripts/validate_agents.py"
       ],
       "notes": "repair bounded projection drift before any explicit workspace install step"

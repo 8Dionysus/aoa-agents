@@ -39,7 +39,7 @@ Experience is now the active lookup route for assistant civil service
 contracts. Root `schemas/` and `examples/` no longer act as the active homes
 for this Wave II family.
 
-The source adjunct records remain under `agents/profiles/adjuncts/assistant_*`
+The source assistant form records remain under `agents/roles/*/forms/assistant/`
 because they are source-authored agent objects, not mechanic payloads.
 
 Stable schema `$id` and `schema_version` values remain unchanged as public

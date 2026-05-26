@@ -10,7 +10,7 @@ Codex subagent projection docs and wiring config already live under
 `mechanics/codex-projection/parts/subagent-projection/`, but the builder,
 projection module, validator, and focused tests still lived in root execution
 districts. Those files protect one mechanic part: projecting active
-`agents/profiles/*.profile.json` records plus part-local wiring into the
+`agents/roles/*/profile.json` records plus part-local wiring into the
 root-published `generated/codex_agents/` install seam.
 
 The generated output remains repo-wide because it is a consumer-facing Codex
@@ -63,7 +63,7 @@ because those are published consumer surfaces, not source truth.
 
 ```bash
 python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 python scripts/validate_agents.py
 python scripts/release_check.py

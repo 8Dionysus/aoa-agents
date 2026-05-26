@@ -19,7 +19,7 @@ after trial pressure.
 | role | agent-layer Agon operation package |
 | input | Agon, formation, arena, rank, school, trial, scar, adoption, retention, and epistemic actor pressure |
 | output | bounded role posture, formation contract route, generated-reader posture, or stronger-owner handoff |
-| owner | this package for operation routing; `agents/profiles/adjuncts/` and part-local config/schema/example surfaces own source payloads |
+| owner | this package for operation routing; `agents/roles/*/forms/` and part-local config/schema/example surfaces own source payloads |
 | next route | `README.md`, `PARTS.md`, `parts/AGENTS.md`, target part README, `PROVENANCE.md`, Agon builders, decision records |
 | tools | Agon contract validators, formation builders, generated-reader builders, repo validators |
 | validation | this card's `Validation` section plus touched part-local checks |

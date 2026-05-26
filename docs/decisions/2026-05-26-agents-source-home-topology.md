@@ -2,7 +2,8 @@
 
 ## Status
 
-Accepted.
+Accepted. Superseded in part by
+`2026-05-26-agents-convex-source-tree.md`.
 
 ## Context
 
@@ -21,7 +22,7 @@ organ.
 
 ## Decision
 
-Keep the existing source family paths under `agents/`, and add a checked
+Keep the source family paths under the active `agents/` home, and add a checked
 source-home contract:
 
 - `agents/source_home.manifest.json` records the active source families,
@@ -31,8 +32,8 @@ source-home contract:
 - `scripts/validate_agent_source_home.py` validates the manifest, family
   coverage, owner cards, matched source objects, readers, builders, and
   validators.
-- `agents/profiles/adjuncts/AGENTS.md` gives the companion-form layer a near
-  route card instead of leaving it governed only by the parent profile card.
+- `agents/roles/AGENTS.md` gives the role-house and companion-form layer a near
+  route card instead of leaving forms governed only by the root agent card.
 
 This makes `agents/` a source home for role-bearing objects while keeping
 operation topology in `mechanics/` and generated readers in `generated/`.

@@ -13,8 +13,8 @@ steps, runtime artifact examples, and transition discipline.
 | role | agent-layer runtime seam operation package |
 | input | runtime seam binding, artifact transition, tier, registry, and runtime-facing contract pressure |
 | output | bounded role x tier binding, generated runtime seam registry, artifact contract route, or runtime-owner handoff |
-| owner | this package for seam routing; `agents/runtime_seam/` for source bindings |
-| next route | `PARTS.md`, `agents/runtime_seam/AGENTS.md`, runtime seam builders |
+| owner | this package for seam routing; `agents/operating-model/runtime-seams/` for source bindings |
+| next route | `PARTS.md`, `agents/operating-model/runtime-seams/AGENTS.md`, runtime seam builders |
 | validation | runtime seam registry checks plus repo validators |
 
 ## Agent Layer Owns

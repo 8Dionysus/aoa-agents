@@ -13,7 +13,7 @@ def main() -> int:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
-    print("[ok] wrote generated/agent_registry.min.json from agents/profiles/*.profile.json")
+    print("[ok] wrote generated/agent_registry.min.json from agents/roles/*/profile.json")
     return 0
 
 

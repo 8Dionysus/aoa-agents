@@ -34,4 +34,4 @@ Forge and Delta remain locked until the session receipt records the appropriate 
 - no silent workspace mutation
 - no proof sovereignty
 - no memory writeback authority
-- no replacement for `agents/profiles/*.profile.json`
+- no replacement for `agents/roles/*/profile.json`
