@@ -1,0 +1,35 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T074158Z:70c42c69-aoa-agents-cleaned-active-mechan",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents cleaned active mechanics route-card wording so package cards and part maps route through PROVENANCE.md as the bridge for former-path accounting; mechanics/PROVENANCE_TOPOLOGY.md replaces the legacy-named central note, and validate_nested_agents.py now guards against repeated active archive bridge wording.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-active-provenance-bridge-wording.md",
+    "mechanics/PROVENANCE_TOPOLOGY.md",
+    "mechanics/AGENTS.md",
+    "mechanics/README.md",
+    "scripts/validate_nested_agents.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/e6ef84e82130760e7e5bd30cce8d659b94b10221",
+    "repo:aoa-agents/pull/175",
+    "scripts/release_check.py",
+    "repo:Agents-of-Abyss/quests/AGENTS.md",
+    "repo:aoa-evals/quests/AGENTS.md",
+    "repo:aoa-techniques/quests/AGENTS.md"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T07:41:58Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
