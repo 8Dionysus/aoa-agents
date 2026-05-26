@@ -25,8 +25,8 @@ It does not replace routing, playbooks, evals, or source-owned receipts.
 
 Prefer one additive adjunct surface such as:
 
-- `schemas/agent_stress_posture_v1.json`
-- `examples/agent_stress_posture.example.json`
+- `../schemas/agent-stress-posture.schema.json`
+- `../examples/agent-stress-posture.example.json`
 
 If the live repo prefers fields inside `agents/profiles/*.profile.json`, preserve that local convention.
 Wave 3 does not require a profile rewrite.

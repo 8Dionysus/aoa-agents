@@ -74,6 +74,12 @@ root `schemas/` into active `mechanics/titan/parts/*/schemas/` routes after
 adding a package-local schema validator. Root `schemas/` remains active for
 shared non-Titan contracts.
 
+The 2026-05-26 antifragility stress localization moves stress-posture schemas
+and examples from root `schemas/` and `examples/` into active
+`mechanics/antifragility/parts/stress-posture/{schemas,examples}/` routes after
+adding a part-local validator. Stable schema `$id` values remain public
+contract identifiers, not active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

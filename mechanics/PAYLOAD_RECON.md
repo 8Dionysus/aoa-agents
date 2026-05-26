@@ -105,6 +105,10 @@ The Titan schema localization satisfies that rule for Titan-specific contract
 schemas by moving them into part-local `schemas/` directories and adding
 `scripts/validate_titan_schemas.py`.
 
-Shared non-Titan schemas, non-Titan examples, scripts, tests, generated
-readers, and source agent objects remain in their current districts until their
-own move proof exists.
+The antifragility stress localization satisfies that rule for stress-posture
+contract schemas and examples by moving them into the `stress-posture` part and
+adding `scripts/validate_antifragility_stress.py`.
+
+Shared remaining non-Titan schemas, remaining non-Titan examples, scripts,
+tests, generated readers, and source agent objects remain in their current
+districts until their own move proof exists.
