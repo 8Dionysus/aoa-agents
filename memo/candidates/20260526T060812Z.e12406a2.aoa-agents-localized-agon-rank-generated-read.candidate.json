@@ -1,0 +1,37 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T060812Z:e12406a2-aoa-agents-localized-agon-rank-g",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Agon rank, school campaign, and epistemic actor generated readers into Agon part-local generated routes; root generated no longer owns those mechanics-specific derived readers, and dedicated builders, validators, recurrence manifests, and tests guard the new routes plus former-root absence.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-agon-rank-epistemic-generated-reader-localization.md",
+    "mechanics/agon/PROVENANCE.md",
+    "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json",
+    "mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json",
+    "mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json",
+    "scripts/validate_agon_rank_epistemic_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/22723d4",
+    "repo:aoa-agents/pull/161",
+    "scripts/release_check.py",
+    "tests/test_agon_rank_epistemic_contracts.py",
+    "tests/test_agon_agent_rank_jurisdiction.py",
+    "tests/test_agon_agent_school_campaign_posture_registry.py",
+    "tests/test_agon_epistemic_actor_posture.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T06:08:12Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
