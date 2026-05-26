@@ -22,7 +22,7 @@ Mechanic-specific reference-route schemas live under
 validated by `scripts/validate_reference_route_contracts.py`.
 
 Mechanic-specific Titan schemas live under `mechanics/titan/parts/*/schemas/`
-and are validated by `scripts/validate_titan_schemas.py`.
+and are validated by `mechanics/titan/scripts/validate_titan_schemas.py`.
 
 Mechanic-specific antifragility stress schemas live under
 `mechanics/antifragility/parts/stress-posture/schemas/` and are validated by

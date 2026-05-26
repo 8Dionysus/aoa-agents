@@ -22,9 +22,9 @@ part-local names. At landing time, schemas remained in root `schemas/`; the
 later Titan schema localization moved the Titan-specific schemas beside the
 examples.
 
-Add `scripts/validate_titan_examples.py` and wire it into
-`scripts/validate_agents.py` so the active file set, schema alignment, lineage
-config references, and old active filename shape are checked explicitly.
+Add a Titan example validator and wire it into `scripts/validate_agents.py` so
+the active file set, schema alignment, lineage config references, and old
+active filename shape are checked explicitly.
 
 Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 
@@ -40,10 +40,11 @@ Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 ## Verification
 
 ```bash
-python scripts/validate_titan_examples.py
+python mechanics/titan/scripts/validate_titan_examples.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests
+python -m unittest discover -s mechanics/titan/tests -p "test_*.py"
+python -m unittest discover -s tests -p "test_*.py"
 python scripts/release_check.py
 ```

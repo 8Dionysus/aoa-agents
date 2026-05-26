@@ -8,8 +8,8 @@ from pathlib import Path
 import unittest
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "validate_titan_lineage.py"
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = ROOT / "mechanics" / "titan" / "scripts" / "validate_titan_lineage.py"
 
 
 def write_json(path: Path, payload: object) -> None:

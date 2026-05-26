@@ -102,8 +102,8 @@ Verify the current committed surfaces without rewriting files:
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
-python scripts/validate_titan_schemas.py
-python scripts/validate_titan_examples.py
+python mechanics/titan/scripts/validate_titan_schemas.py
+python mechanics/titan/scripts/validate_titan_examples.py
 python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
 python scripts/validate_rpg_progression.py
 python scripts/validate_assistant_projection_resolver.py

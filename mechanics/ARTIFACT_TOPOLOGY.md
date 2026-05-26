@@ -74,6 +74,12 @@ root `schemas/` into active `mechanics/titan/parts/*/schemas/` routes after
 adding a package-local schema validator. Root `schemas/` remains active for
 shared non-Titan contracts.
 
+The 2026-05-26 Titan check localization moves Titan package-owned validators
+and focused tests from root `scripts/` and `tests/` into
+`mechanics/titan/{scripts,tests}/`. `scripts/validate_agents.py` remains the
+repo-wide coordinator by loading the Titan schema and example validators
+directly, and `scripts/release_check.py` runs the Titan tests explicitly.
+
 The 2026-05-26 antifragility stress localization moves stress-posture schemas
 and examples from root `schemas/` and `examples/` into active
 `mechanics/antifragility/parts/stress-posture/{schemas,examples}/` routes after

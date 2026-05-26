@@ -2,7 +2,7 @@
 
 This index is for old-path lookup only. Current behavior lives in the active part route named in the table.
 
-| Former root path | Active part route | Status |
+| Former root path | Active route | Status |
 | --- | --- | --- |
 | `docs/TITAN_INCARNATION_SPINE.md` | [mechanics/titan/parts/incarnation-spine/docs/incarnation-spine.md](../parts/incarnation-spine/docs/incarnation-spine.md) | moved into `incarnation-spine` docs on 2026-05-26 |
 | `docs/TITAN_OPERATOR_CONSOLE_BOUNDARY.md` | [mechanics/titan/parts/incarnation-spine/docs/operator-console-boundary.md](../parts/incarnation-spine/docs/operator-console-boundary.md) | moved into `incarnation-spine` docs on 2026-05-26 |
@@ -44,3 +44,9 @@ This index is for old-path lookup only. Current behavior lives in the active par
 | `schemas/titan_memory_roster.schema.json` | [mechanics/titan/parts/service-cohort/schemas/memory-roster.schema.json](../parts/service-cohort/schemas/memory-roster.schema.json) | moved into `service-cohort` schemas on 2026-05-26 |
 | `schemas/titan_service_cohort.schema.json` | [mechanics/titan/parts/service-cohort/schemas/service-cohort.schema.json](../parts/service-cohort/schemas/service-cohort.schema.json) | moved into `service-cohort` schemas on 2026-05-26 |
 | `schemas/titan_agent_role_assignment.schema.json` | [mechanics/titan/parts/summon-boundary/schemas/agent-role-assignment.schema.json](../parts/summon-boundary/schemas/agent-role-assignment.schema.json) | moved into `summon-boundary` schemas on 2026-05-26 |
+| `scripts/validate_titan_lineage.py` | [mechanics/titan/scripts/validate_titan_lineage.py](../scripts/validate_titan_lineage.py) | moved into `titan` package scripts on 2026-05-26 |
+| `scripts/validate_titan_schemas.py` | [mechanics/titan/scripts/validate_titan_schemas.py](../scripts/validate_titan_schemas.py) | moved into `titan` package scripts on 2026-05-26 |
+| `scripts/validate_titan_examples.py` | [mechanics/titan/scripts/validate_titan_examples.py](../scripts/validate_titan_examples.py) | moved into `titan` package scripts on 2026-05-26 |
+| `tests/test_validate_titan_lineage.py` | [mechanics/titan/tests/test_validate_titan_lineage.py](../tests/test_validate_titan_lineage.py) | moved into `titan` package tests on 2026-05-26 |
+| `tests/test_titan_schemas.py` | [mechanics/titan/tests/test_titan_schemas.py](../tests/test_titan_schemas.py) | moved into `titan` package tests on 2026-05-26 |
+| `tests/test_titan_examples.py` | [mechanics/titan/tests/test_titan_examples.py](../tests/test_titan_examples.py) | moved into `titan` package tests on 2026-05-26 |

@@ -9,7 +9,7 @@
 | output | Titan lineage validation input and lineage-facing docs/examples |
 | owner | `mechanics/titan/parts/lineage-ledger/` |
 | next route | lineage ledger docs, role-bearing config, Titan validator |
-| tools | `scripts/validate_titan_lineage.py` |
+| tools | `mechanics/titan/scripts/validate_titan_lineage.py` |
 | validation | Titan lineage validator with this ledger path |
 
 ## Active Config

@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 TITAN_PARTS_ROOT = Path("mechanics/titan/parts")
 
 EXPECTED_SCHEMA_PATHS = {

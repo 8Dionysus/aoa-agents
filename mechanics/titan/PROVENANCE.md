@@ -98,6 +98,22 @@ identifiers.
 | `schemas/titan_service_cohort.schema.json` | [parts/service-cohort/schemas/service-cohort.schema.json](parts/service-cohort/schemas/service-cohort.schema.json) | `service-cohort` |
 | `schemas/titan_agent_role_assignment.schema.json` | [parts/summon-boundary/schemas/agent-role-assignment.schema.json](parts/summon-boundary/schemas/agent-role-assignment.schema.json) | `summon-boundary` |
 
+## 2026-05-26 Root Checks Move
+
+Titan package-owned validators and focused tests moved from root execution
+districts into `mechanics/titan/{scripts,tests}/`. Root validation still calls
+the package-local validators and tests through `scripts/validate_agents.py` and
+`scripts/release_check.py`.
+
+| Former root path | Active route | Owner route |
+| --- | --- | --- |
+| `scripts/validate_titan_lineage.py` | [scripts/validate_titan_lineage.py](scripts/validate_titan_lineage.py) | `titan` package |
+| `scripts/validate_titan_schemas.py` | [scripts/validate_titan_schemas.py](scripts/validate_titan_schemas.py) | `titan` package |
+| `scripts/validate_titan_examples.py` | [scripts/validate_titan_examples.py](scripts/validate_titan_examples.py) | `titan` package |
+| `tests/test_validate_titan_lineage.py` | [tests/test_validate_titan_lineage.py](tests/test_validate_titan_lineage.py) | `titan` package |
+| `tests/test_titan_schemas.py` | [tests/test_titan_schemas.py](tests/test_titan_schemas.py) | `titan` package |
+| `tests/test_titan_examples.py` | [tests/test_titan_examples.py](tests/test_titan_examples.py) | `titan` package |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

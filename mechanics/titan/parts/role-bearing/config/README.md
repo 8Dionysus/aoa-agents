@@ -9,7 +9,7 @@
 | output | Titan lineage validation input and generated Titan Codex agent projection |
 | owner | `mechanics/titan/parts/role-bearing/` |
 | next route | role-bearer ontology, lineage ledger config, Titan projection builder |
-| tools | `scripts/validate_titan_lineage.py`, `scripts/render_titan_codex_agents.py` |
+| tools | `mechanics/titan/scripts/validate_titan_lineage.py`, `scripts/render_titan_codex_agents.py` |
 | validation | Titan lineage validator and Titan Codex projection renderer |
 
 ## Active Configs
