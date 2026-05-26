@@ -11,6 +11,7 @@ It exists to keep source-authored role surfaces reviewable while protecting the 
 This compatibility discipline applies to:
 
 - `schemas/*.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/*.json`
 - `agents/profiles/*.profile.json`
 - `agents/model_tiers/*.tier.json`
 - `agents/cohort_patterns/*.pattern.json`
@@ -23,7 +24,12 @@ The current published contract set includes:
 - `generated/model_tier_registry.json`
 - `generated/cohort_composition_registry.json`
 - `generated/runtime_seam_bindings.json`
-- `schemas/artifact.*.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.*.schema.json`
+
+Historical repo refs to the former root artifact-schema route are treated as
+compatibility identifiers during optional consumer smoke checks and resolve to
+the active `artifact-contracts` schemas. They do not recreate root schema
+authority.
 
 The example-only surface in this cycle is:
 
@@ -61,7 +67,7 @@ A breaking change includes:
 - changing the meaning of an existing published field without explicit migration
 - changing published top-level metadata shape
 - changing stable publication order in a way that creates hidden drift for consumers
-- changing existing `schemas/artifact.*.schema.json` wire shape without an intentional versioning move
+- changing existing `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.*.schema.json` wire shape without an intentional versioning move
 
 ## Stable publication order
 

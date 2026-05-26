@@ -93,6 +93,13 @@ assistant projection resolver schemas and example from root `schemas/` and
 routes after adding a part-local validator. Stable schema `$id` values remain
 public contract identifiers, not active repo paths.
 
+The 2026-05-26 runtime artifact contract localization moves runtime artifact
+schemas, examples, and invalid fixtures from root `schemas/` and `examples/`
+into active
+`mechanics/runtime-seam/parts/artifact-contracts/{schemas,examples}/` routes
+after adding a part-local validator. Stable schema `$id` values remain public
+contract identifiers, not active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

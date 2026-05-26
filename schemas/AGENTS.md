@@ -2,7 +2,11 @@
 
 ## Guidance for `schemas/`
 
-`schemas/` holds shared contracts for profiles, model tiers, orchestrator classes, cohorts, runtime artifacts, checkpoints, and reference routes.
+`schemas/` holds shared contracts for profiles, model tiers, orchestrator classes, cohorts, checkpoints, and reference routes.
+
+Mechanic-specific runtime artifact schemas live under
+`mechanics/runtime-seam/parts/artifact-contracts/schemas/` and are validated by
+`scripts/validate_runtime_artifact_contracts.py`.
 
 Mechanic-specific Titan schemas live under `mechanics/titan/parts/*/schemas/`
 and are validated by `scripts/validate_titan_schemas.py`.

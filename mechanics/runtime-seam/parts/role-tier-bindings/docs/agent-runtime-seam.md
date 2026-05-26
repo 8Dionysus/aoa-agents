@@ -82,21 +82,21 @@ They do not move scenario composition into this repository.
 The first public runtime seam is schema-backed and code-free.
 The public artifact contracts are:
 
-- `schemas/artifact.route_decision.schema.json`
-- `schemas/artifact.bounded_plan.schema.json`
-- `schemas/artifact.work_result.schema.json`
-- `schemas/artifact.verification_result.schema.json`
-- `schemas/artifact.transition_decision.schema.json`
-- `schemas/artifact.deep_synthesis_note.schema.json`
-- `schemas/artifact.distillation_pack.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.route_decision.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.bounded_plan.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.work_result.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.verification_result.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.transition_decision.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.deep_synthesis_note.schema.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.distillation_pack.schema.json`
 
 These schemas define inspectable artifact names and minimal contract fields.
 They do not define runtime execution, tool wiring, or vendor-specific transport.
 
 Inspectable examples for each public artifact live under:
 
-- `examples/runtime_artifacts/*.example.json`
-- `examples/runtime_artifacts/invalid/*.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/examples/*.example.json`
+- `mechanics/runtime-seam/parts/artifact-contracts/examples/invalid/*.json`
 
 The role × tier binding is also published as a machine-readable surface:
 

@@ -34,7 +34,8 @@ Each binding should keep these fields coherent:
 - `role_names`
 - `artifact_type`
 
-Bindings must stay aligned with published artifact schemas and with `examples/runtime_artifacts/`.
+Bindings must stay aligned with published artifact schemas and with
+`mechanics/runtime-seam/parts/artifact-contracts/examples/`.
 
 ## Does not own
 
