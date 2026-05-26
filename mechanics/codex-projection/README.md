@@ -1,6 +1,6 @@
 # Codex Projection Mechanic
 
-Status: skeleton.
+Status: active package.
 
 `mechanics/codex-projection/` routes projection from agent source profiles into
 Codex-facing subagent surfaces. It owns projection posture, refresh law, and
@@ -33,7 +33,9 @@ wiring route; it does not own Codex runtime behavior.
 ## Validation
 
 ```bash
-python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py

@@ -7,6 +7,11 @@ import argparse
 import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[5]
+ROOT_SCRIPTS_DIR = REPO_ROOT / "scripts"
+if str(ROOT_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_SCRIPTS_DIR))
+
 from agent_profile_registry import BuildError
 from codex_subagent_projection import collect_projection_validation_errors
 

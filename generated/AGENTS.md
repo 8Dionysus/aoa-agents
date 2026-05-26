@@ -86,6 +86,11 @@ owning Recurrence parts.
 For Questbook catalog and dispatch readers, use
 `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py`;
 the outputs are root-published under `generated/`.
+For `generated/codex_agents/`, use
+`mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py`
+as the canonical builder and
+`mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py`
+as the freshness checker.
 For `generated/agent_agonic_formation_index.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`
 as the canonical builder and
@@ -143,4 +148,12 @@ If Titan Codex projection output changed, also run:
 ```bash
 python mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --out-dir generated/titan_codex_agents/agents --manifest generated/titan_codex_agents/projection_manifest.json --prune --check
 python -m unittest discover -s mechanics/titan/parts/codex-projection/tests -p "test_*.py"
+```
+
+If Codex subagent projection output changed, also run:
+
+```bash
+python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
+python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 ```
