@@ -16,6 +16,10 @@ Current published outputs include:
 - `generated/orchestrator_class_catalog.min.json`
 - `generated/orchestrator_class_capsules.json`
 - `generated/orchestrator_class_sections.full.json`
+- `generated/quest_catalog.min.json`
+- `generated/quest_catalog.min.example.json`
+- `generated/quest_dispatch.min.json`
+- `generated/quest_dispatch.min.example.json`
 - `generated/cohort_composition_registry.json`
 - `generated/runtime_seam_bindings.json`
 - `generated/codex_agents/agents/*.toml`
@@ -32,6 +36,8 @@ part-local seed/config surfaces.
 Recursor readiness, pair, projection, and boundary readers live under
 `mechanics/recurrence/parts/*/generated/` because they are derived from
 Recurrence part-local seed/config and contract surfaces.
+Quest catalog and dispatch readers stay root-published because they summarize
+root `quests/` source records for low-context consumers.
 
 ## Source layers
 
@@ -43,6 +49,7 @@ These files are derived from:
 - `agents/orchestrator_classes/`
 - `agents/cohort_patterns/`
 - `agents/runtime_seam/`
+- `quests/`
 - `mechanics/agon/parts/*/config/`
 - `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
 - `mechanics/recurrence/parts/*/config/`
@@ -63,6 +70,9 @@ For recursor generated readers, use `scripts/build_recursor_role_readiness.py`,
 `scripts/build_recursor_projection_candidates.py`, and
 `scripts/validate_recursor_boundary.py`; the outputs are part-local under the
 owning Recurrence parts.
+For Questbook catalog and dispatch readers, use
+`scripts/generate_questbook_readers.py`; the outputs are root-published under
+`generated/`.
 For `generated/agent_agonic_formation_index.min.json`, use
 `scripts/build_agent_agonic_formation_index.py` as the canonical builder and
 `scripts/validate_agent_agonic_formation.py` as the explicit Wave I validator.

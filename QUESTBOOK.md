@@ -44,8 +44,8 @@ Allowed verdicts:
 
 ## Backing Files
 
-- `mechanics/questbook/parts/quest-catalog/quests/*.yaml`
-- `mechanics/questbook/parts/agon-quest-surfaces/quests/*.md`
+- `quests/agents/<state>/AOA-AG-Q-*.yaml`
+- `quests/agon/<state>/*.md`
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
 - `generated/quest_catalog.min.example.json`

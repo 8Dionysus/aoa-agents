@@ -17,7 +17,7 @@ root district before the 2026-05-26 docs landing:
 | `tests/` | 76 | builder, validator, projection, and route-surface guards |
 | `scripts/` | 53 | builders and validators for formation, projection, Titan, recurrence, runtime, release |
 | `generated/` | 36 | derived registries, indexes, Codex projections, quest/read-model companions |
-| `quests/` | 20 | quest-facing role posture and Agon quest surfaces; localized to the questbook package on 2026-05-26 |
+| `quests/` | 20 | quest-facing role posture and Agon quest surfaces; repaired to root lane/state source ownership on 2026-05-26 |
 | `manifests/` | 11 | recurrence and projection component manifests; localized to the recurrence `component-manifests` part on 2026-05-26 |
 | `config/` | 11 | Agon, recursor, Codex, and Titan source seeds; localized to part-level config routes on 2026-05-26 |
 | `memo/` | 9 | local memory port; route only, not mechanic authority |
@@ -60,7 +60,7 @@ The current package skeleton is:
 | `runtime-seam/` | Runtime seam bindings and artifact transition contracts are stable enough to route as a mechanic while runtime implementation stays elsewhere. |
 | `codex-projection/` | Codex subagent projection has source wiring, generated projections, refresh law, tests, and manifest support. |
 | `checkpoint/` | Self-agent checkpoint, continuity, reviewed-closeout, and reference-route posture recur across docs, examples, schemas, cohorts, and generated readers. |
-| `questbook/` | Quest-facing role posture spans the part-local quest catalog, part-local quest records, Agon quest notes, generated dispatch/readers, and execution-passport docs. |
+| `questbook/` | Quest-facing role posture spans root `QUESTBOOK.md`, root `quests/`, generated dispatch/readers, public-index and source-store route law, and execution-passport docs. |
 | `rpg/` | Progression, mastery, cohort, and unlock-like role posture exists as a thin but distinct agent-layer operation. |
 | `antifragility/` | Stress, via negativa, and scar/adaptation pressure already has public posture and contract examples. |
 | `boundary-bridge/` | Federation seams, published compatibility, workspace trigger posture, and source-surface registries route cross-repo consumers. |
@@ -92,10 +92,10 @@ The manifest localization satisfies that rule for recurrence component and
 hook manifests by moving them into the `component-manifests` part with an
 active manifest route card and `validate_recurrence_component_manifests.py`.
 
-The questbook localization satisfies that rule for root quest payloads by
-moving the catalog doc, YAML quest records, and Agon quest notes into
-part-local questbook routes while keeping generated quest readers in
-`generated/`.
+The Questbook source-store repair satisfies that rule by refusing to move root
+quest source truth into mechanics: root `QUESTBOOK.md` and root `quests/` stay
+active, while `mechanics/questbook/parts/*` records the public-index,
+quest-item-store, and dispatch-reader route law.
 
 The Titan example localization satisfies that rule for schema-backed Titan
 examples by moving them into part-local `examples/` directories and adding
@@ -192,6 +192,11 @@ derived readers by placing readiness, pair, projection, and boundary readers
 next to the part-local config/schema/example surfaces they summarize and
 teaching the recursor builders, validators, component manifests, and tests the
 part-local routes plus former-root absence.
+
+The Questbook source-store repair follows the stronger sibling-repo pattern:
+root `QUESTBOOK.md` owns human visibility, root `quests/` owns source records,
+root `generated/quest_*` readers summarize those records, and
+`mechanics/questbook/` owns the route law plus builder-backed validation.
 
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and

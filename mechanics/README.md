@@ -57,6 +57,9 @@ owning Agon parts because their source truth is already part-local config.
 The recursor generated reader localization moved readiness, pair, projection,
 and boundary readers into their owning Recurrence parts because their source
 truth is already part-local config/schema/example material.
+The Questbook topology repair keeps quest source truth in root `quests/` and
+quest catalog/dispatch readers in root `generated/` while `mechanics/questbook/`
+owns the operation law, source-store route, index route, and reader contract.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -67,7 +70,7 @@ truth is already part-local config/schema/example material.
 | `runtime-seam/` | `agents/runtime_seam/`, runtime artifact schemas/examples, seam docs/generated readers | keep role x tier bindings and artifact transitions contract-first without owning runtime implementation |
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/schemas/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
-| `questbook/` | part-local quest catalog, part-local quest records, Agon quest notes, Alpha reference-route schemas/examples/generated reader, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
+| `questbook/` | root `QUESTBOOK.md`, root `quests/`, root quest generated readers, Alpha reference-route schemas/examples/generated reader, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
 | `rpg/` | progression docs, part-local progression schema/example, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
 | `antifragility/` | stress posture docs, part-local schemas/examples, via negativa, scar/adaptation docs, tests | route failure-pressure learning and negative checks without becoming proof authority |
 | `boundary-bridge/` | federation seams, published contract compatibility, workspace trigger, source registries | route consumer handoff and cross-repo boundary pressure without becoming routing policy |
@@ -103,15 +106,15 @@ mechanics packages from empty route skeletons into active route homes:
   Agon part-local `generated/` routes;
 - recursor generated readers live under their owning Recurrence part-local
   `generated/` routes;
-- quest catalog records and Agon quest notes live under
-  `mechanics/questbook/parts/*/quests/`;
+- quest catalog and dispatch readers stay root-published under `generated/`
+  because they summarize root quest records;
+- quest catalog records and Agon quest notes live under root `quests/`;
 - package `PARTS.md` files are the active part maps;
 - package `PROVENANCE.md` files are the only active bridge into old-path
   accounting;
 - package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
-  former `docs/*`, `config/*`, `manifests/*`, root quest catalog, and
-  root quest-source, reference-route schema, reference-route example, and
-  localized generated reader
+  former `docs/*`, `config/*`, `manifests/*`, prior flat quest-source,
+  reference-route schema, reference-route example, and localized generated reader
   lookup maps without
   duplicating active authority.
 
