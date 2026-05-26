@@ -1,0 +1,33 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T072511Z:167192e9-aoa-agents-added-package-level-a",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents added package-level AGENTS.md route cards for every active mechanics package after comparing refactored sibling repos; mechanics packages now have a nearest owner card between mechanics/AGENTS.md and parts/AGENTS.md, while payload movement still requires package-local contract and validator proof.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-mechanics-package-route-cards.md",
+    "mechanics/AGENTS.md",
+    "mechanics/README.md",
+    "scripts/validate_nested_agents.py",
+    "mechanics/questbook/AGENTS.md",
+    "mechanics/agon/AGENTS.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/6611012",
+    "repo:aoa-agents/pull/173",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T07:25:11Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
