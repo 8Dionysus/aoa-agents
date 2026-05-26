@@ -1,0 +1,37 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T061950Z:3bd6fe60-aoa-agents-localized-recursor-gener",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Recurrence recursor readiness, pair, projection-candidate, and Agon boundary generated readers into part-local Recurrence generated routes; root generated no longer owns those mechanics-specific derived readers, and recursor builders, validators, recurrence manifests, and tests guard the new routes plus former-root absence.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-recursor-generated-reader-localization.md",
+    "mechanics/recurrence/PROVENANCE.md",
+    "mechanics/recurrence/parts/recursor-readiness/generated/role-readiness.min.json",
+    "mechanics/recurrence/parts/recursor-readiness/generated/pair-contract.min.json",
+    "mechanics/recurrence/parts/codex-recursor-projection/generated/projection-candidates.min.json",
+    "mechanics/recurrence/parts/agon-recursor-boundary/generated/boundary-report.min.json",
+    "scripts/validate_recursor_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/cdfa180",
+    "repo:aoa-agents/pull/163",
+    "scripts/release_check.py",
+    "tests/test_recursor_contracts.py",
+    "tests/test_recursor_role_readiness_seed.py",
+    "tests/test_recurrence_component_manifests.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T06:19:50Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

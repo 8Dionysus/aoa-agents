@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 10 |
+| candidates | 11 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 10 |
+| `reviewed_intake` | 11 |
 
 ## Open Items
 
@@ -31,6 +31,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T053715Z:195fbd3d-aoa-agents-localized-public-loop` | `candidate` | `reviewed_intake` | `candidates/20260526T053715Z.195fbd3d.aoa-agents-localized-public-loop-reference-route.candidate.json` |
 | `candidate:aoa-agents:20260526T055310Z:9411065e-aoa-agents-localized-the-alpha-r` | `candidate` | `reviewed_intake` | `candidates/20260526T055310Z.9411065e.aoa-agents-localized-the-alpha-reference-route-g.candidate.json` |
 | `candidate:aoa-agents:20260526T060812Z:e12406a2-aoa-agents-localized-agon-rank-g` | `candidate` | `reviewed_intake` | `candidates/20260526T060812Z.e12406a2.aoa-agents-localized-agon-rank-generated-read.candidate.json` |
+| `candidate:aoa-agents:20260526T061950Z:3bd6fe60-aoa-agents-localized-recursor-gener` | `candidate` | `reviewed_intake` | `candidates/20260526T061950Z.3bd6fe60.aoa-agents-localized-recursor-generated-rea.candidate.json` |
 
 ## Agent Route
 
