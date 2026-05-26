@@ -91,7 +91,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     ),
     'mechanics/questbook/parts/alpha-reference-routes/examples/README.md': (
         'mechanics/questbook/parts/alpha-reference-routes/schemas/alpha-reference-route.schema.json',
-        'generated/alpha_reference_routes.min.json',
+        'mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json',
         'curated Alpha cohort',
         'readiness proof lane',
     ),

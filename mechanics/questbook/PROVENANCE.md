@@ -61,3 +61,13 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `examples/alpha_reference_routes/restartable-inquiry-loop.example.json` | [parts/alpha-reference-routes/examples/restartable-inquiry-loop.example.json](parts/alpha-reference-routes/examples/restartable-inquiry-loop.example.json) | `alpha-reference-routes` |
 | `examples/alpha_reference_routes/self-agent-checkpoint-rollout.example.json` | [parts/alpha-reference-routes/examples/self-agent-checkpoint-rollout.example.json](parts/alpha-reference-routes/examples/self-agent-checkpoint-rollout.example.json) | `alpha-reference-routes` |
 | `examples/alpha_reference_routes/validation-driven-remediation.example.json` | [parts/alpha-reference-routes/examples/validation-driven-remediation.example.json](parts/alpha-reference-routes/examples/validation-driven-remediation.example.json) | `alpha-reference-routes` |
+
+## 2026-05-26 Alpha Reference Route Generated Reader Move
+
+1 Alpha reference-route generated reader moved from root `generated/` into the
+Questbook `alpha-reference-routes` part after the part-local schema and
+examples became the reader's only source truth.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `generated/alpha_reference_routes.min.json` | [parts/alpha-reference-routes/generated/alpha-reference-routes.min.json](parts/alpha-reference-routes/generated/alpha-reference-routes.min.json) | `alpha-reference-routes` |

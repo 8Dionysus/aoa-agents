@@ -107,6 +107,6 @@ Inspectable runtime seam examples live in `mechanics/runtime-seam/parts/artifact
 Inspectable self-agent checkpoint examples live in
 `mechanics/checkpoint/parts/self-agent-checkpoint/examples/` and continuity
 examples live in `mechanics/checkpoint/parts/continuity-lane/examples/`.
-Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
+Adjunct published outputs currently include `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
 `generated/codex_agents/` is the repo-side install surface for workspace `.codex/agents/`.
 Optional validator smoke checks may read neighboring published surfaces when `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, or `AOA_ROUTING_ROOT` are set, but they only test bounded contract reachability and do not import neighboring meaning into this repo.

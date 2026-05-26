@@ -31,3 +31,15 @@ part.
 
 Git history preserves the file bodies; `PROVENANCE.md` and
 `legacy/INDEX.md` preserve old-path lookup.
+
+## 2026-05-26 Alpha Reference Route Generated Reader To Active Part
+
+Moved the Alpha reference-route generated reader out of root `generated/` and
+into the active Questbook `alpha-reference-routes` part.
+
+| Part | Moved generated readers |
+| --- | ---: |
+| `alpha-reference-routes` | 1 |
+
+Git history preserves the file body; `PROVENANCE.md` and `legacy/INDEX.md`
+preserve old-path lookup.

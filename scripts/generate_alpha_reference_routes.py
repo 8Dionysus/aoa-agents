@@ -8,7 +8,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES_ROOT = REPO_ROOT / "mechanics" / "questbook" / "parts" / "alpha-reference-routes" / "examples"
-OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
+OUTPUT_RELATIVE_PATH = (
+    "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json"
+)
+OUTPUT_PATH = REPO_ROOT / OUTPUT_RELATIVE_PATH
 FILE_ORDER = (
     "local-stack-diagnosis.example.json",
     "self-agent-checkpoint-rollout.example.json",
@@ -73,6 +76,7 @@ def build_alpha_reference_route_payload() -> dict[str, object]:
 
 
 def write_output(payload: dict[str, object]) -> None:
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
@@ -90,14 +94,14 @@ def main(argv: list[str] | None = None) -> int:
         current = read_json(OUTPUT_PATH)
         if current != payload:
             raise SystemExit(
-                "[error] generated/alpha_reference_routes.min.json is out of date; "
+                f"[error] {OUTPUT_RELATIVE_PATH} is out of date; "
                 "run scripts/generate_alpha_reference_routes.py"
             )
-        print("[ok] generated/alpha_reference_routes.min.json is current")
+        print("[ok] alpha reference-route generated reader is current")
         return 0
 
     write_output(payload)
-    print("[ok] wrote generated/alpha_reference_routes.min.json")
+    print(f"[ok] wrote {OUTPUT_RELATIVE_PATH}")
     return 0
 
 

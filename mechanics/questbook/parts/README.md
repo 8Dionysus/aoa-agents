@@ -11,7 +11,7 @@ posture parts.
 | `quest-catalog/` | quest source inventory and generated reader | `quest-catalog/README.md`, `quest-catalog/docs/quest-catalog.md`, `quest-catalog/quests/` |
 | `dispatch-reader/` | generated quest dispatch posture | `dispatch-reader/README.md` |
 | `agon-quest-surfaces/` | Agon-specific quest docs and quest ids | `agon-quest-surfaces/README.md`, `agon-quest-surfaces/quests/` |
-| `alpha-reference-routes/` | Alpha reference route schema and examples that remain role-facing | `alpha-reference-routes/README.md`, `alpha-reference-routes/schemas/`, `alpha-reference-routes/examples/` |
+| `alpha-reference-routes/` | Alpha reference route schema, examples, and generated companion that remain role-facing | `alpha-reference-routes/README.md`, `alpha-reference-routes/schemas/`, `alpha-reference-routes/examples/`, `alpha-reference-routes/generated/` |
 
 ## Admission Rule
 

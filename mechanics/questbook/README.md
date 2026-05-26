@@ -21,7 +21,8 @@ reference routes legible without taking playbook scenario authority.
 
 - role posture and eligibility for quest-facing agent work
 - execution passport contracts from the agent side
-- generated quest catalog and dispatch readers as derived companions
+- generated quest catalog, dispatch, and Alpha reference route readers as
+  derived companions
 - Alpha reference route posture where it describes agent roles
 
 ## Stronger Owner Split
