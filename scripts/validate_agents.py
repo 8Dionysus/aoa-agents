@@ -35,6 +35,7 @@ from validate_recurrence_component_manifests import (
     validate_recurrence_component_manifests,
 )
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
+from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
@@ -3421,6 +3422,7 @@ def main() -> int:
         validate_cohort_pattern_sources()
         validate_runtime_seam_binding_sources()
         validate_recurrence_component_manifests()
+        validate_titan_examples()
         agent_names = validate_registry()
         validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
         validate_self_agency_continuity_window_example_coherence(
@@ -3443,7 +3445,7 @@ def main() -> int:
         validate_questbook_surface()
         validate_orchestrator_class_doc_surface()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
-    except (ManifestValidationError, NestedAgentsValidationError, ValidationError) as exc:
+    except (ManifestValidationError, NestedAgentsValidationError, TitanExamplesValidationError, ValidationError) as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
@@ -3468,6 +3470,7 @@ def main() -> int:
     print("[ok] validated source-authored cohort patterns")
     print("[ok] validated source-authored runtime seam bindings")
     print("[ok] validated recurrence component manifests")
+    print("[ok] validated Titan part-local examples")
     print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated runtime artifact examples")
     print("[ok] validated self-agent checkpoint examples")

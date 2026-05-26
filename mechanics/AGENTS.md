@@ -62,7 +62,7 @@ Read:
 | --- | --- |
 | source role object change | route to `agents/` |
 | public explanation change | route to `docs/` and link back to the mechanic |
-| shared schema/example change | keep `schemas/` or `examples/` until package-local validation exists |
+| shared schema/example change | keep `schemas/` or `examples/` until package-local validation exists; move mechanic-specific examples only with an explicit validator |
 | generated drift | update source and builder, then regenerate |
 | file-name cluster pressure | use `mechanics/PAYLOAD_RECON.md` and target `PARTS.md`; do not promote a topic into a mechanic by filename alone |
 | old-path or provenance pressure | use target package `PROVENANCE.md`; legacy is an accounting route, not current behavior |
@@ -80,6 +80,9 @@ Read:
 - Mechanic-specific seeds, wiring, and recurrence component manifests live in
   part-local routes once moved; root-level districts keep only payloads that
   still have stronger shared ownership.
+- Mechanic-specific public examples live in part-local
+  `mechanics/*/parts/*/examples/` once a dedicated validator protects the
+  active file set and schema alignment.
 - Quest catalog records and quest notes live in questbook part-local routes
   once moved; generated quest readers remain derived companions.
 - Generated companions stay weaker than builders and source surfaces.

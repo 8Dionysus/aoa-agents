@@ -97,5 +97,10 @@ moving the catalog doc, YAML quest records, and Agon quest notes into
 part-local questbook routes while keeping generated quest readers in
 `generated/`.
 
-Shared schemas, examples, scripts, tests, generated readers, and source agent
-objects remain in their current districts until their own move proof exists.
+The Titan example localization satisfies that rule for schema-backed Titan
+examples by moving them into part-local `examples/` directories and adding
+`scripts/validate_titan_examples.py`.
+
+Shared schemas, non-Titan examples, scripts, tests, generated readers, and
+source agent objects remain in their current districts until their own move
+proof exists.
