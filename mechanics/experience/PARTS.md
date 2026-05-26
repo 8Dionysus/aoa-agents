@@ -22,3 +22,5 @@ across parts instead of one part's payload:
 
 - [scripts/validate_experience_assistant_civil_contracts.py](scripts/validate_experience_assistant_civil_contracts.py)
 - [tests/test_experience_assistant_civil_contracts.py](tests/test_experience_assistant_civil_contracts.py)
+- [scripts/validate_adoption_boundary_contracts.py](scripts/validate_adoption_boundary_contracts.py)
+- [tests/test_experience_wave3_seed_contracts.py](tests/test_experience_wave3_seed_contracts.py)

@@ -91,7 +91,7 @@ Mechanic-specific adoption and boundary bridge examples live under
 `mechanics/agon/parts/adoption-retention/examples/`,
 `mechanics/boundary-bridge/parts/*/examples/`, and
 `mechanics/experience/parts/{adoption-and-regression,office-operations}/examples/`.
-They are validated by `scripts/validate_adoption_boundary_contracts.py`.
+They are validated by `mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
 Their schemas live beside them under the corresponding part-local `schemas/`
 routes.
 
@@ -130,7 +130,7 @@ For recursor part-local examples, also run `python mechanics/recurrence/scripts/
 For Agon formation part-local examples, also run `python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
 For Experience assistant civil part-local examples, also run `python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`.
-For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
+For adoption and boundary bridge part-local examples, also run `python mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.
 For reference-route part-local examples, also run `python scripts/validate_reference_route_contracts.py`.
 For the Wave I reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`.

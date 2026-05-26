@@ -40,6 +40,7 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Codex refresh law check localization](2026-05-26-codex-refresh-law-check-localization.md)
 - [2026-05-26: Assistant projection check localization](2026-05-26-assistant-projection-check-localization.md)
 - [2026-05-26: Adoption and boundary contract localization](2026-05-26-adoption-boundary-contract-localization.md)
+- [2026-05-26: Experience adoption boundary check localization](2026-05-26-experience-adoption-boundary-check-localization.md)
 - [2026-05-26: Agent service contract localization](2026-05-26-agent-service-contract-localization.md)
 - [2026-05-26: Reference route contract localization](2026-05-26-reference-route-contract-localization.md)
 - [2026-05-26: Alpha reference-route generated reader localization](2026-05-26-alpha-reference-generated-reader-localization.md)

@@ -30,10 +30,6 @@ from orchestrator_class_registry import (
     load_orchestrator_classes,
 )
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
-from validate_adoption_boundary_contracts import (
-    AdoptionBoundaryContractsValidationError,
-    validate_adoption_boundary_contracts,
-)
 from validate_agent_service_contracts import (
     AgentServiceContractsValidationError,
     validate_agent_service_contracts,
@@ -50,7 +46,12 @@ def load_repo_python_module(module_name: str, relative_path: str) -> Any:
     if spec is None or spec.loader is None:
         raise ImportError(f"cannot load {module_name} from {module_path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    sys.modules[module_name] = module
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        sys.modules.pop(module_name, None)
+        raise
     return module
 
 
@@ -96,6 +97,17 @@ ExperienceAssistantCivilContractsValidationError = (
 )
 validate_experience_assistant_civil_contracts = (
     _EXPERIENCE_ASSISTANT_CIVIL_CONTRACTS_MODULE.validate_experience_assistant_civil_contracts
+)
+
+_ADOPTION_BOUNDARY_CONTRACTS_MODULE = load_repo_python_module(
+    "adoption_boundary_contracts_validator",
+    "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",
+)
+AdoptionBoundaryContractsValidationError = (
+    _ADOPTION_BOUNDARY_CONTRACTS_MODULE.AdoptionBoundaryContractsValidationError
+)
+validate_adoption_boundary_contracts = (
+    _ADOPTION_BOUNDARY_CONTRACTS_MODULE.validate_adoption_boundary_contracts
 )
 
 _TITAN_SCHEMAS_MODULE = load_repo_python_module(

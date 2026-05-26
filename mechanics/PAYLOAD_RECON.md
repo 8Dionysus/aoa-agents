@@ -174,7 +174,13 @@ The adoption/boundary contract localization satisfies that rule for adoption,
 retention, office, and boundary bridge schemas/examples by placing them under
 their owning Experience, Agon, and Boundary Bridge part-local
 `schemas/`/`examples/` routes and adding
-`scripts/validate_adoption_boundary_contracts.py`.
+`mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
+
+The Experience adoption/boundary check localization satisfies that rule for
+the Wave III adoption/boundary validator and focused test by moving them into
+`mechanics/experience/{scripts,tests}/`. The check stays package-local because
+it spans Experience adoption/office parts and cross-routes into Agon
+adoption-retention plus Boundary Bridge consumer/federation parts.
 
 The agent service contract localization satisfies that rule for the remaining
 assistant service, office, release, watch, rollback, governance,

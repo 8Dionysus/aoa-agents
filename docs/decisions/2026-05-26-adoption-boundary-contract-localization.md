@@ -29,9 +29,11 @@ Move these schema/example pairs into their owning part-local contract routes:
   `mechanics/boundary-bridge/parts/consumer-handoff/` and
   `mechanics/boundary-bridge/parts/federation-consumer-seams/`
 
-Add `scripts/validate_adoption_boundary_contracts.py` to keep the active file
-sets, schema/example alignment, guardrail invariants, and former root path
-absence explicit.
+Add an adoption/boundary validator to keep the active file sets,
+schema/example alignment, guardrail invariants, and former root path absence
+explicit. Its active route is now
+`mechanics/experience/scripts/validate_adoption_boundary_contracts.py`; the
+check was localized after the contract payload move.
 
 ## Consequences
 
@@ -46,6 +48,6 @@ rewritten in this localization pass.
 Validation for this route is:
 
 ```bash
-python scripts/validate_adoption_boundary_contracts.py
+python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 python scripts/validate_agents.py
 ```

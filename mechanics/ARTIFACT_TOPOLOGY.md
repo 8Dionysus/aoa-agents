@@ -192,6 +192,15 @@ and former root path absence. Stable schema `$id`, `kind`, and
 `schema_id`/`schema_version` values remain public contract identifiers, not
 active repo paths.
 
+The 2026-05-26 Experience adoption/boundary check localization moves the
+adoption/boundary validator and focused test from root `scripts/` and `tests/`
+into `mechanics/experience/{scripts,tests}/`. The check stays package-local
+because it spans Experience adoption/office parts while also reading Agon
+adoption-retention and Boundary Bridge consumer/federation contract routes.
+`scripts/validate_agents.py` remains the repo-wide coordinator by loading the
+Experience package validator directly, and `scripts/release_check.py` runs the
+Experience package tests explicitly.
+
 The 2026-05-26 agent service contract localization moves the remaining
 assistant service, office, release, watch, rollback, governance,
 runtime-readable authority-claim, and release-hold schemas/examples from root
