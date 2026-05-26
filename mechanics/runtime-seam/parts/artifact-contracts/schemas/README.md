@@ -7,6 +7,7 @@ This directory owns the public runtime artifact schemas for the
 
 | Schema | Artifact |
 | --- | --- |
+| [agent-authority-claim.schema.json](agent-authority-claim.schema.json) | runtime-readable authority claim |
 | [artifact.route_decision.schema.json](artifact.route_decision.schema.json) | `route_decision` |
 | [artifact.bounded_plan.schema.json](artifact.bounded_plan.schema.json) | `bounded_plan` |
 | [artifact.work_result.schema.json](artifact.work_result.schema.json) | `work_result` |

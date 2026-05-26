@@ -13,4 +13,9 @@ This part routes `watch-and-rollback` pressure inside `mechanics/experience/`.
 - [Assistant Rollout Rings](docs/rollout-rings.md)
 - [Assistant Safe Rollback](docs/safe-rollback.md)
 
+## Contract Routes
+
+- [schema set](schemas/README.md)
+- [example set](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

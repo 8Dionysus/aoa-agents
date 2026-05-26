@@ -134,17 +134,27 @@ target package `PROVENANCE.md`, `legacy/INDEX.md`, and
 `schema_id`/`schema_version` values remain public contract identifiers, not
 active repo paths.
 
+The 2026-05-26 agent service contract localization moved assistant service,
+office, release, watch, rollback, governance, runtime-readable
+authority-claim, and release-hold schemas/examples into active part-local
+Experience, Runtime Seam, and Release Support routes. Former root schema and
+example paths are now legacy lookup facts and are accounted for in the target
+package `PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+Stable schema `$id`, `kind`, and identifier values remain public contract
+identifiers, not active repo paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil, non-adoption/boundary `schemas/`,
+non-Experience-assistant-civil, non-adoption/boundary, non-agent-service
+`schemas/`,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
-non-adoption/boundary `examples/`, `agents/`, `generated/`, `scripts/`, and
-`tests/`. They are not automatically legacy. They remain current source,
-support, generated, or validation districts until a package-local move changes
-their lookup topology.
+non-adoption/boundary, non-agent-service `examples/`, `agents/`,
+`generated/`, `scripts/`, and `tests/`. They are not automatically legacy.
+They remain current source, support, generated, or validation districts until
+a package-local move changes their lookup topology.
 
 For this landing:
 

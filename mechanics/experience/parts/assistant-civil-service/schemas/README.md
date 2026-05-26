@@ -6,6 +6,7 @@ automation, runtime policy, or Agon arena authority.
 
 | Schema | Contract |
 | --- | --- |
+| [agent-governance-posture.schema.json](agent-governance-posture.schema.json) | reviewed governance posture |
 | [assistant-variant.schema.json](assistant-variant.schema.json) | assistant kind adjunct |
 | [service-identity.schema.json](service-identity.schema.json) | service identity adjunct |
 | [service-contract.schema.json](service-contract.schema.json) | service contract adjunct |
@@ -20,4 +21,5 @@ Validate with:
 
 ```bash
 python scripts/validate_experience_assistant_civil_contracts.py
+python scripts/validate_agent_service_contracts.py
 ```

@@ -6,10 +6,12 @@ behavior.
 
 | Example | Purpose |
 | --- | --- |
-| [civil-formation.example.json](civil-formation.example.json) | Wave II assistant civil reader path |
+| [agent-governance-posture.example.json](agent-governance-posture.example.json) | reviewed governance posture |
+| [civil-formation.example.json](civil-formation.example.json) | assistant civil reader path |
 
 Validate with:
 
 ```bash
 python scripts/validate_experience_assistant_civil_contracts.py
+python scripts/validate_agent_service_contracts.py
 ```

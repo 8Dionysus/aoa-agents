@@ -147,6 +147,17 @@ and former root path absence. Stable schema `$id`, `kind`, and
 `schema_id`/`schema_version` values remain public contract identifiers, not
 active repo paths.
 
+The 2026-05-26 agent service contract localization moves the remaining
+assistant service, office, release, watch, rollback, governance,
+runtime-readable authority-claim, and release-hold schemas/examples from root
+`schemas/` and `examples/` into active Experience, Runtime Seam, and Release
+Support part-local contract routes after adding
+`scripts/validate_agent_service_contracts.py`. The route split follows the
+current mechanic docs: authority claims belong to Runtime Seam, release holds
+belong to Release Support, and assistant service/office/watch pressure belongs
+to Experience. Stable schema `$id`, `kind`, and identifier values remain
+public contract identifiers, not active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

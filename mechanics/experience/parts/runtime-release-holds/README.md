@@ -12,4 +12,9 @@ This part routes `runtime-release-holds` pressure inside `mechanics/experience/`
 - [Assistant Runtime Release Holds](docs/runtime-release-holds.md)
 - [Assistant Version Release Runbook](docs/version-release-runbook.md)
 
+## Contract Routes
+
+- [schema set](schemas/README.md)
+- [example set](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

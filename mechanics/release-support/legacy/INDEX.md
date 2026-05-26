@@ -6,3 +6,5 @@ This index is for old-path lookup only. Current behavior lives in the active par
 | --- | --- | --- |
 | `docs/RELEASING.md` | [mechanics/release-support/parts/repo-release-gate/docs/releasing.md](../parts/repo-release-gate/docs/releasing.md) | moved into `repo-release-gate` docs on 2026-05-26 |
 | `docs/AGENT_RELEASE_HOLD_POLICY.md` | [mechanics/release-support/parts/runtime-release-hold/docs/agent-release-hold-policy.md](../parts/runtime-release-hold/docs/agent-release-hold-policy.md) | moved into `runtime-release-hold` docs on 2026-05-26 |
+| `schemas/agent_release_hold_v1.json` | [mechanics/release-support/parts/runtime-release-hold/schemas/agent-release-hold.schema.json](../parts/runtime-release-hold/schemas/agent-release-hold.schema.json) | moved into `runtime-release-hold` contracts on 2026-05-26 |
+| `examples/agent_release_hold.example.json` | [mechanics/release-support/parts/runtime-release-hold/examples/agent-release-hold.example.json](../parts/runtime-release-hold/examples/agent-release-hold.example.json) | moved into `runtime-release-hold` contracts on 2026-05-26 |

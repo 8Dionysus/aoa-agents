@@ -10,6 +10,7 @@ Each `*.example.json` aligns with the corresponding schema in sibling
 
 ## Active Examples
 
+- [agent-authority-claim.example.json](agent-authority-claim.example.json)
 - [route_decision.example.json](route_decision.example.json)
 - [bounded_plan.example.json](bounded_plan.example.json)
 - [work_result.example.json](work_result.example.json)
@@ -36,5 +37,6 @@ Run `python -m pip install -r requirements-dev.txt`, then:
 
 ```bash
 python scripts/validate_runtime_artifact_contracts.py
+python scripts/validate_agent_service_contracts.py
 python scripts/validate_agents.py
 ```

@@ -51,3 +51,15 @@ moved from root `schemas/` and `examples/` into the `artifact-contracts` part.
 
 Stable schema `$id` values remain public contract identifiers, not active repo
 path authority.
+
+## 2026-05-26 Agent Authority Claim Contract Move
+
+The runtime-readable authority claim schema/example moved from root
+`schemas/` and `examples/` into the `artifact-contracts` part. It is validated
+with `scripts/validate_agent_service_contracts.py` alongside the runtime
+artifact route check.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/agent_authority_claim_v1.json` | [parts/artifact-contracts/schemas/agent-authority-claim.schema.json](parts/artifact-contracts/schemas/agent-authority-claim.schema.json) | `artifact-contracts` |
+| `examples/agent_authority_claim_v1.example.json` | [parts/artifact-contracts/examples/agent-authority-claim.example.json](parts/artifact-contracts/examples/agent-authority-claim.example.json) | `artifact-contracts` |

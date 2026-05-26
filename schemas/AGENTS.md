@@ -55,6 +55,12 @@ Mechanic-specific adoption and boundary bridge schemas live under
 `mechanics/experience/parts/{adoption-and-regression,office-operations}/schemas/`.
 They are validated by `scripts/validate_adoption_boundary_contracts.py`.
 
+Mechanic-specific agent service schemas live under
+`mechanics/experience/parts/*/schemas/`,
+`mechanics/runtime-seam/parts/artifact-contracts/schemas/`, and
+`mechanics/release-support/parts/runtime-release-hold/schemas/`. They are
+validated by `scripts/validate_agent_service_contracts.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.
