@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T044820Z:560c5ae2-aoa-agents-localized-wave-iii-ad",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Wave III adoption and boundary contracts into Agon adoption-retention, Boundary Bridge consumer/federation, and Experience adoption/office part-local schema/example routes; root schemas/examples no longer own those contracts, and scripts/validate_adoption_boundary_contracts.py guards active file sets plus schema/example invariants.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-adoption-boundary-contract-localization.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/PAYLOAD_RECON.md",
+    "mechanics/agon/PARTS.md",
+    "mechanics/boundary-bridge/PARTS.md",
+    "mechanics/experience/PARTS.md",
+    "scripts/validate_adoption_boundary_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/70f9cba",
+    "repo:aoa-agents/pull/153",
+    "repo:aoa-agents/commit-range/8cd6678..70f9cba",
+    "tests/test_experience_wave3_seed_contracts.py",
+    "scripts/validate_agents.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T04:48:20Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
