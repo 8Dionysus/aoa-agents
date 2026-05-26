@@ -10,12 +10,15 @@ Use this file as the agent-facing reading card for repository design work.
 2. `DESIGN.md`
 3. `agents/AGENTS.md` when source objects move
 4. `mechanics/AGENTS.md` when operation topology moves
-5. `docs/decisions/` when structural ownership changes
-6. nearest nested `AGENTS.md`
+5. `.agents/AGENTS.md` when agent-facing companion lanes move
+6. `docs/decisions/` when structural ownership changes
+7. nearest nested `AGENTS.md`
 
 ## Design Law
 
 - `agents/` owns source-authored agent objects.
+- `.agents/` owns agent-facing companion lanes such as exported skills and the
+  Codex Spark fast-loop lane.
 - `mechanics/` owns repeatable operation topology.
 - `docs/` explains public agent-layer doctrine and boundaries.
 - `schemas/` keeps shared contract shape until a mechanic-local package has a

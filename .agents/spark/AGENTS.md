@@ -1,6 +1,6 @@
 # Spark lane for aoa-agents
 
-This file only governs work started from `Spark/`.
+This file only governs work started from `.agents/spark/`.
 
 The root `AGENTS.md` remains authoritative for repository identity, ownership boundaries, reading order, and validation commands. This local file only narrows how GPT-5.3-Codex-Spark should behave when used as the fast-loop lane.
 

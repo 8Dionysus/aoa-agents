@@ -15,6 +15,7 @@ Use the shortest route by need:
 - docs map: `docs/README.md`
 - repository design: `DESIGN.md`
 - source object district: `agents/README.md`
+- agent-facing companion lanes: `.agents/AGENTS.md`
 - mechanics atlas: `mechanics/README.md`
 - role and boundary charter: `CHARTER.md`
 - conceptual model: `docs/AGENT_MODEL.md`
@@ -35,6 +36,7 @@ Use the shortest route by need:
 ## Route by need
 
 - source-authored agent objects: `agents/README.md`, then the nearest `agents/**/AGENTS.md`
+- agent-facing companion lanes: `.agents/AGENTS.md`; for Spark, `.agents/spark/AGENTS.md` and `.agents/spark/SWARM.md`
 - repeatable agent-layer operations: `mechanics/README.md` and `mechanics/ARTIFACT_TOPOLOGY.md`
 - canonical profiles and schemas: `agents/profiles/*.profile.json` and `schemas/agent-profile.schema.json`
 - Agon-facing companion actor surfaces: `agents/profiles/adjuncts/*`, `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`, `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`, `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`, `mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json`, `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/civil-formation.schema.json`, `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`, `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json`, `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`, `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`, `mechanics/agon/parts/formation/examples/formation-trial.example.json`, `mechanics/agon/parts/arena-rank-school/schemas/rank-jurisdiction.schema.json`, `mechanics/agon/parts/arena-rank-school/examples/rank-surface.example.json`, `mechanics/agon/parts/epistemic-actor/schemas/epistemic-actor-posture.schema.json`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`

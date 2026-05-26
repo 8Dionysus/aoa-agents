@@ -7,6 +7,18 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
+    '.agents/AGENTS.md': (
+        '.agents/',
+        'agent-facing companion surfaces',
+        '.agents/spark/AGENTS.md',
+        'not the source-authored `agents/` district',
+    ),
+    '.agents/spark/AGENTS.md': (
+        '.agents/spark/',
+        'fast-loop lane',
+        'Spark work',
+        'source docs before editing',
+    ),
     'agents/AGENTS.md': (
         'Operating Card',
         'source-authored agent district',

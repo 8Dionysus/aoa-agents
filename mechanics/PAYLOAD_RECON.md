@@ -22,7 +22,7 @@ root district before the 2026-05-26 docs landing:
 | `config/` | 11 | Agon, recursor, Codex, and Titan source seeds; localized to part-level config routes on 2026-05-26 |
 | `memo/` | 9 | local memory port; route only, not mechanic authority |
 | `mechanics/` | 3 | prior atlas-only skeleton |
-| `Spark/` | 2 | local Spark-facing route support |
+| `Spark/` | 2 | local Spark-facing route support; moved to `.agents/spark/` on 2026-05-26 |
 
 ## Dense Term Clusters
 
@@ -210,6 +210,11 @@ The root agent schema posture applies the same rule to remaining root schemas:
 shared role/profile, registry, tier, orchestrator, cohort, and runtime-seam
 schemas stay under `schemas/` because they constrain `agents/` source families
 and repo-wide generated registries. They are not waiting for mechanics moves.
+
+The Spark lane placement follows the established agent-lane source pattern:
+root `Spark/` was moved to `.agents/spark/` because it is agent-facing
+fast-loop guidance, not a mechanic package, generated reader, schema contract,
+or source-authored role object.
 
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
