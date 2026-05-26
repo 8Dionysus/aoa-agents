@@ -270,6 +270,19 @@ catalog/dispatch builder into
 files stay root-published under `generated/`; the support tool is part-local
 because it protects only the dispatch-reader projection contract.
 
+The 2026-05-26 Titan Codex projection builder localization moves the dedicated
+renderer and focused freshness test into
+`mechanics/titan/parts/codex-projection/{scripts,tests}/`. The generated Titan
+Codex custom-agent companions stay root-published under
+`generated/titan_codex_agents/` because they are install-facing derived
+readers.
+
+The 2026-05-26 Codex subagent projection builder localization moves the
+builder, projection module, validator, and focused test into
+`mechanics/codex-projection/parts/subagent-projection/{scripts,tests}/`. The
+generated Codex custom-agent companions stay root-published under
+`generated/codex_agents/` because they are repo-published install surfaces.
+
 The 2026-05-26 formation generated-reader posture keeps
 `generated/agent_agonic_formation_index.min.json`,
 `generated/assistant_civil_formation_index.min.json`, and
@@ -308,6 +321,11 @@ already owned its docs, schemas, examples, and validation semantics.
 `scripts/validate_agents.py` remains the repo-wide coordinator by loading the
 part-local validator directly, and `scripts/release_check.py` runs the
 part-local test explicitly before the root test suite.
+
+The 2026-05-26 Titan contract-test follow-up moves the remaining Titan-only
+schema contract test from root `tests/` into `mechanics/titan/tests/`. Root
+`tests/` stays active for repo-wide route, roadmap, semantic, validator, and
+downstream-feed guards.
 
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/PROVENANCE_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.

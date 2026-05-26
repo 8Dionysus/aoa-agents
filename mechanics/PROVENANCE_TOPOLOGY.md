@@ -43,14 +43,23 @@ The current moved payload families include:
 - reference-route contracts moved into Checkpoint and Questbook parts;
 - Alpha reference-route, Agon rank/school/epistemic, and recursor generated
   readers moved into their part-local generated routes.
+- mechanic-owned builders, validators, and focused tests moved into their
+  package or part-local `scripts/` and `tests/` routes when the check protects
+  a mechanic rather than the whole repository.
 
 Quest catalog and dispatch readers remain active root generated surfaces. They
 summarize root quest records and are not archive paths.
 
-Other mechanic-adjacent payload classes still live in their owner districts:
-shared schemas, shared examples, source agent objects, root-published generated
-readers, scripts, tests, and repo-level docs. They remain current source,
-support, generated, or validation districts until a package-local move changes
+Formation readers, Codex subagent projection outputs, and Titan Codex
+projection outputs also remain active root generated surfaces when their
+consumer seam is repo-wide or install-facing. Their dedicated builders and
+freshness checks can still be part-local.
+
+Other root payload classes still live in their owner districts for a reason:
+source agent objects live in `agents/`, shared contracts live in `schemas/`,
+repo coordinators live in `scripts/`, repo-wide guards live in `tests/`, and
+repo docs stay under root `docs/`. They remain current source, support,
+generated, validation, or route districts until a package-local move changes
 their lookup topology.
 
 ## Current Landing Standard
