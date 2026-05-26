@@ -11,7 +11,7 @@
     "difficulty": "d4_architecture",
     "risk": "r2_contract",
     "owner_surface": "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
-    "source_path": "quests/AOA-AG-Q-0001.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0001.yaml",
     "public_safe": true
   },
   {
@@ -26,7 +26,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "agent-layer/delegate-allowance",
-    "source_path": "quests/AOA-AG-Q-0002.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0002.yaml",
     "public_safe": true
   },
   {
@@ -41,7 +41,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "agent-layer/progression",
-    "source_path": "quests/AOA-AG-Q-0003.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0003.yaml",
     "public_safe": true
   },
   {
@@ -56,7 +56,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "docs/ORCHESTRATOR_CLASS_MODEL.md",
-    "source_path": "quests/AOA-AG-Q-0004.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0004.yaml",
     "public_safe": true,
     "orchestrator_class_ref": "aoa-agents:router",
     "capability_target": "repo_layer_selection",
@@ -85,7 +85,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "docs/ORCHESTRATOR_CLASS_MODEL.md",
-    "source_path": "quests/AOA-AG-Q-0005.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0005.yaml",
     "public_safe": true,
     "orchestrator_class_ref": "aoa-agents:review",
     "capability_target": "evidence_closure",
@@ -114,7 +114,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "docs/ORCHESTRATOR_CLASS_MODEL.md",
-    "source_path": "quests/AOA-AG-Q-0006.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0006.yaml",
     "public_safe": true,
     "orchestrator_class_ref": "aoa-agents:bounded_execution",
     "capability_target": "bounded_next_step",
@@ -143,7 +143,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
-    "source_path": "quests/AOA-AG-Q-0007.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0007.yaml",
     "public_safe": true
   },
   {
@@ -158,7 +158,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
-    "source_path": "quests/AOA-AG-Q-0008.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0008.yaml",
     "public_safe": true
   },
   {
@@ -173,7 +173,7 @@
     "difficulty": "d3_seam",
     "risk": "r2_contract",
     "owner_surface": "mechanics/checkpoint/parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md",
-    "source_path": "quests/AOA-AG-Q-0009.yaml",
+    "source_path": "mechanics/questbook/parts/quest-catalog/quests/AOA-AG-Q-0009.yaml",
     "public_safe": true
   }
 ]

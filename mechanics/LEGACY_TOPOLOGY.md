@@ -40,11 +40,17 @@ manifests from root `manifests/` into active part-local manifests under
 manifest paths are now legacy lookup facts and are accounted for in recurrence
 `PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
+The 2026-05-26 questbook localization moved the root quest catalog doc and
+quest source files into active part-local questbook routes. Former root
+questbook and quest-source paths are now legacy lookup facts and are accounted
+for in questbook `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-`schemas/`, `examples/`, `agents/`, `generated/`, `quests/`, `scripts/`, and
-`tests/`. They are not automatically legacy. They remain current
-source/support/generated/validation districts until a package-local move
-changes their lookup topology.
+`schemas/`, `examples/`, `agents/`, `generated/`, `scripts/`, and `tests/`.
+They are not automatically legacy. They remain current source, support,
+generated, or validation districts until a package-local move changes their
+lookup topology.
 
 For this landing:
 

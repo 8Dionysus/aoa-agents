@@ -14,7 +14,7 @@ reference routes legible without taking playbook scenario authority.
 | input | quest, passport, catalog, dispatch, Alpha route, role eligibility, and quest-surface pressure |
 | output | bounded quest posture, generated quest reader, passport route, or playbook handoff |
 | owner | this package for agent-layer quest posture |
-| next route | `PARTS.md`, `QUESTBOOK.md`, `quests/`, generated quest readers |
+| next route | `PARTS.md`, quest catalog docs, part-local quest sources, generated quest readers |
 | validation | quest/read-model checks plus repo validators |
 
 ## Agent Layer Owns

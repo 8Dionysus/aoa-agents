@@ -8,9 +8,9 @@ posture parts.
 | Part | Operation | Current route |
 | --- | --- | --- |
 | `execution-passport/` | quest execution passport from the agent side | `execution-passport/README.md` |
-| `quest-catalog/` | quest source inventory and generated reader | `quest-catalog/README.md` |
+| `quest-catalog/` | quest source inventory and generated reader | `quest-catalog/README.md`, `quest-catalog/docs/quest-catalog.md`, `quest-catalog/quests/` |
 | `dispatch-reader/` | generated quest dispatch posture | `dispatch-reader/README.md` |
-| `agon-quest-surfaces/` | Agon-specific quest docs and quest ids | `agon-quest-surfaces/README.md` |
+| `agon-quest-surfaces/` | Agon-specific quest docs and quest ids | `agon-quest-surfaces/README.md`, `agon-quest-surfaces/quests/` |
 | `alpha-reference-routes/` | Alpha reference route examples that remain role-facing | `alpha-reference-routes/README.md` |
 
 ## Admission Rule

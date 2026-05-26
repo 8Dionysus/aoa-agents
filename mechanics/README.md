@@ -29,7 +29,7 @@ mechanic-specific seeds and wiring out of root `config/` and into part-local
 `mechanics/*/parts/*/config/` routes. The manifest localization moved
 recurrence component and hook manifests into
 `mechanics/recurrence/parts/component-manifests/manifests/`. Other source,
-support, generated, validation, quest, schema, example, and agent-source
+support, generated, validation, schema, example, and agent-source
 payloads stay in their owning districts until a later slice gives them a
 package-local contract and validator route.
 
@@ -42,7 +42,7 @@ package-local contract and validator route.
 | `runtime-seam/` | `agents/runtime_seam/`, runtime artifact schemas/examples, seam docs/generated readers | keep role x tier bindings and artifact transitions contract-first without owning runtime implementation |
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
-| `questbook/` | `QUESTBOOK.md`, `quests/`, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
+| `questbook/` | part-local quest catalog, part-local quest records, Agon quest notes, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
 | `rpg/` | progression, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
 | `antifragility/` | stress posture, via negativa, scar/adaptation docs, schemas, examples, tests | route failure-pressure learning and negative checks without becoming proof authority |
 | `boundary-bridge/` | federation seams, published contract compatibility, workspace trigger, source registries | route consumer handoff and cross-repo boundary pressure without becoming routing policy |
@@ -59,16 +59,19 @@ mechanics packages from empty route skeletons into active route homes:
   `mechanics/*/parts/*/config/`;
 - recurrence component and hook manifests live under
   `mechanics/recurrence/parts/component-manifests/manifests/`;
+- quest catalog records and Agon quest notes live under
+  `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;
 - package `PROVENANCE.md` files are the only active bridge into old-path
   accounting;
 - package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
-  former `docs/*`, `config/*`, and `manifests/*` lookup maps without
+  former `docs/*`, `config/*`, `manifests/*`, root quest catalog, and
+  root quest-source lookup maps without
   duplicating active authority.
 
-Shared schemas, examples, scripts, tests, quest files, agent source objects,
-and generated readers remain in their current owner districts until they
-receive their own package-local contract and validation coverage.
+Shared schemas, examples, scripts, tests, agent source objects, and generated
+readers remain in their current owner districts until they receive their own
+package-local contract and validation coverage.
 
 ## Traversal
 

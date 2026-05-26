@@ -99,9 +99,12 @@ REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
 ALPHA_REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "alpha_reference_routes"
 ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
-QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
+QUESTBOOK_PATH = (
+    REPO_ROOT / "mechanics" / "questbook" / "parts" / "quest-catalog" / "docs" / "quest-catalog.md"
+)
 QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "mechanics" / "questbook" / "parts" / "execution-passport" / "docs" / "quest-execution-passport.md"
-QUESTS_DIR = REPO_ROOT / "quests"
+QUESTS_RELATIVE_DIR = Path("mechanics/questbook/parts/quest-catalog/quests")
+QUESTS_DIR = REPO_ROOT / QUESTS_RELATIVE_DIR
 QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
 QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
 QUEST_DISPATCH_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.json"
@@ -693,11 +696,12 @@ def build_expected_quest_dispatch_entry(
 
 def build_quest_catalog_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
+    quests_dir = repo_root / QUESTS_RELATIVE_DIR
     for quest_id in sorted(
-        (path.stem for path in (repo_root / "quests").glob("AOA-AG-Q-*.yaml") if path.is_file()),
+        (path.stem for path in quests_dir.glob("AOA-AG-Q-*.yaml") if path.is_file()),
         key=quest_sort_key,
     ):
-        path = repo_root / "quests" / f"{quest_id}.yaml"
+        path = quests_dir / f"{quest_id}.yaml"
         payload = read_yaml(path, root=repo_root)
         entries.append(
             build_expected_quest_catalog_entry(
@@ -710,11 +714,12 @@ def build_quest_catalog_projection(repo_root: Path = REPO_ROOT) -> list[dict[str
 
 def build_quest_dispatch_projection(repo_root: Path = REPO_ROOT) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
+    quests_dir = repo_root / QUESTS_RELATIVE_DIR
     for quest_id in sorted(
-        (path.stem for path in (repo_root / "quests").glob("AOA-AG-Q-*.yaml") if path.is_file()),
+        (path.stem for path in quests_dir.glob("AOA-AG-Q-*.yaml") if path.is_file()),
         key=quest_sort_key,
     ):
-        path = repo_root / "quests" / f"{quest_id}.yaml"
+        path = quests_dir / f"{quest_id}.yaml"
         payload = read_yaml(path, root=repo_root)
         entries.append(
             build_expected_quest_dispatch_entry(
@@ -723,6 +728,13 @@ def build_quest_dispatch_projection(repo_root: Path = REPO_ROOT) -> list[dict[st
             )
         )
     return entries
+
+
+def quest_source_root() -> Path:
+    try:
+        return QUESTS_DIR.parents[len(QUESTS_RELATIVE_DIR.parts) - 1]
+    except IndexError:
+        return REPO_ROOT
 
 
 def fail_schema(message: str, *, code: str | None = None) -> None:
@@ -2590,7 +2602,7 @@ def validate_runtime_seam_doc_coherence() -> None:
 def validate_questbook_surface() -> None:
     questbook_text = read_text(QUESTBOOK_PATH)
     passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
-    quest_surface_root = QUESTS_DIR.parent
+    source_root = quest_source_root()
 
     quest_paths = {
         path.stem: path for path in QUESTS_DIR.glob("AOA-AG-Q-*.yaml") if path.is_file()
@@ -2671,7 +2683,7 @@ def validate_questbook_surface() -> None:
             closed_quest_ids.append(quest_id)
         else:
             active_quest_ids.append(quest_id)
-        source_path = describe_path(path, root=quest_surface_root)
+        source_path = describe_path(path, root=source_root)
         expected_catalog_entries.append(
             build_expected_quest_catalog_entry(payload, source_path=source_path)
         )
@@ -2681,10 +2693,10 @@ def validate_questbook_surface() -> None:
 
     for quest_id in active_quest_ids:
         if quest_id not in questbook_text:
-            fail(f"QUESTBOOK.md must reference active quest id '{quest_id}'")
+            fail(f"quest-catalog.md must reference active quest id '{quest_id}'")
     for quest_id in closed_quest_ids:
         if quest_id in questbook_text:
-            fail(f"QUESTBOOK.md must not list closed quest id '{quest_id}'")
+            fail(f"quest-catalog.md must not list closed quest id '{quest_id}'")
 
     for snippet in REQUIRED_QUEST_PASSPORT_SNIPPETS:
         if snippet not in passport_text:

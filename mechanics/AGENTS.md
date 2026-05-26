@@ -80,6 +80,8 @@ Read:
 - Mechanic-specific seeds, wiring, and recurrence component manifests live in
   part-local routes once moved; root-level districts keep only payloads that
   still have stronger shared ownership.
+- Quest catalog records and quest notes live in questbook part-local routes
+  once moved; generated quest readers remain derived companions.
 - Generated companions stay weaker than builders and source surfaces.
 - `legacy/` preserves lineage and path accounting; it is not the default route
   for current edits.
@@ -98,9 +100,9 @@ A new child mechanic should appear only when it has:
 - a decision or explicit route note when it changes repository topology
 
 The current child packages own route maps, part maps, and migrated
-mechanics-facing docs, config seeds, and recurrence component manifests. Other
-root-district payload classes move only after their package-local contract and
-validation route are explicit.
+mechanics-facing docs, config seeds, recurrence component manifests, and
+questbook payloads. Other root-district payload classes move only after their
+package-local contract and validation route are explicit.
 
 ## Validation
 

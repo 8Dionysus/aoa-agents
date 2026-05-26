@@ -2,6 +2,9 @@
 
 This part routes `quest-catalog` pressure inside `mechanics/questbook/`.
 
-No package-local docs moved into this part in the 2026-05-26 docs slice.
+## Active Surfaces
+
+- [Quest Catalog](docs/quest-catalog.md)
+- [YAML quest records](quests/)
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

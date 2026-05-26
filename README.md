@@ -48,7 +48,7 @@ Use the shortest route by need:
 - via negativa pruning checklist: `mechanics/antifragility/parts/via-negativa/docs/via-negativa-checklist.md`
 - progression, recurrence, and self-agent surfaces: `mechanics/rpg/parts/progression-model/docs/agent-progression-model.md`, `mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md`, `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`, and `mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md`
 - example and bounded smoke surfaces: `examples/runtime_artifacts/*`, `examples/self_agent_checkpoint/*`, `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`, and `mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md`
-- adjunct quest and Alpha readiness surfaces: `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, `examples/alpha_reference_routes/*`, and `generated/alpha_reference_routes.min.json`
+- adjunct quest and Alpha readiness surfaces: `mechanics/questbook/parts/quest-catalog/docs/quest-catalog.md`, `mechanics/questbook/parts/quest-catalog/quests/`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, `examples/alpha_reference_routes/*`, and `generated/alpha_reference_routes.min.json`
 
 ## What this repository is for
 

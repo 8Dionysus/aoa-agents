@@ -1,4 +1,4 @@
-# QUESTBOOK.md — aoa-agents
+# Quest Catalog — aoa-agents
 
 This questbook tracks agent-layer obligations related to quest delegation, control posture, and wrapper allowance.
 
@@ -44,7 +44,8 @@ Allowed verdicts:
 
 ## Backing Files
 
-- `quests/*.yaml`
+- `mechanics/questbook/parts/quest-catalog/quests/*.yaml`
+- `mechanics/questbook/parts/agon-quest-surfaces/quests/*.md`
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
 - `generated/quest_catalog.min.example.json`
