@@ -54,6 +54,9 @@ source truth is that part's examples.
 The Agon rank/school/epistemic generated reader localization moved
 candidate-only rank, school/campaign, and epistemic registries into their
 owning Agon parts because their source truth is already part-local config.
+The Agon rank/school/epistemic check localization moved their builders,
+validators, and focused tests into Agon package and part-local routes because
+those checks now protect part-local config/generated/contract surfaces.
 The Agon formation check localization moved Wave I formation and Wave II.5
 formation-trial builders, validators, and focused tests into the Agon
 `formation` part while keeping the generated readers root-published because

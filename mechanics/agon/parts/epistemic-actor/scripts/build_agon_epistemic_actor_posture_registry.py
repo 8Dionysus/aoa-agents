@@ -8,7 +8,7 @@ import pathlib
 import sys
 from typing import Any
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[5]
 SRC = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "config" / "posture.seed.json"
 OUT = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "generated" / "epistemic-actor-posture-registry.min.json"
 ITEM_KEY = "postures"

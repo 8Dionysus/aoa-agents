@@ -12,16 +12,16 @@
     "mechanics/PAYLOAD_RECON.md",
     "mechanics/agon/PARTS.md",
     "mechanics/agon/PROVENANCE.md",
-    "scripts/validate_agon_rank_epistemic_contracts.py"
+    "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/a902592",
     "repo:aoa-agents/pull/145",
     "repo:aoa-agents/commit-range/a4ad48113a21..a902592",
-    "tests/test_agon_rank_epistemic_contracts.py",
-    "tests/test_agon_agent_rank_jurisdiction.py",
-    "tests/test_agon_agent_school_campaign_posture_registry.py",
-    "tests/test_agon_epistemic_actor_posture.py"
+    "mechanics/agon/tests/test_agon_rank_epistemic_contracts.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_rank_jurisdiction.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_school_campaign_posture_registry.py",
+    "mechanics/agon/parts/epistemic-actor/tests/test_agon_epistemic_actor_posture.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

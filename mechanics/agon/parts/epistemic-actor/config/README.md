@@ -9,8 +9,8 @@
 | output | generated epistemic actor posture registry |
 | owner | `mechanics/agon/parts/epistemic-actor/` |
 | next route | parent part docs, generated registry, Agon validator |
-| tools | `scripts/build_agon_epistemic_actor_posture_registry.py` |
-| validation | builder with `--check` plus `scripts/validate_agon_epistemic_actor_posture.py` |
+| tools | `mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py` |
+| validation | builder with `--check` plus `mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py` |
 
 ## Active Seed
 

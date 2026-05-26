@@ -218,6 +218,13 @@ validators. Root `generated/` continues to own repo-level registries and
 formation readers; these readers are part-local because they summarize Agon
 part-local config.
 
+The 2026-05-26 Agon rank/school/epistemic check localization moves
+part-specific builders, validators, and focused tests from root `scripts/` and
+`tests/` into `mechanics/agon/parts/arena-rank-school/{scripts,tests}/` and
+`mechanics/agon/parts/epistemic-actor/{scripts,tests}/`. The cross-part
+contract validator and focused test live at `mechanics/agon/{scripts,tests}/`
+because they span both parts.
+
 The 2026-05-26 recursor generated reader localization moves readiness, pair,
 projection-candidate, and Agon boundary readers from root `generated/` into
 their owning Recurrence parts after the recursor configs, schemas, examples,

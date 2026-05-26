@@ -16,5 +16,5 @@ Validate with:
 
 ```bash
 python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
 ```

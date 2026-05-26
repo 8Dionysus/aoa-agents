@@ -30,10 +30,6 @@ from orchestrator_class_registry import (
     load_orchestrator_classes,
 )
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
-from validate_agon_rank_epistemic_contracts import (
-    AgonRankEpistemicContractsValidationError,
-    validate_agon_rank_epistemic_contracts,
-)
 from validate_adoption_boundary_contracts import (
     AdoptionBoundaryContractsValidationError,
     validate_adoption_boundary_contracts,
@@ -82,6 +78,17 @@ AgonFormationContractsValidationError = (
 )
 validate_agon_formation_contracts = (
     _AGON_FORMATION_CONTRACTS_MODULE.validate_agon_formation_contracts
+)
+
+_AGON_RANK_EPISTEMIC_CONTRACTS_MODULE = load_repo_python_module(
+    "agon_rank_epistemic_contracts_validator",
+    "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py",
+)
+AgonRankEpistemicContractsValidationError = (
+    _AGON_RANK_EPISTEMIC_CONTRACTS_MODULE.AgonRankEpistemicContractsValidationError
+)
+validate_agon_rank_epistemic_contracts = (
+    _AGON_RANK_EPISTEMIC_CONTRACTS_MODULE.validate_agon_rank_epistemic_contracts
 )
 
 _TITAN_SCHEMAS_MODULE = load_repo_python_module(

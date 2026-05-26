@@ -27,7 +27,7 @@ mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.
 
 Teach the dedicated builders, validators, tests, and recurrence component
 manifests the part-local routes. Guard former root generated paths through
-`scripts/validate_agon_rank_epistemic_contracts.py`.
+`mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
 
 ## Consequences
 
@@ -42,13 +42,13 @@ preserve old-path lookup. Active docs should reference the part-local paths.
 ## Validation
 
 ```bash
-python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python scripts/validate_agon_agent_rank_jurisdiction.py
-python scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python scripts/validate_agon_agent_school_campaign_posture_registry.py
-python scripts/build_agon_epistemic_actor_posture_registry.py --check
-python scripts/validate_agon_epistemic_actor_posture.py
-python scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
+python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
+python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
 python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
 python scripts/validate_agents.py
 ```

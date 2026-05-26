@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 CONFIG = ROOT / "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
 OUTPUT = (
     ROOT
@@ -28,7 +28,7 @@ def build_registry():
         "entries": sorted(seed["entries"], key=lambda item: item["id"]),
         "stop_lines": seed.get("stop_lines", []),
         "source_config": "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json",
-        "generated_note": "Generated from seed config. Review before integration into release checks."
+        "generated_note": "Generated from seed config. Review before integration into release checks.",
     }
 
 

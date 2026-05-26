@@ -47,6 +47,20 @@ bodies; root paths are lookup facts only.
 | `arena-rank-school` | 2 |
 | `epistemic-actor` | 1 |
 
+## 2026-05-26 Root Agon Rank/Epistemic Checks To Active Routes
+
+Moved 6 Agon rank, school, and epistemic actor builders/validators out of root
+`scripts/` and into active part-local `scripts/` directories. The cross-part
+contract validator moved to Agon package-level `scripts/` because it spans
+`arena-rank-school` and `epistemic-actor`. 4 focused tests moved with those
+checks. Git history preserves the file bodies; root paths are lookup facts only.
+
+| Route | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `arena-rank-school` | 4 | 2 |
+| `epistemic-actor` | 2 | 1 |
+| Agon package | 1 | 1 |
+
 ## 2026-05-26 Root Agon Formation Contracts To Active Parts
 
 Moved 6 Agon formation schemas and 2 matching public-safe examples out of root

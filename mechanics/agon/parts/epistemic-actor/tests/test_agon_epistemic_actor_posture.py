@@ -6,7 +6,8 @@ import subprocess
 import sys
 import unittest
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[5]
+SCRIPT_DIR = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "scripts"
 
 
 class AgonEpistemicActorPostureTests(unittest.TestCase):
@@ -32,7 +33,7 @@ class AgonEpistemicActorPostureTests(unittest.TestCase):
         build = subprocess.run(
             [
                 sys.executable,
-                str(ROOT / "scripts/build_agon_epistemic_actor_posture_registry.py"),
+                str(SCRIPT_DIR / "build_agon_epistemic_actor_posture_registry.py"),
                 "--check",
             ],
             cwd=ROOT,
@@ -44,7 +45,7 @@ class AgonEpistemicActorPostureTests(unittest.TestCase):
         validate = subprocess.run(
             [
                 sys.executable,
-                str(ROOT / "scripts/validate_agon_epistemic_actor_posture.py"),
+                str(SCRIPT_DIR / "validate_agon_epistemic_actor_posture.py"),
             ],
             cwd=ROOT,
             text=True,

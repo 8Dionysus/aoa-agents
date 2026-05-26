@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from jsonschema import Draft202012Validator
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 REGISTRY = (
     ROOT
     / "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json"
@@ -14,7 +14,7 @@ SCHEMA = (
     ROOT
     / "mechanics/agon/parts/arena-rank-school/schemas/rank-jurisdiction-registry.schema.json"
 )
-BUILDER = ROOT / "scripts/build_agon_agent_rank_jurisdiction_registry.py"
+BUILDER = Path(__file__).resolve().parent / "build_agon_agent_rank_jurisdiction_registry.py"
 REQUIRED_ENTRY_FIELDS = ['id', 'kind', 'owner', 'status', 'agent_id', 'candidate_only', 'live_authority']
 EXPECTED_LIVE_PROTOCOL = False
 REQUIRED_STOP_LINES = {

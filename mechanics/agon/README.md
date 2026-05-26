@@ -43,13 +43,13 @@ python scripts/validate_experience_assistant_civil_contracts.py
 python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
 python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
 python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python scripts/validate_agon_rank_epistemic_contracts.py
-python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python scripts/validate_agon_agent_rank_jurisdiction.py
-python scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python scripts/validate_agon_agent_school_campaign_posture_registry.py
-python scripts/build_agon_epistemic_actor_posture_registry.py --check
-python scripts/validate_agon_epistemic_actor_posture.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
+python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
+python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

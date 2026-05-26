@@ -12,16 +12,16 @@
     "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json",
     "mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json",
     "mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json",
-    "scripts/validate_agon_rank_epistemic_contracts.py"
+    "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/22723d4",
     "repo:aoa-agents/pull/161",
     "scripts/release_check.py",
-    "tests/test_agon_rank_epistemic_contracts.py",
-    "tests/test_agon_agent_rank_jurisdiction.py",
-    "tests/test_agon_agent_school_campaign_posture_registry.py",
-    "tests/test_agon_epistemic_actor_posture.py"
+    "mechanics/agon/tests/test_agon_rank_epistemic_contracts.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_rank_jurisdiction.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_school_campaign_posture_registry.py",
+    "mechanics/agon/parts/epistemic-actor/tests/test_agon_epistemic_actor_posture.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

@@ -12,5 +12,5 @@ retention, scar, rank, or doctrine authority.
 Validate with:
 
 ```bash
-python scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
 ```
