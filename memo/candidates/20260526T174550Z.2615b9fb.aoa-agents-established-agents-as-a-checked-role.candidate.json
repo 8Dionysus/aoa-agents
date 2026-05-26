@@ -1,0 +1,32 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T174550Z:2615b9fb-aoa-agents-established-agents-as",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents established agents/ as a checked role-object source home with a source_home manifest, schema-backed validation, adjunct route card, and release validation, preserving mechanics/ as operation topology and keeping sibling-owner pressure routed away.",
+  "source_refs": [
+    "agents/source_home.manifest.json",
+    "schemas/agent-source-home.schema.json",
+    "scripts/validate_agent_source_home.py",
+    "agents/profiles/adjuncts/AGENTS.md",
+    "docs/decisions/2026-05-26-agents-source-home-topology.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/219",
+    "repo:aoa-agents/commit/0629dad4bb71528e6d64f298d1e18464ae9514da",
+    "repo:aoa-agents/actions/runs/26465047565"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T17:45:50Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
