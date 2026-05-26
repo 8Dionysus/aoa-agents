@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 39 |
+| candidates | 40 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 39 |
+| `reviewed_intake` | 40 |
 
 ## Open Items
 
@@ -60,6 +60,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T183638Z:1650794a-aoa-agents-reshaped-agents-into` | `candidate` | `reviewed_intake` | `candidates/20260526T183638Z.1650794a.aoa-agents-reshaped-agents-into-a-convex-source.candidate.json` |
 | `candidate:aoa-agents:20260526T192922Z:84f6b739-aoa-agents-represents-specialize` | `candidate` | `reviewed_intake` | `candidates/20260526T192922Z.84f6b739.aoa-agents-represents-specialized-agents-as-role.candidate.json` |
 | `candidate:aoa-agents:20260526T195246Z:d1999ff4-aoa-agents-keeps-codex-custom-ag` | `candidate` | `reviewed_intake` | `candidates/20260526T195246Z.d1999ff4.aoa-agents-keeps-codex-custom-agent-projection-b.candidate.json` |
+| `candidate:aoa-agents:20260526T202419Z:bb425d3b-aoa-agents-now-has-a-codex-speci` | `candidate` | `reviewed_intake` | `candidates/20260526T202419Z.bb425d3b.aoa-agents-now-has-a-codex-specialization-eligib.candidate.json` |
 
 ## Agent Route
 

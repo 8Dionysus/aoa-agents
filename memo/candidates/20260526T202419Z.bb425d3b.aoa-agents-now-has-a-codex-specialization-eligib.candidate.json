@@ -1,0 +1,32 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T202419Z:bb425d3b-aoa-agents-now-has-a-codex-speci",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents now has a Codex specialization eligibility gate under mechanics/codex-projection/parts/specialization-eligibility; it lets role-local specializations be reviewed as candidate-only promotion packets without projecting or installing specialized Codex agents.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-specialization-eligibility-gate.md",
+    "mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md",
+    "mechanics/codex-projection/parts/specialization-eligibility/schemas/specialization-eligibility.schema.json",
+    "mechanics/codex-projection/parts/specialization-eligibility/examples/specialization-eligibility.example.json",
+    "mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/227",
+    "repo:aoa-agents/commit/3d39fcd938b23d2fe3c53477a6765a3b6940a53f",
+    "repo:aoa-agents/actions/runs/26472892161"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T20:24:19Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
