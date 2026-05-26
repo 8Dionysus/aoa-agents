@@ -22,6 +22,16 @@ RECURSOR_PROJECTION_CONFIG = (
     / "config"
     / "projection-candidate.json"
 )
+RECURSOR_ROLE_SCHEMA = "mechanics/recurrence/parts/recursor-readiness/schemas/role-contract.schema.json"
+RECURSOR_PAIR_SCHEMA = "mechanics/recurrence/parts/recursor-readiness/schemas/pair-contract.schema.json"
+RECURSOR_PROJECTION_SCHEMA = (
+    "mechanics/recurrence/parts/codex-recursor-projection/schemas/projection-candidate.schema.json"
+)
+RECURSOR_PROJECTION_CONFIG_REL = (
+    "mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json"
+)
+RECURSOR_PAIR_CONFIG_REL = "mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json"
+RECURSOR_ROLES_CONFIG_REL = "mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json"
 
 
 def load_common():
@@ -181,18 +191,18 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_published_schemas_accept_seed_sources(self):
         projection_validator = schema_validator(
-            "schemas/recursor-projection-candidate.v1.schema.json"
+            RECURSOR_PROJECTION_SCHEMA
         )
-        role_validator = schema_validator("schemas/recursor-role-contract.v1.schema.json")
-        pair_validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
-        projection_validator.validate(load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json"))
-        pair_validator.validate(load_json("mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json"))
-        for role in load_json("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json")["roles"]:
+        role_validator = schema_validator(RECURSOR_ROLE_SCHEMA)
+        pair_validator = schema_validator(RECURSOR_PAIR_SCHEMA)
+        projection_validator.validate(load_json(RECURSOR_PROJECTION_CONFIG_REL))
+        pair_validator.validate(load_json(RECURSOR_PAIR_CONFIG_REL))
+        for role in load_json(RECURSOR_ROLES_CONFIG_REL)["roles"]:
             role_validator.validate(role)
 
     def test_projection_schema_rejects_unexpected_candidate_role(self):
-        validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
-        projection = load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json")
+        validator = schema_validator(RECURSOR_PROJECTION_SCHEMA)
+        projection = load_json(RECURSOR_PROJECTION_CONFIG_REL)
         broken = deepcopy(projection)
         broken["candidate_agents"].append(
             {
@@ -215,8 +225,8 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertTrue(list(validator.iter_errors(broken)))
 
     def test_projection_schema_rejects_missing_required_guards(self):
-        validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
-        projection = load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json")
+        validator = schema_validator(RECURSOR_PROJECTION_SCHEMA)
+        projection = load_json(RECURSOR_PROJECTION_CONFIG_REL)
         broken = deepcopy(projection)
         for agent in broken["candidate_agents"]:
             if agent["recursor_id"] == "recursor.witness":
@@ -227,8 +237,8 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertTrue(list(validator.iter_errors(broken)))
 
     def test_pair_schema_rejects_missing_required_boundary_tokens(self):
-        validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
-        pair = load_json("mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json")
+        validator = schema_validator(RECURSOR_PAIR_SCHEMA)
+        pair = load_json(RECURSOR_PAIR_CONFIG_REL)
         broken = deepcopy(pair)
         broken["required_separation"].remove("executor_cannot_close_review")
         broken["handoff_order"].remove("witness_trace_check")

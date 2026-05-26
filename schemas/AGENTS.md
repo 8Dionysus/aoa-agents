@@ -28,6 +28,12 @@ Mechanic-specific assistant projection resolver schemas live under
 `mechanics/codex-projection/parts/assistant-projection/schemas/` and are
 validated by `scripts/validate_assistant_projection_resolver.py`.
 
+Mechanic-specific recursor schemas live under
+`mechanics/recurrence/parts/recursor-readiness/schemas/`,
+`mechanics/recurrence/parts/codex-recursor-projection/schemas/`, and
+`mechanics/recurrence/parts/agon-recursor-boundary/schemas/`. They are
+validated by `scripts/validate_recursor_contracts.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.

@@ -34,6 +34,25 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `config/recursor_pair.seed.json` | [parts/recursor-readiness/config/pair.seed.json](parts/recursor-readiness/config/pair.seed.json) | `recursor-readiness` |
 | `config/recursor_roles.seed.json` | [parts/recursor-readiness/config/roles.seed.json](parts/recursor-readiness/config/roles.seed.json) | `recursor-readiness` |
 
+## 2026-05-26 Root Recursor Contract Move
+
+7 recursor schemas and 4 recursor examples moved from root `schemas/` and
+`examples/` into recurrence part-local contract routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/recursor-role-contract.v1.schema.json` | [parts/recursor-readiness/schemas/role-contract.schema.json](parts/recursor-readiness/schemas/role-contract.schema.json) | `recursor-readiness` |
+| `schemas/recursor-pair-contract.v1.schema.json` | [parts/recursor-readiness/schemas/pair-contract.schema.json](parts/recursor-readiness/schemas/pair-contract.schema.json) | `recursor-readiness` |
+| `schemas/recursor-readiness-index.v1.schema.json` | [parts/recursor-readiness/schemas/readiness-index.schema.json](parts/recursor-readiness/schemas/readiness-index.schema.json) | `recursor-readiness` |
+| `schemas/recursor-handoff-ledger.v1.schema.json` | [parts/recursor-readiness/schemas/handoff-ledger.schema.json](parts/recursor-readiness/schemas/handoff-ledger.schema.json) | `recursor-readiness` |
+| `schemas/recursor-session-intent.v1.schema.json` | [parts/recursor-readiness/schemas/session-intent.schema.json](parts/recursor-readiness/schemas/session-intent.schema.json) | `recursor-readiness` |
+| `schemas/recursor-projection-candidate.v1.schema.json` | [parts/codex-recursor-projection/schemas/projection-candidate.schema.json](parts/codex-recursor-projection/schemas/projection-candidate.schema.json) | `codex-recursor-projection` |
+| `schemas/recursor-boundary-report.v1.schema.json` | [parts/agon-recursor-boundary/schemas/boundary-report.schema.json](parts/agon-recursor-boundary/schemas/boundary-report.schema.json) | `agon-recursor-boundary` |
+| `examples/recursor_session_intent.example.json` | [parts/recursor-readiness/examples/session-intent.example.json](parts/recursor-readiness/examples/session-intent.example.json) | `recursor-readiness` |
+| `examples/recursor_witness_handoff.example.json` | [parts/recursor-readiness/examples/witness-handoff.example.json](parts/recursor-readiness/examples/witness-handoff.example.json) | `recursor-readiness` |
+| `examples/recursor_executor_receipt.example.json` | [parts/recursor-readiness/examples/executor-receipt.example.json](parts/recursor-readiness/examples/executor-receipt.example.json) | `recursor-readiness` |
+| `examples/recursor_boundary_report.example.json` | [parts/agon-recursor-boundary/examples/boundary-report.example.json](parts/agon-recursor-boundary/examples/boundary-report.example.json) | `agon-recursor-boundary` |
+
 ## 2026-05-26 Root Manifest Move
 
 11 recurrence component and hook manifests moved from root `manifests/` into

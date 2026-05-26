@@ -34,6 +34,10 @@ from validate_recurrence_component_manifests import (
     ManifestValidationError,
     validate_recurrence_component_manifests,
 )
+from validate_recursor_contracts import (
+    RecursorContractsValidationError,
+    validate_recursor_contracts,
+)
 from validate_antifragility_stress import (
     AntifragilityStressValidationError,
     validate_antifragility_stress_payloads,
@@ -3459,6 +3463,7 @@ def main() -> int:
         validate_cohort_pattern_sources()
         validate_runtime_seam_binding_sources()
         validate_recurrence_component_manifests()
+        validate_recursor_contracts(REPO_ROOT)
         validate_titan_examples()
         agent_names = validate_registry()
         validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
@@ -3484,6 +3489,7 @@ def main() -> int:
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except (
         ManifestValidationError,
+        RecursorContractsValidationError,
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
         NestedAgentsValidationError,
@@ -3518,6 +3524,7 @@ def main() -> int:
     print("[ok] validated source-authored cohort patterns")
     print("[ok] validated source-authored runtime seam bindings")
     print("[ok] validated recurrence component manifests")
+    print("[ok] validated recursor part-local contracts")
     print("[ok] validated Titan part-local examples")
     print("[ok] validated runtime artifact schema surfaces")
     print("[ok] validated runtime artifact examples")
