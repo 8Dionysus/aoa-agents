@@ -5,20 +5,20 @@
   "kind": "decision",
   "family": "agent-role-memory",
   "scope": "repo",
-  "claim": "aoa-agents localized the remaining assistant service, office, release, watch, rollback, governance, authority-claim, and release-hold contracts into Experience, Runtime Seam, and Release Support part-local schema/example routes; root schemas/examples now retain only shared registry/profile/reference/reference-route surfaces, and scripts/validate_agent_service_contracts.py guards active routes plus former-root absence.",
+  "claim": "aoa-agents localized the remaining assistant service, office, release, watch, rollback, governance, authority-claim, and release-hold contracts into Experience, Runtime Seam, and Release Support part-local schema/example routes; root schemas/examples now retain only shared registry/profile/reference/reference-route surfaces, and mechanics/experience/scripts/validate_agent_service_contracts.py guards active routes plus former-root absence.",
   "source_refs": [
     "docs/decisions/2026-05-26-agent-service-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/experience/PROVENANCE.md",
     "mechanics/runtime-seam/PROVENANCE.md",
     "mechanics/release-support/PROVENANCE.md",
-    "scripts/validate_agent_service_contracts.py"
+    "mechanics/experience/scripts/validate_agent_service_contracts.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/3caefee",
     "repo:aoa-agents/pull/155",
     "repo:aoa-agents/commit-range/7c9764e..3caefee",
-    "tests/test_agent_service_contracts.py",
+    "mechanics/experience/tests/test_agent_service_contracts.py",
     "scripts/validate_agents.py"
   ],
   "route": "reviewed_intake",

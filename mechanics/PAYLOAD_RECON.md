@@ -186,7 +186,13 @@ The agent service contract localization satisfies that rule for the remaining
 assistant service, office, release, watch, rollback, governance,
 runtime-readable authority-claim, and release-hold schemas/examples by routing
 them into the active part-local contract homes named by the package docs and
-adding `scripts/validate_agent_service_contracts.py`.
+adding `mechanics/experience/scripts/validate_agent_service_contracts.py`.
+
+The Experience agent service check localization satisfies that rule for the
+agent service validator and focused test by moving them into
+`mechanics/experience/{scripts,tests}/`. The check stays package-local because
+it spans multiple Experience parts and cross-routes Runtime Seam authority
+claim plus Release Support release-hold contracts.
 
 The reference-route contract localization satisfies that rule for
 reference-route and Alpha reference-route schemas/examples by routing public

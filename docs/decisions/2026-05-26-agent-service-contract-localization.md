@@ -28,9 +28,11 @@ Move the contract pairs into their owning part-local routes:
 - the release-hold policy contract under
   `mechanics/release-support/parts/runtime-release-hold/{schemas,examples}/`
 
-Add `scripts/validate_agent_service_contracts.py` and route
-`scripts/validate_agents.py` through it so former root paths stay absent and
-schema/example invariants remain explicit.
+Add an agent service validator and route `scripts/validate_agents.py` through
+it so former root paths stay absent and schema/example invariants remain
+explicit. Its active route is now
+`mechanics/experience/scripts/validate_agent_service_contracts.py`; the check
+was localized after the contract payload move.
 
 ## Consequences
 
@@ -47,7 +49,7 @@ target package `PROVENANCE.md` and `legacy/` maps.
 Validation for this route is:
 
 ```bash
-python scripts/validate_agent_service_contracts.py
+python mechanics/experience/scripts/validate_agent_service_contracts.py
 python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python scripts/validate_agents.py
 ```

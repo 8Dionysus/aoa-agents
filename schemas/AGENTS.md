@@ -68,7 +68,7 @@ Mechanic-specific agent service schemas live under
 `mechanics/experience/parts/*/schemas/`,
 `mechanics/runtime-seam/parts/artifact-contracts/schemas/`, and
 `mechanics/release-support/parts/runtime-release-hold/schemas/`. They are
-validated by `scripts/validate_agent_service_contracts.py`.
+validated by `mechanics/experience/scripts/validate_agent_service_contracts.py`.
 
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 

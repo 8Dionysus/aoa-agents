@@ -30,10 +30,6 @@ from orchestrator_class_registry import (
     load_orchestrator_classes,
 )
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
-from validate_agent_service_contracts import (
-    AgentServiceContractsValidationError,
-    validate_agent_service_contracts,
-)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -108,6 +104,17 @@ AdoptionBoundaryContractsValidationError = (
 )
 validate_adoption_boundary_contracts = (
     _ADOPTION_BOUNDARY_CONTRACTS_MODULE.validate_adoption_boundary_contracts
+)
+
+_AGENT_SERVICE_CONTRACTS_MODULE = load_repo_python_module(
+    "agent_service_contracts_validator",
+    "mechanics/experience/scripts/validate_agent_service_contracts.py",
+)
+AgentServiceContractsValidationError = (
+    _AGENT_SERVICE_CONTRACTS_MODULE.AgentServiceContractsValidationError
+)
+validate_agent_service_contracts = (
+    _AGENT_SERVICE_CONTRACTS_MODULE.validate_agent_service_contracts
 )
 
 _TITAN_SCHEMAS_MODULE = load_repo_python_module(

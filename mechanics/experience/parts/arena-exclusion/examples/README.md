@@ -10,5 +10,5 @@ Public-safe examples for reviewed assistant-to-Agon boundary cases.
 Validate with:
 
 ```bash
-python scripts/validate_agent_service_contracts.py
+python mechanics/experience/scripts/validate_agent_service_contracts.py
 ```

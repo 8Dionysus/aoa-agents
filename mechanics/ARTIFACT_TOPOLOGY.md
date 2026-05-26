@@ -206,11 +206,19 @@ assistant service, office, release, watch, rollback, governance,
 runtime-readable authority-claim, and release-hold schemas/examples from root
 `schemas/` and `examples/` into active Experience, Runtime Seam, and Release
 Support part-local contract routes after adding
-`scripts/validate_agent_service_contracts.py`. The route split follows the
+`mechanics/experience/scripts/validate_agent_service_contracts.py`. The route split follows the
 current mechanic docs: authority claims belong to Runtime Seam, release holds
 belong to Release Support, and assistant service/office/watch pressure belongs
 to Experience. Stable schema `$id`, `kind`, and identifier values remain
 public contract identifiers, not active repo paths.
+
+The 2026-05-26 Experience agent service check localization moves the agent
+service validator and focused test from root `scripts/` and `tests/` into
+`mechanics/experience/{scripts,tests}/`. The check stays package-local because
+it spans Experience service/office/release/watch parts and reads Runtime Seam
+plus Release Support contract routes. `scripts/validate_agents.py` remains the
+repo-wide coordinator by loading the Experience package validator directly,
+and `scripts/release_check.py` runs the Experience package tests explicitly.
 
 The 2026-05-26 reference-route contract localization moves reference-route and
 Alpha reference-route schemas/examples from root `schemas/` and `examples/`

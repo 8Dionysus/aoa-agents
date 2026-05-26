@@ -17,5 +17,5 @@ candidate, service version, service release, and runtime hold contracts.
 Validate with:
 
 ```bash
-python scripts/validate_agent_service_contracts.py
+python mechanics/experience/scripts/validate_agent_service_contracts.py
 ```
