@@ -1,0 +1,30 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T015747Z:de2a2b2a-aoa-agents-owns-role-layer-memor",
+  "repo": "aoa-agents",
+  "kind": "route",
+  "family": "agent-behavior",
+  "scope": "repo",
+  "claim": "aoa-agents owns role-layer memory rights and handoff posture, while durable reviewed memory objects, lifecycle, and recall authority remain in aoa-memo.",
+  "source_refs": [
+    "docs/AGENT_MEMORY_POSTURE.md",
+    "AGENTS.md",
+    "memo/PORT.yaml"
+  ],
+  "evidence_refs": [
+    "docs/AGENT_MEMORY_POSTURE.md",
+    "tests/test_validate_agents.py",
+    "repo:aoa-agents/commit/48f26f17f83415b4e31441de345808434064427a"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T01:57:47Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

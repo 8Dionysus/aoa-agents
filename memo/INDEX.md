@@ -6,18 +6,22 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 0 |
+| candidates | 1 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
 
 ## Routes
 
-No routed candidates yet.
+| Route | Count |
+|---|---:|
+| `reviewed_intake` | 1 |
 
 ## Open Items
 
-No open candidate items.
+| ID | State | Route | Path |
+|---|---|---|---|
+| `candidate:aoa-agents:20260526T015747Z:de2a2b2a-aoa-agents-owns-role-layer-memor` | `candidate` | `reviewed_intake` | `candidates/20260526T015747Z.de2a2b2a.aoa-agents-owns-role-layer-memory-rights-and-han.candidate.json` |
 
 ## Agent Route
 
