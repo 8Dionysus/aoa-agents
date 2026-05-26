@@ -36,7 +36,7 @@ Keep coverage aligned with `mechanics/runtime-seam/parts/transition-discipline/d
 Run `python -m pip install -r requirements-dev.txt`, then:
 
 ```bash
-python scripts/validate_runtime_artifact_contracts.py
+python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python scripts/validate_agent_service_contracts.py
 python scripts/validate_agents.py
 ```

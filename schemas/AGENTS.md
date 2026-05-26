@@ -9,7 +9,7 @@ edit posture, root-vs-mechanic schema boundaries, and validation route.
 
 Mechanic-specific runtime artifact schemas live under
 `mechanics/runtime-seam/parts/artifact-contracts/schemas/` and are validated by
-`scripts/validate_runtime_artifact_contracts.py`.
+`mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 
 Mechanic-specific self-agent checkpoint schemas live under
 `mechanics/checkpoint/parts/self-agent-checkpoint/schemas/` and

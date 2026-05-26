@@ -44,7 +44,7 @@ steps, runtime artifact contracts, and transition discipline.
 ## Validation
 
 ```bash
-python scripts/validate_runtime_artifact_contracts.py
+python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python scripts/build_published_surfaces.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
