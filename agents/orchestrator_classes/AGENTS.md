@@ -21,7 +21,7 @@ Published derived surfaces:
 Read with:
 
 - `docs/ORCHESTRATOR_CLASS_MODEL.md`
-- `docs/QUEST_EXECUTION_PASSPORT.md`
+- `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`
 
 ## Anti-confusion rule
 

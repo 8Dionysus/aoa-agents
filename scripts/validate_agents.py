@@ -64,8 +64,8 @@ MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.jso
 MODEL_TIER_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier.schema.json"
 ORCHESTRATOR_CLASS_SCHEMA_PATH = REPO_ROOT / "schemas" / "orchestrator-class.schema.json"
 ORCHESTRATOR_CLASS_MODEL_PATH = REPO_ROOT / "docs" / "ORCHESTRATOR_CLASS_MODEL.md"
-AGENT_STRESS_POSTURE_DOC_PATH = REPO_ROOT / "docs" / "AGENT_STRESS_POSTURE.md"
-AGENT_STRESS_HANDOFFS_DOC_PATH = REPO_ROOT / "docs" / "AGENT_STRESS_HANDOFFS.md"
+AGENT_STRESS_POSTURE_DOC_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-posture.md"
+AGENT_STRESS_HANDOFFS_DOC_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-handoffs.md"
 AGENT_STRESS_POSTURE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent_stress_posture_v1.json"
 STRESS_HANDOFF_ENVELOPE_SCHEMA_PATH = REPO_ROOT / "schemas" / "stress_handoff_envelope_v1.json"
 AGENT_STRESS_POSTURE_EXAMPLE_PATH = REPO_ROOT / "examples" / "agent_stress_posture.example.json"
@@ -96,7 +96,7 @@ REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
 ALPHA_REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "alpha_reference_routes"
 ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
 QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
-QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "docs" / "QUEST_EXECUTION_PASSPORT.md"
+QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "mechanics" / "questbook" / "parts" / "execution-passport" / "docs" / "quest-execution-passport.md"
 QUESTS_DIR = REPO_ROOT / "quests"
 QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
 QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
@@ -897,18 +897,18 @@ def validate_antifragility_stress_surfaces() -> None:
     posture_doc = read_text(AGENT_STRESS_POSTURE_DOC_PATH)
     handoff_doc = read_text(AGENT_STRESS_HANDOFFS_DOC_PATH)
 
-    for token in ("docs/AGENT_STRESS_POSTURE.md", "docs/AGENT_STRESS_HANDOFFS.md"):
+    for token in ("mechanics/antifragility/parts/stress-posture/docs/stress-posture.md", "mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md"):
         if token not in readme:
             fail(f"README.md must link {token}")
-    for token in ("AGENT_STRESS_POSTURE", "AGENT_STRESS_HANDOFFS"):
+    for token in ("Agent Stress Posture", "Agent Stress Handoffs"):
         if token not in docs_readme:
             fail(f"docs/README.md must mention {token}")
     for snippet in REQUIRED_AGENT_STRESS_POSTURE_SNIPPETS:
         if snippet not in posture_doc:
-            fail(f"docs/AGENT_STRESS_POSTURE.md is missing required stress posture guidance: {snippet}")
+            fail(f"mechanics/antifragility/parts/stress-posture/docs/stress-posture.md is missing required stress posture guidance: {snippet}")
     for snippet in REQUIRED_AGENT_STRESS_HANDOFF_SNIPPETS:
         if snippet not in handoff_doc:
-            fail(f"docs/AGENT_STRESS_HANDOFFS.md is missing required stress handoff guidance: {snippet}")
+            fail(f"mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md is missing required stress handoff guidance: {snippet}")
     if not (REPO_ROOT / "agents" / "profiles" / "architect.profile.json").is_file():
         fail("agents/profiles/architect.profile.json must exist for the additive stress posture example")
 
@@ -2476,7 +2476,7 @@ def validate_codex_subagent_projection() -> None:
 
 
 def validate_assistant_projection_resolver_surface() -> None:
-    doc = read_text(REPO_ROOT / "docs" / "CODEX_SUBAGENT_PROJECTION.md")
+    doc = read_text(REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "docs" / "subagent-projection.md")
     schema = validate_json_schema_surface(
         REPO_ROOT / "schemas" / "assistant-projection-resolver.schema.json",
         "assistant projection resolver schema",
@@ -2492,7 +2492,7 @@ def validate_assistant_projection_resolver_surface() -> None:
         "no-self-rewrite",
     ):
         if token not in doc:
-            fail(f"docs/CODEX_SUBAGENT_PROJECTION.md is missing required projection guidance: {token}")
+            fail(f"mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md is missing required projection guidance: {token}")
 
     Draft202012Validator.check_schema(schema)
     validate_instance_against_schema(example, schema, describe_path(example_path))
@@ -2510,17 +2510,17 @@ def validate_assistant_projection_resolver_surface() -> None:
 def validate_runtime_seam_doc_coherence() -> None:
     agent_profile_surface = read_text(REPO_ROOT / "docs" / "AGENT_PROFILE_SURFACE.md")
     agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
-    cohort_patterns = read_text(REPO_ROOT / "docs" / "AGENT_COHORT_PATTERNS.md")
-    federation_consumer_seams = read_text(REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md")
-    agent_runtime_seam = read_text(REPO_ROOT / "docs" / "AGENT_RUNTIME_SEAM.md")
+    cohort_patterns = read_text(REPO_ROOT / "mechanics" / "rpg" / "parts" / "cohort-patterns" / "docs" / "cohort-patterns.md")
+    federation_consumer_seams = read_text(REPO_ROOT / "mechanics" / "boundary-bridge" / "parts" / "federation-consumer-seams" / "docs" / "federation-consumer-seams.md")
+    agent_runtime_seam = read_text(REPO_ROOT / "mechanics" / "runtime-seam" / "parts" / "role-tier-bindings" / "docs" / "agent-runtime-seam.md")
     model_tier_model = read_text(REPO_ROOT / "docs" / "MODEL_TIER_MODEL.md")
-    registry_source_surfaces = read_text(REPO_ROOT / "docs" / "REGISTRY_SOURCE_SURFACES.md")
-    published_contract_compatibility = read_text(REPO_ROOT / "docs" / "PUBLISHED_CONTRACT_COMPATIBILITY.md")
-    reference_route_examples = read_text(REPO_ROOT / "docs" / "REFERENCE_ROUTE_EXAMPLES.md")
-    recurrence_discipline = read_text(REPO_ROOT / "docs" / "RECURRENCE_DISCIPLINE.md")
-    runtime_transitions = read_text(REPO_ROOT / "docs" / "RUNTIME_ARTIFACT_TRANSITIONS.md")
-    self_agent_checkpoint = read_text(REPO_ROOT / "docs" / "SELF_AGENT_CHECKPOINT_STACK.md")
-    self_agency_continuity = read_text(REPO_ROOT / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md")
+    registry_source_surfaces = read_text(REPO_ROOT / "mechanics" / "boundary-bridge" / "parts" / "source-surface-registry" / "docs" / "registry-source-surfaces.md")
+    published_contract_compatibility = read_text(REPO_ROOT / "mechanics" / "boundary-bridge" / "parts" / "published-compatibility" / "docs" / "published-contract-compatibility.md")
+    reference_route_examples = read_text(REPO_ROOT / "mechanics" / "checkpoint" / "parts" / "reference-routes" / "docs" / "reference-route-examples.md")
+    recurrence_discipline = read_text(REPO_ROOT / "mechanics" / "recurrence" / "parts" / "anchor-return" / "docs" / "recurrence-discipline.md")
+    runtime_transitions = read_text(REPO_ROOT / "mechanics" / "runtime-seam" / "parts" / "transition-discipline" / "docs" / "runtime-artifact-transitions.md")
+    self_agent_checkpoint = read_text(REPO_ROOT / "mechanics" / "checkpoint" / "parts" / "self-agent-checkpoint" / "docs" / "self-agent-checkpoint-stack.md")
+    self_agency_continuity = read_text(REPO_ROOT / "mechanics" / "checkpoint" / "parts" / "continuity-lane" / "docs" / "self-agency-continuity-lane.md")
 
     for snippet in REQUIRED_AGENT_PROFILE_SURFACE_SNIPPETS:
         if snippet not in agent_profile_surface:
@@ -2530,37 +2530,37 @@ def validate_runtime_seam_doc_coherence() -> None:
             fail(f"docs/AGENT_MEMORY_POSTURE.md is missing required memory posture guidance: {snippet}")
     for snippet in REQUIRED_REGISTRY_SOURCE_SURFACE_SNIPPETS:
         if snippet not in registry_source_surfaces:
-            fail(f"docs/REGISTRY_SOURCE_SURFACES.md is missing required registry-source guidance: {snippet}")
+            fail(f"mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md is missing required registry-source guidance: {snippet}")
     for snippet in REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS:
         if snippet not in published_contract_compatibility:
-            fail(f"docs/PUBLISHED_CONTRACT_COMPATIBILITY.md is missing required compatibility guidance: {snippet}")
+            fail(f"mechanics/boundary-bridge/parts/published-compatibility/docs/published-contract-compatibility.md is missing required compatibility guidance: {snippet}")
     for snippet in REQUIRED_REFERENCE_ROUTE_DOC_SNIPPETS:
         if snippet not in reference_route_examples:
-            fail(f"docs/REFERENCE_ROUTE_EXAMPLES.md is missing required route-example guidance: {snippet}")
+            fail(f"mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md is missing required route-example guidance: {snippet}")
 
     if PUBLIC_LOOP not in agent_runtime_seam:
-        fail("docs/AGENT_RUNTIME_SEAM.md must preserve the public loop string")
+        fail("mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md must preserve the public loop string")
     if PUBLIC_LOOP not in model_tier_model:
         fail("docs/MODEL_TIER_MODEL.md must preserve the public loop string")
     if PUBLIC_LOOP not in runtime_transitions:
-        fail("docs/RUNTIME_ARTIFACT_TRANSITIONS.md must preserve the public loop string")
+        fail("mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md must preserve the public loop string")
 
     for line in EXPECTED_SEAM_BINDING_LINES:
         if line not in agent_runtime_seam:
-            fail(f"docs/AGENT_RUNTIME_SEAM.md is missing runtime seam binding line: {line}")
+            fail(f"mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md is missing runtime seam binding line: {line}")
     for snippet in REQUIRED_AGENT_RUNTIME_RECURRENCE_SNIPPETS:
         if snippet not in agent_runtime_seam:
-            fail(f"docs/AGENT_RUNTIME_SEAM.md is missing recurrence guidance: {snippet}")
+            fail(f"mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md is missing recurrence guidance: {snippet}")
 
     for snippet in REQUIRED_COHORT_DOC_SNIPPETS:
         if snippet not in cohort_patterns:
-            fail(f"docs/AGENT_COHORT_PATTERNS.md is missing required cohort guidance: {snippet}")
+            fail(f"mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md is missing required cohort guidance: {snippet}")
     for snippet in REQUIRED_FEDERATION_DOC_SNIPPETS:
         if snippet not in federation_consumer_seams:
-            fail(f"docs/FEDERATION_CONSUMER_SEAMS.md is missing required federation guidance: {snippet}")
+            fail(f"mechanics/boundary-bridge/parts/federation-consumer-seams/docs/federation-consumer-seams.md is missing required federation guidance: {snippet}")
     for snippet in REQUIRED_RECURRENCE_DISCIPLINE_SNIPPETS:
         if snippet not in recurrence_discipline:
-            fail(f"docs/RECURRENCE_DISCIPLINE.md is missing recurrence guidance: {snippet}")
+            fail(f"mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md is missing recurrence guidance: {snippet}")
 
     required_transition_snippets = (
         "`transition_decision` is a governance artifact between phases.",
@@ -2569,18 +2569,18 @@ def validate_runtime_seam_doc_coherence() -> None:
     )
     for snippet in required_transition_snippets:
         if snippet not in runtime_transitions:
-            fail(f"docs/RUNTIME_ARTIFACT_TRANSITIONS.md is missing required transition guidance: {snippet}")
+            fail(f"mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md is missing required transition guidance: {snippet}")
     for snippet in REQUIRED_TRANSITION_RECURRENCE_SNIPPETS:
         if snippet not in runtime_transitions:
-            fail(f"docs/RUNTIME_ARTIFACT_TRANSITIONS.md is missing recurrence guidance: {snippet}")
+            fail(f"mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md is missing recurrence guidance: {snippet}")
     if REQUIRED_SELF_AGENT_COHORT_SNIPPET not in self_agent_checkpoint:
-        fail("docs/SELF_AGENT_CHECKPOINT_STACK.md must map the portable route to `checkpoint_cohort`")
+        fail("mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md must map the portable route to `checkpoint_cohort`")
     for snippet in REQUIRED_SELF_AGENT_RETURN_SNIPPETS:
         if snippet not in self_agent_checkpoint:
-            fail(f"docs/SELF_AGENT_CHECKPOINT_STACK.md is missing recurrence guidance: {snippet}")
+            fail(f"mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md is missing recurrence guidance: {snippet}")
     for snippet in REQUIRED_SELF_AGENCY_CONTINUITY_SNIPPETS:
         if snippet not in self_agency_continuity:
-            fail(f"docs/SELF_AGENCY_CONTINUITY_LANE.md is missing continuity guidance: {snippet}")
+            fail(f"mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md is missing continuity guidance: {snippet}")
 
 
 def validate_questbook_surface() -> None:
@@ -2685,7 +2685,7 @@ def validate_questbook_surface() -> None:
     for snippet in REQUIRED_QUEST_PASSPORT_SNIPPETS:
         if snippet not in passport_text:
             fail(
-                "docs/QUEST_EXECUTION_PASSPORT.md must define the difficulty/risk/control "
+                "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md must define the difficulty/risk/control "
                 "passport, wrapper classes, and the d3+ split rule"
             )
 

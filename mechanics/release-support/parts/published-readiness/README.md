@@ -1,10 +1,7 @@
 # Published Readiness Part
 
-This part routes compatibility of published agent contracts and generated
-readers inside `mechanics/release-support/`.
+This part routes `published-readiness` pressure inside `mechanics/release-support/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+No package-local docs moved into this part in the 2026-05-26 docs slice.
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

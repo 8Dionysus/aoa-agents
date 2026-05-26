@@ -32,7 +32,7 @@
   "source_surfaces": [
     "repo:aoa-agents/docs/AGENT_MEMORY_POSTURE.md",
     "repo:aoa-agents/docs/BOUNDARIES.md",
-    "repo:aoa-agents/docs/SELF_AGENT_CHECKPOINT_STACK.md"
+    "repo:aoa-agents/mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md"
   ],
   "memory_posture": "deep_recall",
   "memory_rights": {

@@ -1,10 +1,9 @@
 # Refresh Law Part
 
-This part routes refresh law that keeps generated projections source-owned
-inside `mechanics/codex-projection/`.
+This part routes `refresh-law` pressure inside `mechanics/codex-projection/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Codex Subagent Refresh Law](docs/subagent-refresh-law.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

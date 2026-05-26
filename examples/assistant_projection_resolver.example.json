@@ -12,8 +12,8 @@
     "posture_note": "The assistant projection surface may be refreshed by the owner repo, but the generated agent may not rewrite itself into source truth."
   },
   "source_refs": [
-    "docs/CODEX_SUBAGENT_PROJECTION.md#wave-1-assistant-projection-resolver",
-    "docs/CODEX_SUBAGENT_REFRESH_LAW.md#boundary",
-    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md#rule"
+    "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md#wave-1-assistant-projection-resolver",
+    "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md#boundary",
+    "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md#rule"
   ]
 }

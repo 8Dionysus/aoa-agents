@@ -15,15 +15,15 @@ class Wave25RouteSurfacesTestCase(unittest.TestCase):
     def test_readme_and_docs_map_route_wave2_5_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
-        subject_prep = read_text("docs/AGENT_SUBJECT_PREP.md")
-        wave2_landing = read_text("docs/AGON_WAVE2_LANDING.md")
+        subject_prep = read_text("mechanics/agon/parts/formation/docs/subject-prep.md")
+        wave2_landing = read_text("mechanics/agon/parts/formation/docs/wave2-landing.md")
 
-        self.assertIn("docs/AGENT_FORMATION_TRIAL.md", readme)
+        self.assertIn("mechanics/agon/parts/formation/docs/formation-trial.md", readme)
         self.assertIn("generated/agent_formation_trial.min.json", readme)
         self.assertIn("python scripts/validate_agent_formation_trial.py", readme)
-        self.assertIn("AGENT_FORMATION_TRIAL", docs_readme)
-        self.assertIn("AGON_WAVE2_5_LANDING", docs_readme)
-        self.assertIn("CODEX_PROJECTION_AGON_BOUNDARY", docs_readme)
+        self.assertIn("Agent Formation Trial", docs_readme)
+        self.assertIn("Agon Wave II.5 Landing", docs_readme)
+        self.assertIn("Codex Projection Agon Boundary", docs_readme)
         self.assertIn("Wave II.5 Formation Trial has now landed", subject_prep)
         self.assertIn("Wave II.5 Formation Trial has now landed", wave2_landing)
 

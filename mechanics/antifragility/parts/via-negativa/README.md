@@ -1,10 +1,9 @@
 # Via Negativa Part
 
-This part routes negative checklist pressure phrased as operational route
-alternatives inside `mechanics/antifragility/`.
+This part routes `via-negativa` pressure inside `mechanics/antifragility/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Via Negativa Checklist](docs/via-negativa-checklist.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

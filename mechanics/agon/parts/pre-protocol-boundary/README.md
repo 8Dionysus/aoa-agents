@@ -1,10 +1,11 @@
-# Pre-Protocol Boundary Part
+# Pre Protocol Boundary Part
 
-This part routes bounded pre-protocol posture before role promotion inside
-`mechanics/agon/`.
+This part routes `pre-protocol-boundary` pressure inside `mechanics/agon/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Formation Trial Readiness](docs/formation-trial-readiness.md)
+- [Agonic Governance Trials](docs/governance-trials.md)
+- [Agon Pre-Protocol Agent Boundary](docs/pre-protocol-agent-boundary.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -7,7 +7,7 @@
 These files stay aligned with:
 
 - `schemas/reference-route.example.schema.json`
-- `docs/REFERENCE_ROUTE_EXAMPLES.md`
+- `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`
 - `generated/runtime_seam_bindings.json`
 
 ## Contract anchors

@@ -45,7 +45,7 @@ erasing the fuller role contract from the source layer.
 If future subject-bearing preparation needs doctrine seed, bounded resistance,
 honor conditions, or delta obligations, prefer a separate source-authored
 adjunct surface before widening the base profile schema.
-See [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md) for the local owner map and
+See [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md) for the local owner map and
 stop-lines.
 
 ## Boundaries to preserve

@@ -1,8 +1,14 @@
 # Titan Legacy Distillation Log
 
-## 2026-05-25 Parts And Legacy Scaffold
+## 2026-05-26 Root Docs To Active Parts
 
-Created active `parts/` route and legacy scaffold for Titan.
+Moved 16 mechanics-facing docs out of root `docs/` and into active part-local `docs/` directories. Git history preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
-No raw files were copied into legacy. Current payload anchors remain in root
-districts and are routed through `../PARTS.md`.
+| Part | Moved docs |
+| --- | --- |
+| `incarnation-spine` | 3 |
+| `lineage-ledger` | 1 |
+| `role-bearing` | 1 |
+| `runtime-roster` | 3 |
+| `service-cohort` | 5 |
+| `summon-boundary` | 3 |

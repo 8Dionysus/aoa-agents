@@ -1,6 +1,6 @@
 # Release Support Provenance Bridge
 
-`PROVENANCE.md` is the active-to-legacy bridge for this mechanic.
+`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
 
 Use active surfaces first:
 
@@ -8,9 +8,13 @@ Use active surfaces first:
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Release gate, changelog, compatibility, assistant watch, and runtime hold
-payload anchors remain in their current owner districts until a later
-package-local move.
+Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
 
-Open [legacy/README.md](legacy/README.md) only for old-route accounting,
-historical source lookup, or raw receipt intake.
+## 2026-05-26 Root Docs Move
+
+2 mechanics-facing docs moved from `docs/` into `release-support/parts/*/docs/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `docs/RELEASING.md` | [parts/repo-release-gate/docs/releasing.md](parts/repo-release-gate/docs/releasing.md) | `repo-release-gate` |
+| `docs/AGENT_RELEASE_HOLD_POLICY.md` | [parts/runtime-release-hold/docs/agent-release-hold-policy.md](parts/runtime-release-hold/docs/agent-release-hold-policy.md) | `runtime-release-hold` |

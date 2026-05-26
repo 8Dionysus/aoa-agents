@@ -20,12 +20,12 @@ Within `aoa-agents`, an agent should mean a reusable role-bearing actor describe
 - compact composition hints
 
 Future subject-bearing preparation may widen this layer later, but only through
-bounded role-authored surfaces. See [AGENT_SUBJECT_PREP](AGENT_SUBJECT_PREP.md)
+bounded role-authored surfaces. See [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md)
 for the local stop-lines before doctrine seed, resistance posture, or delta
 obligations are treated as agent-layer canon.
 
 The first official composition hint surface lives in
-[AGENT_COHORT_PATTERNS](AGENT_COHORT_PATTERNS.md).
+[Agent Cohort Patterns](../mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md).
 
 ## Agent classes
 
@@ -83,7 +83,7 @@ When an agent can reshape important system surfaces, its role contract should ma
 - bounded iteration limit
 - improvement log requirement
 
-See [SELF_AGENT_CHECKPOINT_STACK](SELF_AGENT_CHECKPOINT_STACK.md) for the compact contract.
+See [Self-Agent Checkpoint Stack](../mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md) for the compact contract.
 
 ## Self-agent checkpoint cohort
 

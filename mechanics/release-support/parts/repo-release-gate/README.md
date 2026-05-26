@@ -1,10 +1,9 @@
 # Repo Release Gate Part
 
-This part routes release validation and publication readiness inside
-`mechanics/release-support/`.
+This part routes `repo-release-gate` pressure inside `mechanics/release-support/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Releasing `aoa-agents`](docs/releasing.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

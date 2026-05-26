@@ -1,9 +1,11 @@
 # Codex Projection Legacy
 
-Legacy is the provenance district for Codex Projection source receipts and
-old-route accounting.
+This directory is archive-local provenance, not the normal route for current behavior.
 
-Current raw inventory: none preserved.
+Start at `../README.md`, `../PARTS.md`, and `../parts/`. Enter legacy through `../PROVENANCE.md` when you need former root-path accounting, raw receipt intake, or distillation history.
 
-Use this directory only after [../PROVENANCE.md](../PROVENANCE.md) routes here.
-Active behavior lives in `../README.md`, `../PARTS.md`, and `../parts/`.
+## Contents
+
+- `INDEX.md` maps former source paths to active part routes.
+- `DISTILLATION_LOG.md` records how legacy material was accounted for.
+- `raw/` is only for real raw receipts; no placeholder payloads are invented here.

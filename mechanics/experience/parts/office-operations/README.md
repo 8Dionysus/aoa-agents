@@ -1,10 +1,20 @@
 # Office Operations Part
 
-This part routes office overlays, service registry, train/release posture, and
-live office expectations inside `mechanics/experience/`.
+This part routes `office-operations` pressure inside `mechanics/experience/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Office Model](docs/agent-office-model.md)
+- [Concierge Assistant Profile](docs/concierge-assistant-profile.md)
+- [Courier Assistant Profile](docs/courier-assistant-profile.md)
+- [First Assistant Office Install](docs/first-assistant-office-install.md)
+- [Monitor Assistant Profile](docs/monitor-assistant-profile.md)
+- [Multi Office Service Contract](docs/multi-office-service-contract.md)
+- [Office Charter Amendments](docs/office-charter-amendments.md)
+- [Office Local Adoption Policy](docs/office-local-adoption-policy.md)
+- [Office Pattern Compatibility](docs/office-pattern-compatibility.md)
+- [Assistant Office Registry Model](docs/office-registry-model.md)
+- [Assistant Office Train Release](docs/office-train-release.md)
+- [Pair Office Adoption](docs/pair-office-adoption.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

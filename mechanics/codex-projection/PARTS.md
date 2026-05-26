@@ -1,16 +1,15 @@
 # Codex Projection Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `subagent-projection` | source profile to generated Codex subagent projection | `agents/profiles/*.profile.json`; `config/codex_subagent_wiring.v2.json`; `generated/codex_agents/`; `scripts/build_codex_subagents_v2.py`; `scripts/codex_subagent_projection.py` |
-| `refresh-law` | keep generated projections refreshable and source-owned | `docs/CODEX_SUBAGENT_REFRESH_LAW.md`; `examples/subagent_projection_refresh_law.example.json`; projection tests |
-| `agon-boundary` | prevent Agon formation pressure from leaking into Codex projection authority | `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`; cross-route to `mechanics/agon/` |
-| `assistant-projection` | assistant projection resolver and compatibility posture | `examples/assistant_projection_resolver.example.json`; assistant projection schemas/examples |
-| `titan-projection` | Titan projection into Codex-facing generated agents | `generated/titan_codex_agents/`; Titan projection builders/tests; cross-route to `mechanics/titan/` |
+| `agon-boundary` | [Codex Projection Agon Boundary](parts/agon-boundary/docs/projection-agon-boundary.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `assistant-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `refresh-law` | [Codex Subagent Refresh Law](parts/refresh-law/docs/subagent-refresh-law.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `subagent-projection` | [Codex Subagent Projection](parts/subagent-projection/docs/subagent-projection.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `titan-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-Generated Codex outputs stay under `generated/`; source wiring stays under
-`config/`. This package names the operation route before any path move.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

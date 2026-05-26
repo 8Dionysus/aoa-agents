@@ -3,7 +3,7 @@ id: AOA-AG-Q-0008
 title: Reanchor checkpoint automation role-pressure in the runtime seam
 summary: Preserve the reviewed checkpoint automation role-pressure candidate as an agent-layer runtime-seam follow-through without mutating profiles or orchestrator classes from one session.
 repo: aoa-agents
-owner_surface: docs/AGENT_RUNTIME_SEAM.md
+owner_surface: mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
 theme_ref: ''
 milestone_ref: ''
 kind: support
@@ -31,7 +31,7 @@ activation:
   note: open when reviewed checkpoint automation closeout preserves role-posture pressure that needs agent-layer reanchor
 anchor_ref:
   artifact: agent_runtime_seam
-  ref: docs/AGENT_RUNTIME_SEAM.md
+  ref: mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
   note: role pressure should stay seam-bound until repeated reviewed evidence proves a profile, cohort, or orchestrator-class adjustment
 handoff_role: agent-layer-maintainer
 evidence:

@@ -1,10 +1,9 @@
 # Execution Passport Part
 
-This part routes quest execution passport posture from the agent side inside
-`mechanics/questbook/`.
+This part routes `execution-passport` pressure inside `mechanics/questbook/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [QUEST execution passport](docs/quest-execution-passport.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

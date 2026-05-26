@@ -29,7 +29,7 @@ activation:
   note: open when the first bounded progression slice is ready to land
 anchor_ref:
   artifact: agent_progression_model
-  ref: docs/AGENT_PROGRESSION_MODEL.md
+  ref: mechanics/rpg/parts/progression-model/docs/agent-progression-model.md
   note: progression must stay adjunct to the source profile surface
 handoff_role: agent-layer-maintainer
 evidence:

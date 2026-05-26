@@ -1,10 +1,10 @@
 # Transition Discipline Part
 
-This part routes transition posture between runtime loop states inside
-`mechanics/runtime-seam/`.
+This part routes `transition-discipline` pressure inside `mechanics/runtime-seam/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Kind Safe Runtime Enforcement](docs/kind-safe-runtime-enforcement.md)
+- [Runtime Artifact Transitions](docs/runtime-artifact-transitions.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

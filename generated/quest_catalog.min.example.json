@@ -10,7 +10,7 @@
     "kind": "doctrine",
     "difficulty": "d4_architecture",
     "risk": "r2_contract",
-    "owner_surface": "docs/QUEST_EXECUTION_PASSPORT.md",
+    "owner_surface": "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
     "source_path": "quests/AOA-AG-Q-0001.yaml",
     "public_safe": true
   },
@@ -142,7 +142,7 @@
     "kind": "support",
     "difficulty": "d3_seam",
     "risk": "r2_contract",
-    "owner_surface": "docs/AGENT_RUNTIME_SEAM.md",
+    "owner_surface": "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
     "source_path": "quests/AOA-AG-Q-0007.yaml",
     "public_safe": true
   },
@@ -157,7 +157,7 @@
     "kind": "support",
     "difficulty": "d3_seam",
     "risk": "r2_contract",
-    "owner_surface": "docs/AGENT_RUNTIME_SEAM.md",
+    "owner_surface": "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
     "source_path": "quests/AOA-AG-Q-0008.yaml",
     "public_safe": true
   },
@@ -172,7 +172,7 @@
     "kind": "support",
     "difficulty": "d3_seam",
     "risk": "r2_contract",
-    "owner_surface": "docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md",
+    "owner_surface": "mechanics/checkpoint/parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md",
     "source_path": "quests/AOA-AG-Q-0009.yaml",
     "public_safe": true
   }

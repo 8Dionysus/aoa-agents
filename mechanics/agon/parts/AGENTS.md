@@ -7,7 +7,8 @@ This card applies to `mechanics/agon/parts/`.
 ## Role
 
 `parts/` is the lower active route for Agon part selection. It maps Agon
-pressure to the current part without moving root payload anchors.
+pressure to active part-local docs and any remaining source/support owner
+surfaces.
 
 ## Read Before Editing
 
@@ -17,7 +18,9 @@ pressure appears.
 
 ## Boundaries
 
-- Current payload anchors stay in their root districts until a later move.
+- Moved mechanics docs stay in the owning part-local `docs/` directory.
+- Remaining source/support payloads stay in their owner districts until a
+  package-local contract and validation route exist.
 - Legacy is reached through `../PROVENANCE.md`, not used as the first route.
 - Stronger owners keep Agon doctrine, proof verdicts, runtime execution,
   memory truth, and playbook choreography.

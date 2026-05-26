@@ -1,10 +1,10 @@
 # Stress Posture Part
 
-This part routes agent stress posture and handoff inside
-`mechanics/antifragility/`.
+This part routes `stress-posture` pressure inside `mechanics/antifragility/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Stress Handoffs](docs/stress-handoffs.md)
+- [Agent Stress Posture](docs/stress-posture.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

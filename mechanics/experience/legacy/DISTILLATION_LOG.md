@@ -1,8 +1,14 @@
 # Experience Legacy Distillation Log
 
-## 2026-05-25 Parts And Legacy Scaffold
+## 2026-05-26 Root Docs To Active Parts
 
-Created active `parts/` route and legacy scaffold for Experience.
+Moved 44 mechanics-facing docs out of root `docs/` and into active part-local `docs/` directories. Git history preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
-No raw files were copied into legacy. Current payload anchors remain in root
-districts and are routed through `../PARTS.md`.
+| Part | Moved docs |
+| --- | --- |
+| `adoption-and-regression` | 6 |
+| `arena-exclusion` | 3 |
+| `assistant-civil-service` | 8 |
+| `office-operations` | 12 |
+| `runtime-release-holds` | 7 |
+| `watch-and-rollback` | 8 |

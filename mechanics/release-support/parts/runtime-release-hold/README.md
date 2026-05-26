@@ -1,10 +1,9 @@
 # Runtime Release Hold Part
 
-This part routes release holds that affect runtime-facing role contracts inside
-`mechanics/release-support/`.
+This part routes `runtime-release-hold` pressure inside `mechanics/release-support/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Release Hold Policy](docs/agent-release-hold-policy.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

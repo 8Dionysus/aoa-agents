@@ -1,16 +1,14 @@
 # Antifragility Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `stress-posture` | agent stress posture and handoff | `docs/AGENT_STRESS_POSTURE.md`; `examples/agent_stress_posture.example.json`; stress schemas/examples |
-| `via-negativa` | negative checklist pressure phrased as operational route alternatives | `docs/VIA_NEGATIVA_CHECKLIST.md`; related tests |
-| `scar-adaptation` | shared scar, retention, and adaptation after Agon pressure | `docs/AGON_SHARED_SCAR_HARVEST.md`; `docs/AGON_RETENTION_READINESS.md`; cross-route to `mechanics/agon/` |
-| `checkpoint-survival` | stress that must remain reviewable before promotion | `mechanics/checkpoint/` |
+| `checkpoint-survival` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `scar-adaptation` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `stress-posture` | [Agent Stress Handoffs](parts/stress-posture/docs/stress-handoffs.md)<br>[Agent Stress Posture](parts/stress-posture/docs/stress-posture.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `via-negativa` | [Via Negativa Checklist](parts/via-negativa/docs/via-negativa-checklist.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-The current payload is smaller than Agon or experience, so this package remains
-thin. Keep stress examples and schemas in root districts until package-local
-validation exists.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

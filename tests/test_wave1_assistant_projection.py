@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = REPO_ROOT / "schemas" / "assistant-projection-resolver.schema.json"
 EXAMPLE_PATH = REPO_ROOT / "examples" / "assistant_projection_resolver.example.json"
-DOC_PATH = REPO_ROOT / "docs" / "CODEX_SUBAGENT_PROJECTION.md"
+DOC_PATH = REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "docs" / "subagent-projection.md"
 
 
 def load_json(path: Path) -> object:

@@ -1,10 +1,16 @@
 # Watch And Rollback Part
 
-This part routes deployment watch, post-release watch, rollback, and incident
-posture inside `mechanics/experience/`.
+This part routes `watch-and-rollback` pressure inside `mechanics/experience/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Assistant Deployment Watch](docs/deployment-watch.md)
+- [Assistant Post-Release Behavior Watch](docs/post-release-behavior-watch.md)
+- [Assistant Post Release Watch v1.0](docs/post-release-watch-v1-0.md)
+- [Assistant Post-Release Watch](docs/post-release-watch.md)
+- [Assistant Production Incident Re-entry](docs/production-incident-reentry.md)
+- [Assistant Rollback Drill](docs/rollback-drill.md)
+- [Assistant Rollout Rings](docs/rollout-rings.md)
+- [Assistant Safe Rollback](docs/safe-rollback.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

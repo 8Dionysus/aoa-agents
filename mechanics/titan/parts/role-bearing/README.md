@@ -1,10 +1,9 @@
 # Role Bearing Part
 
-This part routes Titan bearer ontology and role classes inside
-`mechanics/titan/`.
+This part routes `role-bearing` pressure inside `mechanics/titan/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Titan Role-Bearer Ontology](docs/role-bearer-ontology.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

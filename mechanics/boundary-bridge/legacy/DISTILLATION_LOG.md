@@ -1,8 +1,13 @@
 # Boundary Bridge Legacy Distillation Log
 
-## 2026-05-25 Parts And Legacy Scaffold
+## 2026-05-26 Root Docs To Active Parts
 
-Created active `parts/` route and legacy scaffold for Boundary Bridge.
+Moved 7 mechanics-facing docs out of root `docs/` and into active part-local `docs/` directories. Git history preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
-No raw files were copied into legacy. Current payload anchors remain in root
-districts and are routed through `../PARTS.md`.
+| Part | Moved docs |
+| --- | --- |
+| `consumer-handoff` | 1 |
+| `federation-consumer-seams` | 2 |
+| `published-compatibility` | 2 |
+| `source-surface-registry` | 1 |
+| `workspace-trigger` | 1 |

@@ -92,11 +92,11 @@ Before making changes, read in this order:
 
 Then branch by task:
 
-- progression, mastery axes, or unlock posture: `docs/AGENT_PROGRESSION_MODEL.md`
-- recurrence, return, or transition vocabulary: `docs/RECURRENCE_DISCIPLINE.md`
-- self-agent checkpoint posture: `docs/SELF_AGENT_CHECKPOINT_STACK.md`
-- orchestrator class or runtime seam work: `docs/ORCHESTRATOR_CLASS_MODEL.md` and `docs/AGENT_RUNTIME_SEAM.md`
-- Codex custom-agent projection work or repeated projection drift: `docs/CODEX_SUBAGENT_PROJECTION.md` and `docs/CODEX_SUBAGENT_REFRESH_LAW.md`
+- progression, mastery axes, or unlock posture: `mechanics/rpg/parts/progression-model/docs/agent-progression-model.md`
+- recurrence, return, or transition vocabulary: `mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md`
+- self-agent checkpoint posture: `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`
+- orchestrator class or runtime seam work: `docs/ORCHESTRATOR_CLASS_MODEL.md` and `mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md`
+- Codex custom-agent projection work or repeated projection drift: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md` and `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`
 
 If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 

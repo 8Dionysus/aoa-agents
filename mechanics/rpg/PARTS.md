@@ -1,15 +1,14 @@
 # RPG Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `progression-model` | agent progression and mastery posture | `docs/AGENT_PROGRESSION_MODEL.md`; progression schemas/examples if present |
-| `cohort-patterns` | role grouping and progression-readable cohorts | `agents/cohort_patterns/*.pattern.json`; generated cohort registry |
-| `quest-readable-status` | progress posture exposed to quest surfaces | `docs/QUEST_EXECUTION_PASSPORT.md`; `mechanics/questbook/` |
-| `checkpoint-growth` | growth status that must pass through reviewed checkpoint posture | `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`; `mechanics/checkpoint/` |
+| `checkpoint-growth` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `cohort-patterns` | [Agent Cohort Patterns](parts/cohort-patterns/docs/cohort-patterns.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `progression-model` | [Agent Progression Model](parts/progression-model/docs/agent-progression-model.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `quest-readable-status` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-This is a thin package. Keep it as a skeleton until progression has more
-source contracts than public route language.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

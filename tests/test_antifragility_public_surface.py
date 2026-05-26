@@ -38,13 +38,13 @@ class AntifragilityPublicSurfaceTests(unittest.TestCase):
     def test_stress_surfaces_are_discoverable_and_bounded(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
-        posture = (REPO_ROOT / "docs" / "AGENT_STRESS_POSTURE.md").read_text(encoding="utf-8")
-        handoffs = (REPO_ROOT / "docs" / "AGENT_STRESS_HANDOFFS.md").read_text(encoding="utf-8")
+        posture = (REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-posture.md").read_text(encoding="utf-8")
+        handoffs = (REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-handoffs.md").read_text(encoding="utf-8")
 
-        self.assertIn("docs/AGENT_STRESS_POSTURE.md", readme)
-        self.assertIn("docs/AGENT_STRESS_HANDOFFS.md", readme)
-        self.assertIn("AGENT_STRESS_POSTURE", docs_readme)
-        self.assertIn("AGENT_STRESS_HANDOFFS", docs_readme)
+        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-posture.md", readme)
+        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md", readme)
+        self.assertIn("Agent Stress Posture", docs_readme)
+        self.assertIn("Agent Stress Handoffs", docs_readme)
 
         for token in (
             "do not let a stress profile silently widen authority",

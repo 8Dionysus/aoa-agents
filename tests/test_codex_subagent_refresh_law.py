@@ -32,17 +32,17 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         agents = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
-        projection = (REPO_ROOT / "docs" / "CODEX_SUBAGENT_PROJECTION.md").read_text(
+        projection = (REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "docs" / "subagent-projection.md").read_text(
             encoding="utf-8"
         )
-        law = (REPO_ROOT / "docs" / "CODEX_SUBAGENT_REFRESH_LAW.md").read_text(
+        law = (REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "refresh-law" / "docs" / "subagent-refresh-law.md").read_text(
             encoding="utf-8"
         )
 
-        self.assertIn("docs/CODEX_SUBAGENT_REFRESH_LAW.md", readme)
-        self.assertIn("docs/CODEX_SUBAGENT_REFRESH_LAW.md", agents)
-        self.assertIn("CODEX_SUBAGENT_REFRESH_LAW", docs_readme)
-        self.assertIn("CODEX_SUBAGENT_REFRESH_LAW.md", projection)
+        self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", readme)
+        self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", agents)
+        self.assertIn("Codex Subagent Refresh Law", docs_readme)
+        self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", projection)
 
         for token in (
             "component:codex-subagents:projection",

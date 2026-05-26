@@ -1,8 +1,10 @@
 # Antifragility Legacy Distillation Log
 
-## 2026-05-25 Parts And Legacy Scaffold
+## 2026-05-26 Root Docs To Active Parts
 
-Created active `parts/` route and legacy scaffold for Antifragility.
+Moved 3 mechanics-facing docs out of root `docs/` and into active part-local `docs/` directories. Git history preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
-No raw files were copied into legacy. Current payload anchors remain in root
-districts and are routed through `../PARTS.md`.
+| Part | Moved docs |
+| --- | --- |
+| `stress-posture` | 2 |
+| `via-negativa` | 1 |

@@ -1,10 +1,9 @@
 # Role Tier Bindings Part
 
-This part routes source role bindings for the public runtime loop inside
-`mechanics/runtime-seam/`.
+This part routes `role-tier-bindings` pressure inside `mechanics/runtime-seam/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Runtime Seam](docs/agent-runtime-seam.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

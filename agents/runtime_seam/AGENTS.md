@@ -18,8 +18,8 @@ Published derived surface:
 
 Read with:
 
-- `docs/AGENT_RUNTIME_SEAM.md`
-- `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`
+- `mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md`
+- `mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md`
 
 ## Contract to preserve
 

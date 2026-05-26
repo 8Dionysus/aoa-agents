@@ -1,7 +1,8 @@
 # RPG Legacy Index
 
-No raw RPG receipts are preserved in this package yet.
+This index is for old-path lookup only. Current behavior lives in the active part route named in the table.
 
-Current root payload anchors are mapped in `../PARTS.md`; they are current
-owner-district payloads, not legacy payloads. When a later move changes an old
-path, add a row here mapping the former source to the new active part.
+| Former root path | Active part route | Status |
+| --- | --- | --- |
+| `docs/AGENT_COHORT_PATTERNS.md` | [mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md](../parts/cohort-patterns/docs/cohort-patterns.md) | moved into `cohort-patterns` docs on 2026-05-26 |
+| `docs/AGENT_PROGRESSION_MODEL.md` | [mechanics/rpg/parts/progression-model/docs/agent-progression-model.md](../parts/progression-model/docs/agent-progression-model.md) | moved into `progression-model` docs on 2026-05-26 |

@@ -1,19 +1,17 @@
 # Titan Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `role-bearing` | Titan bearer ontology and role classes | `docs/TITAN_ROLE_BEARER_ONTOLOGY.md`; `config/titan_bearers.v0.json`; `config/titan_role_classes.v0.json`; Titan role schemas/examples |
-| `lineage-ledger` | lineage preservation for role-bearing surfaces | `docs/TITAN_LINEAGE_LEDGER.md`; `config/titan_lineage_ledger.v0.json`; generated Titan lineage readers |
-| `summon-boundary` | keep summon protocol bounded to agent role posture | `docs/TITAN_SUMMON_BOUNDARY.md`; `docs/TITAN_SUMMON_PROTOCOL.md` |
-| `runtime-roster` | runtime-facing roster contract without owning runtime execution | `docs/TITAN_RUNTIME_ROSTER.md`; `docs/TITAN_APPSERVER_BRIDGE.md`; cross-route to `mechanics/runtime-seam/` |
-| `incarnation-spine` | incarnation, praxis, and operator-facing role surfaces | `docs/TITAN_INCARNATION_SPINE.md`; `docs/TITAN_PRAXIS_PLANE.md`; `docs/TITAN_OPERATOR_CONSOLE.md` |
-| `service-cohort` | service cohort, recall, memory loom, swarm, reviewer/judge posture | `docs/TITAN_SERVICE_COHORT.md`; `docs/TITAN_RECALL.md`; `docs/TITAN_MEMORY_LOOM.md`; `docs/TITAN_SWARM.md`; `docs/TITAN_REVIEWER_JUDGE_COMPRESSION.md` |
-| `codex-projection` | Titan projection into Codex-facing generated agents | `generated/titan_codex_agents/`; Titan projection builders/tests; cross-route to `mechanics/codex-projection/` |
+| `codex-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `incarnation-spine` | [Titan Incarnation Spine](parts/incarnation-spine/docs/incarnation-spine.md)<br>[Titan Operator Console Boundary](parts/incarnation-spine/docs/operator-console-boundary.md)<br>[Titan Praxis Plane](parts/incarnation-spine/docs/praxis-plane.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `lineage-ledger` | [Titan Lineage Ledger](parts/lineage-ledger/docs/lineage-ledger.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `role-bearing` | [Titan Role-Bearer Ontology](parts/role-bearing/docs/role-bearer-ontology.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `runtime-roster` | [Titan Agent Report Boundary](parts/runtime-roster/docs/agent-report-boundary.md)<br>[Titan App-Server Bridge Boundary](parts/runtime-roster/docs/appserver-bridge-boundary.md)<br>[Titan Runtime Roster](parts/runtime-roster/docs/runtime-roster.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `service-cohort` | [Titan Memory Loom Boundary](parts/service-cohort/docs/memory-loom-boundary.md)<br>[Titan Recall Authority](parts/service-cohort/docs/recall-authority.md)<br>[Titan Reviewer/Judge Compression Law](parts/service-cohort/docs/reviewer-judge-compression-law.md)<br>[Titan Service Cohort](parts/service-cohort/docs/service-cohort.md)<br>[Titan Swarm Participation](parts/service-cohort/docs/swarm-participation.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `summon-boundary` | [Titan Summon Boundary](parts/summon-boundary/docs/summon-boundary.md)<br>[Titan Summon Protocol v2](parts/summon-boundary/docs/summon-protocol-v2.md)<br>[Wave5 A2A Summon Return Role Posture Hold](parts/summon-boundary/docs/wave5-a2a-summon-return-role-posture-hold.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-Titan has enough local pressure for a package, but source config and generated
-readers stay in `config/` and `generated/` until package-local validation is
-introduced.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

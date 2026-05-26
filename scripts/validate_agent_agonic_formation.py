@@ -162,13 +162,13 @@ def validate_generated_index() -> None:
 
 def validate_docs() -> None:
     for filename in [
-        "docs/AGONIC_ACTOR_RECHARTERING.md",
-        "docs/AGENT_KIND_MODEL.md",
-        "docs/AGENT_SUBJECTIVITY_MODEL.md",
-        "docs/AGENT_OFFICE_MODEL.md",
-        "docs/AGENT_ARENA_ELIGIBILITY_MODEL.md",
-        "docs/AGENT_RESISTANCE_REVISION_POSTURE.md",
-        "docs/AGON_WAVE1_LANDING.md",
+        "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+        "mechanics/agon/parts/formation/docs/kind-model.md",
+        "mechanics/agon/parts/formation/docs/subjectivity-model.md",
+        "mechanics/experience/parts/office-operations/docs/agent-office-model.md",
+        "mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md",
+        "mechanics/agon/parts/formation/docs/resistance-revision-posture.md",
+        "mechanics/agon/parts/formation/docs/wave1-landing.md",
     ]:
         path = ROOT / filename
         require(path.exists(), f"missing doc: {filename}")

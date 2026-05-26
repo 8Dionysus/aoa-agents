@@ -1,10 +1,13 @@
 # Service Cohort Part
 
-This part routes service cohort, recall, memory loom, swarm, and reviewer/judge
-posture inside `mechanics/titan/`.
+This part routes `service-cohort` pressure inside `mechanics/titan/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Titan Memory Loom Boundary](docs/memory-loom-boundary.md)
+- [Titan Recall Authority](docs/recall-authority.md)
+- [Titan Reviewer/Judge Compression Law](docs/reviewer-judge-compression-law.md)
+- [Titan Service Cohort](docs/service-cohort.md)
+- [Titan Swarm Participation](docs/swarm-participation.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

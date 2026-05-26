@@ -74,8 +74,9 @@ Read:
 - Source role objects stay in `agents/`.
 - Shared schemas stay in `schemas/` until a mechanic-specific contract and
   validator make a narrower package-local home real.
-- Public explanation can stay in `docs/` while this atlas is still the active
-  route owner for operation topology.
+- Mechanics-facing public docs live in part-local `mechanics/*/parts/*/docs/`
+  once moved; root `docs/` keeps only broader docs-surface entrypoints and
+  non-mechanic conceptual models.
 - Generated companions stay weaker than builders and source surfaces.
 - `legacy/` preserves lineage and path accounting; it is not the default route
   for current edits.
@@ -93,8 +94,9 @@ A new child mechanic should appear only when it has:
 - validation route
 - a decision or explicit route note when it changes repository topology
 
-The current child packages are skeletons. They own route and part maps; they do
-not yet own migrated payloads from root districts.
+The current child packages own route maps, part maps, and migrated
+mechanics-facing docs. Other root-district payload classes move only after
+their package-local contract and validation route are explicit.
 
 ## Validation
 

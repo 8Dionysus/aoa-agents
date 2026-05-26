@@ -3,10 +3,10 @@
 This recon records why the current mechanic skeleton exists. It is a route
 map over payload pressure, not permission to move every matching file.
 
-## Root Folder Sweep
+## Pre-Move Root Folder Sweep
 
-The current root payload inventory found mechanic-bearing files in every large
-root district:
+The initial root payload inventory found mechanic-bearing files in every large
+root district before the 2026-05-26 docs landing:
 
 | Root folder | File count | Mechanic pressure |
 | --- | ---: | --- |
@@ -78,4 +78,7 @@ mechanic has:
   contract
 - a decision or route note when the move changes lookup topology
 
-Until then, package skeletons are route owners only.
+The docs landing satisfies that rule for mechanics-facing public docs by moving
+them into part-local `docs/` directories and preserving old-path accounting in
+package `PROVENANCE.md` plus `legacy/`. Other payload classes still need their
+own move proof before leaving their current owner districts.

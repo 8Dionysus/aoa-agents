@@ -69,15 +69,15 @@ class DownstreamFeedContractsTests(unittest.TestCase):
     def test_workspace_surface_trigger_posture_is_linked_and_bounded(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
-        posture = (REPO_ROOT / "docs" / "WORKSPACE_SURFACE_TRIGGER_POSTURE.md").read_text(
+        posture = (REPO_ROOT / "mechanics" / "boundary-bridge" / "parts" / "workspace-trigger" / "docs" / "workspace-surface-trigger-posture.md").read_text(
             encoding="utf-8"
         )
-        seams = (REPO_ROOT / "docs" / "FEDERATION_CONSUMER_SEAMS.md").read_text(
+        seams = (REPO_ROOT / "mechanics" / "boundary-bridge" / "parts" / "federation-consumer-seams" / "docs" / "federation-consumer-seams.md").read_text(
             encoding="utf-8"
         )
 
-        self.assertIn("docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md", readme)
-        self.assertIn("WORKSPACE_SURFACE_TRIGGER_POSTURE", docs_readme)
+        self.assertIn("mechanics/boundary-bridge/parts/workspace-trigger/docs/workspace-surface-trigger-posture.md", readme)
+        self.assertIn("Workspace Surface Trigger Posture", docs_readme)
 
         for token in (
             "`aoa surfaces detect` is additive and read-only.",

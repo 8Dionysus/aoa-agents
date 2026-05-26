@@ -1,6 +1,6 @@
 # Agon Provenance Bridge
 
-`PROVENANCE.md` is the active-to-legacy bridge for this mechanic.
+`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
 
 Use active surfaces first:
 
@@ -8,9 +8,44 @@ Use active surfaces first:
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Root payload anchors listed in `PARTS.md` remain current source, support,
-generated, or validation surfaces until a later package-local move changes
-their path.
+Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
 
-Open [legacy/README.md](legacy/README.md) only for old-route accounting,
-historical source lookup, or raw receipt intake.
+## 2026-05-26 Root Docs Move
+
+33 mechanics-facing docs moved from `docs/` into `agon/parts/*/docs/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `docs/AGENT_KIND_ADOPTION_BOUNDARIES.md` | [parts/adoption-retention/docs/kind-adoption-boundaries.md](parts/adoption-retention/docs/kind-adoption-boundaries.md) | `adoption-retention` |
+| `docs/AGONIC_PATTERN_ADOPTION_TRIALS.md` | [parts/adoption-retention/docs/pattern-adoption-trials.md](parts/adoption-retention/docs/pattern-adoption-trials.md) | `adoption-retention` |
+| `docs/AGONIC_SHARED_SCAR_HARVEST.md` | [parts/adoption-retention/docs/shared-scar-harvest.md](parts/adoption-retention/docs/shared-scar-harvest.md) | `adoption-retention` |
+| `docs/AGON_AGENT_RETENTION_READINESS.md` | [parts/adoption-retention/docs/retention-readiness.md](parts/adoption-retention/docs/retention-readiness.md) | `adoption-retention` |
+| `docs/AGENT_ARENA_ELIGIBILITY_MODEL.md` | [parts/arena-rank-school/docs/arena-eligibility-model.md](parts/arena-rank-school/docs/arena-eligibility-model.md) | `arena-rank-school` |
+| `docs/AGENT_KIND_CONFLICT_RESOLUTION.md` | [parts/arena-rank-school/docs/kind-conflict-resolution.md](parts/arena-rank-school/docs/kind-conflict-resolution.md) | `arena-rank-school` |
+| `docs/AGON_AGENT_RANK_JURISDICTION_SURFACES.md` | [parts/arena-rank-school/docs/rank-jurisdiction-surfaces.md](parts/arena-rank-school/docs/rank-jurisdiction-surfaces.md) | `arena-rank-school` |
+| `docs/AGON_AGENT_SCHOOL_CAMPAIGN_POSTURE.md` | [parts/arena-rank-school/docs/school-campaign-posture.md](parts/arena-rank-school/docs/school-campaign-posture.md) | `arena-rank-school` |
+| `docs/AGON_ASSISTANT_CAMPAIGN_BOUNDARY.md` | [parts/arena-rank-school/docs/assistant-campaign-boundary.md](parts/arena-rank-school/docs/assistant-campaign-boundary.md) | `arena-rank-school` |
+| `docs/AGON_ASSISTANT_RANK_BOUNDARY.md` | [parts/arena-rank-school/docs/assistant-rank-boundary.md](parts/arena-rank-school/docs/assistant-rank-boundary.md) | `arena-rank-school` |
+| `docs/AGON_SCHOOL_AFFILIATION_BOUNDARY.md` | [parts/arena-rank-school/docs/school-affiliation-boundary.md](parts/arena-rank-school/docs/school-affiliation-boundary.md) | `arena-rank-school` |
+| `docs/AGON_WAVE14_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/wave14-agents-landing.md](parts/arena-rank-school/docs/wave14-agents-landing.md) | `arena-rank-school` |
+| `docs/AGON_WAVE16_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/wave16-agents-landing.md](parts/arena-rank-school/docs/wave16-agents-landing.md) | `arena-rank-school` |
+| `docs/AGON_ASSISTANT_EPISTEMIC_BOUNDARY.md` | [parts/epistemic-actor/docs/assistant-epistemic-boundary.md](parts/epistemic-actor/docs/assistant-epistemic-boundary.md) | `epistemic-actor` |
+| `docs/AGON_CONCEPT_DELTA_ACTOR_BOUNDARY.md` | [parts/epistemic-actor/docs/concept-delta-actor-boundary.md](parts/epistemic-actor/docs/concept-delta-actor-boundary.md) | `epistemic-actor` |
+| `docs/AGON_EPISTEMIC_ACTOR_POSTURE.md` | [parts/epistemic-actor/docs/epistemic-actor-posture.md](parts/epistemic-actor/docs/epistemic-actor-posture.md) | `epistemic-actor` |
+| `docs/AGON_MODEL_OF_OTHER_ACTOR_BOUNDARY.md` | [parts/epistemic-actor/docs/model-of-other-actor-boundary.md](parts/epistemic-actor/docs/model-of-other-actor-boundary.md) | `epistemic-actor` |
+| `docs/AGON_WAVE15_AGENTS_LANDING.md` | [parts/epistemic-actor/docs/wave15-agents-landing.md](parts/epistemic-actor/docs/wave15-agents-landing.md) | `epistemic-actor` |
+| `docs/AGENT_FORMATION_TRIAL.md` | [parts/formation/docs/formation-trial.md](parts/formation/docs/formation-trial.md) | `formation` |
+| `docs/AGENT_KIND_MODEL.md` | [parts/formation/docs/kind-model.md](parts/formation/docs/kind-model.md) | `formation` |
+| `docs/AGENT_RESISTANCE_REVISION_POSTURE.md` | [parts/formation/docs/resistance-revision-posture.md](parts/formation/docs/resistance-revision-posture.md) | `formation` |
+| `docs/AGENT_SUBJECTIVITY_MODEL.md` | [parts/formation/docs/subjectivity-model.md](parts/formation/docs/subjectivity-model.md) | `formation` |
+| `docs/AGENT_SUBJECT_PREP.md` | [parts/formation/docs/subject-prep.md](parts/formation/docs/subject-prep.md) | `formation` |
+| `docs/AGONIC_ACTOR_RECHARTERING.md` | [parts/formation/docs/actor-rechartering.md](parts/formation/docs/actor-rechartering.md) | `formation` |
+| `docs/AGON_WAVE1_LANDING.md` | [parts/formation/docs/wave1-landing.md](parts/formation/docs/wave1-landing.md) | `formation` |
+| `docs/AGON_WAVE2_5_LANDING.md` | [parts/formation/docs/wave2-5-landing.md](parts/formation/docs/wave2-5-landing.md) | `formation` |
+| `docs/AGON_WAVE2_LANDING.md` | [parts/formation/docs/wave2-landing.md](parts/formation/docs/wave2-landing.md) | `formation` |
+| `docs/AGONIC_GOVERNANCE_TRIALS.md` | [parts/pre-protocol-boundary/docs/governance-trials.md](parts/pre-protocol-boundary/docs/governance-trials.md) | `pre-protocol-boundary` |
+| `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md` | [parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md](parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md) | `pre-protocol-boundary` |
+| `docs/FORMATION_TRIAL_READINESS.md` | [parts/pre-protocol-boundary/docs/formation-trial-readiness.md](parts/pre-protocol-boundary/docs/formation-trial-readiness.md) | `pre-protocol-boundary` |
+| `docs/AGONIC_TRIAL_RUNTIME_HOLDS.md` | [parts/recursor-boundary/docs/trial-runtime-holds.md](parts/recursor-boundary/docs/trial-runtime-holds.md) | `recursor-boundary` |
+| `docs/AGON_RECURRENCE_ADAPTER.md` | [parts/recursor-boundary/docs/recurrence-adapter.md](parts/recursor-boundary/docs/recurrence-adapter.md) | `recursor-boundary` |
+| `docs/AGON_RECURSOR_BOUNDARY.md` | [parts/recursor-boundary/docs/recursor-boundary.md](parts/recursor-boundary/docs/recursor-boundary.md) | `recursor-boundary` |

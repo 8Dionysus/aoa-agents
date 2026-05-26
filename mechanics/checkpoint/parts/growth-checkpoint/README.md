@@ -1,10 +1,9 @@
 # Growth Checkpoint Part
 
-This part routes checkpoint-facing progression and growth posture inside
-`mechanics/checkpoint/`.
+This part routes `growth-checkpoint` pressure inside `mechanics/checkpoint/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Workspace checkpoint-growth role posture](docs/workspace-checkpoint-growth-role-posture.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -1,10 +1,10 @@
 # Federation Consumer Seams Part
 
-This part routes consumer seams and federation projection boundaries inside
-`mechanics/boundary-bridge/`.
+This part routes `federation-consumer-seams` pressure inside `mechanics/boundary-bridge/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Federation Consumer Seams](docs/federation-consumer-seams.md)
+- [Federation Projection Boundaries](docs/federation-projection-boundaries.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

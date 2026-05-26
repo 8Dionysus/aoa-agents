@@ -1,6 +1,6 @@
 # Questbook Provenance Bridge
 
-`PROVENANCE.md` is the active-to-legacy bridge for this mechanic.
+`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
 
 Use active surfaces first:
 
@@ -8,9 +8,12 @@ Use active surfaces first:
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Questbook source files, quests, generated readers, passport docs, examples,
-and schemas remain in their current owner districts until a later
-package-local move.
+Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
 
-Open [legacy/README.md](legacy/README.md) only for old-route accounting,
-historical source lookup, or raw receipt intake.
+## 2026-05-26 Root Docs Move
+
+1 mechanics-facing docs moved from `docs/` into `questbook/parts/*/docs/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `docs/QUEST_EXECUTION_PASSPORT.md` | [parts/execution-passport/docs/quest-execution-passport.md](parts/execution-passport/docs/quest-execution-passport.md) | `execution-passport` |

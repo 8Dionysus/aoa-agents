@@ -1,10 +1,9 @@
 # Agon Boundary Part
 
-This part routes the boundary that prevents Agon formation pressure from
-leaking into Codex projection authority inside `mechanics/codex-projection/`.
+This part routes `agon-boundary` pressure inside `mechanics/codex-projection/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Codex Projection Agon Boundary](docs/projection-agon-boundary.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -18,8 +18,8 @@ Published derived surface:
 
 Read with:
 
-- `docs/AGENT_COHORT_PATTERNS.md`
-- `docs/SELF_AGENT_CHECKPOINT_STACK.md`
+- `mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md`
+- `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`
 
 ## Official pattern set
 

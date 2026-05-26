@@ -1,6 +1,5 @@
-# Checkpoint Raw Legacy
+# Checkpoint Raw Legacy Receipts
 
-Raw Checkpoint source receipts are preserved here only when real historical
-material must remain reviewable after distillation.
+No raw receipts are stored here unless a future migration needs to preserve a source exactly as received.
 
-Current raw inventory: none preserved.
+Former root docs moved in the 2026-05-26 slice are tracked through git history, `../INDEX.md`, and `../../PROVENANCE.md`; they are not duplicated here.

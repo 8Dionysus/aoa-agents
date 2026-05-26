@@ -16,12 +16,12 @@ class Wave1RouteSurfacesTestCase(unittest.TestCase):
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
 
-        self.assertIn("docs/AGONIC_ACTOR_RECHARTERING.md", readme)
+        self.assertIn("mechanics/agon/parts/formation/docs/actor-rechartering.md", readme)
         self.assertIn("generated/agent_agonic_formation_index.min.json", readme)
         self.assertIn("python scripts/validate_agent_agonic_formation.py", readme)
-        self.assertIn("AGONIC_ACTOR_RECHARTERING", docs_readme)
-        self.assertIn("AGENT_KIND_MODEL", docs_readme)
-        self.assertIn("AGENT_RESISTANCE_REVISION_POSTURE", docs_readme)
+        self.assertIn("Agonic Actor Rechartering", docs_readme)
+        self.assertIn("Agent Kind Model", docs_readme)
+        self.assertIn("Agent Resistance and Revision Posture", docs_readme)
 
     def test_local_guides_name_wave1_companion_surfaces(self) -> None:
         profiles_agents = read_text("agents/profiles/AGENTS.md")

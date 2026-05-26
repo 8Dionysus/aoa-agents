@@ -10,11 +10,11 @@ from typing import Any
 
 EXPECTED_BASE_ROLES = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
 REQUIRED_DOCS = [
-    "docs/AGENT_FORMATION_TRIAL.md",
-    "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
-    "docs/FORMATION_TRIAL_READINESS.md",
-    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
-    "docs/AGON_WAVE2_5_LANDING.md",
+    "mechanics/agon/parts/formation/docs/formation-trial.md",
+    "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
+    "mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md",
+    "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
+    "mechanics/agon/parts/formation/docs/wave2-5-landing.md",
 ]
 FORBIDDEN_LIVE_KEYS = {
     "arena_session",

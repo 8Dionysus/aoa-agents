@@ -2,7 +2,8 @@
 
 ## Status
 
-Accepted.
+Accepted. Extended by
+[`2026-05-26-mechanics-docs-part-localization.md`](2026-05-26-mechanics-docs-part-localization.md).
 
 ## Context
 
@@ -47,13 +48,13 @@ agent-layer mechanics:
 
 Each package starts with `README.md` and `PARTS.md`. The skeletons name the
 operation, current payload anchors, stronger-owner stop-lines, and validation
-route. They do not move payloads from root districts.
+route. In this skeleton slice they did not move payloads from root districts.
 
 Extend each package with:
 
 - `parts/AGENTS.md` and `parts/README.md` as the active lower part route;
-- child `parts/<part>/README.md` cards for each named current part, while
-  payload anchors still remain in root districts;
+- child `parts/<part>/README.md` cards for each named current part, while this
+  slice kept payload anchors in root districts;
 - `PROVENANCE.md` as the active bridge into legacy;
 - `legacy/AGENTS.md`, `legacy/README.md`, `legacy/INDEX.md`,
   `legacy/DISTILLATION_LOG.md`, and `legacy/raw/README.md` as provenance and
@@ -77,8 +78,8 @@ experience posture rather than the whole repository layer.
 - Historical or old-path lookup starts from `PROVENANCE.md`, then enters
   `legacy/`; legacy is not the normal first route for current behavior.
 - `docs/`, `schemas/`, `examples/`, `scripts/`, `tests/`, `generated/`,
-  `config/`, `manifests/`, and `quests/` remain authoritative root districts
-  for their current payload classes.
+  `config/`, `manifests/`, and `quests/` remained authoritative root districts
+  for their current payload classes in this skeleton slice.
 - A later payload move must be a smaller slice with package-local validation,
   compatibility handling, and a route note when lookup topology changes.
 - The skeleton may grow or split, but it should stay operation-first rather

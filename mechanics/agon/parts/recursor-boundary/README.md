@@ -1,10 +1,11 @@
 # Recursor Boundary Part
 
-This part routes Agon-facing recursor and recurrence limits inside
-`mechanics/agon/`.
+This part routes `recursor-boundary` pressure inside `mechanics/agon/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agon Recurrence Adapter](docs/recurrence-adapter.md)
+- [Agon Recursor Boundary](docs/recursor-boundary.md)
+- [Agonic Trial Runtime Holds](docs/trial-runtime-holds.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

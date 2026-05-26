@@ -149,11 +149,11 @@
     }
   ],
   "source_docs": [
-    "docs/RECURSOR_AGENT_READINESS.md",
-    "docs/RECURSOR_WITNESS_CONTRACT.md",
-    "docs/RECURSOR_EXECUTOR_CONTRACT.md",
-    "docs/RECURSOR_PAIR_SEPARATION_LAW.md",
-    "docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md",
-    "docs/AGON_RECURSOR_BOUNDARY.md"
+    "mechanics/recurrence/parts/recursor-readiness/docs/recursor-agent-readiness.md",
+    "mechanics/recurrence/parts/recursor-readiness/docs/recursor-witness-contract.md",
+    "mechanics/recurrence/parts/recursor-readiness/docs/recursor-executor-contract.md",
+    "mechanics/recurrence/parts/recursor-readiness/docs/recursor-pair-separation-law.md",
+    "mechanics/recurrence/parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md",
+    "mechanics/agon/parts/recursor-boundary/docs/recursor-boundary.md"
   ]
 }

@@ -1,10 +1,9 @@
 # Continuity Lane Part
 
-This part routes agent continuity without claiming durable memory truth inside
-`mechanics/checkpoint/`.
+This part routes `continuity-lane` pressure inside `mechanics/checkpoint/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Self-Agency Continuity Lane](docs/self-agency-continuity-lane.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.
