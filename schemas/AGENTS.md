@@ -2,6 +2,9 @@
 
 ## Guidance for `schemas/`
 
+Use [README.md](README.md) as the root schema district index. This card owns
+edit posture, root-vs-mechanic schema boundaries, and validation route.
+
 `schemas/` holds shared contracts for profiles, model tiers, orchestrator classes, cohorts, and runtime-seam registry bindings.
 
 Mechanic-specific runtime artifact schemas live under
@@ -67,6 +70,10 @@ Mechanic-specific agent service schemas live under
 validated by `scripts/validate_agent_service_contracts.py`.
 
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
+
+Root schema payloads stay here when they constrain repo-wide agent source
+families or generated registries. Mechanic-specific schemas belong under the
+owning mechanic part once that part has route cards and validators.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.
 

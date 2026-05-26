@@ -206,6 +206,11 @@ and examples live in Agon and Experience parts, but
 `generated/agent_formation_trial.min.json` remain root-published because they
 summarize `agents/` source objects and feed repo-wide role readiness.
 
+The root agent schema posture applies the same rule to remaining root schemas:
+shared role/profile, registry, tier, orchestrator, cohort, and runtime-seam
+schemas stay under `schemas/` because they constrain `agents/` source families
+and repo-wide generated registries. They are not waiting for mechanics moves.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
