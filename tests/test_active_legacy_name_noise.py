@@ -14,6 +14,7 @@ LEGACY_NAME_RE = re.compile(
 )
 EXCLUDED_PARTS = {
     ".git",
+    ".deps",
     ".pytest_cache",
     "__pycache__",
     "legacy",
