@@ -54,10 +54,6 @@ from validate_agent_service_contracts import (
     AgentServiceContractsValidationError,
     validate_agent_service_contracts,
 )
-from validate_assistant_projection_resolver import (
-    AssistantProjectionResolverValidationError,
-    validate_assistant_projection_resolver,
-)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -142,6 +138,17 @@ CodexRefreshLawContractsValidationError = (
 )
 validate_codex_refresh_law_contracts = (
     _CODEX_REFRESH_LAW_MODULE.validate_codex_refresh_law_contracts
+)
+
+_ASSISTANT_PROJECTION_RESOLVER_MODULE = load_repo_python_module(
+    "assistant_projection_resolver_validator",
+    "mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py",
+)
+AssistantProjectionResolverValidationError = (
+    _ASSISTANT_PROJECTION_RESOLVER_MODULE.AssistantProjectionResolverValidationError
+)
+validate_assistant_projection_resolver = (
+    _ASSISTANT_PROJECTION_RESOLVER_MODULE.validate_assistant_projection_resolver
 )
 
 
@@ -3736,6 +3743,7 @@ def main() -> int:
     print("[ok] validated generated/cohort_composition_registry.json")
     print("[ok] validated generated/runtime_seam_bindings.json")
     print("[ok] validated generated/codex_agents projection surfaces")
+    print("[ok] validated assistant projection resolver part-local contracts")
     print("[ok] validated Codex refresh-law part-local contracts")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")

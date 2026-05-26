@@ -98,8 +98,10 @@ The 2026-05-26 assistant projection resolver localization moves Codex-facing
 assistant projection resolver schemas and example from root `schemas/` and
 `examples/` into active
 `mechanics/codex-projection/parts/assistant-projection/{schemas,examples}/`
-routes after adding a part-local validator. Stable schema `$id` values remain
-public contract identifiers, not active repo paths.
+routes. The validator and focused test now live beside the same part under
+`mechanics/codex-projection/parts/assistant-projection/{scripts,tests}/`.
+Stable schema `$id` values remain public contract identifiers, not active repo
+paths.
 
 The 2026-05-26 runtime artifact contract localization moves runtime artifact
 schemas, examples, and invalid fixtures from root `schemas/` and `examples/`

@@ -34,7 +34,8 @@ Mechanic-specific RPG progression schemas live under
 
 Mechanic-specific assistant projection resolver schemas live under
 `mechanics/codex-projection/parts/assistant-projection/schemas/` and are
-validated by `scripts/validate_assistant_projection_resolver.py`.
+validated by
+`mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py`.
 
 Mechanic-specific recursor schemas live under
 `mechanics/recurrence/parts/recursor-readiness/schemas/`,
