@@ -1,0 +1,41 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T103250Z:b4600ae3-aoa-agents-localized-experience-adoption-boundary-checks",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Wave III adoption/boundary validator and focused test into mechanics/experience package routes; root scripts/tests no longer own those checks, while the Experience package validator guards former root check absence and cross-routes Agon and Boundary Bridge contract parts.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-experience-adoption-boundary-check-localization.md",
+    "mechanics/experience/PROVENANCE.md",
+    "mechanics/experience/PARTS.md",
+    "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",
+    "mechanics/experience/tests/test_experience_wave3_seed_contracts.py",
+    "mechanics/agon/parts/adoption-retention/README.md",
+    "mechanics/boundary-bridge/PARTS.md",
+    "scripts/validate_agents.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/b4600ae3fb7237277605a80e9b4e8f278afe84e8",
+    "repo:aoa-agents/pull/203",
+    "repo:aoa-agents/commit/e892fa65b2718d68fe3a25c07f6d7926fa570a8c",
+    "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",
+    "mechanics/experience/tests/test_experience_wave3_seed_contracts.py",
+    "mechanics/experience/legacy/INDEX.md",
+    "mechanics/experience/legacy/DISTILLATION_LOG.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/PAYLOAD_RECON.md"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T10:32:50Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
