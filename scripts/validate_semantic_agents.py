@@ -23,7 +23,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'source-authored agent home',
             'agents/README.md',
             'source_home.manifest.json',
-            'agents/profiles/',
+            'agents/roles/',
             'mechanics/',
             'validate_agents.py',
         ),

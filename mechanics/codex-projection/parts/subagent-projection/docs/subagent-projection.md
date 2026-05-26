@@ -15,7 +15,7 @@ here.
 
 Keep this order:
 
-1. `agents/profiles/*.profile.json`
+1. `agents/roles/*/profile.json`
 2. `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
 3. generated `generated/codex_agents/agents/*.toml`
 4. workspace install under `.codex/agents/`
@@ -56,7 +56,7 @@ meaning, their source profile, or the projection law that produced them.
 - hand-authoring `/srv/AbyssOS/.codex/agents/*.toml` as if installed files were the
   role source of truth
 - copying archive-pack fixtures straight into the workspace without regenerating
-  from live `agents/profiles/*.profile.json`
+  from live `agents/roles/*/profile.json`
 - duplicating MCP server definitions into every custom-agent TOML file
 
 ## Tradeoffs
@@ -70,7 +70,7 @@ surface instead of mixing them together.
 
 ## What lives where
 
-- `agents/profiles/*.profile.json` owns role meaning.
+- `agents/roles/*/profile.json` owns role meaning.
 - `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json` owns projection-time Codex policy such
   as sandbox posture, nickname candidates, and MCP affinity guidance.
 - `generated/codex_agents/agents/*.toml` is the generated Codex custom-agent
@@ -113,7 +113,7 @@ Validate the committed projection:
 
 ```bash
 python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py \
-  --profiles-root agents/profiles \
+  --profiles-root agents/roles \
   --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json \
   --agents-dir generated/codex_agents/agents \
   --config-snippet generated/codex_agents/config.subagents.generated.toml \

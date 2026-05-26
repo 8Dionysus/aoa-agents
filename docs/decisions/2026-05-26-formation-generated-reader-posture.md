@@ -23,8 +23,8 @@ Sibling source comparison showed two patterns:
   only when they summarize part-local source truth such as configs, schemas,
   examples, or mechanic payloads.
 
-The formation readers are built from `agents/profiles/`,
-`agents/profiles/adjuncts/`, and other root generated formation readers. The
+The formation readers are built from `agents/roles/`,
+`agents/roles/*/forms/`, and other root generated formation readers. The
 Agon and Experience parts own formation contracts, examples, docs, and
 stop-lines, but not the authored agent source records.
 

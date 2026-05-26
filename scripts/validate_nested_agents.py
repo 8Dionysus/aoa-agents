@@ -24,34 +24,41 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'source-authored agent home',
         'agents/README.md',
         'source_home.manifest.json',
-        'agents/profiles/',
+        'agents/roles/',
         'mechanics/',
     ),
-    'agents/profiles/AGENTS.md': (
+    'agents/roles/AGENTS.md': (
         'source-authored role-contract surface',
-        'agents/profiles/*.profile.json',
+        'agents/roles/*/profile.json',
         'generated/agent_registry.min.json',
         'docs/AGENT_PROFILE_SURFACE.md',
     ),
-    'agents/model_tiers/AGENTS.md': (
+    'agents/operating-model/AGENTS.md': (
+        'cross-role operating branch',
+        'tiers',
+        'orchestrators',
+        'cohorts',
+        'runtime seams',
+    ),
+    'agents/operating-model/tiers/AGENTS.md': (
         'tier-oriented source-authored surface',
         'generated/model_tier_registry.json',
         'not model brands',
         'route -> plan -> do -> verify -> deep? -> distill',
     ),
-    'agents/orchestrator_classes/AGENTS.md': (
+    'agents/operating-model/orchestrators/AGENTS.md': (
         'source-authored class-identity surface',
         'generated/orchestrator_class_catalog.min.json',
         'generated/orchestrator_class_capsules.json',
         'generated/orchestrator_class_sections.full.json',
     ),
-    'agents/cohort_patterns/AGENTS.md': (
+    'agents/operating-model/cohorts/AGENTS.md': (
         'generated/cohort_composition_registry.json',
         '`solo`',
         '`checkpoint_cohort`',
         'scenario composition',
     ),
-    'agents/runtime_seam/AGENTS.md': (
+    'agents/operating-model/runtime-seams/AGENTS.md': (
         'generated/runtime_seam_bindings.json',
         'route -> plan -> do -> verify -> deep? -> distill',
         'mechanics/runtime-seam/parts/artifact-contracts/examples/',
@@ -138,7 +145,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'mechanics/runtime-seam/',
         'Operating Card',
         'parts/AGENTS.md',
-        'agents/runtime_seam/AGENTS.md',
+        'agents/operating-model/runtime-seams/AGENTS.md',
         'Runtime implementation belongs to runtime owners',
     ),
     'mechanics/titan/AGENTS.md': (
@@ -158,7 +165,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'Do not hand edit anything under `generated/`.',
         'python scripts/build_published_surfaces.py',
         'python scripts/validate_agents.py',
-        'agents/cohort_patterns/',
+        'agents/operating-model/cohorts/',
         'orchestrator_class_catalog.min.json',
     ),
     'examples/AGENTS.md': (

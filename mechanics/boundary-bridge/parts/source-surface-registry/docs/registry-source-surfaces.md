@@ -12,10 +12,10 @@ without pretending that `generated/*` files are the authoring layer.
 
 The current source-authored registry surfaces live at:
 
-- `agents/model_tiers/*.tier.json`
-- `agents/orchestrator_classes/*.class.json`
-- `agents/cohort_patterns/*.pattern.json`
-- `agents/runtime_seam/*.binding.json`
+- `agents/operating-model/tiers/*.tier.json`
+- `agents/operating-model/orchestrators/*.class.json`
+- `agents/operating-model/cohorts/*.pattern.json`
+- `agents/operating-model/runtime-seams/*.binding.json`
 
 These source files publish the current compact registries:
 

@@ -9,12 +9,13 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[5]
 
-SOURCE_DIRS = {
-    "kind": Path("agents/profiles/adjuncts/kind"),
-    "subjectivity": Path("agents/profiles/adjuncts/subjectivity"),
-    "office": Path("agents/profiles/adjuncts/office_overlay"),
-    "arena": Path("agents/profiles/adjuncts/arena_eligibility"),
-    "resistance": Path("agents/profiles/adjuncts/resistance_revision"),
+ROLES_DIR = Path("agents/roles")
+AGONIC_FILES = {
+    "kind": Path("forms/agonic/kind.json"),
+    "subjectivity": Path("forms/agonic/subjectivity.json"),
+    "office": Path("forms/agonic/office-overlay.json"),
+    "arena": Path("forms/agonic/arena-eligibility.json"),
+    "resistance": Path("forms/agonic/resistance-revision.json"),
 }
 
 REQUIRED_AGENTS = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
@@ -42,31 +43,33 @@ def write_compact_json(path: Path, payload: Any) -> None:
     )
 
 
-def collect_by_agent(root: Path, rel_dir: Path, suffix: str) -> dict[str, Any]:
-    directory = root / rel_dir
-    if not directory.exists():
-        raise FormationBuildError(f"missing source directory: {rel_dir}")
-
+def collect_by_agent(root: Path, rel_file: Path) -> dict[str, Any]:
+    roles_dir = root / ROLES_DIR
+    if not roles_dir.exists():
+        raise FormationBuildError(f"missing role source directory: {ROLES_DIR}")
     records: dict[str, Any] = {}
-    for path in sorted(directory.glob(f"*{suffix}")):
+    for role_dir in sorted(path for path in roles_dir.iterdir() if path.is_dir()):
+        path = role_dir / rel_file
+        if not path.exists():
+            continue
         payload = read_json(path)
         agent_id = payload.get("agent_id")
         if not isinstance(agent_id, str):
             raise FormationBuildError(f"{path} does not contain string agent_id")
         if agent_id in records:
-            raise FormationBuildError(f"duplicate agent_id {agent_id!r} in {rel_dir}")
-        if path.name.split(".")[0] != agent_id:
-            raise FormationBuildError(f"{path} file stem does not match agent_id {agent_id!r}")
+            raise FormationBuildError(f"duplicate agent_id {agent_id!r} for {rel_file}")
+        if role_dir.name != agent_id:
+            raise FormationBuildError(f"{path} role directory does not match agent_id {agent_id!r}")
         records[agent_id] = payload
     return records
 
 
 def build_index(root: Path = ROOT) -> dict[str, Any]:
-    kind = collect_by_agent(root, SOURCE_DIRS["kind"], ".kind.json")
-    subjectivity = collect_by_agent(root, SOURCE_DIRS["subjectivity"], ".subjectivity.json")
-    office = collect_by_agent(root, SOURCE_DIRS["office"], ".office.json")
-    arena = collect_by_agent(root, SOURCE_DIRS["arena"], ".arena_eligibility.json")
-    resistance = collect_by_agent(root, SOURCE_DIRS["resistance"], ".resistance_revision.json")
+    kind = collect_by_agent(root, AGONIC_FILES["kind"])
+    subjectivity = collect_by_agent(root, AGONIC_FILES["subjectivity"])
+    office = collect_by_agent(root, AGONIC_FILES["office"])
+    arena = collect_by_agent(root, AGONIC_FILES["arena"])
+    resistance = collect_by_agent(root, AGONIC_FILES["resistance"])
 
     required = set(REQUIRED_AGENTS)
     seen_sets = {
@@ -153,11 +156,11 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
         "formation": "Agonic Actor Rechartering",
         "generated_by": "mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py",
         "source_surfaces": [
-            "agents/profiles/adjuncts/kind/*.kind.json",
-            "agents/profiles/adjuncts/subjectivity/*.subjectivity.json",
-            "agents/profiles/adjuncts/office_overlay/*.office.json",
-            "agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json",
-            "agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json",
+            "agents/roles/*/forms/agonic/kind.json",
+            "agents/roles/*/forms/agonic/subjectivity.json",
+            "agents/roles/*/forms/agonic/office-overlay.json",
+            "agents/roles/*/forms/agonic/arena-eligibility.json",
+            "agents/roles/*/forms/agonic/resistance-revision.json",
         ],
         "readiness_summary": summary,
         "actors": actors,

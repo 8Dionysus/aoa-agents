@@ -15,6 +15,14 @@ from typing import Any
 
 
 ROOT_MARKERS = ("profiles", "schemas", "generated")
+ASSISTANT_FILES = {
+    "assistant_variant": "variant.json",
+    "assistant_service_identity": "service-identity.json",
+    "assistant_service_contract": "service-contract.json",
+    "assistant_service_governance": "service-governance.json",
+    "assistant_service_certification": "service-certification.json",
+    "assistant_arena_exclusion": "arena-exclusion.json",
+}
 
 
 def repo_root_from_script() -> Path:
@@ -34,33 +42,38 @@ def compact_json(data: Any) -> str:
     return json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
 
 
-def read_family(root: Path, family: str, suffix: str) -> dict[str, dict[str, Any]]:
-    family_dir = root / "agents" / "profiles" / "adjuncts" / family
-    if not family_dir.exists():
-        raise SystemExit(f"missing assistant adjunct family: {family_dir}")
-
+def read_family(root: Path, family: str) -> dict[str, dict[str, Any]]:
+    roles_dir = root / "agents" / "roles"
+    if not roles_dir.exists():
+        raise SystemExit(f"missing role source directory: {roles_dir}")
+    filename = ASSISTANT_FILES[family]
     out: dict[str, dict[str, Any]] = {}
-    for path in sorted(family_dir.glob(f"*{suffix}.json")):
+    for role_dir in sorted(path for path in roles_dir.iterdir() if path.is_dir()):
+        path = role_dir / "forms" / "assistant" / filename
+        if not path.exists():
+            continue
         data = load_json(path)
         variant_id = data.get("variant_id")
         if not isinstance(variant_id, str):
             raise SystemExit(f"{path} is missing string variant_id")
         if variant_id in out:
             raise SystemExit(f"duplicate variant_id {variant_id} in {family}")
+        if variant_id.removesuffix(".assistant") != role_dir.name:
+            raise SystemExit(f"{path} role directory does not match variant_id {variant_id}")
         out[variant_id] = data
 
     if not out:
-        raise SystemExit(f"no assistant adjunct files found in {family_dir}")
+        raise SystemExit(f"no assistant adjunct files found for {family} in {roles_dir}")
     return out
 
 
 def build_index(root: Path) -> dict[str, Any]:
-    variants = read_family(root, "assistant_variant", ".variant")
-    identities = read_family(root, "assistant_service_identity", ".identity")
-    contracts = read_family(root, "assistant_service_contract", ".contract")
-    governance = read_family(root, "assistant_service_governance", ".governance")
-    certifications = read_family(root, "assistant_service_certification", ".certification")
-    exclusions = read_family(root, "assistant_arena_exclusion", ".arena_exclusion")
+    variants = read_family(root, "assistant_variant")
+    identities = read_family(root, "assistant_service_identity")
+    contracts = read_family(root, "assistant_service_contract")
+    governance = read_family(root, "assistant_service_governance")
+    certifications = read_family(root, "assistant_service_certification")
+    exclusions = read_family(root, "assistant_arena_exclusion")
 
     expected = set(variants)
     families = {
@@ -121,12 +134,12 @@ def build_index(root: Path) -> dict[str, Any]:
         "owner_repo": "aoa-agents",
         "wave": "agon_wave2_assistant_civil_rechartering",
         "source_families": [
-            "agents/profiles/adjuncts/assistant_variant",
-            "agents/profiles/adjuncts/assistant_service_identity",
-            "agents/profiles/adjuncts/assistant_service_contract",
-            "agents/profiles/adjuncts/assistant_service_governance",
-            "agents/profiles/adjuncts/assistant_service_certification",
-            "agents/profiles/adjuncts/assistant_arena_exclusion",
+            "agents/roles/*/forms/assistant/variant.json",
+            "agents/roles/*/forms/assistant/service-identity.json",
+            "agents/roles/*/forms/assistant/service-contract.json",
+            "agents/roles/*/forms/assistant/service-governance.json",
+            "agents/roles/*/forms/assistant/service-certification.json",
+            "agents/roles/*/forms/assistant/arena-exclusion.json",
         ],
         "invariants": [
             "assistant_variants_do_not_create_public_roles",

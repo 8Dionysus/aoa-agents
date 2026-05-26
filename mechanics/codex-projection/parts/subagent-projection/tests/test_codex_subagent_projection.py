@@ -27,7 +27,7 @@ VALIDATE_SCRIPT = (
     / "scripts"
     / "validate_codex_subagents.py"
 )
-PROFILES_ROOT = REPO_ROOT / "agents" / "profiles"
+PROFILES_ROOT = REPO_ROOT / "agents" / "roles"
 WIRING_PATH = (
     REPO_ROOT
     / "mechanics"
@@ -164,6 +164,10 @@ class CodexSubagentProjectionTests(unittest.TestCase):
             self.assertIn("architect", generated_agents)
             self.assertIn("memory-keeper", generated_agents)
             self.assertTrue(all("source_profile" in entry for entry in generated_agents.values()))
+            self.assertEqual(
+                generated_agents["architect"]["source_profile"],
+                "agents/roles/architect/profile.json",
+            )
             self.assertEqual(generated_agents["architect"]["config_path"], "agents/architect.toml")
             self.assertEqual(
                 generated_agents["architect"]["mcp_affinity"],

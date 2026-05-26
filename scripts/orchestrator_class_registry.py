@@ -6,7 +6,7 @@ from pathlib import Path
 from agent_profile_registry import BuildError, describe_path, read_json
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-ORCHESTRATOR_CLASSES_DIR = REPO_ROOT / "agents" / "orchestrator_classes"
+ORCHESTRATOR_CLASSES_DIR = REPO_ROOT / "agents" / "operating-model" / "orchestrators"
 ORCHESTRATOR_CLASS_SUFFIX = ".class.json"
 ORCHESTRATOR_CLASS_ORDER = (
     "router",
@@ -92,7 +92,7 @@ def build_orchestrator_class_catalog_payload(
                 )
             entry[key] = payload[key]
         class_id = str(payload["id"])
-        source_path = f"agents/orchestrator_classes/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
+        source_path = f"agents/operating-model/orchestrators/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
         entry["source_path"] = source_path
         entry["inspect_key"] = class_id
         entry["expand_key"] = class_id
@@ -118,7 +118,7 @@ def build_orchestrator_class_capsules_payload(
                 )
             entry[key] = payload[key]
         class_id = str(payload["id"])
-        entry["source_path"] = f"agents/orchestrator_classes/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
+        entry["source_path"] = f"agents/operating-model/orchestrators/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
         entries.append(entry)
     return {
         "capsule_version": 1,
@@ -152,7 +152,7 @@ def build_orchestrator_class_sections_payload(
     entries: list[dict[str, object]] = []
     for payload in classes:
         class_id = str(payload["id"])
-        source_path = f"agents/orchestrator_classes/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
+        source_path = f"agents/operating-model/orchestrators/{class_id}{ORCHESTRATOR_CLASS_SUFFIX}"
         read_order = payload.get("read_order", [])
         required_surfaces = payload.get("required_surfaces", [])
         forbidden_surfaces = payload.get("forbidden_surfaces", [])

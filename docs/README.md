@@ -67,7 +67,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 - [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
 - [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
 - [Registry Source Surfaces](../mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
-- [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `agents/profiles/`
+- [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `agents/roles/`
 - [Codex Subagent Refresh Law](../mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md) — how repeated projection drift turns into owner-owned refresh work without making generated or installed agent files canonical
 - [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
 - [Agent Stress Posture](../mechanics/antifragility/parts/stress-posture/docs/stress-posture.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority

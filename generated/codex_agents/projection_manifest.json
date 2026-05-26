@@ -22,7 +22,7 @@
         "aoa_stats"
       ],
       "config_path": "agents/architect.toml",
-      "source_profile": "agents/profiles/architect.profile.json",
+      "source_profile": "agents/roles/architect/profile.json",
       "role_key": "architect"
     },
     {
@@ -38,7 +38,7 @@
         "aoa_workspace"
       ],
       "config_path": "agents/coder.toml",
-      "source_profile": "agents/profiles/coder.profile.json",
+      "source_profile": "agents/roles/coder/profile.json",
       "role_key": "coder"
     },
     {
@@ -55,7 +55,7 @@
         "aoa_stats"
       ],
       "config_path": "agents/evaluator.toml",
-      "source_profile": "agents/profiles/evaluator.profile.json",
+      "source_profile": "agents/roles/evaluator/profile.json",
       "role_key": "evaluator"
     },
     {
@@ -73,7 +73,7 @@
         "dionysus"
       ],
       "config_path": "agents/memory-keeper.toml",
-      "source_profile": "agents/profiles/memory-keeper.profile.json",
+      "source_profile": "agents/roles/memory-keeper/profile.json",
       "role_key": "memory-keeper"
     },
     {
@@ -90,7 +90,7 @@
         "aoa_stats"
       ],
       "config_path": "agents/reviewer.toml",
-      "source_profile": "agents/profiles/reviewer.profile.json",
+      "source_profile": "agents/roles/reviewer/profile.json",
       "role_key": "reviewer"
     }
   ]

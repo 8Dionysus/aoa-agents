@@ -10,12 +10,12 @@
   },
   "purpose": "Example reader path for the agonic formation surfaces.",
   "read_order": [
-    "agents/profiles/reviewer.profile.json",
-    "agents/profiles/adjuncts/kind/reviewer.kind.json",
-    "agents/profiles/adjuncts/subjectivity/reviewer.subjectivity.json",
-    "agents/profiles/adjuncts/office_overlay/reviewer.office.json",
-    "agents/profiles/adjuncts/arena_eligibility/reviewer.arena_eligibility.json",
-    "agents/profiles/adjuncts/resistance_revision/reviewer.resistance_revision.json",
+    "agents/roles/reviewer/profile.json",
+    "agents/roles/reviewer/forms/agonic/kind.json",
+    "agents/roles/reviewer/forms/agonic/subjectivity.json",
+    "agents/roles/reviewer/forms/agonic/office-overlay.json",
+    "agents/roles/reviewer/forms/agonic/arena-eligibility.json",
+    "agents/roles/reviewer/forms/agonic/resistance-revision.json",
     "generated/agent_agonic_formation_index.min.json"
   ],
   "stop_line": "This example is not an arena session and does not define protocol packets."

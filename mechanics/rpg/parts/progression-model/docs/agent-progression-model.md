@@ -8,7 +8,7 @@ It exists so that long-horizon quest work can accumulate reviewable mastery and 
 
 ## Core rule
 
-Progression attaches to `agent_id`. It does not live inside `agents/profiles/*.profile.json`.
+Progression attaches to `agent_id`. It does not live inside `agents/roles/*/profile.json`.
 
 Profiles remain the source of role contract, memory posture, evaluation posture, preferred cohort patterns, preferred tier hints, and preferred skill families.
 

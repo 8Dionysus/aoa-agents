@@ -7,7 +7,7 @@
       "id": "router",
       "name": "Router Orchestrator",
       "status": "experimental",
-      "source_path": "agents/orchestrator_classes/router.class.json",
+      "source_path": "agents/operating-model/orchestrators/router.class.json",
       "sections": [
         {
           "section_id": "router#identity-and-boundaries",
@@ -43,7 +43,7 @@
       "id": "review",
       "name": "Review Orchestrator",
       "status": "experimental",
-      "source_path": "agents/orchestrator_classes/review.class.json",
+      "source_path": "agents/operating-model/orchestrators/review.class.json",
       "sections": [
         {
           "section_id": "review#identity-and-boundaries",
@@ -79,7 +79,7 @@
       "id": "bounded_execution",
       "name": "Bounded Execution Orchestrator",
       "status": "experimental",
-      "source_path": "agents/orchestrator_classes/bounded_execution.class.json",
+      "source_path": "agents/operating-model/orchestrators/bounded_execution.class.json",
       "sections": [
         {
           "section_id": "bounded_execution#identity-and-boundaries",

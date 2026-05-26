@@ -13,7 +13,7 @@ and arena-exclusion boundaries.
 | role | agent-layer assistant and office experience package |
 | input | assistant service, office, adoption, canary, watch, rollback, release, escalation, and arena-exclusion pressure |
 | output | bounded service posture, office operation route, adoption/watch route, release-hold handoff, or stronger-owner handoff |
-| owner | this package for experience routing; `agents/profiles/adjuncts/assistant_*` for source adjuncts |
+| owner | this package for experience routing; `agents/roles/*/forms/assistant/` for source assistant forms |
 | next route | `PARTS.md`, `mechanics/agon/` for formation pressure, `mechanics/release-support/` for repo release pressure |
 | validation | assistant formation builders, experience assistant civil contract validator, adoption/boundary validator, assistant route tests, semantic/nested/repo validators |
 

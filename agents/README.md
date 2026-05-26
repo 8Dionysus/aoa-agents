@@ -18,29 +18,36 @@ routes, and stronger-owner stop lines.
 | role | source home for agent-layer objects |
 | input | source JSON edits and adjacent docs/schema pressure |
 | output | source object, generated reader, checked home manifest, or stronger-owner handoff |
-| owner | `agents/source_home.manifest.json` plus nearest `agents/<family>/AGENTS.md` |
+| owner | `agents/source_home.manifest.json` plus nearest branch `AGENTS.md` |
 | next route | target family, builder, generated reader, validator |
 | tools | `scripts/validate_agent_source_home.py`, `scripts/build_published_surfaces.py`, and family-specific builders |
 | validation | `python scripts/validate_agent_source_home.py`, `python scripts/validate_agents.py`, plus family-specific checks |
 
 ## Active Source Families
 
+`agents/` has two active branches:
+
+- `agents/roles/` for role houses: each role owns its base profile and nested
+  agonic/assistant forms.
+- `agents/operating-model/` for cross-role operating contracts: tiers,
+  orchestrators, cohorts, and runtime-seam bindings.
+
 | Family | Path | Publishes To |
 | --- | --- | --- |
-| base role houses | `agents/profiles/*.profile.json` | `generated/agent_registry.min.json` |
-| agonic and assistant companions | `agents/profiles/adjuncts/` | formation indexes under `generated/` |
-| model tiers | `agents/model_tiers/*.tier.json` | `generated/model_tier_registry.json` |
-| orchestrator classes | `agents/orchestrator_classes/*.class.json` | orchestrator generated readers |
-| cohort patterns | `agents/cohort_patterns/*.pattern.json` | `generated/cohort_composition_registry.json` |
-| runtime seam bindings | `agents/runtime_seam/*.binding.json` | `generated/runtime_seam_bindings.json` |
+| base role houses | `agents/roles/*/profile.json` | `generated/agent_registry.min.json` |
+| agonic and assistant companions | `agents/roles/*/forms/` | formation indexes under `generated/` |
+| model tiers | `agents/operating-model/tiers/*.tier.json` | `generated/model_tier_registry.json` |
+| orchestrator classes | `agents/operating-model/orchestrators/*.class.json` | orchestrator generated readers |
+| cohort patterns | `agents/operating-model/cohorts/*.pattern.json` | `generated/cohort_composition_registry.json` |
+| runtime seam bindings | `agents/operating-model/runtime-seams/*.binding.json` | `generated/runtime_seam_bindings.json` |
 
 ## Source Home Contract
 
 `agents/source_home.manifest.json` is the machine-checkable atlas for this
 home. It deliberately does not replace the source objects. It records:
 
-- which families are allowed to live directly under `agents/`;
-- which family card owns local editing posture;
+- which branches are allowed to live directly under `agents/`;
+- which branch card owns local editing posture;
 - which schema or mechanic-local contract constrains each family;
 - which generated readers each family publishes;
 - which builders and validators prove the family stayed coherent;
@@ -59,9 +66,9 @@ Use `docs/` for public explanation, `schemas/` for shared contract shape,
 `examples/` for schema-backed examples, `generated/` for derived readers, and
 `mechanics/` for repeatable operation topology around these source families.
 
-For adjuncts, read `agents/profiles/adjuncts/AGENTS.md` before editing any
-companion object. Adjunct source stays in `agents/`; mechanic-local schemas,
-docs, and validators stay with the owning mechanic part.
+For agonic or assistant forms, read `agents/roles/AGENTS.md` before editing any
+companion object. Form source stays in the owning role house; mechanic-local
+schemas, docs, and validators stay with the owning mechanic part.
 
 ## Stop Lines
 

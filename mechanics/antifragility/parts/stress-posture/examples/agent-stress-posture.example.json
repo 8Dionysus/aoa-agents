@@ -3,7 +3,7 @@
   "posture_id": "agent:stress:architect:v1",
   "applies_to": {
     "repo": "aoa-agents",
-    "agent_profile": "agents/profiles/architect.profile.json",
+    "agent_profile": "agents/roles/architect/profile.json",
     "role": "architect"
   },
   "summary": "Architect narrows quickly under derived-surface stress and escalates before mutation when source evidence is thin.",

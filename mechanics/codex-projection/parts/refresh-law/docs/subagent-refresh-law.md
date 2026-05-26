@@ -13,7 +13,7 @@ seam drift, repeat the same repair, or block adjacent routes.
 
 Keep this order:
 
-1. `agents/profiles/*.profile.json`
+1. `agents/roles/*/profile.json`
 2. `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
 3. generated projection surfaces under `generated/codex_agents/`
 4. workspace install under `.codex/agents/` and workspace registration in
@@ -30,7 +30,7 @@ or a second runtime authority.
 - `component_ref`: `component:codex-subagents:projection`
 - `owner_repo`: `aoa-agents`
 - source-authored inputs:
-  - `agents/profiles/*.profile.json`
+  - `agents/roles/*/profile.json`
   - `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
 - generated surfaces:
   - `generated/codex_agents/agents/*.toml`
@@ -70,17 +70,17 @@ or a second runtime authority.
 
 - check:
   - `python scripts/validate_agents.py`
-  - `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
+  - `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
 - execute:
   - `python scripts/build_published_surfaces.py`
   - `python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py`
 - validate:
   - `python scripts/validate_agents.py`
-  - `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
+  - `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
   - `python -m pytest -q tests`
 
 Use `repair` only for a bounded owner fix that keeps source authorship in
-`agents/profiles/` or wiring config. Use `regenerate` or `reproject` when generated or
+`agents/roles/` or wiring config. Use `regenerate` or `reproject` when generated or
 installed surfaces drift.
 
 ## Proof and rollback
@@ -88,7 +88,7 @@ installed surfaces drift.
 Proof commands:
 
 - `python scripts/validate_agents.py`
-- `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
+- `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json`
 - `python -m pytest -q tests`
 
 Rollback anchors:

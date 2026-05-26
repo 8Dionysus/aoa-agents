@@ -6,7 +6,7 @@ from pathlib import Path
 from agent_profile_registry import BuildError, describe_path, read_json
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-RUNTIME_SEAM_DIR = REPO_ROOT / "agents" / "runtime_seam"
+RUNTIME_SEAM_DIR = REPO_ROOT / "agents" / "operating-model" / "runtime-seams"
 RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.json"
 RUNTIME_SEAM_BINDING_SUFFIX = ".binding.json"
 RUNTIME_PHASE_ORDER = (

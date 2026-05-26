@@ -4,9 +4,10 @@ import json
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
+ROLES_DIR = REPO_ROOT / "agents" / "roles"
+PROFILES_DIR = ROLES_DIR
 AGENT_REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
-PROFILE_SUFFIX = ".profile.json"
+PROFILE_FILENAME = "profile.json"
 REGISTRY_FIELDS = (
     "id",
     "name",
@@ -44,7 +45,7 @@ def read_json(path: Path) -> object:
 def iter_profile_paths(profile_dir: Path = PROFILES_DIR) -> list[Path]:
     if not profile_dir.is_dir():
         raise BuildError(f"missing required directory: {describe_path(profile_dir)}")
-    paths = sorted(profile_dir.glob(f"*{PROFILE_SUFFIX}"))
+    paths = sorted(profile_dir.glob(f"*/{PROFILE_FILENAME}"))
     if not paths:
         raise BuildError(f"no source-authored agent profiles found in {describe_path(profile_dir)}")
     return paths
@@ -56,7 +57,7 @@ def load_profiles(profile_dir: Path = PROFILES_DIR) -> list[dict[str, object]]:
         payload = read_json(path)
         if not isinstance(payload, dict):
             raise BuildError(f"{describe_path(path)} must contain a JSON object")
-        expected_name = path.name[: -len(PROFILE_SUFFIX)]
+        expected_name = path.parent.name
         actual_name = payload.get("name")
         if not isinstance(actual_name, str):
             raise BuildError(f"{describe_path(path)} must declare a string 'name'")

@@ -82,7 +82,7 @@ Exit signals:
 ## Current published contour
 
 The currently published agent-layer contour already includes:
-- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `agents/profiles/`, `agents/model_tiers/`, `agents/orchestrator_classes/`, `agents/cohort_patterns/`, and `agents/runtime_seam/`
+- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `agents/roles/`, `agents/operating-model/tiers/`, `agents/operating-model/orchestrators/`, `agents/operating-model/cohorts/`, and `agents/operating-model/runtime-seams/`
 - the checked source-home manifest under `agents/source_home.manifest.json`
 - the mechanics atlas under `mechanics/`
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
@@ -108,11 +108,11 @@ Rechartering. Its checked surface is:
   `mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md`, and
   `mechanics/agon/parts/formation/docs/resistance-revision-posture.md`
 - additive companion source surfaces:
-  `agents/profiles/adjuncts/kind/*.kind.json`,
-  `agents/profiles/adjuncts/subjectivity/*.subjectivity.json`,
-  `agents/profiles/adjuncts/office_overlay/*.office.json`,
-  `agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
-  `agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json`
+  `agents/roles/*/forms/agonic/kind.json`,
+  `agents/roles/*/forms/agonic/subjectivity.json`,
+  `agents/roles/*/forms/agonic/office-overlay.json`,
+  `agents/roles/*/forms/agonic/arena-eligibility.json`, and
+  `agents/roles/*/forms/agonic/resistance-revision.json`
 - agonic actor companion contracts and publication:
   `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`,
   `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`,
@@ -126,7 +126,7 @@ Rechartering. Its checked surface is:
   `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, and
   `mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py`
 
-This turn keeps the base `agents/profiles/*.profile.json` files as legacy role
+This turn keeps the base `agents/roles/*/profile.json` files as legacy role
 contracts while Agonic Actor Rechartering lands reviewed companion surfaces for
 agonic actor readiness. It does not widen `schemas/agent-profile.schema.json`, does not
 rewrite generated role registries, and does not start arena protocol, scars,
@@ -148,12 +148,12 @@ Civil Rechartering. Its checked surface is:
   `mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md`, and
   `mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md`
 - additive assistant companion source surfaces:
-  `agents/profiles/adjuncts/assistant_variant/*.assistant.variant.json`,
-  `agents/profiles/adjuncts/assistant_service_identity/*.assistant.identity.json`,
-  `agents/profiles/adjuncts/assistant_service_contract/*.assistant.contract.json`,
-  `agents/profiles/adjuncts/assistant_service_governance/*.assistant.governance.json`,
-  `agents/profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
-  `agents/profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
+  `agents/roles/*/forms/assistant/variant.json`,
+  `agents/roles/*/forms/assistant/service-identity.json`,
+  `agents/roles/*/forms/assistant/service-contract.json`,
+  `agents/roles/*/forms/assistant/service-governance.json`,
+  `agents/roles/*/forms/assistant/service-certification.json`, and
+  `agents/roles/*/forms/assistant/arena-exclusion.json`
 - assistant civil companion contracts and publication:
   `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`,
   `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`,

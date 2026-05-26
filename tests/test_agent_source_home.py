@@ -39,8 +39,12 @@ class AgentSourceHomeTests(unittest.TestCase):
             },
         )
 
-    def test_adjuncts_have_near_route_card(self) -> None:
-        self.assertTrue((REPO_ROOT / "agents" / "profiles" / "adjuncts" / "AGENTS.md").is_file())
+    def test_source_home_has_convex_branches(self) -> None:
+        manifest = json.loads((REPO_ROOT / "agents" / "source_home.manifest.json").read_text(encoding="utf-8"))
+        branch_ids = {branch["id"] for branch in manifest["branches"]}
+        self.assertEqual(branch_ids, {"role_houses", "operating_model"})
+        self.assertTrue((REPO_ROOT / "agents" / "roles" / "AGENTS.md").is_file())
+        self.assertTrue((REPO_ROOT / "agents" / "operating-model" / "AGENTS.md").is_file())
 
 
 if __name__ == "__main__":

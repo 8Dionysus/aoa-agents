@@ -21,7 +21,15 @@ EXPECTED_FAMILY_IDS = {
     "cohort_patterns",
     "runtime_seam_bindings",
 }
+EXPECTED_BRANCH_IDS = {
+    "role_houses",
+    "operating_model",
+}
 EXPECTED_DIRECT_DIRS = {
+    "roles",
+    "operating-model",
+}
+FORBIDDEN_DIRECT_DIRS = {
     "profiles",
     "model_tiers",
     "orchestrator_classes",
@@ -103,6 +111,18 @@ def validate_manifest(repo_root: Path = REPO_ROOT) -> list[str]:
     if extra_ids:
         issues.append(f"unexpected source home families: {', '.join(extra_ids)}")
 
+    branches = manifest["branches"]
+    branch_ids = [branch["id"] for branch in branches]
+    duplicate_branch_ids = sorted({branch_id for branch_id in branch_ids if branch_ids.count(branch_id) > 1})
+    if duplicate_branch_ids:
+        issues.append(f"duplicate branch ids: {', '.join(duplicate_branch_ids)}")
+    missing_branch_ids = sorted(EXPECTED_BRANCH_IDS - set(branch_ids))
+    extra_branch_ids = sorted(set(branch_ids) - EXPECTED_BRANCH_IDS)
+    if missing_branch_ids:
+        issues.append(f"missing required source home branches: {', '.join(missing_branch_ids)}")
+    if extra_branch_ids:
+        issues.append(f"unexpected source home branches: {', '.join(extra_branch_ids)}")
+
     direct_dirs = {
         path.name
         for path in (repo_root / "agents").iterdir()
@@ -111,6 +131,9 @@ def validate_manifest(repo_root: Path = REPO_ROOT) -> list[str]:
     missing_direct_dirs = sorted(EXPECTED_DIRECT_DIRS - direct_dirs)
     if missing_direct_dirs:
         issues.append(f"missing direct agents source directories: {', '.join(missing_direct_dirs)}")
+    forbidden_direct_dirs = sorted(FORBIDDEN_DIRECT_DIRS & direct_dirs)
+    if forbidden_direct_dirs:
+        issues.append(f"flat legacy agents source directories still active: {', '.join(forbidden_direct_dirs)}")
 
     covered_direct_dirs = {
         Path(family["path"]).parts[1]
@@ -120,6 +143,16 @@ def validate_manifest(repo_root: Path = REPO_ROOT) -> list[str]:
     uncovered = sorted(EXPECTED_DIRECT_DIRS - covered_direct_dirs)
     if uncovered:
         issues.append(f"agents/source_home.manifest.json does not cover direct dirs: {', '.join(uncovered)}")
+
+    branch_families: set[str] = set()
+    for branch in branches:
+        context = f"branch {branch['id']}"
+        require_existing_dir(repo_root, branch["path"], context, issues)
+        require_existing_file(repo_root, branch["owner_surface"], context, issues)
+        branch_families.update(branch["families"])
+    missing_branch_family_routes = sorted(EXPECTED_FAMILY_IDS - branch_families)
+    if missing_branch_family_routes:
+        issues.append(f"branches do not route source families: {', '.join(missing_branch_family_routes)}")
 
     for family in families:
         context = f"family {family['id']}"

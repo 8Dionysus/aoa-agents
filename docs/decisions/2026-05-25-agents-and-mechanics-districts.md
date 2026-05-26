@@ -6,9 +6,8 @@ Accepted.
 
 ## Context
 
-`aoa-agents` had source-authored agent objects at the repository root:
-`profiles/`, `model_tiers/`, `orchestrator_classes/`, `cohort_patterns/`, and
-`runtime_seam/`.
+`aoa-agents` had source-authored agent objects in legacy root-level family
+directories.
 
 That shape made the role layer valid but less legible than sibling repositories
 that had already matured into source-object districts and operation mechanics.
@@ -21,11 +20,11 @@ posture, Titan role-bearing surfaces, and release support.
 Create `agents/` as the source-authored agent object district and move the
 existing source object families under it:
 
-- `agents/profiles/`
-- `agents/model_tiers/`
-- `agents/orchestrator_classes/`
-- `agents/cohort_patterns/`
-- `agents/runtime_seam/`
+- `agents/roles/`
+- `agents/operating-model/tiers/`
+- `agents/operating-model/orchestrators/`
+- `agents/operating-model/cohorts/`
+- `agents/operating-model/runtime-seams/`
 
 Create `mechanics/` as the operation atlas for repeatable agent-layer
 mechanics. The first slice activates the atlas and artifact-topology rule, but

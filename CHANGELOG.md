@@ -178,10 +178,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Included in this release
 
-- source-authored role surfaces across `profiles/`, `cohort_patterns/`,
-  `orchestrator_classes/`, `docs/`, `schemas/`, `examples/`, and `generated/`,
-  including Phase Alpha cohort additions, orchestrator capsules, and
-  progression-feed updates
+- source-authored role surfaces across legacy root family directories, `docs/`,
+  `schemas/`, `examples/`, and `generated/`, including Phase Alpha cohort
+  additions, orchestrator capsules, and progression-feed updates
 - repo-local quest, follow-through, and validation surfaces under `.agents/`,
   `.github/`, `QUESTBOOK.md`, `quests/`, `AGENTS.md`, `README.md`, `scripts/`,
   and `tests/`, including quest harvest, project-foundation installs, and
@@ -203,7 +202,7 @@ This changelog entry uses the release-prep merge date.
 
 - community-docs baseline established for this repository
 - `CHANGELOG.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md`
-- source-authored role, memory, evaluation, cohort, and runtime-seam docs across `CHARTER.md`, `docs/`, `profiles/`, `model_tiers/`, `cohort_patterns/`, and `runtime_seam/`
+- source-authored role, memory, evaluation, cohort, and runtime-seam docs across `CHARTER.md`, `docs/`, and legacy root family directories
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
 - schema-backed runtime artifact examples and local validation helpers under `schemas/`, `examples/`, and `scripts/`
 

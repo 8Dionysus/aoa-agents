@@ -13,7 +13,7 @@ discipline, and adoption or retention after trial pressure.
 | role | agent-layer Agon operation package |
 | input | Agon, agonic, formation, arena, rank, school, trial, scar, adoption, and epistemic actor pressure |
 | output | bounded role posture, formation index route, arena/rank/school posture, or stronger-owner handoff |
-| owner | this package for operation routing; `agents/profiles/adjuncts/` for source adjuncts |
+| owner | this package for operation routing; `agents/roles/*/forms/` for source adjuncts |
 | next route | `PARTS.md`, `mechanics/ARTIFACT_TOPOLOGY.md`, formation builders, decision record |
 | validation | Agon contract validator, Wave builders, and repo validators named below |
 
