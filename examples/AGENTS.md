@@ -33,6 +33,12 @@ Mechanic-specific RPG progression examples live under
 `scripts/validate_rpg_progression.py`. Their schemas live beside them under
 `mechanics/rpg/parts/progression-model/schemas/`.
 
+Mechanic-specific assistant projection resolver examples live under
+`mechanics/codex-projection/parts/assistant-projection/examples/` and are
+validated by `scripts/validate_assistant_projection_resolver.py`. Their
+schemas live beside them under
+`mechanics/codex-projection/parts/assistant-projection/schemas/`.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -47,6 +53,7 @@ Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/
 For Titan part-local examples, also run `python scripts/validate_titan_examples.py`.
 For antifragility stress part-local examples, also run `python scripts/validate_antifragility_stress.py`.
 For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
+For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

@@ -5,7 +5,7 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | Part | Active package docs | Support surfaces |
 | --- | --- | --- |
 | `agon-boundary` | [Codex Projection Agon Boundary](parts/agon-boundary/docs/projection-agon-boundary.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
-| `assistant-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `assistant-projection` | No package-local docs in this slice. | Part-local [schemas](parts/assistant-projection/schemas/) and [example](parts/assistant-projection/examples/assistant-projection-resolver.example.json); old path lookup routes through `PROVENANCE.md`. |
 | `refresh-law` | [Codex Subagent Refresh Law](parts/refresh-law/docs/subagent-refresh-law.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `subagent-projection` | [Codex Subagent Projection](parts/subagent-projection/docs/subagent-projection.md) | [config/wiring.v2.json](parts/subagent-projection/config/wiring.v2.json)<br>Old path lookup routes through `PROVENANCE.md`. |
 | `titan-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |

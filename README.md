@@ -23,7 +23,7 @@ Use the shortest route by need:
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md`
 - Codex custom-agent projection surface and owner refresh law: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
-- Wave 1 assistant projection resolver and no-self-rewrite posture: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `schemas/assistant-projection-resolver.schema.json`, and `examples/assistant_projection_resolver.example.json`
+- Wave 1 assistant projection resolver and no-self-rewrite posture: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/assistant-projection/schemas/assistant-projection-resolver.schema.json`, and `mechanics/codex-projection/parts/assistant-projection/examples/assistant-projection-resolver.example.json`
 - Titan service-cohort role, bearer lineage, and incarnation identity surfaces: `mechanics/titan/parts/service-cohort/docs/service-cohort.md`, `mechanics/titan/parts/summon-boundary/docs/summon-boundary.md`, `mechanics/titan/parts/role-bearing/docs/role-bearer-ontology.md`, `mechanics/titan/parts/lineage-ledger/docs/lineage-ledger.md`, `mechanics/titan/parts/incarnation-spine/docs/incarnation-spine.md`, `mechanics/titan/parts/incarnation-spine/docs/praxis-plane.md`, `mechanics/titan/parts/role-bearing/config/role-classes.v0.json`, `mechanics/titan/parts/role-bearing/config/bearers.v0.json`, `mechanics/titan/parts/lineage-ledger/config/ledger.v0.json`, `mechanics/titan/parts/incarnation-spine/schemas/incarnation-identity.schema.json`, and `mechanics/titan/parts/incarnation-spine/examples/incarnation-identity.example.json`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - stress posture and stress handoff doctrine: `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md` and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
@@ -103,6 +103,7 @@ python scripts/validate_titan_schemas.py
 python scripts/validate_titan_examples.py
 python scripts/validate_antifragility_stress.py
 python scripts/validate_rpg_progression.py
+python scripts/validate_assistant_projection_resolver.py
 python -m pytest -q tests
 ```
 

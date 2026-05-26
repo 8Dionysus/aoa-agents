@@ -15,6 +15,10 @@ Mechanic-specific RPG progression schemas live under
 `mechanics/rpg/parts/progression-model/schemas/` and are validated by
 `scripts/validate_rpg_progression.py`.
 
+Mechanic-specific assistant projection resolver schemas live under
+`mechanics/codex-projection/parts/assistant-projection/schemas/` and are
+validated by `scripts/validate_assistant_projection_resolver.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.

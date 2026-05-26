@@ -19,3 +19,13 @@ part-local `config/`. Git history preserves the verbatim file body;
 | Part | Moved config files |
 | --- | ---: |
 | `subagent-projection` | 1 |
+
+## 2026-05-26 Assistant Projection Payloads To Active Part
+
+Moved 2 schemas and 1 example out of root support districts and into the active
+`assistant-projection` part. Git history preserves the verbatim file bodies;
+`PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `assistant-projection` | 2 | 1 |

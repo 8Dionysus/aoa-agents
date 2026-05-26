@@ -28,3 +28,15 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | Former root path | Active route | Part |
 | --- | --- | --- |
 | `config/codex_subagent_wiring.v2.json` | [parts/subagent-projection/config/wiring.v2.json](parts/subagent-projection/config/wiring.v2.json) | `subagent-projection` |
+
+## 2026-05-26 Assistant Projection Payload Move
+
+2 assistant projection resolver schemas and 1 example moved from root support
+districts into `parts/assistant-projection/`. Stable schema `$id` values remain
+public contract identifiers, not active repo paths.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/assistant-projection-resolver.schema.json` | [parts/assistant-projection/schemas/assistant-projection-resolver.schema.json](parts/assistant-projection/schemas/assistant-projection-resolver.schema.json) | `assistant-projection` |
+| `schemas/assistant_projection_resolver_v1.json` | [parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json](parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json) | `assistant-projection` |
+| `examples/assistant_projection_resolver.example.json` | [parts/assistant-projection/examples/assistant-projection-resolver.example.json](parts/assistant-projection/examples/assistant-projection-resolver.example.json) | `assistant-projection` |

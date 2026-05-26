@@ -37,8 +37,8 @@ not duplicate project-level MCP server declarations.
 Wave 1 adds one compact contract surface for the assistant projection
 resolver and its no-self-rewrite posture:
 
-- `schemas/assistant-projection-resolver.schema.json`
-- `examples/assistant_projection_resolver.example.json`
+- `mechanics/codex-projection/parts/assistant-projection/schemas/assistant-projection-resolver.schema.json`
+- `mechanics/codex-projection/parts/assistant-projection/examples/assistant-projection-resolver.example.json`
 
 The resolver keeps the following order explicit:
 
