@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 7 |
+| candidates | 8 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 7 |
+| `reviewed_intake` | 8 |
 
 ## Open Items
 
@@ -28,6 +28,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T042756Z:fb667e3c-aoa-agents-localized-the-codex-s` | `candidate` | `reviewed_intake` | `candidates/20260526T042756Z.fb667e3c.aoa-agents-localized-the-codex-subagent-projecti.candidate.json` |
 | `candidate:aoa-agents:20260526T044820Z:560c5ae2-aoa-agents-localized-wave-iii-ad` | `candidate` | `reviewed_intake` | `candidates/20260526T044820Z.560c5ae2.aoa-agents-localized-wave-iii-adoption-and-bound.candidate.json` |
 | `candidate:aoa-agents:20260526T051909Z:fb88cc01-aoa-agents-localized-the-remaini` | `candidate` | `reviewed_intake` | `candidates/20260526T051909Z.fb88cc01.aoa-agents-localized-the-remaining-assistant-ser.candidate.json` |
+| `candidate:aoa-agents:20260526T053715Z:195fbd3d-aoa-agents-localized-public-loop` | `candidate` | `reviewed_intake` | `candidates/20260526T053715Z.195fbd3d.aoa-agents-localized-public-loop-reference-route.candidate.json` |
 
 ## Agent Route
 
