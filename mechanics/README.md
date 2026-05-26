@@ -48,6 +48,9 @@ Support part-local contract routes.
 The reference-route contract localization moved reference-route and Alpha
 reference-route schemas/examples into Checkpoint and Questbook part-local
 contract routes.
+The Alpha reference-route generated reader localization moved the derived
+Alpha reader into the Questbook `alpha-reference-routes` part because its only
+source truth is that part's examples.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -58,7 +61,7 @@ contract routes.
 | `runtime-seam/` | `agents/runtime_seam/`, runtime artifact schemas/examples, seam docs/generated readers | keep role x tier bindings and artifact transitions contract-first without owning runtime implementation |
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/schemas/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
-| `questbook/` | part-local quest catalog, part-local quest records, Agon quest notes, Alpha reference-route schemas/examples, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
+| `questbook/` | part-local quest catalog, part-local quest records, Agon quest notes, Alpha reference-route schemas/examples/generated reader, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
 | `rpg/` | progression docs, part-local progression schema/example, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
 | `antifragility/` | stress posture docs, part-local schemas/examples, via negativa, scar/adaptation docs, tests | route failure-pressure learning and negative checks without becoming proof authority |
 | `boundary-bridge/` | federation seams, published contract compatibility, workspace trigger, source registries | route consumer handoff and cross-repo boundary pressure without becoming routing policy |
@@ -88,6 +91,8 @@ mechanics packages from empty route skeletons into active route homes:
   `schemas/` and `examples/` routes;
 - reference-route and Alpha reference-route contracts live under their owning
   Checkpoint and Questbook part-local `schemas/` and `examples/` routes;
+- the Alpha reference-route generated reader lives under its owning Questbook
+  part-local `generated/` route;
 - quest catalog records and Agon quest notes live under
   `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;
@@ -100,9 +105,9 @@ mechanics packages from empty route skeletons into active route homes:
   duplicating active authority.
 
 Shared schemas/examples that have not received a package-local contract,
-scripts, tests, agent source objects, and generated readers remain in their
-current owner districts until they receive their own package-local contract and
-validation coverage.
+scripts, tests, agent source objects, and remaining generated readers remain
+in their current owner districts until they receive their own package-local
+contract and validation coverage.
 
 ## Traversal
 

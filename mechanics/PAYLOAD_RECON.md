@@ -174,6 +174,13 @@ Alpha playbook-facing readiness examples into
 `mechanics/questbook/parts/alpha-reference-routes/`, and adding
 `scripts/validate_reference_route_contracts.py`.
 
+The Alpha reference-route generated reader localization satisfies that rule for
+the derived Alpha reader by placing it next to the Questbook
+`alpha-reference-routes` examples it summarizes and teaching
+`scripts/generate_alpha_reference_routes.py`,
+`scripts/validate_reference_route_contracts.py`, and
+`scripts/validate_agents.py` the part-local route plus former-root absence.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
@@ -182,5 +189,5 @@ remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
 non-adoption/boundary, non-agent-service, non-reference-route examples,
-scripts, tests, generated readers, and source agent objects remain in their
-current districts until their own move proof exists.
+scripts, tests, remaining generated readers, and source agent objects remain
+in their current districts until their own move proof exists.

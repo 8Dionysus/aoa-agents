@@ -146,10 +146,13 @@ SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invali
 REFERENCE_ROUTES_DIR = REFERENCE_ROUTE_PART_DIR / "examples"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
 ALPHA_REFERENCE_ROUTES_DIR = ALPHA_REFERENCE_ROUTE_PART_DIR / "examples"
-ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
+ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = (
+    ALPHA_REFERENCE_ROUTE_PART_DIR / "generated" / "alpha-reference-routes.min.json"
+)
 FORMER_REFERENCE_ROUTE_ROOTS = (
     REPO_ROOT / "examples" / ("reference" + "_routes"),
     REPO_ROOT / "examples" / ("alpha" + "_reference" + "_routes"),
+    REPO_ROOT / "generated" / ("alpha" + "_reference" + "_routes.min.json"),
     REPO_ROOT / "schemas" / ("reference-route" + ".example.schema.json"),
     REPO_ROOT / "schemas" / ("alpha-reference-route" + ".schema.json"),
 )
@@ -952,6 +955,7 @@ def validate_reference_route_contract_routes() -> None:
         REFERENCE_ROUTE_SCHEMA_PATH,
         ALPHA_REFERENCE_ROUTES_DIR,
         ALPHA_REFERENCE_ROUTE_SCHEMA_PATH,
+        ALPHA_REFERENCE_ROUTES_OUTPUT_PATH,
     ):
         if not path.exists():
             fail(f"missing reference-route part-local surface: {describe_path(path)}")
@@ -1677,7 +1681,7 @@ def validate_alpha_reference_routes(
     actual = read_json(ALPHA_REFERENCE_ROUTES_OUTPUT_PATH)
     if actual != expected:
         fail(
-            "generated/alpha_reference_routes.min.json drifted from "
+            f"{describe_path(ALPHA_REFERENCE_ROUTES_OUTPUT_PATH)} drifted from "
             "mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json"
         )
 

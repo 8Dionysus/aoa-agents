@@ -11,7 +11,7 @@ not live logs, and not composition authority.
 ## Source surfaces
 
 - `mechanics/questbook/parts/alpha-reference-routes/schemas/alpha-reference-route.schema.json`
-- `generated/alpha_reference_routes.min.json`
+- `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`
 - `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`
 
 ## Editing posture

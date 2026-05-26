@@ -4,7 +4,7 @@
 
 `mechanics/checkpoint/parts/reference-routes/examples/` contains example-only, non-normative route packs.
 `mechanics/questbook/parts/alpha-reference-routes/examples/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.
-`generated/alpha_reference_routes.min.json` is the compact published adjunct view over those Alpha example sources.
+`mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json` is the compact published adjunct view over those Alpha example sources.
 
 These route packs make the public loop inspectable through small manifest-driven examples that stay inside existing artifact schemas and runtime seam bindings.
 
@@ -74,4 +74,4 @@ anchors for the curated readiness lane.
 
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_reference_route_contracts.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
 
-For the Alpha companion set, validation also checks that `generated/alpha_reference_routes.min.json` stays aligned with `mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json`. Repo-wide validation remains `python scripts/validate_agents.py`.
+For the Alpha companion set, validation also checks that `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json` stays aligned with `mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json`. Repo-wide validation remains `python scripts/validate_agents.py`.

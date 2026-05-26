@@ -167,6 +167,13 @@ current mechanic docs: public-loop route packs belong to Checkpoint
 Questbook `alpha-reference-routes`. Stable schema `$id` values and manifest
 `route_id` values remain public contract identifiers, not active repo paths.
 
+The 2026-05-26 Alpha reference-route generated reader localization moves the
+derived Alpha reader from root `generated/` into
+`mechanics/questbook/parts/alpha-reference-routes/generated/` after the Alpha
+schema and examples already had a part-local route and validator. Root
+`generated/` continues to own repo-level registries and readers; this reader
+is part-local because its only source truth is the Questbook Alpha example set.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

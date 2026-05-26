@@ -151,6 +151,12 @@ facts and are accounted for in the target package `PROVENANCE.md`,
 manifest `route_id` values remain public contract identifiers, not active repo
 paths.
 
+The 2026-05-26 Alpha reference-route generated reader localization moved the
+derived Alpha reader into the active Questbook part-local `generated/` route.
+The former root generated path is now a legacy lookup fact and is accounted for
+in Questbook `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
@@ -161,7 +167,7 @@ remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
 non-adoption/boundary, non-agent-service, non-reference-route `examples/`, `agents/`,
-`generated/`, `scripts/`, and `tests/`. They are not automatically legacy.
+remaining `generated/`, `scripts/`, and `tests/`. They are not automatically legacy.
 They remain current source, support, generated, or validation districts until
 a package-local move changes their lookup topology.
 
