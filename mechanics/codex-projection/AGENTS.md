@@ -32,7 +32,7 @@ wiring route inside `aoa-agents`; it does not own Codex runtime behavior.
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
 7. `agents/profiles/AGENTS.md` when profile source affects projection
-8. `PROVENANCE.md` before using `legacy/`
+8. `PROVENANCE.md` for provenance accounting
 
 ## Boundaries
 

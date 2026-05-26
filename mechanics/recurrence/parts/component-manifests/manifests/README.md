@@ -18,4 +18,4 @@
 - `hooks/` holds observation-only hook binding declarations.
 
 Former root paths are lookup facts only. Use the parent package
-`PROVENANCE.md` before entering `legacy/`.
+`PROVENANCE.md` before opening archive accounting.

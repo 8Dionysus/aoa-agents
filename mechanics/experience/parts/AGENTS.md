@@ -17,7 +17,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn assistant experience posture into runtime service ownership.
 - Keep proof, durable memory, and playbook choreography with stronger owners.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

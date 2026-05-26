@@ -18,7 +18,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn checkpoint posture into durable memory truth.
 - Proof, playbook choreography, and runtime checkpoint execution route away.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

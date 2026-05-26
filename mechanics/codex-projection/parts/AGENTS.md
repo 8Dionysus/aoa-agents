@@ -17,7 +17,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn projection posture into Codex runtime behavior.
 - Keep host/editor config ownership outside this package.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

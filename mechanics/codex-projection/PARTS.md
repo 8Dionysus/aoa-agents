@@ -10,6 +10,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `subagent-projection` | [Codex Subagent Projection](parts/subagent-projection/docs/subagent-projection.md) | [config/wiring.v2.json](parts/subagent-projection/config/wiring.v2.json)<br>Old path lookup routes through `PROVENANCE.md`. |
 | `titan-projection` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

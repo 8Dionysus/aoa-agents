@@ -10,6 +10,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `source-surface-registry` | [Registry Source Surfaces](parts/source-surface-registry/docs/registry-source-surfaces.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `workspace-trigger` | [Workspace Surface Trigger Posture](parts/workspace-trigger/docs/workspace-surface-trigger-posture.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

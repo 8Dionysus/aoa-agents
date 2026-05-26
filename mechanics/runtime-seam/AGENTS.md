@@ -32,7 +32,7 @@ steps, runtime artifact contracts, and transition discipline.
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
 7. `agents/runtime_seam/AGENTS.md` when source bindings change
-8. `PROVENANCE.md` before using `legacy/`
+8. `PROVENANCE.md` for provenance accounting
 
 ## Boundaries
 

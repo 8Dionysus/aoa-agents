@@ -193,6 +193,60 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     ),
 }
 
+ACTIVE_PROVENANCE_DOCS: tuple[str, ...] = (
+    'mechanics/AGENTS.md',
+    'mechanics/README.md',
+    'mechanics/ARTIFACT_TOPOLOGY.md',
+    'mechanics/PAYLOAD_RECON.md',
+    'mechanics/PROVENANCE_TOPOLOGY.md',
+    'mechanics/agon/AGENTS.md',
+    'mechanics/agon/PARTS.md',
+    'mechanics/agon/parts/AGENTS.md',
+    'mechanics/antifragility/AGENTS.md',
+    'mechanics/antifragility/PARTS.md',
+    'mechanics/antifragility/parts/AGENTS.md',
+    'mechanics/boundary-bridge/AGENTS.md',
+    'mechanics/boundary-bridge/PARTS.md',
+    'mechanics/boundary-bridge/parts/AGENTS.md',
+    'mechanics/checkpoint/AGENTS.md',
+    'mechanics/checkpoint/PARTS.md',
+    'mechanics/checkpoint/parts/AGENTS.md',
+    'mechanics/codex-projection/AGENTS.md',
+    'mechanics/codex-projection/PARTS.md',
+    'mechanics/codex-projection/parts/AGENTS.md',
+    'mechanics/experience/AGENTS.md',
+    'mechanics/experience/PARTS.md',
+    'mechanics/experience/parts/AGENTS.md',
+    'mechanics/questbook/AGENTS.md',
+    'mechanics/questbook/PARTS.md',
+    'mechanics/questbook/parts/AGENTS.md',
+    'mechanics/recurrence/AGENTS.md',
+    'mechanics/recurrence/PARTS.md',
+    'mechanics/recurrence/parts/AGENTS.md',
+    'mechanics/recurrence/parts/component-manifests/manifests/README.md',
+    'mechanics/release-support/AGENTS.md',
+    'mechanics/release-support/PARTS.md',
+    'mechanics/release-support/parts/AGENTS.md',
+    'mechanics/rpg/AGENTS.md',
+    'mechanics/rpg/PARTS.md',
+    'mechanics/rpg/parts/AGENTS.md',
+    'mechanics/runtime-seam/AGENTS.md',
+    'mechanics/runtime-seam/PARTS.md',
+    'mechanics/runtime-seam/parts/AGENTS.md',
+    'mechanics/titan/AGENTS.md',
+    'mechanics/titan/PARTS.md',
+    'mechanics/titan/parts/AGENTS.md',
+)
+
+FORBIDDEN_ACTIVE_PROVENANCE_SNIPPETS: tuple[str, ...] = (
+    'Legacy Bridge',
+    'legacy/',
+    'legacy accounting',
+    'legacy lookup',
+    'legacy is',
+    'Legacy is',
+)
+
 
 class NestedAgentsValidationError(RuntimeError):
     pass
@@ -221,6 +275,15 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             joined = ', '.join(repr(snippet) for snippet in missing)
             raise NestedAgentsValidationError(
                 f'{rel_path} is missing required guidance snippet(s): {joined}'
+            )
+    for rel_path in ACTIVE_PROVENANCE_DOCS:
+        path = root / rel_path
+        text = _read_text(path)
+        found = [snippet for snippet in FORBIDDEN_ACTIVE_PROVENANCE_SNIPPETS if snippet in text]
+        if found:
+            joined = ', '.join(repr(snippet) for snippet in found)
+            raise NestedAgentsValidationError(
+                f'{rel_path} should route through PROVENANCE.md without active archive leakage: {joined}'
             )
 
 

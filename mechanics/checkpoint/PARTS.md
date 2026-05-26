@@ -11,6 +11,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `self-agent-checkpoint` | [Self-Agent Checkpoint Stack](parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md)<br>[Self Recharter Runtime Block](parts/self-agent-checkpoint/docs/self-recharter-runtime-block.md) | Active schemas: [parts/self-agent-checkpoint/schemas/](parts/self-agent-checkpoint/schemas/). Active examples: [parts/self-agent-checkpoint/examples/](parts/self-agent-checkpoint/examples/). |
 | `stress-handoff` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

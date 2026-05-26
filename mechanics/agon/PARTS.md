@@ -11,6 +11,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `pre-protocol-boundary` | [Formation Trial Readiness](parts/pre-protocol-boundary/docs/formation-trial-readiness.md)<br>[Agonic Governance Trials](parts/pre-protocol-boundary/docs/governance-trials.md)<br>[Agon Pre-Protocol Agent Boundary](parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `recursor-boundary` | [Agon Recurrence Adapter](parts/recursor-boundary/docs/recurrence-adapter.md)<br>[Agon Recursor Boundary](parts/recursor-boundary/docs/recursor-boundary.md)<br>[Agonic Trial Runtime Holds](parts/recursor-boundary/docs/trial-runtime-holds.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

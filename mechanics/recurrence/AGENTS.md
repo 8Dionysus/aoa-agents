@@ -31,7 +31,7 @@ component manifests, anchor return, and Agon recursor boundaries.
 4. this package `README.md`
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` before using `legacy/`
+7. `PROVENANCE.md` for provenance accounting
 8. stronger owner routes for runtime, memo, or playbook recurrence pressure
 
 ## Boundaries

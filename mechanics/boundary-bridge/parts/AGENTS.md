@@ -17,7 +17,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn consumer handoff into general routing policy.
 - Runtime, public entry, and durable memory owners keep their authority.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

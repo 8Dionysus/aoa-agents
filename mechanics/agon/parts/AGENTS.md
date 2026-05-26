@@ -21,7 +21,7 @@ pressure appears.
 - Moved mechanics docs stay in the owning part-local `docs/` directory.
 - Remaining source/support payloads stay in their owner districts until a
   package-local contract and validation route exist.
-- Legacy is reached through `../PROVENANCE.md`, not used as the first route.
+- Provenance review routes through `../PROVENANCE.md`, not the first working path.
 - Stronger owners keep Agon doctrine, proof verdicts, runtime execution,
   memory truth, and playbook choreography.
 

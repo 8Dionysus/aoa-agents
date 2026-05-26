@@ -10,6 +10,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `public-index` | [Public Index](parts/public-index/README.md) | Root human index: [QUESTBOOK.md](../../QUESTBOOK.md). |
 | `quest-item-store` | [Quest Item Store](parts/quest-item-store/README.md) | Root source records: [quests/](../../quests/). |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

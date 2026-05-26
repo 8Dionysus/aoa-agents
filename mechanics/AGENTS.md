@@ -46,13 +46,13 @@ Read:
 4. `mechanics/README.md`
 5. `mechanics/PAYLOAD_RECON.md` before deciding which mechanic a root payload
    belongs to
-6. `mechanics/LEGACY_TOPOLOGY.md` before creating, editing, or using package
-   `legacy/` surfaces
+6. `mechanics/PROVENANCE_TOPOLOGY.md` before creating, editing, or using
+   archive accounting surfaces
 7. `mechanics/ARTIFACT_TOPOLOGY.md` before moving docs, schemas, examples,
    scripts, tests, or generated companions into a mechanic
 8. target package `AGENTS.md`, `README.md`, `PARTS.md`, and `parts/README.md`
    when a nearer package exists
-9. target package `PROVENANCE.md` before opening package `legacy/`
+9. target package `PROVENANCE.md` before opening archive accounting
 10. `docs/decisions/` before changing active mechanics topology
 11. the source family under `agents/` or `docs/` that the mechanic routes
 
@@ -65,7 +65,7 @@ Read:
 | shared schema/example change | keep `schemas/` or `examples/` until package-local validation exists; move mechanic-specific schemas or examples only with an explicit validator |
 | generated drift | update source and builder, then regenerate |
 | file-name cluster pressure | use `mechanics/PAYLOAD_RECON.md` and target `PARTS.md`; do not promote a topic into a mechanic by filename alone |
-| old-path or provenance pressure | use target package `PROVENANCE.md`; legacy is an accounting route, not current behavior |
+| old-path or provenance pressure | use target package `PROVENANCE.md`; archive accounting is not current behavior |
 | proof, memo, route, playbook, skill, runtime, or infra authority | hand off to the owning repository |
 
 ## Compact Rules
@@ -91,8 +91,8 @@ Read:
 - Quest catalog and dispatch readers remain root-published generated
   companions because they summarize root `quests/`.
 - Generated companions stay weaker than builders and source surfaces.
-- `legacy/` preserves lineage and path accounting; it is not the default route
-  for current edits.
+- archive accounting preserves lineage and path history; it is not the default
+  route for current edits.
 - Runtime autonomy, proof verdicts, durable memory truth, routing policy,
   playbook choreography, and infrastructure implementation route to their
   owning repositories.

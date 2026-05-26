@@ -10,6 +10,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `component-manifests` | No package-local docs in this slice. | [manifest set](parts/component-manifests/manifests/README.md)<br>Old path lookup routes through `PROVENANCE.md`. |
 | `recursor-readiness` | [Recursor Agent Readiness](parts/recursor-readiness/docs/recursor-agent-readiness.md)<br>[Recursor Executor Contract](parts/recursor-readiness/docs/recursor-executor-contract.md)<br>[Recursor Pair Separation Law](parts/recursor-readiness/docs/recursor-pair-separation-law.md)<br>[Recursor Witness Contract](parts/recursor-readiness/docs/recursor-witness-contract.md) | [config/roles.seed.json](parts/recursor-readiness/config/roles.seed.json)<br>[config/pair.seed.json](parts/recursor-readiness/config/pair.seed.json)<br>[schema set](parts/recursor-readiness/schemas/README.md)<br>[example set](parts/recursor-readiness/examples/README.md)<br>[generated/role-readiness.min.json](parts/recursor-readiness/generated/role-readiness.min.json)<br>[generated/pair-contract.min.json](parts/recursor-readiness/generated/pair-contract.min.json)<br>Old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.
