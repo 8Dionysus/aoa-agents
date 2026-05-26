@@ -34,7 +34,10 @@ Each step must name:
 - `role_name`
 - `artifact_path`
 
-The artifact files referenced by `artifact_path` must use only the already-published `schemas/artifact.*.schema.json` contracts.
+The artifact files referenced by `artifact_path` must use only the
+already-published
+`mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.*.schema.json`
+contracts.
 
 ## Current route packs
 

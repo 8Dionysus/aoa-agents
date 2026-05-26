@@ -98,8 +98,11 @@ SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoi
 SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agency-continuity-window.schema.json"
 REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
 ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "alpha-reference-route.schema.json"
-RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / "runtime_artifacts"
+RUNTIME_ARTIFACT_CONTRACTS_DIR = REPO_ROOT / "mechanics" / "runtime-seam" / "parts" / "artifact-contracts"
+RUNTIME_ARTIFACT_SCHEMA_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "schemas"
+RUNTIME_ARTIFACT_EXAMPLES_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "examples"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
+FORMER_RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / ("runtime" + "_artifacts")
 SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
 SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agent_checkpoint.example.json"
 SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH = (
@@ -129,13 +132,17 @@ EXTERNAL_QUEST_DISPATCH_SCHEMA_PATH = resolve_aoa_evals_schema_path(
     "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json",
 )
 RUNTIME_ARTIFACT_SCHEMA_PATHS = {
-    "route_decision": REPO_ROOT / "schemas" / "artifact.route_decision.schema.json",
-    "bounded_plan": REPO_ROOT / "schemas" / "artifact.bounded_plan.schema.json",
-    "work_result": REPO_ROOT / "schemas" / "artifact.work_result.schema.json",
-    "verification_result": REPO_ROOT / "schemas" / "artifact.verification_result.schema.json",
-    "transition_decision": REPO_ROOT / "schemas" / "artifact.transition_decision.schema.json",
-    "deep_synthesis_note": REPO_ROOT / "schemas" / "artifact.deep_synthesis_note.schema.json",
-    "distillation_pack": REPO_ROOT / "schemas" / "artifact.distillation_pack.schema.json",
+    "route_decision": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.route_decision.schema.json",
+    "bounded_plan": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.bounded_plan.schema.json",
+    "work_result": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.work_result.schema.json",
+    "verification_result": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.verification_result.schema.json",
+    "transition_decision": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.transition_decision.schema.json",
+    "deep_synthesis_note": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.deep_synthesis_note.schema.json",
+    "distillation_pack": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.distillation_pack.schema.json",
+}
+RUNTIME_ARTIFACT_COMPATIBILITY_REFS = {
+    (Path("schemas") / path.name).as_posix(): path
+    for path in RUNTIME_ARTIFACT_SCHEMA_PATHS.values()
 }
 
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
@@ -1140,6 +1147,44 @@ def runtime_artifact_example_paths(artifact_name: str) -> list[Path]:
             if path not in paths:
                 paths.append(path)
     return paths
+
+
+def validate_runtime_artifact_contract_routes() -> None:
+    actual_schema_paths = {path.name for path in RUNTIME_ARTIFACT_SCHEMA_DIR.glob("*.json")}
+    expected_schema_paths = {path.name for path in RUNTIME_ARTIFACT_SCHEMA_PATHS.values()}
+    if actual_schema_paths != expected_schema_paths:
+        missing = sorted(expected_schema_paths - actual_schema_paths)
+        extra = sorted(actual_schema_paths - expected_schema_paths)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"unexpected: {', '.join(extra)}")
+        fail(f"runtime artifact schema file set drifted ({'; '.join(details)})")
+
+    former_schema_dir = REPO_ROOT / "schemas"
+    former_schema_paths = [former_schema_dir / path.name for path in RUNTIME_ARTIFACT_SCHEMA_PATHS.values()]
+    still_active = [describe_path(path) for path in former_schema_paths if path.exists()]
+    if FORMER_RUNTIME_ARTIFACT_EXAMPLES_DIR.exists():
+        still_active.append(describe_path(FORMER_RUNTIME_ARTIFACT_EXAMPLES_DIR))
+    if still_active:
+        fail(f"former runtime artifact root paths are still active ({'; '.join(still_active)})")
+
+    expected_example_names = {
+        f"{artifact_name}.example.json"
+        for artifact_name in RUNTIME_ARTIFACT_SCHEMA_PATHS
+    }
+    expected_example_names.add("transition_decision.return.example.json")
+    actual_example_names = {path.name for path in RUNTIME_ARTIFACT_EXAMPLES_DIR.glob("*.example.json")}
+    if actual_example_names != expected_example_names:
+        missing = sorted(expected_example_names - actual_example_names)
+        extra = sorted(actual_example_names - expected_example_names)
+        details = []
+        if missing:
+            details.append(f"missing: {', '.join(missing)}")
+        if extra:
+            details.append(f"unexpected: {', '.join(extra)}")
+        fail(f"runtime artifact example file set drifted ({'; '.join(details)})")
 
 
 def validate_runtime_artifact_examples() -> None:
@@ -2904,6 +2949,9 @@ def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     except ValueError:
         fail(f"aoa-agents repo ref must stay inside this repository: {ref}")
     if not target.exists():
+        compatibility_target = RUNTIME_ARTIFACT_COMPATIBILITY_REFS.get(relative_path)
+        if compatibility_target is not None and compatibility_target.exists():
+            return compatibility_target
         fail(f"aoa-agents repo ref does not resolve to an existing public surface: {ref}")
     return target
 
@@ -3395,6 +3443,7 @@ def main() -> int:
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
         validate_nested_agents_docs()
+        validate_runtime_artifact_contract_routes()
         validate_runtime_artifact_schema_surfaces()
         validate_runtime_artifact_examples()
         validate_negative_runtime_artifact_examples()

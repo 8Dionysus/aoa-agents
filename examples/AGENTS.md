@@ -13,10 +13,14 @@ These files illustrate published contracts. They are not the source-authored can
   across base role contract plus assistant civil companion surfaces
 - `agent_formation_trial.example.json` for the additive Wave II.5 reader path
   across base role house plus agonic and assistant split-form judgment
-- `runtime_artifacts/` for public-loop artifact examples and negative fixtures
 - `self_agent_checkpoint/` for governed self-agent checkpoint examples and negative fixtures
 - `reference_routes/` for manifest-driven reference route packs over the published public loop
 - `alpha_reference_routes/` for curated Alpha cohort reference-route surfaces used by the readiness proof lane
+
+Mechanic-specific runtime artifact examples and negative fixtures live under
+`mechanics/runtime-seam/parts/artifact-contracts/examples/` and are validated
+by `scripts/validate_runtime_artifact_contracts.py`. Their schemas live beside
+them under `mechanics/runtime-seam/parts/artifact-contracts/schemas/`.
 
 Mechanic-specific Titan examples live under
 `mechanics/titan/parts/*/examples/` and are validated by
@@ -54,6 +58,7 @@ For Titan part-local examples, also run `python scripts/validate_titan_examples.
 For antifragility stress part-local examples, also run `python scripts/validate_antifragility_stress.py`.
 For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
+For runtime artifact contract part-local examples, also run `python scripts/validate_runtime_artifact_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

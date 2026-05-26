@@ -54,7 +54,7 @@ def valid_memory_rights() -> dict[str, object]:
 
 def transition_decision_schema() -> dict[str, object]:
     schema = validate_agents.read_json(
-        REPO_ROOT / "schemas" / "artifact.transition_decision.schema.json"
+        validate_agents.RUNTIME_ARTIFACT_SCHEMA_PATHS["transition_decision"]
     )
     assert isinstance(schema, dict)
     return schema
@@ -695,7 +695,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
     def test_transition_decision_baseline_example_still_validates(self) -> None:
         payload = validate_agents.read_json(
-            REPO_ROOT / "examples" / "runtime_artifacts" / "transition_decision.example.json"
+            validate_agents.RUNTIME_ARTIFACT_EXAMPLES_DIR / "transition_decision.example.json"
         )
         self.assertIsInstance(payload, dict)
         validate_agents.validate_instance_against_schema(
@@ -733,9 +733,9 @@ class ValidateAgentsTests(unittest.TestCase):
                     validate_agents,
                     "RUNTIME_ARTIFACT_SCHEMA_PATHS",
                     {
-                        "transition_decision": REPO_ROOT
-                        / "schemas"
-                        / "artifact.transition_decision.schema.json"
+                        "transition_decision": validate_agents.RUNTIME_ARTIFACT_SCHEMA_PATHS[
+                            "transition_decision"
+                        ]
                     },
                 ):
                     with self.assertRaises(validate_agents.SchemaValidationError) as ctx:

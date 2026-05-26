@@ -41,7 +41,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     'agents/runtime_seam/AGENTS.md': (
         'generated/runtime_seam_bindings.json',
         'route -> plan -> do -> verify -> deep? -> distill',
-        'examples/runtime_artifacts/',
+        'mechanics/runtime-seam/parts/artifact-contracts/examples/',
         'runtime infrastructure implementation',
     ),
     'mechanics/AGENTS.md': (
@@ -66,13 +66,13 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     ),
     'examples/AGENTS.md': (
         'public-safe, schema-backed examples',
-        'runtime_artifacts/',
+        'mechanics/runtime-seam/parts/artifact-contracts/examples/',
         'self_agent_checkpoint/',
         'reference_routes/',
         'not the source-authored canon layer',
     ),
-    'examples/runtime_artifacts/AGENTS.md': (
-        'schemas/artifact.*.schema.json',
+    'mechanics/runtime-seam/parts/artifact-contracts/examples/README.md': (
+        '[schemas/](../schemas/)',
         'generated/runtime_seam_bindings.json',
         '`invalid/` exists for negative coverage',
         'mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md',

@@ -118,6 +118,12 @@ Codex-facing assistant projection resolver schemas and example by moving them
 into the `assistant-projection` part and adding
 `scripts/validate_assistant_projection_resolver.py`.
 
-Shared remaining non-Titan schemas, remaining non-Titan examples, scripts,
-tests, generated readers, and source agent objects remain in their current
-districts until their own move proof exists.
+The runtime artifact contract localization satisfies that rule for runtime
+artifact schemas, examples, and invalid fixtures by moving them into the
+`runtime-seam/artifact-contracts` part and adding
+`scripts/validate_runtime_artifact_contracts.py`.
+
+Shared remaining non-Titan and non-runtime-artifact schemas, remaining
+non-Titan and non-runtime-artifact examples, scripts, tests, generated
+readers, and source agent objects remain in their current districts until
+their own move proof exists.

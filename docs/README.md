@@ -103,7 +103,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 This repository should stay bounded.
 If a document starts trying to become a technique corpus, workflow corpus, proof corpus, or memory store, it probably belongs in a neighboring AoA repository instead.
 
-Inspectable runtime seam examples live in `examples/runtime_artifacts/`.
+Inspectable runtime seam examples live in `mechanics/runtime-seam/parts/artifact-contracts/examples/`.
 Inspectable self-agent checkpoint examples live in `examples/self_agent_checkpoint/`.
 Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
 `generated/codex_agents/` is the repo-side install surface for workspace `.codex/agents/`.
