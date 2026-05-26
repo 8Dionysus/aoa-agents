@@ -21,10 +21,10 @@ Move the runtime artifact schemas, examples, and invalid fixtures into
 Keep stable schema `$id` values unchanged because they are public contract
 identifiers, not active repository path authority.
 
-Add `scripts/validate_runtime_artifact_contracts.py` and update
+Protect the contract set with a dedicated validator loaded by
 `scripts/validate_agents.py` so the active part-local file set, schema
 validity, examples, invalid fixtures, and former root-route absence are checked
-explicitly.
+explicitly. The validator now lives under the owning part-local script route.
 
 Keep optional consumer smoke checks compatible with historical artifact-schema
 repo refs by resolving those refs to the new part-local schemas.
@@ -46,11 +46,11 @@ Preserve former root lookup only through Runtime Seam `PROVENANCE.md` and
 ## Verification
 
 ```bash
-python scripts/validate_runtime_artifact_contracts.py
+python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests/test_runtime_artifact_contracts.py
+python -m unittest discover -s mechanics/runtime-seam/parts/artifact-contracts/tests -p 'test_*.py'
 python -m pytest -q tests
 python scripts/release_check.py
 ```

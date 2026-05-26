@@ -126,7 +126,7 @@ into the `assistant-projection` part and adding
 The runtime artifact contract localization satisfies that rule for runtime
 artifact schemas, examples, and invalid fixtures by moving them into the
 `runtime-seam/artifact-contracts` part and adding
-`scripts/validate_runtime_artifact_contracts.py`.
+`mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 
 The checkpoint contract localization satisfies that rule for self-agent
 checkpoint and continuity-window schemas/examples by splitting them into the

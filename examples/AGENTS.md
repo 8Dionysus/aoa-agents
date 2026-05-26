@@ -29,8 +29,10 @@ continuity-window example lives under
 
 Mechanic-specific runtime artifact examples and negative fixtures live under
 `mechanics/runtime-seam/parts/artifact-contracts/examples/` and are validated
-by `scripts/validate_runtime_artifact_contracts.py`. Their schemas live beside
-them under `mechanics/runtime-seam/parts/artifact-contracts/schemas/`.
+by
+`mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
+Their schemas live beside them under
+`mechanics/runtime-seam/parts/artifact-contracts/schemas/`.
 
 Mechanic-specific Titan examples live under
 `mechanics/titan/parts/*/examples/` and are validated by
@@ -120,7 +122,7 @@ For antifragility stress part-local examples, also run `python mechanics/antifra
 For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
-For runtime artifact contract part-local examples, also run `python scripts/validate_runtime_artifact_contracts.py`.
+For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
 For Agon formation part-local examples, also run `python scripts/validate_agon_formation_contracts.py`.

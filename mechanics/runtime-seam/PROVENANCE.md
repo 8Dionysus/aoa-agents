@@ -68,6 +68,16 @@ moved from root `schemas/` and `examples/` into the `artifact-contracts` part.
 Stable schema `$id` values remain public contract identifiers, not active repo
 path authority.
 
+## 2026-05-26 Runtime Artifact Check Move
+
+The runtime artifact contract validator and focused tests moved from root
+support districts into the owning `artifact-contracts` part.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_runtime_artifact_contracts.py` | [parts/artifact-contracts/scripts/validate_artifact_contracts.py](parts/artifact-contracts/scripts/validate_artifact_contracts.py) | `artifact-contracts` |
+| `tests/test_runtime_artifact_contracts.py` | [parts/artifact-contracts/tests/test_artifact_contracts.py](parts/artifact-contracts/tests/test_artifact_contracts.py) | `artifact-contracts` |
+
 ## 2026-05-26 Agent Authority Claim Contract Move
 
 The runtime-readable authority claim schema/example moved from root

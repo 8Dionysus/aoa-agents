@@ -106,6 +106,13 @@ into active
 after adding a part-local validator. Stable schema `$id` values remain public
 contract identifiers, not active repo paths.
 
+The 2026-05-26 runtime artifact check localization moves the runtime artifact
+contract validator and focused tests from root `scripts/` and `tests/` into
+`mechanics/runtime-seam/parts/artifact-contracts/{scripts,tests}/`.
+`scripts/validate_agents.py` remains the repo-wide coordinator by loading the
+part-local validator directly, and `scripts/release_check.py` runs the
+part-local tests explicitly.
+
 The 2026-05-26 checkpoint contract localization moves self-agent checkpoint
 and continuity-window schemas/examples from root `schemas/` and `examples/`
 into active `mechanics/checkpoint/parts/*/{schemas,examples}/` routes after

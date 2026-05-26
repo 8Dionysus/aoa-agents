@@ -108,6 +108,17 @@ _TITAN_EXAMPLES_MODULE = load_repo_python_module(
 TitanExamplesValidationError = _TITAN_EXAMPLES_MODULE.TitanExamplesValidationError
 validate_titan_examples = _TITAN_EXAMPLES_MODULE.validate_titan_examples
 
+_RUNTIME_ARTIFACT_CONTRACTS_MODULE = load_repo_python_module(
+    "runtime_artifact_contracts_validator",
+    "mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py",
+)
+RuntimeArtifactContractsValidationError = (
+    _RUNTIME_ARTIFACT_CONTRACTS_MODULE.RuntimeArtifactContractsValidationError
+)
+validate_runtime_artifact_contracts = (
+    _RUNTIME_ARTIFACT_CONTRACTS_MODULE.validate_runtime_artifact_contracts
+)
+
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
     legacy_path = AOA_EVALS_ROOT / "schemas" / legacy_name
@@ -3593,10 +3604,7 @@ def main() -> int:
         validate_reference_route_contract_routes()
         validate_spark_agent_lane()
         validate_nested_agents_docs()
-        validate_runtime_artifact_contract_routes()
-        validate_runtime_artifact_schema_surfaces()
-        validate_runtime_artifact_examples()
-        validate_negative_runtime_artifact_examples()
+        validate_runtime_artifact_contracts(REPO_ROOT)
         self_agent_checkpoint_example = validate_self_agent_checkpoint_example()
         self_agency_continuity_window_example = validate_self_agency_continuity_window_example()
         validate_negative_self_agent_checkpoint_examples()
@@ -3646,6 +3654,7 @@ def main() -> int:
         RPGProgressionValidationError,
         TitanExamplesValidationError,
         TitanSchemasValidationError,
+        RuntimeArtifactContractsValidationError,
         ValidationError,
     ) as exc:
         print(f"[error] {exc}", file=sys.stderr)
@@ -3683,8 +3692,7 @@ def main() -> int:
     print("[ok] validated recurrence component manifests")
     print("[ok] validated recursor part-local contracts")
     print("[ok] validated Titan part-local examples")
-    print("[ok] validated runtime artifact schema surfaces")
-    print("[ok] validated runtime artifact examples")
+    print("[ok] validated runtime artifact part-local contracts")
     print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated self-agency continuity window example")
     print("[ok] validated runtime seam bindings")
