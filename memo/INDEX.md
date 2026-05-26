@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 15 |
+| candidates | 16 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 15 |
+| `reviewed_intake` | 16 |
 
 ## Open Items
 
@@ -36,6 +36,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T065957Z:1618e728-aoa-agents-clarified-formation-g` | `candidate` | `reviewed_intake` | `candidates/20260526T065957Z.1618e728.aoa-agents-clarified-formation-generated-reader.candidate.json` |
 | `candidate:aoa-agents:20260526T070617Z:c17709ae-aoa-agents-clarified-root-agent` | `candidate` | `reviewed_intake` | `candidates/20260526T070617Z.c17709ae.aoa-agents-clarified-root-agent-schema-posture-a.candidate.json` |
 | `candidate:aoa-agents:20260526T071333Z:b0be90ee-aoa-agents-moved-the-maintained` | `candidate` | `reviewed_intake` | `candidates/20260526T071333Z.b0be90ee.aoa-agents-moved-the-maintained-spark-fast-loop.candidate.json` |
+| `candidate:aoa-agents:20260526T072511Z:167192e9-aoa-agents-added-package-level-a` | `candidate` | `reviewed_intake` | `candidates/20260526T072511Z.167192e9.aoa-agents-added-package-level-agents-md-route-c.candidate.json` |
 
 ## Agent Route
 
