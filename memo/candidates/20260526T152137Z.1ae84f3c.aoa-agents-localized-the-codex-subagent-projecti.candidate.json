@@ -1,0 +1,32 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T152137Z:1ae84f3c-aoa-agents-localized-the-codex-s",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Codex subagent projection builder, projection module, validator, and focused tests into mechanics/codex-projection/parts/subagent-projection while keeping generated/codex_agents root-published as a derived Codex custom-agent install seam.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-codex-subagent-projection-builder-localization.md",
+    "mechanics/codex-projection/parts/subagent-projection/README.md",
+    "mechanics/codex-projection/PROVENANCE.md",
+    "generated/AGENTS.md",
+    "scripts/validate_agents.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/763c16ead3b5d661b31ddf40f07867c2cb330dba",
+    "repo:aoa-agents/pull/212",
+    "repo:aoa-agents/actions/runs/26457563212"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T15:21:37Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
