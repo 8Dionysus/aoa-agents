@@ -31,6 +31,9 @@ repeatable operation mechanics:
 
 - `agents/` owns role, tier, orchestrator-class, cohort, and runtime-seam
   source inputs.
+- `agents/source_home.manifest.json` owns the checked map of source families,
+  publication targets, validators, and stronger-owner stop lines for the
+  `agents/` home.
 - `mechanics/` owns the operation atlas for formation, projection,
   runtime-seam binding, checkpoint posture, quest posture, Titan role-bearing
   movement, and release-support pressure.
@@ -80,6 +83,7 @@ Exit signals:
 
 The currently published agent-layer contour already includes:
 - source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `agents/profiles/`, `agents/model_tiers/`, `agents/orchestrator_classes/`, `agents/cohort_patterns/`, and `agents/runtime_seam/`
+- the checked source-home manifest under `agents/source_home.manifest.json`
 - the mechanics atlas under `mechanics/`
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
 - Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`

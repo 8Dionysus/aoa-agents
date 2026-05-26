@@ -7,7 +7,7 @@ Use it when you want to understand the AoA agent layer rather than the broader f
 ## Start here
 
 - Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
-- Read [DESIGN](../DESIGN.md), [agents/README](../agents/README.md), and [mechanics/README](../mechanics/README.md) for the current source-object and operation-topology split.
+- Read [DESIGN](../DESIGN.md), [agents/README](../agents/README.md), [agents/source_home.manifest.json](../agents/source_home.manifest.json), and [mechanics/README](../mechanics/README.md) for the current source-object home and operation-topology split.
 - Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
 - Read [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md) for the bounded boundary note that now routes from legacy role contracts into landed agonic adjuncts, landed assistant civil adjuncts, and landed formation-trial judgment while keeping protocol law out of this repository.
 - Read [Agonic Actor Rechartering](../mechanics/agon/parts/formation/docs/actor-rechartering.md) and [Agonic Actor Rechartering Landing](../mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md) for the first landed Agon-facing actor turn.

@@ -17,6 +17,7 @@ Use this file as the agent-facing reading card for repository design work.
 ## Design Law
 
 - `agents/` owns source-authored agent objects.
+- `agents/source_home.manifest.json` owns the checked source-home family map.
 - `.agents/` owns agent-facing companion lanes such as exported skills and the
   Codex Spark fast-loop lane.
 - `mechanics/` owns repeatable operation topology.
@@ -55,4 +56,6 @@ python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 ```
 
-Add builder checks when source objects or generated readers move.
+Add `python scripts/validate_agent_source_home.py` when the source-object home,
+family map, or generated-reader routes move. Add builder checks when source
+objects or generated readers move.

@@ -21,8 +21,9 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     ),
     'agents/AGENTS.md': (
         'Operating Card',
-        'source-authored agent district',
+        'source-authored agent home',
         'agents/README.md',
+        'source_home.manifest.json',
         'agents/profiles/',
         'mechanics/',
     ),

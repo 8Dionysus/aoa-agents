@@ -28,6 +28,7 @@ This repository owns agent-layer truth about:
 - repeatable agent-layer operation topology under `mechanics/`
 - compact agent registries
 - agent-layer schemas and validation rules
+- checked source-home topology for role-bearing source families
 
 ## What this repository does not own
 
@@ -62,7 +63,8 @@ Examples:
 
 ## Repository topology
 
-- `agents/` is the source-authored agent object district.
+- `agents/` is the source-authored agent object home.
+- `agents/source_home.manifest.json` is the checked family map for that home.
 - `mechanics/` is the operation atlas for repeatable agent-layer mechanics.
 - `docs/`, `schemas/`, `examples/`, `generated/`, `config/`, `scripts/`, and
   `tests/` keep their existing roles unless a later route decision narrows a

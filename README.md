@@ -14,7 +14,7 @@ Use the shortest route by need:
 
 - docs map: `docs/README.md`
 - repository design: `DESIGN.md`
-- source object district: `agents/README.md`
+- source object home: `agents/README.md` and `agents/source_home.manifest.json`
 - agent-facing companion lanes: `.agents/AGENTS.md`
 - mechanics atlas: `mechanics/README.md`
 - role and boundary charter: `CHARTER.md`
@@ -35,7 +35,7 @@ Use the shortest route by need:
 
 ## Route by need
 
-- source-authored agent objects: `agents/README.md`, then the nearest `agents/**/AGENTS.md`
+- source-authored agent objects: `agents/README.md`, `agents/source_home.manifest.json`, then the nearest `agents/**/AGENTS.md`
 - agent-facing companion lanes: `.agents/AGENTS.md`; for Spark, `.agents/spark/AGENTS.md` and `.agents/spark/SWARM.md`
 - repeatable agent-layer operations: `mechanics/README.md` and `mechanics/ARTIFACT_TOPOLOGY.md`
 - canonical profiles and schemas: `agents/profiles/*.profile.json` and `schemas/agent-profile.schema.json`
@@ -101,6 +101,7 @@ Verify the current committed surfaces without rewriting files:
 ```bash
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
+python scripts/validate_agent_source_home.py
 python scripts/validate_agents.py
 python mechanics/titan/scripts/validate_titan_schemas.py
 python mechanics/titan/scripts/validate_titan_examples.py
@@ -156,6 +157,7 @@ python scripts/validate_agents.py
 Refresh published registries only after editing source-authored registry inputs under `agents/profiles/`, `agents/model_tiers/`, `agents/orchestrator_classes/`, `agents/cohort_patterns/`, or `agents/runtime_seam/`:
 
 ```bash
+python scripts/validate_agent_source_home.py
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json

@@ -5,7 +5,9 @@
 Use [README.md](README.md) as the root schema district index. This card owns
 edit posture, root-vs-mechanic schema boundaries, and validation route.
 
-`schemas/` holds shared contracts for profiles, model tiers, orchestrator classes, cohorts, and runtime-seam registry bindings.
+`schemas/` holds shared contracts for profiles, model tiers, orchestrator
+classes, cohorts, runtime-seam registry bindings, and the checked `agents/`
+source-home manifest.
 
 Mechanic-specific runtime artifact schemas live under
 `mechanics/runtime-seam/parts/artifact-contracts/schemas/` and are validated by

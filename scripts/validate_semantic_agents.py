@@ -20,8 +20,9 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
         Path('agents/AGENTS.md'),
         (
             'Operating Card',
-            'source-authored agent district',
+            'source-authored agent home',
             'agents/README.md',
+            'source_home.manifest.json',
             'agents/profiles/',
             'mechanics/',
             'validate_agents.py',

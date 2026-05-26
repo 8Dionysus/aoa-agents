@@ -10,7 +10,7 @@ and configuration.
 
 | District | Role |
 | --- | --- |
-| `agents/` | source-authored agent objects and compact role-facing inputs |
+| `agents/` | source-authored agent object home and compact role-facing inputs |
 | `mechanics/` | repeatable operation topology around agent-layer movement |
 | `docs/` | public explanation, doctrine, boundaries, and maps |
 | `schemas/` | shared JSON Schema contracts |
@@ -44,11 +44,15 @@ as a bare prohibition.
 
 Source-authored agent objects live under `agents/`.
 
+`agents/source_home.manifest.json` records the checked home topology: source
+families, owner cards, schema or mechanic-local contracts, publication targets,
+builders, validators, and stronger-owner stop lines.
+
 `agents/` inputs publish through deterministic builders into `generated/`.
 Generated readers are consumer surfaces, not source truth.
 
 ```text
-agents/* source -> scripts/* builder -> generated/* reader -> docs/consumer route
+agents/* source -> source_home.manifest.json route -> scripts/* builder -> generated/* reader -> docs/consumer route
 ```
 
 ## Mechanics Flow
