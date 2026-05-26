@@ -78,6 +78,18 @@ root `schemas/` and `examples/` into active Agon part-local contract routes.
 | `examples/agon_agent_school_campaign_posture.example.json` | [parts/arena-rank-school/examples/school-campaign-posture.example.json](parts/arena-rank-school/examples/school-campaign-posture.example.json) | `arena-rank-school` |
 | `examples/agon_epistemic_actor_posture.example.json` | [parts/epistemic-actor/examples/epistemic-actor-posture.example.json](parts/epistemic-actor/examples/epistemic-actor-posture.example.json) | `epistemic-actor` |
 
+## 2026-05-26 Root Agon Rank/Epistemic Generated Reader Move
+
+3 candidate-only Agon generated registries moved from root `generated/` into
+the owning Agon parts after their configs, schemas, and examples were already
+part-local.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `generated/agon_agent_rank_jurisdiction_registry.min.json` | [parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json](parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json) | `arena-rank-school` |
+| `generated/agon_agent_school_campaign_posture_registry.min.json` | [parts/arena-rank-school/generated/school-campaign-posture-registry.min.json](parts/arena-rank-school/generated/school-campaign-posture-registry.min.json) | `arena-rank-school` |
+| `generated/agon_epistemic_actor_posture_registry.min.json` | [parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json](parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json) | `epistemic-actor` |
+
 ## 2026-05-26 Root Agon Formation Contract Move
 
 6 Agon formation schemas plus 2 examples moved from root `schemas/` and

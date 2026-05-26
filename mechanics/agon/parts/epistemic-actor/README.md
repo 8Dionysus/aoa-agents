@@ -26,4 +26,11 @@ This part routes `epistemic-actor` pressure inside `mechanics/agon/`.
 - [Epistemic Actor Posture Example](examples/epistemic-actor-posture.example.json)
 - [Example Route](examples/README.md)
 
+## Active Generated
+
+- [Epistemic Actor Posture Registry](generated/epistemic-actor-posture-registry.min.json)
+
+The generated reader is derived from this part's posture seed and remains a
+candidate-only support surface, not live epistemic authority.
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -13,7 +13,8 @@ class AgonEpistemicActorPostureTests(unittest.TestCase):
     def test_generated_registry_shape(self) -> None:
         reg = json.loads(
             (
-                ROOT / "generated/agon_epistemic_actor_posture_registry.min.json"
+                ROOT
+                / "mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json"
             ).read_text(encoding="utf-8")
         )
         self.assertEqual(reg["wave"], "XV")

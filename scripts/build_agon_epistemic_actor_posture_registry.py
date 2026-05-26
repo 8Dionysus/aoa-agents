@@ -10,7 +10,7 @@ from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "config" / "posture.seed.json"
-OUT = ROOT / "generated" / "agon_epistemic_actor_posture_registry.min.json"
+OUT = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "generated" / "epistemic-actor-posture-registry.min.json"
 ITEM_KEY = "postures"
 REGISTRY_ID = "agon.epistemic_actor_posture.registry.v1"
 WAVE = "XV"

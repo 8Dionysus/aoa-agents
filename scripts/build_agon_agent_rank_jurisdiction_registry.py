@@ -6,7 +6,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
-OUTPUT = ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json"
+OUTPUT = (
+    ROOT
+    / "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json"
+)
 
 
 def load_json(path: Path):

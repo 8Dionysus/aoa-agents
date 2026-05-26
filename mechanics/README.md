@@ -51,10 +51,13 @@ contract routes.
 The Alpha reference-route generated reader localization moved the derived
 Alpha reader into the Questbook `alpha-reference-routes` part because its only
 source truth is that part's examples.
+The Agon rank/school/epistemic generated reader localization moved
+candidate-only rank, school/campaign, and epistemic registries into their
+owning Agon parts because their source truth is already part-local config.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
-| `agon/` | Agon docs, part-local config seeds, adjuncts, formation indexes, Wave I/II/II.5 builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
+| `agon/` | Agon docs, part-local config seeds, adjuncts, part-local rank/school/epistemic generated readers, formation indexes, Wave I/II/II.5 builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
 | `experience/` | assistant civil/service/office/adoption/release docs, adjuncts, schemas, examples | route assistant service, office, adoption, watch, and arena-exclusion pressure without becoming runtime service authority |
 | `titan/` | Titan docs, part-local config, schemas, examples, generated projections, and builders | route Titan role-bearing, lineage, summon, roster, and service-cohort posture inside the agent layer |
 | `recurrence/` | recursor docs, part-local config, part-local component manifests, schemas, examples, and generated readers | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |
@@ -93,6 +96,8 @@ mechanics packages from empty route skeletons into active route homes:
   Checkpoint and Questbook part-local `schemas/` and `examples/` routes;
 - the Alpha reference-route generated reader lives under its owning Questbook
   part-local `generated/` route;
+- Agon rank/school/epistemic generated readers live under their owning
+  Agon part-local `generated/` routes;
 - quest catalog records and Agon quest notes live under
   `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;

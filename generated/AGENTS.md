@@ -26,6 +26,9 @@ Mechanic-local generated companions are documented at their owning part.
 The Alpha reference-route reader lives at
 `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`
 because it is derived only from that part's examples.
+Agon rank/school/epistemic readers live under
+`mechanics/agon/parts/*/generated/` because they are derived from Agon
+part-local seed/config surfaces.
 
 ## Source layers
 
@@ -50,6 +53,9 @@ Review diffs here as public contract deltas, not as arbitrary JSON churn.
 For the Alpha reference-route generated reader, use
 `scripts/generate_alpha_reference_routes.py`; the output is part-local under
 `mechanics/questbook/parts/alpha-reference-routes/generated/`.
+For Agon rank/school/epistemic generated readers, use their dedicated
+`scripts/build_agon_*.py` builders; the outputs are part-local under the
+owning Agon parts.
 For `generated/agent_agonic_formation_index.min.json`, use
 `scripts/build_agent_agonic_formation_index.py` as the canonical builder and
 `scripts/validate_agent_agonic_formation.py` as the explicit Wave I validator.

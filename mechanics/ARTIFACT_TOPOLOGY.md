@@ -174,6 +174,14 @@ schema and examples already had a part-local route and validator. Root
 `generated/` continues to own repo-level registries and readers; this reader
 is part-local because its only source truth is the Questbook Alpha example set.
 
+The 2026-05-26 Agon rank/school/epistemic generated reader localization moves
+candidate-only rank jurisdiction, school/campaign posture, and epistemic actor
+registry readers from root `generated/` into their owning Agon parts after the
+schemas, examples, and config seeds already had part-local routes and
+validators. Root `generated/` continues to own repo-level registries and
+formation readers; these readers are part-local because they summarize Agon
+part-local config.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

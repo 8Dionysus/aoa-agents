@@ -8,7 +8,7 @@ import sys
 from jsonschema import Draft202012Validator
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / 'generated/agon_agent_school_campaign_posture_registry.min.json'
+OUT = ROOT / 'mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json'
 ITEM_KEY = 'agent_school_campaign_postures'
 EXPECTED_COUNT = 10
 UNIQUE_KEY_FIELD = 'posture_id'

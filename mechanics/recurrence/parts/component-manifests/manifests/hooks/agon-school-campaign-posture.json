@@ -13,7 +13,7 @@
       ],
       "hook_id": "agon.school-campaign-posture.drift-watch",
       "surface_globs": [
-        "generated/agon_agent_school_campaign_posture_registry.min.json",
+        "mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json",
         "mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json",
         "mechanics/agon/parts/arena-rank-school/docs/school-campaign-posture.md",
         "mechanics/agon/parts/arena-rank-school/docs/school-affiliation-boundary.md",

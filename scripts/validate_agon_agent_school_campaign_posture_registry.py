@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / 'mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json'
-OUT = ROOT / 'generated/agon_agent_school_campaign_posture_registry.min.json'
+OUT = ROOT / 'mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json'
 SCHEMA_DIR = ROOT / 'mechanics' / 'agon' / 'parts' / 'arena-rank-school' / 'schemas'
 ENTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture.schema.json'
 REGISTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture-registry.schema.json'

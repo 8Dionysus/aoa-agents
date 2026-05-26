@@ -6,6 +6,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 ARENA_RANK_SCHOOL_SCHEMAS = ROOT / "mechanics/agon/parts/arena-rank-school/schemas"
+ARENA_RANK_SCHOOL_GENERATED = ROOT / "mechanics/agon/parts/arena-rank-school/generated"
 
 
 def _load(path: Path):
@@ -18,7 +19,7 @@ def _load(path: Path):
 
 def test_generated_registry_matches_seed():
     builder = _load(ROOT / "scripts/build_agon_agent_rank_jurisdiction_registry.py")
-    generated = json.loads((ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json").read_text(encoding="utf-8"))
+    generated = json.loads((ARENA_RANK_SCHOOL_GENERATED / "rank-jurisdiction-registry.min.json").read_text(encoding="utf-8"))
     assert builder.build_registry() == generated
 
 
@@ -28,7 +29,7 @@ def test_validator_accepts_registry():
 
 
 def test_schemas_constrain_entry_and_registry():
-    generated = json.loads((ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json").read_text(encoding="utf-8"))
+    generated = json.loads((ARENA_RANK_SCHOOL_GENERATED / "rank-jurisdiction-registry.min.json").read_text(encoding="utf-8"))
     entry_schema = json.loads((ARENA_RANK_SCHOOL_SCHEMAS / "rank-jurisdiction.schema.json").read_text(encoding="utf-8"))
     registry_schema = json.loads(
         (ARENA_RANK_SCHOOL_SCHEMAS / "rank-jurisdiction-registry.schema.json").read_text(encoding="utf-8")

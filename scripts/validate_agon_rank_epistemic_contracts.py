@@ -19,8 +19,10 @@ ARENA_PART = Path("mechanics/agon/parts/arena-rank-school")
 EPISTEMIC_PART = Path("mechanics/agon/parts/epistemic-actor")
 ARENA_SCHEMA_DIR = ARENA_PART / "schemas"
 ARENA_EXAMPLE_DIR = ARENA_PART / "examples"
+ARENA_GENERATED_DIR = ARENA_PART / "generated"
 EPISTEMIC_SCHEMA_DIR = EPISTEMIC_PART / "schemas"
 EPISTEMIC_EXAMPLE_DIR = EPISTEMIC_PART / "examples"
+EPISTEMIC_GENERATED_DIR = EPISTEMIC_PART / "generated"
 
 EXPECTED_ARENA_SCHEMAS = {
     "arena-eligibility.schema.json",
@@ -33,11 +35,16 @@ EXPECTED_ARENA_EXAMPLES = {
     "rank-surface.example.json",
     "school-campaign-posture.example.json",
 }
+EXPECTED_ARENA_GENERATED = {
+    "rank-jurisdiction-registry.min.json",
+    "school-campaign-posture-registry.min.json",
+}
 EXPECTED_EPISTEMIC_SCHEMAS = {
     "epistemic-actor-posture.schema.json",
     "epistemic-actor-posture-registry.schema.json",
 }
 EXPECTED_EPISTEMIC_EXAMPLES = {"epistemic-actor-posture.example.json"}
+EXPECTED_EPISTEMIC_GENERATED = {"epistemic-actor-posture-registry.min.json"}
 
 
 class AgonRankEpistemicContractsValidationError(RuntimeError):
@@ -60,6 +67,11 @@ FORMER_EXAMPLE_NAMES = (
     "agon" + "_agent_rank_surface.example.json",
     "agon" + "_agent_school_campaign_posture.example.json",
     "agon" + "_epistemic_actor_posture.example.json",
+)
+FORMER_GENERATED_NAMES = (
+    "agon" + "_agent_rank_jurisdiction_registry.min.json",
+    "agon" + "_agent_school_campaign_posture_registry.min.json",
+    "agon" + "_epistemic_actor_posture_registry.min.json",
 )
 
 
@@ -161,11 +173,17 @@ def collect_agon_rank_epistemic_contract_errors(root: Path = ROOT) -> list[str]:
         former_path = root / "examples" / file_name
         if former_path.exists():
             errors.append(f"former root Agon example is still active: {former_path.relative_to(root).as_posix()}")
+    for file_name in FORMER_GENERATED_NAMES:
+        former_path = root / "generated" / file_name
+        if former_path.exists():
+            errors.append(f"former root Agon generated reader is still active: {former_path.relative_to(root).as_posix()}")
 
     _check_file_set(root, ARENA_SCHEMA_DIR, EXPECTED_ARENA_SCHEMAS, label="arena-rank-school schema", errors=errors)
     _check_file_set(root, ARENA_EXAMPLE_DIR, EXPECTED_ARENA_EXAMPLES, label="arena-rank-school example", errors=errors)
+    _check_file_set(root, ARENA_GENERATED_DIR, EXPECTED_ARENA_GENERATED, label="arena-rank-school generated", errors=errors)
     _check_file_set(root, EPISTEMIC_SCHEMA_DIR, EXPECTED_EPISTEMIC_SCHEMAS, label="epistemic-actor schema", errors=errors)
     _check_file_set(root, EPISTEMIC_EXAMPLE_DIR, EXPECTED_EPISTEMIC_EXAMPLES, label="epistemic-actor example", errors=errors)
+    _check_file_set(root, EPISTEMIC_GENERATED_DIR, EXPECTED_EPISTEMIC_GENERATED, label="epistemic-actor generated", errors=errors)
 
     try:
         rank_schema = _schema(root / ARENA_SCHEMA_DIR / "rank-jurisdiction.schema.json")
@@ -181,19 +199,19 @@ def collect_agon_rank_epistemic_contract_errors(root: Path = ROOT) -> list[str]:
     rank_example = _read_json(root / ARENA_EXAMPLE_DIR / "rank-surface.example.json")
     school_example = _read_json(root / ARENA_EXAMPLE_DIR / "school-campaign-posture.example.json")
     epistemic_example = _read_json(root / EPISTEMIC_EXAMPLE_DIR / "epistemic-actor-posture.example.json")
-    rank_registry = _read_json(root / "generated" / "agon_agent_rank_jurisdiction_registry.min.json")
-    school_registry = _read_json(root / "generated" / "agon_agent_school_campaign_posture_registry.min.json")
-    epistemic_registry = _read_json(root / "generated" / "agon_epistemic_actor_posture_registry.min.json")
+    rank_registry = _read_json(root / ARENA_GENERATED_DIR / "rank-jurisdiction-registry.min.json")
+    school_registry = _read_json(root / ARENA_GENERATED_DIR / "school-campaign-posture-registry.min.json")
+    epistemic_registry = _read_json(root / EPISTEMIC_GENERATED_DIR / "epistemic-actor-posture-registry.min.json")
 
     inlined_epistemic_registry_schema = copy.deepcopy(epistemic_registry_schema)
     inlined_epistemic_registry_schema["properties"]["postures"]["items"] = epistemic_schema
 
     _validate_payload(rank_schema, rank_example, location="rank-surface.example.json", errors=errors)
-    _validate_payload(rank_registry_schema, rank_registry, location="generated/agon_agent_rank_jurisdiction_registry.min.json", errors=errors)
+    _validate_payload(rank_registry_schema, rank_registry, location="arena-rank-school/generated/rank-jurisdiction-registry.min.json", errors=errors)
     _validate_payload(school_schema, school_example, location="school-campaign-posture.example.json", errors=errors)
-    _validate_payload(school_registry_schema, school_registry, location="generated/agon_agent_school_campaign_posture_registry.min.json", errors=errors)
+    _validate_payload(school_registry_schema, school_registry, location="arena-rank-school/generated/school-campaign-posture-registry.min.json", errors=errors)
     _validate_payload(epistemic_schema, epistemic_example, location="epistemic-actor-posture.example.json", errors=errors)
-    _validate_payload(inlined_epistemic_registry_schema, epistemic_registry, location="generated/agon_epistemic_actor_posture_registry.min.json", errors=errors)
+    _validate_payload(inlined_epistemic_registry_schema, epistemic_registry, location="epistemic-actor/generated/epistemic-actor-posture-registry.min.json", errors=errors)
 
     try:
         errors.extend(_collect_script_result_errors())

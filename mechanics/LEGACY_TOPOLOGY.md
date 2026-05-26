@@ -157,6 +157,12 @@ The former root generated path is now a legacy lookup fact and is accounted for
 in Questbook `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`.
 
+The 2026-05-26 Agon rank/school/epistemic generated reader localization moved
+candidate-only generated registries into active Agon part-local `generated/`
+routes. Former root generated paths are now legacy lookup facts and are
+accounted for in Agon `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
@@ -167,7 +173,8 @@ remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
 non-adoption/boundary, non-agent-service, non-reference-route `examples/`, `agents/`,
-remaining `generated/`, `scripts/`, and `tests/`. They are not automatically legacy.
+remaining non-Alpha, non-Agon-rank/epistemic `generated/`, `scripts/`, and
+`tests/`. They are not automatically legacy.
 They remain current source, support, generated, or validation districts until
 a package-local move changes their lookup topology.
 
