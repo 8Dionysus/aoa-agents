@@ -113,6 +113,7 @@ the package-local validators and tests through `scripts/validate_agents.py` and
 | `tests/test_validate_titan_lineage.py` | [tests/test_validate_titan_lineage.py](tests/test_validate_titan_lineage.py) | `titan` package |
 | `tests/test_titan_schemas.py` | [tests/test_titan_schemas.py](tests/test_titan_schemas.py) | `titan` package |
 | `tests/test_titan_examples.py` | [tests/test_titan_examples.py](tests/test_titan_examples.py) | `titan` package |
+| `tests/test_titan_contracts.py` | [tests/test_titan_contracts.py](tests/test_titan_contracts.py) | `titan` package |
 
 ## 2026-05-26 Titan Codex Projection Builder Move
 

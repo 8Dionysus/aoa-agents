@@ -56,14 +56,14 @@ bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
 ## 2026-05-26 Root Checks To Package Route
 
-Moved 3 Titan validators and 3 focused tests out of root execution districts
+Moved 3 Titan validators and 4 focused tests out of root execution districts
 and into active `mechanics/titan/{scripts,tests}/`. Git history preserves the
 verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path
 lookup.
 
 | Route | Moved scripts | Moved tests |
 | --- | ---: | ---: |
-| `titan` package | 3 | 3 |
+| `titan` package | 3 | 4 |
 
 ## 2026-05-26 Titan Codex Projection Builder To Active Part
 
