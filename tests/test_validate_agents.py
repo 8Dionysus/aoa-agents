@@ -476,8 +476,8 @@ class ValidateAgentsTests(unittest.TestCase):
         validate_agents.validate_self_agent_checkpoint_example_coherence(payload, profiles, agent_names)
 
     def test_self_agent_checkpoint_schema_requires_improvement_log(self) -> None:
-        schema = read_json(REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json")
-        payload = read_json(REPO_ROOT / "examples" / "self_agent_checkpoint" / "self_agent_checkpoint.example.json")
+        schema = read_json(validate_agents.SELF_AGENT_CHECKPOINT_SCHEMA_PATH)
+        payload = read_json(validate_agents.SELF_AGENT_CHECKPOINT_EXAMPLE_PATH)
         self.assertIsInstance(schema, dict)
         self.assertIsInstance(payload, dict)
         del payload["improvement_log"]

@@ -123,7 +123,12 @@ artifact schemas, examples, and invalid fixtures by moving them into the
 `runtime-seam/artifact-contracts` part and adding
 `scripts/validate_runtime_artifact_contracts.py`.
 
-Shared remaining non-Titan and non-runtime-artifact schemas, remaining
-non-Titan and non-runtime-artifact examples, scripts, tests, generated
-readers, and source agent objects remain in their current districts until
-their own move proof exists.
+The checkpoint contract localization satisfies that rule for self-agent
+checkpoint and continuity-window schemas/examples by splitting them into the
+`checkpoint/self-agent-checkpoint` and `checkpoint/continuity-lane` parts and
+adding `scripts/validate_checkpoint_contracts.py`.
+
+Shared remaining non-Titan, non-runtime-artifact, and non-checkpoint schemas,
+remaining non-Titan, non-runtime-artifact, and non-checkpoint examples,
+scripts, tests, generated readers, and source agent objects remain in their
+current districts until their own move proof exists.

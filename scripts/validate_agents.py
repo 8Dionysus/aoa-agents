@@ -94,8 +94,11 @@ COHORT_PATTERN_SCHEMA_PATH = REPO_ROOT / "schemas" / "cohort-pattern.schema.json
 RUNTIME_SEAM_BINDINGS_PATH = REPO_ROOT / "generated" / "runtime_seam_bindings.json"
 RUNTIME_SEAM_BINDINGS_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bindings.schema.json"
 RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-binding.schema.json"
-SELF_AGENT_CHECKPOINT_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agent-checkpoint.schema.json"
-SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH = REPO_ROOT / "schemas" / "self-agency-continuity-window.schema.json"
+CHECKPOINT_PARTS_DIR = REPO_ROOT / "mechanics" / "checkpoint" / "parts"
+SELF_AGENT_CHECKPOINT_PART_DIR = CHECKPOINT_PARTS_DIR / "self-agent-checkpoint"
+CONTINUITY_LANE_PART_DIR = CHECKPOINT_PARTS_DIR / "continuity-lane"
+SELF_AGENT_CHECKPOINT_SCHEMA_PATH = SELF_AGENT_CHECKPOINT_PART_DIR / "schemas" / "self-agent-checkpoint.schema.json"
+SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH = CONTINUITY_LANE_PART_DIR / "schemas" / "self-agency-continuity-window.schema.json"
 REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
 ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "alpha-reference-route.schema.json"
 RUNTIME_ARTIFACT_CONTRACTS_DIR = REPO_ROOT / "mechanics" / "runtime-seam" / "parts" / "artifact-contracts"
@@ -103,10 +106,10 @@ RUNTIME_ARTIFACT_SCHEMA_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "schemas"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "examples"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
 FORMER_RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / ("runtime" + "_artifacts")
-SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = REPO_ROOT / "examples" / "self_agent_checkpoint"
-SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agent_checkpoint.example.json"
+SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = SELF_AGENT_CHECKPOINT_PART_DIR / "examples"
+SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self-agent-checkpoint.example.json"
 SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH = (
-    SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self_agency_continuity_window.example.json"
+    CONTINUITY_LANE_PART_DIR / "examples" / "self-agency-continuity-window.example.json"
 )
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
 REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
@@ -275,9 +278,9 @@ SUPPLEMENTAL_RUNTIME_ARTIFACT_EXAMPLE_GLOBS = {
     "transition_decision": "transition_decision.*.example.json",
 }
 EXPECTED_SELF_AGENT_CHECKPOINT_INVALID_FIXTURES = {
-    "self_agent_checkpoint.missing_required_field.json": "missing_required_field",
-    "self_agent_checkpoint.invalid_approval_mode.json": "invalid_enum_value",
-    "self_agent_checkpoint.max_iterations_below_minimum.json": "below_minimum",
+    "self-agent-checkpoint.missing-required-field.json": "missing_required_field",
+    "self-agent-checkpoint.invalid-approval-mode.json": "invalid_enum_value",
+    "self-agent-checkpoint.max-iterations-below-minimum.json": "below_minimum",
 }
 EXPECTED_SEAM_BINDING_LINES = (
     "- `router + architect -> route_decision`",

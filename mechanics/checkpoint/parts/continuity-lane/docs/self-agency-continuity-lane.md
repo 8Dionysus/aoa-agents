@@ -22,10 +22,10 @@ If those cannot be named, the route should return rather than improvise.
 ## Public continuity window
 
 The schema-backed continuity window lives at
-`schemas/self-agency-continuity-window.schema.json`.
+`mechanics/checkpoint/parts/continuity-lane/schemas/self-agency-continuity-window.schema.json`.
 
 The inspectable example lives at
-`examples/self_agent_checkpoint/self_agency_continuity_window.example.json`.
+`mechanics/checkpoint/parts/continuity-lane/examples/self-agency-continuity-window.example.json`.
 
 At the current baseline, a public continuity window should be able to state:
 
