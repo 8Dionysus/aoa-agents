@@ -32,6 +32,18 @@ Arena eligibility is active in the adjacent
 - [Formation Trial Example](examples/formation-trial.example.json)
 - [Example Route](examples/README.md)
 
+## Generated Readers
+
+- [`generated/agent_agonic_formation_index.min.json`](../../../../generated/agent_agonic_formation_index.min.json)
+- [`generated/agent_formation_trial.min.json`](../../../../generated/agent_formation_trial.min.json)
+
+These readers stay root-published because their source truth is the agent
+source district under `agents/profiles/` and `agents/profiles/adjuncts/`, and
+because the trial is a repo-wide role-readiness view. This part owns the Agon
+formation contracts, examples, docs, and stop-lines around those readers; it
+does not own the source adjunct records or turn generated readers into source
+authority.
+
 Validate local contracts with `python scripts/validate_agon_formation_contracts.py`.
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.
