@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import json
 import importlib.util
+import json
 import os
 import re
 import sys
@@ -37,10 +37,6 @@ from validate_recurrence_component_manifests import (
 from validate_recursor_contracts import (
     RecursorContractsValidationError,
     validate_recursor_contracts,
-)
-from validate_antifragility_stress import (
-    AntifragilityStressValidationError,
-    validate_antifragility_stress_payloads,
 )
 from validate_agon_rank_epistemic_contracts import (
     AgonRankEpistemicContractsValidationError,
@@ -77,6 +73,28 @@ from validate_titan_schemas import TitanSchemasValidationError, validate_titan_s
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
+
+
+def load_repo_python_module(module_name: str, relative_path: str) -> Any:
+    module_path = REPO_ROOT / relative_path
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load {module_name} from {module_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_ANTIFRAGILITY_STRESS_MODULE = load_repo_python_module(
+    "antifragility_stress_posture_validator",
+    "mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py",
+)
+AntifragilityStressValidationError = (
+    _ANTIFRAGILITY_STRESS_MODULE.AntifragilityStressValidationError
+)
+validate_antifragility_stress_payloads = (
+    _ANTIFRAGILITY_STRESS_MODULE.validate_antifragility_stress_payloads
+)
 
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:

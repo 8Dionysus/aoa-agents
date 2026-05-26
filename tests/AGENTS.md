@@ -2,7 +2,10 @@
 
 ## Guidance for `tests/`
 
-`tests/` protects role contracts, generated registries, runtime seam examples, self-agent checkpoints, and reference routes.
+`tests/` protects repo-level role contracts, generated registries, runtime seam examples,
+self-agent checkpoints, and reference routes. Mechanic-specific
+tests may live under the owning `mechanics/*/parts/*/tests/` route when release
+validation still runs them explicitly.
 
 Tests should expose role-boundary drift, unsupported authority, schema mismatch, and handoff ambiguity. Avoid freezing incidental formatting unless formatting is the contract.
 

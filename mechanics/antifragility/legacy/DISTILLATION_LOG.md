@@ -18,3 +18,14 @@ active `stress-posture` part. Git history preserves the verbatim file bodies;
 | Part | Moved schemas | Moved examples |
 | --- | ---: | ---: |
 | `stress-posture` | 2 | 2 |
+
+## 2026-05-26 Root Stress Checks To Active Part
+
+Moved the stress-posture validator and focused public-surface test out of root
+execution districts and into the active `stress-posture` part. Git history
+preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md`
+preserve old-path lookup.
+
+| Part | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `stress-posture` | 1 | 1 |

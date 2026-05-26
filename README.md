@@ -104,7 +104,7 @@ python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 python scripts/validate_titan_schemas.py
 python scripts/validate_titan_examples.py
-python scripts/validate_antifragility_stress.py
+python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
 python scripts/validate_rpg_progression.py
 python scripts/validate_assistant_projection_resolver.py
 python scripts/validate_runtime_artifact_contracts.py

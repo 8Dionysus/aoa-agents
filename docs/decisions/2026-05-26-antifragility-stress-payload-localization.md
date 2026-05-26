@@ -22,8 +22,8 @@ Move stress-posture schemas and examples into
 part-local names. Keep stable schema `$id` values unchanged because they are
 public contract identifiers, not active repository path authority.
 
-Add `scripts/validate_antifragility_stress.py` and wire the same file-set,
-schema, example, and old-route checks into `scripts/validate_agents.py`.
+Add a stress-posture validator and wire the same file-set, schema, example,
+and old-route checks into `scripts/validate_agents.py`.
 
 Preserve former root lookup only through antifragility `PROVENANCE.md` and
 `legacy/`.
@@ -39,11 +39,11 @@ Preserve former root lookup only through antifragility `PROVENANCE.md` and
 ## Verification
 
 ```bash
-python scripts/validate_antifragility_stress.py
+python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests/test_antifragility_public_surface.py
+python -m unittest discover -s mechanics/antifragility/parts/stress-posture/tests -p "test_*.py"
 python -m pytest -q tests
 python scripts/release_check.py
 ```

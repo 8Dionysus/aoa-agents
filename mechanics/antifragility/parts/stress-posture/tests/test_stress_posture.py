@@ -7,14 +7,14 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[5]
 
 
 def load_json(relative_path: str) -> object:
     return json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
 
 
-class AntifragilityPublicSurfaceTests(unittest.TestCase):
+class AntifragilityStressPostureTests(unittest.TestCase):
     def test_stress_schema_examples_validate(self) -> None:
         surfaces = (
             (

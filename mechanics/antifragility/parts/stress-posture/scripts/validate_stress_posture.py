@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 STRESS_PART_ROOT = Path("mechanics/antifragility/parts/stress-posture")
 
 EXPECTED_EXAMPLE_SCHEMAS = {

@@ -39,8 +39,9 @@ Mechanic-specific Titan examples live under
 
 Mechanic-specific antifragility stress examples live under
 `mechanics/antifragility/parts/stress-posture/examples/` and are validated by
-`scripts/validate_antifragility_stress.py`. Their schemas live beside them
-under `mechanics/antifragility/parts/stress-posture/schemas/`.
+`mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
+Their schemas live beside them under
+`mechanics/antifragility/parts/stress-posture/schemas/`.
 
 Mechanic-specific RPG progression examples live under
 `mechanics/rpg/parts/progression-model/examples/` and are validated by
@@ -115,7 +116,7 @@ runtime state.
 
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates example alignment and negative fixtures.
 For Titan part-local examples, also run `python scripts/validate_titan_examples.py`.
-For antifragility stress part-local examples, also run `python scripts/validate_antifragility_stress.py`.
+For antifragility stress part-local examples, also run `python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
 For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
