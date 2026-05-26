@@ -1,0 +1,46 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T100657Z:78f765f0-aoa-agents-localized-agon-rank-epistemic-checks",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Agon rank, school/campaign, and epistemic actor builders, validators, and focused tests into mechanics/agon package and part-local routes; root scripts/tests now keep only repo-level coordination while former root check paths are provenance facts.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-agon-rank-epistemic-check-localization.md",
+    "mechanics/agon/PROVENANCE.md",
+    "mechanics/agon/PARTS.md",
+    "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py",
+    "mechanics/agon/tests/test_agon_rank_epistemic_contracts.py",
+    "mechanics/agon/parts/arena-rank-school/README.md",
+    "mechanics/agon/parts/epistemic-actor/README.md",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/78f765f0dfffe97d7a10ecefa1a69c491aa231d6",
+    "repo:aoa-agents/pull/199",
+    "mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py",
+    "mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py",
+    "mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py",
+    "mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_rank_jurisdiction.py",
+    "mechanics/agon/parts/arena-rank-school/tests/test_agon_agent_school_campaign_posture_registry.py",
+    "mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py",
+    "mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py",
+    "mechanics/agon/parts/epistemic-actor/tests/test_agon_epistemic_actor_posture.py",
+    "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py",
+    "mechanics/agon/tests/test_agon_rank_epistemic_contracts.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T10:06:57Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
