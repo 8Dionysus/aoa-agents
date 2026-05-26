@@ -1,0 +1,31 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T195246Z:d1999ff4-aoa-agents-keeps-codex-custom-ag",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents keeps Codex custom-agent projection base-role-only: role specializations remain source/catalog entries until an explicit projection eligibility surface names install identity, permission posture, refresh law, and owner consent.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+    "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md",
+    "mechanics/codex-projection/parts/subagent-projection/scripts/codex_subagent_projection.py",
+    "generated/codex_agents/projection_manifest.json"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/225",
+    "repo:aoa-agents/commit/1d5c52a8839db8cf6a8c33d3751a289bd4e7cc52",
+    "repo:aoa-agents/actions/runs/26471411833"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T19:52:46Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
