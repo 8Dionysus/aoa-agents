@@ -232,6 +232,18 @@ readers remain root-published, but their dedicated builder now lives under
 `mechanics/questbook/parts/dispatch-reader/scripts/` because it exists only to
 protect that Questbook projection contract.
 
+The Titan Codex projection builder localization follows the same generated
+install-seam rule: `generated/titan_codex_agents/` remains root-published, but
+the dedicated renderer and freshness test live under
+`mechanics/titan/parts/codex-projection/{scripts,tests}/` because they protect
+only the Titan projection contract.
+
+The Codex subagent projection builder localization follows the same pattern for
+the repo's Codex custom-agent install seam: `generated/codex_agents/` remains
+root-published, while the builder, projection module, validator, and focused
+test live under
+`mechanics/codex-projection/parts/subagent-projection/{scripts,tests}/`.
+
 The formation generated-reader posture follows the same source-first rule in
 the opposite direction from the part-local generated moves: formation schemas
 and examples live in Agon and Experience parts, but
@@ -261,13 +273,30 @@ into `mechanics/antifragility/parts/stress-posture/{scripts,tests}/`. Root
 `scripts/validate_agents.py` remains the repo-wide validation coordinator, and
 `scripts/release_check.py` runs the part-local test explicitly.
 
-Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
-non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
-non-reference-route schemas,
-remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
-non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil, non-Codex-refresh-law,
-non-adoption/boundary, non-agent-service, non-reference-route examples,
-scripts, tests, remaining generated readers, and source agent objects remain
-in their current districts until their own move proof exists.
+The Titan contract-test follow-up closes a leftover root test route by moving
+the remaining Titan-only schema contract test into `mechanics/titan/tests/`.
+Root `tests/` now holds repo-wide route, roadmap, semantic, validator, and
+downstream-feed guards rather than Titan package assertions.
+
+## Current Root District State
+
+After the landed moves, root districts still have active jobs:
+
+- `agents/` owns source-authored profiles, adjuncts, model tiers,
+  orchestrator classes, cohort patterns, and runtime-seam bindings.
+- `schemas/` owns shared agent-layer contracts for those source families and
+  repo-wide generated registries.
+- `scripts/` owns repo-level builders, validators, release checks, and
+  publication coordinators.
+- `tests/` owns repo-wide route, roadmap, semantic, validator, and downstream
+  consumer guards.
+- `generated/` owns repo-published readers and install seams that summarize
+  `agents/` or root quest source records, including Codex and Titan custom
+  agent companions.
+- `quests/` and `QUESTBOOK.md` own quest source truth and human quest
+  visibility.
+- `config/` and `examples/` are currently route-card-only; mechanic-specific
+  payload files moved to part-local homes once a validator route existed.
+
+Anything still in a root district is current unless a later slice proves a
+smaller package-local owner, validation route, and former-path accounting.
