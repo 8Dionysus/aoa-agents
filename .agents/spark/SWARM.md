@@ -1,6 +1,6 @@
 # Spark Swarm Recipe — aoa-agents
 
-Рекомендуемый путь назначения: `Spark/SWARM.md`
+Рекомендуемый путь назначения: `.agents/spark/SWARM.md`
 
 ## Для чего этот рой
 Используй Spark здесь для одного role-contract seam: agent profile, role contract, handoff posture, memory posture, evaluation posture или registry entry. Этот рой укрепляет actor contracts и не даёт агентному слою расползтись в vague persona folklore.
