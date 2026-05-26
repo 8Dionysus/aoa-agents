@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 MANIFEST_ROOT = ROOT / "mechanics" / "recurrence" / "parts" / "component-manifests" / "manifests"
 COMPONENTS_DIR = MANIFEST_ROOT / "components"
 HOOKS_DIR = MANIFEST_ROOT / "hooks"
@@ -52,6 +52,10 @@ REPO_PATH_PREFIXES = (
     "scripts/",
     "quests/",
 )
+FORMER_ROOT_PATHS = {
+    Path("scripts") / "validate_recurrence_component_manifests.py",
+    Path("tests") / "test_recurrence_component_manifests.py",
+}
 OLD_ACTIVE_NAMESPACE_FRAGMENTS = tuple(
     "".join(parts)
     for parts in (
@@ -168,6 +172,10 @@ def validate_active_payload_text(value: str, *, label: str, errors: list[str]) -
 
 def collect_manifest_errors(root: Path = ROOT) -> list[str]:
     errors: list[str] = []
+    for former_path in sorted(FORMER_ROOT_PATHS):
+        if (root / former_path).exists():
+            errors.append(f"former root path is still active: {former_path.as_posix()}")
+
     components, hooks = iter_manifest_files(root)
 
     component_names = {path.name for path in components}

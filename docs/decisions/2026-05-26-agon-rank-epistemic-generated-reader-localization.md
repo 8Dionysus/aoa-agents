@@ -49,6 +49,6 @@ python scripts/validate_agon_agent_school_campaign_posture_registry.py
 python scripts/build_agon_epistemic_actor_posture_registry.py --check
 python scripts/validate_agon_epistemic_actor_posture.py
 python scripts/validate_agon_rank_epistemic_contracts.py
-python scripts/validate_recurrence_component_manifests.py
+python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
 python scripts/validate_agents.py
 ```

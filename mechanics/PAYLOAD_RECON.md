@@ -90,7 +90,8 @@ provenance maps.
 
 The manifest localization satisfies that rule for recurrence component and
 hook manifests by moving them into the `component-manifests` part with an
-active manifest route card and `validate_recurrence_component_manifests.py`.
+active manifest route card and part-local
+`mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py`.
 
 The Questbook source-store repair satisfies that rule by refusing to move root
 quest source truth into mechanics: root `QUESTBOOK.md` and root `quests/` stay

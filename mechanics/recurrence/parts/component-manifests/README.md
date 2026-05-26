@@ -33,6 +33,19 @@ Hooks:
 - [agon-rank-jurisdiction-surfaces.json](manifests/hooks/agon-rank-jurisdiction-surfaces.json)
 - [agon-school-campaign-posture.json](manifests/hooks/agon-school-campaign-posture.json)
 
+## Active Checks
+
+- [Component Manifest Validator](scripts/validate_recurrence_component_manifests.py)
+- [Component Manifest Tests](tests/test_recurrence_component_manifests.py)
+
+## Validation
+
+```bash
+python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
+python -m unittest discover -s mechanics/recurrence/parts/component-manifests/tests -p 'test_*.py'
+python scripts/validate_agents.py
+```
+
 ## Boundaries
 
 These manifests describe recurrence observation and refresh posture only. They

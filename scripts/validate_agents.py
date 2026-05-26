@@ -30,10 +30,6 @@ from orchestrator_class_registry import (
     load_orchestrator_classes,
 )
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
-from validate_recurrence_component_manifests import (
-    ManifestValidationError,
-    validate_recurrence_component_manifests,
-)
 from validate_agon_rank_epistemic_contracts import (
     AgonRankEpistemicContractsValidationError,
     validate_agon_rank_epistemic_contracts,
@@ -121,6 +117,15 @@ _RECURSOR_CONTRACTS_MODULE = load_repo_python_module(
 )
 RecursorContractsValidationError = _RECURSOR_CONTRACTS_MODULE.RecursorContractsValidationError
 validate_recursor_contracts = _RECURSOR_CONTRACTS_MODULE.validate_recursor_contracts
+
+_RECURRENCE_COMPONENT_MANIFESTS_MODULE = load_repo_python_module(
+    "recurrence_component_manifest_validator",
+    "mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py",
+)
+ManifestValidationError = _RECURRENCE_COMPONENT_MANIFESTS_MODULE.ManifestValidationError
+validate_recurrence_component_manifests = (
+    _RECURRENCE_COMPONENT_MANIFESTS_MODULE.validate_recurrence_component_manifests
+)
 
 _RPG_PROGRESSION_MODULE = load_repo_python_module(
     "rpg_progression_validator",

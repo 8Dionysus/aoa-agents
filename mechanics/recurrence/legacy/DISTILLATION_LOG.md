@@ -54,6 +54,17 @@ lookup.
 | --- | ---: |
 | `component-manifests` | 11 |
 
+## 2026-05-26 Component Manifest Validator To Active Part
+
+Moved the recurrence component manifest validator out of root `scripts/` and
+into the active `component-manifests` part. Moved the focused manifest tests
+beside that part and converted them to `unittest` so `release_check.py` runs
+them explicitly.
+
+| Part | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `component-manifests` | 1 | 1 |
+
 ## 2026-05-26 Root Recursor Generated Readers To Active Parts
 
 Moved 4 recursor generated readers out of root `generated/` and into active

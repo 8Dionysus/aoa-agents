@@ -39,7 +39,7 @@ python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --ch
 python mechanics/recurrence/scripts/validate_recursor_contracts.py
 python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
 python mechanics/recurrence/scripts/validate_recursor_boundary.py
-python scripts/validate_recurrence_component_manifests.py
+python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
