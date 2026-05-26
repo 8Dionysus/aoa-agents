@@ -36,3 +36,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Formation generated reader posture](2026-05-26-formation-generated-reader-posture.md)
 - [2026-05-26: Root agent schema posture](2026-05-26-root-agent-schema-posture.md)
 - [2026-05-26: Spark agent lane home](2026-05-26-spark-agent-lane-home.md)
+- [2026-05-26: Mechanics package route cards](2026-05-26-mechanics-package-route-cards.md)

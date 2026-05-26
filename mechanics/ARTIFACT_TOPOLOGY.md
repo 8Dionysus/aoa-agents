@@ -214,6 +214,11 @@ Spark is an agent-facing fast-loop lane, not a mechanic package. Future
 agent-facing lanes should start under `.agents/<lane>/` and route back to
 source, mechanic, proof, memo, or runtime owners when work outgrows the lane.
 
+The 2026-05-26 mechanics package route-card pass adds package-local
+`AGENTS.md` files under every active `mechanics/<package>/` route. This changes
+navigation and validation coverage only; it does not move source, support,
+generated, schema, example, script, or test payloads.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

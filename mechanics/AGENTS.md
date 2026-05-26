@@ -50,8 +50,8 @@ Read:
    `legacy/` surfaces
 7. `mechanics/ARTIFACT_TOPOLOGY.md` before moving docs, schemas, examples,
    scripts, tests, or generated companions into a mechanic
-8. target package `README.md`, `PARTS.md`, and `parts/README.md` when a nearer
-   package exists
+8. target package `AGENTS.md`, `README.md`, `PARTS.md`, and `parts/README.md`
+   when a nearer package exists
 9. target package `PROVENANCE.md` before opening package `legacy/`
 10. `docs/decisions/` before changing active mechanics topology
 11. the source family under `agents/` or `docs/` that the mechanic routes
@@ -111,6 +111,8 @@ The current child packages own route maps, part maps, and migrated
 mechanics-facing docs, config seeds, recurrence component manifests, and
 questbook operation law. Other root-district payload classes move only after
 their package-local contract and validation route are explicit.
+Each child package has its own `AGENTS.md` as the nearest route card between
+the atlas and part-local cards.
 
 ## Validation
 
