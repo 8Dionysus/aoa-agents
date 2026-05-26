@@ -25,6 +25,7 @@ Move Titan-owned validators and focused tests into:
 - `mechanics/titan/tests/test_validate_titan_lineage.py`
 - `mechanics/titan/tests/test_titan_schemas.py`
 - `mechanics/titan/tests/test_titan_examples.py`
+- `mechanics/titan/tests/test_titan_contracts.py`
 
 Keep `scripts/validate_agents.py` as the repo-wide validation coordinator by
 loading the Titan schema and example validators explicitly. Keep

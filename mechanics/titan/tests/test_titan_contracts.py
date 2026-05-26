@@ -8,7 +8,7 @@ import unittest
 from jsonschema import Draft202012Validator
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def load_json(relative_path: str) -> dict:
