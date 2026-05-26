@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T090803Z:8b22aa85-aoa-agents-localized-codex-refresh",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Codex refresh-law validator and focused tests into mechanics/codex-projection/parts/refresh-law/{scripts,tests}/; validate_agents.py loads the part-local validator and release_check.py runs the part-local refresh-law tests.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-codex-refresh-law-check-localization.md",
+    "mechanics/codex-projection/PROVENANCE.md",
+    "mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py",
+    "mechanics/codex-projection/parts/refresh-law/tests/test_codex_subagent_refresh_law.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/9b076c095e687cc119b5b713e308479cda25834e",
+    "repo:aoa-agents/pull/191",
+    "mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py",
+    "mechanics/codex-projection/parts/refresh-law/tests/test_codex_subagent_refresh_law.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T09:08:03Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
