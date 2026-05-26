@@ -71,7 +71,7 @@ Their schemas live beside them under the corresponding recurrence parts.
 Mechanic-specific Agon rank, school, and epistemic actor examples live under
 `mechanics/agon/parts/arena-rank-school/examples/` and
 `mechanics/agon/parts/epistemic-actor/examples/`. They are validated by
-`scripts/validate_agon_rank_epistemic_contracts.py`. Their schemas live beside
+`mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`. Their schemas live beside
 them under the corresponding Agon parts.
 
 Mechanic-specific Agon formation examples live under
@@ -128,7 +128,7 @@ For runtime artifact contract part-local examples, also run `python mechanics/ru
 For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 For Agon formation part-local examples, also run `python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
-For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
+For Agon rank/school/epistemic part-local examples, also run `python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
 For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.
 For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.

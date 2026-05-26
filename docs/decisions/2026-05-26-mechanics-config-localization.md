@@ -52,12 +52,12 @@ Titan mechanic seeds.
 Run the affected builders/validators plus the repo topology checks:
 
 ```bash
-python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python scripts/validate_agon_agent_rank_jurisdiction.py
-python scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python scripts/validate_agon_agent_school_campaign_posture_registry.py
-python scripts/build_agon_epistemic_actor_posture_registry.py --check
-python scripts/validate_agon_epistemic_actor_posture.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
+python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
+python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
 python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
 python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
 python mechanics/recurrence/scripts/validate_recursor_role_readiness.py

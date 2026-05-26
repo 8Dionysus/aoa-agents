@@ -20,13 +20,15 @@ Move these Agon contract payloads into their owning parts:
   `mechanics/agon/parts/arena-rank-school/{schemas,examples}/`;
 - epistemic actor schemas/example move into
   `mechanics/agon/parts/epistemic-actor/{schemas,examples}/`;
-- `scripts/validate_agon_rank_epistemic_contracts.py` becomes the
+- `mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py` becomes the
   package-local contract validator and is called by `scripts/validate_agents.py`.
 
 Generated Agon registries remained derived surfaces under `generated/` in this
 contract-localization slice; the later generated-reader localization moved
 them into part-local `generated/` routes once the generated move was small and
-validator-backed. Builder scripts remain support surfaces under `scripts/`.
+validator-backed. The later check-localization slice moved the dedicated
+builders, validators, and focused tests into Agon package and part-local
+routes.
 
 ## Consequences
 
@@ -37,13 +39,15 @@ legacy lookup facts.
 Validation for this route is:
 
 ```bash
-python scripts/validate_agon_rank_epistemic_contracts.py
-python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python scripts/validate_agon_agent_rank_jurisdiction.py
-python scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python scripts/validate_agon_agent_school_campaign_posture_registry.py
-python scripts/build_agon_epistemic_actor_posture_registry.py --check
-python scripts/validate_agon_epistemic_actor_posture.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
+python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
+python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
 python scripts/validate_agents.py
-python -m pytest -q tests/test_agon_rank_epistemic_contracts.py tests/test_agon_agent_rank_jurisdiction.py tests/test_agon_agent_school_campaign_posture_registry.py tests/test_agon_epistemic_actor_posture.py
+python -m unittest discover -s mechanics/agon/tests -p 'test_*.py'
+python -m unittest discover -s mechanics/agon/parts/arena-rank-school/tests -p 'test_*.py'
+python -m unittest discover -s mechanics/agon/parts/epistemic-actor/tests -p 'test_*.py'
 ```

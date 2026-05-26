@@ -106,6 +106,28 @@ part-local.
 | `generated/agon_agent_school_campaign_posture_registry.min.json` | [parts/arena-rank-school/generated/school-campaign-posture-registry.min.json](parts/arena-rank-school/generated/school-campaign-posture-registry.min.json) | `arena-rank-school` |
 | `generated/agon_epistemic_actor_posture_registry.min.json` | [parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json](parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json) | `epistemic-actor` |
 
+## 2026-05-26 Root Agon Rank/Epistemic Check Move
+
+6 Agon rank, school, and epistemic actor builders/validators moved from root
+`scripts/` into the owning Agon parts. The cross-part contract validator moved
+to package-level `agon/scripts/`, because it checks the relation between
+`arena-rank-school` and `epistemic-actor` rather than either part alone.
+4 focused tests moved with those checks.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/build_agon_agent_rank_jurisdiction_registry.py` | [parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py](parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py) | `arena-rank-school` |
+| `scripts/validate_agon_agent_rank_jurisdiction.py` | [parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py](parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py) | `arena-rank-school` |
+| `scripts/build_agon_agent_school_campaign_posture_registry.py` | [parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py](parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py) | `arena-rank-school` |
+| `scripts/validate_agon_agent_school_campaign_posture_registry.py` | [parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py](parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py) | `arena-rank-school` |
+| `scripts/build_agon_epistemic_actor_posture_registry.py` | [parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py](parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py) | `epistemic-actor` |
+| `scripts/validate_agon_epistemic_actor_posture.py` | [parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py](parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py) | `epistemic-actor` |
+| `scripts/validate_agon_rank_epistemic_contracts.py` | [scripts/validate_agon_rank_epistemic_contracts.py](scripts/validate_agon_rank_epistemic_contracts.py) | `agon` package |
+| `tests/test_agon_agent_rank_jurisdiction.py` | [parts/arena-rank-school/tests/test_agon_agent_rank_jurisdiction.py](parts/arena-rank-school/tests/test_agon_agent_rank_jurisdiction.py) | `arena-rank-school` |
+| `tests/test_agon_agent_school_campaign_posture_registry.py` | [parts/arena-rank-school/tests/test_agon_agent_school_campaign_posture_registry.py](parts/arena-rank-school/tests/test_agon_agent_school_campaign_posture_registry.py) | `arena-rank-school` |
+| `tests/test_agon_epistemic_actor_posture.py` | [parts/epistemic-actor/tests/test_agon_epistemic_actor_posture.py](parts/epistemic-actor/tests/test_agon_epistemic_actor_posture.py) | `epistemic-actor` |
+| `tests/test_agon_rank_epistemic_contracts.py` | [tests/test_agon_rank_epistemic_contracts.py](tests/test_agon_rank_epistemic_contracts.py) | `agon` package |
+
 ## 2026-05-26 Root Agon Formation Contract Move
 
 6 Agon formation schemas plus 2 examples moved from root `schemas/` and

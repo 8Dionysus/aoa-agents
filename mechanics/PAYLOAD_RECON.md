@@ -143,7 +143,7 @@ schemas/examples by splitting them into `recursor-readiness`,
 The Agon rank/epistemic contract localization satisfies that rule for
 candidate-only rank, school/campaign, and epistemic actor schemas/examples by
 splitting them into `arena-rank-school` and `epistemic-actor` parts and adding
-`scripts/validate_agon_rank_epistemic_contracts.py`.
+`mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
 
 The Agon formation contract localization satisfies that rule for Wave I
 agonic formation and Wave II.5 formation-trial schemas/examples by placing

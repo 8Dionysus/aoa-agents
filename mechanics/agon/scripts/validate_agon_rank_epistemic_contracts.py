@@ -14,7 +14,7 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 ARENA_PART = Path("mechanics/agon/parts/arena-rank-school")
 EPISTEMIC_PART = Path("mechanics/agon/parts/epistemic-actor")
 ARENA_SCHEMA_DIR = ARENA_PART / "schemas"
@@ -132,8 +132,8 @@ def _check_file_set(
     errors.append(f"{label} file set drifted (" + "; ".join(details) + ")")
 
 
-def _load_script(name: str):
-    path = ROOT / "scripts" / name
+def _load_script(relative_path: str):
+    path = ROOT / relative_path
     spec = importlib.util.spec_from_file_location(path.stem, path)
     module = importlib.util.module_from_spec(spec)
     if spec.loader is None:
@@ -144,9 +144,15 @@ def _load_script(name: str):
 
 def _collect_script_result_errors() -> list[str]:
     errors: list[str] = []
-    rank_validator = _load_script("validate_agon_agent_rank_jurisdiction.py")
-    school_validator = _load_script("validate_agon_agent_school_campaign_posture_registry.py")
-    epistemic_validator = _load_script("validate_agon_epistemic_actor_posture.py")
+    rank_validator = _load_script(
+        "mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py"
+    )
+    school_validator = _load_script(
+        "mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py"
+    )
+    epistemic_validator = _load_script(
+        "mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py"
+    )
 
     captured_stdout = io.StringIO()
     captured_stderr = io.StringIO()
@@ -177,6 +183,23 @@ def collect_agon_rank_epistemic_contract_errors(root: Path = ROOT) -> list[str]:
         former_path = root / "generated" / file_name
         if former_path.exists():
             errors.append(f"former root Agon generated reader is still active: {former_path.relative_to(root).as_posix()}")
+
+    for relative_path in (
+        "scripts/build_agon_agent_rank_jurisdiction_registry.py",
+        "scripts/validate_agon_agent_rank_jurisdiction.py",
+        "scripts/build_agon_agent_school_campaign_posture_registry.py",
+        "scripts/validate_agon_agent_school_campaign_posture_registry.py",
+        "scripts/build_agon_epistemic_actor_posture_registry.py",
+        "scripts/validate_agon_epistemic_actor_posture.py",
+        "scripts/validate_agon_rank_epistemic_contracts.py",
+        "tests/test_agon_agent_rank_jurisdiction.py",
+        "tests/test_agon_agent_school_campaign_posture_registry.py",
+        "tests/test_agon_epistemic_actor_posture.py",
+        "tests/test_agon_rank_epistemic_contracts.py",
+    ):
+        former_path = root / relative_path
+        if former_path.exists():
+            errors.append(f"former root Agon rank/epistemic check is still active: {relative_path}")
 
     _check_file_set(root, ARENA_SCHEMA_DIR, EXPECTED_ARENA_SCHEMAS, label="arena-rank-school schema", errors=errors)
     _check_file_set(root, ARENA_EXAMPLE_DIR, EXPECTED_ARENA_EXAMPLES, label="arena-rank-school example", errors=errors)

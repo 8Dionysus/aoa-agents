@@ -11,5 +11,5 @@ public-safe examples, not live Agon protocol actions.
 Validate with:
 
 ```bash
-python scripts/validate_agon_rank_epistemic_contracts.py
+python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
 ```

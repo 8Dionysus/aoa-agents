@@ -43,4 +43,22 @@ This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 Generated readers are derived from this part's config and remain candidate-only
 support surfaces, not live rank, school, or campaign authority.
 
+## Active Checks
+
+- [Rank/Jurisdiction Builder](scripts/build_agon_agent_rank_jurisdiction_registry.py)
+- [Rank/Jurisdiction Validator](scripts/validate_agon_agent_rank_jurisdiction.py)
+- [School/Campaign Builder](scripts/build_agon_agent_school_campaign_posture_registry.py)
+- [School/Campaign Validator](scripts/validate_agon_agent_school_campaign_posture_registry.py)
+- [Arena Rank School Tests](tests/)
+
+## Validation
+
+```bash
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
+python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
+python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
+python -m unittest discover -s mechanics/agon/parts/arena-rank-school/tests -p 'test_*.py'
+```
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

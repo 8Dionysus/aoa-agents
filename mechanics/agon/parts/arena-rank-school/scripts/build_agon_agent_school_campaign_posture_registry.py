@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import argparse, hashlib, json, pathlib, sys
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[5]
 SRC = ROOT / 'mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json'
 OUT = ROOT / 'mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json'
 ITEM_KEY = 'agent_school_campaign_postures'
