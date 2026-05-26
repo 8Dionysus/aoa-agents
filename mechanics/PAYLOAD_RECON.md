@@ -198,6 +198,14 @@ root `QUESTBOOK.md` owns human visibility, root `quests/` owns source records,
 root `generated/quest_*` readers summarize those records, and
 `mechanics/questbook/` owns the route law plus builder-backed validation.
 
+The formation generated-reader posture follows the same source-first rule in
+the opposite direction from the part-local generated moves: formation schemas
+and examples live in Agon and Experience parts, but
+`generated/agent_agonic_formation_index.min.json`,
+`generated/assistant_civil_formation_index.min.json`, and
+`generated/agent_formation_trial.min.json` remain root-published because they
+summarize `agents/` source objects and feed repo-wide role readiness.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,

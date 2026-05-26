@@ -4,6 +4,9 @@
 
 `generated/` contains derived machine-readable surfaces published from the source-authored agent layer.
 
+Use [README.md](README.md) as the reader-family index. This card owns edit law,
+builder routes, and validation posture.
+
 ## Derived outputs
 
 Current published outputs include:
@@ -38,6 +41,10 @@ Recursor readiness, pair, projection, and boundary readers live under
 Recurrence part-local seed/config and contract surfaces.
 Quest catalog and dispatch readers stay root-published because they summarize
 root `quests/` source records for low-context consumers.
+Formation readers stay root-published because they summarize `agents/` source
+objects and feed repo-wide role readiness, while `mechanics/agon/` and
+`mechanics/experience/` own the operation contracts and stop-lines around those
+readers.
 
 ## Source layers
 

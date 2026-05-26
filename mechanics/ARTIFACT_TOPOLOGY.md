@@ -195,6 +195,14 @@ readers root-published under `generated/` because they summarize root
 `quests/` source records. `mechanics/questbook/parts/dispatch-reader/` owns the
 projection contract and validation route, not the generated files themselves.
 
+The 2026-05-26 formation generated-reader posture keeps
+`generated/agent_agonic_formation_index.min.json`,
+`generated/assistant_civil_formation_index.min.json`, and
+`generated/agent_formation_trial.min.json` root-published because their source
+truth is under `agents/` and their consumer posture is repo-wide. The Agon and
+Experience parts own formation contracts, examples, docs, and stop-lines around
+those readers, not the generated files as part-local companions.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
