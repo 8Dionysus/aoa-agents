@@ -7,8 +7,24 @@ from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = REPO_ROOT / "schemas" / "assistant-projection-resolver.schema.json"
-EXAMPLE_PATH = REPO_ROOT / "examples" / "assistant_projection_resolver.example.json"
+SCHEMA_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "assistant-projection"
+    / "schemas"
+    / "assistant-projection-resolver.schema.json"
+)
+EXAMPLE_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "assistant-projection"
+    / "examples"
+    / "assistant-projection-resolver.example.json"
+)
 DOC_PATH = REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "docs" / "subagent-projection.md"
 
 
@@ -16,7 +32,7 @@ def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_assistant_projection_resolver_example_validates() -> None:
+def test_projection_resolver_example_validates() -> None:
     schema = load_json(SCHEMA_PATH)
     example = load_json(EXAMPLE_PATH)
     doc = DOC_PATH.read_text(encoding="utf-8")

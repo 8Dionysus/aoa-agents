@@ -113,6 +113,11 @@ The RPG progression localization satisfies that rule for the adjunct
 progression schema and example by moving them into the `progression-model` part
 and adding `scripts/validate_rpg_progression.py`.
 
+The assistant projection resolver localization satisfies that rule for
+Codex-facing assistant projection resolver schemas and example by moving them
+into the `assistant-projection` part and adding
+`scripts/validate_assistant_projection_resolver.py`.
+
 Shared remaining non-Titan schemas, remaining non-Titan examples, scripts,
 tests, generated readers, and source agent objects remain in their current
 districts until their own move proof exists.
