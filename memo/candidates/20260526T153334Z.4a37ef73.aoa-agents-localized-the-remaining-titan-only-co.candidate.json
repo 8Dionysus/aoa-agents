@@ -1,0 +1,31 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T153334Z:4a37ef73-aoa-agents-localized-the-remaini",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the remaining Titan-only contract test from root tests into mechanics/titan/tests, updating Titan provenance and legacy accounting so root tests stay repo-wide.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-titan-check-localization.md",
+    "mechanics/titan/PROVENANCE.md",
+    "mechanics/titan/legacy/INDEX.md",
+    "mechanics/titan/tests/test_titan_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/d55b0f131cfc5b2d2f96c990db0f379ec60dd429",
+    "repo:aoa-agents/pull/214",
+    "repo:aoa-agents/actions/runs/26458206495"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T15:33:34Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
