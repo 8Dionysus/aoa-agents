@@ -1,0 +1,33 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T192922Z:84f6b739-aoa-agents-represents-specialize",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents represents specialized agents as role-local specialization records under agents/roles/<role>/specializations/ that inherit base role profiles and reference reusable capability packs under agents/operating-model/capabilities/packs; capability packs name permission, tool, skill, technique, memory, proof, and projection posture without owning implementation.",
+  "source_refs": [
+    "agents/roles/README.md",
+    "agents/operating-model/capabilities/README.md",
+    "agents/source_home.manifest.json",
+    "docs/decisions/2026-05-26-role-specializations-and-capability-packs.md",
+    "generated/role_specialization_catalog.min.json",
+    "generated/capability_pack_registry.min.json"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/223",
+    "repo:aoa-agents/commit/0537596ab06ce6b293bced672a85db3f25cdc349",
+    "repo:aoa-agents/actions/runs/26470215100"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T19:29:22Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
