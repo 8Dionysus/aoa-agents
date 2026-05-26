@@ -29,3 +29,13 @@ Moved 2 schemas and 1 example out of root support districts and into the active
 | Part | Moved schemas | Moved examples |
 | --- | ---: | ---: |
 | `assistant-projection` | 2 | 1 |
+
+## 2026-05-26 Refresh Law Example To Active Part
+
+Moved 1 refresh-law example out of root `examples/` and into the active
+`refresh-law` part. Git history preserves the verbatim file body;
+`PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved examples |
+| --- | ---: |
+| `refresh-law` | 1 |

@@ -25,3 +25,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Agon rank and epistemic contract localization](2026-05-26-agon-rank-epistemic-contract-localization.md)
 - [2026-05-26: Agon formation contract localization](2026-05-26-agon-formation-contract-localization.md)
 - [2026-05-26: Experience assistant civil contract localization](2026-05-26-experience-assistant-civil-contract-localization.md)
+- [2026-05-26: Codex refresh law example localization](2026-05-26-codex-refresh-law-example-localization.md)

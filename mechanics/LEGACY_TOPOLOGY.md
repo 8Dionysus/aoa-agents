@@ -119,13 +119,19 @@ facts and are accounted for in Experience `PROVENANCE.md`, `legacy/INDEX.md`,
 and `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public
 contract identifiers, not active repo paths.
 
+The 2026-05-26 Codex refresh-law example localization moved the Codex subagent
+projection refresh-law example into the active part-local Codex projection
+route. The former root example path is now a legacy lookup fact and is
+accounted for in Codex Projection `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil `schemas/`,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil
+non-Experience-assistant-civil, non-Codex-refresh-law
 `examples/`, `agents/`, `generated/`, `scripts/`, and `tests/`. They are not
 automatically legacy. They remain current source, support, generated, or
 validation districts until a package-local move changes their lookup topology.

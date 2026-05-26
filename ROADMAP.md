@@ -14,7 +14,7 @@ runtime, playbook, routing, memo, or eval canon into this repository.
 
 The current `v0.2.x` release line already carries:
 - checkpoint role follow-through, Codex subagent projection, and self-agency continuity posture as live repo-owned surfaces rather than future ideas
-- Codex custom-agent projection and owner refresh-law surfaces in `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
+- Codex custom-agent projection and owner refresh-law surfaces in `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/refresh-law/examples/subagent-refresh-law.example.json`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
 - runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
 - adjunct quest and Alpha readiness surfaces in `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
 - subject-prep boundary plus unreleased companion turns and the first formation

@@ -58,6 +58,10 @@ from validate_assistant_projection_resolver import (
     AssistantProjectionResolverValidationError,
     validate_assistant_projection_resolver,
 )
+from validate_codex_refresh_law_contracts import (
+    CodexRefreshLawContractsValidationError,
+    validate_codex_refresh_law_contracts,
+)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 from validate_rpg_progression import RPGProgressionValidationError, validate_rpg_progression
 from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
@@ -3496,6 +3500,7 @@ def main() -> int:
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_codex_subagent_projection()
         validate_assistant_projection_resolver_surface()
+        validate_codex_refresh_law_contracts(REPO_ROOT)
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)
         validate_alpha_reference_routes(cohort_patterns_by_id)
         validate_runtime_seam_doc_coherence()
@@ -3510,6 +3515,7 @@ def main() -> int:
         ExperienceAssistantCivilContractsValidationError,
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
+        CodexRefreshLawContractsValidationError,
         NestedAgentsValidationError,
         RPGProgressionValidationError,
         TitanExamplesValidationError,
@@ -3564,6 +3570,7 @@ def main() -> int:
     print("[ok] validated generated/cohort_composition_registry.json")
     print("[ok] validated generated/runtime_seam_bindings.json")
     print("[ok] validated generated/codex_agents projection surfaces")
+    print("[ok] validated Codex refresh-law part-local contracts")
     if checked_roots:
         print(f"[ok] validated optional consumer smoke checks against: {', '.join(checked_roots)}")
     else:
