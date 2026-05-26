@@ -131,7 +131,7 @@ artifact schemas, examples, and invalid fixtures by moving them into the
 The checkpoint contract localization satisfies that rule for self-agent
 checkpoint and continuity-window schemas/examples by splitting them into the
 `checkpoint/self-agent-checkpoint` and `checkpoint/continuity-lane` parts and
-adding `scripts/validate_checkpoint_contracts.py`.
+adding `mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 
 The recursor contract localization satisfies that rule for recurrence recursor
 schemas/examples by splitting them into `recursor-readiness`,

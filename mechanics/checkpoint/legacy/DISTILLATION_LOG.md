@@ -27,6 +27,16 @@ The former shared example `AGENTS.md` became an active README for the
 `continuity-lane` examples route. Git history preserves the file bodies;
 `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
+## 2026-05-26 Checkpoint Checks To Active Package
+
+Moved the dedicated checkpoint contract validator and focused tests out of root
+support districts and into the owning Checkpoint package. The check remains
+package-local because it spans `self-agent-checkpoint` and `continuity-lane`.
+
+| Package | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `checkpoint` | 1 | 1 |
+
 ## 2026-05-26 Reference Routes To Active Parts
 
 Moved reference-route schema and example payloads out of root `schemas/` and

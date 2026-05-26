@@ -119,6 +119,15 @@ validate_runtime_artifact_contracts = (
     _RUNTIME_ARTIFACT_CONTRACTS_MODULE.validate_runtime_artifact_contracts
 )
 
+_CHECKPOINT_CONTRACTS_MODULE = load_repo_python_module(
+    "checkpoint_contracts_validator",
+    "mechanics/checkpoint/scripts/validate_checkpoint_contracts.py",
+)
+CheckpointContractsValidationError = (
+    _CHECKPOINT_CONTRACTS_MODULE.CheckpointContractsValidationError
+)
+validate_checkpoint_contracts = _CHECKPOINT_CONTRACTS_MODULE.validate_checkpoint_contracts
+
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
     legacy_path = AOA_EVALS_ROOT / "schemas" / legacy_name
@@ -3598,6 +3607,7 @@ def main() -> int:
         validate_adoption_boundary_contracts(REPO_ROOT)
         validate_experience_assistant_civil_contracts(REPO_ROOT)
         validate_agent_service_contracts(REPO_ROOT)
+        validate_checkpoint_contracts(REPO_ROOT)
         validate_antifragility_stress_surfaces()
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
@@ -3655,6 +3665,7 @@ def main() -> int:
         TitanExamplesValidationError,
         TitanSchemasValidationError,
         RuntimeArtifactContractsValidationError,
+        CheckpointContractsValidationError,
         ValidationError,
     ) as exc:
         print(f"[error] {exc}", file=sys.stderr)
@@ -3678,6 +3689,7 @@ def main() -> int:
     print("[ok] validated adoption and boundary part-local contracts")
     print("[ok] validated experience assistant civil part-local contracts")
     print("[ok] validated agent service part-local contracts")
+    print("[ok] validated checkpoint package-local contracts")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated RPG progression schema and example")
     print("[ok] validated Alpha reference-route schema surface")

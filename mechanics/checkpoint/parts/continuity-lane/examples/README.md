@@ -12,6 +12,6 @@ memory, a runtime checkpoint, or a permission to keep acting without re-entry.
 ## Validation
 
 ```bash
-python scripts/validate_checkpoint_contracts.py
+python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python scripts/validate_agents.py
 ```

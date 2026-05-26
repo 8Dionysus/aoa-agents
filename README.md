@@ -108,7 +108,7 @@ python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_post
 python scripts/validate_rpg_progression.py
 python scripts/validate_assistant_projection_resolver.py
 python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python scripts/validate_checkpoint_contracts.py
+python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python scripts/validate_recursor_contracts.py
 python scripts/validate_agon_formation_contracts.py
 python scripts/validate_agon_rank_epistemic_contracts.py

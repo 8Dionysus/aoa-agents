@@ -58,6 +58,17 @@ from root `schemas/` and `examples/` into checkpoint part-local routes.
 Stable schema `$id` values remain public contract identifiers, not active repo
 path authority.
 
+## 2026-05-26 Checkpoint Check Move
+
+The checkpoint contract validator and focused tests moved from root support
+districts into the owning Checkpoint package because the check spans multiple
+parts.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_checkpoint_contracts.py` | [scripts/validate_checkpoint_contracts.py](scripts/validate_checkpoint_contracts.py) | package-local |
+| `tests/test_checkpoint_contracts.py` | [tests/test_checkpoint_contracts.py](tests/test_checkpoint_contracts.py) | package-local |
+
 ## 2026-05-26 Reference Route Contract Move
 
 1 reference-route manifest schema and 18 route-pack example files moved from
