@@ -57,6 +57,6 @@ parts that route to root-owned source/index/generated surfaces.
 python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python scripts/validate_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests/test_validate_agents.py tests/test_roadmap_parity.py
+python -m pytest -q tests/test_repo_validator.py tests/test_roadmap_surface_alignment.py
 python scripts/release_check.py
 ```

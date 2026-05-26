@@ -21,8 +21,8 @@
     "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
     "mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py",
     "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
-    "tests/test_roadmap_parity.py",
-    "tests/test_wave2_route_surfaces.py"
+    "tests/test_roadmap_surface_alignment.py",
+    "tests/test_assistant_civil_route_surfaces.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

@@ -11,7 +11,7 @@
     "mechanics/experience/PROVENANCE.md",
     "mechanics/experience/PARTS.md",
     "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",
-    "mechanics/experience/tests/test_experience_wave3_seed_contracts.py",
+    "mechanics/experience/tests/test_adoption_boundary_seed_contracts.py",
     "mechanics/agon/parts/adoption-retention/README.md",
     "mechanics/boundary-bridge/PARTS.md",
     "scripts/validate_agents.py"
@@ -21,7 +21,7 @@
     "repo:aoa-agents/pull/203",
     "repo:aoa-agents/commit/e892fa65b2718d68fe3a25c07f6d7926fa570a8c",
     "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",
-    "mechanics/experience/tests/test_experience_wave3_seed_contracts.py",
+    "mechanics/experience/tests/test_adoption_boundary_seed_contracts.py",
     "mechanics/experience/legacy/INDEX.md",
     "mechanics/experience/legacy/DISTILLATION_LOG.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",

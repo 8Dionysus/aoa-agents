@@ -53,7 +53,7 @@ The current package skeleton is:
 
 | Mechanic | Why it exists now |
 | --- | --- |
-| `agon/` | Agon pressure already spans formation adjuncts, Wave I/II/II.5 builders, schemas, examples, config seeds, generated indexes, and quest surfaces. |
+| `agon/` | Agon pressure already spans formation adjuncts, agonic/assistant/formation-trial builders, schemas, examples, config seeds, generated indexes, and quest surfaces. |
 | `experience/` | Assistant service, office, adoption, watch, rollback, and release-readiness payloads form a dense service-experience operation cluster. |
 | `titan/` | Titan role-bearing surfaces have their own docs, config, schemas, examples, generated projections, builders, and tests. |
 | `recurrence/` | Recursor and recurrence surfaces already cross docs, config, schemas, examples, generated outputs, scripts, tests, and manifests. |
@@ -145,20 +145,20 @@ candidate-only rank, school/campaign, and epistemic actor schemas/examples by
 splitting them into `arena-rank-school` and `epistemic-actor` parts and adding
 `mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py`.
 
-The Agon formation contract localization satisfies that rule for Wave I
-agonic formation and Wave II.5 formation-trial schemas/examples by placing
+The Agon formation contract localization satisfies that rule for agonic
+formation and formation-trial schemas/examples by placing
 formation contracts under `mechanics/agon/parts/formation/`, arena eligibility
 under `mechanics/agon/parts/arena-rank-school/schemas/`, and adding
 `mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 
 The Experience assistant civil contract localization satisfies that rule for
-Wave II assistant civil schemas/examples by placing service contracts under
+assistant civil schemas/examples by placing service contracts under
 `mechanics/experience/parts/assistant-civil-service/`, arena exclusion under
 `mechanics/experience/parts/arena-exclusion/schemas/`, and adding
 `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`.
 
-The Experience assistant civil check localization satisfies that rule for Wave
-II assistant civil builders, validators, and tests by moving formation-reader
+The Experience assistant civil check localization satisfies that rule for
+assistant civil builders, validators, and tests by moving formation-reader
 support into `mechanics/experience/parts/assistant-civil-service/{scripts,tests}/`
 and the cross-part contract check into `mechanics/experience/{scripts,tests}/`.
 The generated reader stays root-published because it summarizes `agents/`
@@ -177,7 +177,7 @@ their owning Experience, Agon, and Boundary Bridge part-local
 `mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
 
 The Experience adoption/boundary check localization satisfies that rule for
-the Wave III adoption/boundary validator and focused test by moving them into
+the adoption/boundary validator and focused test by moving them into
 `mechanics/experience/{scripts,tests}/`. The check stays package-local because
 it spans Experience adoption/office parts and cross-routes into Agon
 adoption-retention plus Boundary Bridge consumer/federation parts.

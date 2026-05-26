@@ -1,3 +1,3 @@
-# Agon Wave15 Agents Landing
+# Epistemic Actor Posture Landing
 
 Land after rank/jurisdiction surfaces. This adds epistemic obligations without creating arena authority.

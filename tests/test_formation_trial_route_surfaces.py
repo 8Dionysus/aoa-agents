@@ -11,23 +11,25 @@ def read_text(relative_path: str) -> str:
     return (REPO_ROOT / relative_path).read_text(encoding="utf-8")
 
 
-class Wave25RouteSurfacesTestCase(unittest.TestCase):
-    def test_readme_and_docs_map_route_wave2_5_surfaces(self) -> None:
+class FormationTrialRouteSurfacesTestCase(unittest.TestCase):
+    def test_readme_and_docs_map_formation_trial_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
         subject_prep = read_text("mechanics/agon/parts/formation/docs/subject-prep.md")
-        wave2_landing = read_text("mechanics/agon/parts/formation/docs/wave2-landing.md")
+        assistant_civil_landing = read_text(
+            "mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md"
+        )
 
         self.assertIn("mechanics/agon/parts/formation/docs/formation-trial.md", readme)
         self.assertIn("generated/agent_formation_trial.min.json", readme)
         self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py", readme)
         self.assertIn("Agent Formation Trial", docs_readme)
-        self.assertIn("Agon Wave II.5 Landing", docs_readme)
+        self.assertIn("Formation Trial Landing", docs_readme)
         self.assertIn("Codex Projection Agon Boundary", docs_readme)
-        self.assertIn("Wave II.5 Formation Trial has now landed", subject_prep)
-        self.assertIn("Wave II.5 Formation Trial has now landed", wave2_landing)
+        self.assertIn("Formation Trial has now landed", subject_prep)
+        self.assertIn("Formation Trial has now landed", assistant_civil_landing)
 
-    def test_local_guides_name_wave2_5_companion_surfaces(self) -> None:
+    def test_local_guides_name_formation_trial_companion_surfaces(self) -> None:
         profiles_agents = read_text("agents/profiles/AGENTS.md")
         generated_agents = read_text("generated/AGENTS.md")
         examples_agents = read_text("examples/AGENTS.md")

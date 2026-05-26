@@ -1,4 +1,4 @@
-# Wave5 A2A Summon Return Role Posture Hold
+# A2A Summon Return Role Posture Hold
 
 ## Purpose
 

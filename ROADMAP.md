@@ -92,12 +92,12 @@ README or release notes.
 
 ## Unreleased next turn: Agonic Actor Rechartering
 
-The next unreleased agent-layer turn after `v0.2.3` is Wave I Agonic Actor
+The next unreleased agent-layer turn after `v0.2.3` is Agonic Actor
 Rechartering. Its checked surface is:
 
-- Wave I doctrine and landing docs:
+- agonic actor doctrine and landing docs:
   `mechanics/agon/parts/formation/docs/actor-rechartering.md`,
-  `mechanics/agon/parts/formation/docs/wave1-landing.md`,
+  `mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md`,
   `mechanics/agon/parts/formation/docs/kind-model.md`,
   `mechanics/agon/parts/formation/docs/subjectivity-model.md`,
   `mechanics/experience/parts/office-operations/docs/agent-office-model.md`,
@@ -109,7 +109,7 @@ Rechartering. Its checked surface is:
   `agents/profiles/adjuncts/office_overlay/*.office.json`,
   `agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
   `agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json`
-- Wave I companion contracts and publication:
+- agonic actor companion contracts and publication:
   `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`,
   `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`,
   `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`,
@@ -117,25 +117,25 @@ Rechartering. Its checked surface is:
   `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json`,
   `generated/agent_agonic_formation_index.min.json`, and
   `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
-- explicit Wave I validation lane:
+- explicit agonic actor recharter validation lane:
   `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`,
   `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, and
   `mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py`
 
 This turn keeps the base `agents/profiles/*.profile.json` files as legacy role
-contracts while Wave I lands reviewed companion surfaces for agonic actor
-readiness. It does not widen `schemas/agent-profile.schema.json`, does not
+contracts while Agonic Actor Rechartering lands reviewed companion surfaces for
+agonic actor readiness. It does not widen `schemas/agent-profile.schema.json`, does not
 rewrite generated role registries, and does not start arena protocol, scars,
 retention, runtime packets, or ToS promotion.
 
 ## Unreleased follow-on turn: Assistant Civil Rechartering
 
-The next unreleased follow-on turn after Wave I is Wave II Assistant Civil
-Rechartering. Its checked surface is:
+The next unreleased follow-on turn after Agonic Actor Rechartering is Assistant
+Civil Rechartering. Its checked surface is:
 
-- Wave II doctrine and landing docs:
+- assistant civil doctrine and landing docs:
   `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`,
-  `mechanics/agon/parts/formation/docs/wave2-landing.md`,
+  `mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md`,
   `mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md`,
   `mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md`,
   `mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md`,
@@ -150,7 +150,7 @@ Rechartering. Its checked surface is:
   `agents/profiles/adjuncts/assistant_service_governance/*.assistant.governance.json`,
   `agents/profiles/adjuncts/assistant_service_certification/*.assistant.certification.json`, and
   `agents/profiles/adjuncts/assistant_arena_exclusion/*.assistant.arena_exclusion.json`
-- Wave II companion contracts and publication:
+- assistant civil companion contracts and publication:
   `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`,
   `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`,
   `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`,
@@ -160,7 +160,7 @@ Rechartering. Its checked surface is:
   `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json`,
   `generated/assistant_civil_formation_index.min.json`, and
   `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`
-- explicit Wave II validation lane:
+- explicit assistant civil validation lane:
   `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py`,
   `mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`,
   `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`, and
@@ -174,29 +174,29 @@ verdicts, durable incident logs, or ToS promotion into `aoa-agents`.
 
 ## Unreleased follow-on turn: Formation Trial
 
-The next unreleased follow-on turn after Wave II is Wave II.5 Formation Trial.
-Its checked surface is:
+The next unreleased follow-on turn after Assistant Civil Rechartering is
+Formation Trial. Its checked surface is:
 
-- Wave II.5 doctrine and landing docs:
+- formation-trial doctrine and landing docs:
   `mechanics/agon/parts/formation/docs/formation-trial.md`,
   `mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md`,
   `mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md`,
   `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, and
-  `mechanics/agon/parts/formation/docs/wave2-5-landing.md`
-- Wave II.5 companion contract and publication:
+  `mechanics/agon/parts/formation/docs/formation-trial-landing.md`
+- formation-trial companion contract and publication:
   `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`,
   `generated/agent_formation_trial.min.json`, and
   `mechanics/agon/parts/formation/examples/formation-trial.example.json`
-- explicit Wave II.5 validation lane:
+- explicit formation-trial validation lane:
   `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py`,
   `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`, and
   `mechanics/agon/parts/formation/tests/test_agent_formation_trial.py`
 
 This turn judges whether the current five role houses survive as readable split
-forms after Waves I and II. It opens Wave III design only as pre-protocol
-readability, and it does not open arena sessions, lawful moves, sealed commits,
-verdict logic, scars, retention checks, runtime packets, or ToS promotion
-inside `aoa-agents`.
+forms after Agonic Actor Rechartering and Assistant Civil Rechartering. It
+opens lawful-move design only as pre-protocol readability, and it does not open
+arena sessions, lawful moves, sealed commits, verdict logic, scars, retention
+checks, runtime packets, or ToS promotion inside `aoa-agents`.
 
 ## Bootstrap substep: runtime seam hardening
 

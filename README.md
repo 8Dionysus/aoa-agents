@@ -41,7 +41,7 @@ Use the shortest route by need:
 - canonical profiles and schemas: `agents/profiles/*.profile.json` and `schemas/agent-profile.schema.json`
 - Agon-facing companion actor surfaces: `agents/profiles/adjuncts/*`, `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`, `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`, `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`, `mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json`, `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/civil-formation.schema.json`, `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`, `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json`, `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`, `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`, `mechanics/agon/parts/formation/examples/formation-trial.example.json`, `mechanics/agon/parts/arena-rank-school/schemas/rank-jurisdiction.schema.json`, `mechanics/agon/parts/arena-rank-school/examples/rank-surface.example.json`, `mechanics/agon/parts/epistemic-actor/schemas/epistemic-actor-posture.schema.json`, `generated/agent_agonic_formation_index.min.json`, `generated/assistant_civil_formation_index.min.json`, and `generated/agent_formation_trial.min.json`
 - Agon rank/school/epistemic generated companions: `mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json`, `mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json`, and `mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json`
-- pre-protocol formation-trial judgment and Codex boundary: `mechanics/agon/parts/formation/docs/formation-trial.md`, `mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md`, `mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md`, `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, `mechanics/agon/parts/formation/docs/wave2-5-landing.md`, `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`, and `generated/agent_formation_trial.min.json`
+- pre-protocol formation-trial judgment and Codex boundary: `mechanics/agon/parts/formation/docs/formation-trial.md`, `mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md`, `mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md`, `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, `mechanics/agon/parts/formation/docs/formation-trial-landing.md`, `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`, and `generated/agent_formation_trial.min.json`
 - model tiers, orchestrator classes, and bounded cohort composition: `agents/model_tiers/*.tier.json`, `agents/orchestrator_classes/*.class.json`, `agents/cohort_patterns/*.pattern.json`, `schemas/model-tier.schema.json`, `schemas/orchestrator-class.schema.json`, `schemas/cohort-pattern.schema.json`, `generated/model_tier_registry.json`, `generated/orchestrator_class_catalog.min.json`, and `generated/cohort_composition_registry.json`
 - published registries and consumer seams: `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, `generated/runtime_seam_bindings.json`, and `mechanics/boundary-bridge/parts/federation-consumer-seams/docs/federation-consumer-seams.md`
 - Codex subagent projection, owner refresh law, and workspace install seam: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/refresh-law/examples/subagent-refresh-law.example.json`, `generated/codex_agents/agents/*.toml`, `generated/codex_agents/config.subagents.generated.toml`, and `mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py`
@@ -118,7 +118,7 @@ python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 python -m pytest -q tests
 ```
 
-Verify the additive Wave I actor-formation surfaces explicitly:
+Verify the additive agonic actor-formation surfaces explicitly:
 
 ```bash
 python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
@@ -126,7 +126,7 @@ python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
 python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py
 ```
 
-Verify the additive Wave II assistant civil surfaces explicitly:
+Verify the additive assistant civil surfaces explicitly:
 
 ```bash
 python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
@@ -135,7 +135,7 @@ python mechanics/experience/scripts/validate_experience_assistant_civil_contract
 python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py mechanics/experience/tests/test_experience_assistant_civil_contracts.py
 ```
 
-Verify the additive Wave II.5 formation trial surfaces explicitly:
+Verify the additive formation trial surfaces explicitly:
 
 ```bash
 python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check

@@ -43,22 +43,22 @@ names stay historical here; active parts use current route names.
 | `docs/AGON_ASSISTANT_CAMPAIGN_BOUNDARY.md` | [parts/arena-rank-school/docs/assistant-campaign-boundary.md](parts/arena-rank-school/docs/assistant-campaign-boundary.md) | `arena-rank-school` |
 | `docs/AGON_ASSISTANT_RANK_BOUNDARY.md` | [parts/arena-rank-school/docs/assistant-rank-boundary.md](parts/arena-rank-school/docs/assistant-rank-boundary.md) | `arena-rank-school` |
 | `docs/AGON_SCHOOL_AFFILIATION_BOUNDARY.md` | [parts/arena-rank-school/docs/school-affiliation-boundary.md](parts/arena-rank-school/docs/school-affiliation-boundary.md) | `arena-rank-school` |
-| `docs/AGON_WAVE14_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/wave14-agents-landing.md](parts/arena-rank-school/docs/wave14-agents-landing.md) | `arena-rank-school` |
-| `docs/AGON_WAVE16_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/wave16-agents-landing.md](parts/arena-rank-school/docs/wave16-agents-landing.md) | `arena-rank-school` |
+| `docs/AGON_WAVE14_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/rank-jurisdiction-landing.md](parts/arena-rank-school/docs/rank-jurisdiction-landing.md) | `arena-rank-school` |
+| `docs/AGON_WAVE16_AGENTS_LANDING.md` | [parts/arena-rank-school/docs/school-campaign-posture-landing.md](parts/arena-rank-school/docs/school-campaign-posture-landing.md) | `arena-rank-school` |
 | `docs/AGON_ASSISTANT_EPISTEMIC_BOUNDARY.md` | [parts/epistemic-actor/docs/assistant-epistemic-boundary.md](parts/epistemic-actor/docs/assistant-epistemic-boundary.md) | `epistemic-actor` |
 | `docs/AGON_CONCEPT_DELTA_ACTOR_BOUNDARY.md` | [parts/epistemic-actor/docs/concept-delta-actor-boundary.md](parts/epistemic-actor/docs/concept-delta-actor-boundary.md) | `epistemic-actor` |
 | `docs/AGON_EPISTEMIC_ACTOR_POSTURE.md` | [parts/epistemic-actor/docs/epistemic-actor-posture.md](parts/epistemic-actor/docs/epistemic-actor-posture.md) | `epistemic-actor` |
 | `docs/AGON_MODEL_OF_OTHER_ACTOR_BOUNDARY.md` | [parts/epistemic-actor/docs/model-of-other-actor-boundary.md](parts/epistemic-actor/docs/model-of-other-actor-boundary.md) | `epistemic-actor` |
-| `docs/AGON_WAVE15_AGENTS_LANDING.md` | [parts/epistemic-actor/docs/wave15-agents-landing.md](parts/epistemic-actor/docs/wave15-agents-landing.md) | `epistemic-actor` |
+| `docs/AGON_WAVE15_AGENTS_LANDING.md` | [parts/epistemic-actor/docs/epistemic-actor-posture-landing.md](parts/epistemic-actor/docs/epistemic-actor-posture-landing.md) | `epistemic-actor` |
 | `docs/AGENT_FORMATION_TRIAL.md` | [parts/formation/docs/formation-trial.md](parts/formation/docs/formation-trial.md) | `formation` |
 | `docs/AGENT_KIND_MODEL.md` | [parts/formation/docs/kind-model.md](parts/formation/docs/kind-model.md) | `formation` |
 | `docs/AGENT_RESISTANCE_REVISION_POSTURE.md` | [parts/formation/docs/resistance-revision-posture.md](parts/formation/docs/resistance-revision-posture.md) | `formation` |
 | `docs/AGENT_SUBJECTIVITY_MODEL.md` | [parts/formation/docs/subjectivity-model.md](parts/formation/docs/subjectivity-model.md) | `formation` |
 | `docs/AGENT_SUBJECT_PREP.md` | [parts/formation/docs/subject-prep.md](parts/formation/docs/subject-prep.md) | `formation` |
 | `docs/AGONIC_ACTOR_RECHARTERING.md` | [parts/formation/docs/actor-rechartering.md](parts/formation/docs/actor-rechartering.md) | `formation` |
-| `docs/AGON_WAVE1_LANDING.md` | [parts/formation/docs/wave1-landing.md](parts/formation/docs/wave1-landing.md) | `formation` |
-| `docs/AGON_WAVE2_5_LANDING.md` | [parts/formation/docs/wave2-5-landing.md](parts/formation/docs/wave2-5-landing.md) | `formation` |
-| `docs/AGON_WAVE2_LANDING.md` | [parts/formation/docs/wave2-landing.md](parts/formation/docs/wave2-landing.md) | `formation` |
+| `docs/AGON_WAVE1_LANDING.md` | [parts/formation/docs/agonic-actor-rechartering-landing.md](parts/formation/docs/agonic-actor-rechartering-landing.md) | `formation` |
+| `docs/AGON_WAVE2_5_LANDING.md` | [parts/formation/docs/formation-trial-landing.md](parts/formation/docs/formation-trial-landing.md) | `formation` |
+| `docs/AGON_WAVE2_LANDING.md` | [parts/formation/docs/assistant-civil-rechartering-landing.md](parts/formation/docs/assistant-civil-rechartering-landing.md) | `formation` |
 | `docs/AGONIC_GOVERNANCE_TRIALS.md` | [parts/pre-protocol-boundary/docs/governance-trials.md](parts/pre-protocol-boundary/docs/governance-trials.md) | `pre-protocol-boundary` |
 | `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md` | [parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md](parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md) | `pre-protocol-boundary` |
 | `docs/FORMATION_TRIAL_READINESS.md` | [parts/pre-protocol-boundary/docs/formation-trial-readiness.md](parts/pre-protocol-boundary/docs/formation-trial-readiness.md) | `pre-protocol-boundary` |
@@ -131,8 +131,8 @@ to package-level `agon/scripts/`, because it checks the relation between
 ## 2026-05-26 Root Agon Formation Contract Move
 
 6 Agon formation schemas plus 2 examples moved from root `schemas/` and
-`examples/` into active Agon part-local contract routes. Wave II assistant
-civil contract localization later landed under `mechanics/experience/`.
+`examples/` into active Agon part-local contract routes. Assistant civil
+contract localization later landed under `mechanics/experience/`.
 
 | Former root path | Active route | Part |
 | --- | --- | --- |

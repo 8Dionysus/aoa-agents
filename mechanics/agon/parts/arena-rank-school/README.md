@@ -11,8 +11,8 @@ This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 - [Agon Agent Rank Jurisdiction Surfaces](docs/rank-jurisdiction-surfaces.md)
 - [School Affiliation Boundary](docs/school-affiliation-boundary.md)
 - [Agent School / Campaign Posture](docs/school-campaign-posture.md)
-- [Wave XIV Agents Landing](docs/wave14-agents-landing.md)
-- [Wave XVI Agents Landing](docs/wave16-agents-landing.md)
+- [Rank Jurisdiction Landing](docs/rank-jurisdiction-landing.md)
+- [School Campaign Posture Landing](docs/school-campaign-posture-landing.md)
 
 ## Active Config
 

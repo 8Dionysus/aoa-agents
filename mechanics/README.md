@@ -63,12 +63,12 @@ owning Agon parts because their source truth is already part-local config.
 The Agon rank/school/epistemic check localization moved their builders,
 validators, and focused tests into Agon package and part-local routes because
 those checks now protect part-local config/generated/contract surfaces.
-The Agon formation check localization moved Wave I formation and Wave II.5
+The Agon formation check localization moved agonic formation and
 formation-trial builders, validators, and focused tests into the Agon
 `formation` part while keeping the generated readers root-published because
 their source truth remains under `agents/`.
-The Experience assistant civil check localization moved Wave II assistant
-civil builders, validators, and focused tests into Experience package and
+The Experience assistant civil check localization moved assistant civil
+builders, validators, and focused tests into Experience package and
 assistant-civil-service part-local routes while keeping the generated reader
 root-published because its source truth remains under `agents/`.
 The recursor generated reader localization moved readiness, pair, projection,
@@ -83,7 +83,7 @@ package card before dropping into part-local cards.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
-| `agon/` | Agon docs, part-local config seeds, adjuncts, part-local rank/school/epistemic generated readers, formation indexes, Wave I/II/II.5 builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
+| `agon/` | Agon docs, part-local config seeds, adjuncts, part-local rank/school/epistemic generated readers, formation indexes, agonic/assistant/formation-trial builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
 | `experience/` | assistant civil/service/office/adoption/release docs, adjuncts, schemas, examples | route assistant service, office, adoption, watch, and arena-exclusion pressure without becoming runtime service authority |
 | `titan/` | Titan docs, part-local config, schemas, examples, generated projections, and builders | route Titan role-bearing, lineage, summon, roster, and service-cohort posture inside the agent layer |
 | `recurrence/` | recursor docs, part-local config, part-local component manifests, schemas, examples, and part-local generated readers | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |

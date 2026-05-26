@@ -1,13 +1,18 @@
-# Seed Manifest: Agon Wave II.5 / Formation Trial
+# Seed Manifest: Formation Trial
 
 This seed lands the first **Formation Trial** for `aoa-agents`.
 
-It assumes Agon Wave I and Wave II have already landed:
+It assumes Agonic Actor Rechartering and Assistant Civil Rechartering have
+already landed:
 
 - `generated/agent_agonic_formation_index.min.json`
 - `generated/assistant_civil_formation_index.min.json`
 
-Wave II.5 does not create new roles, new assistants, arena sessions, lawful moves, verdicts, scars, retention checks, runtime packets, or ToS promotion paths. It judges whether the actor forms created by Waves I and II are coherent enough to be read by the next wave.
+Formation Trial does not create new roles, new assistants, arena sessions,
+lawful moves, verdicts, scars, retention checks, runtime packets, or ToS
+promotion paths. It judges whether the actor forms created by Agonic Actor
+Rechartering and Assistant Civil Rechartering are coherent enough to be read by
+lawful-move design.
 
 ## Landing target
 
@@ -20,7 +25,7 @@ mechanics/agon/parts/formation/docs/formation-trial.md
 mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md
 mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md
 mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md
-mechanics/agon/parts/formation/docs/wave2-5-landing.md
+mechanics/agon/parts/formation/docs/formation-trial-landing.md
 mechanics/agon/parts/formation/schemas/formation-trial.schema.json
 generated/agent_formation_trial.min.json
 mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py
@@ -64,4 +69,4 @@ Expected counts:
 
 A passed Formation Trial is not permission to open an arena.
 
-It is permission for the next wave to design lawful movement against actor forms that are no longer vague.
+It is permission for the next reviewed turn to design lawful movement against actor forms that are no longer vague.

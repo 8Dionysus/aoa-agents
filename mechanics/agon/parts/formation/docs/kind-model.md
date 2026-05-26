@@ -4,11 +4,11 @@
 
 `kind` separates the mode of being from the role office.
 
-A role such as `reviewer` may later have an agonic form and an assistant form. Those forms must not be hidden inside one hybrid actor. Wave I lands only the agonic side for the current five role homes.
+A role such as `reviewer` may later have an agonic form and an assistant form. Those forms must not be hidden inside one hybrid actor. Agonic Actor Rechartering lands only the agonic side for the current five role homes.
 
-## Current Wave I kinds
+## Current Agonic Kinds
 
-The Wave I source adjuncts use:
+The agonic source adjuncts use:
 
 ```text
 kind: agonic
@@ -23,7 +23,7 @@ The existing base profile remains a legacy role contract. A profile without a ki
 
 ## Assistant boundary
 
-Assistant forms are now landed separately in Wave II. They use exogenous,
-operator-governed revision, predictable service contracts, and explicit arena
-exclusion. Wave I agonic files must still not smuggle assistant authority into
-agonic actor surfaces.
+Assistant forms are now landed separately as civil service forms. They use
+exogenous, operator-governed revision, predictable service contracts, and
+explicit arena exclusion. Agonic files must still not smuggle assistant
+authority into agonic actor surfaces.

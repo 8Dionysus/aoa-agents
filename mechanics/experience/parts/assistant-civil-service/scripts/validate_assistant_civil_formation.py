@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate assistant civil formation surfaces.
 
-This validator checks the Agon Wave II invariants without importing jsonschema.
+This validator checks the Assistant Civil Rechartering invariants without importing jsonschema.
 It is deliberately strict about assistant anti-drift law.
 """
 
@@ -102,7 +102,7 @@ def validate(root: Path) -> None:
     for role in EXPECTED_BASE_ROLES:
         profile = root / "agents" / "profiles" / f"{role}.profile.json"
         if not profile.exists():
-            fail(f"missing base profile expected by Wave II: {profile}")
+            fail(f"missing base profile expected by Assistant Civil Rechartering: {profile}")
 
     families = {
         name: read_family(root, name, suffix)

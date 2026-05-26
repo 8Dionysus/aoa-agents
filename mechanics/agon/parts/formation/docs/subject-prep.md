@@ -10,7 +10,7 @@ It does not claim that current profiles already implement full subjecthood.
 It names the local preparation boundary so future changes do not smear role,
 memory, proof, runtime, and canonization into one agent file.
 
-Wave I Agonic Actor Rechartering has now landed the first agonic companion
+Agonic Actor Rechartering has now landed the first agonic companion
 surfaces under:
 
 - `mechanics/agon/parts/formation/docs/actor-rechartering.md`
@@ -20,7 +20,7 @@ surfaces under:
 That landing does not erase this boundary note. It means the agonic side is no
 longer only hypothetical.
 
-Wave II Assistant Civil Rechartering has now landed the first assistant
+Assistant Civil Rechartering has now landed the first assistant
 companion surfaces under:
 
 - `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`
@@ -32,7 +32,7 @@ agonic side and the assistant side are now both explicit at the actor layer,
 while protocol law, verdicts, scars, retention, runtime transport, and
 canonization still remain outside this repository.
 
-Wave II.5 Formation Trial has now landed the first pre-protocol judgment
+Formation Trial has now landed the first pre-protocol judgment
 surfaces under:
 
 - `mechanics/agon/parts/formation/docs/formation-trial.md`
@@ -82,11 +82,11 @@ This repository may prepare the role-facing split and future additive adjunct
 families that make it concrete.
 It must not decide protocol law, verdict logic, memory storage, runtime transport,
 or ToS promotion.
-Wave I, Wave II, and Wave II.5 have now decided the first agonic and assistant
-source paths, the first formation-trial judgment, and the generated indexes
-for the current five role homes. Any protocol-bearing follow-through, runtime
-transport, Codex projection widening, or canon-facing follow-up still remains
-future reviewed work.
+Agonic Actor Rechartering, Assistant Civil Rechartering, and Formation Trial
+have now decided the first agonic and assistant source paths, the first
+formation-trial judgment, and the generated indexes for the current five role
+homes. Any protocol-bearing follow-through, runtime transport, Codex projection
+widening, or canon-facing follow-up still remains future reviewed work.
 
 ## What may belong here later
 

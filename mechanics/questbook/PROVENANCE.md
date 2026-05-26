@@ -101,7 +101,7 @@ root support districts into the owning Questbook package and part-local routes.
 | --- | --- | --- |
 | `scripts/generate_alpha_reference_routes.py` | [parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py](parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py) | `alpha-reference-routes` |
 | `scripts/validate_reference_route_contracts.py` Alpha checks | [scripts/validate_alpha_reference_routes.py](scripts/validate_alpha_reference_routes.py) | package-local |
-| `tests/test_validate_agents.py` Alpha reference-route case | [tests/test_alpha_reference_routes.py](tests/test_alpha_reference_routes.py) | package-local |
+| `tests/test_repo_validator.py` Alpha reference-route case | [tests/test_alpha_reference_routes.py](tests/test_alpha_reference_routes.py) | package-local |
 
 ## Active Root Quest Generated Readers
 

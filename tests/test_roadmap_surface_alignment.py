@@ -7,7 +7,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-class RoadmapParityTestCase(unittest.TestCase):
+class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
     def test_roadmap_matches_current_v0_2_release_surfaces(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
@@ -43,21 +43,21 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("self-agency continuity posture", changelog)
         self.assertIn("agonic/assistant kind split", roadmap)
         self.assertIn("civil/service", subject_prep)
-        self.assertIn("Wave I Agonic Actor Rechartering has now landed", subject_prep)
-        self.assertIn("Wave II Assistant Civil Rechartering has now landed", subject_prep)
-        self.assertIn("Wave II.5 Formation Trial has now landed", subject_prep)
+        self.assertIn("Agonic Actor Rechartering has now landed", subject_prep)
+        self.assertIn("Assistant Civil Rechartering has now landed", subject_prep)
+        self.assertIn("Formation Trial has now landed", subject_prep)
         self.assertIn("future additive adjunct", subject_prep)
         self.assertIn("roadmap drift", roadmap)
 
-    def test_roadmap_names_unreleased_wave1_agonic_actor_recharter(self) -> None:
+    def test_roadmap_names_agonic_actor_recharter_turn(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
 
         self.assertIn("## Unreleased next turn: Agonic Actor Rechartering", roadmap)
-        self.assertIn("explicit Wave I validation lane", roadmap)
+        self.assertIn("explicit agonic actor recharter validation lane", roadmap)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/actor-rechartering.md",
-            "mechanics/agon/parts/formation/docs/wave1-landing.md",
+            "mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md",
             "mechanics/agon/parts/formation/docs/kind-model.md",
             "mechanics/agon/parts/formation/docs/subjectivity-model.md",
             "mechanics/experience/parts/office-operations/docs/agent-office-model.md",
@@ -77,15 +77,15 @@ class RoadmapParityTestCase(unittest.TestCase):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)
 
-    def test_roadmap_names_unreleased_wave2_assistant_civil_recharter(self) -> None:
+    def test_roadmap_names_assistant_civil_recharter_turn(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
 
         self.assertIn("## Unreleased follow-on turn: Assistant Civil Rechartering", roadmap)
-        self.assertIn("explicit Wave II validation lane", roadmap)
+        self.assertIn("explicit assistant civil validation lane", roadmap)
 
         for relative_path in (
             "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
-            "mechanics/agon/parts/formation/docs/wave2-landing.md",
+            "mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md",
             "mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md",
             "mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md",
             "mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md",
@@ -111,18 +111,18 @@ class RoadmapParityTestCase(unittest.TestCase):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)
 
-    def test_roadmap_names_unreleased_wave2_5_formation_trial(self) -> None:
+    def test_roadmap_names_formation_trial_turn(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
 
         self.assertIn("## Unreleased follow-on turn: Formation Trial", roadmap)
-        self.assertIn("explicit Wave II.5 validation lane", roadmap)
+        self.assertIn("explicit formation-trial validation lane", roadmap)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/formation-trial.md",
             "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
             "mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md",
             "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
-            "mechanics/agon/parts/formation/docs/wave2-5-landing.md",
+            "mechanics/agon/parts/formation/docs/formation-trial-landing.md",
             "mechanics/agon/parts/formation/schemas/formation-trial.schema.json",
             "generated/agent_formation_trial.min.json",
             "mechanics/agon/parts/formation/examples/formation-trial.example.json",

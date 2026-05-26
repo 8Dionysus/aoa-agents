@@ -1,8 +1,8 @@
-# Agon Wave II.5 Landing
+# Formation Trial Landing
 
 ## Name
 
-Agon Wave II.5: Formation Trial
+Formation Trial
 
 ## Owner
 
@@ -10,14 +10,14 @@ Agon Wave II.5: Formation Trial
 
 ## Placement
 
-This wave lands after:
+This landing follows:
 
-- Wave I: Agonic Actor Rechartering
-- Wave II: Assistant Civil Rechartering
+- Agonic Actor Rechartering
+- Assistant Civil Rechartering
 
 It lands before:
 
-- Wave III: Language of Lawful Moves
+- lawful-move language
 - any center-owned `Agon of Abyss` arena protocol
 
 ## Landing result

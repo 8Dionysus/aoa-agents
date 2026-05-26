@@ -59,7 +59,7 @@ def main() -> int:
     if data != expected_registry():
         raise SystemExit("generated registry drift: rebuild from config before validating")
     if data.get("live_protocol") is not EXPECTED_LIVE_PROTOCOL:
-        raise SystemExit("Wave XIV registries must remain non-live protocol surfaces")
+        raise SystemExit("rank jurisdiction registries must remain non-live protocol surfaces")
     if data.get("runtime_effect") not in ['candidate_only', 'none', 'review_surface_only', 'local_dry_run_candidate_only']:
         raise SystemExit(f"unexpected runtime_effect: {data.get('runtime_effect')}")
     entries = data.get("entries", [])

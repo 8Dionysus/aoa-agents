@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Wave I exists because Agon is not merely an extension of the current agent layer. Agon audits the current layer.
+Agonic Actor Rechartering exists because Agon is not merely an extension of the current agent layer. Agon audits the current layer.
 
 Before `Agents-of-Abyss` can open a lawful arena, `aoa-agents` must recharter its role-bearing actors into actor forms that can be read by that future arena. The current public profiles remain useful: they describe who acts, what role contract they carry, and which neighboring layers they must not absorb. They do not yet describe full subject-bearing actor form.
 
@@ -36,7 +36,7 @@ These are not new public profile families. They are office overlays on current r
 
 ## What this recharter does not do
 
-This wave does not create:
+This rechartering does not create:
 
 - arena sessions
 - sealed commits

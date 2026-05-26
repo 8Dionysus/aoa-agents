@@ -47,7 +47,7 @@ names stay historical here; active parts use current route names.
 | `docs/TITAN_SWARM_PARTICIPATION.md` | [parts/service-cohort/docs/swarm-participation.md](parts/service-cohort/docs/swarm-participation.md) | `service-cohort` |
 | `docs/TITAN_SUMMON_BOUNDARY.md` | [parts/summon-boundary/docs/summon-boundary.md](parts/summon-boundary/docs/summon-boundary.md) | `summon-boundary` |
 | `docs/TITAN_SUMMON_PROTOCOL_V2.md` | [parts/summon-boundary/docs/summon-protocol-v2.md](parts/summon-boundary/docs/summon-protocol-v2.md) | `summon-boundary` |
-| `docs/WAVE5_A2A_SUMMON_RETURN_ROLE_POSTURE_HOLD.md` | [parts/summon-boundary/docs/wave5-a2a-summon-return-role-posture-hold.md](parts/summon-boundary/docs/wave5-a2a-summon-return-role-posture-hold.md) | `summon-boundary` |
+| `docs/WAVE5_A2A_SUMMON_RETURN_ROLE_POSTURE_HOLD.md` | [parts/summon-boundary/docs/a2a-summon-return-role-posture-hold.md](parts/summon-boundary/docs/a2a-summon-return-role-posture-hold.md) | `summon-boundary` |
 
 ## 2026-05-26 Root Config Move
 

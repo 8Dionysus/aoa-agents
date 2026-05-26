@@ -107,7 +107,7 @@ root support districts into the owning Checkpoint package.
 | Former root path | Active route | Part |
 | --- | --- | --- |
 | `scripts/validate_reference_route_contracts.py` | [scripts/validate_reference_route_contracts.py](scripts/validate_reference_route_contracts.py) | package-local |
-| `tests/test_validate_agents.py` reference-route cases | [tests/test_reference_route_contracts.py](tests/test_reference_route_contracts.py) | package-local |
+| `tests/test_repo_validator.py` reference-route cases | [tests/test_reference_route_contracts.py](tests/test_reference_route_contracts.py) | package-local |
 
 ## Distillation Rule
 

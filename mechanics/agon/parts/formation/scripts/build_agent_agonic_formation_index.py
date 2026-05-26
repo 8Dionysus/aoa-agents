@@ -150,7 +150,7 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
 
     return {
         "$schema": "https://aoa-agents/generated/agent_agonic_formation_index.v1.json",
-        "formation": "Agon Wave I / Agonic Actor Rechartering",
+        "formation": "Agonic Actor Rechartering",
         "generated_by": "mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py",
         "source_surfaces": [
             "agents/profiles/adjuncts/kind/*.kind.json",
@@ -171,7 +171,7 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build the Agon Wave I agonic formation index.")
+    parser = argparse.ArgumentParser(description="Build the Agonic Actor Rechartering formation index.")
     parser.add_argument("--check", action="store_true", help="Verify generated index is current without rewriting it.")
     args = parser.parse_args(argv)
 

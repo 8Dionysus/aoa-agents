@@ -40,7 +40,7 @@ Keep this directory focused on role-bearing agent identity and posture:
   resistance/revision posture, service identity, service contract,
   service governance, certification, and arena exclusion separate from the
   base profile contract
-- role-house survival inputs that the Wave II.5 formation trial reads without
+- role-house survival inputs that the formation trial reads without
   widening the base profile contract or turning candidate seats into live
   authority
 

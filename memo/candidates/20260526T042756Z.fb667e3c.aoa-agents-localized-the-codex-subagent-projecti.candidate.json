@@ -19,7 +19,7 @@
     "repo:aoa-agents/pull/151",
     "repo:aoa-agents/commit-range/3f18ff6..08534fa",
     "mechanics/codex-projection/parts/refresh-law/tests/test_codex_subagent_refresh_law.py",
-    "tests/test_roadmap_parity.py"
+    "tests/test_roadmap_surface_alignment.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",
