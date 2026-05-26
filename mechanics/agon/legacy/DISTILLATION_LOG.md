@@ -36,6 +36,17 @@ paths are lookup facts only.
 | `arena-rank-school` | 4 | 2 |
 | `epistemic-actor` | 2 | 1 |
 
+## 2026-05-26 Root Agon Rank/Epistemic Generated Readers To Active Parts
+
+Moved 3 candidate-only Agon generated registries out of root `generated/` and
+into active part-local `generated/` directories. Git history preserves the file
+bodies; root paths are lookup facts only.
+
+| Part | Moved generated readers |
+| --- | ---: |
+| `arena-rank-school` | 2 |
+| `epistemic-actor` | 1 |
+
 ## 2026-05-26 Root Agon Formation Contracts To Active Parts
 
 Moved 6 Agon formation schemas and 2 matching public-safe examples out of root

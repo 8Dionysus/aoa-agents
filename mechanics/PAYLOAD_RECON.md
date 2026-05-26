@@ -181,6 +181,12 @@ the derived Alpha reader by placing it next to the Questbook
 `scripts/validate_reference_route_contracts.py`, and
 `scripts/validate_agents.py` the part-local route plus former-root absence.
 
+The Agon rank/school/epistemic generated reader localization satisfies that
+rule for candidate-only generated registries by placing them next to the Agon
+part-local config, schemas, and examples they summarize and teaching the
+dedicated builders, validators, component manifests, and tests the part-local
+routes plus former-root absence.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,

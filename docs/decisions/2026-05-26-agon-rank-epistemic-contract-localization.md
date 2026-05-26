@@ -23,8 +23,10 @@ Move these Agon contract payloads into their owning parts:
 - `scripts/validate_agon_rank_epistemic_contracts.py` becomes the
   package-local contract validator and is called by `scripts/validate_agents.py`.
 
-Generated Agon registries remain derived surfaces under `generated/`; builder
-scripts remain support surfaces under `scripts/`.
+Generated Agon registries remained derived surfaces under `generated/` in this
+contract-localization slice; the later generated-reader localization moved
+them into part-local `generated/` routes once the generated move was small and
+validator-backed. Builder scripts remain support surfaces under `scripts/`.
 
 ## Consequences
 

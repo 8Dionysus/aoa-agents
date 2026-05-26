@@ -2,7 +2,7 @@
   "component_id": "component:agon:rank-jurisdiction-surfaces",
   "hidden_scheduler_allowed": false,
   "observes": [
-    "generated/agon_agent_rank_jurisdiction_registry.min.json",
+    "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json",
     "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
   ],
   "owner_review_required": true,

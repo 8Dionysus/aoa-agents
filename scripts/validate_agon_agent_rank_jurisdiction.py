@@ -6,7 +6,10 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
-REGISTRY = ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json"
+REGISTRY = (
+    ROOT
+    / "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json"
+)
 SCHEMA = (
     ROOT
     / "mechanics/agon/parts/arena-rank-school/schemas/rank-jurisdiction-registry.schema.json"

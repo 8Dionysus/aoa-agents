@@ -14,7 +14,7 @@
   ],
   "posture": "observation_only",
   "surfaces": [
-    "generated/agon_epistemic_actor_posture_registry.min.json"
+    "mechanics/agon/parts/epistemic-actor/generated/epistemic-actor-posture-registry.min.json"
   ],
   "wave": "XV"
 }

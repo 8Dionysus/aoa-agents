@@ -35,4 +35,12 @@ This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 - [School/Campaign Posture Example](examples/school-campaign-posture.example.json)
 - [Example Route](examples/README.md)
 
+## Active Generated
+
+- [Rank/Jurisdiction Registry](generated/rank-jurisdiction-registry.min.json)
+- [School/Campaign Posture Registry](generated/school-campaign-posture-registry.min.json)
+
+Generated readers are derived from this part's config and remain candidate-only
+support surfaces, not live rank, school, or campaign authority.
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

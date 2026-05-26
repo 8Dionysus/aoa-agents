@@ -3,7 +3,7 @@
     {
       "decision_authority": false,
       "emits": "recurrence.observation.retention_rank_pressure",
-      "source": "generated/agon_agent_rank_jurisdiction_registry.min.json"
+      "source": "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json"
     },
     {
       "decision_authority": false,
