@@ -1,0 +1,229 @@
+{
+  "$schema": "https://aoa-agents/schemas/agent-source-home.schema.json",
+  "schema_version": "agent_source_home_v1",
+  "owner_repo": "aoa-agents",
+  "home": "agents/",
+  "role": "source-authored home for role-bearing agent objects and compact role-facing contract inputs",
+  "home_rules": [
+    "Agents source objects own role posture, not execution workflows, proof verdicts, memory truth, routing policy, playbook choreography, or runtime implementation.",
+    "Every source family must have a local route card, a schema or mechanic-local contract, a generated or consumer output route, and an explicit validator.",
+    "Generated readers summarize this home; they do not become stronger than source objects.",
+    "Mechanics may route operation pressure around source objects, but the source object family remains the owner of role-facing inputs."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "skill workflow implementation",
+      "route": "aoa-skills"
+    },
+    {
+      "pressure": "bounded proof verdict or eval canon",
+      "route": "aoa-evals"
+    },
+    {
+      "pressure": "durable memory object or recall truth",
+      "route": "aoa-memo"
+    },
+    {
+      "pressure": "dispatch or navigation policy",
+      "route": "aoa-routing"
+    },
+    {
+      "pressure": "scenario choreography or campaign playbook",
+      "route": "aoa-playbooks"
+    },
+    {
+      "pressure": "runtime worker, service, or infrastructure behavior",
+      "route": "abyss-stack"
+    }
+  ],
+  "families": [
+    {
+      "id": "base_profiles",
+      "path": "agents/profiles",
+      "object_pattern": "*.profile.json",
+      "source_kind": "role_contract",
+      "meaning": "Base role houses for reusable agent identities: mission, role boundaries, handoff, memory posture, eval posture, preferred skills, tiers, and cohorts.",
+      "owner_surface": "agents/profiles/AGENTS.md",
+      "schema_refs": [
+        "schemas/agent-profile.schema.json"
+      ],
+      "publishes_to": [
+        "generated/agent_registry.min.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "docs/AGENT_PROFILE_SURFACE.md",
+        "docs/AGENT_MEMORY_POSTURE.md",
+        "docs/BOUNDARIES.md"
+      ],
+      "stop_lines": [
+        "Do not hide skill workflows or runtime logic inside base profiles.",
+        "Do not widen the base profile schema for mechanic-local companion pressure without a decision record."
+      ]
+    },
+    {
+      "id": "profile_adjuncts",
+      "path": "agents/profiles/adjuncts",
+      "object_pattern": "*/*.json",
+      "source_kind": "role_companion",
+      "meaning": "Additive agonic and assistant companion surfaces that let role houses gain reviewed forms without rewriting base role contracts.",
+      "owner_surface": "agents/profiles/adjuncts/AGENTS.md",
+      "schema_refs": [
+        "mechanics/agon/parts/formation/schemas/agent-kind.schema.json",
+        "mechanics/agon/parts/formation/schemas/subjectivity.schema.json",
+        "mechanics/agon/parts/formation/schemas/office-overlay.schema.json",
+        "mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json",
+        "mechanics/agon/parts/formation/schemas/resistance-revision.schema.json",
+        "mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json",
+        "mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json",
+        "mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json",
+        "mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json",
+        "mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json",
+        "mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json"
+      ],
+      "publishes_to": [
+        "generated/agent_agonic_formation_index.min.json",
+        "generated/assistant_civil_formation_index.min.json",
+        "generated/agent_formation_trial.min.json"
+      ],
+      "builders": [
+        "mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py",
+        "mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py",
+        "mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py"
+      ],
+      "validators": [
+        "mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py",
+        "mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+        "mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py"
+      ],
+      "reader_routes": [
+        "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+        "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
+        "mechanics/agon/parts/formation/docs/formation-trial.md"
+      ],
+      "stop_lines": [
+        "Do not treat companion forms as live arena authority.",
+        "Do not move scars, verdicts, retention history, runtime packets, or ToS promotion into this source home."
+      ]
+    },
+    {
+      "id": "model_tiers",
+      "path": "agents/model_tiers",
+      "object_pattern": "*.tier.json",
+      "source_kind": "effort_tier",
+      "meaning": "Effort and handoff classes for the public role loop, independent of vendor model brands.",
+      "owner_surface": "agents/model_tiers/AGENTS.md",
+      "schema_refs": [
+        "schemas/model-tier.schema.json"
+      ],
+      "publishes_to": [
+        "generated/model_tier_registry.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "docs/MODEL_TIER_MODEL.md",
+        "mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md"
+      ],
+      "stop_lines": [
+        "Do not encode vendor model branding here.",
+        "Do not turn a tier into routing policy or runtime infrastructure."
+      ]
+    },
+    {
+      "id": "orchestrator_classes",
+      "path": "agents/orchestrator_classes",
+      "object_pattern": "*.class.json",
+      "source_kind": "orchestrator_class",
+      "meaning": "Source identity for bounded orchestrator classes: what they read, may touch, and must never absorb.",
+      "owner_surface": "agents/orchestrator_classes/AGENTS.md",
+      "schema_refs": [
+        "schemas/orchestrator-class.schema.json"
+      ],
+      "publishes_to": [
+        "generated/orchestrator_class_catalog.min.json",
+        "generated/orchestrator_class_capsules.json",
+        "generated/orchestrator_class_sections.full.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "docs/ORCHESTRATOR_CLASS_MODEL.md",
+        "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md"
+      ],
+      "stop_lines": [
+        "Do not let quests define orchestrator class identity.",
+        "Do not turn orchestrator classes into playbooks, proof doctrine, memory canon, or runtime implementation."
+      ]
+    },
+    {
+      "id": "cohort_patterns",
+      "path": "agents/cohort_patterns",
+      "object_pattern": "*.pattern.json",
+      "source_kind": "cohort_pattern",
+      "meaning": "Bounded role cohort hints that make collaboration inspectable without owning scenario choreography.",
+      "owner_surface": "agents/cohort_patterns/AGENTS.md",
+      "schema_refs": [
+        "schemas/cohort-pattern.schema.json"
+      ],
+      "publishes_to": [
+        "generated/cohort_composition_registry.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md",
+        "mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md"
+      ],
+      "stop_lines": [
+        "Do not turn cohort patterns into playbooks.",
+        "Do not make alpha readiness the generic default cohort."
+      ]
+    },
+    {
+      "id": "runtime_seam_bindings",
+      "path": "agents/runtime_seam",
+      "object_pattern": "*.binding.json",
+      "source_kind": "runtime_seam_binding",
+      "meaning": "Role x tier binding source for the public runtime seam, kept separate from runtime implementation.",
+      "owner_surface": "agents/runtime_seam/AGENTS.md",
+      "schema_refs": [
+        "schemas/runtime-seam-binding.schema.json"
+      ],
+      "publishes_to": [
+        "generated/runtime_seam_bindings.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
+        "mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md"
+      ],
+      "stop_lines": [
+        "Do not encode runtime worker behavior here.",
+        "Do not widen seam bindings into network protocol commitments."
+      ]
+    }
+  ]
+}

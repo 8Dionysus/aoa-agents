@@ -58,3 +58,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Active provenance bridge wording](2026-05-26-active-provenance-bridge-wording.md)
 - [2026-05-26: Provenance bridge operating shape](2026-05-26-provenance-bridge-operating-shape.md)
 - [2026-05-26: Active legacy name cleanup](2026-05-26-active-legacy-name-cleanup.md)
+- [2026-05-26: Agents source home topology](2026-05-26-agents-source-home-topology.md)

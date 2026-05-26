@@ -4,9 +4,9 @@
 agent layer.
 
 These root schemas constrain base role profiles, model tiers, orchestrator
-classes, cohort patterns, runtime seam bindings, and the generated registries
-published from those source families. They are shared contracts, not mechanic
-payloads.
+classes, cohort patterns, runtime seam bindings, the checked `agents/` source
+home manifest, and the generated registries published from those source
+families. They are shared contracts, not mechanic payloads.
 
 ## Operating Card
 
@@ -33,6 +33,7 @@ payloads.
 | `cohort-composition-registry.schema.json` | `generated/cohort_composition_registry.json` |
 | `runtime-seam-binding.schema.json` | `agents/runtime_seam/*.binding.json` |
 | `runtime-seam-bindings.schema.json` | `generated/runtime_seam_bindings.json` |
+| `agent-source-home.schema.json` | `agents/source_home.manifest.json` |
 
 ## Boundary
 

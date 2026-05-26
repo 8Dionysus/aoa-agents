@@ -34,6 +34,10 @@ COMMANDS = [
     ),
     ("validate agents", [sys.executable, "scripts/validate_agents.py"]),
     (
+        "validate agent source home",
+        [sys.executable, "scripts/validate_agent_source_home.py"],
+    ),
+    (
         "run antifragility stress tests",
         [
             sys.executable,

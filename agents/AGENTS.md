@@ -7,7 +7,7 @@ This card applies to `agents/` and every nested path until a nearer
 
 ## Role
 
-`agents/` is the source-authored agent district for `aoa-agents`.
+`agents/` is the source-authored agent home for `aoa-agents`.
 It holds the repo-owned role objects and compact role-facing contract inputs
 that publish into generated registries and projection surfaces.
 
@@ -19,18 +19,19 @@ agent-layer source meaning.
 
 | Field | Route |
 | --- | --- |
-| role | source-authored agent object district |
+| role | source-authored agent object home |
 | input | role, tier, class, cohort, adjunct, and runtime-seam source edits |
-| output | updated source object, regenerated reader, validation result, or stronger-owner handoff |
-| owner | nearest `agents/<family>/AGENTS.md` and source JSON family |
-| next route | `agents/README.md`, target family `AGENTS.md`, owning docs, builder, validator |
-| tools | `scripts/build_published_surfaces.py`, formation builders, projection builders |
+| output | updated source object, source-home manifest route, regenerated reader, validation result, or stronger-owner handoff |
+| owner | `agents/source_home.manifest.json`, nearest `agents/<family>/AGENTS.md`, and source JSON family |
+| next route | `agents/README.md`, `agents/source_home.manifest.json`, target family `AGENTS.md`, owning docs, builder, validator |
+| tools | `scripts/validate_agent_source_home.py`, `scripts/build_published_surfaces.py`, formation builders, projection builders |
 | validation | this card's `Validation` section plus target family checks |
 
 ## Route Stack
 
 - Above: root `AGENTS.md` owns repo identity, boundaries, and verification.
-- Here: `agents/README.md` owns the source district map.
+- Here: `agents/README.md` owns the source home map and
+  `agents/source_home.manifest.json` owns the checked family topology.
 - Below: `agents/profiles/`, `agents/model_tiers/`,
   `agents/orchestrator_classes/`, `agents/cohort_patterns/`, and
   `agents/runtime_seam/` own local contracts and checks.
@@ -43,8 +44,9 @@ Read:
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
 4. `agents/README.md`
-5. the nearest child `AGENTS.md`
-6. the docs named by the child route card
+5. `agents/source_home.manifest.json`
+6. the nearest child `AGENTS.md`
+7. the docs named by the child route card
 
 ## Owner Routes
 
@@ -56,6 +58,7 @@ Read:
 | orchestrator class identity | `agents/orchestrator_classes/*.class.json` |
 | bounded role cohort hints | `agents/cohort_patterns/*.pattern.json` |
 | role x tier runtime seam bindings | `agents/runtime_seam/*.binding.json` |
+| checked source-home topology | `agents/source_home.manifest.json` |
 | generated readers | `generated/` and the owning builder |
 | operation topology | `mechanics/` |
 | role doctrine and public explanation | `docs/` |
@@ -74,6 +77,8 @@ Read:
 ## Compact Rules
 
 - Keep source objects compact and reviewable.
+- Keep the source home manifest aligned with every active family, owner card,
+  schema or mechanic-local contract, publication target, builder, and validator.
 - Keep repo-wide agent source and registry schemas under `schemas/`.
 - Keep mechanic-specific schemas under the owning mechanic part once that part
   has a route card and validator support.
@@ -89,6 +94,7 @@ For source-object edits, run:
 
 ```bash
 python scripts/build_published_surfaces.py
+python scripts/validate_agent_source_home.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
