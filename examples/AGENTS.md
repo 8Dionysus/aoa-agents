@@ -47,7 +47,8 @@ Their schemas live beside them under
 
 Mechanic-specific RPG progression examples live under
 `mechanics/rpg/parts/progression-model/examples/` and are validated by
-`scripts/validate_rpg_progression.py`. Their schemas live beside them under
+`mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
+Their schemas live beside them under
 `mechanics/rpg/parts/progression-model/schemas/`.
 
 Mechanic-specific assistant projection resolver examples live under
@@ -119,7 +120,7 @@ runtime state.
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates example alignment and negative fixtures.
 For Titan part-local examples, also run `python mechanics/titan/scripts/validate_titan_examples.py`.
 For antifragility stress part-local examples, also run `python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
-For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
+For RPG progression part-local examples, also run `python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
 For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.

@@ -22,9 +22,11 @@ Move the progression schema and example into
 names. Keep the stable schema `$id` unchanged because it is a public contract
 identifier, not active repository path authority.
 
-Add `scripts/validate_rpg_progression.py` and wire it into
+Add an explicit RPG progression validator and wire it into
 `scripts/validate_agents.py` so the active file set, schema validity, example
-validation, and old-route absence are checked explicitly.
+validation, and old-route absence are checked explicitly. The validator later
+moved into the active part route:
+`mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
 
 Preserve former root lookup only through RPG `PROVENANCE.md` and `legacy/`.
 
@@ -39,7 +41,7 @@ Preserve former root lookup only through RPG `PROVENANCE.md` and `legacy/`.
 ## Verification
 
 ```bash
-python scripts/validate_rpg_progression.py
+python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py

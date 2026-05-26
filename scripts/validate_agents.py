@@ -63,7 +63,6 @@ from validate_codex_refresh_law_contracts import (
     validate_codex_refresh_law_contracts,
 )
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
-from validate_rpg_progression import RPGProgressionValidationError, validate_rpg_progression
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
@@ -130,6 +129,13 @@ _RECURSOR_CONTRACTS_MODULE = load_repo_python_module(
 )
 RecursorContractsValidationError = _RECURSOR_CONTRACTS_MODULE.RecursorContractsValidationError
 validate_recursor_contracts = _RECURSOR_CONTRACTS_MODULE.validate_recursor_contracts
+
+_RPG_PROGRESSION_MODULE = load_repo_python_module(
+    "rpg_progression_validator",
+    "mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py",
+)
+RPGProgressionValidationError = _RPG_PROGRESSION_MODULE.RPGProgressionValidationError
+validate_rpg_progression = _RPG_PROGRESSION_MODULE.validate_rpg_progression
 
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:

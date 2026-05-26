@@ -105,7 +105,7 @@ python scripts/validate_agents.py
 python mechanics/titan/scripts/validate_titan_schemas.py
 python mechanics/titan/scripts/validate_titan_examples.py
 python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
-python scripts/validate_rpg_progression.py
+python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py
 python scripts/validate_assistant_projection_resolver.py
 python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py

@@ -46,6 +46,17 @@ identifiers, not active repo paths.
 | `schemas/agent_progression.schema.json` | [parts/progression-model/schemas/agent-progression.schema.json](parts/progression-model/schemas/agent-progression.schema.json) | `progression-model` |
 | `examples/agent_progression.example.json` | [parts/progression-model/examples/agent-progression.example.json](parts/progression-model/examples/agent-progression.example.json) | `progression-model` |
 
+## 2026-05-26 Progression Check Move
+
+The RPG progression validator moved from root `scripts/` into the
+`progression-model` part after the payload itself had already moved there. Root
+`scripts/validate_agents.py` remains the repo-wide coordinator and loads the
+part-local validator explicitly.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_rpg_progression.py` | [parts/progression-model/scripts/validate_rpg_progression.py](parts/progression-model/scripts/validate_rpg_progression.py) | `progression-model` |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the
