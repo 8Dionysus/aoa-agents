@@ -22,6 +22,14 @@ Keep this order:
 
 If the projection drifts, the source profile and wiring win.
 
+The active projection scope is `base_role_profiles_only`.
+Role-local specializations under
+`agents/roles/*/specializations/*/specialization.json` are source-layer actors
+and catalog entries, not Codex custom-agent install entries. Promotion of a
+specialization into `.codex/agents/` needs a new projection eligibility surface
+that names the install identity, permission posture, refresh law, and owner
+consent.
+
 ## Decision
 
 Use `aoa-agents` profiles as the only role-meaning source, project them into
@@ -71,6 +79,9 @@ surface instead of mixing them together.
 ## What lives where
 
 - `agents/roles/*/profile.json` owns role meaning.
+- `agents/roles/*/specializations/*/specialization.json` owns narrower
+  source-layer actor posture and publishes through the specialization catalog;
+  it is not consumed by this projection.
 - `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json` owns projection-time Codex policy such
   as sandbox posture, nickname candidates, and MCP affinity guidance.
 - `generated/codex_agents/agents/*.toml` is the generated Codex custom-agent
@@ -84,7 +95,7 @@ surface instead of mixing them together.
 
 ## Current mapping
 
-The current projection keeps the AoA role seed narrow:
+The current base-role projection keeps the AoA role seed narrow:
 
 - `architect` -> read-only
 - `coder` -> workspace-write

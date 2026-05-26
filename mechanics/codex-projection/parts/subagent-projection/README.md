@@ -8,7 +8,7 @@ This part routes source profile to Codex custom-agent projection pressure inside
 | Field | Route |
 | --- | --- |
 | role | Codex subagent projection builder, module, validator, and freshness tests |
-| input | active `agents/roles/*/profile.json` records and part-local wiring config |
+| input | active base `agents/roles/*/profile.json` records and part-local wiring config |
 | output | root-published generated Codex custom-agent TOML, config snippet, and manifest |
 | owner | this part owns projection behavior; `generated/` owns published output edit law |
 | next route | source profiles, wiring config, generated Codex agents, refresh law, release check |
@@ -41,6 +41,10 @@ These outputs stay root-published because they are the repo-side install seam
 for workspace Codex custom agents. They are still derived readers; edit the
 source profiles, wiring config, or projection builder instead of hand-editing
 generated TOML.
+This part does not consume role specialization records. Specializations publish
+through `generated/role_specialization_catalog.min.json` until a later
+projection eligibility contract promotes a specific specialization into an
+installable Codex agent.
 
 ## Validation
 

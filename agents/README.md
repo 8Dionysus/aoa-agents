@@ -30,7 +30,7 @@ routes, and stronger-owner stop lines.
 - `agents/roles/` for role houses: each role owns its base profile and nested
   agonic/assistant forms plus role-owned specializations.
 - `agents/operating-model/` for cross-role operating contracts: tiers,
-  capability packs, orchestrators, cohorts, tiers, and runtime-seam bindings.
+  capability packs, orchestrators, cohorts, and runtime-seam bindings.
 
 | Family | Path | Publishes To |
 | --- | --- | --- |
@@ -77,6 +77,13 @@ capability pack from `agents/operating-model/capabilities/packs/`. This keeps
 `coder`, `reviewer`, `architect`, and other roles stable while allowing
 `coder.repo-refactor` or `reviewer.route-drift-review` to carry narrower
 permission, tool, skill, technique, memory, and proof posture.
+
+Codex custom-agent projection currently installs the base role profiles only.
+Specializations are published through
+`generated/role_specialization_catalog.min.json`; they do not become
+`.codex/agents/` entries until a separate projection eligibility surface says
+which specialization is installable, with which permissions, and under whose
+refresh law.
 
 ## Stop Lines
 

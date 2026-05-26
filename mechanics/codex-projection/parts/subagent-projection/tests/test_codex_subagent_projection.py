@@ -160,10 +160,18 @@ class CodexSubagentProjectionTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, msg=result.stderr)
             payload = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(payload["projection_scope"], "base_role_profiles_only")
             generated_agents = {entry["name"]: entry for entry in payload["generated_agents"]}
             self.assertIn("architect", generated_agents)
             self.assertIn("memory-keeper", generated_agents)
             self.assertTrue(all("source_profile" in entry for entry in generated_agents.values()))
+            self.assertTrue(all("." not in entry["name"] for entry in generated_agents.values()))
+            self.assertTrue(
+                all(
+                    "/specializations/" not in f"/{entry['source_profile']}"
+                    for entry in generated_agents.values()
+                )
+            )
             self.assertEqual(
                 generated_agents["architect"]["source_profile"],
                 "agents/roles/architect/profile.json",
@@ -277,6 +285,61 @@ class CodexSubagentProjectionTests(unittest.TestCase):
 
             self.assertNotEqual(validate.returncode, 0)
             self.assertIn("config_path must be 'agents/architect.toml'", validate.stderr)
+
+    def test_validator_rejects_specialization_source_in_manifest(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="aoa-agents-codex-projection-") as temp_dir:
+            root = Path(temp_dir)
+            agents_dir = root / "agents"
+            config_snippet = root / "config.toml"
+            manifest = root / "manifest.json"
+            build = subprocess.run(
+                [
+                    sys.executable,
+                    str(BUILD_SCRIPT),
+                    "--profiles-root",
+                    str(PROFILES_ROOT),
+                    "--wiring",
+                    str(WIRING_PATH),
+                    "--output-dir",
+                    str(agents_dir),
+                    "--emit-config-snippet",
+                    str(config_snippet),
+                    "--emit-manifest",
+                    str(manifest),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(build.returncode, 0, msg=build.stderr)
+
+            payload = json.loads(manifest.read_text(encoding="utf-8"))
+            source_profile = (
+                "agents/roles/architect/specializations/topology-steward/specialization.json"
+            )
+            payload["generated_agents"][0]["source_profile"] = source_profile
+            manifest.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+            validate = subprocess.run(
+                [
+                    sys.executable,
+                    str(VALIDATE_SCRIPT),
+                    "--profiles-root",
+                    str(PROFILES_ROOT),
+                    "--wiring",
+                    str(WIRING_PATH),
+                    "--agents-dir",
+                    str(agents_dir),
+                    "--config-snippet",
+                    str(config_snippet),
+                    "--manifest",
+                    str(manifest),
+                ],
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertNotEqual(validate.returncode, 0)
+            self.assertIn("must not reference role specialization sources", validate.stderr)
 
 
 if __name__ == "__main__":

@@ -95,6 +95,10 @@ For `generated/codex_agents/`, use
 as the canonical builder and
 `mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py`
 as the freshness checker.
+That projection is base-role-only: it derives from
+`agents/roles/*/profile.json` plus projection wiring, while
+`agents/roles/*/specializations/*/specialization.json` derives only into
+`generated/role_specialization_catalog.min.json` in this slice.
 For `generated/agent_agonic_formation_index.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`
 as the canonical builder and

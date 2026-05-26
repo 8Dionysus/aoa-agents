@@ -30,6 +30,9 @@ Base role identity lives in `agents/roles/<role>/profile.json`. Narrower
 operating lanes live below that role as
 `agents/roles/<role>/specializations/<slug>/specialization.json` and reference
 capability packs from `agents/operating-model/capabilities/packs/`.
+The base role is the current Codex custom-agent projection unit; a
+specialization is visible in the specialization catalog, but it is not an
+installed `.codex/agents/` entry unless a later projection gate promotes it.
 
 The first official composition hint surface lives in
 [Agent Cohort Patterns](../mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md).

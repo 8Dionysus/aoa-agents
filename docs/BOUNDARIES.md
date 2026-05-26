@@ -30,6 +30,17 @@ technique refs, memory routes, proof routes, and projection hints for reuse.
 It does not implement the tools, skills, techniques, proof doctrine, memory
 canon, routing policy, or runtime behavior it references.
 
+## Rule 2b: specialization is not automatic projection
+
+A role specialization such as `coder.repo-refactor` is a narrower source-layer
+actor contract inside the base role house.
+It does not automatically become a Codex custom agent, workspace install entry,
+or runtime worker.
+
+Codex projection remains base-role-only until an explicit projection
+eligibility surface records the install name, permission posture, refresh law,
+and owner consent for a specialization.
+
 ## Rule 3: agent is not proof
 
 An agent may be judged by eval surfaces.
