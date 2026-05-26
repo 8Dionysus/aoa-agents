@@ -8,6 +8,11 @@ Mechanic-specific runtime artifact schemas live under
 `mechanics/runtime-seam/parts/artifact-contracts/schemas/` and are validated by
 `scripts/validate_runtime_artifact_contracts.py`.
 
+Mechanic-specific self-agent checkpoint schemas live under
+`mechanics/checkpoint/parts/self-agent-checkpoint/schemas/` and
+`mechanics/checkpoint/parts/continuity-lane/schemas/`. They are validated by
+`scripts/validate_checkpoint_contracts.py`.
+
 Mechanic-specific Titan schemas live under `mechanics/titan/parts/*/schemas/`
 and are validated by `scripts/validate_titan_schemas.py`.
 

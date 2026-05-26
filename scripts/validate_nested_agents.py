@@ -67,7 +67,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     'examples/AGENTS.md': (
         'public-safe, schema-backed examples',
         'mechanics/runtime-seam/parts/artifact-contracts/examples/',
-        'self_agent_checkpoint/',
+        'mechanics/checkpoint/parts/self-agent-checkpoint/examples/',
         'reference_routes/',
         'not the source-authored canon layer',
     ),
@@ -77,8 +77,8 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         '`invalid/` exists for negative coverage',
         'mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md',
     ),
-    'examples/self_agent_checkpoint/AGENTS.md': (
-        'schemas/self-agent-checkpoint.schema.json',
+    'mechanics/checkpoint/parts/self-agent-checkpoint/examples/README.md': (
+        '../schemas/self-agent-checkpoint.schema.json',
         'mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md',
         '`checkpoint_cohort`',
         '`invalid/` exists for negative coverage',

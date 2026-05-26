@@ -52,8 +52,9 @@ The field should name the default highest recall scope class allowed for the gov
 
 ## Current public schema
 
-The current public schema at `schemas/self-agent-checkpoint.schema.json` is a
-single-actor checkpoint contract.
+The current public schema at
+`mechanics/checkpoint/parts/self-agent-checkpoint/schemas/self-agent-checkpoint.schema.json`
+is a single-actor checkpoint contract.
 
 It records checkpoint posture for one governed actor, typically the initiating
 or currently governed role on the route.

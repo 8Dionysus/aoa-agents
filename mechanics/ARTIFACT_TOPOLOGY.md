@@ -100,6 +100,12 @@ into active
 after adding a part-local validator. Stable schema `$id` values remain public
 contract identifiers, not active repo paths.
 
+The 2026-05-26 checkpoint contract localization moves self-agent checkpoint
+and continuity-window schemas/examples from root `schemas/` and `examples/`
+into active `mechanics/checkpoint/parts/*/{schemas,examples}/` routes after
+adding a part-local validator. Stable schema `$id` values remain public
+contract identifiers, not active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

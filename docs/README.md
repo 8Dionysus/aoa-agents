@@ -104,7 +104,9 @@ This repository should stay bounded.
 If a document starts trying to become a technique corpus, workflow corpus, proof corpus, or memory store, it probably belongs in a neighboring AoA repository instead.
 
 Inspectable runtime seam examples live in `mechanics/runtime-seam/parts/artifact-contracts/examples/`.
-Inspectable self-agent checkpoint examples live in `examples/self_agent_checkpoint/`.
+Inspectable self-agent checkpoint examples live in
+`mechanics/checkpoint/parts/self-agent-checkpoint/examples/` and continuity
+examples live in `mechanics/checkpoint/parts/continuity-lane/examples/`.
 Adjunct published outputs currently include `generated/alpha_reference_routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
 `generated/codex_agents/` is the repo-side install surface for workspace `.codex/agents/`.
 Optional validator smoke checks may read neighboring published surfaces when `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, or `AOA_ROUTING_ROOT` are set, but they only test bounded contract reachability and do not import neighboring meaning into this repo.

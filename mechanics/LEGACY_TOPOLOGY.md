@@ -85,12 +85,19 @@ lookup facts and are accounted for in Runtime Seam `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values
 remain public contract identifiers, not active repo paths.
 
+The 2026-05-26 checkpoint contract localization moved self-agent checkpoint
+and continuity-window schemas/examples into active part-local checkpoint
+routes. Former root checkpoint schema and example paths are now legacy lookup
+facts and are accounted for in Checkpoint `PROVENANCE.md`, `legacy/INDEX.md`,
+and `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public
+contract identifiers, not active repo paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-remaining shared non-Titan and non-runtime-artifact `schemas/`, remaining
-non-Titan and non-runtime-artifact `examples/`, `agents/`, `generated/`,
-`scripts/`, and `tests/`. They are not automatically legacy. They remain
-current source, support, generated, or validation districts until a
-package-local move changes their lookup topology.
+remaining shared non-Titan, non-runtime-artifact, and non-checkpoint
+`schemas/`, remaining non-Titan, non-runtime-artifact, and non-checkpoint
+`examples/`, `agents/`, `generated/`, `scripts/`, and `tests/`. They are not
+automatically legacy. They remain current source, support, generated, or
+validation districts until a package-local move changes their lookup topology.
 
 For this landing:
 
