@@ -54,6 +54,12 @@ Mechanic-specific recursor examples live under
 validated by `scripts/validate_recursor_contracts.py`. Their schemas live
 beside them under the corresponding recurrence parts.
 
+Mechanic-specific Agon rank, school, and epistemic actor examples live under
+`mechanics/agon/parts/arena-rank-school/examples/` and
+`mechanics/agon/parts/epistemic-actor/examples/`. They are validated by
+`scripts/validate_agon_rank_epistemic_contracts.py`. Their schemas live beside
+them under the corresponding Agon parts.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -72,6 +78,7 @@ For assistant projection resolver part-local examples, also run `python scripts/
 For runtime artifact contract part-local examples, also run `python scripts/validate_runtime_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
+For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

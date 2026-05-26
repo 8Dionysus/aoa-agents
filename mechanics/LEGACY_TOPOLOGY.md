@@ -99,10 +99,17 @@ accounted for in Recurrence `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public
 contract identifiers, not active repo paths.
 
+The 2026-05-26 Agon rank/epistemic contract localization moved rank,
+jurisdiction, school/campaign, and epistemic actor schemas/examples into
+active part-local Agon routes. Former root Agon rank/epistemic schema and
+example paths are now legacy lookup facts and are accounted for in Agon
+`PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint, and
-non-recursor `schemas/`, remaining non-Titan, non-runtime-artifact,
-non-checkpoint, and non-recursor
+non-recursor, non-Agon-rank/epistemic `schemas/`, remaining non-Titan,
+non-runtime-artifact, non-checkpoint, non-recursor, and
+non-Agon-rank/epistemic
 `examples/`, `agents/`, `generated/`, `scripts/`, and `tests/`. They are not
 automatically legacy. They remain current source, support, generated, or
 validation districts until a package-local move changes their lookup topology.

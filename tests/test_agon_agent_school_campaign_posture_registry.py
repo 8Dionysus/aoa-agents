@@ -14,8 +14,9 @@ EXPECTED_COUNT = 10
 UNIQUE_KEY_FIELD = 'posture_id'
 REQUIRED_STOP_LINES = ['no_live_verdict_authority', 'no_durable_scar_write', 'no_retention_execution', 'no_rank_or_trust_mutation', 'no_tree_of_sophia_promotion', 'no_kag_promotion', 'no_hidden_scheduler_action', 'no_assistant_contestant_drift', 'no_auto_doctrine_rewrite', 'no_school_as_authority', 'no_lineage_as_canon', 'no_campaign_as_live_arena', 'no_center_takeover_of_owner_truth']
 REQUIRED_FORBIDDEN = ['live_verdict_authority', 'durable_scar_write', 'retention_execution', 'rank_mutation', 'trust_mutation', 'tree_of_sophia_promotion', 'kag_promotion', 'hidden_scheduler_action', 'assistant_contestant_drift', 'auto_doctrine_rewrite', 'school_authority', 'lineage_canonization', 'live_campaign_arena']
-ENTRY_SCHEMA = ROOT / 'schemas' / 'agon-agent-school-campaign-posture.schema.json'
-REGISTRY_SCHEMA = ROOT / 'schemas' / 'agon-agent-school-campaign-posture-registry.schema.json'
+SCHEMA_DIR = ROOT / 'mechanics' / 'agon' / 'parts' / 'arena-rank-school' / 'schemas'
+ENTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture.schema.json'
+REGISTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture-registry.schema.json'
 
 
 def load(path: pathlib.Path):

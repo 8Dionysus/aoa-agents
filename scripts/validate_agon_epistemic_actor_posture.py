@@ -30,8 +30,9 @@ KEY_FIELD = "posture_id"
 REQUIRED_FIELDS = ['agent_id', 'agonic_offices', 'assistant_boundary', 'candidate_outputs', 'concept_map_delta_required', 'epistemic_obligations', 'forbidden_effects', 'live_protocol', 'model_of_other_required', 'owner_repo', 'posture_id', 'runtime_effect']
 FORBIDDEN_EFFECTS = ['live_verdict_authority', 'durable_scar_write', 'retention_execution', 'rank_mutation', 'trust_mutation', 'tree_of_sophia_promotion', 'kag_promotion', 'hidden_scheduler_action', 'assistant_contestant_drift', 'auto_doctrine_rewrite']
 ALLOWED_RUNTIME = ['none', 'candidate_only', 'local_dry_run_candidate_only', 'local_rehearsal_candidate_only']
-ITEM_SCHEMA = ROOT / "schemas" / "agon-epistemic-actor-posture.schema.json"
-REGISTRY_SCHEMA = ROOT / "schemas" / "agon-epistemic-actor-posture-registry.schema.json"
+SCHEMA_DIR = ROOT / "mechanics" / "agon" / "parts" / "epistemic-actor" / "schemas"
+ITEM_SCHEMA = SCHEMA_DIR / "epistemic-actor-posture.schema.json"
+REGISTRY_SCHEMA = SCHEMA_DIR / "epistemic-actor-posture-registry.schema.json"
 
 
 def fail(message: str) -> int:

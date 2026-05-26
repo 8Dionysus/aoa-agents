@@ -23,3 +23,15 @@ bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | --- | ---: |
 | `arena-rank-school` | 2 |
 | `epistemic-actor` | 1 |
+
+## 2026-05-26 Root Agon Rank/Epistemic Contracts To Active Parts
+
+Moved 6 Agon rank, school, and epistemic actor schemas plus 3 examples out of
+root `schemas/` and `examples/` and into active part-local `schemas/` and
+`examples/` directories. Git history preserves the verbatim file bodies; root
+paths are lookup facts only.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `arena-rank-school` | 4 | 2 |
+| `epistemic-actor` | 2 | 1 |

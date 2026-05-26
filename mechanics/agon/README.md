@@ -15,7 +15,7 @@ discipline, and adoption or retention after trial pressure.
 | output | bounded role posture, formation index route, arena/rank/school posture, or stronger-owner handoff |
 | owner | this package for operation routing; `agents/profiles/adjuncts/` for source adjuncts |
 | next route | `PARTS.md`, `mechanics/ARTIFACT_TOPOLOGY.md`, formation builders, decision record |
-| validation | Wave I/II/II.5 formation builders and repo validators named below |
+| validation | Agon contract validator, Wave builders, and repo validators named below |
 
 ## Agent Layer Owns
 
@@ -41,6 +41,7 @@ python scripts/validate_agent_agonic_formation.py
 python scripts/validate_assistant_civil_formation.py
 python scripts/build_agent_formation_trial.py --check
 python scripts/validate_agent_formation_trial.py
+python scripts/validate_agon_rank_epistemic_contracts.py
 python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
 python scripts/validate_agon_agent_rank_jurisdiction.py
 python scripts/build_agon_agent_school_campaign_posture_registry.py --check
