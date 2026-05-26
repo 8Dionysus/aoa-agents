@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "title": "AoA role specialization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "role_id",
+    "slug",
+    "status",
+    "summary",
+    "meaning",
+    "inherits_from",
+    "activation_triggers",
+    "allowed_forms",
+    "capability_pack_ref",
+    "skill_refs",
+    "technique_refs",
+    "memory_route_refs",
+    "proof_routes",
+    "projection_notes",
+    "stronger_owner_routes",
+    "stop_lines"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/role-specialization.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 5
+    },
+    "role_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "planned",
+        "experimental",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "meaning": {
+      "type": "string",
+      "minLength": 30
+    },
+    "inherits_from": {
+      "type": "string",
+      "minLength": 20
+    },
+    "activation_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "allowed_forms": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "base",
+          "agonic",
+          "assistant"
+        ]
+      }
+    },
+    "capability_pack_ref": {
+      "type": "string",
+      "minLength": 20
+    },
+    "skill_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "technique_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "memory_route_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "proof_routes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "projection_notes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "stronger_owner_routes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pressure",
+          "route"
+        ],
+        "properties": {
+          "pressure": {
+            "type": "string",
+            "minLength": 5
+          },
+          "route": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "stop_lines": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    }
+  }
+}

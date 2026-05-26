@@ -1,0 +1,55 @@
+{
+  "$schema": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "id": "evaluator.release-readiness",
+  "role_id": "evaluator",
+  "slug": "release-readiness",
+  "status": "experimental",
+  "summary": "Evaluator specialization for read-only release readiness and evidence sufficiency.",
+  "meaning": "Use this specialization when the evaluator must judge if a bounded agent-layer change has enough proof routes, reader freshness, and closeout evidence.",
+  "inherits_from": "agents/roles/evaluator/profile.json",
+  "activation_triggers": [
+    "A change claims to be ready for release or merge.",
+    "Validators, generated readers, and tests must be weighed together.",
+    "A reviewer needs bounded evaluation rather than implementation."
+  ],
+  "allowed_forms": [
+    "base",
+    "assistant"
+  ],
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/release-readiness.readonly.capability.json",
+  "skill_refs": [
+    "aoa-invariant-coverage-audit",
+    "aoa-contract-test",
+    "aoa-source-of-truth-check"
+  ],
+  "technique_refs": [
+    "aoa-techniques:release-readiness",
+    "aoa-techniques:evidence-led-closeout"
+  ],
+  "memory_route_refs": [
+    "aoa-memo:brief"
+  ],
+  "proof_routes": [
+    "scripts/release_check.py",
+    "scripts/validate_agents.py",
+    "python -m unittest discover -s tests -p 'test_*.py'"
+  ],
+  "projection_notes": [
+    "May project as evaluator-release-readiness, but source remains inside the evaluator role house.",
+    "Projection should expose evidence and validation commands, not write authority."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "eval rubric or verdict canon",
+      "route": "aoa-evals"
+    },
+    {
+      "pressure": "implementation fix",
+      "route": "coder.repo-refactor"
+    }
+  ],
+  "stop_lines": [
+    "Do not mutate source state through this specialization.",
+    "Do not promote readiness judgment into eval doctrine."
+  ]
+}

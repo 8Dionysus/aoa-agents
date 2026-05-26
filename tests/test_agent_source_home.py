@@ -32,6 +32,8 @@ class AgentSourceHomeTests(unittest.TestCase):
             {
                 "base_profiles",
                 "profile_adjuncts",
+                "role_specializations",
+                "capability_packs",
                 "model_tiers",
                 "orchestrator_classes",
                 "cohort_patterns",

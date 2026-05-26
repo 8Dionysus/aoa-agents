@@ -1,0 +1,61 @@
+{
+  "$schema": "https://aoa-agents/schemas/capability-pack.schema.json",
+  "id": "route-drift-review.readonly",
+  "status": "experimental",
+  "summary": "Read-only review of route drift, owner mismatch, and generated/source divergence.",
+  "meaning": "Use this pack when an agent must inspect a changed route for drift, stale names, missing owner boundaries, or generated reader mismatch.",
+  "permission_posture": {
+    "default_mode": "read-only",
+    "mutation_allowed": false,
+    "requires_gate": false,
+    "notes": [
+      "May run validators and inspect diffs.",
+      "Must return findings or hand off to a workspace-write specialization for fixes."
+    ]
+  },
+  "tool_refs": [
+    "git:diff-log-status-readonly",
+    "rg:legacy-name-scan",
+    "python:validators-readonly"
+  ],
+  "skill_refs": [
+    "aoa-invariant-coverage-audit",
+    "aoa-source-of-truth-check",
+    "aoa-bounded-context-map"
+  ],
+  "technique_refs": [
+    "aoa-techniques:drift-audit",
+    "aoa-techniques:owner-route-review"
+  ],
+  "memory_routes": {
+    "read_refs": [
+      "aoa-memo:brief",
+      "aoa-session-memory:search-readonly"
+    ],
+    "write_refs": [],
+    "owner": "aoa-memo"
+  },
+  "proof_routes": [
+    "scripts/validate_agent_source_home.py",
+    "scripts/validate_agents.py",
+    "git diff --check"
+  ],
+  "projection_hints": [
+    "Suitable for reviewer specializations that inspect without fixing.",
+    "Projection may expose read-only git and validation commands."
+  ],
+  "owner_boundaries": [
+    {
+      "pressure": "implementation fix",
+      "route": "coder.repo-refactor"
+    },
+    {
+      "pressure": "formal proof verdict",
+      "route": "aoa-evals"
+    }
+  ],
+  "stop_lines": [
+    "Do not land fixes through this read-only pack.",
+    "Do not treat a review finding as durable memory canon."
+  ]
+}

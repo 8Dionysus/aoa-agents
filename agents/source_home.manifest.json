@@ -15,10 +15,11 @@
     {
       "id": "role_houses",
       "path": "agents/roles",
-      "role": "Role-centered source houses for base profiles and their reviewed agonic and assistant forms.",
+      "role": "Role-centered source houses for base profiles, reviewed agonic and assistant forms, and role-owned specializations.",
       "families": [
         "base_profiles",
-        "profile_adjuncts"
+        "profile_adjuncts",
+        "role_specializations"
       ],
       "owner_surface": "agents/roles/AGENTS.md",
       "stop_lines": [
@@ -29,8 +30,9 @@
     {
       "id": "operating_model",
       "path": "agents/operating-model",
-      "role": "Cross-role operating contracts for tiers, orchestrators, cohorts, and runtime-seam bindings.",
+      "role": "Cross-role operating contracts for capability packs, tiers, orchestrators, cohorts, and runtime-seam bindings.",
       "families": [
+        "capability_packs",
         "model_tiers",
         "orchestrator_classes",
         "cohort_patterns",
@@ -39,7 +41,7 @@
       "owner_surface": "agents/operating-model/AGENTS.md",
       "stop_lines": [
         "Do not turn operating model inputs into runtime implementation.",
-        "Do not collapse tiers, orchestration, cohorts, and runtime seams into one flat registry bucket."
+        "Do not collapse capabilities, tiers, orchestration, cohorts, and runtime seams into one flat registry bucket."
       ]
     }
   ],
@@ -142,6 +144,62 @@
       "stop_lines": [
         "Do not treat companion forms as live arena authority.",
         "Do not move scars, verdicts, retention history, runtime packets, or ToS promotion into this source home."
+      ]
+    },
+    {
+      "id": "role_specializations",
+      "path": "agents/roles",
+      "object_pattern": "*/specializations/*/specialization.json",
+      "source_kind": "role_specialization",
+      "meaning": "Role-owned specialization records that narrow a base role into a named operating posture while keeping identity inside the role house.",
+      "owner_surface": "agents/roles/AGENTS.md",
+      "schema_refs": [
+        "schemas/role-specialization.schema.json"
+      ],
+      "publishes_to": [
+        "generated/role_specialization_catalog.min.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "agents/roles/README.md",
+        "generated/README.md"
+      ],
+      "stop_lines": [
+        "Do not turn role specializations into flat top-level roles.",
+        "Do not hide skill bodies, proof doctrine, durable memory canon, or runtime behavior inside specialization records."
+      ]
+    },
+    {
+      "id": "capability_packs",
+      "path": "agents/operating-model/capabilities/packs",
+      "object_pattern": "*.capability.json",
+      "source_kind": "capability_pack",
+      "meaning": "Reusable permission, tool, skill, technique, memory, proof, and projection posture packs referenced by role specializations.",
+      "owner_surface": "agents/operating-model/capabilities/AGENTS.md",
+      "schema_refs": [
+        "schemas/capability-pack.schema.json"
+      ],
+      "publishes_to": [
+        "generated/capability_pack_registry.min.json"
+      ],
+      "builders": [
+        "scripts/build_published_surfaces.py"
+      ],
+      "validators": [
+        "scripts/validate_agents.py"
+      ],
+      "reader_routes": [
+        "agents/operating-model/capabilities/README.md",
+        "generated/README.md"
+      ],
+      "stop_lines": [
+        "Do not turn capability packs into workflow implementations.",
+        "Do not grant runtime, service, secret, plugin, hook, or network authority through a pack without a stronger owner route."
       ]
     },
     {

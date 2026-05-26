@@ -43,6 +43,11 @@ except ModuleNotFoundError:
     yaml = None
 
 from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
+from capability_pack_registry import (
+    CAPABILITY_PACKS_DIR,
+    build_capability_pack_registry_payload,
+    load_capability_packs,
+)
 from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
 from codex_subagent_projection import collect_repo_projection_errors
 from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
@@ -53,6 +58,10 @@ from orchestrator_class_registry import (
     build_orchestrator_class_catalog_payload,
     build_orchestrator_class_sections_payload,
     load_orchestrator_classes,
+)
+from role_specialization_registry import (
+    build_role_specialization_catalog_payload,
+    load_role_specializations,
 )
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
@@ -244,6 +253,10 @@ def resolve_aoa_evals_hook_example_path(evals_root: Path, filename: str) -> Path
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 PROFILE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-profile.schema.json"
+ROLE_SPECIALIZATION_SCHEMA_PATH = REPO_ROOT / "schemas" / "role-specialization.schema.json"
+ROLE_SPECIALIZATION_CATALOG_PATH = REPO_ROOT / "generated" / "role_specialization_catalog.min.json"
+CAPABILITY_PACK_SCHEMA_PATH = REPO_ROOT / "schemas" / "capability-pack.schema.json"
+CAPABILITY_PACK_REGISTRY_PATH = REPO_ROOT / "generated" / "capability_pack_registry.min.json"
 MODEL_TIER_REGISTRY_PATH = REPO_ROOT / "generated" / "model_tier_registry.json"
 MODEL_TIER_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier-registry.schema.json"
 MODEL_TIER_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "model-tier.schema.json"
@@ -377,6 +390,52 @@ PUBLISHED_AGENT_REGISTRY_ITEM_KEYS = (
     "memory_rights",
     "evaluation_posture",
     "handoff_rule",
+)
+PUBLISHED_ROLE_SPECIALIZATION_CATALOG_TOP_LEVEL_KEYS = (
+    "version",
+    "layer",
+    "family",
+    "role_specializations",
+)
+PUBLISHED_ROLE_SPECIALIZATION_CATALOG_ITEM_KEYS = (
+    "id",
+    "role_id",
+    "slug",
+    "status",
+    "summary",
+    "inherits_from",
+    "capability_pack_ref",
+    "activation_triggers",
+    "allowed_forms",
+    "skill_refs",
+    "technique_refs",
+    "memory_route_refs",
+    "proof_routes",
+    "projection_notes",
+    "stronger_owner_routes",
+    "stop_lines",
+    "source_path",
+)
+PUBLISHED_CAPABILITY_PACK_REGISTRY_TOP_LEVEL_KEYS = (
+    "version",
+    "layer",
+    "family",
+    "capability_packs",
+)
+PUBLISHED_CAPABILITY_PACK_REGISTRY_ITEM_KEYS = (
+    "id",
+    "status",
+    "summary",
+    "permission_posture",
+    "tool_refs",
+    "skill_refs",
+    "technique_refs",
+    "memory_routes",
+    "proof_routes",
+    "projection_hints",
+    "owner_boundaries",
+    "stop_lines",
+    "source_path",
 )
 PUBLISHED_MODEL_TIER_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "model_tiers")
 PUBLISHED_MODEL_TIER_REGISTRY_ITEM_KEYS = (
@@ -1066,6 +1125,14 @@ def validate_orchestrator_class_schema_surface() -> None:
 
 def validate_agent_profile_schema_surface() -> None:
     validate_json_schema_surface(PROFILE_SCHEMA_PATH, "agent-profile schema")
+
+
+def validate_role_specialization_schema_surface() -> None:
+    validate_json_schema_surface(ROLE_SPECIALIZATION_SCHEMA_PATH, "role-specialization schema")
+
+
+def validate_capability_pack_schema_surface() -> None:
+    validate_json_schema_surface(CAPABILITY_PACK_SCHEMA_PATH, "capability-pack schema")
 
 
 def validate_cohort_composition_schema_surface() -> None:
@@ -1950,6 +2017,144 @@ def validate_agent_profile_sources() -> list[dict[str, object]]:
     return profiles
 
 
+def validate_capability_pack_sources() -> list[dict[str, object]]:
+    schema = read_json(CAPABILITY_PACK_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("capability-pack schema must remain a JSON object")
+
+    try:
+        packs = load_capability_packs()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not packs:
+        fail("agents/operating-model/capabilities/packs/ must contain at least one '*.capability.json' file")
+
+    expected_registry = build_capability_pack_registry_payload(packs)
+    actual_registry = read_json(CAPABILITY_PACK_REGISTRY_PATH)
+    if actual_registry != expected_registry:
+        fail(
+            "generated/capability_pack_registry.min.json drifted from "
+            "agents/operating-model/capabilities/packs/*.capability.json"
+        )
+
+    seen_ids: set[str] = set()
+    for index, payload in enumerate(packs):
+        location = f"capability_packs[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        pack_id = payload.get("id")
+        if not isinstance(pack_id, str):
+            fail(f"{location} must expose string 'id'")
+
+        expected_pack_path = CAPABILITY_PACKS_DIR / f"{pack_id}.capability.json"
+        if not expected_pack_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_pack_path)}")
+
+        if pack_id in seen_ids:
+            fail(f"duplicate capability pack id in source layer: '{pack_id}'")
+        seen_ids.add(pack_id)
+
+        permission_posture = payload.get("permission_posture")
+        if not isinstance(permission_posture, dict):
+            fail(f"{location}.permission_posture must be an object")
+        default_mode = permission_posture.get("default_mode")
+        mutation_allowed = permission_posture.get("mutation_allowed")
+        requires_gate = permission_posture.get("requires_gate")
+        if default_mode == "read-only" and mutation_allowed is not False:
+            fail(f"{location}.permission_posture read-only packs must set mutation_allowed false")
+        if default_mode in {"workspace-write", "write-candidate-only"} and mutation_allowed is not True:
+            fail(f"{location}.permission_posture write-capable packs must set mutation_allowed true")
+        if mutation_allowed is True and requires_gate is not True:
+            fail(f"{location}.permission_posture write-capable packs must require a gate")
+
+        memory_routes = payload.get("memory_routes")
+        if not isinstance(memory_routes, dict):
+            fail(f"{location}.memory_routes must be an object")
+        write_refs = memory_routes.get("write_refs")
+        if default_mode == "write-candidate-only":
+            if not isinstance(write_refs, list) or not write_refs:
+                fail(f"{location}.memory_routes.write_refs must name a candidate route")
+            if not all(isinstance(ref, str) and "candidate" in ref for ref in write_refs):
+                fail(f"{location}.memory_routes.write_refs must stay candidate-only")
+
+    return packs
+
+
+def validate_role_specialization_sources(
+    profiles: list[dict[str, object]],
+    capability_packs: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    schema = read_json(ROLE_SPECIALIZATION_SCHEMA_PATH)
+    if not isinstance(schema, dict):
+        fail("role-specialization schema must remain a JSON object")
+
+    try:
+        specializations = load_role_specializations()
+    except BuildError as exc:
+        fail(str(exc))
+
+    if not specializations:
+        fail("agents/roles/ must contain at least one '*/specializations/*/specialization.json' file")
+
+    expected_catalog = build_role_specialization_catalog_payload(specializations)
+    actual_catalog = read_json(ROLE_SPECIALIZATION_CATALOG_PATH)
+    if actual_catalog != expected_catalog:
+        fail("generated/role_specialization_catalog.min.json drifted from agents/roles/*/specializations/*/specialization.json")
+
+    profile_names = {
+        str(profile["name"])
+        for profile in profiles
+        if isinstance(profile, dict) and isinstance(profile.get("name"), str)
+    }
+    capability_refs = {
+        f"agents/operating-model/capabilities/packs/{pack['id']}.capability.json"
+        for pack in capability_packs
+        if isinstance(pack, dict) and isinstance(pack.get("id"), str)
+    }
+
+    seen_ids: set[str] = set()
+    for index, payload in enumerate(specializations):
+        location = f"role_specializations[{index}]"
+        validate_instance_against_schema(payload, schema, location)
+
+        specialization_id = payload.get("id")
+        role_id = payload.get("role_id")
+        slug = payload.get("slug")
+        if not isinstance(specialization_id, str) or not isinstance(role_id, str) or not isinstance(slug, str):
+            fail(f"{location} must expose string 'id', 'role_id', and 'slug'")
+        if specialization_id != f"{role_id}.{slug}":
+            fail(f"{location}.id must equal '<role_id>.<slug>'")
+        if role_id not in profile_names:
+            fail(f"{location}.role_id '{role_id}' does not resolve to a base role profile")
+        if specialization_id in seen_ids:
+            fail(f"duplicate role specialization id in source layer: '{specialization_id}'")
+        seen_ids.add(specialization_id)
+
+        expected_source_path = (
+            REPO_ROOT / "agents" / "roles" / role_id / "specializations" / slug / "specialization.json"
+        )
+        if not expected_source_path.exists():
+            fail(f"{location} expected source file is missing: {describe_path(expected_source_path)}")
+
+        expected_profile_ref = f"agents/roles/{role_id}/profile.json"
+        if payload.get("inherits_from") != expected_profile_ref:
+            fail(f"{location}.inherits_from must equal '{expected_profile_ref}'")
+
+        capability_pack_ref = payload.get("capability_pack_ref")
+        if not isinstance(capability_pack_ref, str):
+            fail(f"{location}.capability_pack_ref must be a string")
+        if capability_pack_ref not in capability_refs:
+            fail(f"{location}.capability_pack_ref does not resolve to a source capability pack")
+
+        for owner_route_key in ("stronger_owner_routes",):
+            owner_routes = payload.get(owner_route_key)
+            if not isinstance(owner_routes, list) or not owner_routes:
+                fail(f"{location}.{owner_route_key} must be a non-empty list")
+
+    return specializations
+
+
 def validate_registry() -> set[str]:
     payload = read_json(REGISTRY_PATH)
     ensure_object_key_order(payload, PUBLISHED_AGENT_REGISTRY_TOP_LEVEL_KEYS, "agent registry")
@@ -2033,6 +2238,129 @@ def validate_registry() -> set[str]:
 
     validate_stable_agent_registry_order(agents)
     return seen_names
+
+
+def validate_capability_pack_registry() -> dict[str, dict[str, object]]:
+    payload = read_json(CAPABILITY_PACK_REGISTRY_PATH)
+    ensure_object_key_order(payload, PUBLISHED_CAPABILITY_PACK_REGISTRY_TOP_LEVEL_KEYS, "capability pack registry")
+
+    if not isinstance(payload.get("version"), int) or payload["version"] < 1:
+        fail("capability pack registry 'version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("capability pack registry 'layer' must equal 'aoa-agents'")
+    if payload.get("family") != "capability_packs":
+        fail("capability pack registry 'family' must equal 'capability_packs'")
+
+    capability_packs = payload.get("capability_packs")
+    if not isinstance(capability_packs, list) or not capability_packs:
+        fail("capability pack registry 'capability_packs' must be a non-empty list")
+
+    seen_ids: set[str] = set()
+    packs_by_ref: dict[str, dict[str, object]] = {}
+    for index, pack in enumerate(capability_packs):
+        location = f"capability_pack_registry[{index}]"
+        if not isinstance(pack, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(pack, PUBLISHED_CAPABILITY_PACK_REGISTRY_ITEM_KEYS, location)
+
+        pack_id = pack.get("id")
+        if not isinstance(pack_id, str) or len(pack_id) < 5:
+            fail(f"{location}.id must be a string of length >= 5")
+        if pack_id in seen_ids:
+            fail(f"duplicate capability pack id in registry: '{pack_id}'")
+        seen_ids.add(pack_id)
+
+        expected_source_path = f"agents/operating-model/capabilities/packs/{pack_id}.capability.json"
+        if pack.get("source_path") != expected_source_path:
+            fail(f"{location}.source_path must equal '{expected_source_path}'")
+        packs_by_ref[expected_source_path] = pack
+
+        status = pack.get("status")
+        if status not in ALLOWED_STATUS:
+            fail(f"{location}.status '{status}' is not allowed")
+        summary = pack.get("summary")
+        if not isinstance(summary, str) or len(summary) < 10:
+            fail(f"{location}.summary must be a string of length >= 10")
+        permission_posture = pack.get("permission_posture")
+        if not isinstance(permission_posture, dict):
+            fail(f"{location}.permission_posture must be an object")
+        default_mode = permission_posture.get("default_mode")
+        mutation_allowed = permission_posture.get("mutation_allowed")
+        requires_gate = permission_posture.get("requires_gate")
+        if default_mode == "read-only" and mutation_allowed is not False:
+            fail(f"{location}.permission_posture read-only packs must set mutation_allowed false")
+        if default_mode in {"workspace-write", "write-candidate-only"} and mutation_allowed is not True:
+            fail(f"{location}.permission_posture write-capable packs must set mutation_allowed true")
+        if mutation_allowed is True and requires_gate is not True:
+            fail(f"{location}.permission_posture write-capable packs must require a gate")
+
+    validate_stable_sequence_order(
+        capability_packs,
+        location="capability pack registry 'capability_packs'",
+        label="capability packs",
+        key_name="id",
+    )
+    return packs_by_ref
+
+
+def validate_role_specialization_catalog(
+    agent_names: set[str],
+    capability_packs_by_ref: dict[str, dict[str, object]],
+) -> dict[str, dict[str, object]]:
+    payload = read_json(ROLE_SPECIALIZATION_CATALOG_PATH)
+    ensure_object_key_order(
+        payload,
+        PUBLISHED_ROLE_SPECIALIZATION_CATALOG_TOP_LEVEL_KEYS,
+        "role specialization catalog",
+    )
+
+    if not isinstance(payload.get("version"), int) or payload["version"] < 1:
+        fail("role specialization catalog 'version' must be an integer >= 1")
+    if payload.get("layer") != "aoa-agents":
+        fail("role specialization catalog 'layer' must equal 'aoa-agents'")
+    if payload.get("family") != "role_specializations":
+        fail("role specialization catalog 'family' must equal 'role_specializations'")
+
+    role_specializations = payload.get("role_specializations")
+    if not isinstance(role_specializations, list) or not role_specializations:
+        fail("role specialization catalog 'role_specializations' must be a non-empty list")
+
+    seen_ids: set[str] = set()
+    specializations_by_id: dict[str, dict[str, object]] = {}
+    for index, specialization in enumerate(role_specializations):
+        location = f"role_specialization_catalog[{index}]"
+        if not isinstance(specialization, dict):
+            fail(f"{location} must be an object")
+        ensure_object_key_order(specialization, PUBLISHED_ROLE_SPECIALIZATION_CATALOG_ITEM_KEYS, location)
+
+        specialization_id = specialization.get("id")
+        role_id = specialization.get("role_id")
+        slug = specialization.get("slug")
+        if not isinstance(specialization_id, str) or not isinstance(role_id, str) or not isinstance(slug, str):
+            fail(f"{location} must expose string id, role_id, and slug")
+        if specialization_id != f"{role_id}.{slug}":
+            fail(f"{location}.id must equal '<role_id>.<slug>'")
+        if specialization_id in seen_ids:
+            fail(f"duplicate role specialization id in catalog: '{specialization_id}'")
+        seen_ids.add(specialization_id)
+        specializations_by_id[specialization_id] = specialization
+
+        if role_id not in agent_names:
+            fail(f"{location}.role_id '{role_id}' does not resolve to generated/agent_registry.min.json")
+        expected_profile_ref = f"agents/roles/{role_id}/profile.json"
+        if specialization.get("inherits_from") != expected_profile_ref:
+            fail(f"{location}.inherits_from must equal '{expected_profile_ref}'")
+        expected_source_path = f"agents/roles/{role_id}/specializations/{slug}/specialization.json"
+        if specialization.get("source_path") != expected_source_path:
+            fail(f"{location}.source_path must equal '{expected_source_path}'")
+
+        capability_pack_ref = specialization.get("capability_pack_ref")
+        if not isinstance(capability_pack_ref, str):
+            fail(f"{location}.capability_pack_ref must be a string")
+        if capability_pack_ref not in capability_packs_by_ref:
+            fail(f"{location}.capability_pack_ref does not resolve in generated/capability_pack_registry.min.json")
+
+    return specializations_by_id
 
 
 def validate_agent_profile_references(
@@ -3743,6 +4071,8 @@ def main() -> int:
         validate_self_agent_checkpoint_schema_surface()
         validate_self_agency_continuity_window_schema_surface()
         validate_reference_route_schema_surface()
+        validate_role_specialization_schema_surface()
+        validate_capability_pack_schema_surface()
         validate_titan_schemas()
         validate_agon_formation_contracts(REPO_ROOT)
         validate_agon_rank_epistemic_contracts(REPO_ROOT)
@@ -3761,6 +4091,8 @@ def main() -> int:
         self_agency_continuity_window_example = validate_self_agency_continuity_window_example()
         validate_negative_self_agent_checkpoint_examples()
         profiles = validate_agent_profile_sources()
+        capability_packs = validate_capability_pack_sources()
+        validate_role_specialization_sources(profiles, capability_packs)
         validate_model_tier_sources()
         validate_orchestrator_class_sources()
         validate_cohort_pattern_sources()
@@ -3769,6 +4101,8 @@ def main() -> int:
         validate_recursor_contracts(REPO_ROOT)
         validate_titan_examples()
         agent_names = validate_registry()
+        capability_packs_by_ref = validate_capability_pack_registry()
+        validate_role_specialization_catalog(agent_names, capability_packs_by_ref)
         validate_self_agent_checkpoint_example_coherence(self_agent_checkpoint_example, profiles, agent_names)
         validate_self_agency_continuity_window_example_coherence(
             self_agency_continuity_window_example,
@@ -3827,6 +4161,8 @@ def main() -> int:
     print("[ok] validated self-agent-checkpoint schema surface")
     print("[ok] validated self-agency continuity window schema surface")
     print("[ok] validated reference-route example schema surface")
+    print("[ok] validated role-specialization schema surface")
+    print("[ok] validated capability-pack schema surface")
     print("[ok] validated Titan part-local schemas")
     print("[ok] validated Agon formation part-local contracts")
     print("[ok] validated Agon rank/school/epistemic part-local contracts")
@@ -3851,12 +4187,16 @@ def main() -> int:
     print("[ok] validated runtime artifact part-local contracts")
     print("[ok] validated self-agent checkpoint examples")
     print("[ok] validated self-agency continuity window example")
+    print("[ok] validated source-authored capability packs")
+    print("[ok] validated source-authored role specializations")
     print("[ok] validated runtime seam bindings")
     print("[ok] validated reference route examples")
     print("[ok] validated Alpha reference-route examples")
     print("[ok] validated questbook execution passport surface")
     print("[ok] validated orchestrator class doctrine surface")
     print("[ok] validated generated/agent_registry.min.json")
+    print("[ok] validated generated/role_specialization_catalog.min.json")
+    print("[ok] validated generated/capability_pack_registry.min.json")
     print("[ok] validated generated/model_tier_registry.json")
     print("[ok] validated generated/orchestrator_class_catalog.min.json")
     print("[ok] validated generated/orchestrator_class_capsules.json")

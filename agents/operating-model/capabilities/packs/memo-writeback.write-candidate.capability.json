@@ -1,0 +1,61 @@
+{
+  "$schema": "https://aoa-agents/schemas/capability-pack.schema.json",
+  "id": "memo-writeback.write-candidate",
+  "status": "experimental",
+  "summary": "Memory writeback stewardship limited to local candidates and provenance checks.",
+  "meaning": "Use this pack when an agent may inspect provenance and prepare a repo-local memory candidate without becoming the durable memory authority.",
+  "permission_posture": {
+    "default_mode": "write-candidate-only",
+    "mutation_allowed": true,
+    "requires_gate": true,
+    "notes": [
+      "May write only repo-local memo candidate surfaces when the repo owns such a port.",
+      "Durable reviewed memory remains owned by aoa-memo."
+    ]
+  },
+  "tool_refs": [
+    "rg:provenance-scan",
+    "git:diff-log-readonly",
+    "apply_patch:memo-candidate-only"
+  ],
+  "skill_refs": [
+    "aoa-source-of-truth-check",
+    "aoa-bounded-context-map"
+  ],
+  "technique_refs": [
+    "aoa-techniques:memory-writeback-check",
+    "aoa-techniques:provenance-preservation"
+  ],
+  "memory_routes": {
+    "read_refs": [
+      "aoa-memo:brief",
+      "aoa-session-memory:search-readonly"
+    ],
+    "write_refs": [
+      "memo/candidates:write-candidate"
+    ],
+    "owner": "aoa-memo"
+  },
+  "proof_routes": [
+    "scripts/validate_agents.py",
+    "scripts/validate_agent_source_home.py"
+  ],
+  "projection_hints": [
+    "Suitable for memory-keeper specializations that prepare handoff candidates.",
+    "Projection must not grant durable memo promotion rights by default."
+  ],
+  "owner_boundaries": [
+    {
+      "pressure": "durable memory canon",
+      "route": "aoa-memo"
+    },
+    {
+      "pressure": "session evidence repair or reindexing",
+      "route": ".aoa"
+    }
+  ],
+  "stop_lines": [
+    "Do not promote, demote, retire, or rewrite durable memory truth through this pack.",
+    "Do not write outside the repo-local memory candidate surface."
+  ]
+}

@@ -5,12 +5,14 @@ operate together.
 
 This branch is intentionally separate from `agents/roles/`: role houses own
 role identity and nested forms; the operating model owns shared posture around
-tiers, orchestrator classes, cohort patterns, and runtime-seam bindings.
+capability packs, tiers, orchestrator classes, cohort patterns, and
+runtime-seam bindings.
 
 ## Branches
 
 | Branch | Role |
 | --- | --- |
+| `capabilities/` | reusable permission, tool, skill, technique, memory, proof, and projection posture |
 | `tiers/` | effort and handoff classes |
 | `orchestrators/` | bounded orchestration class identity |
 | `cohorts/` | inspectable role grouping hints |

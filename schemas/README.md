@@ -3,10 +3,11 @@
 `schemas/` holds repo-wide machine-readable contracts for the source-authored
 agent layer.
 
-These root schemas constrain base role profiles, model tiers, orchestrator
-classes, cohort patterns, runtime seam bindings, the checked `agents/` source
-home manifest, and the generated registries published from those source
-families. They are shared contracts, not mechanic payloads.
+These root schemas constrain base role profiles, role specializations,
+capability packs, model tiers, orchestrator classes, cohort patterns, runtime
+seam bindings, the checked `agents/` source home manifest, and the generated
+registries published from those source families. They are shared contracts,
+not mechanic payloads.
 
 ## Operating Card
 
@@ -25,7 +26,9 @@ families. They are shared contracts, not mechanic payloads.
 | Schema | Source family or reader |
 | --- | --- |
 | `agent-profile.schema.json` | `agents/roles/*/profile.json` |
+| `role-specialization.schema.json` | `agents/roles/*/specializations/*/specialization.json` |
 | `agent-registry.schema.json` | `generated/agent_registry.min.json` |
+| `capability-pack.schema.json` | `agents/operating-model/capabilities/packs/*.capability.json` |
 | `model-tier.schema.json` | `agents/operating-model/tiers/*.tier.json` |
 | `model-tier-registry.schema.json` | `generated/model_tier_registry.json` |
 | `orchestrator-class.schema.json` | `agents/operating-model/orchestrators/*.class.json` and orchestrator readers |

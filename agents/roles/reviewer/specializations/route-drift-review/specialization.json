@@ -1,0 +1,57 @@
+{
+  "$schema": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "id": "reviewer.route-drift-review",
+  "role_id": "reviewer",
+  "slug": "route-drift-review",
+  "status": "experimental",
+  "summary": "Reviewer specialization for read-only drift, stale-name, and route-boundary inspection.",
+  "meaning": "Use this specialization when the reviewer must inspect whether a change keeps source owners, route cards, generated readers, and legacy-name cleanup coherent.",
+  "inherits_from": "agents/roles/reviewer/profile.json",
+  "activation_triggers": [
+    "Legacy source names may still be active noise.",
+    "A generated reader may point at a stale source path.",
+    "A change needs review for route-law drift before landing."
+  ],
+  "allowed_forms": [
+    "base",
+    "agonic",
+    "assistant"
+  ],
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/route-drift-review.readonly.capability.json",
+  "skill_refs": [
+    "aoa-invariant-coverage-audit",
+    "aoa-source-of-truth-check",
+    "aoa-bounded-context-map"
+  ],
+  "technique_refs": [
+    "aoa-techniques:drift-audit",
+    "aoa-techniques:owner-route-review"
+  ],
+  "memory_route_refs": [
+    "aoa-memo:brief",
+    "aoa-session-memory:search-readonly"
+  ],
+  "proof_routes": [
+    "scripts/validate_agent_source_home.py",
+    "scripts/validate_agents.py",
+    "git diff --check"
+  ],
+  "projection_notes": [
+    "May project as reviewer-route-drift-review, but source remains inside the reviewer role house.",
+    "Projection should be read-only and findings-first."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "implementation fix",
+      "route": "coder.repo-refactor"
+    },
+    {
+      "pressure": "formal verdict",
+      "route": "aoa-evals"
+    }
+  ],
+  "stop_lines": [
+    "Do not land fixes through this specialization.",
+    "Do not treat a review finding as durable memory canon."
+  ]
+}

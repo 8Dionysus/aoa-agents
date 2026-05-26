@@ -4,7 +4,7 @@
 
 `agents/operating-model/` is the cross-role operating branch for `aoa-agents`.
 It holds compact source contracts that shape how role houses are tiered,
-orchestrated, grouped, and bound to runtime-seam phases.
+specialized, orchestrated, grouped, and bound to runtime-seam phases.
 
 It is not a runtime implementation home and not a playbook or routing policy
 owner.
@@ -14,6 +14,7 @@ owner.
 Canonical authoring lives in:
 
 - `agents/operating-model/tiers/*.tier.json`
+- `agents/operating-model/capabilities/packs/*.capability.json`
 - `agents/operating-model/orchestrators/*.class.json`
 - `agents/operating-model/cohorts/*.pattern.json`
 - `agents/operating-model/runtime-seams/*.binding.json`
@@ -28,13 +29,15 @@ Use the nearest child `AGENTS.md` before editing a concrete family. Keep the
 branch convex:
 
 - tiers describe effort and handoff posture;
+- capabilities describe reusable permission, tool, skill, technique, memory,
+  proof, and projection posture;
 - orchestrators describe class identity and boundaries;
 - cohorts describe bounded role grouping hints;
 - runtime seams bind phases, tiers, roles, and artifact types.
 
 Do not merge these into one flat registry bucket. Do not encode vendor model
 brands, live routing policy, playbook choreography, proof doctrine, memory
-canon, network protocol, or runtime infrastructure here.
+canon, network protocol, tool implementation, or runtime infrastructure here.
 
 ## Validation
 

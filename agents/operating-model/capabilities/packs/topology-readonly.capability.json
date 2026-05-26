@@ -1,0 +1,59 @@
+{
+  "$schema": "https://aoa-agents/schemas/capability-pack.schema.json",
+  "id": "topology-readonly",
+  "status": "experimental",
+  "summary": "Read-only topology and boundary stewardship for source-owner decisions.",
+  "meaning": "Use this pack when an agent must inspect repository topology, authority surfaces, and owner boundaries without mutating source state.",
+  "permission_posture": {
+    "default_mode": "read-only",
+    "mutation_allowed": false,
+    "requires_gate": false,
+    "notes": [
+      "May inspect source, generated readers, decisions, and sibling owner cards.",
+      "Must hand off before editing schemas, validators, generated surfaces, or source objects."
+    ]
+  },
+  "tool_refs": [
+    "rg:source-search",
+    "git:status-log-diff-readonly",
+    "python:validators-readonly"
+  ],
+  "skill_refs": [
+    "aoa-bounded-context-map",
+    "aoa-source-of-truth-check"
+  ],
+  "technique_refs": [
+    "aoa-techniques:boundary-map",
+    "aoa-techniques:source-before-summary"
+  ],
+  "memory_routes": {
+    "read_refs": [
+      "aoa-memo:brief",
+      "aoa-session-memory:search-readonly"
+    ],
+    "write_refs": [],
+    "owner": "aoa-memo"
+  },
+  "proof_routes": [
+    "scripts/validate_agent_source_home.py",
+    "scripts/validate_nested_agents.py"
+  ],
+  "projection_hints": [
+    "Suitable for read-only architect specializations.",
+    "Projection may expose search and validation tools but no write tools."
+  ],
+  "owner_boundaries": [
+    {
+      "pressure": "durable architecture decision",
+      "route": "docs/decisions/"
+    },
+    {
+      "pressure": "ecosystem doctrine",
+      "route": "Agents-of-Abyss"
+    }
+  ],
+  "stop_lines": [
+    "Do not mutate repo state through this pack.",
+    "Do not treat topology inspection as proof that a change is ready to land."
+  ]
+}
