@@ -68,8 +68,6 @@ from validate_codex_refresh_law_contracts import (
 )
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 from validate_rpg_progression import RPGProgressionValidationError, validate_rpg_progression
-from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
-from validate_titan_schemas import TitanSchemasValidationError, validate_titan_schemas
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
@@ -95,6 +93,20 @@ AntifragilityStressValidationError = (
 validate_antifragility_stress_payloads = (
     _ANTIFRAGILITY_STRESS_MODULE.validate_antifragility_stress_payloads
 )
+
+_TITAN_SCHEMAS_MODULE = load_repo_python_module(
+    "titan_schema_validator",
+    "mechanics/titan/scripts/validate_titan_schemas.py",
+)
+TitanSchemasValidationError = _TITAN_SCHEMAS_MODULE.TitanSchemasValidationError
+validate_titan_schemas = _TITAN_SCHEMAS_MODULE.validate_titan_schemas
+
+_TITAN_EXAMPLES_MODULE = load_repo_python_module(
+    "titan_example_validator",
+    "mechanics/titan/scripts/validate_titan_examples.py",
+)
+TitanExamplesValidationError = _TITAN_EXAMPLES_MODULE.TitanExamplesValidationError
+validate_titan_examples = _TITAN_EXAMPLES_MODULE.validate_titan_examples
 
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:

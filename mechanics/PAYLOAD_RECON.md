@@ -99,11 +99,16 @@ quest-item-store, and dispatch-reader route law.
 
 The Titan example localization satisfies that rule for schema-backed Titan
 examples by moving them into part-local `examples/` directories and adding
-`scripts/validate_titan_examples.py`.
+a Titan package-local example validator.
 
 The Titan schema localization satisfies that rule for Titan-specific contract
 schemas by moving them into part-local `schemas/` directories and adding
-`scripts/validate_titan_schemas.py`.
+a Titan package-local schema validator.
+
+The Titan check localization satisfies that rule for Titan package-owned
+validators and focused tests by moving them into
+`mechanics/titan/{scripts,tests}/`; the root release gate still runs the
+package-local tests explicitly.
 
 The antifragility stress localization satisfies that rule for stress-posture
 contract schemas and examples by moving them into the `stress-posture` part and

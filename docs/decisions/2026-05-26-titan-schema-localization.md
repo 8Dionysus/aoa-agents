@@ -21,9 +21,9 @@ Move Titan-specific schemas into `mechanics/titan/parts/*/schemas/` using
 part-local names. Keep stable `$id` values unchanged because they are public
 contract identifiers, not active repository path authority.
 
-Add `scripts/validate_titan_schemas.py` and wire it into
-`scripts/validate_agents.py` so the active file set, JSON Schema validity, and
-old active filename shape are checked explicitly.
+Add a Titan schema validator and wire it into `scripts/validate_agents.py` so
+the active file set, JSON Schema validity, and old active filename shape are
+checked explicitly.
 
 Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 
@@ -38,11 +38,12 @@ Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 ## Verification
 
 ```bash
-python scripts/validate_titan_schemas.py
-python scripts/validate_titan_examples.py
+python mechanics/titan/scripts/validate_titan_schemas.py
+python mechanics/titan/scripts/validate_titan_examples.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
-python -m pytest -q tests
+python -m unittest discover -s mechanics/titan/tests -p "test_*.py"
+python -m unittest discover -s tests -p "test_*.py"
 python scripts/release_check.py
 ```

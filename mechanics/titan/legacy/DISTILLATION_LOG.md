@@ -53,3 +53,14 @@ bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | `runtime-roster` | 3 |
 | `service-cohort` | 2 |
 | `summon-boundary` | 1 |
+
+## 2026-05-26 Root Checks To Package Route
+
+Moved 3 Titan validators and 3 focused tests out of root execution districts
+and into active `mechanics/titan/{scripts,tests}/`. Git history preserves the
+verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path
+lookup.
+
+| Route | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `titan` package | 3 | 3 |

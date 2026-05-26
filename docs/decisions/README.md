@@ -17,6 +17,7 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Questbook source store topology repair](2026-05-26-questbook-source-store-topology-repair.md)
 - [2026-05-26: Titan example localization](2026-05-26-titan-example-localization.md)
 - [2026-05-26: Titan schema localization](2026-05-26-titan-schema-localization.md)
+- [2026-05-26: Titan check localization](2026-05-26-titan-check-localization.md)
 - [2026-05-26: antifragility stress payload localization](2026-05-26-antifragility-stress-payload-localization.md)
 - [2026-05-26: Antifragility stress check localization](2026-05-26-antifragility-stress-check-localization.md)
 - [2026-05-26: RPG progression payload localization](2026-05-26-rpg-progression-payload-localization.md)
