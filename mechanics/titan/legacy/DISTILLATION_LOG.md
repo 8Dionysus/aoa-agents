@@ -23,3 +23,18 @@ bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | --- | ---: |
 | `lineage-ledger` | 1 |
 | `role-bearing` | 2 |
+
+## 2026-05-26 Root Examples To Active Parts
+
+Moved 10 schema-backed Titan examples out of root `examples/` and into active
+part-local `examples/` directories. Git history preserves the verbatim file
+bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved example files |
+| --- | ---: |
+| `incarnation-spine` | 2 |
+| `lineage-ledger` | 1 |
+| `role-bearing` | 1 |
+| `runtime-roster` | 2 |
+| `service-cohort` | 2 |
+| `summon-boundary` | 2 |

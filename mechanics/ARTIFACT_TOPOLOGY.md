@@ -64,6 +64,11 @@ records, and Agon quest notes into `mechanics/questbook/parts/*` after updating
 the questbook validator route and generated quest readers. Generated quest
 catalog and dispatch readers remain derived surfaces under `generated/`.
 
+The 2026-05-26 Titan example localization moves schema-backed Titan examples
+from root `examples/` into active `mechanics/titan/parts/*/examples/` routes
+after adding a package-local example validator. Root `examples/` remains active
+for shared examples whose mechanic-local contract is not explicit yet.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

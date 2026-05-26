@@ -43,3 +43,21 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `config/titan_bearers.v0.json` | [parts/role-bearing/config/bearers.v0.json](parts/role-bearing/config/bearers.v0.json) | `role-bearing` |
 | `config/titan_role_classes.v0.json` | [parts/role-bearing/config/role-classes.v0.json](parts/role-bearing/config/role-classes.v0.json) | `role-bearing` |
 | `config/titan_lineage_ledger.v0.json` | [parts/lineage-ledger/config/ledger.v0.json](parts/lineage-ledger/config/ledger.v0.json) | `lineage-ledger` |
+
+## 2026-05-26 Root Examples Move
+
+10 schema-backed Titan examples moved from root `examples/` into
+`titan/parts/*/examples/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `examples/titan_bearer_identity.v0.json` | [parts/role-bearing/examples/bearer-identity.v0.json](parts/role-bearing/examples/bearer-identity.v0.json) | `role-bearing` |
+| `examples/titan_lineage_ledger.v0.json` | [parts/lineage-ledger/examples/lineage-ledger.v0.json](parts/lineage-ledger/examples/lineage-ledger.v0.json) | `lineage-ledger` |
+| `examples/titan_incarnation_identity.example.json` | [parts/incarnation-spine/examples/incarnation-identity.example.json](parts/incarnation-spine/examples/incarnation-identity.example.json) | `incarnation-spine` |
+| `examples/titan_operator_console_roster.v0.json` | [parts/incarnation-spine/examples/operator-console-roster.v0.json](parts/incarnation-spine/examples/operator-console-roster.v0.json) | `incarnation-spine` |
+| `examples/titan_runtime_roster.v0.json` | [parts/runtime-roster/examples/runtime-roster.v0.json](parts/runtime-roster/examples/runtime-roster.v0.json) | `runtime-roster` |
+| `examples/titan_appserver_bridge_boundary.v0.json` | [parts/runtime-roster/examples/appserver-bridge-boundary.v0.json](parts/runtime-roster/examples/appserver-bridge-boundary.v0.json) | `runtime-roster` |
+| `examples/titan_memory_roster.v0.json` | [parts/service-cohort/examples/memory-roster.v0.json](parts/service-cohort/examples/memory-roster.v0.json) | `service-cohort` |
+| `examples/titan_service_cohort.v0.json` | [parts/service-cohort/examples/service-cohort.v0.json](parts/service-cohort/examples/service-cohort.v0.json) | `service-cohort` |
+| `examples/titan_compact_review_task.example.json` | [parts/summon-boundary/examples/compact-review-task.example.json](parts/summon-boundary/examples/compact-review-task.example.json) | `summon-boundary` |
+| `examples/titan_delta_residual_risk_task.example.json` | [parts/summon-boundary/examples/delta-residual-risk-task.example.json](parts/summon-boundary/examples/delta-residual-risk-task.example.json) | `summon-boundary` |

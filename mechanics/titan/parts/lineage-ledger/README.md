@@ -11,4 +11,9 @@ This part routes `lineage-ledger` pressure inside `mechanics/titan/`.
 - [Lineage Ledger](config/ledger.v0.json)
 - [Config Route](config/README.md)
 
+## Active Examples
+
+- [Lineage Ledger](examples/lineage-ledger.v0.json)
+- [Examples Route](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

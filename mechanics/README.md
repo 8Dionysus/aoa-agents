@@ -29,9 +29,12 @@ mechanic-specific seeds and wiring out of root `config/` and into part-local
 `mechanics/*/parts/*/config/` routes. The manifest localization moved
 recurrence component and hook manifests into
 `mechanics/recurrence/parts/component-manifests/manifests/`. Other source,
-support, generated, validation, schema, example, and agent-source
+support, generated, validation, schema, and agent-source
 payloads stay in their owning districts until a later slice gives them a
 package-local contract and validator route.
+The Titan example localization moved schema-backed Titan examples into
+part-local `mechanics/titan/parts/*/examples/` routes after adding a dedicated
+example validator.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -59,6 +62,8 @@ mechanics packages from empty route skeletons into active route homes:
   `mechanics/*/parts/*/config/`;
 - recurrence component and hook manifests live under
   `mechanics/recurrence/parts/component-manifests/manifests/`;
+- Titan schema-backed examples live under
+  `mechanics/titan/parts/*/examples/`;
 - quest catalog records and Agon quest notes live under
   `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;
@@ -69,9 +74,9 @@ mechanics packages from empty route skeletons into active route homes:
   root quest-source lookup maps without
   duplicating active authority.
 
-Shared schemas, examples, scripts, tests, agent source objects, and generated
-readers remain in their current owner districts until they receive their own
-package-local contract and validation coverage.
+Shared schemas, non-Titan examples, scripts, tests, agent source objects, and
+generated readers remain in their current owner districts until they receive
+their own package-local contract and validation coverage.
 
 ## Traversal
 
