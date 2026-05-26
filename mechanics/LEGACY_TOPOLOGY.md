@@ -51,11 +51,17 @@ into active part-local Titan `examples/` routes. Former root Titan example
 paths are now legacy lookup facts and are accounted for in Titan
 `PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
+The 2026-05-26 Titan schema localization moved Titan-specific schemas into
+active part-local Titan `schemas/` routes. Former root Titan schema paths are
+now legacy lookup facts and are accounted for in Titan `PROVENANCE.md`,
+`legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`. Stable schema `$id`
+values remain public contract identifiers, not active repo paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-`schemas/`, non-Titan `examples/`, `agents/`, `generated/`, `scripts/`, and
-`tests/`. They are not automatically legacy. They remain current source,
-support, generated, or validation districts until a package-local move changes
-their lookup topology.
+shared non-Titan `schemas/`, non-Titan `examples/`, `agents/`, `generated/`,
+`scripts/`, and `tests/`. They are not automatically legacy. They remain
+current source, support, generated, or validation districts until a
+package-local move changes their lookup topology.
 
 For this landing:
 

@@ -15,3 +15,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: recurrence component manifest localization](2026-05-26-recurrence-component-manifest-localization.md)
 - [2026-05-26: questbook payload localization](2026-05-26-questbook-payload-localization.md)
 - [2026-05-26: Titan example localization](2026-05-26-titan-example-localization.md)
+- [2026-05-26: Titan schema localization](2026-05-26-titan-schema-localization.md)

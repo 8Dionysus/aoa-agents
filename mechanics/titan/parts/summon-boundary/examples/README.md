@@ -8,6 +8,5 @@ the `summon-boundary` part.
 - [Compact Review Task](compact-review-task.example.json)
 - [Delta Residual Risk Task](delta-residual-risk-task.example.json)
 
-Schemas remain in root `schemas/` until contract localization has its own
-route. Former root path lookup goes through parent
-[PROVENANCE.md](../../../PROVENANCE.md).
+Schemas live in sibling [schemas/](../schemas/). Former root path lookup goes
+through parent [PROVENANCE.md](../../../PROVENANCE.md).

@@ -8,6 +8,5 @@ examples for the `incarnation-spine` part.
 - [Incarnation Identity](incarnation-identity.example.json)
 - [Operator Console Roster](operator-console-roster.v0.json)
 
-Schemas remain in root `schemas/` until contract localization has its own
-route. Former root path lookup goes through parent
-[PROVENANCE.md](../../../PROVENANCE.md).
+Schemas live in sibling [schemas/](../schemas/). Former root path lookup goes
+through parent [PROVENANCE.md](../../../PROVENANCE.md).

@@ -8,6 +8,13 @@ This part routes `runtime-roster` pressure inside `mechanics/titan/`.
 - [Titan App-Server Bridge Boundary](docs/appserver-bridge-boundary.md)
 - [Titan Runtime Roster](docs/runtime-roster.md)
 
+## Active Schemas
+
+- [Agent Report](schemas/agent-report.schema.json)
+- [Runtime Roster](schemas/runtime-roster.schema.json)
+- [Appserver Bridge Boundary](schemas/appserver-bridge-boundary.schema.json)
+- [Schemas Route](schemas/README.md)
+
 ## Active Examples
 
 - [Runtime Roster](examples/runtime-roster.v0.json)

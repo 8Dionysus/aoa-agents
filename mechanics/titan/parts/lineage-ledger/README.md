@@ -11,6 +11,11 @@ This part routes `lineage-ledger` pressure inside `mechanics/titan/`.
 - [Lineage Ledger](config/ledger.v0.json)
 - [Config Route](config/README.md)
 
+## Active Schemas
+
+- [Lineage Ledger](schemas/lineage-ledger.schema.json)
+- [Schemas Route](schemas/README.md)
+
 ## Active Examples
 
 - [Lineage Ledger](examples/lineage-ledger.v0.json)

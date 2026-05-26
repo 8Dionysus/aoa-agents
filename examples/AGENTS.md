@@ -20,7 +20,8 @@ These files illustrate published contracts. They are not the source-authored can
 
 Mechanic-specific Titan examples live under
 `mechanics/titan/parts/*/examples/` and are validated by
-`scripts/validate_titan_examples.py`.
+`scripts/validate_titan_examples.py`. Their schemas live beside them under
+`mechanics/titan/parts/*/schemas/`.
 
 ## Editing posture
 

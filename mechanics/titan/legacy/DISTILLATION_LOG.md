@@ -38,3 +38,18 @@ bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | `runtime-roster` | 2 |
 | `service-cohort` | 2 |
 | `summon-boundary` | 2 |
+
+## 2026-05-26 Root Schemas To Active Parts
+
+Moved 11 Titan-specific schemas out of root `schemas/` and into active
+part-local `schemas/` directories. Git history preserves the verbatim file
+bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved schema files |
+| --- | ---: |
+| `incarnation-spine` | 2 |
+| `lineage-ledger` | 1 |
+| `role-bearing` | 2 |
+| `runtime-roster` | 3 |
+| `service-cohort` | 2 |
+| `summon-boundary` | 1 |
