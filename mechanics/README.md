@@ -26,17 +26,19 @@ These packages are active route homes for mechanics. The 2026-05-26 docs
 landing moved mechanics-facing public docs out of root `docs/` and into
 part-local `mechanics/*/parts/*/docs/` routes. The config localization moved
 mechanic-specific seeds and wiring out of root `config/` and into part-local
-`mechanics/*/parts/*/config/` routes. Other source, support, generated,
-validation, quest, manifest, schema, example, and agent-source payloads stay in
-their owning districts until a later slice gives them a package-local contract
-and validator route.
+`mechanics/*/parts/*/config/` routes. The manifest localization moved
+recurrence component and hook manifests into
+`mechanics/recurrence/parts/component-manifests/manifests/`. Other source,
+support, generated, validation, quest, schema, example, and agent-source
+payloads stay in their owning districts until a later slice gives them a
+package-local contract and validator route.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
 | `agon/` | Agon docs, part-local config seeds, adjuncts, formation indexes, Wave I/II/II.5 builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
 | `experience/` | assistant civil/service/office/adoption/release docs, adjuncts, schemas, examples | route assistant service, office, adoption, watch, and arena-exclusion pressure without becoming runtime service authority |
 | `titan/` | Titan docs, part-local config, schemas, examples, generated projections, and builders | route Titan role-bearing, lineage, summon, roster, and service-cohort posture inside the agent layer |
-| `recurrence/` | recursor docs, part-local config, schemas, examples, generated readers, and recurrence manifests | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |
+| `recurrence/` | recursor docs, part-local config, part-local component manifests, schemas, examples, and generated readers | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |
 | `runtime-seam/` | `agents/runtime_seam/`, runtime artifact schemas/examples, seam docs/generated readers | keep role x tier bindings and artifact transitions contract-first without owning runtime implementation |
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
@@ -55,16 +57,18 @@ mechanics packages from empty route skeletons into active route homes:
 - part-local docs live under `mechanics/*/parts/*/docs/`;
 - mechanic-specific seeds and wiring live under
   `mechanics/*/parts/*/config/`;
+- recurrence component and hook manifests live under
+  `mechanics/recurrence/parts/component-manifests/manifests/`;
 - package `PARTS.md` files are the active part maps;
 - package `PROVENANCE.md` files are the only active bridge into old-path
   accounting;
 - package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
-  former `docs/*` and `config/*` lookup maps without duplicating active
-  authority.
+  former `docs/*`, `config/*`, and `manifests/*` lookup maps without
+  duplicating active authority.
 
-Shared schemas, examples, scripts, tests, manifests, quest files, agent source
-objects, and generated readers remain in their current owner districts until
-they receive their own package-local contract and validation coverage.
+Shared schemas, examples, scripts, tests, quest files, agent source objects,
+and generated readers remain in their current owner districts until they
+receive their own package-local contract and validation coverage.
 
 ## Traversal
 

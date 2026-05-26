@@ -152,8 +152,8 @@
       "kind": "review_note",
       "notes": "Subjecthood, assistant anti-drift, and projection boundary notes.",
       "path_globs": [
-        "docs/*AGON*.md",
-        "docs/ASSISTANT_*RECHARTERING.md"
+        "mechanics/agon/parts/*/docs/*.md",
+        "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md"
       ]
     }
   ],

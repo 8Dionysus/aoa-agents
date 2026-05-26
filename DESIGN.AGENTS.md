@@ -24,6 +24,7 @@ Use this file as the agent-facing reading card for repository design work.
   a narrower example lane.
 - `generated/` remains derived.
 - mechanic-local seeds and wiring live under the owning `mechanics/*/parts/*/config/` route when the operation package has a validator.
+- recurrence component manifests live under `mechanics/recurrence/parts/component-manifests/manifests/`.
 
 ## Operational Map Shape
 

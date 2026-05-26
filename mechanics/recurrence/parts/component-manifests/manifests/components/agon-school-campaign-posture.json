@@ -1,5 +1,5 @@
 {
-  "component_id": "component.agon.wave16.aoa_agents",
+  "component_id": "component:agon:school-campaign-posture",
   "forbidden_actions": [
     "open_arena_session",
     "issue_verdict",

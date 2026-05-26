@@ -117,8 +117,8 @@
       "notes": "Observation only. This hook binding must not create arena sessions, verdicts, scars, or automatic owner mutations.",
       "owner_repo": "aoa-agents",
       "path_globs": [
-        "docs/*AGON*.md",
-        "docs/ASSISTANT_*RECHARTERING.md"
+        "mechanics/agon/parts/*/docs/*.md",
+        "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md"
       ],
       "producer": "harvest_pattern_watch",
       "signal_rules": [

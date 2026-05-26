@@ -11,7 +11,7 @@
         "recurrence_observation",
         "owner_review_candidate"
       ],
-      "hook_id": "component.agon.wave16.aoa_agents.drift_watch",
+      "hook_id": "agon.school-campaign-posture.drift-watch",
       "surface_globs": [
         "generated/agon_agent_school_campaign_posture_registry.min.json",
         "mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json",
@@ -22,7 +22,7 @@
       ]
     }
   ],
-  "component_id": "component.agon.wave16.aoa_agents",
-  "hook_binding_set_id": "component.agon.wave16.aoa_agents.hooks",
+  "component_id": "component:agon:school-campaign-posture",
+  "hook_binding_set_id": "hooks:agon:school-campaign-posture",
   "wave": "XVI"
 }
