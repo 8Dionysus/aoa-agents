@@ -1,0 +1,45 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T102223Z:5fd235cd-aoa-agents-localized-experience-assistant-civil-checks",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Experience assistant civil formation builders, validators, and focused tests into mechanics/experience package and assistant-civil-service part-local routes; root scripts/tests no longer own those checks, and the package validator now guards old root check absence while loading the part-local formation validator.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-experience-assistant-civil-check-localization.md",
+    "mechanics/experience/PROVENANCE.md",
+    "mechanics/experience/PARTS.md",
+    "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
+    "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
+    "mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py",
+    "mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+    "mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/5fd235cd0901407e757a8829d78d2045fc63ba9a",
+    "repo:aoa-agents/pull/201",
+    "repo:aoa-agents/commit/10df1b354878baf53defbc5eca426710db75f472",
+    "mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py",
+    "mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+    "mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py",
+    "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
+    "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
+    "mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py",
+    "tests/test_roadmap_parity.py",
+    "tests/test_wave2_route_surfaces.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T10:22:23Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
