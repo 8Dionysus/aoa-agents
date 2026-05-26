@@ -10,7 +10,7 @@ continuity operation parts.
 | `self-agent-checkpoint/` | self-agent posture, checkpoint schema, and example route | `self-agent-checkpoint/README.md` |
 | `continuity-lane/` | agent continuity without claiming durable memory truth | `continuity-lane/README.md` |
 | `reviewed-closeout-hold/` | role hold before reviewed closeout promotes claims | `reviewed-closeout-hold/README.md` |
-| `reference-routes/` | reference routes and alpha reference routes | `reference-routes/README.md` |
+| `reference-routes/` | public-loop reference route schema and examples | `reference-routes/README.md`, `reference-routes/schemas/`, `reference-routes/examples/` |
 | `growth-checkpoint/` | checkpoint-facing progression and growth posture | `growth-checkpoint/README.md` |
 | `stress-handoff/` | stress posture that needs reviewable survival boundaries | `stress-handoff/README.md` |
 

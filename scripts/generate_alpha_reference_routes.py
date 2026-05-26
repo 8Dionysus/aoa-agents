@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXAMPLES_ROOT = REPO_ROOT / "examples" / "alpha_reference_routes"
+EXAMPLES_ROOT = REPO_ROOT / "mechanics" / "questbook" / "parts" / "alpha-reference-routes" / "examples"
 OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
 FILE_ORDER = (
     "local-stack-diagnosis.example.json",
@@ -66,7 +66,7 @@ def build_alpha_reference_route_payload() -> dict[str, object]:
         "layer": "aoa-agents",
         "source_of_truth": {
             "cohort_registry": "generated/cohort_composition_registry.json",
-            "alpha_reference_route_examples": "examples/alpha_reference_routes/*.example.json",
+            "alpha_reference_route_examples": "mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json",
         },
         "routes": entries,
     }

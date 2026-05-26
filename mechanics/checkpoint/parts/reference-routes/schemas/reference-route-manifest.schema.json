@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://aoa-agents/schemas/reference-route.example.schema.json",
   "title": "AoA reference route example manifest",
-  "$comment": "Example-only, non-normative manifest schema for examples/reference_routes/*.",
+  "$comment": "Example-only, non-normative manifest schema for mechanics/checkpoint/parts/reference-routes/examples/*.",
   "type": "object",
   "additionalProperties": false,
   "required": [

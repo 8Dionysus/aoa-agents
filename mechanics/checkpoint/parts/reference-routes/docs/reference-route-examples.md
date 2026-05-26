@@ -2,8 +2,8 @@
 
 ## Purpose
 
-`examples/reference_routes/` contains example-only, non-normative route packs.
-`examples/alpha_reference_routes/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.
+`mechanics/checkpoint/parts/reference-routes/examples/` contains example-only, non-normative route packs.
+`mechanics/questbook/parts/alpha-reference-routes/examples/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.
 `generated/alpha_reference_routes.min.json` is the compact published adjunct view over those Alpha example sources.
 
 These route packs make the public loop inspectable through small manifest-driven examples that stay inside existing artifact schemas and runtime seam bindings.
@@ -41,12 +41,13 @@ contracts.
 
 ## Current route packs
 
-The current bounded set is:
+The current bounded set uses kebab-case package routes while preserving the
+stable manifest `route_id` values:
 
-- `solo_bounded_route`
-- `pair_change_route`
-- `checkpoint_self_change_route`
-- `orchestrated_loop_route`
+- `solo-bounded-route` with `route_id: solo_bounded_route`
+- `pair-change-route` with `route_id: pair_change_route`
+- `checkpoint-self-change-route` with `route_id: checkpoint_self_change_route`
+- `orchestrated-loop-route` with `route_id: orchestrated_loop_route`
 
 Together they show bounded role posture, review edges, governed self-change posture, and the full orchestrated loop without adding runtime logic.
 
@@ -71,6 +72,6 @@ anchors for the curated readiness lane.
 
 ## Validation
 
-Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
+Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_reference_route_contracts.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
 
-For the Alpha companion set, validation also checks that `generated/alpha_reference_routes.min.json` stays aligned with `examples/alpha_reference_routes/*.example.json`.
+For the Alpha companion set, validation also checks that `generated/alpha_reference_routes.min.json` stays aligned with `mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json`. Repo-wide validation remains `python scripts/validate_agents.py`.

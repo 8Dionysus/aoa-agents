@@ -33,7 +33,7 @@ authority.
 
 The example-only surface in this cycle is:
 
-- `schemas/reference-route.example.schema.json`
+- `mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json`
 
 ## Core rule
 
@@ -53,7 +53,7 @@ Compatible additive work includes:
 - new tests
 - stricter drift checks
 - new public-safe examples
-- new example-only surfaces such as `schemas/reference-route.example.schema.json`
+- new example-only surfaces such as `mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json`
 
 ### Deprecated
 

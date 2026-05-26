@@ -68,7 +68,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'public-safe, schema-backed examples',
         'mechanics/runtime-seam/parts/artifact-contracts/examples/',
         'mechanics/checkpoint/parts/self-agent-checkpoint/examples/',
-        'reference_routes/',
+        'mechanics/checkpoint/parts/reference-routes/examples/',
         'not the source-authored canon layer',
     ),
     'mechanics/runtime-seam/parts/artifact-contracts/examples/README.md': (
@@ -83,14 +83,14 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         '`checkpoint_cohort`',
         '`invalid/` exists for negative coverage',
     ),
-    'examples/reference_routes/AGENTS.md': (
-        'schemas/reference-route.example.schema.json',
+    'mechanics/checkpoint/parts/reference-routes/examples/README.md': (
+        'mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json',
         'mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md',
         'manifest.json',
         'not playbooks',
     ),
-    'examples/alpha_reference_routes/AGENTS.md': (
-        'schemas/alpha-reference-route.schema.json',
+    'mechanics/questbook/parts/alpha-reference-routes/examples/README.md': (
+        'mechanics/questbook/parts/alpha-reference-routes/schemas/alpha-reference-route.schema.json',
         'generated/alpha_reference_routes.min.json',
         'curated Alpha cohort',
         'readiness proof lane',

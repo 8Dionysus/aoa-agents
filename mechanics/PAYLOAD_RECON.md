@@ -167,12 +167,20 @@ runtime-readable authority-claim, and release-hold schemas/examples by routing
 them into the active part-local contract homes named by the package docs and
 adding `scripts/validate_agent_service_contracts.py`.
 
+The reference-route contract localization satisfies that rule for
+reference-route and Alpha reference-route schemas/examples by routing public
+loop route packs into `mechanics/checkpoint/parts/reference-routes/`, routing
+Alpha playbook-facing readiness examples into
+`mechanics/questbook/parts/alpha-reference-routes/`, and adding
+`scripts/validate_reference_route_contracts.py`.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil, non-adoption/boundary, non-agent-service schemas,
+non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
+non-reference-route schemas,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
-non-adoption/boundary, non-agent-service examples,
+non-adoption/boundary, non-agent-service, non-reference-route examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

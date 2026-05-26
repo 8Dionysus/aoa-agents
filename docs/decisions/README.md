@@ -28,3 +28,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Codex refresh law example localization](2026-05-26-codex-refresh-law-example-localization.md)
 - [2026-05-26: Adoption and boundary contract localization](2026-05-26-adoption-boundary-contract-localization.md)
 - [2026-05-26: Agent service contract localization](2026-05-26-agent-service-contract-localization.md)
+- [2026-05-26: Reference route contract localization](2026-05-26-reference-route-contract-localization.md)

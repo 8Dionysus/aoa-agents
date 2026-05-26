@@ -158,6 +158,15 @@ belong to Release Support, and assistant service/office/watch pressure belongs
 to Experience. Stable schema `$id`, `kind`, and identifier values remain
 public contract identifiers, not active repo paths.
 
+The 2026-05-26 reference-route contract localization moves reference-route and
+Alpha reference-route schemas/examples from root `schemas/` and `examples/`
+into active Checkpoint and Questbook part-local contract routes after adding
+`scripts/validate_reference_route_contracts.py`. The route split follows the
+current mechanic docs: public-loop route packs belong to Checkpoint
+`reference-routes`; Alpha playbook-facing readiness examples belong to
+Questbook `alpha-reference-routes`. Stable schema `$id` values and manifest
+`route_id` values remain public contract identifiers, not active repo paths.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

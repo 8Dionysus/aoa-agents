@@ -80,7 +80,7 @@ def registry_context() -> tuple[dict[str, dict[str, object]], dict[str, dict[str
 
 
 def copy_reference_routes_tree(destination: Path) -> Path:
-    shutil.copytree(REPO_ROOT / "examples" / "reference_routes", destination)
+    shutil.copytree(REPO_ROOT / "mechanics" / "checkpoint" / "parts" / "reference-routes" / "examples", destination)
     return destination
 
 
@@ -810,7 +810,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             reference_routes_dir = copy_reference_routes_tree(Path(tmp_dir) / "reference_routes")
-            manifest_path = reference_routes_dir / "solo_bounded_route" / "manifest.json"
+            manifest_path = reference_routes_dir / "solo-bounded-route" / "manifest.json"
             manifest = read_json(manifest_path)
             assert isinstance(manifest, dict)
             manifest["role_set"] = ["architect", "coder"]
@@ -829,7 +829,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             reference_routes_dir = copy_reference_routes_tree(Path(tmp_dir) / "reference_routes")
-            manifest_path = reference_routes_dir / "pair_change_route" / "manifest.json"
+            manifest_path = reference_routes_dir / "pair-change-route" / "manifest.json"
             manifest = read_json(manifest_path)
             assert isinstance(manifest, dict)
             assert isinstance(manifest["steps"], list)
@@ -849,7 +849,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             reference_routes_dir = copy_reference_routes_tree(Path(tmp_dir) / "reference_routes")
-            manifest_path = reference_routes_dir / "pair_change_route" / "manifest.json"
+            manifest_path = reference_routes_dir / "pair-change-route" / "manifest.json"
             manifest = read_json(manifest_path)
             assert isinstance(manifest, dict)
             assert isinstance(manifest["steps"], list)
@@ -870,7 +870,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             reference_routes_dir = copy_reference_routes_tree(Path(tmp_dir) / "reference_routes")
-            manifest_path = reference_routes_dir / "checkpoint_self_change_route" / "manifest.json"
+            manifest_path = reference_routes_dir / "checkpoint-self-change-route" / "manifest.json"
             manifest = read_json(manifest_path)
             assert isinstance(manifest, dict)
             assert isinstance(manifest["steps"], list)
@@ -890,7 +890,7 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             reference_routes_dir = copy_reference_routes_tree(Path(tmp_dir) / "reference_routes")
-            artifact_path = reference_routes_dir / "pair_change_route" / "work_result.json"
+            artifact_path = reference_routes_dir / "pair-change-route" / "work_result.json"
             write_json(
                 artifact_path,
                 {
@@ -914,7 +914,10 @@ class ValidateAgentsTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             alpha_routes_dir = Path(tmp_dir) / "alpha_reference_routes"
-            shutil.copytree(REPO_ROOT / "examples" / "alpha_reference_routes", alpha_routes_dir)
+            shutil.copytree(
+                REPO_ROOT / "mechanics" / "questbook" / "parts" / "alpha-reference-routes" / "examples",
+                alpha_routes_dir,
+            )
             first_path = alpha_routes_dir / "local-stack-diagnosis.example.json"
             second_path = alpha_routes_dir / "self-agent-checkpoint-rollout.example.json"
             first = read_json(first_path)
