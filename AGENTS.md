@@ -31,7 +31,7 @@ It does not own:
 6. `docs/BOUNDARIES.md`
 7. `agents/README.md` when source-authored agent objects are in scope
 8. `mechanics/README.md` when repeatable operation topology is in scope
-9. `docs/CODEX_SUBAGENT_REFRESH_LAW.md` when Codex projection freshness or workspace subagent refresh is in scope
+9. `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md` when Codex projection freshness or workspace subagent refresh is in scope
 10. the target profile, model-tier, orchestrator, schema, or generated surface
 11. neighboring repo docs when skills, memo, evals, playbooks, or routing are touched
 12. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches

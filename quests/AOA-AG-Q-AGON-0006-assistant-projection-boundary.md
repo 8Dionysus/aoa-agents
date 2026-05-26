@@ -10,7 +10,7 @@ Prevent assistant civil surfaces from leaking into Codex projection as live prom
 
 ## Work
 
-- review `docs/CODEX_SUBAGENT_PROJECTION.md`
+- review `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`
 - decide whether assistant variants should be excluded, summarized, or projected into a separate civil/service plane
 - keep workspace-write and arena authority separate
 - ensure `coder.assistant` does not inherit autonomous workspace authority

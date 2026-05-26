@@ -19,7 +19,7 @@ Published derived surface:
 Read with:
 
 - `docs/MODEL_TIER_MODEL.md`
-- `docs/REGISTRY_SOURCE_SURFACES.md`
+- `mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md`
 
 ## Contract to preserve
 

@@ -3,7 +3,7 @@ id: AOA-AG-Q-0001
 title: "Publish the quest execution passport for difficulty, risk, control, and tier mapping"
 summary: ''
 repo: aoa-agents
-owner_surface: docs/QUEST_EXECUTION_PASSPORT.md
+owner_surface: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md
 theme_ref: ''
 milestone_ref: ''
 kind: doctrine

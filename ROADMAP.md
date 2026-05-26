@@ -14,12 +14,12 @@ runtime, playbook, routing, memo, or eval canon into this repository.
 
 The current `v0.2.x` release line already carries:
 - checkpoint role follow-through, Codex subagent projection, and self-agency continuity posture as live repo-owned surfaces rather than future ideas
-- Codex custom-agent projection and owner refresh-law surfaces in `docs/CODEX_SUBAGENT_PROJECTION.md`, `docs/CODEX_SUBAGENT_REFRESH_LAW.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
-- runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `docs/AGENT_STRESS_POSTURE.md`, and `docs/AGENT_STRESS_HANDOFFS.md`
-- adjunct quest and Alpha readiness surfaces in `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
+- Codex custom-agent projection and owner refresh-law surfaces in `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
+- runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
+- adjunct quest and Alpha readiness surfaces in `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
 - subject-prep boundary plus unreleased companion turns and the first formation
-  trial in `docs/AGENT_SUBJECT_PREP.md`, `docs/AGONIC_ACTOR_RECHARTERING.md`,
-  `docs/ASSISTANT_CIVIL_RECHARTERING.md`, `docs/AGENT_FORMATION_TRIAL.md`, and
+  trial in `mechanics/agon/parts/formation/docs/subject-prep.md`, `mechanics/agon/parts/formation/docs/actor-rechartering.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`, `mechanics/agon/parts/formation/docs/formation-trial.md`, and
   `generated/agent_formation_trial.min.json`, keeping the agonic/assistant kind split
   additive without changing profile schemas yet
 
@@ -83,7 +83,7 @@ The currently published agent-layer contour already includes:
 - the mechanics atlas under `mechanics/`
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
 - Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`
-- role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `docs/AGENT_STRESS_POSTURE.md`, `docs/AGENT_STRESS_HANDOFFS.md`, `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`, `docs/QUEST_EXECUTION_PASSPORT.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
+- role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`, `mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/alpha_reference_routes.min.json`
 
 The main near-term risk is roadmap drift: Codex subagent projection, stress
 adjuncts, quest capture, and Alpha readiness are already shipped surfaces and
@@ -96,13 +96,13 @@ The next unreleased agent-layer turn after `v0.2.3` is Wave I Agonic Actor
 Rechartering. Its checked surface is:
 
 - Wave I doctrine and landing docs:
-  `docs/AGONIC_ACTOR_RECHARTERING.md`,
-  `docs/AGON_WAVE1_LANDING.md`,
-  `docs/AGENT_KIND_MODEL.md`,
-  `docs/AGENT_SUBJECTIVITY_MODEL.md`,
-  `docs/AGENT_OFFICE_MODEL.md`,
-  `docs/AGENT_ARENA_ELIGIBILITY_MODEL.md`, and
-  `docs/AGENT_RESISTANCE_REVISION_POSTURE.md`
+  `mechanics/agon/parts/formation/docs/actor-rechartering.md`,
+  `mechanics/agon/parts/formation/docs/wave1-landing.md`,
+  `mechanics/agon/parts/formation/docs/kind-model.md`,
+  `mechanics/agon/parts/formation/docs/subjectivity-model.md`,
+  `mechanics/experience/parts/office-operations/docs/agent-office-model.md`,
+  `mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md`, and
+  `mechanics/agon/parts/formation/docs/resistance-revision-posture.md`
 - additive companion source surfaces:
   `agents/profiles/adjuncts/kind/*.kind.json`,
   `agents/profiles/adjuncts/subjectivity/*.subjectivity.json`,
@@ -134,15 +134,15 @@ The next unreleased follow-on turn after Wave I is Wave II Assistant Civil
 Rechartering. Its checked surface is:
 
 - Wave II doctrine and landing docs:
-  `docs/ASSISTANT_CIVIL_RECHARTERING.md`,
-  `docs/AGON_WAVE2_LANDING.md`,
-  `docs/ASSISTANT_KIND_MODEL.md`,
-  `docs/ASSISTANT_SERVICE_IDENTITY_MODEL.md`,
-  `docs/ASSISTANT_SERVICE_CONTRACT_MODEL.md`,
-  `docs/ASSISTANT_SERVICE_GOVERNANCE_MODEL.md`,
-  `docs/ASSISTANT_SERVICE_CERTIFICATION_MODEL.md`,
-  `docs/ASSISTANT_ARENA_EXCLUSION_MODEL.md`, and
-  `docs/ASSISTANT_ESCALATION_TO_AGON.md`
+  `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`,
+  `mechanics/agon/parts/formation/docs/wave2-landing.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/service-governance-model.md`,
+  `mechanics/experience/parts/assistant-civil-service/docs/service-certification-model.md`,
+  `mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md`, and
+  `mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md`
 - additive assistant companion source surfaces:
   `agents/profiles/adjuncts/assistant_variant/*.assistant.variant.json`,
   `agents/profiles/adjuncts/assistant_service_identity/*.assistant.identity.json`,
@@ -175,11 +175,11 @@ The next unreleased follow-on turn after Wave II is Wave II.5 Formation Trial.
 Its checked surface is:
 
 - Wave II.5 doctrine and landing docs:
-  `docs/AGENT_FORMATION_TRIAL.md`,
-  `docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md`,
-  `docs/FORMATION_TRIAL_READINESS.md`,
-  `docs/CODEX_PROJECTION_AGON_BOUNDARY.md`, and
-  `docs/AGON_WAVE2_5_LANDING.md`
+  `mechanics/agon/parts/formation/docs/formation-trial.md`,
+  `mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md`,
+  `mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md`,
+  `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, and
+  `mechanics/agon/parts/formation/docs/wave2-5-landing.md`
 - Wave II.5 companion contract and publication:
   `schemas/agent_formation_trial_v1.json`,
   `generated/agent_formation_trial.min.json`, and

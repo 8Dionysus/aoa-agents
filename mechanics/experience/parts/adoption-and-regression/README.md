@@ -1,10 +1,14 @@
 # Adoption And Regression Part
 
-This part routes adoption models, shared patterns, regression matrix, and
-canary probe pressure inside `mechanics/experience/`.
+This part routes `adoption-and-regression` pressure inside `mechanics/experience/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Adoption Posture Contract](docs/adoption-posture-contract.md)
+- [Assistant Adoption Regression Matrix](docs/adoption-regression-matrix.md)
+- [Assistant Canary Probes](docs/canary-probes.md)
+- [Assistant Pattern Adoption Runbook](docs/pattern-adoption-runbook.md)
+- [Assistant Regression Matrix](docs/regression-matrix.md)
+- [Assistant Shared Pattern Adoption](docs/shared-pattern-adoption.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

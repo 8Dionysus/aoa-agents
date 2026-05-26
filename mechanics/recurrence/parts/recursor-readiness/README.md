@@ -1,10 +1,12 @@
 # Recursor Readiness Part
 
-This part routes paired role and readiness posture inside
-`mechanics/recurrence/`.
+This part routes `recursor-readiness` pressure inside `mechanics/recurrence/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Recursor Agent Readiness](docs/recursor-agent-readiness.md)
+- [Recursor Executor Contract](docs/recursor-executor-contract.md)
+- [Recursor Pair Separation Law](docs/recursor-pair-separation-law.md)
+- [Recursor Witness Contract](docs/recursor-witness-contract.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

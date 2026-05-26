@@ -1,10 +1,9 @@
 # Reference Routes Part
 
-This part routes reference routes and alpha reference routes inside
-`mechanics/checkpoint/`.
+This part routes `reference-routes` pressure inside `mechanics/checkpoint/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Reference Route Examples](docs/reference-route-examples.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

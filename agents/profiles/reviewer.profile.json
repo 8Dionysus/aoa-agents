@@ -35,7 +35,7 @@
   "source_surfaces": [
     "repo:aoa-agents/docs/AGENT_MODEL.md",
     "repo:aoa-agents/docs/BOUNDARIES.md",
-    "repo:aoa-agents/docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+    "repo:aoa-agents/mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md"
   ],
   "memory_posture": "bounded_recall",
   "memory_rights": {

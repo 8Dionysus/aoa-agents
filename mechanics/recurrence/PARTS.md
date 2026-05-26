@@ -1,17 +1,15 @@
 # Recurrence Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `recursor-readiness` | paired role and readiness posture | `config/recursor_pair.seed.json`; `config/recursor_roles.seed.json`; `docs/RECURSOR_PAIR_READINESS.md`; `docs/RECURSOR_ROLES.md`; recursor schemas/examples |
-| `codex-recursor-projection` | projection of recursor posture into Codex-facing surfaces | `config/codex_recursor_projection.candidate.json`; `docs/CODEX_RECURSOR_PROJECTION.md`; generated recursor projection outputs |
-| `component-manifests` | recurrence component declarations and refresh posture | `manifests/recurrence/component.*.json`; recurrence manifest docs |
-| `anchor-return` | recurrence return and discipline route | `docs/RECURRENCE_DISCIPLINE.md`; `docs/RECURSOR_ANCHOR_RETURN.md` |
-| `agon-recursor-boundary` | Agon-facing recursor limits | `docs/AGON_RECURSOR_BOUNDARY.md`; `docs/AGON_RECURRENCE_ADAPTER.md`; cross-route to `mechanics/agon/` |
+| `agon-recursor-boundary` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `anchor-return` | [Recurrence Discipline](parts/anchor-return/docs/recurrence-discipline.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `codex-recursor-projection` | [Codex Recursor Projection Boundary](parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `component-manifests` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `recursor-readiness` | [Recursor Agent Readiness](parts/recursor-readiness/docs/recursor-agent-readiness.md)<br>[Recursor Executor Contract](parts/recursor-readiness/docs/recursor-executor-contract.md)<br>[Recursor Pair Separation Law](parts/recursor-readiness/docs/recursor-pair-separation-law.md)<br>[Recursor Witness Contract](parts/recursor-readiness/docs/recursor-witness-contract.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-Recurrence payloads are split across config, manifests, generated readers, and
-docs. Do not package-localize them until manifest validators and generated
-paths are updated together.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

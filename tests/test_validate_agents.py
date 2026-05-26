@@ -105,7 +105,7 @@ def write_valid_evals_root(root: Path) -> None:
     payload = {
         "artifact_contract_refs": [
             "repo:aoa-evals/generated/eval_catalog.min.json",
-            "repo:aoa-agents/docs/PUBLISHED_CONTRACT_COMPATIBILITY.md",
+            "repo:aoa-agents/mechanics/boundary-bridge/parts/published-compatibility/docs/published-contract-compatibility.md",
         ]
     }
     write_json(
@@ -118,7 +118,7 @@ def write_valid_current_evals_hook_root(root: Path) -> None:
     payload = {
         "artifact_contract_refs": [
             "repo:aoa-evals/generated/eval_catalog.min.json",
-            "repo:aoa-agents/docs/PUBLISHED_CONTRACT_COMPATIBILITY.md",
+            "repo:aoa-agents/mechanics/boundary-bridge/parts/published-compatibility/docs/published-contract-compatibility.md",
         ]
     }
     write_json(
@@ -138,7 +138,7 @@ def write_valid_memo_root(root: Path) -> None:
         root / "examples" / "checkpoint_to_memory_contract.example.json",
         {
             "artifact_refs": [
-                "repo:aoa-agents/docs/AGENT_RUNTIME_SEAM.md",
+                "repo:aoa-agents/mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
                 "repo:aoa-agents/generated/runtime_seam_bindings.json",
             ]
         },
@@ -1068,7 +1068,15 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         validate_agents.external_schema_validator.cache_clear()
         self.addCleanup(validate_agents.external_schema_validator.cache_clear)
         self.questbook_path = self.temp_dir / "QUESTBOOK.md"
-        self.passport_path = self.temp_dir / "docs" / "QUEST_EXECUTION_PASSPORT.md"
+        self.passport_path = (
+            self.temp_dir
+            / "mechanics"
+            / "questbook"
+            / "parts"
+            / "execution-passport"
+            / "docs"
+            / "quest-execution-passport.md"
+        )
         self.quests_dir = self.temp_dir / "quests"
         self.quest_catalog_path = self.temp_dir / "generated" / "quest_catalog.min.json"
         self.quest_catalog_example_path = self.temp_dir / "generated" / "quest_catalog.min.example.json"
@@ -1163,7 +1171,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                 "  mode: manual",
                 "anchor_ref:",
                 "  artifact: quest_execution_passport",
-                "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                 "handoff_role: agent-maintainer",
                 "evidence:",
                 "  - quest surface stays repo-local",
@@ -1286,7 +1294,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "  mode: manual",
                     "anchor_ref:",
                     "  artifact: quest_execution_passport",
-                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "handoff_role: agent-maintainer",
                     "evidence:",
                     "  - quest surface stays repo-local",
@@ -1352,7 +1360,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "  mode: manual",
                     "anchor_ref:",
                     "  artifact: quest_execution_passport",
-                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "handoff_role: agent-maintainer",
                     "evidence:",
                     "  - quest surface stays repo-local",
@@ -1388,7 +1396,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "title: Additive adjunct quest",
                     "summary: ''",
                     "repo: aoa-agents",
-                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "owner_surface: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "theme_ref: ''",
                     "milestone_ref: ''",
                     "kind: doctrine",
@@ -1413,7 +1421,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "  mode: manual",
                     "anchor_ref:",
                     "  artifact: quest_execution_passport",
-                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "handoff_role: agent-maintainer",
                     "evidence:",
                     "  - additive quest stays bounded",
@@ -1460,7 +1468,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "title: Additive adjunct quest",
                     "summary: ''",
                     "repo: aoa-routing",
-                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "owner_surface: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "theme_ref: ''",
                     "milestone_ref: ''",
                     "kind: doctrine",
@@ -1485,7 +1493,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "  mode: manual",
                     "anchor_ref:",
                     "  artifact: quest_execution_passport",
-                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "handoff_role: agent-maintainer",
                     "evidence:",
                     "  - additive quest stays bounded",
@@ -1515,7 +1523,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "title: Additive adjunct quest",
                     "summary: ''",
                     "repo: aoa-agents",
-                    "owner_surface: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "owner_surface: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "theme_ref: ''",
                     "milestone_ref: ''",
                     "kind: doctrine",
@@ -1540,7 +1548,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
                     "  mode: manual",
                     "anchor_ref:",
                     "  artifact: quest_execution_passport",
-                    "  ref: docs/QUEST_EXECUTION_PASSPORT.md",
+                    "  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
                     "handoff_role: agent-maintainer",
                     "evidence:",
                     "  - additive quest stays bounded",

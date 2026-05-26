@@ -29,7 +29,7 @@ activation:
   ref: AOA-AG-Q-0001
 anchor_ref:
   artifact: quest_execution_passport
-  ref: docs/QUEST_EXECUTION_PASSPORT.md
+  ref: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md
 handoff_role: agent-layer-maintainer
 evidence:
   - safe initial wrapper classes are named

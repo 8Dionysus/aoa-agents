@@ -1,10 +1,9 @@
 # Source Surface Registry Part
 
-This part routes source-surface ownership explanations inside
-`mechanics/boundary-bridge/`.
+This part routes `source-surface-registry` pressure inside `mechanics/boundary-bridge/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Registry Source Surfaces](docs/registry-source-surfaces.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

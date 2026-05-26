@@ -35,7 +35,7 @@
           "heading": "Verification and Escalation",
           "ordinal": 4,
           "summary": "Lists the verification anchors that keep the class compact and reviewable.",
-          "body": "Verify against: docs/QUEST_EXECUTION_PASSPORT.md#core-rule; docs/BOUNDARIES.md; docs/REGISTRY_SOURCE_SURFACES.md."
+          "body": "Verify against: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md#core-rule; docs/BOUNDARIES.md; mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md."
         }
       ]
     },
@@ -71,7 +71,7 @@
           "heading": "Verification and Escalation",
           "ordinal": 4,
           "summary": "Lists the verification anchors that keep the class compact and reviewable.",
-          "body": "Verify against: docs/QUEST_EXECUTION_PASSPORT.md#control-modes; docs/FEDERATION_CONSUMER_SEAMS.md; docs/RUNTIME_ARTIFACT_TRANSITIONS.md."
+          "body": "Verify against: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md#control-modes; mechanics/boundary-bridge/parts/federation-consumer-seams/docs/federation-consumer-seams.md; mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md."
         }
       ]
     },
@@ -107,7 +107,7 @@
           "heading": "Verification and Escalation",
           "ordinal": 4,
           "summary": "Lists the verification anchors that keep the class compact and reviewable.",
-          "body": "Verify against: docs/QUEST_EXECUTION_PASSPORT.md#difficulty-ladder; docs/AGENT_RUNTIME_SEAM.md; docs/RUNTIME_ARTIFACT_TRANSITIONS.md."
+          "body": "Verify against: mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md#difficulty-ladder; mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md; mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md."
         }
       ]
     }

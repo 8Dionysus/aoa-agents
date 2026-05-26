@@ -1,10 +1,7 @@
 # Assistant Projection Part
 
-This part routes assistant projection resolver and compatibility posture inside
-`mechanics/codex-projection/`.
+This part routes `assistant-projection` pressure inside `mechanics/codex-projection/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+No package-local docs moved into this part in the 2026-05-26 docs slice.
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

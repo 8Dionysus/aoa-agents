@@ -1,10 +1,9 @@
 # Reviewed Closeout Hold Part
 
-This part routes role holds before reviewed closeout promotes claims inside
-`mechanics/checkpoint/`.
+This part routes `reviewed-closeout-hold` pressure inside `mechanics/checkpoint/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Reviewed Closeout Role Posture Hold](docs/reviewed-closeout-role-posture-hold.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

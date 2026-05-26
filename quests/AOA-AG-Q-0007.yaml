@@ -3,7 +3,7 @@ id: AOA-AG-Q-0007
 title: Carry the workspace role-posture closeout candidate into bounded agent follow-through
 summary: Keep the reviewed role-posture candidate visible at the agent layer until it either lands as a bounded contract adjunct or is dismissed, without mutating source profiles into workflow canon.
 repo: aoa-agents
-owner_surface: docs/AGENT_RUNTIME_SEAM.md
+owner_surface: mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
 theme_ref: ''
 milestone_ref: ''
 kind: support
@@ -27,11 +27,11 @@ depends_on:
   - AOA-AG-Q-0003
 activation:
   mode: on_review_of
-  ref: docs/AGENT_RUNTIME_SEAM.md
+  ref: mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
   note: open when reviewed closeout says a role-posture unit survived donor harvest but does not yet justify profile mutation
 anchor_ref:
   artifact: agent_runtime_seam
-  ref: docs/AGENT_RUNTIME_SEAM.md
+  ref: mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
   note: role posture and handoff boundary must stay agent-layer meaning, not skill or playbook spillover
 handoff_role: agent-layer-maintainer
 evidence:
@@ -52,6 +52,6 @@ notes: >
   If a later run proves this is really progression doctrine or self-agent
   checkpoint policy, route it to the proper adjunct instead of widening
   profiles directly. Closed once
-  docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md preserved the role-posture
-  follow-through as a bounded adjunct beside docs/AGENT_RUNTIME_SEAM.md.
+  mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md preserved the role-posture
+  follow-through as a bounded adjunct beside mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md.
 public_safe: true

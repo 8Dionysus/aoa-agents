@@ -1,7 +1,9 @@
 # Codex Projection Legacy Index
 
-No raw Codex Projection receipts are preserved in this package yet.
+This index is for old-path lookup only. Current behavior lives in the active part route named in the table.
 
-Current root payload anchors are mapped in `../PARTS.md`; they are current
-owner-district payloads, not legacy payloads. When a later move changes an old
-path, add a row here mapping the former source to the new active part.
+| Former root path | Active part route | Status |
+| --- | --- | --- |
+| `docs/CODEX_PROJECTION_AGON_BOUNDARY.md` | [mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md](../parts/agon-boundary/docs/projection-agon-boundary.md) | moved into `agon-boundary` docs on 2026-05-26 |
+| `docs/CODEX_SUBAGENT_REFRESH_LAW.md` | [mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md](../parts/refresh-law/docs/subagent-refresh-law.md) | moved into `refresh-law` docs on 2026-05-26 |
+| `docs/CODEX_SUBAGENT_PROJECTION.md` | [mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md](../parts/subagent-projection/docs/subagent-projection.md) | moved into `subagent-projection` docs on 2026-05-26 |

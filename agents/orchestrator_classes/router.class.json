@@ -35,9 +35,9 @@
     "next_read_set"
   ],
   "verify_refs": [
-    "docs/QUEST_EXECUTION_PASSPORT.md#core-rule",
+    "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md#core-rule",
     "docs/BOUNDARIES.md",
-    "docs/REGISTRY_SOURCE_SURFACES.md"
+    "mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md"
   ],
   "boundary_note": "Router selects where to look next and may not mutate owner surfaces, widen scope silently, or let quests redefine its class identity."
 }

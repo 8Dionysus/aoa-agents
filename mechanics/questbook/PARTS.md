@@ -1,17 +1,15 @@
 # Questbook Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `execution-passport` | quest execution passport from the agent side | `docs/QUEST_EXECUTION_PASSPORT.md`; passport schemas/examples |
-| `quest-catalog` | quest source inventory and generated reader | `QUESTBOOK.md`; `quests/`; `generated/quest_catalog.min.json` |
-| `dispatch-reader` | generated quest dispatch posture | `generated/quest_dispatch.min.json`; quest dispatch schemas/examples |
-| `agon-quest-surfaces` | Agon-specific quest docs and quest ids | `quests/AOA-AG-Q-AGON-*.md`; cross-route to `mechanics/agon/` |
-| `alpha-reference-routes` | Alpha reference route examples that remain role-facing | `examples/alpha_reference_routes/`; related docs |
+| `agon-quest-surfaces` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `alpha-reference-routes` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `dispatch-reader` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `execution-passport` | [QUEST execution passport](parts/execution-passport/docs/quest-execution-passport.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `quest-catalog` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-Quest source files remain in `quests/` and `QUESTBOOK.md`. This package only
-names the operation route until quest validators understand package-local
-paths.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

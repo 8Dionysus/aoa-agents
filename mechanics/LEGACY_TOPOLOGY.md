@@ -20,19 +20,26 @@ or part.
 
 ## Local Rule For aoa-agents
 
-Most current `aoa-agents` mechanic payloads still live in root districts:
-`docs/`, `schemas/`, `examples/`, `agents/`, `config/`, `generated/`,
-`manifests/`, `quests/`, `scripts/`, and `tests/`.
+The 2026-05-26 docs landing moved mechanics-facing public docs from root
+`docs/` into active part-local docs under `mechanics/*/parts/*/docs/`.
 
-Those root payloads are not automatically legacy. They remain current
-source/support/generated districts until a package-local move changes their
-lookup topology.
+Former root doc paths are now legacy lookup facts, not active names. They are
+accounted for in the target package `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`. Raw legacy files are not invented; git history
+preserves the moved file bodies.
 
-For this slice:
+Other mechanic-adjacent payload classes still live in their owner districts:
+`schemas/`, `examples/`, `agents/`, `config/`, `generated/`, `manifests/`,
+`quests/`, `scripts/`, and `tests/`. They are not automatically legacy. They
+remain current source/support/generated/validation districts until a
+package-local move changes their lookup topology.
 
-- each mechanic package gets a `parts/` lower route;
-- each mechanic package gets a `PROVENANCE.md` bridge;
-- each mechanic package gets a `legacy/` scaffold;
+For this landing:
+
+- each mechanic package has a `parts/` lower route;
+- each mechanic package has one active `PROVENANCE.md` bridge;
+- each mechanic package has populated legacy lookup and distillation maps for
+  moved docs;
 - no raw legacy receipts are invented;
 - no payload is moved just because a filename matches a mechanic.
 

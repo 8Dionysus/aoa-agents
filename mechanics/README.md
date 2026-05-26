@@ -20,13 +20,14 @@ move pressure across those surfaces and keeps owner boundaries visible.
 | tools | repo validators and owning builders |
 | validation | `python scripts/validate_semantic_agents.py`, `python scripts/validate_nested_agents.py`, `python scripts/validate_agents.py` |
 
-## Active Package Skeleton
+## Active Package Map
 
-These packages are active route skeletons, not payload migrations. The root
-payloads stay under `docs/`, `schemas/`, `examples/`, `config/`, `generated/`,
-`scripts/`, `tests/`, `manifests/`, `quests/`, and `agents/` until a later
-slice gives a package-local contract and validator enough authority to move
-them.
+These packages are active route homes for mechanics. The 2026-05-26 landing
+moved mechanics-facing public docs out of root `docs/` and into part-local
+`mechanics/*/parts/*/docs/` routes. Other source, support, generated,
+validation, quest, manifest, schema, example, config, and agent-source payloads
+stay in their owning districts until a later slice gives them a package-local
+contract and validator route.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
@@ -41,20 +42,25 @@ them.
 | `rpg/` | progression, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
 | `antifragility/` | stress posture, via negativa, scar/adaptation docs, schemas, examples, tests | route failure-pressure learning and negative checks without becoming proof authority |
 | `boundary-bridge/` | federation seams, published contract compatibility, workspace trigger, source registries | route consumer handoff and cross-repo boundary pressure without becoming routing policy |
-| `release-support/` | `CHANGELOG.md`, `docs/RELEASING.md`, release checks and release-readiness docs | keep publication posture coherent without becoming CI or GitHub authority |
+| `release-support/` | `CHANGELOG.md`, `mechanics/release-support/parts/repo-release-gate/docs/releasing.md`, release checks and release-readiness docs | keep publication posture coherent without becoming CI or GitHub authority |
 
 ## Current Shape
 
 The first topology slice activated the mechanics atlas and moved agent source
-objects into `agents/`. This slice adds package skeletons for the mechanics that
-are already visible in root payload directories.
+objects into `agents/`. This landing turns the mechanics packages from empty
+route skeletons into active doc-bearing route homes:
 
-It deliberately still keeps large public docs, shared schemas, examples,
-scripts, tests, manifests, config seeds, quest files, and generated readers in
-their existing districts until each mechanic has a package-local contract and
-validator support. That keeps this move reviewable: `mechanics/` names the
-operation topology now; payload localization can happen later in smaller
-verified slices.
+- part-local docs live under `mechanics/*/parts/*/docs/`;
+- package `PARTS.md` files are the active part maps;
+- package `PROVENANCE.md` files are the only active bridge into old-path
+  accounting;
+- package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
+  former `docs/*` lookup map without duplicating active authority.
+
+Shared schemas, examples, scripts, tests, manifests, config seeds, quest files,
+agent source objects, and generated readers remain in their current owner
+districts until they receive their own package-local contract and validation
+coverage.
 
 ## Traversal
 

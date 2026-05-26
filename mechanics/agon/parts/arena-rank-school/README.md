@@ -1,10 +1,17 @@
 # Arena Rank School Part
 
-This part routes rank jurisdiction, school affiliation, campaign posture, and
-arena limits inside `mechanics/agon/`.
+This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Arena Eligibility Model](docs/arena-eligibility-model.md)
+- [Assistant Campaign Boundary](docs/assistant-campaign-boundary.md)
+- [Assistant Rank Boundary](docs/assistant-rank-boundary.md)
+- [Agent Kind Conflict Resolution](docs/kind-conflict-resolution.md)
+- [Agon Agent Rank Jurisdiction Surfaces](docs/rank-jurisdiction-surfaces.md)
+- [School Affiliation Boundary](docs/school-affiliation-boundary.md)
+- [Agent School / Campaign Posture](docs/school-campaign-posture.md)
+- [Wave XIV Agents Landing](docs/wave14-agents-landing.md)
+- [Wave XVI Agents Landing](docs/wave16-agents-landing.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -1,6 +1,6 @@
 # RPG Provenance Bridge
 
-`PROVENANCE.md` is the active-to-legacy bridge for this mechanic.
+`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
 
 Use active surfaces first:
 
@@ -8,9 +8,13 @@ Use active surfaces first:
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Progression, cohort, quest-readable status, and checkpoint-growth payload
-anchors remain in their current owner districts until a later package-local
-move.
+Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
 
-Open [legacy/README.md](legacy/README.md) only for old-route accounting,
-historical source lookup, or raw receipt intake.
+## 2026-05-26 Root Docs Move
+
+2 mechanics-facing docs moved from `docs/` into `rpg/parts/*/docs/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `docs/AGENT_COHORT_PATTERNS.md` | [parts/cohort-patterns/docs/cohort-patterns.md](parts/cohort-patterns/docs/cohort-patterns.md) | `cohort-patterns` |
+| `docs/AGENT_PROGRESSION_MODEL.md` | [parts/progression-model/docs/agent-progression-model.md](parts/progression-model/docs/agent-progression-model.md) | `progression-model` |

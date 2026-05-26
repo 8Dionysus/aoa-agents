@@ -1,10 +1,9 @@
 # Consumer Handoff Part
 
-This part routes consumers without taking stronger-owner authority inside
-`mechanics/boundary-bridge/`.
+This part routes `consumer-handoff` pressure inside `mechanics/boundary-bridge/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Cross Repo Adoption Readiness](docs/cross-repo-adoption-readiness.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

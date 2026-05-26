@@ -1,10 +1,9 @@
 # Anchor Return Part
 
-This part routes recurrence return and discipline inside
-`mechanics/recurrence/`.
+This part routes `anchor-return` pressure inside `mechanics/recurrence/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Recurrence Discipline](docs/recurrence-discipline.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

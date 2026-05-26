@@ -1,10 +1,9 @@
 # Subagent Projection Part
 
-This part routes source profile to generated Codex subagent projection inside
-`mechanics/codex-projection/`.
+This part routes `subagent-projection` pressure inside `mechanics/codex-projection/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Codex Subagent Projection](docs/subagent-projection.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -1,16 +1,15 @@
 # Boundary Bridge Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `federation-consumer-seams` | consumer seams and federation projection boundaries | `docs/FEDERATION_CONSUMER_SEAMS.md`; `docs/FEDERATION_PROJECTION_BOUNDARIES.md`; related schemas/examples |
-| `published-compatibility` | published contract and install compatibility from the agent side | `docs/PUBLISHED_CONTRACT_COMPATIBILITY.md`; `docs/INSTALL_COMPATIBILITY.md`; compatibility tests |
-| `workspace-trigger` | workspace surface trigger posture | `docs/WORKSPACE_SURFACE_TRIGGER_POSTURE.md`; generated surface readers if present |
-| `source-surface-registry` | explain which source surfaces own agent truth | `docs/REGISTRY_SOURCE_SURFACES.md`; generated registries |
-| `consumer-handoff` | route consumers without taking stronger-owner authority | `README.md`; `AGENTS.md`; `mechanics/ARTIFACT_TOPOLOGY.md` |
+| `consumer-handoff` | [Cross Repo Adoption Readiness](parts/consumer-handoff/docs/cross-repo-adoption-readiness.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `federation-consumer-seams` | [Federation Consumer Seams](parts/federation-consumer-seams/docs/federation-consumer-seams.md)<br>[Federation Projection Boundaries](parts/federation-consumer-seams/docs/federation-projection-boundaries.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `published-compatibility` | [Agent Install Compatibility](parts/published-compatibility/docs/install-compatibility.md)<br>[Published Contract Compatibility](parts/published-compatibility/docs/published-contract-compatibility.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `source-surface-registry` | [Registry Source Surfaces](parts/source-surface-registry/docs/registry-source-surfaces.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `workspace-trigger` | [Workspace Surface Trigger Posture](parts/workspace-trigger/docs/workspace-surface-trigger-posture.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-This package should mostly stay as a map. Boundary payloads often point out of
-`aoa-agents`; moving them inward can hide the stronger owner.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

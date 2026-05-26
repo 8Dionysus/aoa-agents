@@ -15,7 +15,7 @@ authority.
 | input | release, changelog, publishing, validation, compatibility, and release-hold pressure |
 | output | release-readiness route, validation checklist, compatibility handoff, or GitHub/CI handoff |
 | owner | this package for release-support routing |
-| next route | `PARTS.md`, `docs/RELEASING.md`, `CHANGELOG.md`, release checks |
+| next route | `PARTS.md`, `mechanics/release-support/parts/repo-release-gate/docs/releasing.md`, `CHANGELOG.md`, release checks |
 | validation | release check plus repo validators |
 
 ## Agent Layer Owns

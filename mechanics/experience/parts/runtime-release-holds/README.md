@@ -1,10 +1,15 @@
 # Runtime Release Holds Part
 
-This part routes service holds that affect runtime-facing assistant posture
-inside `mechanics/experience/`.
+This part routes `runtime-release-holds` pressure inside `mechanics/experience/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Assistant Compatibility Contract](docs/compatibility-contract.md)
+- [Assistant Live Service Contract](docs/live-service-contract.md)
+- [Assistant Release Candidate Model](docs/release-candidate-model.md)
+- [Assistant Release From Shared Pattern](docs/release-from-shared-pattern.md)
+- [Assistant Release Seal Compatibility](docs/release-seal-compatibility.md)
+- [Assistant Runtime Release Holds](docs/runtime-release-holds.md)
+- [Assistant Version Release Runbook](docs/version-release-runbook.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

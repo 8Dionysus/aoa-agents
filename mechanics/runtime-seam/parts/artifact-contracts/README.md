@@ -1,10 +1,9 @@
 # Artifact Contracts Part
 
-This part routes runtime artifact contract shape inside
-`mechanics/runtime-seam/`.
+This part routes `artifact-contracts` pressure inside `mechanics/runtime-seam/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Authority Claim Runtime](docs/authority-claim-runtime.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

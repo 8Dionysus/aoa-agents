@@ -10,8 +10,8 @@ Keep this subtree aligned with:
 
 - `schemas/self-agent-checkpoint.schema.json`
 - `schemas/self-agency-continuity-window.schema.json`
-- `docs/SELF_AGENT_CHECKPOINT_STACK.md`
-- `docs/SELF_AGENCY_CONTINUITY_LANE.md`
+- `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`
+- `mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md`
 - `checkpoint_cohort`
 
 ## Invalid fixtures

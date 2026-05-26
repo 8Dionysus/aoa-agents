@@ -1,7 +1,7 @@
 # Questbook Legacy Index
 
-No raw Questbook receipts are preserved in this package yet.
+This index is for old-path lookup only. Current behavior lives in the active part route named in the table.
 
-Current root payload anchors are mapped in `../PARTS.md`; they are current
-owner-district payloads, not legacy payloads. When a later move changes an old
-path, add a row here mapping the former source to the new active part.
+| Former root path | Active part route | Status |
+| --- | --- | --- |
+| `docs/QUEST_EXECUTION_PASSPORT.md` | [mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md](../parts/execution-passport/docs/quest-execution-passport.md) | moved into `execution-passport` docs on 2026-05-26 |

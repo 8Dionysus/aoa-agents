@@ -1,10 +1,10 @@
 # Published Compatibility Part
 
-This part routes published contract and install compatibility from the agent
-side inside `mechanics/boundary-bridge/`.
+This part routes `published-compatibility` pressure inside `mechanics/boundary-bridge/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Install Compatibility](docs/install-compatibility.md)
+- [Published Contract Compatibility](docs/published-contract-compatibility.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -15,15 +15,15 @@ class Wave2RouteSurfacesTestCase(unittest.TestCase):
     def test_readme_and_docs_map_route_wave2_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
-        subject_prep = read_text("docs/AGENT_SUBJECT_PREP.md")
-        kind_model = read_text("docs/AGENT_KIND_MODEL.md")
+        subject_prep = read_text("mechanics/agon/parts/formation/docs/subject-prep.md")
+        kind_model = read_text("mechanics/agon/parts/formation/docs/kind-model.md")
 
-        self.assertIn("docs/ASSISTANT_CIVIL_RECHARTERING.md", readme)
+        self.assertIn("mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md", readme)
         self.assertIn("generated/assistant_civil_formation_index.min.json", readme)
         self.assertIn("python scripts/validate_assistant_civil_formation.py", readme)
-        self.assertIn("ASSISTANT_CIVIL_RECHARTERING", docs_readme)
-        self.assertIn("ASSISTANT_SERVICE_CONTRACT_MODEL", docs_readme)
-        self.assertIn("ASSISTANT_ESCALATION_TO_AGON", docs_readme)
+        self.assertIn("Assistant Civil Rechartering", docs_readme)
+        self.assertIn("Assistant Service Contract Model", docs_readme)
+        self.assertIn("Assistant Escalation to Agon", docs_readme)
         self.assertIn("Wave II Assistant Civil Rechartering has now landed", subject_prep)
         self.assertIn("Assistant forms are now landed separately in Wave II", kind_model)
 

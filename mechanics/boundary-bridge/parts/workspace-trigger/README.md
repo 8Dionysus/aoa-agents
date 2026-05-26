@@ -1,10 +1,9 @@
 # Workspace Trigger Part
 
-This part routes workspace surface trigger posture inside
-`mechanics/boundary-bridge/`.
+This part routes `workspace-trigger` pressure inside `mechanics/boundary-bridge/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Workspace Surface Trigger Posture](docs/workspace-surface-trigger-posture.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

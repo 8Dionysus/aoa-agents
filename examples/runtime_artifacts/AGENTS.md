@@ -13,7 +13,7 @@ Each `*.example.json` should align with the corresponding `schemas/artifact.*.sc
 
 Keep examples phase-correct, minimal, and portable.
 Do not add tool wiring, transport envelopes, runtime logs, or vendor-specific fields.
-Keep coverage aligned with `docs/RUNTIME_ARTIFACT_TRANSITIONS.md` and `docs/AGENT_RUNTIME_SEAM.md`.
+Keep coverage aligned with `mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md` and `mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md`.
 
 ## Validation
 

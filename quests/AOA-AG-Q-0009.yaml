@@ -5,7 +5,7 @@ summary: Preserve the Agents-of-Abyss v0.4.0 closeout role-pressure candidate
   as agent-layer runtime-seam follow-through without mutating profiles,
   cohorts, or orchestrator classes from one center release.
 repo: aoa-agents
-owner_surface: docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md
+owner_surface: mechanics/checkpoint/parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md
 theme_ref: ''
 milestone_ref: ''
 kind: support
@@ -35,7 +35,7 @@ activation:
     contract change
 anchor_ref:
   artifact: reviewed_closeout_role_posture_hold
-  ref: docs/REVIEWED_CLOSEOUT_ROLE_POSTURE_HOLD.md
+  ref: mechanics/checkpoint/parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md
   note: role pressure should stay seam-bound until repeated reviewed evidence
     proves a profile, cohort, or orchestrator-class adjustment
 handoff_role: agent-layer-maintainer

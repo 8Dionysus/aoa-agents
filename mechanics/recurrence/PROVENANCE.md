@@ -1,6 +1,6 @@
 # Recurrence Provenance Bridge
 
-`PROVENANCE.md` is the active-to-legacy bridge for this mechanic.
+`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
 
 Use active surfaces first:
 
@@ -8,8 +8,17 @@ Use active surfaces first:
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Recursor docs, config, generated readers, manifests, scripts, and tests remain
-in their current owner districts until a later package-local move.
+Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
 
-Open [legacy/README.md](legacy/README.md) only for old-route accounting,
-historical source lookup, or raw receipt intake.
+## 2026-05-26 Root Docs Move
+
+6 mechanics-facing docs moved from `docs/` into `recurrence/parts/*/docs/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `docs/RECURRENCE_DISCIPLINE.md` | [parts/anchor-return/docs/recurrence-discipline.md](parts/anchor-return/docs/recurrence-discipline.md) | `anchor-return` |
+| `docs/CODEX_RECURSOR_PROJECTION_BOUNDARY.md` | [parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md](parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md) | `codex-recursor-projection` |
+| `docs/RECURSOR_AGENT_READINESS.md` | [parts/recursor-readiness/docs/recursor-agent-readiness.md](parts/recursor-readiness/docs/recursor-agent-readiness.md) | `recursor-readiness` |
+| `docs/RECURSOR_EXECUTOR_CONTRACT.md` | [parts/recursor-readiness/docs/recursor-executor-contract.md](parts/recursor-readiness/docs/recursor-executor-contract.md) | `recursor-readiness` |
+| `docs/RECURSOR_PAIR_SEPARATION_LAW.md` | [parts/recursor-readiness/docs/recursor-pair-separation-law.md](parts/recursor-readiness/docs/recursor-pair-separation-law.md) | `recursor-readiness` |
+| `docs/RECURSOR_WITNESS_CONTRACT.md` | [parts/recursor-readiness/docs/recursor-witness-contract.md](parts/recursor-readiness/docs/recursor-witness-contract.md) | `recursor-readiness` |

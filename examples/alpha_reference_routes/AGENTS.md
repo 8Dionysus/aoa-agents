@@ -12,7 +12,7 @@ not live logs, and not composition authority.
 
 - `schemas/alpha-reference-route.schema.json`
 - `generated/alpha_reference_routes.min.json`
-- `docs/REFERENCE_ROUTE_EXAMPLES.md`
+- `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`
 
 ## Editing posture
 

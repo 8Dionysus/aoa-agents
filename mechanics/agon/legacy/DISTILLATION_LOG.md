@@ -1,8 +1,14 @@
 # Agon Legacy Distillation Log
 
-## 2026-05-25 Parts And Legacy Scaffold
+## 2026-05-26 Root Docs To Active Parts
 
-Created active `parts/` route and legacy scaffold for Agon.
+Moved 33 mechanics-facing docs out of root `docs/` and into active part-local `docs/` directories. Git history preserves the verbatim file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 
-No raw files were copied into legacy. Current payload anchors remain in root
-districts and are routed through `../PARTS.md`.
+| Part | Moved docs |
+| --- | --- |
+| `adoption-retention` | 4 |
+| `arena-rank-school` | 9 |
+| `epistemic-actor` | 5 |
+| `formation` | 9 |
+| `pre-protocol-boundary` | 3 |
+| `recursor-boundary` | 3 |

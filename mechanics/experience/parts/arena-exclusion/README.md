@@ -1,10 +1,11 @@
 # Arena Exclusion Part
 
-This part routes civil assistant posture outside Agon contest lanes inside
-`mechanics/experience/`.
+This part routes `arena-exclusion` pressure inside `mechanics/experience/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Assistant Arena Exclusion Model](docs/arena-exclusion-model.md)
+- [Assistant Escalation to Agon](docs/escalation-to-agon.md)
+- [Assistant To Agonic Recharter Governance](docs/to-agonic-recharter-governance.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

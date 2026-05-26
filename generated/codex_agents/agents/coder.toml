@@ -52,7 +52,7 @@ MCP affinity
 Source surfaces
 - repo:aoa-agents/docs/AGENT_MODEL.md
 - repo:aoa-agents/docs/BOUNDARIES.md
-- repo:aoa-agents/docs/AGENT_RUNTIME_SEAM.md
+- repo:aoa-agents/mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md
 
 General discipline
 - Stay within role boundaries.

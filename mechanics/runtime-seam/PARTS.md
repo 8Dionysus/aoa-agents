@@ -1,16 +1,14 @@
 # Runtime Seam Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `role-tier-bindings` | source role bindings for the public runtime loop | `agents/runtime_seam/*.binding.json`; `agents/runtime_seam/AGENTS.md`; `generated/runtime_seam_bindings.json` |
-| `artifact-contracts` | contract shape for runtime artifacts | `docs/RUNTIME_ARTIFACTS.md`; `examples/runtime_artifacts/`; `schemas/runtime_artifacts/` |
-| `transition-discipline` | transition posture between runtime loop states | `docs/RUNTIME_ARTIFACT_TRANSITIONS.md`; `agents/runtime_seam/transition.binding.json` |
-| `published-registry` | generated readers for consumers | `generated/runtime_seam_bindings.json`; `scripts/runtime_seam_registry.py` |
+| `artifact-contracts` | [Agent Authority Claim Runtime](parts/artifact-contracts/docs/authority-claim-runtime.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `published-registry` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `role-tier-bindings` | [Agent Runtime Seam](parts/role-tier-bindings/docs/agent-runtime-seam.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `transition-discipline` | [Kind Safe Runtime Enforcement](parts/transition-discipline/docs/kind-safe-runtime-enforcement.md)<br>[Runtime Artifact Transitions](parts/transition-discipline/docs/runtime-artifact-transitions.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-The source bindings already live under `agents/runtime_seam/`. Shared runtime
-artifact schemas and examples stay in root districts until a package-local
-schema route preserves public compatibility.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

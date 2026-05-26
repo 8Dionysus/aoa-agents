@@ -35,11 +35,16 @@ Move a payload only when the target mechanic has:
 The first topology refactor moves the source-authored agent object districts
 under `agents/` and activates `mechanics/` as an operation atlas.
 
-The next slice adds package skeletons under `mechanics/` after a root payload
-sweep. It still does not move the flat public docs and shared contract
-artifacts into mechanic-local packages. Those moves should be smaller later
-slices, because many tests, validators, generated references, and public docs
-currently use the existing paths as contract anchors.
+The next slice added package skeletons under `mechanics/` after a root payload
+sweep.
+
+The 2026-05-26 docs landing moves mechanics-facing public docs into
+part-local `mechanics/*/parts/*/docs/` routes and updates legacy accounting for
+former `docs/*` paths. It does not move shared schemas, examples, scripts,
+tests, generated readers, manifests, quest files, config seeds, or agent source
+objects. Those payload classes remain current support/source/generated
+districts until a dedicated package-local contract and validator route make
+the move smaller and reviewable.
 
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.

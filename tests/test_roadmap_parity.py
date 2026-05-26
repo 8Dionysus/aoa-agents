@@ -12,7 +12,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
-        subject_prep = (REPO_ROOT / "docs" / "AGENT_SUBJECT_PREP.md").read_text(
+        subject_prep = (REPO_ROOT / "mechanics" / "agon" / "parts" / "formation" / "docs" / "subject-prep.md").read_text(
             encoding="utf-8"
         )
 
@@ -21,19 +21,19 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("v0.2.x", roadmap)
 
         for relative_path in (
-            "docs/CODEX_SUBAGENT_PROJECTION.md",
-            "docs/CODEX_SUBAGENT_REFRESH_LAW.md",
+            "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md",
+            "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md",
             "config/codex_subagent_wiring.v2.json",
             "generated/runtime_seam_bindings.json",
-            "docs/AGENT_STRESS_POSTURE.md",
-            "docs/AGENT_STRESS_HANDOFFS.md",
-            "docs/QUEST_EXECUTION_PASSPORT.md",
+            "mechanics/antifragility/parts/stress-posture/docs/stress-posture.md",
+            "mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md",
+            "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md",
             "generated/quest_catalog.min.json",
             "generated/quest_dispatch.min.json",
             "generated/alpha_reference_routes.min.json",
             "generated/codex_agents/config.subagents.generated.toml",
-            "docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md",
-            "docs/AGENT_SUBJECT_PREP.md",
+            "mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md",
+            "mechanics/agon/parts/formation/docs/subject-prep.md",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)
@@ -55,13 +55,13 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("explicit Wave I validation lane", roadmap)
 
         for relative_path in (
-            "docs/AGONIC_ACTOR_RECHARTERING.md",
-            "docs/AGON_WAVE1_LANDING.md",
-            "docs/AGENT_KIND_MODEL.md",
-            "docs/AGENT_SUBJECTIVITY_MODEL.md",
-            "docs/AGENT_OFFICE_MODEL.md",
-            "docs/AGENT_ARENA_ELIGIBILITY_MODEL.md",
-            "docs/AGENT_RESISTANCE_REVISION_POSTURE.md",
+            "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+            "mechanics/agon/parts/formation/docs/wave1-landing.md",
+            "mechanics/agon/parts/formation/docs/kind-model.md",
+            "mechanics/agon/parts/formation/docs/subjectivity-model.md",
+            "mechanics/experience/parts/office-operations/docs/agent-office-model.md",
+            "mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md",
+            "mechanics/agon/parts/formation/docs/resistance-revision-posture.md",
             "schemas/agent_kind_v1.json",
             "schemas/agent_subjectivity_v1.json",
             "schemas/agent_office_overlay_v1.json",
@@ -83,15 +83,15 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("explicit Wave II validation lane", roadmap)
 
         for relative_path in (
-            "docs/ASSISTANT_CIVIL_RECHARTERING.md",
-            "docs/AGON_WAVE2_LANDING.md",
-            "docs/ASSISTANT_KIND_MODEL.md",
-            "docs/ASSISTANT_SERVICE_IDENTITY_MODEL.md",
-            "docs/ASSISTANT_SERVICE_CONTRACT_MODEL.md",
-            "docs/ASSISTANT_SERVICE_GOVERNANCE_MODEL.md",
-            "docs/ASSISTANT_SERVICE_CERTIFICATION_MODEL.md",
-            "docs/ASSISTANT_ARENA_EXCLUSION_MODEL.md",
-            "docs/ASSISTANT_ESCALATION_TO_AGON.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
+            "mechanics/agon/parts/formation/docs/wave2-landing.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/service-governance-model.md",
+            "mechanics/experience/parts/assistant-civil-service/docs/service-certification-model.md",
+            "mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md",
+            "mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md",
             "schemas/assistant_variant_v1.json",
             "schemas/assistant_service_identity_v1.json",
             "schemas/assistant_service_contract_v1.json",
@@ -114,11 +114,11 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("explicit Wave II.5 validation lane", roadmap)
 
         for relative_path in (
-            "docs/AGENT_FORMATION_TRIAL.md",
-            "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
-            "docs/FORMATION_TRIAL_READINESS.md",
-            "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
-            "docs/AGON_WAVE2_5_LANDING.md",
+            "mechanics/agon/parts/formation/docs/formation-trial.md",
+            "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
+            "mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md",
+            "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
+            "mechanics/agon/parts/formation/docs/wave2-5-landing.md",
             "schemas/agent_formation_trial_v1.json",
             "generated/agent_formation_trial.min.json",
             "examples/agent_formation_trial.example.json",

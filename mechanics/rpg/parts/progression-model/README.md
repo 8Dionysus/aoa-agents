@@ -1,10 +1,9 @@
 # Progression Model Part
 
-This part routes agent progression and mastery posture inside
-`mechanics/rpg/`.
+This part routes `progression-model` pressure inside `mechanics/rpg/`.
 
-Current payload anchors remain in root districts and are listed in
-`../../PARTS.md`.
+## Active Docs
 
-Use parent validation in `../../README.md`. No payload is package-local here
-yet.
+- [Agent Progression Model](docs/agent-progression-model.md)
+
+Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

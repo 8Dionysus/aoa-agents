@@ -2,7 +2,7 @@
   "beacon_rules": [
     {
       "beacon_ref": "agon.agents.actor_readiness_regression",
-      "decision_surface": "docs/AGENT_FORMATION_TRIAL.md",
+      "decision_surface": "mechanics/agon/parts/formation/docs/formation-trial.md",
       "kind": "progression_evidence_candidate",
       "match_categories": [
         "evidence_pressure",
@@ -42,7 +42,7 @@
     },
     {
       "beacon_ref": "agon.agents.assistant_anti_drift_alarm",
-      "decision_surface": "docs/ASSISTANT_CIVIL_RECHARTERING.md",
+      "decision_surface": "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
       "kind": "overclaim_alarm",
       "match_categories": [
         "overclaim_risk"
@@ -90,30 +90,30 @@
       "required": true,
       "suggested_action": "observe",
       "suggested_commands": [],
-      "target": "docs/AGON_RECURRENCE_ADAPTER.md",
+      "target": "mechanics/agon/parts/recursor-boundary/docs/recurrence-adapter.md",
       "target_repo": "aoa-agents"
     }
   ],
   "contract_surfaces": [
-    "docs/AGONIC_ACTOR_RECHARTERING.md",
-    "docs/ASSISTANT_CIVIL_RECHARTERING.md",
-    "docs/AGENT_FORMATION_TRIAL.md",
-    "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
-    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
-    "docs/AGON_RECURRENCE_ADAPTER.md"
+    "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+    "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
+    "mechanics/agon/parts/formation/docs/formation-trial.md",
+    "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
+    "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
+    "mechanics/agon/parts/recursor-boundary/docs/recurrence-adapter.md"
   ],
   "decision_surfaces": [
-    "docs/AGONIC_ACTOR_RECHARTERING.md",
-    "docs/ASSISTANT_CIVIL_RECHARTERING.md"
+    "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+    "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md"
   ],
   "description": "Agonic actor, assistant civil, and formation-trial surfaces that future Agon must read without inventing actor ontology.",
   "documentation_surfaces": [
-    "docs/AGONIC_ACTOR_RECHARTERING.md",
-    "docs/ASSISTANT_CIVIL_RECHARTERING.md",
-    "docs/AGENT_FORMATION_TRIAL.md",
-    "docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md",
-    "docs/CODEX_PROJECTION_AGON_BOUNDARY.md",
-    "docs/AGON_RECURRENCE_ADAPTER.md"
+    "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+    "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
+    "mechanics/agon/parts/formation/docs/formation-trial.md",
+    "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
+    "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
+    "mechanics/agon/parts/recursor-boundary/docs/recurrence-adapter.md"
   ],
   "drift_signals": [
     {
@@ -175,8 +175,8 @@
     }
   ],
   "rollback_anchors": [
-    "docs/AGONIC_ACTOR_RECHARTERING.md",
-    "docs/ASSISTANT_CIVIL_RECHARTERING.md"
+    "mechanics/agon/parts/formation/docs/actor-rechartering.md",
+    "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md"
   ],
   "schema_version": "aoa_recurrence_component_v2",
   "signal_edges": [

@@ -1,18 +1,16 @@
 # Checkpoint Parts
 
-## Current Parts
+Parts are the active execution map for this mechanic. Each part lists package-local docs first, then any source/support surfaces that still live in their owning districts.
 
-| Part | Operation | Current payload anchors |
+| Part | Active package docs | Support surfaces |
 | --- | --- | --- |
-| `self-agent-checkpoint` | self-agent posture, checkpoint schema, and example route | `docs/SELF_AGENT_CHECKPOINT.md`; `examples/self_agent_checkpoint/`; `schemas/self_agent_checkpoint/` |
-| `continuity-lane` | agent continuity without claiming durable memory truth | `docs/AGENT_CONTINUITY.md`; continuity examples and schemas |
-| `reviewed-closeout-hold` | role hold before reviewed closeout promotes memory, quest, or progression claims | reviewed closeout docs/examples; checkpoint note route surfaces |
-| `reference-routes` | reference routes and alpha reference routes as checkpoint-readable surfaces | `examples/reference_routes/`; `examples/alpha_reference_routes/`; related docs |
-| `growth-checkpoint` | checkpoint-facing progression and growth posture | `docs/WORKSPACE_CHECKPOINT_GROWTH_ROLE_POSTURE.md`; `agents/cohort_patterns/checkpoint_cohort.pattern.json`; cross-route to `mechanics/rpg/` |
-| `stress-handoff` | stress posture where checkpoint needs reviewable survival boundaries | `docs/AGENT_STRESS_POSTURE.md`; `examples/agent_stress_posture.example.json`; cross-route to `mechanics/antifragility/` |
+| `continuity-lane` | [Self-Agency Continuity Lane](parts/continuity-lane/docs/self-agency-continuity-lane.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `growth-checkpoint` | [Workspace checkpoint-growth role posture](parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `reference-routes` | [Reference Route Examples](parts/reference-routes/docs/reference-route-examples.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `reviewed-closeout-hold` | [Reviewed Closeout Role Posture Hold](parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `self-agent-checkpoint` | [Self-Agent Checkpoint Stack](parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md)<br>[Self Recharter Runtime Block](parts/self-agent-checkpoint/docs/self-recharter-runtime-block.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `stress-handoff` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Move Posture
+## Legacy Bridge
 
-Checkpoint files are intentionally split between docs, examples, schemas, and
-cohort source objects. Do not collapse them into this package until memory,
-proof, and playbook stop-lines are covered by validators.
+Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.

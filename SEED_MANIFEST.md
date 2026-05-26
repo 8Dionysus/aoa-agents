@@ -16,11 +16,11 @@ Merge the contents of `repo/` into the root of `aoa-agents`.
 ## Added surfaces
 
 ```text
-docs/AGENT_FORMATION_TRIAL.md
-docs/AGON_PRE_PROTOCOL_AGENT_BOUNDARY.md
-docs/FORMATION_TRIAL_READINESS.md
-docs/CODEX_PROJECTION_AGON_BOUNDARY.md
-docs/AGON_WAVE2_5_LANDING.md
+mechanics/agon/parts/formation/docs/formation-trial.md
+mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md
+mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md
+mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md
+mechanics/agon/parts/formation/docs/wave2-5-landing.md
 schemas/agent_formation_trial_v1.json
 generated/agent_formation_trial.min.json
 scripts/build_agent_formation_trial.py

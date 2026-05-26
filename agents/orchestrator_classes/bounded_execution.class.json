@@ -35,9 +35,9 @@
     "transition_decision"
   ],
   "verify_refs": [
-    "docs/QUEST_EXECUTION_PASSPORT.md#difficulty-ladder",
-    "docs/AGENT_RUNTIME_SEAM.md",
-    "docs/RUNTIME_ARTIFACT_TRANSITIONS.md"
+    "mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md#difficulty-ladder",
+    "mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
+    "mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md"
   ],
   "boundary_note": "Bounded execution is the smallest-correct-step class: it must stay inside named owner boundaries, must not widen the route silently, and must not override review."
 }
