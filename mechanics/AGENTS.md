@@ -77,6 +77,9 @@ Read:
 - Mechanics-facing public docs live in part-local `mechanics/*/parts/*/docs/`
   once moved; root `docs/` keeps only broader docs-surface entrypoints and
   non-mechanic conceptual models.
+- Mechanic-specific seeds, wiring, and recurrence component manifests live in
+  part-local routes once moved; root-level districts keep only payloads that
+  still have stronger shared ownership.
 - Generated companions stay weaker than builders and source surfaces.
 - `legacy/` preserves lineage and path accounting; it is not the default route
   for current edits.
@@ -95,8 +98,9 @@ A new child mechanic should appear only when it has:
 - a decision or explicit route note when it changes repository topology
 
 The current child packages own route maps, part maps, and migrated
-mechanics-facing docs. Other root-district payload classes move only after
-their package-local contract and validation route are explicit.
+mechanics-facing docs, config seeds, and recurrence component manifests. Other
+root-district payload classes move only after their package-local contract and
+validation route are explicit.
 
 ## Validation
 

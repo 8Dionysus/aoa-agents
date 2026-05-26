@@ -12,3 +12,4 @@ validator route, or workflow boundary changed.
 - [2026-05-25: mechanics package skeleton](2026-05-25-mechanics-package-skeleton.md)
 - [2026-05-26: mechanics docs part localization](2026-05-26-mechanics-docs-part-localization.md)
 - [2026-05-26: mechanics config localization](2026-05-26-mechanics-config-localization.md)
+- [2026-05-26: recurrence component manifest localization](2026-05-26-recurrence-component-manifest-localization.md)

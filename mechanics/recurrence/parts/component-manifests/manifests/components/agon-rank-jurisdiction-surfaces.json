@@ -1,5 +1,5 @@
 {
-  "component_id": "component:agon.agent-rank-jurisdiction-surfaces",
+  "component_id": "component:agon:rank-jurisdiction-surfaces",
   "hidden_scheduler_allowed": false,
   "observes": [
     "generated/agon_agent_rank_jurisdiction_registry.min.json",

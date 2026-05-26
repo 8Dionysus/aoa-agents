@@ -18,7 +18,7 @@ root district before the 2026-05-26 docs landing:
 | `scripts/` | 53 | builders and validators for formation, projection, Titan, recurrence, runtime, release |
 | `generated/` | 36 | derived registries, indexes, Codex projections, quest/read-model companions |
 | `quests/` | 20 | quest-facing role posture and Agon quest surfaces |
-| `manifests/` | 11 | recurrence and projection component manifests |
+| `manifests/` | 11 | recurrence and projection component manifests; localized to the recurrence `component-manifests` part on 2026-05-26 |
 | `config/` | 11 | Agon, recursor, Codex, and Titan source seeds; localized to part-level config routes on 2026-05-26 |
 | `memo/` | 9 | local memory port; route only, not mechanic authority |
 | `mechanics/` | 3 | prior atlas-only skeleton |
@@ -86,6 +86,11 @@ own move proof before leaving their current owner districts.
 The config localization satisfies that rule for mechanic-specific source seed
 and wiring payloads by moving them into part-local `config/` directories with
 active config README cards, updated builders/validators, and package
-provenance maps. Shared schemas, examples, scripts, tests, generated readers,
-manifests, quest files, and source agent objects remain in their current
-districts until their own move proof exists.
+provenance maps.
+
+The manifest localization satisfies that rule for recurrence component and
+hook manifests by moving them into the `component-manifests` part with an
+active manifest route card and `validate_recurrence_component_manifests.py`.
+Shared schemas, examples, scripts, tests, generated readers, quest files, and
+source agent objects remain in their current districts until their own move
+proof exists.

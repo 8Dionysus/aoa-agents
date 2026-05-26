@@ -12,6 +12,7 @@
     }
   ],
   "hidden_scheduler_allowed": false,
-  "hook_binding_set_id": "hooks:agon.agent-rank-jurisdiction-surfaces",
+  "hook_binding_set_id": "hooks:agon:rank-jurisdiction-surfaces",
+  "observes_component": "component:agon:rank-jurisdiction-surfaces",
   "wave": "XIV"
 }

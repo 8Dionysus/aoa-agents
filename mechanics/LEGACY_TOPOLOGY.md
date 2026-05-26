@@ -34,18 +34,24 @@ wiring payloads from root `config/` into active part-local config under
 facts and are accounted for in the target package `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
+The 2026-05-26 manifest localization moved recurrence component and hook
+manifests from root `manifests/` into active part-local manifests under
+`mechanics/recurrence/parts/component-manifests/manifests/`. Former root
+manifest paths are now legacy lookup facts and are accounted for in recurrence
+`PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-`schemas/`, `examples/`, `agents/`, `generated/`, `manifests/`, `quests/`,
-`scripts/`, and `tests/`. They are not automatically legacy. They remain
-current source/support/generated/validation districts until a package-local
-move changes their lookup topology.
+`schemas/`, `examples/`, `agents/`, `generated/`, `quests/`, `scripts/`, and
+`tests/`. They are not automatically legacy. They remain current
+source/support/generated/validation districts until a package-local move
+changes their lookup topology.
 
 For this landing:
 
 - each mechanic package has a `parts/` lower route;
 - each mechanic package has one active `PROVENANCE.md` bridge;
 - each mechanic package has populated legacy lookup and distillation maps for
-  moved docs;
+  moved payloads;
 - no raw legacy receipts are invented;
 - no payload is moved just because a filename matches a mechanic.
 

@@ -53,6 +53,12 @@ card and validator route. Root `config/` remains reserved for future
 repository-level config; it is not the active home for Agon, recurrence, Codex
 projection, or Titan mechanic seeds.
 
+The 2026-05-26 manifest localization moves recurrence component and hook
+manifests from root `manifests/` into
+`mechanics/recurrence/parts/component-manifests/manifests/` after adding a
+manifest validator. Root `manifests/` is not the active owner for recurrence
+component declarations.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
