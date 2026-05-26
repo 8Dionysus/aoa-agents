@@ -12,7 +12,7 @@
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/PAYLOAD_RECON.md",
     "scripts/validate_reference_route_contracts.py",
-    "generated/alpha_reference_routes.min.json"
+    "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/a80c67e",
