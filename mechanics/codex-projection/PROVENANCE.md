@@ -40,3 +40,12 @@ public contract identifiers, not active repo paths.
 | `schemas/assistant-projection-resolver.schema.json` | [parts/assistant-projection/schemas/assistant-projection-resolver.schema.json](parts/assistant-projection/schemas/assistant-projection-resolver.schema.json) | `assistant-projection` |
 | `schemas/assistant_projection_resolver_v1.json` | [parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json](parts/assistant-projection/schemas/assistant-projection-resolver-v1.schema.json) | `assistant-projection` |
 | `examples/assistant_projection_resolver.example.json` | [parts/assistant-projection/examples/assistant-projection-resolver.example.json](parts/assistant-projection/examples/assistant-projection-resolver.example.json) | `assistant-projection` |
+
+## 2026-05-26 Refresh Law Example Move
+
+1 refresh-law route example moved from root `examples/` into
+`codex-projection/parts/refresh-law/examples/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `examples/subagent_projection_refresh_law.example.json` | [parts/refresh-law/examples/subagent-refresh-law.example.json](parts/refresh-law/examples/subagent-refresh-law.example.json) | `refresh-law` |

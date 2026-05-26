@@ -6,7 +6,16 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXAMPLE_PATH = REPO_ROOT / "examples" / "subagent_projection_refresh_law.example.json"
+EXAMPLE_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "refresh-law"
+    / "examples"
+    / "subagent-refresh-law.example.json"
+)
+FORMER_EXAMPLE_PATH = REPO_ROOT / "examples" / ("subagent" + "_projection_refresh_law.example.json")
 ALLOWED_ROUTE_CLASSES = {
     "observe",
     "revalidate",
@@ -53,6 +62,7 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
             self.assertIn(token, law)
 
     def test_projection_refresh_example_tracks_live_surfaces(self) -> None:
+        self.assertFalse(FORMER_EXAMPLE_PATH.exists())
         payload = _load_json(EXAMPLE_PATH)
 
         self.assertEqual(payload["schema_version"], "aoa_component_refresh_law_v1")

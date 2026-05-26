@@ -150,11 +150,16 @@ Wave II assistant civil schemas/examples by placing service contracts under
 `mechanics/experience/parts/arena-exclusion/schemas/`, and adding
 `scripts/validate_experience_assistant_civil_contracts.py`.
 
+The Codex refresh-law example localization satisfies that rule for the Codex
+projection refresh route example by placing it under
+`mechanics/codex-projection/parts/refresh-law/examples/` and adding
+`scripts/validate_codex_refresh_law_contracts.py`.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil schemas,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil examples,
+non-Experience-assistant-civil, non-Codex-refresh-law examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

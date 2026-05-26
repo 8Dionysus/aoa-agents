@@ -133,6 +133,11 @@ active `mechanics/experience/parts/assistant-civil-service/` and
 part-local validator. Stable schema `$id` values remain public contract
 identifiers, not active repo paths.
 
+The 2026-05-26 Codex refresh-law example localization moves the Codex
+subagent projection refresh-law example from root `examples/` into active
+`mechanics/codex-projection/parts/refresh-law/examples/` after adding a
+part-local validator.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
