@@ -31,4 +31,9 @@ This part routes `recursor-readiness` pressure inside `mechanics/recurrence/`.
 - [Executor Receipt Example](examples/executor-receipt.example.json)
 - [Example Route](examples/README.md)
 
+## Active Generated
+
+- [Role Readiness Reader](generated/role-readiness.min.json)
+- [Pair Contract Reader](generated/pair-contract.min.json)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

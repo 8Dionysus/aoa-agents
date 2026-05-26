@@ -8,7 +8,7 @@ This seed may publish:
 
 ```text
 mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json
-generated/recursor_projection_candidates.min.json
+mechanics/recurrence/parts/codex-recursor-projection/generated/projection-candidates.min.json
 ```
 
 It must not mutate:

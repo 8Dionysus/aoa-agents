@@ -44,3 +44,15 @@ lookup.
 | Part | Moved manifest files |
 | --- | ---: |
 | `component-manifests` | 11 |
+
+## 2026-05-26 Root Recursor Generated Readers To Active Parts
+
+Moved 4 recursor generated readers out of root `generated/` and into active
+part-local `generated/` directories. Git history preserves the verbatim reader
+payloads; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved generated readers |
+| --- | ---: |
+| `agon-recursor-boundary` | 1 |
+| `codex-recursor-projection` | 1 |
+| `recursor-readiness` | 2 |

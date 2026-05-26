@@ -187,6 +187,12 @@ part-local config, schemas, and examples they summarize and teaching the
 dedicated builders, validators, component manifests, and tests the part-local
 routes plus former-root absence.
 
+The recursor generated reader localization satisfies that rule for Recurrence
+derived readers by placing readiness, pair, projection, and boundary readers
+next to the part-local config/schema/example surfaces they summarize and
+teaching the recursor builders, validators, component manifests, and tests the
+part-local routes plus former-root absence.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,

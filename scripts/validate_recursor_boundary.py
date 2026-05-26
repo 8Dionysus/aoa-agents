@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from _recursor_common import ROOT, build_boundary_report, min_json
+from _recursor_common import RECURSOR_BOUNDARY_GENERATED_ROOT, ROOT, build_boundary_report, min_json
 
 
 def main(argv=None) -> int:
@@ -14,7 +14,7 @@ def main(argv=None) -> int:
 
     report = build_boundary_report(ROOT)
     if args.write:
-        min_json(ROOT / "generated" / "recursor_agon_boundary_report.min.json", report)
+        min_json(RECURSOR_BOUNDARY_GENERATED_ROOT / "boundary-report.min.json", report)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     else:

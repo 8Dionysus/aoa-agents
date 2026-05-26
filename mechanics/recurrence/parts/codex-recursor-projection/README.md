@@ -16,4 +16,8 @@ This part routes `codex-recursor-projection` pressure inside `mechanics/recurren
 - [Projection Candidate Schema](schemas/projection-candidate.schema.json)
 - [Schema Route](schemas/README.md)
 
+## Active Generated
+
+- [Projection Candidates Reader](generated/projection-candidates.min.json)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

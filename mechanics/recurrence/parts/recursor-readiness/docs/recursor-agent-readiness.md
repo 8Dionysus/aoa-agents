@@ -49,10 +49,10 @@ This seed only uses `candidate`.
 ## Required generated surfaces
 
 ```text
-generated/recursor_role_readiness.min.json
-generated/recursor_pair_contract.min.json
-generated/recursor_projection_candidates.min.json
-generated/recursor_agon_boundary_report.min.json
+mechanics/recurrence/parts/recursor-readiness/generated/role-readiness.min.json
+mechanics/recurrence/parts/recursor-readiness/generated/pair-contract.min.json
+mechanics/recurrence/parts/codex-recursor-projection/generated/projection-candidates.min.json
+mechanics/recurrence/parts/agon-recursor-boundary/generated/boundary-report.min.json
 ```
 
 ## Future handoff

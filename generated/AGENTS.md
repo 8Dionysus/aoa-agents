@@ -29,6 +29,9 @@ because it is derived only from that part's examples.
 Agon rank/school/epistemic readers live under
 `mechanics/agon/parts/*/generated/` because they are derived from Agon
 part-local seed/config surfaces.
+Recursor readiness, pair, projection, and boundary readers live under
+`mechanics/recurrence/parts/*/generated/` because they are derived from
+Recurrence part-local seed/config and contract surfaces.
 
 ## Source layers
 
@@ -56,6 +59,10 @@ For the Alpha reference-route generated reader, use
 For Agon rank/school/epistemic generated readers, use their dedicated
 `scripts/build_agon_*.py` builders; the outputs are part-local under the
 owning Agon parts.
+For recursor generated readers, use `scripts/build_recursor_role_readiness.py`,
+`scripts/build_recursor_projection_candidates.py`, and
+`scripts/validate_recursor_boundary.py`; the outputs are part-local under the
+owning Recurrence parts.
 For `generated/agent_agonic_formation_index.min.json`, use
 `scripts/build_agent_agonic_formation_index.py` as the canonical builder and
 `scripts/validate_agent_agonic_formation.py` as the explicit Wave I validator.

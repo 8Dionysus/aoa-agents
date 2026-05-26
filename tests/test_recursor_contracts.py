@@ -31,7 +31,21 @@ def test_recursor_contracts_are_part_local() -> None:
         Path("schemas") / ("recursor-" + "boundary-report.v1.schema.json"),
         Path("examples") / ("recursor" + "_session_intent.example.json"),
         Path("examples") / ("recursor" + "_boundary_report.example.json"),
+        Path("generated") / ("recursor" + "_role_readiness.min.json"),
+        Path("generated") / ("recursor" + "_pair_contract.min.json"),
+        Path("generated") / ("recursor" + "_projection_candidates.min.json"),
+        Path("generated") / ("recursor" + "_agon_boundary_report.min.json"),
     )
 
     for relative_path in former_paths:
         assert not (ROOT / relative_path).exists()
+
+    active_paths = (
+        Path("mechanics/recurrence/parts/recursor-readiness/generated/role-readiness.min.json"),
+        Path("mechanics/recurrence/parts/recursor-readiness/generated/pair-contract.min.json"),
+        Path("mechanics/recurrence/parts/codex-recursor-projection/generated/projection-candidates.min.json"),
+        Path("mechanics/recurrence/parts/agon-recursor-boundary/generated/boundary-report.min.json"),
+    )
+
+    for relative_path in active_paths:
+        assert (ROOT / relative_path).is_file()

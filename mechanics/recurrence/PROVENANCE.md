@@ -71,3 +71,15 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `manifests/recurrence/hooks/component.agon.agent-rank-jurisdiction-surfaces.hooks.json` | [parts/component-manifests/manifests/hooks/agon-rank-jurisdiction-surfaces.json](parts/component-manifests/manifests/hooks/agon-rank-jurisdiction-surfaces.json) | `component-manifests` |
 | `manifests/recurrence/hooks/component.agon.epistemic-actor-posture.hooks.json` | [parts/component-manifests/manifests/hooks/agon-epistemic-actor-posture.json](parts/component-manifests/manifests/hooks/agon-epistemic-actor-posture.json) | `component-manifests` |
 | `manifests/recurrence/hooks/component.agon.wave16.aoa_agents.hooks.json` | [parts/component-manifests/manifests/hooks/agon-school-campaign-posture.json](parts/component-manifests/manifests/hooks/agon-school-campaign-posture.json) | `component-manifests` |
+
+## 2026-05-26 Root Recursor Generated Reader Move
+
+4 recursor generated readers moved from root `generated/` into recurrence
+part-local generated routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `generated/recursor_role_readiness.min.json` | [parts/recursor-readiness/generated/role-readiness.min.json](parts/recursor-readiness/generated/role-readiness.min.json) | `recursor-readiness` |
+| `generated/recursor_pair_contract.min.json` | [parts/recursor-readiness/generated/pair-contract.min.json](parts/recursor-readiness/generated/pair-contract.min.json) | `recursor-readiness` |
+| `generated/recursor_projection_candidates.min.json` | [parts/codex-recursor-projection/generated/projection-candidates.min.json](parts/codex-recursor-projection/generated/projection-candidates.min.json) | `codex-recursor-projection` |
+| `generated/recursor_agon_boundary_report.min.json` | [parts/agon-recursor-boundary/generated/boundary-report.min.json](parts/agon-recursor-boundary/generated/boundary-report.min.json) | `agon-recursor-boundary` |

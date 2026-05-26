@@ -10,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RECURSOR_READINESS_CONFIG_ROOT = (
     ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "config"
 )
+RECURSOR_READINESS_GENERATED_ROOT = (
+    ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "generated"
+)
 RECURSOR_PROJECTION_CONFIG = (
     ROOT
     / "mechanics"
@@ -18,6 +21,17 @@ RECURSOR_PROJECTION_CONFIG = (
     / "codex-recursor-projection"
     / "config"
     / "projection-candidate.json"
+)
+RECURSOR_PROJECTION_GENERATED_ROOT = (
+    ROOT
+    / "mechanics"
+    / "recurrence"
+    / "parts"
+    / "codex-recursor-projection"
+    / "generated"
+)
+RECURSOR_BOUNDARY_GENERATED_ROOT = (
+    ROOT / "mechanics" / "recurrence" / "parts" / "agon-recursor-boundary" / "generated"
 )
 
 REQUIRED_FORBIDDEN = {
