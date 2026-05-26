@@ -133,8 +133,14 @@ schemas/examples by splitting them into `recursor-readiness`,
 `codex-recursor-projection`, and `agon-recursor-boundary` parts and adding
 `scripts/validate_recursor_contracts.py`.
 
-Shared remaining non-Titan, non-runtime-artifact, non-checkpoint, and
-non-recursor schemas, remaining non-Titan, non-runtime-artifact,
-non-checkpoint, and non-recursor examples,
+The Agon rank/epistemic contract localization satisfies that rule for
+candidate-only rank, school/campaign, and epistemic actor schemas/examples by
+splitting them into `arena-rank-school` and `epistemic-actor` parts and adding
+`scripts/validate_agon_rank_epistemic_contracts.py`.
+
+Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
+non-recursor, and non-Agon-rank/epistemic schemas, remaining non-Titan,
+non-runtime-artifact, non-checkpoint, non-recursor, and
+non-Agon-rank/epistemic examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

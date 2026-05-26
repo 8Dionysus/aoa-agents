@@ -12,8 +12,9 @@ from jsonschema import Draft202012Validator
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / 'mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json'
 OUT = ROOT / 'generated/agon_agent_school_campaign_posture_registry.min.json'
-ENTRY_SCHEMA = ROOT / 'schemas' / 'agon-agent-school-campaign-posture.schema.json'
-REGISTRY_SCHEMA = ROOT / 'schemas' / 'agon-agent-school-campaign-posture-registry.schema.json'
+SCHEMA_DIR = ROOT / 'mechanics' / 'agon' / 'parts' / 'arena-rank-school' / 'schemas'
+ENTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture.schema.json'
+REGISTRY_SCHEMA = SCHEMA_DIR / 'school-campaign-posture-registry.schema.json'
 BUILDER = ROOT / 'scripts' / 'build_agon_agent_school_campaign_posture_registry.py'
 ITEM_KEY = 'agent_school_campaign_postures'
 EXPECTED_COUNT = 10

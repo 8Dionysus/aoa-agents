@@ -60,3 +60,20 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `config/agon_agent_rank_jurisdiction.seed.json` | [parts/arena-rank-school/config/rank-jurisdiction.seed.json](parts/arena-rank-school/config/rank-jurisdiction.seed.json) | `arena-rank-school` |
 | `config/agon_agent_school_campaign_posture.seed.json` | [parts/arena-rank-school/config/school-campaign-posture.seed.json](parts/arena-rank-school/config/school-campaign-posture.seed.json) | `arena-rank-school` |
 | `config/agon_epistemic_actor_posture.seed.json` | [parts/epistemic-actor/config/posture.seed.json](parts/epistemic-actor/config/posture.seed.json) | `epistemic-actor` |
+
+## 2026-05-26 Root Agon Rank/Epistemic Contract Move
+
+6 Agon rank, school, and epistemic actor schemas plus 3 examples moved from
+root `schemas/` and `examples/` into active Agon part-local contract routes.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/agon-agent-rank-jurisdiction.schema.json` | [parts/arena-rank-school/schemas/rank-jurisdiction.schema.json](parts/arena-rank-school/schemas/rank-jurisdiction.schema.json) | `arena-rank-school` |
+| `schemas/agon-agent-rank-jurisdiction-registry.schema.json` | [parts/arena-rank-school/schemas/rank-jurisdiction-registry.schema.json](parts/arena-rank-school/schemas/rank-jurisdiction-registry.schema.json) | `arena-rank-school` |
+| `schemas/agon-agent-school-campaign-posture.schema.json` | [parts/arena-rank-school/schemas/school-campaign-posture.schema.json](parts/arena-rank-school/schemas/school-campaign-posture.schema.json) | `arena-rank-school` |
+| `schemas/agon-agent-school-campaign-posture-registry.schema.json` | [parts/arena-rank-school/schemas/school-campaign-posture-registry.schema.json](parts/arena-rank-school/schemas/school-campaign-posture-registry.schema.json) | `arena-rank-school` |
+| `schemas/agon-epistemic-actor-posture.schema.json` | [parts/epistemic-actor/schemas/epistemic-actor-posture.schema.json](parts/epistemic-actor/schemas/epistemic-actor-posture.schema.json) | `epistemic-actor` |
+| `schemas/agon-epistemic-actor-posture-registry.schema.json` | [parts/epistemic-actor/schemas/epistemic-actor-posture-registry.schema.json](parts/epistemic-actor/schemas/epistemic-actor-posture-registry.schema.json) | `epistemic-actor` |
+| `examples/agon_agent_rank_surface.example.json` | [parts/arena-rank-school/examples/rank-surface.example.json](parts/arena-rank-school/examples/rank-surface.example.json) | `arena-rank-school` |
+| `examples/agon_agent_school_campaign_posture.example.json` | [parts/arena-rank-school/examples/school-campaign-posture.example.json](parts/arena-rank-school/examples/school-campaign-posture.example.json) | `arena-rank-school` |
+| `examples/agon_epistemic_actor_posture.example.json` | [parts/epistemic-actor/examples/epistemic-actor-posture.example.json](parts/epistemic-actor/examples/epistemic-actor-posture.example.json) | `epistemic-actor` |

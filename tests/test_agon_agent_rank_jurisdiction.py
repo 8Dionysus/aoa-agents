@@ -5,6 +5,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
+ARENA_RANK_SCHOOL_SCHEMAS = ROOT / "mechanics/agon/parts/arena-rank-school/schemas"
 
 
 def _load(path: Path):
@@ -28,8 +29,10 @@ def test_validator_accepts_registry():
 
 def test_schemas_constrain_entry_and_registry():
     generated = json.loads((ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json").read_text(encoding="utf-8"))
-    entry_schema = json.loads((ROOT / "schemas/agon-agent-rank-jurisdiction.schema.json").read_text(encoding="utf-8"))
-    registry_schema = json.loads((ROOT / "schemas/agon-agent-rank-jurisdiction-registry.schema.json").read_text(encoding="utf-8"))
+    entry_schema = json.loads((ARENA_RANK_SCHOOL_SCHEMAS / "rank-jurisdiction.schema.json").read_text(encoding="utf-8"))
+    registry_schema = json.loads(
+        (ARENA_RANK_SCHOOL_SCHEMAS / "rank-jurisdiction-registry.schema.json").read_text(encoding="utf-8")
+    )
 
     Draft202012Validator.check_schema(entry_schema)
     Draft202012Validator.check_schema(registry_schema)

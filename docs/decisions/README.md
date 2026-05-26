@@ -22,3 +22,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: runtime artifact contract localization](2026-05-26-runtime-artifact-contract-localization.md)
 - [2026-05-26: checkpoint contract localization](2026-05-26-checkpoint-contract-localization.md)
 - [2026-05-26: recursor contract localization](2026-05-26-recursor-contract-localization.md)
+- [2026-05-26: Agon rank and epistemic contract localization](2026-05-26-agon-rank-epistemic-contract-localization.md)

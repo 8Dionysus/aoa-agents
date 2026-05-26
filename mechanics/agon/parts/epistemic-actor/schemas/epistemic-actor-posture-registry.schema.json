@@ -11,7 +11,7 @@
     },
     "postures": {
       "items": {
-        "$ref": "agon-epistemic-actor-posture.schema.json"
+        "$ref": "epistemic-actor-posture.schema.json"
       },
       "maxItems": 5,
       "minItems": 5,

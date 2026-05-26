@@ -15,4 +15,15 @@ This part routes `epistemic-actor` pressure inside `mechanics/agon/`.
 - [Epistemic Actor Posture Seed](config/posture.seed.json)
 - [Config Route](config/README.md)
 
+## Active Schemas
+
+- [Epistemic Actor Posture Schema](schemas/epistemic-actor-posture.schema.json)
+- [Epistemic Actor Posture Registry Schema](schemas/epistemic-actor-posture-registry.schema.json)
+- [Schema Route](schemas/README.md)
+
+## Active Examples
+
+- [Epistemic Actor Posture Example](examples/epistemic-actor-posture.example.json)
+- [Example Route](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

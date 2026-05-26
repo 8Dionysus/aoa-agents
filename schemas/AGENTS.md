@@ -34,6 +34,11 @@ Mechanic-specific recursor schemas live under
 `mechanics/recurrence/parts/agon-recursor-boundary/schemas/`. They are
 validated by `scripts/validate_recursor_contracts.py`.
 
+Mechanic-specific Agon rank, school, and epistemic actor schemas live under
+`mechanics/agon/parts/arena-rank-school/schemas/` and
+`mechanics/agon/parts/epistemic-actor/schemas/`. They are validated by
+`scripts/validate_agon_rank_epistemic_contracts.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.
