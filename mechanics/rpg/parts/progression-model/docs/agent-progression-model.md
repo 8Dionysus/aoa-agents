@@ -92,6 +92,13 @@ A progression object should cite reviewed evidence such as:
 - memo chronicle IDs
 - bounded verification artifacts
 
+## Machine-readable contract
+
+The active schema and public-safe example live beside this part:
+
+- `../schemas/agent-progression.schema.json`
+- `../examples/agent-progression.example.json`
+
 One good run is useful evidence. Repeated reviewed evidence is stronger evidence.
 
 ## Anti-patterns

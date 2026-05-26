@@ -11,6 +11,10 @@ Mechanic-specific antifragility stress schemas live under
 `mechanics/antifragility/parts/stress-posture/schemas/` and are validated by
 `scripts/validate_antifragility_stress.py`.
 
+Mechanic-specific RPG progression schemas live under
+`mechanics/rpg/parts/progression-model/schemas/` and are validated by
+`scripts/validate_rpg_progression.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.

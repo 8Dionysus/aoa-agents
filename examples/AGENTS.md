@@ -28,6 +28,11 @@ Mechanic-specific antifragility stress examples live under
 `scripts/validate_antifragility_stress.py`. Their schemas live beside them
 under `mechanics/antifragility/parts/stress-posture/schemas/`.
 
+Mechanic-specific RPG progression examples live under
+`mechanics/rpg/parts/progression-model/examples/` and are validated by
+`scripts/validate_rpg_progression.py`. Their schemas live beside them under
+`mechanics/rpg/parts/progression-model/schemas/`.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -41,6 +46,7 @@ runtime state.
 Run `python -m pip install -r requirements-dev.txt` first. Then `python scripts/validate_agents.py` validates example alignment and negative fixtures.
 For Titan part-local examples, also run `python scripts/validate_titan_examples.py`.
 For antifragility stress part-local examples, also run `python scripts/validate_antifragility_stress.py`.
+For RPG progression part-local examples, also run `python scripts/validate_rpg_progression.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

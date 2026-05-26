@@ -49,7 +49,7 @@ schema `$id` values.
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
 | `questbook/` | part-local quest catalog, part-local quest records, Agon quest notes, quest generated readers, passport/reference-route docs | keep quest-facing role posture bounded without taking playbook scenario ownership |
-| `rpg/` | progression, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
+| `rpg/` | progression docs, part-local progression schema/example, mastery, cohort, and quest-readable role posture docs | route progression and unlock pressure without becoming game runtime or quest choreography |
 | `antifragility/` | stress posture docs, part-local schemas/examples, via negativa, scar/adaptation docs, tests | route failure-pressure learning and negative checks without becoming proof authority |
 | `boundary-bridge/` | federation seams, published contract compatibility, workspace trigger, source registries | route consumer handoff and cross-repo boundary pressure without becoming routing policy |
 | `release-support/` | `CHANGELOG.md`, `mechanics/release-support/parts/repo-release-gate/docs/releasing.md`, release checks and release-readiness docs | keep publication posture coherent without becoming CI or GitHub authority |
