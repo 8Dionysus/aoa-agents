@@ -1,0 +1,37 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T064913Z:27745909-aoa-agents-repaired-questbook-to",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents repaired Questbook topology after source comparison: root QUESTBOOK.md owns human obligation visibility, root quests/ owns lane-first source quest records, root generated/quest_catalog and generated/quest_dispatch remain consumer read models, and mechanics/questbook now owns public-index, quest-item-store, and dispatch-reader route law instead of part-local quest source ownership.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-questbook-source-store-topology-repair.md",
+    "QUESTBOOK.md",
+    "quests/README.md",
+    "quests/AGENTS.md",
+    "mechanics/questbook/PARTS.md",
+    "mechanics/questbook/PROVENANCE.md",
+    "scripts/generate_questbook_readers.py",
+    "scripts/validate_agents.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/04e4626",
+    "repo:aoa-agents/pull/165",
+    "scripts/release_check.py",
+    "tests/test_validate_agents.py",
+    "tests/test_roadmap_parity.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T06:49:13Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
