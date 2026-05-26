@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 22 |
+| candidates | 23 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 22 |
+| `reviewed_intake` | 23 |
 
 ## Open Items
 
@@ -43,6 +43,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T081536Z:627aa3ba-aoa-agents-localized-titan-packa` | `candidate` | `reviewed_intake` | `candidates/20260526T081536Z.627aa3ba.aoa-agents-localized-titan-package-owned-validat.candidate.json` |
 | `candidate:aoa-agents:20260526T082946Z:acb17bc0-aoa-agents-localized-runtime` | `candidate` | `reviewed_intake` | `candidates/20260526T082946Z.acb17bc0.aoa-agents-localized-runtime-artifact-checks-i.candidate.json` |
 | `candidate:aoa-agents:20260526T083827Z:87f15279-aoa-agents-localized-checkpoi` | `candidate` | `reviewed_intake` | `candidates/20260526T083827Z.87f15279.aoa-agents-localized-checkpoint-contract-che.candidate.json` |
+| `candidate:aoa-agents:20260526T084859Z:f95be504-aoa-agents-localized-recursor` | `candidate` | `reviewed_intake` | `candidates/20260526T084859Z.f95be504.aoa-agents-localized-recursor-support-scripts.candidate.json` |
 
 ## Agent Route
 

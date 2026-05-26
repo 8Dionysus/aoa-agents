@@ -13,14 +13,14 @@
     "mechanics/recurrence/parts/recursor-readiness/generated/pair-contract.min.json",
     "mechanics/recurrence/parts/codex-recursor-projection/generated/projection-candidates.min.json",
     "mechanics/recurrence/parts/agon-recursor-boundary/generated/boundary-report.min.json",
-    "scripts/validate_recursor_contracts.py"
+    "mechanics/recurrence/scripts/validate_recursor_contracts.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/cdfa180",
     "repo:aoa-agents/pull/163",
     "scripts/release_check.py",
-    "tests/test_recursor_contracts.py",
-    "tests/test_recursor_role_readiness_seed.py",
+    "mechanics/recurrence/tests/test_recursor_contracts.py",
+    "mechanics/recurrence/tests/test_recursor_role_readiness_seed.py",
     "tests/test_recurrence_component_manifests.py"
   ],
   "route": "reviewed_intake",

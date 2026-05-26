@@ -1,0 +1,38 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T084859Z:f95be504-aoa-agents-localized-recursor",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Recurrence recursor helper, builders, validators, and focused tests into mechanics/recurrence/{scripts,tests}/; validate_agents.py loads the package validator and release_check.py runs the recurrence tests as part of the repo-wide gate.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-recursor-support-localization.md",
+    "mechanics/recurrence/PROVENANCE.md",
+    "mechanics/recurrence/scripts/_recursor_common.py",
+    "mechanics/recurrence/scripts/validate_recursor_contracts.py",
+    "mechanics/recurrence/tests/test_recursor_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/893fd7e5380b9f7f0dd44d2ecb55cf6c51ab7abc",
+    "repo:aoa-agents/pull/187",
+    "mechanics/recurrence/scripts/_recursor_common.py",
+    "mechanics/recurrence/scripts/validate_recursor_contracts.py",
+    "mechanics/recurrence/tests/test_recursor_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T08:48:59Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
