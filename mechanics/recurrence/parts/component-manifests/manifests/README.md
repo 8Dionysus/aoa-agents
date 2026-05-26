@@ -9,7 +9,7 @@
 | output | validated manifest graph over observed agent-layer recurrence surfaces |
 | owner | `mechanics/recurrence/parts/component-manifests/` |
 | next route | `components/`, `hooks/`, target component part, validator |
-| tools | `scripts/validate_recurrence_component_manifests.py` |
+| tools | `../scripts/validate_recurrence_component_manifests.py` |
 | validation | validator checks file set, component/hook pairing, stale root paths, commands, and local path references |
 
 ## Layout

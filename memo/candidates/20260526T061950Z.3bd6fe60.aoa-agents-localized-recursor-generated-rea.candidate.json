@@ -21,7 +21,7 @@
     "scripts/release_check.py",
     "mechanics/recurrence/tests/test_recursor_contracts.py",
     "mechanics/recurrence/tests/test_recursor_role_readiness_seed.py",
-    "tests/test_recurrence_component_manifests.py"
+    "mechanics/recurrence/parts/component-manifests/tests/test_recurrence_component_manifests.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

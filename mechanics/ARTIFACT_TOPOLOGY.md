@@ -55,9 +55,10 @@ projection, or Titan mechanic seeds.
 
 The 2026-05-26 manifest localization moves recurrence component and hook
 manifests from root `manifests/` into
-`mechanics/recurrence/parts/component-manifests/manifests/` after adding a
-manifest validator. Root `manifests/` is not the active owner for recurrence
-component declarations.
+`mechanics/recurrence/parts/component-manifests/manifests/`. The validator and
+focused tests now live beside the same part under
+`mechanics/recurrence/parts/component-manifests/{scripts,tests}/`. Root
+`manifests/` is not the active owner for recurrence component declarations.
 
 The 2026-05-26 Questbook source-store repair keeps `QUESTBOOK.md`, `quests/`,
 and root quest generated readers in their root districts while

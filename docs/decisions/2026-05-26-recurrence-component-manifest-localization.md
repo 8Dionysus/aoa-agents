@@ -28,9 +28,11 @@ Use active semantic file names under `components/` and `hooks/`. Keep former
 root manifest paths only as lookup facts in recurrence `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
 
-Add `scripts/validate_recurrence_component_manifests.py` and wire it into
-`scripts/validate_agents.py` so the manifest set has an explicit validation
-route.
+Add a validator and wire it into `scripts/validate_agents.py` so the manifest
+set has an explicit validation route. A later check-localization slice moved
+that validator into
+`mechanics/recurrence/parts/component-manifests/scripts/` and moved the
+focused manifest tests beside the part.
 
 ## Consequences
 
@@ -41,6 +43,8 @@ route.
 - The validator checks the expected file set, hook-to-component pairing, stale
   root path references, proof command script references, and local path/glob
   reachability.
+- The `component-manifests` part owns its manifest payloads, focused validator,
+  and focused tests.
 - Shared schemas, examples, scripts, tests, generated readers, quest files, and
   agent source objects remain in their current districts until their own move
   proof exists.
@@ -48,7 +52,8 @@ route.
 ## Verification
 
 ```bash
-python scripts/validate_recurrence_component_manifests.py
+python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
+python -m unittest discover -s mechanics/recurrence/parts/component-manifests/tests -p 'test_*.py'
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

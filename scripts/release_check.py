@@ -91,6 +91,19 @@ COMMANDS = [
         ],
     ),
     (
+        "run recurrence component manifest tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/recurrence/parts/component-manifests/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
+    (
         "run RPG progression tests",
         [
             sys.executable,

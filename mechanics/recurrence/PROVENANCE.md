@@ -88,6 +88,20 @@ names stay historical here; active parts use current route names.
 | `manifests/recurrence/hooks/component.agon.epistemic-actor-posture.hooks.json` | [parts/component-manifests/manifests/hooks/agon-epistemic-actor-posture.json](parts/component-manifests/manifests/hooks/agon-epistemic-actor-posture.json) | `component-manifests` |
 | `manifests/recurrence/hooks/component.agon.wave16.aoa_agents.hooks.json` | [parts/component-manifests/manifests/hooks/agon-school-campaign-posture.json](parts/component-manifests/manifests/hooks/agon-school-campaign-posture.json) | `component-manifests` |
 
+## 2026-05-26 Component Manifest Check Move
+
+The recurrence component manifest validator moved from root `scripts/` into
+the active `component-manifests` part after the manifest payloads themselves
+had already moved there. The focused manifest tests moved beside that part and
+were converted to the repo's release-check `unittest` route. Root
+`scripts/validate_agents.py` remains the repo-wide coordinator and loads the
+part-local validator explicitly.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_recurrence_component_manifests.py` | [parts/component-manifests/scripts/validate_recurrence_component_manifests.py](parts/component-manifests/scripts/validate_recurrence_component_manifests.py) | `component-manifests` |
+| `tests/test_recurrence_component_manifests.py` | [parts/component-manifests/tests/test_recurrence_component_manifests.py](parts/component-manifests/tests/test_recurrence_component_manifests.py) | `component-manifests` |
+
 ## 2026-05-26 Root Recursor Generated Reader Move
 
 4 recursor generated readers moved from root `generated/` into recurrence
