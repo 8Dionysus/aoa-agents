@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 17 |
+| candidates | 18 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 17 |
+| `reviewed_intake` | 18 |
 
 ## Open Items
 
@@ -38,6 +38,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T071333Z:b0be90ee-aoa-agents-moved-the-maintained` | `candidate` | `reviewed_intake` | `candidates/20260526T071333Z.b0be90ee.aoa-agents-moved-the-maintained-spark-fast-loop.candidate.json` |
 | `candidate:aoa-agents:20260526T072511Z:167192e9-aoa-agents-added-package-level-a` | `candidate` | `reviewed_intake` | `candidates/20260526T072511Z.167192e9.aoa-agents-added-package-level-agents-md-route-c.candidate.json` |
 | `candidate:aoa-agents:20260526T074158Z:70c42c69-aoa-agents-cleaned-active-mechan` | `candidate` | `reviewed_intake` | `candidates/20260526T074158Z.70c42c69.aoa-agents-cleaned-active-mechanics-route-card-w.candidate.json` |
+| `candidate:aoa-agents:20260526T075158Z:134810cc-aoa-agents-shaped-every-mechanic` | `candidate` | `reviewed_intake` | `candidates/20260526T075158Z.134810cc.aoa-agents-shaped-every-mechanics-package-proven.candidate.json` |
 
 ## Agent Route
 
