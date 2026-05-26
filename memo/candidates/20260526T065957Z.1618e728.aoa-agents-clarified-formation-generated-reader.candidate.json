@@ -1,0 +1,34 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T065957Z:1618e728-aoa-agents-clarified-formation-g",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents clarified formation generated-reader posture after source comparison: generated/agent_agonic_formation_index, generated/assistant_civil_formation_index, and generated/agent_formation_trial remain root-published because they summarize agents/ source objects for repo-wide role readiness, while Agon and Experience mechanics parts own contracts, examples, docs, and stop-lines around those readers.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-formation-generated-reader-posture.md",
+    "generated/README.md",
+    "generated/AGENTS.md",
+    "mechanics/agon/parts/formation/README.md",
+    "mechanics/experience/parts/assistant-civil-service/README.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/PAYLOAD_RECON.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/0bb260d",
+    "repo:aoa-agents/pull/167",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T06:59:57Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
