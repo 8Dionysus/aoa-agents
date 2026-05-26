@@ -26,7 +26,7 @@ and are validated by `scripts/validate_titan_schemas.py`.
 
 Mechanic-specific antifragility stress schemas live under
 `mechanics/antifragility/parts/stress-posture/schemas/` and are validated by
-`scripts/validate_antifragility_stress.py`.
+`mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
 
 Mechanic-specific RPG progression schemas live under
 `mechanics/rpg/parts/progression-model/schemas/` and are validated by

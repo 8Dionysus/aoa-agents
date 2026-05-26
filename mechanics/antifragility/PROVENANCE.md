@@ -49,6 +49,18 @@ identifiers, not active repo paths.
 | `examples/agent_stress_posture.example.json` | [parts/stress-posture/examples/agent-stress-posture.example.json](parts/stress-posture/examples/agent-stress-posture.example.json) | `stress-posture` |
 | `examples/stress_handoff_envelope.example.json` | [parts/stress-posture/examples/stress-handoff-envelope.example.json](parts/stress-posture/examples/stress-handoff-envelope.example.json) | `stress-posture` |
 
+## 2026-05-26 Stress Check Move
+
+The stress-posture validator and focused public-surface test moved from root
+execution districts into the part they protect. Root validation still calls the
+part-local validator and test through `scripts/validate_agents.py` and
+`scripts/release_check.py`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_antifragility_stress.py` | [parts/stress-posture/scripts/validate_stress_posture.py](parts/stress-posture/scripts/validate_stress_posture.py) | `stress-posture` |
+| `tests/test_antifragility_public_surface.py` | [parts/stress-posture/tests/test_stress_posture.py](parts/stress-posture/tests/test_stress_posture.py) | `stress-posture` |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

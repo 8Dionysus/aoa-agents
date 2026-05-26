@@ -20,9 +20,9 @@ This part routes `stress-posture` pressure inside `mechanics/antifragility/`.
 ## Validation
 
 ```bash
-python scripts/validate_antifragility_stress.py
+python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
 python scripts/validate_agents.py
-python -m pytest -q tests/test_antifragility_public_surface.py
+python -m unittest discover -s mechanics/antifragility/parts/stress-posture/tests -p "test_*.py"
 ```
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

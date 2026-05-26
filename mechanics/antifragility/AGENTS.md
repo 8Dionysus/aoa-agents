@@ -44,7 +44,8 @@ survival language.
 ## Validation
 
 ```bash
-python scripts/validate_antifragility_stress.py
+python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
+python -m unittest discover -s mechanics/antifragility/parts/stress-posture/tests -p "test_*.py"
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

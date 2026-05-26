@@ -25,6 +25,19 @@ def _env() -> dict[str, str]:
 
 COMMANDS = [
     ("validate agents", [sys.executable, "scripts/validate_agents.py"]),
+    (
+        "run antifragility stress tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/antifragility/parts/stress-posture/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
     ("run tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]),
     ("rebuild published surfaces", [sys.executable, "scripts/build_published_surfaces.py"]),
     ("check generated drift", ["git", "diff", "--exit-code", "--", "generated"]),

@@ -107,7 +107,7 @@ schemas by moving them into part-local `schemas/` directories and adding
 
 The antifragility stress localization satisfies that rule for stress-posture
 contract schemas and examples by moving them into the `stress-posture` part and
-adding `scripts/validate_antifragility_stress.py`.
+adding a part-local stress-posture validator.
 
 The RPG progression localization satisfies that rule for the adjunct
 progression schema and example by moving them into the `progression-model` part
@@ -220,6 +220,12 @@ The mechanics package route-card pass follows the established refactored-repo
 mechanics pattern by adding `mechanics/<package>/AGENTS.md` to every active
 package. The cards make nearest-owner entry legible between `mechanics/AGENTS.md`
 and `parts/AGENTS.md`; no payload class moves in this slice.
+
+The antifragility stress check localization follows the same part-owner rule
+for executable checks by moving the stress-posture validator and focused test
+into `mechanics/antifragility/parts/stress-posture/{scripts,tests}/`. Root
+`scripts/validate_agents.py` remains the repo-wide validation coordinator, and
+`scripts/release_check.py` runs the part-local test explicitly.
 
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and

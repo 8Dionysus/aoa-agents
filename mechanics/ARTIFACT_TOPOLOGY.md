@@ -219,6 +219,14 @@ The 2026-05-26 mechanics package route-card pass adds package-local
 navigation and validation coverage only; it does not move source, support,
 generated, schema, example, script, or test payloads.
 
+The 2026-05-26 antifragility stress check localization moves the
+stress-posture validator and focused test into
+`mechanics/antifragility/parts/stress-posture/{scripts,tests}/` after the part
+already owned its docs, schemas, examples, and validation semantics.
+`scripts/validate_agents.py` remains the repo-wide coordinator by loading the
+part-local validator directly, and `scripts/release_check.py` runs the
+part-local test explicitly before the root test suite.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/PROVENANCE_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
