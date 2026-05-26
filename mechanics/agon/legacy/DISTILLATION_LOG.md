@@ -48,15 +48,13 @@ paths are lookup facts only.
 | `formation` | 5 | 2 |
 | `arena-rank-school` | 1 | 0 |
 
-## 2026-05-26 Root Agon Formation Contracts To Active Parts
+## 2026-05-26 Root Agon Adoption/Retention Contracts To Active Parts
 
-Moved 6 Agon formation schemas plus 2 examples out of root `schemas/` and
-`examples/` and into active part-local `schemas/` and `examples/` directories.
-Git history preserves the verbatim file bodies; root paths are lookup facts
-only. Wave II assistant civil contracts are accounted for by the later
-Experience assistant civil localization pass.
+Moved 5 Agon adoption/retention schemas and 5 matching examples out of root
+`schemas/` and `examples/` and into active part-local `schemas/` and
+`examples/` directories. Git history preserves the verbatim file bodies; root
+paths are lookup facts only.
 
 | Part | Moved schemas | Moved examples |
 | --- | ---: | ---: |
-| `formation` | 5 | 2 |
-| `arena-rank-school` | 1 | 0 |
+| `adoption-retention` | 5 | 5 |

@@ -24,3 +24,15 @@ routes. Git history preserves the verbatim file bodies; `PROVENANCE.md` and
 | --- | ---: | ---: |
 | `assistant-civil-service` | 6 | 1 |
 | `arena-exclusion` | 1 | 0 |
+
+## 2026-05-26 Root Adoption/Office Contracts To Active Parts
+
+Moved 14 adoption and office-operation schemas plus 14 matching examples out
+of root `schemas/` and `examples/` and into active part-local `schemas/` and
+`examples/` directories. Git history preserves the verbatim file bodies; root
+paths are lookup facts only.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `adoption-and-regression` | 11 | 11 |
+| `office-operations` | 3 | 3 |

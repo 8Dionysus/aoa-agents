@@ -155,11 +155,18 @@ projection refresh route example by placing it under
 `mechanics/codex-projection/parts/refresh-law/examples/` and adding
 `scripts/validate_codex_refresh_law_contracts.py`.
 
+The adoption/boundary contract localization satisfies that rule for adoption,
+retention, office, and boundary bridge schemas/examples by placing them under
+their owning Experience, Agon, and Boundary Bridge part-local
+`schemas/`/`examples/` routes and adding
+`scripts/validate_adoption_boundary_contracts.py`.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil schemas,
+non-Experience-assistant-civil, non-adoption/boundary schemas,
 remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
 non-Agon-rank/epistemic, non-Agon-formation, and
-non-Experience-assistant-civil, non-Codex-refresh-law examples,
+non-Experience-assistant-civil, non-Codex-refresh-law,
+non-adoption/boundary examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

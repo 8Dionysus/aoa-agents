@@ -49,6 +49,12 @@ Mechanic-specific Experience assistant civil schemas live under
 exclusion in `mechanics/experience/parts/arena-exclusion/schemas/`. They are
 validated by `scripts/validate_experience_assistant_civil_contracts.py`.
 
+Mechanic-specific adoption and boundary bridge schemas live under
+`mechanics/agon/parts/adoption-retention/schemas/`,
+`mechanics/boundary-bridge/parts/*/schemas/`, and
+`mechanics/experience/parts/{adoption-and-regression,office-operations}/schemas/`.
+They are validated by `scripts/validate_adoption_boundary_contracts.py`.
+
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 
 Do not loosen a schema to pass a vague profile. Fix the profile or explicitly document the contract change.

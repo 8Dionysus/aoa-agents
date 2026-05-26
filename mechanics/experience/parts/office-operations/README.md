@@ -17,4 +17,9 @@ This part routes `office-operations` pressure inside `mechanics/experience/`.
 - [Assistant Office Train Release](docs/office-train-release.md)
 - [Pair Office Adoption](docs/pair-office-adoption.md)
 
+## Contract Routes
+
+- [schema set](schemas/README.md)
+- [example set](examples/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.
