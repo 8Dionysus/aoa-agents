@@ -181,6 +181,19 @@ COMMANDS = [
         ],
     ),
     (
+        "run Codex subagent projection tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/codex-projection/parts/subagent-projection/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
+    (
         "run assistant projection resolver tests",
         [
             sys.executable,

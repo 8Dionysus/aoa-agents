@@ -60,3 +60,14 @@ while keeping `scripts/validate_agents.py` as the repo-wide coordinator.
 | Part | Moved scripts | Moved tests |
 | --- | ---: | ---: |
 | `refresh-law` | 1 | 1 |
+
+## 2026-05-26 Codex Subagent Projection Builder To Active Part
+
+Moved the Codex subagent projection builder, projection module, validator, and
+focused tests out of root execution districts and into the active
+`subagent-projection` part. The generated companions stayed root-published
+under `generated/codex_agents/`.
+
+| Part | Moved scripts | Moved tests | Root generated projections moved |
+| --- | ---: | ---: | ---: |
+| `subagent-projection` | 3 | 1 | 0 |

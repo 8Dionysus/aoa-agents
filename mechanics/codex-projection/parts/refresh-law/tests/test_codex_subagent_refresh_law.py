@@ -97,7 +97,7 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
 
         routes = payload["refresh_routes"]
         self.assertIn("python scripts/build_published_surfaces.py", routes["execute"])
-        self.assertIn("python scripts/build_codex_subagents_v2.py", routes["execute"])
+        self.assertIn("python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py", routes["execute"])
         self.assertIn("python -m pytest -q tests", routes["validate"])
 
         for signal in payload["drift_signals"]:

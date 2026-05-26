@@ -4,15 +4,20 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any, Iterable, Mapping, MutableMapping, Sequence
 
 import tomllib
 
+REPO_ROOT = Path(__file__).resolve().parents[5]
+ROOT_SCRIPTS_DIR = REPO_ROOT / "scripts"
+if str(ROOT_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_SCRIPTS_DIR))
+
 from agent_profile_registry import BuildError
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
 WIRING_CONFIG_PATH = (
     REPO_ROOT

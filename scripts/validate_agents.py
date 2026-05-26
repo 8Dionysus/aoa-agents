@@ -12,6 +12,31 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CODEX_PROJECTION_SCRIPTS_DIR = (
+    REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "scripts"
+)
+if str(CODEX_PROJECTION_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(CODEX_PROJECTION_SCRIPTS_DIR))
+CODEX_SUBAGENT_PROJECTION_BUILDER_PATH = CODEX_PROJECTION_SCRIPTS_DIR / "build_codex_subagents_v2.py"
+CODEX_SUBAGENT_PROJECTION_MODULE_PATH = CODEX_PROJECTION_SCRIPTS_DIR / "codex_subagent_projection.py"
+CODEX_SUBAGENT_PROJECTION_VALIDATOR_PATH = CODEX_PROJECTION_SCRIPTS_DIR / "validate_codex_subagents.py"
+CODEX_SUBAGENT_PROJECTION_TEST_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "subagent-projection"
+    / "tests"
+    / "test_codex_subagent_projection.py"
+)
+FORMER_CODEX_SUBAGENT_PROJECTION_ROOT_PATHS = (
+    REPO_ROOT / "scripts" / ("build" + "_codex_subagents_v2.py"),
+    REPO_ROOT / "scripts" / ("codex" + "_subagent_projection.py"),
+    REPO_ROOT / "scripts" / ("validate" + "_codex_subagents.py"),
+    REPO_ROOT / "tests" / ("test" + "_codex_subagent_projection.py"),
+)
+
 try:
     import yaml
 except ModuleNotFoundError:
@@ -32,7 +57,6 @@ from orchestrator_class_registry import (
 from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
 
 
@@ -2784,6 +2808,20 @@ def validate_codex_subagent_projection() -> None:
         fail(error)
 
 
+def validate_codex_subagent_projection_route() -> None:
+    for path in FORMER_CODEX_SUBAGENT_PROJECTION_ROOT_PATHS:
+        if path.exists():
+            fail(f"former Codex subagent projection root path must stay absent: {describe_path(path)}")
+    for path in (
+        CODEX_SUBAGENT_PROJECTION_BUILDER_PATH,
+        CODEX_SUBAGENT_PROJECTION_MODULE_PATH,
+        CODEX_SUBAGENT_PROJECTION_VALIDATOR_PATH,
+        CODEX_SUBAGENT_PROJECTION_TEST_PATH,
+    ):
+        if not path.is_file():
+            fail(f"missing Codex subagent projection part-local surface: {describe_path(path)}")
+
+
 def validate_assistant_projection_resolver_surface() -> None:
     validate_assistant_projection_resolver(REPO_ROOT)
 
@@ -3745,6 +3783,7 @@ def main() -> int:
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_codex_subagent_projection()
+        validate_codex_subagent_projection_route()
         validate_titan_codex_projection_route()
         validate_assistant_projection_resolver_surface()
         validate_codex_refresh_law_contracts(REPO_ROOT)

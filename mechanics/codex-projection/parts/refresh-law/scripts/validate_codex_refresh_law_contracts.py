@@ -122,7 +122,7 @@ def collect_codex_refresh_law_contract_errors(root: Path = ROOT) -> list[str]:
         validate = routes.get("validate", [])
         if "python scripts/build_published_surfaces.py" not in execute:
             errors.append(f"{EXAMPLE_NAME} must route execute through build_published_surfaces.py")
-        if "python scripts/build_codex_subagents_v2.py" not in execute:
+        if "python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py" not in execute:
             errors.append(f"{EXAMPLE_NAME} must route execute through build_codex_subagents_v2.py")
         if "python -m pytest -q tests" not in validate:
             errors.append(f"{EXAMPLE_NAME} must keep tests in validate route")

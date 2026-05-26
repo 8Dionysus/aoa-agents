@@ -91,6 +91,19 @@ part-local validator explicitly.
 | --- | --- | --- |
 | `scripts/validate_codex_refresh_law_contracts.py` | [parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py](parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py) | `refresh-law` |
 
+## 2026-05-26 Codex Subagent Projection Builder Move
+
+The root-published generated Codex agent companions stayed under
+`generated/codex_agents/`, but the dedicated builder, projection module,
+validator, and focused tests moved into the active `subagent-projection` part.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/build_codex_subagents_v2.py` | [parts/subagent-projection/scripts/build_codex_subagents_v2.py](parts/subagent-projection/scripts/build_codex_subagents_v2.py) | `subagent-projection` |
+| `scripts/codex_subagent_projection.py` | [parts/subagent-projection/scripts/codex_subagent_projection.py](parts/subagent-projection/scripts/codex_subagent_projection.py) | `subagent-projection` |
+| `scripts/validate_codex_subagents.py` | [parts/subagent-projection/scripts/validate_codex_subagents.py](parts/subagent-projection/scripts/validate_codex_subagents.py) | `subagent-projection` |
+| `tests/test_codex_subagent_projection.py` | [parts/subagent-projection/tests/test_codex_subagent_projection.py](parts/subagent-projection/tests/test_codex_subagent_projection.py) | `subagent-projection` |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

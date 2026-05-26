@@ -25,6 +25,7 @@ validator route, or workflow boundary changed.
 - [2026-05-26: RPG progression payload localization](2026-05-26-rpg-progression-payload-localization.md)
 - [2026-05-26: RPG progression check localization](2026-05-26-rpg-progression-check-localization.md)
 - [2026-05-26: assistant projection resolver localization](2026-05-26-assistant-projection-resolver-localization.md)
+- [2026-05-26: Codex subagent projection builder localization](2026-05-26-codex-subagent-projection-builder-localization.md)
 - [2026-05-26: runtime artifact contract localization](2026-05-26-runtime-artifact-contract-localization.md)
 - [2026-05-26: Runtime artifact check localization](2026-05-26-runtime-artifact-check-localization.md)
 - [2026-05-26: checkpoint contract localization](2026-05-26-checkpoint-contract-localization.md)

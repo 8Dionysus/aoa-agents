@@ -2,6 +2,14 @@
 from __future__ import annotations
 
 import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CODEX_PROJECTION_SCRIPTS_DIR = (
+    REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "scripts"
+)
+if str(CODEX_PROJECTION_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(CODEX_PROJECTION_SCRIPTS_DIR))
 
 from agent_profile_registry import BuildError, write_agent_registry
 from cohort_registry import write_cohort_registry
