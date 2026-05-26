@@ -1,12 +1,13 @@
-# examples/reference_routes/AGENTS.md
+# Reference Route Examples
 
 ## Purpose
 
-`examples/reference_routes/` contains manifest-driven reference routes for the published agent-layer loop.
+This directory contains manifest-driven reference routes for the published
+agent-layer loop.
 
 These files stay aligned with:
 
-- `schemas/reference-route.example.schema.json`
+- `mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json`
 - `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`
 - `generated/runtime_seam_bindings.json`
 
@@ -24,4 +25,5 @@ Use only already-published artifact schemas.
 
 ## Validation
 
-Run `python -m pip install -r requirements-dev.txt`, then `python scripts/validate_agents.py`.
+Run `python scripts/validate_reference_route_contracts.py` and then
+`python scripts/validate_agents.py`.

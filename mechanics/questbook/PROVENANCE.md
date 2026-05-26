@@ -46,3 +46,18 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md) | `agon-quest-surfaces` |
 | `quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md) | `agon-quest-surfaces` |
 | `quests/AOAG-Q-AGON-0012-school-campaign-posture.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0012-school-campaign-posture.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0012-school-campaign-posture.md) | `agon-quest-surfaces` |
+
+## 2026-05-26 Alpha Reference Route Contract Move
+
+1 Alpha reference-route schema and 6 Alpha route README/example files moved from root
+`schemas/` and `examples/` into the questbook `alpha-reference-routes` part.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/alpha-reference-route.schema.json` | [parts/alpha-reference-routes/schemas/alpha-reference-route.schema.json](parts/alpha-reference-routes/schemas/alpha-reference-route.schema.json) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/AGENTS.md` | [parts/alpha-reference-routes/examples/README.md](parts/alpha-reference-routes/examples/README.md) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/local-stack-diagnosis.example.json` | [parts/alpha-reference-routes/examples/local-stack-diagnosis.example.json](parts/alpha-reference-routes/examples/local-stack-diagnosis.example.json) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/long-horizon-model-tier-orchestra.example.json` | [parts/alpha-reference-routes/examples/long-horizon-model-tier-orchestra.example.json](parts/alpha-reference-routes/examples/long-horizon-model-tier-orchestra.example.json) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/restartable-inquiry-loop.example.json` | [parts/alpha-reference-routes/examples/restartable-inquiry-loop.example.json](parts/alpha-reference-routes/examples/restartable-inquiry-loop.example.json) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/self-agent-checkpoint-rollout.example.json` | [parts/alpha-reference-routes/examples/self-agent-checkpoint-rollout.example.json](parts/alpha-reference-routes/examples/self-agent-checkpoint-rollout.example.json) | `alpha-reference-routes` |
+| `examples/alpha_reference_routes/validation-driven-remediation.example.json` | [parts/alpha-reference-routes/examples/validation-driven-remediation.example.json](parts/alpha-reference-routes/examples/validation-driven-remediation.example.json) | `alpha-reference-routes` |

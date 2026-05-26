@@ -35,8 +35,10 @@ schema/example invariants remain explicit.
 ## Consequences
 
 Root `schemas/` now holds shared registry/profile/reference contracts rather
-than assistant service mechanics. Root `examples/` now holds reference-route
-examples rather than assistant service mechanic examples.
+than assistant service mechanics. At this slice boundary, root `examples/`
+held reference-route examples rather than assistant service mechanic examples;
+the later reference-route localization gives those examples their own
+part-local route.
 
 The move keeps stable schema `$id`, `kind`, and identifier values unchanged as
 public contract identifiers. Former root lookup is preserved through each

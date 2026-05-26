@@ -125,10 +125,13 @@ RUNTIME_SEAM_BINDING_ITEM_SCHEMA_PATH = REPO_ROOT / "schemas" / "runtime-seam-bi
 CHECKPOINT_PARTS_DIR = REPO_ROOT / "mechanics" / "checkpoint" / "parts"
 SELF_AGENT_CHECKPOINT_PART_DIR = CHECKPOINT_PARTS_DIR / "self-agent-checkpoint"
 CONTINUITY_LANE_PART_DIR = CHECKPOINT_PARTS_DIR / "continuity-lane"
+REFERENCE_ROUTE_PART_DIR = CHECKPOINT_PARTS_DIR / "reference-routes"
 SELF_AGENT_CHECKPOINT_SCHEMA_PATH = SELF_AGENT_CHECKPOINT_PART_DIR / "schemas" / "self-agent-checkpoint.schema.json"
 SELF_AGENCY_CONTINUITY_WINDOW_SCHEMA_PATH = CONTINUITY_LANE_PART_DIR / "schemas" / "self-agency-continuity-window.schema.json"
-REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "reference-route.example.schema.json"
-ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = REPO_ROOT / "schemas" / "alpha-reference-route.schema.json"
+REFERENCE_ROUTE_SCHEMA_PATH = REFERENCE_ROUTE_PART_DIR / "schemas" / "reference-route-manifest.schema.json"
+QUESTBOOK_PARTS_DIR = REPO_ROOT / "mechanics" / "questbook" / "parts"
+ALPHA_REFERENCE_ROUTE_PART_DIR = QUESTBOOK_PARTS_DIR / "alpha-reference-routes"
+ALPHA_REFERENCE_ROUTE_SCHEMA_PATH = ALPHA_REFERENCE_ROUTE_PART_DIR / "schemas" / "alpha-reference-route.schema.json"
 RUNTIME_ARTIFACT_CONTRACTS_DIR = REPO_ROOT / "mechanics" / "runtime-seam" / "parts" / "artifact-contracts"
 RUNTIME_ARTIFACT_SCHEMA_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "schemas"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "examples"
@@ -140,10 +143,16 @@ SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH = (
     CONTINUITY_LANE_PART_DIR / "examples" / "self-agency-continuity-window.example.json"
 )
 SELF_AGENT_CHECKPOINT_INVALID_DIR = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "invalid"
-REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "reference_routes"
+REFERENCE_ROUTES_DIR = REFERENCE_ROUTE_PART_DIR / "examples"
 REFERENCE_ROUTE_MANIFEST_NAME = "manifest.json"
-ALPHA_REFERENCE_ROUTES_DIR = REPO_ROOT / "examples" / "alpha_reference_routes"
+ALPHA_REFERENCE_ROUTES_DIR = ALPHA_REFERENCE_ROUTE_PART_DIR / "examples"
 ALPHA_REFERENCE_ROUTES_OUTPUT_PATH = REPO_ROOT / "generated" / "alpha_reference_routes.min.json"
+FORMER_REFERENCE_ROUTE_ROOTS = (
+    REPO_ROOT / "examples" / ("reference" + "_routes"),
+    REPO_ROOT / "examples" / ("alpha" + "_reference" + "_routes"),
+    REPO_ROOT / "schemas" / ("reference-route" + ".example.schema.json"),
+    REPO_ROOT / "schemas" / ("alpha-reference-route" + ".schema.json"),
+)
 QUESTBOOK_PATH = (
     REPO_ROOT / "mechanics" / "questbook" / "parts" / "quest-catalog" / "docs" / "quest-catalog.md"
 )
@@ -362,12 +371,12 @@ REQUIRED_PUBLISHED_CONTRACT_DOC_SNIPPETS = (
     "additive",
     "breaking",
     "generated/agent_registry.min.json",
-    "schemas/reference-route.example.schema.json",
+    "mechanics/checkpoint/parts/reference-routes/schemas/reference-route-manifest.schema.json",
     "example-only",
 )
 REQUIRED_REFERENCE_ROUTE_DOC_SNIPPETS = (
-    "`examples/reference_routes/` contains example-only, non-normative route packs.",
-    "`examples/alpha_reference_routes/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.",
+    "`mechanics/checkpoint/parts/reference-routes/examples/` contains example-only, non-normative route packs.",
+    "`mechanics/questbook/parts/alpha-reference-routes/examples/` contains playbook-facing Alpha reference-route surfaces for the curated readiness lane.",
     "They are not playbooks.",
     "They are not routing policy.",
     "They are not runtime canon.",
@@ -445,11 +454,17 @@ REQUIRED_SELF_AGENCY_CONTINUITY_SNIPPETS = (
     "Return must target a prior valid public artifact.",
     "No new role family is required.",
 )
+REFERENCE_ROUTE_DIR_TO_ID = {
+    "solo-bounded-route": "solo_bounded_route",
+    "pair-change-route": "pair_change_route",
+    "checkpoint-self-change-route": "checkpoint_self_change_route",
+    "orchestrated-loop-route": "orchestrated_loop_route",
+}
 REFERENCE_ROUTE_DIR_NAMES = (
-    "solo_bounded_route",
-    "pair_change_route",
-    "checkpoint_self_change_route",
-    "orchestrated_loop_route",
+    "solo-bounded-route",
+    "pair-change-route",
+    "checkpoint-self-change-route",
+    "orchestrated-loop-route",
 )
 ALPHA_REFERENCE_ROUTE_FILE_ORDER = (
     "local-stack-diagnosis.example.json",
@@ -928,6 +943,20 @@ def validate_reference_route_schema_surface() -> None:
     validate_json_schema_surface(REFERENCE_ROUTE_SCHEMA_PATH, "reference-route example schema")
 
 
+def validate_reference_route_contract_routes() -> None:
+    for path in FORMER_REFERENCE_ROUTE_ROOTS:
+        if path.exists():
+            fail(f"former reference-route root path must stay absent: {describe_path(path)}")
+    for path in (
+        REFERENCE_ROUTES_DIR,
+        REFERENCE_ROUTE_SCHEMA_PATH,
+        ALPHA_REFERENCE_ROUTES_DIR,
+        ALPHA_REFERENCE_ROUTE_SCHEMA_PATH,
+    ):
+        if not path.exists():
+            fail(f"missing reference-route part-local surface: {describe_path(path)}")
+
+
 def validate_antifragility_stress_surfaces() -> None:
     validate_antifragility_stress_payloads(REPO_ROOT)
     posture_schema = validate_json_schema_surface(
@@ -1372,9 +1401,11 @@ def validate_reference_route_examples(
 
         if not isinstance(route_id, str):
             fail(f"{describe_path(manifest_path)} must expose string route_id")
-        if route_id != route_dir.name:
+        expected_route_id = REFERENCE_ROUTE_DIR_TO_ID[route_dir.name]
+        if route_id != expected_route_id:
             fail(
-                f"{describe_path(manifest_path)} route_id '{route_id}' must match route pack directory '{route_dir.name}'"
+                f"{describe_path(manifest_path)} route_id '{route_id}' must match route pack id "
+                f"'{expected_route_id}' for directory '{route_dir.name}'"
             )
         if route_id in seen_route_ids:
             fail(f"duplicate reference route id '{route_id}'")
@@ -1647,7 +1678,7 @@ def validate_alpha_reference_routes(
     if actual != expected:
         fail(
             "generated/alpha_reference_routes.min.json drifted from "
-            "examples/alpha_reference_routes/*.example.json"
+            "mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json"
         )
 
 
@@ -3480,6 +3511,7 @@ def main() -> int:
         validate_antifragility_stress_surfaces()
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
+        validate_reference_route_contract_routes()
         validate_nested_agents_docs()
         validate_runtime_artifact_contract_routes()
         validate_runtime_artifact_schema_surfaces()
@@ -3560,6 +3592,7 @@ def main() -> int:
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated RPG progression schema and example")
     print("[ok] validated Alpha reference-route schema surface")
+    print("[ok] validated reference-route part-local contract routes")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")

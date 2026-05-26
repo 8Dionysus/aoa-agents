@@ -41,3 +41,33 @@ from root `schemas/` and `examples/` into checkpoint part-local routes.
 
 Stable schema `$id` values remain public contract identifiers, not active repo
 path authority.
+
+## 2026-05-26 Reference Route Contract Move
+
+1 reference-route manifest schema and 18 route-pack example files moved from
+root `schemas/` and `examples/` into the checkpoint `reference-routes` part.
+Active route-pack directories use kebab-case package names while stable
+manifest `route_id` values remain contract identifiers.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/reference-route.example.schema.json` | [parts/reference-routes/schemas/reference-route-manifest.schema.json](parts/reference-routes/schemas/reference-route-manifest.schema.json) | `reference-routes` |
+| `examples/reference_routes/AGENTS.md` | [parts/reference-routes/examples/README.md](parts/reference-routes/examples/README.md) | `reference-routes` |
+| `examples/reference_routes/solo_bounded_route/manifest.json` | [parts/reference-routes/examples/solo-bounded-route/manifest.json](parts/reference-routes/examples/solo-bounded-route/manifest.json) | `reference-routes` |
+| `examples/reference_routes/solo_bounded_route/route_decision.json` | [parts/reference-routes/examples/solo-bounded-route/route_decision.json](parts/reference-routes/examples/solo-bounded-route/route_decision.json) | `reference-routes` |
+| `examples/reference_routes/pair_change_route/manifest.json` | [parts/reference-routes/examples/pair-change-route/manifest.json](parts/reference-routes/examples/pair-change-route/manifest.json) | `reference-routes` |
+| `examples/reference_routes/pair_change_route/verification_result.json` | [parts/reference-routes/examples/pair-change-route/verification_result.json](parts/reference-routes/examples/pair-change-route/verification_result.json) | `reference-routes` |
+| `examples/reference_routes/pair_change_route/work_result.json` | [parts/reference-routes/examples/pair-change-route/work_result.json](parts/reference-routes/examples/pair-change-route/work_result.json) | `reference-routes` |
+| `examples/reference_routes/checkpoint_self_change_route/bounded_plan.json` | [parts/reference-routes/examples/checkpoint-self-change-route/bounded_plan.json](parts/reference-routes/examples/checkpoint-self-change-route/bounded_plan.json) | `reference-routes` |
+| `examples/reference_routes/checkpoint_self_change_route/distillation_pack.json` | [parts/reference-routes/examples/checkpoint-self-change-route/distillation_pack.json](parts/reference-routes/examples/checkpoint-self-change-route/distillation_pack.json) | `reference-routes` |
+| `examples/reference_routes/checkpoint_self_change_route/manifest.json` | [parts/reference-routes/examples/checkpoint-self-change-route/manifest.json](parts/reference-routes/examples/checkpoint-self-change-route/manifest.json) | `reference-routes` |
+| `examples/reference_routes/checkpoint_self_change_route/verification_result.json` | [parts/reference-routes/examples/checkpoint-self-change-route/verification_result.json](parts/reference-routes/examples/checkpoint-self-change-route/verification_result.json) | `reference-routes` |
+| `examples/reference_routes/checkpoint_self_change_route/work_result.json` | [parts/reference-routes/examples/checkpoint-self-change-route/work_result.json](parts/reference-routes/examples/checkpoint-self-change-route/work_result.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/bounded_plan.json` | [parts/reference-routes/examples/orchestrated-loop-route/bounded_plan.json](parts/reference-routes/examples/orchestrated-loop-route/bounded_plan.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/deep_synthesis_note.json` | [parts/reference-routes/examples/orchestrated-loop-route/deep_synthesis_note.json](parts/reference-routes/examples/orchestrated-loop-route/deep_synthesis_note.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/distillation_pack.json` | [parts/reference-routes/examples/orchestrated-loop-route/distillation_pack.json](parts/reference-routes/examples/orchestrated-loop-route/distillation_pack.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/manifest.json` | [parts/reference-routes/examples/orchestrated-loop-route/manifest.json](parts/reference-routes/examples/orchestrated-loop-route/manifest.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/route_decision.json` | [parts/reference-routes/examples/orchestrated-loop-route/route_decision.json](parts/reference-routes/examples/orchestrated-loop-route/route_decision.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/transition_decision.json` | [parts/reference-routes/examples/orchestrated-loop-route/transition_decision.json](parts/reference-routes/examples/orchestrated-loop-route/transition_decision.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/verification_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/verification_result.json](parts/reference-routes/examples/orchestrated-loop-route/verification_result.json) | `reference-routes` |
+| `examples/reference_routes/orchestrated_loop_route/work_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/work_result.json](parts/reference-routes/examples/orchestrated-loop-route/work_result.json) | `reference-routes` |

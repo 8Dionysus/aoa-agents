@@ -16,8 +16,10 @@ These files illustrate published contracts. They are not the source-authored can
 - `mechanics/agon/parts/formation/examples/formation-trial.example.json` for
   the additive Wave II.5 reader path across base role house plus agonic and
   assistant split-form judgment
-- `reference_routes/` for manifest-driven reference route packs over the published public loop
-- `alpha_reference_routes/` for curated Alpha cohort reference-route surfaces used by the readiness proof lane
+- `mechanics/checkpoint/parts/reference-routes/examples/` for manifest-driven
+  reference route packs over the published public loop
+- `mechanics/questbook/parts/alpha-reference-routes/examples/` for curated
+  Alpha cohort reference-route surfaces used by the readiness proof lane
 
 Mechanic-specific self-agent checkpoint examples and negative fixtures live
 under `mechanics/checkpoint/parts/self-agent-checkpoint/examples/` and are
@@ -95,6 +97,12 @@ Mechanic-specific agent service examples live under
 validated by `scripts/validate_agent_service_contracts.py`. Their schemas live
 beside them under the corresponding part-local `schemas/` routes.
 
+Mechanic-specific reference-route examples live under
+`mechanics/checkpoint/parts/reference-routes/examples/` and
+`mechanics/questbook/parts/alpha-reference-routes/examples/`. They are
+validated by `scripts/validate_reference_route_contracts.py`. Their schemas
+live beside them under the corresponding part-local `schemas/` routes.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -119,6 +127,7 @@ For Agon rank/school/epistemic part-local examples, also run `python scripts/val
 For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.
 For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.
+For reference-route part-local examples, also run `python scripts/validate_reference_route_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.
