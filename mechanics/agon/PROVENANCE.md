@@ -77,3 +77,21 @@ root `schemas/` and `examples/` into active Agon part-local contract routes.
 | `examples/agon_agent_rank_surface.example.json` | [parts/arena-rank-school/examples/rank-surface.example.json](parts/arena-rank-school/examples/rank-surface.example.json) | `arena-rank-school` |
 | `examples/agon_agent_school_campaign_posture.example.json` | [parts/arena-rank-school/examples/school-campaign-posture.example.json](parts/arena-rank-school/examples/school-campaign-posture.example.json) | `arena-rank-school` |
 | `examples/agon_epistemic_actor_posture.example.json` | [parts/epistemic-actor/examples/epistemic-actor-posture.example.json](parts/epistemic-actor/examples/epistemic-actor-posture.example.json) | `epistemic-actor` |
+
+## 2026-05-26 Root Agon Formation Contract Move
+
+6 Agon formation schemas plus 2 examples moved from root `schemas/` and
+`examples/` into active Agon part-local contract routes. Wave II assistant
+civil contracts remain in their current shared/experience route for a separate
+localization slice.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/agent_kind_v1.json` | [parts/formation/schemas/agent-kind.schema.json](parts/formation/schemas/agent-kind.schema.json) | `formation` |
+| `schemas/agent_subjectivity_v1.json` | [parts/formation/schemas/subjectivity.schema.json](parts/formation/schemas/subjectivity.schema.json) | `formation` |
+| `schemas/agent_office_overlay_v1.json` | [parts/formation/schemas/office-overlay.schema.json](parts/formation/schemas/office-overlay.schema.json) | `formation` |
+| `schemas/agent_resistance_revision_v1.json` | [parts/formation/schemas/resistance-revision.schema.json](parts/formation/schemas/resistance-revision.schema.json) | `formation` |
+| `schemas/agent_formation_trial_v1.json` | [parts/formation/schemas/formation-trial.schema.json](parts/formation/schemas/formation-trial.schema.json) | `formation` |
+| `schemas/agent_arena_eligibility_v1.json` | [parts/arena-rank-school/schemas/arena-eligibility.schema.json](parts/arena-rank-school/schemas/arena-eligibility.schema.json) | `arena-rank-school` |
+| `examples/agent_agonic_formation.example.json` | [parts/formation/examples/agent-agonic-formation.example.json](parts/formation/examples/agent-agonic-formation.example.json) | `formation` |
+| `examples/agent_formation_trial.example.json` | [parts/formation/examples/formation-trial.example.json](parts/formation/examples/formation-trial.example.json) | `formation` |

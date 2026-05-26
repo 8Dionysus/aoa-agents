@@ -46,6 +46,10 @@ from validate_agon_rank_epistemic_contracts import (
     AgonRankEpistemicContractsValidationError,
     validate_agon_rank_epistemic_contracts,
 )
+from validate_agon_formation_contracts import (
+    AgonFormationContractsValidationError,
+    validate_agon_formation_contracts,
+)
 from validate_assistant_projection_resolver import (
     AssistantProjectionResolverValidationError,
     validate_assistant_projection_resolver,
@@ -3450,6 +3454,7 @@ def main() -> int:
         validate_self_agency_continuity_window_schema_surface()
         validate_reference_route_schema_surface()
         validate_titan_schemas()
+        validate_agon_formation_contracts(REPO_ROOT)
         validate_agon_rank_epistemic_contracts(REPO_ROOT)
         validate_antifragility_stress_surfaces()
         validate_rpg_progression(REPO_ROOT)
@@ -3495,6 +3500,7 @@ def main() -> int:
     except (
         ManifestValidationError,
         RecursorContractsValidationError,
+        AgonFormationContractsValidationError,
         AgonRankEpistemicContractsValidationError,
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
@@ -3520,6 +3526,7 @@ def main() -> int:
     print("[ok] validated self-agency continuity window schema surface")
     print("[ok] validated reference-route example schema surface")
     print("[ok] validated Titan part-local schemas")
+    print("[ok] validated Agon formation part-local contracts")
     print("[ok] validated Agon rank/school/epistemic part-local contracts")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated RPG progression schema and example")

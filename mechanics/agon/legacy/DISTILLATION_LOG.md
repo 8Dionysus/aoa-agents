@@ -35,3 +35,28 @@ paths are lookup facts only.
 | --- | ---: | ---: |
 | `arena-rank-school` | 4 | 2 |
 | `epistemic-actor` | 2 | 1 |
+
+## 2026-05-26 Root Agon Formation Contracts To Active Parts
+
+Moved 6 Agon formation schemas and 2 matching public-safe examples out of root
+`schemas/` and `examples/` and into active part-local `schemas/` and
+`examples/` directories. Git history preserves the verbatim file bodies; root
+paths are lookup facts only.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `formation` | 5 | 2 |
+| `arena-rank-school` | 1 | 0 |
+
+## 2026-05-26 Root Agon Formation Contracts To Active Parts
+
+Moved 6 Agon formation schemas plus 2 examples out of root `schemas/` and
+`examples/` and into active part-local `schemas/` and `examples/` directories.
+Git history preserves the verbatim file bodies; root paths are lookup facts
+only. Wave II assistant civil contracts stay in their current route for a
+separate localization pass.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `formation` | 5 | 2 |
+| `arena-rank-school` | 1 | 0 |

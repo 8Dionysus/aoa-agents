@@ -21,12 +21,12 @@ mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md
 mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md
 mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md
 mechanics/agon/parts/formation/docs/wave2-5-landing.md
-schemas/agent_formation_trial_v1.json
+mechanics/agon/parts/formation/schemas/formation-trial.schema.json
 generated/agent_formation_trial.min.json
 scripts/build_agent_formation_trial.py
 scripts/validate_agent_formation_trial.py
 tests/test_agent_formation_trial.py
-examples/agent_formation_trial.example.json
+mechanics/agon/parts/formation/examples/formation-trial.example.json
 quests/AOA-AG-Q-AGON-0007-formation-trial.md
 quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md
 quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md

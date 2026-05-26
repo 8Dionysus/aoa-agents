@@ -138,9 +138,15 @@ candidate-only rank, school/campaign, and epistemic actor schemas/examples by
 splitting them into `arena-rank-school` and `epistemic-actor` parts and adding
 `scripts/validate_agon_rank_epistemic_contracts.py`.
 
+The Agon formation contract localization satisfies that rule for Wave I
+agonic formation and Wave II.5 formation-trial schemas/examples by placing
+formation contracts under `mechanics/agon/parts/formation/`, arena eligibility
+under `mechanics/agon/parts/arena-rank-school/schemas/`, and adding
+`scripts/validate_agon_formation_contracts.py`.
+
 Shared remaining non-Titan, non-runtime-artifact, non-checkpoint,
-non-recursor, and non-Agon-rank/epistemic schemas, remaining non-Titan,
-non-runtime-artifact, non-checkpoint, non-recursor, and
-non-Agon-rank/epistemic examples,
+non-recursor, non-Agon-rank/epistemic, and non-Agon-formation schemas,
+remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
+non-Agon-rank/epistemic, and non-Agon-formation examples,
 scripts, tests, generated readers, and source agent objects remain in their
 current districts until their own move proof exists.

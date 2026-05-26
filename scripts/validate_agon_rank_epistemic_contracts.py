@@ -23,6 +23,7 @@ EPISTEMIC_SCHEMA_DIR = EPISTEMIC_PART / "schemas"
 EPISTEMIC_EXAMPLE_DIR = EPISTEMIC_PART / "examples"
 
 EXPECTED_ARENA_SCHEMAS = {
+    "arena-eligibility.schema.json",
     "rank-jurisdiction.schema.json",
     "rank-jurisdiction-registry.schema.json",
     "school-campaign-posture.schema.json",
@@ -217,7 +218,7 @@ def main() -> int:
     except AgonRankEpistemicContractsValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1
-    print("Agon rank/epistemic contract validation passed. schemas=6 examples=3 generated=3")
+    print("Agon rank/epistemic contract validation passed. schemas=7 examples=3 generated=3")
     return 0
 
 

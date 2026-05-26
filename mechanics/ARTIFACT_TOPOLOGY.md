@@ -119,6 +119,15 @@ jurisdiction, school/campaign, and epistemic actor schemas/examples from root
 validator. Stable schema `$id` values, where present, remain public contract
 identifiers, not active repo paths.
 
+The 2026-05-26 Agon formation contract localization moves Wave I agonic
+formation and Wave II.5 formation-trial schemas/examples from root `schemas/`
+and `examples/` into active `mechanics/agon/parts/formation/` and
+`mechanics/agon/parts/arena-rank-school/` contract routes after adding a
+part-local validator. Stable schema `$id` values remain public contract
+identifiers, not active repo paths. Wave II assistant civil contracts remain
+with their current shared/experience route until a separate localization slice
+lands.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

@@ -41,6 +41,7 @@ python scripts/validate_agent_agonic_formation.py
 python scripts/validate_assistant_civil_formation.py
 python scripts/build_agent_formation_trial.py --check
 python scripts/validate_agent_formation_trial.py
+python scripts/validate_agon_formation_contracts.py
 python scripts/validate_agon_rank_epistemic_contracts.py
 python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
 python scripts/validate_agon_agent_rank_jurisdiction.py
