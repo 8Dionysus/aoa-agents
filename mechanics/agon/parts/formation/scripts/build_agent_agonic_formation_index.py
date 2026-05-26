@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 
 SOURCE_DIRS = {
     "kind": Path("agents/profiles/adjuncts/kind"),
@@ -151,7 +151,7 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
     return {
         "$schema": "https://aoa-agents/generated/agent_agonic_formation_index.v1.json",
         "formation": "Agon Wave I / Agonic Actor Rechartering",
-        "generated_by": "scripts/build_agent_agonic_formation_index.py",
+        "generated_by": "mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py",
         "source_surfaces": [
             "agents/profiles/adjuncts/kind/*.kind.json",
             "agents/profiles/adjuncts/subjectivity/*.subjectivity.json",
@@ -182,7 +182,7 @@ def main(argv: list[str] | None = None) -> int:
             current = read_json(output_path)
             if current != payload:
                 raise FormationBuildError(
-                    f"{OUTPUT} is stale. Run python scripts/build_agent_agonic_formation_index.py"
+                    f"{OUTPUT} is stale. Run python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py"
                 )
             print(f"[ok] {OUTPUT} is current")
         else:

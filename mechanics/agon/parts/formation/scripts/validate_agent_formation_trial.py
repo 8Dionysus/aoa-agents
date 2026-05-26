@@ -60,7 +60,7 @@ def iter_keys(payload: Any):
 
 
 def import_builder(root: Path):
-    builder_path = root / "scripts" / "build_agent_formation_trial.py"
+    builder_path = Path(__file__).resolve().parent / "build_agent_formation_trial.py"
     spec = importlib.util.spec_from_file_location("agent_formation_trial_builder", builder_path)
     if spec is None or spec.loader is None:
         raise FormationTrialValidationError(f"cannot import builder: {builder_path}")
@@ -143,7 +143,7 @@ def validate_trial_payload(payload: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[5])
     args = parser.parse_args(argv)
     root = args.root.resolve()
     try:

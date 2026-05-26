@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import io
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -11,12 +12,9 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-import validate_agent_agonic_formation
-import validate_agent_formation_trial
-import validate_assistant_civil_formation
 
-
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
+SCRIPT_DIR = Path(__file__).resolve().parent
 FORMATION_PART = Path("mechanics/agon/parts/formation")
 ARENA_PART = Path("mechanics/agon/parts/arena-rank-school")
 FORMATION_SCHEMA_DIR = FORMATION_PART / "schemas"
@@ -39,6 +37,29 @@ EXPECTED_ARENA_FORMATION_SCHEMAS = {"arena-eligibility.schema.json"}
 
 class AgonFormationContractsValidationError(RuntimeError):
     pass
+
+
+def _load_repo_python_module(module_name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        raise AgonFormationContractsValidationError(f"cannot load {module_name} from {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+validate_agent_agonic_formation = _load_repo_python_module(
+    "validate_agent_agonic_formation",
+    SCRIPT_DIR / "validate_agent_agonic_formation.py",
+)
+validate_agent_formation_trial = _load_repo_python_module(
+    "validate_agent_formation_trial",
+    SCRIPT_DIR / "validate_agent_formation_trial.py",
+)
+validate_assistant_civil_formation = _load_repo_python_module(
+    "validate_assistant_civil_formation",
+    ROOT / "scripts" / "validate_assistant_civil_formation.py",
+)
 
 
 FORMER_SCHEMA_NAMES = (
@@ -152,6 +173,20 @@ def collect_agon_formation_contract_errors(root: Path = ROOT) -> list[str]:
         former_path = root / "examples" / file_name
         if former_path.exists():
             errors.append(f"former root Agon formation example is still active: {former_path.relative_to(root).as_posix()}")
+
+    for relative_path in (
+        "scripts/build_agent_agonic_formation_index.py",
+        "scripts/validate_agent_agonic_formation.py",
+        "scripts/build_agent_formation_trial.py",
+        "scripts/validate_agent_formation_trial.py",
+        "scripts/validate_agon_formation_contracts.py",
+        "tests/test_agent_agonic_formation.py",
+        "tests/test_agent_formation_trial.py",
+        "tests/test_agon_formation_contracts.py",
+    ):
+        former_path = root / relative_path
+        if former_path.exists():
+            errors.append(f"former root Agon formation check is still active: {relative_path}")
 
     _check_file_set(root, FORMATION_SCHEMA_DIR, EXPECTED_FORMATION_SCHEMAS, label="formation schema", errors=errors)
     _check_file_set(root, FORMATION_EXAMPLE_DIR, EXPECTED_FORMATION_EXAMPLES, label="formation example", errors=errors)

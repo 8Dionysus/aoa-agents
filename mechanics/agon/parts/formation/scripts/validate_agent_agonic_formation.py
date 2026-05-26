@@ -2,13 +2,25 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import sys
 from pathlib import Path
 from typing import Any
 
-import build_agent_agonic_formation_index as formation_builder
+ROOT = Path(__file__).resolve().parents[5]
 
-ROOT = Path(__file__).resolve().parents[1]
+
+def _load_formation_builder():
+    builder_path = Path(__file__).resolve().parent / "build_agent_agonic_formation_index.py"
+    spec = importlib.util.spec_from_file_location("agent_agonic_formation_builder", builder_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load formation builder from {builder_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+formation_builder = _load_formation_builder()
 REQUIRED_AGENTS = formation_builder.REQUIRED_AGENTS
 FORMATION_SCHEMA_DIR = ROOT / "mechanics" / "agon" / "parts" / "formation" / "schemas"
 ARENA_RANK_SCHOOL_SCHEMA_DIR = ROOT / "mechanics" / "agon" / "parts" / "arena-rank-school" / "schemas"

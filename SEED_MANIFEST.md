@@ -23,9 +23,9 @@ mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md
 mechanics/agon/parts/formation/docs/wave2-5-landing.md
 mechanics/agon/parts/formation/schemas/formation-trial.schema.json
 generated/agent_formation_trial.min.json
-scripts/build_agent_formation_trial.py
-scripts/validate_agent_formation_trial.py
-tests/test_agent_formation_trial.py
+mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py
+mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
 mechanics/agon/parts/formation/examples/formation-trial.example.json
 quests/AOA-AG-Q-AGON-0007-formation-trial.md
 quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md
@@ -35,9 +35,9 @@ quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md
 ## Commands after merge
 
 ```bash
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
-python -m pytest -q tests/test_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
 ```
 
 ## Expected first verdict

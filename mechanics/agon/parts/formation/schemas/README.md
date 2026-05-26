@@ -18,5 +18,5 @@ Arena eligibility lives in the adjacent
 Validate with:
 
 ```bash
-python scripts/validate_agon_formation_contracts.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
 ```

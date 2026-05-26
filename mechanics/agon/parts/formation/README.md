@@ -44,6 +44,24 @@ formation contracts, examples, docs, and stop-lines around those readers; it
 does not own the source adjunct records or turn generated readers into source
 authority.
 
-Validate local contracts with `python scripts/validate_agon_formation_contracts.py`.
+## Active Checks
+
+- [Agonic Formation Builder](scripts/build_agent_agonic_formation_index.py)
+- [Agonic Formation Validator](scripts/validate_agent_agonic_formation.py)
+- [Formation Trial Builder](scripts/build_agent_formation_trial.py)
+- [Formation Trial Validator](scripts/validate_agent_formation_trial.py)
+- [Formation Contract Validator](scripts/validate_agon_formation_contracts.py)
+- [Formation Tests](tests/)
+
+## Validation
+
+```bash
+python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
+python -m unittest discover -s mechanics/agon/parts/formation/tests -p 'test_*.py'
+```
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

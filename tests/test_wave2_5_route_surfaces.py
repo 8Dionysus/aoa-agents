@@ -20,7 +20,7 @@ class Wave25RouteSurfacesTestCase(unittest.TestCase):
 
         self.assertIn("mechanics/agon/parts/formation/docs/formation-trial.md", readme)
         self.assertIn("generated/agent_formation_trial.min.json", readme)
-        self.assertIn("python scripts/validate_agent_formation_trial.py", readme)
+        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py", readme)
         self.assertIn("Agent Formation Trial", docs_readme)
         self.assertIn("Agon Wave II.5 Landing", docs_readme)
         self.assertIn("Codex Projection Agon Boundary", docs_readme)

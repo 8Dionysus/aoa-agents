@@ -78,13 +78,13 @@ python scripts/validate_agents.py
 If `agents/profiles/adjuncts/` changed, also run:
 
 ```bash
-python scripts/build_agent_agonic_formation_index.py --check
-python scripts/validate_agent_agonic_formation.py
-python -m pytest -q tests/test_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py
 python scripts/build_assistant_civil_formation_index.py --check
 python scripts/validate_assistant_civil_formation.py
 python -m pytest -q tests/test_assistant_civil_formation.py
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
-python -m pytest -q tests/test_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
 ```

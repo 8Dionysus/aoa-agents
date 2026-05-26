@@ -70,9 +70,9 @@ class RoadmapParityTestCase(unittest.TestCase):
             "mechanics/agon/parts/formation/schemas/resistance-revision.schema.json",
             "generated/agent_agonic_formation_index.min.json",
             "mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json",
-            "scripts/build_agent_agonic_formation_index.py",
-            "scripts/validate_agent_agonic_formation.py",
-            "tests/test_agent_agonic_formation.py",
+            "mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py",
+            "mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py",
+            "mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)
@@ -126,9 +126,9 @@ class RoadmapParityTestCase(unittest.TestCase):
             "mechanics/agon/parts/formation/schemas/formation-trial.schema.json",
             "generated/agent_formation_trial.min.json",
             "mechanics/agon/parts/formation/examples/formation-trial.example.json",
-            "scripts/build_agent_formation_trial.py",
-            "scripts/validate_agent_formation_trial.py",
-            "tests/test_agent_formation_trial.py",
+            "mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py",
+            "mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py",
+            "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, roadmap)

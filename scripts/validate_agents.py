@@ -38,10 +38,6 @@ from validate_adoption_boundary_contracts import (
     AdoptionBoundaryContractsValidationError,
     validate_adoption_boundary_contracts,
 )
-from validate_agon_formation_contracts import (
-    AgonFormationContractsValidationError,
-    validate_agon_formation_contracts,
-)
 from validate_experience_assistant_civil_contracts import (
     ExperienceAssistantCivilContractsValidationError,
     validate_experience_assistant_civil_contracts,
@@ -75,6 +71,17 @@ AntifragilityStressValidationError = (
 )
 validate_antifragility_stress_payloads = (
     _ANTIFRAGILITY_STRESS_MODULE.validate_antifragility_stress_payloads
+)
+
+_AGON_FORMATION_CONTRACTS_MODULE = load_repo_python_module(
+    "agon_formation_contracts_validator",
+    "mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py",
+)
+AgonFormationContractsValidationError = (
+    _AGON_FORMATION_CONTRACTS_MODULE.AgonFormationContractsValidationError
+)
+validate_agon_formation_contracts = (
+    _AGON_FORMATION_CONTRACTS_MODULE.validate_agon_formation_contracts
 )
 
 _TITAN_SCHEMAS_MODULE = load_repo_python_module(

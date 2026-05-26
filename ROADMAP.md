@@ -118,9 +118,9 @@ Rechartering. Its checked surface is:
   `generated/agent_agonic_formation_index.min.json`, and
   `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
 - explicit Wave I validation lane:
-  `scripts/build_agent_agonic_formation_index.py`,
-  `scripts/validate_agent_agonic_formation.py`, and
-  `tests/test_agent_agonic_formation.py`
+  `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`,
+  `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, and
+  `mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py`
 
 This turn keeps the base `agents/profiles/*.profile.json` files as legacy role
 contracts while Wave I lands reviewed companion surfaces for agonic actor
@@ -188,9 +188,9 @@ Its checked surface is:
   `generated/agent_formation_trial.min.json`, and
   `mechanics/agon/parts/formation/examples/formation-trial.example.json`
 - explicit Wave II.5 validation lane:
-  `scripts/build_agent_formation_trial.py`,
-  `scripts/validate_agent_formation_trial.py`, and
-  `tests/test_agent_formation_trial.py`
+  `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py`,
+  `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`, and
+  `mechanics/agon/parts/formation/tests/test_agent_formation_trial.py`
 
 This turn judges whether the current five role houses survive as readable split
 forms after Waves I and II. It opens Wave III design only as pre-protocol

@@ -239,6 +239,13 @@ truth is under `agents/` and their consumer posture is repo-wide. The Agon and
 Experience parts own formation contracts, examples, docs, and stop-lines around
 those readers, not the generated files as part-local companions.
 
+The 2026-05-26 Agon formation check localization moves Wave I formation and
+Wave II.5 formation-trial builders, validators, and focused tests from root
+`scripts/` and `tests/` into
+`mechanics/agon/parts/formation/{scripts,tests}/`. The generated readers remain
+root-published as described above, while their `generated_by` fields and
+validation routes now point back to the owning formation part.
+
 The 2026-05-26 root agent schema posture keeps remaining root schemas in
 `schemas/` because they constrain repo-wide agent source families and generated
 registries. Mechanic-specific schemas have moved part-local; root

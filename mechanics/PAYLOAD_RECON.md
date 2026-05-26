@@ -149,7 +149,7 @@ The Agon formation contract localization satisfies that rule for Wave I
 agonic formation and Wave II.5 formation-trial schemas/examples by placing
 formation contracts under `mechanics/agon/parts/formation/`, arena eligibility
 under `mechanics/agon/parts/arena-rank-school/schemas/`, and adding
-`scripts/validate_agon_formation_contracts.py`.
+`mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 
 The Experience assistant civil contract localization satisfies that rule for
 Wave II assistant civil schemas/examples by placing service contracts under

@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 OUTPUT = "generated/agent_formation_trial.min.json"
 AGONIC_INDEX = "generated/agent_agonic_formation_index.min.json"
 ASSISTANT_INDEX = "generated/assistant_civil_formation_index.min.json"
@@ -238,7 +238,7 @@ def build_index(root: Path) -> dict[str, Any]:
         "schema_version": "agent_formation_trial_v1",
         "owner_repo": "aoa-agents",
         "wave": "agon_wave2_5_formation_trial",
-        "generated_by": "scripts/build_agent_formation_trial.py",
+        "generated_by": "mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py",
         "inputs": {
             "base_profiles": [f"agents/profiles/{role}.profile.json" for role in EXPECTED_BASE_ROLES],
             "agonic_index": AGONIC_INDEX,
@@ -280,7 +280,9 @@ def write_index(root: Path, check: bool = False) -> None:
         except FileNotFoundError as exc:
             raise FormationTrialBuildError(f"missing generated output: {output_path}") from exc
         if current != text:
-            raise FormationTrialBuildError(f"{OUTPUT} is stale; run scripts/build_agent_formation_trial.py")
+            raise FormationTrialBuildError(
+                f"{OUTPUT} is stale; run mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py"
+            )
         return
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(text, encoding="utf-8")

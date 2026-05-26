@@ -9,7 +9,7 @@ Decide how the Formation Trial validator enters the normal repo validation conto
 After owner review, call:
 
 ```bash
-python scripts/validate_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
 ```
 
 from the main validation route or release check path.

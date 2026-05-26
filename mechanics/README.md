@@ -54,6 +54,10 @@ source truth is that part's examples.
 The Agon rank/school/epistemic generated reader localization moved
 candidate-only rank, school/campaign, and epistemic registries into their
 owning Agon parts because their source truth is already part-local config.
+The Agon formation check localization moved Wave I formation and Wave II.5
+formation-trial builders, validators, and focused tests into the Agon
+`formation` part while keeping the generated readers root-published because
+their source truth remains under `agents/`.
 The recursor generated reader localization moved readiness, pair, projection,
 and boundary readers into their owning Recurrence parts because their source
 truth is already part-local config/schema/example material.
