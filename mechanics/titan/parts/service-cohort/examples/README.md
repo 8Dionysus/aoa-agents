@@ -8,6 +8,5 @@ examples for the `service-cohort` part.
 - [Service Cohort](service-cohort.v0.json)
 - [Memory Roster](memory-roster.v0.json)
 
-Schemas remain in root `schemas/` until contract localization has its own
-route. Former root path lookup goes through parent
-[PROVENANCE.md](../../../PROVENANCE.md).
+Schemas live in sibling [schemas/](../schemas/). Former root path lookup goes
+through parent [PROVENANCE.md](../../../PROVENANCE.md).

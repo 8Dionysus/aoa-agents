@@ -12,6 +12,12 @@ This part routes `role-bearing` pressure inside `mechanics/titan/`.
 - [Bearers](config/bearers.v0.json)
 - [Config Route](config/README.md)
 
+## Active Schemas
+
+- [Role Class](schemas/role-class.schema.json)
+- [Bearer Identity](schemas/bearer-identity.schema.json)
+- [Schemas Route](schemas/README.md)
+
 ## Active Examples
 
 - [Bearer Identity](examples/bearer-identity.v0.json)

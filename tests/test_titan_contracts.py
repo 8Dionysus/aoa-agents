@@ -17,7 +17,7 @@ def load_json(relative_path: str) -> dict:
 
 class TitanContractTests(unittest.TestCase):
     def test_titan_report_requires_evidence_backed_findings(self) -> None:
-        schema = load_json("schemas/titan_agent_report.schema.json")
+        schema = load_json("mechanics/titan/parts/runtime-roster/schemas/agent-report.schema.json")
         validator = Draft202012Validator(schema)
         payload = {
             "schema_version": "titan_agent_report/v1",
@@ -44,7 +44,7 @@ class TitanContractTests(unittest.TestCase):
         self.assertTrue(list(validator.iter_errors(without_evidence)))
 
     def test_titan_role_assignment_schema_id_matches_filename(self) -> None:
-        schema = load_json("schemas/titan_agent_role_assignment.schema.json")
+        schema = load_json("mechanics/titan/parts/summon-boundary/schemas/agent-role-assignment.schema.json")
 
         self.assertEqual(
             schema["$id"],

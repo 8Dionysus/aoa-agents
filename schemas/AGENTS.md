@@ -2,7 +2,10 @@
 
 ## Guidance for `schemas/`
 
-`schemas/` holds contracts for profiles, model tiers, orchestrator classes, cohorts, runtime artifacts, checkpoints, and reference routes.
+`schemas/` holds shared contracts for profiles, model tiers, orchestrator classes, cohorts, runtime artifacts, checkpoints, and reference routes.
+
+Mechanic-specific Titan schemas live under `mechanics/titan/parts/*/schemas/`
+and are validated by `scripts/validate_titan_schemas.py`.
 
 Schema edits are role contract edits. Preserve `$schema`, stable `$id` or identifier posture, required fields, enums, and descriptions that keep role authority bounded.
 

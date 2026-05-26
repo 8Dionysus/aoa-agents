@@ -10,6 +10,12 @@ This part routes `service-cohort` pressure inside `mechanics/titan/`.
 - [Titan Service Cohort](docs/service-cohort.md)
 - [Titan Swarm Participation](docs/swarm-participation.md)
 
+## Active Schemas
+
+- [Service Cohort](schemas/service-cohort.schema.json)
+- [Memory Roster](schemas/memory-roster.schema.json)
+- [Schemas Route](schemas/README.md)
+
 ## Active Examples
 
 - [Service Cohort](examples/service-cohort.v0.json)

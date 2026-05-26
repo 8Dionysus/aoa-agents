@@ -21,6 +21,8 @@ contracts, service cohorts, and Codex-facing projections.
 
 - role-bearing posture for Titan-facing agents
 - source config seeds for Titan role classes, bearers, and lineage
+- part-local schemas for Titan role, lineage, incarnation, roster,
+  service-cohort, and summon-boundary contracts
 - part-local public-safe examples for Titan role, lineage, incarnation, roster,
   service cohort, and summon-boundary contracts
 - generated Titan projection companions as derived readers
@@ -37,6 +39,7 @@ contracts, service cohorts, and Codex-facing projections.
 
 ```bash
 python scripts/validate_titan_lineage.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --ledger mechanics/titan/parts/lineage-ledger/config/ledger.v0.json
+python scripts/validate_titan_schemas.py
 python scripts/validate_titan_examples.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py

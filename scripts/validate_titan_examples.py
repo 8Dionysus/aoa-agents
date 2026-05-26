@@ -16,34 +16,34 @@ TITAN_PARTS_ROOT = Path("mechanics/titan/parts")
 
 EXPECTED_EXAMPLE_SCHEMAS = {
     Path("mechanics/titan/parts/role-bearing/examples/bearer-identity.v0.json"): Path(
-        "schemas/titan_bearer_identity.schema.json"
+        "mechanics/titan/parts/role-bearing/schemas/bearer-identity.schema.json"
     ),
     Path("mechanics/titan/parts/lineage-ledger/examples/lineage-ledger.v0.json"): Path(
-        "schemas/titan_lineage_ledger.schema.json"
+        "mechanics/titan/parts/lineage-ledger/schemas/lineage-ledger.schema.json"
     ),
     Path("mechanics/titan/parts/incarnation-spine/examples/incarnation-identity.example.json"): Path(
-        "schemas/titan_incarnation_identity.schema.json"
+        "mechanics/titan/parts/incarnation-spine/schemas/incarnation-identity.schema.json"
     ),
     Path("mechanics/titan/parts/incarnation-spine/examples/operator-console-roster.v0.json"): Path(
-        "schemas/titan_operator_console_roster.schema.json"
+        "mechanics/titan/parts/incarnation-spine/schemas/operator-console-roster.schema.json"
     ),
     Path("mechanics/titan/parts/runtime-roster/examples/runtime-roster.v0.json"): Path(
-        "schemas/titan_runtime_roster.schema.json"
+        "mechanics/titan/parts/runtime-roster/schemas/runtime-roster.schema.json"
     ),
     Path("mechanics/titan/parts/runtime-roster/examples/appserver-bridge-boundary.v0.json"): Path(
-        "schemas/titan_appserver_bridge_boundary.schema.json"
+        "mechanics/titan/parts/runtime-roster/schemas/appserver-bridge-boundary.schema.json"
     ),
     Path("mechanics/titan/parts/service-cohort/examples/memory-roster.v0.json"): Path(
-        "schemas/titan_memory_roster.schema.json"
+        "mechanics/titan/parts/service-cohort/schemas/memory-roster.schema.json"
     ),
     Path("mechanics/titan/parts/service-cohort/examples/service-cohort.v0.json"): Path(
-        "schemas/titan_service_cohort.schema.json"
+        "mechanics/titan/parts/service-cohort/schemas/service-cohort.schema.json"
     ),
     Path("mechanics/titan/parts/summon-boundary/examples/compact-review-task.example.json"): Path(
-        "schemas/titan_agent_role_assignment.schema.json"
+        "mechanics/titan/parts/summon-boundary/schemas/agent-role-assignment.schema.json"
     ),
     Path("mechanics/titan/parts/summon-boundary/examples/delta-residual-risk-task.example.json"): Path(
-        "schemas/titan_agent_role_assignment.schema.json"
+        "mechanics/titan/parts/summon-boundary/schemas/agent-role-assignment.schema.json"
     ),
 }
 

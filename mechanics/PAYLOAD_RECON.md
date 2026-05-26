@@ -101,6 +101,10 @@ The Titan example localization satisfies that rule for schema-backed Titan
 examples by moving them into part-local `examples/` directories and adding
 `scripts/validate_titan_examples.py`.
 
-Shared schemas, non-Titan examples, scripts, tests, generated readers, and
-source agent objects remain in their current districts until their own move
-proof exists.
+The Titan schema localization satisfies that rule for Titan-specific contract
+schemas by moving them into part-local `schemas/` directories and adding
+`scripts/validate_titan_schemas.py`.
+
+Shared non-Titan schemas, non-Titan examples, scripts, tests, generated
+readers, and source agent objects remain in their current districts until their
+own move proof exists.

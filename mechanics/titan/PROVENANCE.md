@@ -61,3 +61,23 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `examples/titan_service_cohort.v0.json` | [parts/service-cohort/examples/service-cohort.v0.json](parts/service-cohort/examples/service-cohort.v0.json) | `service-cohort` |
 | `examples/titan_compact_review_task.example.json` | [parts/summon-boundary/examples/compact-review-task.example.json](parts/summon-boundary/examples/compact-review-task.example.json) | `summon-boundary` |
 | `examples/titan_delta_residual_risk_task.example.json` | [parts/summon-boundary/examples/delta-residual-risk-task.example.json](parts/summon-boundary/examples/delta-residual-risk-task.example.json) | `summon-boundary` |
+
+## 2026-05-26 Root Schemas Move
+
+11 Titan-specific schemas moved from root `schemas/` into
+`titan/parts/*/schemas/`. Stable `$id` values remain public contract
+identifiers.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `schemas/titan_role_class.schema.json` | [parts/role-bearing/schemas/role-class.schema.json](parts/role-bearing/schemas/role-class.schema.json) | `role-bearing` |
+| `schemas/titan_bearer_identity.schema.json` | [parts/role-bearing/schemas/bearer-identity.schema.json](parts/role-bearing/schemas/bearer-identity.schema.json) | `role-bearing` |
+| `schemas/titan_lineage_ledger.schema.json` | [parts/lineage-ledger/schemas/lineage-ledger.schema.json](parts/lineage-ledger/schemas/lineage-ledger.schema.json) | `lineage-ledger` |
+| `schemas/titan_incarnation_identity.schema.json` | [parts/incarnation-spine/schemas/incarnation-identity.schema.json](parts/incarnation-spine/schemas/incarnation-identity.schema.json) | `incarnation-spine` |
+| `schemas/titan_operator_console_roster.schema.json` | [parts/incarnation-spine/schemas/operator-console-roster.schema.json](parts/incarnation-spine/schemas/operator-console-roster.schema.json) | `incarnation-spine` |
+| `schemas/titan_agent_report.schema.json` | [parts/runtime-roster/schemas/agent-report.schema.json](parts/runtime-roster/schemas/agent-report.schema.json) | `runtime-roster` |
+| `schemas/titan_runtime_roster.schema.json` | [parts/runtime-roster/schemas/runtime-roster.schema.json](parts/runtime-roster/schemas/runtime-roster.schema.json) | `runtime-roster` |
+| `schemas/titan_appserver_bridge_boundary.schema.json` | [parts/runtime-roster/schemas/appserver-bridge-boundary.schema.json](parts/runtime-roster/schemas/appserver-bridge-boundary.schema.json) | `runtime-roster` |
+| `schemas/titan_memory_roster.schema.json` | [parts/service-cohort/schemas/memory-roster.schema.json](parts/service-cohort/schemas/memory-roster.schema.json) | `service-cohort` |
+| `schemas/titan_service_cohort.schema.json` | [parts/service-cohort/schemas/service-cohort.schema.json](parts/service-cohort/schemas/service-cohort.schema.json) | `service-cohort` |
+| `schemas/titan_agent_role_assignment.schema.json` | [parts/summon-boundary/schemas/agent-role-assignment.schema.json](parts/summon-boundary/schemas/agent-role-assignment.schema.json) | `summon-boundary` |

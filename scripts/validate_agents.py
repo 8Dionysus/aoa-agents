@@ -36,6 +36,7 @@ from validate_recurrence_component_manifests import (
 )
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
+from validate_titan_schemas import TitanSchemasValidationError, validate_titan_schemas
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
@@ -3407,6 +3408,7 @@ def main() -> int:
         validate_self_agent_checkpoint_schema_surface()
         validate_self_agency_continuity_window_schema_surface()
         validate_reference_route_schema_surface()
+        validate_titan_schemas()
         validate_antifragility_stress_surfaces()
         validate_alpha_reference_route_schema_surface()
         validate_nested_agents_docs()
@@ -3445,7 +3447,13 @@ def main() -> int:
         validate_questbook_surface()
         validate_orchestrator_class_doc_surface()
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
-    except (ManifestValidationError, NestedAgentsValidationError, TitanExamplesValidationError, ValidationError) as exc:
+    except (
+        ManifestValidationError,
+        NestedAgentsValidationError,
+        TitanExamplesValidationError,
+        TitanSchemasValidationError,
+        ValidationError,
+    ) as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
@@ -3461,6 +3469,7 @@ def main() -> int:
     print("[ok] validated self-agent-checkpoint schema surface")
     print("[ok] validated self-agency continuity window schema surface")
     print("[ok] validated reference-route example schema surface")
+    print("[ok] validated Titan part-local schemas")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated Alpha reference-route schema surface")
     print("[ok] validated nested AGENTS.md guidance surfaces")

@@ -69,6 +69,11 @@ from root `examples/` into active `mechanics/titan/parts/*/examples/` routes
 after adding a package-local example validator. Root `examples/` remains active
 for shared examples whose mechanic-local contract is not explicit yet.
 
+The 2026-05-26 Titan schema localization moves Titan-specific schemas from
+root `schemas/` into active `mechanics/titan/parts/*/schemas/` routes after
+adding a package-local schema validator. Root `schemas/` remains active for
+shared non-Titan contracts.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

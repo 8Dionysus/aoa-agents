@@ -18,7 +18,9 @@ now have clear part owners and a bounded validation route.
 ## Decision
 
 Move the active Titan examples into `mechanics/titan/parts/*/examples/` using
-part-local names. Keep the shared schemas in root `schemas/` for this slice.
+part-local names. At landing time, schemas remained in root `schemas/`; the
+later Titan schema localization moved the Titan-specific schemas beside the
+examples.
 
 Add `scripts/validate_titan_examples.py` and wire it into
 `scripts/validate_agents.py` so the active file set, schema alignment, lineage
@@ -31,8 +33,8 @@ Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 - Titan parts now own their public-safe contract examples alongside docs and
   config.
 - Root `examples/` no longer carries Titan-specific examples.
-- Titan schemas remain shared root contract surfaces until a later schema
-  localization decision exists.
+- Titan-specific schemas are now routed by the later Titan schema localization
+  decision.
 - Old root example names remain historical lookup facts only.
 
 ## Verification

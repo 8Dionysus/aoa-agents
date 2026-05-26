@@ -8,6 +8,12 @@ This part routes `incarnation-spine` pressure inside `mechanics/titan/`.
 - [Titan Operator Console Boundary](docs/operator-console-boundary.md)
 - [Titan Praxis Plane](docs/praxis-plane.md)
 
+## Active Schemas
+
+- [Incarnation Identity](schemas/incarnation-identity.schema.json)
+- [Operator Console Roster](schemas/operator-console-roster.schema.json)
+- [Schemas Route](schemas/README.md)
+
 ## Active Examples
 
 - [Incarnation Identity](examples/incarnation-identity.example.json)
