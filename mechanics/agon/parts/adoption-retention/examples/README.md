@@ -13,5 +13,5 @@ Public-safe examples for Agon adoption and retention contracts.
 Validate with:
 
 ```bash
-python scripts/validate_adoption_boundary_contracts.py
+python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 ```

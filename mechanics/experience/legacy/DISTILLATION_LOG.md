@@ -39,6 +39,18 @@ lookup facts only.
 | `assistant-civil-service` | 2 | 1 |
 | Experience package | 1 | 1 |
 
+## 2026-05-26 Adoption Boundary Checks To Active Routes
+
+Moved the Wave III adoption/boundary validator and focused test out of root
+`scripts/` and `tests` into Experience package-level routes. The check stays
+package-level because it spans Experience adoption/office parts and
+cross-routes into Agon and Boundary Bridge contract parts. Git history
+preserves the file bodies; root paths are lookup facts only.
+
+| Route | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| Experience package | 1 | 1 |
+
 ## 2026-05-26 Root Adoption/Office Contracts To Active Parts
 
 Moved 14 adoption and office-operation schemas plus 14 matching examples out

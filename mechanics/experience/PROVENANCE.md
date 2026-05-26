@@ -109,6 +109,18 @@ cross-part contract validator lives at package level because it checks
 | `tests/test_assistant_civil_formation.py` | [parts/assistant-civil-service/tests/test_assistant_civil_formation.py](parts/assistant-civil-service/tests/test_assistant_civil_formation.py) | `assistant-civil-service` |
 | `tests/test_experience_assistant_civil_contracts.py` | [tests/test_experience_assistant_civil_contracts.py](tests/test_experience_assistant_civil_contracts.py) | `experience` package |
 
+## 2026-05-26 Adoption Boundary Check Move
+
+Wave III adoption/boundary validator support moved from root `scripts/` and
+`tests/` into Experience package routes. The check remains package-level
+because it validates Experience adoption/office parts together with Agon
+adoption-retention and Boundary Bridge consumer/federation parts.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_adoption_boundary_contracts.py` | [scripts/validate_adoption_boundary_contracts.py](scripts/validate_adoption_boundary_contracts.py) | `experience` package |
+| `tests/test_experience_wave3_seed_contracts.py` | [tests/test_experience_wave3_seed_contracts.py](tests/test_experience_wave3_seed_contracts.py) | `experience` package |
+
 ## 2026-05-26 Root Adoption/Office Contract Move
 
 14 adoption/office schemas plus 14 examples moved from root `schemas/` and

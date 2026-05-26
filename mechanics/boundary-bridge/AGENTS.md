@@ -44,7 +44,7 @@ workspace triggers, install compatibility, and source-surface registries.
 ## Validation
 
 ```bash
-python scripts/validate_adoption_boundary_contracts.py
+python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

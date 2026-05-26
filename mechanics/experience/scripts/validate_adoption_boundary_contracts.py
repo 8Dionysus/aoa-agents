@@ -13,7 +13,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 EXPERIENCE_ADOPTION_PART = Path("mechanics/experience/parts/adoption-and-regression")
 EXPERIENCE_OFFICE_PART = Path("mechanics/experience/parts/office-operations")
 AGON_ADOPTION_PART = Path("mechanics/agon/parts/adoption-retention")
@@ -183,6 +183,11 @@ CONTRACTS = (
         "projection",
         "boundary",
     ),
+)
+
+FORMER_CHECK_PATHS = (
+    Path("scripts/validate_adoption_boundary_contracts.py"),
+    Path("tests/test_experience_wave3_seed_contracts.py"),
 )
 
 
@@ -447,6 +452,10 @@ def _validate_schema_example_pair(
 def collect_adoption_boundary_contract_errors(root: Path = ROOT) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
+
+    for former_path in FORMER_CHECK_PATHS:
+        if (root / former_path).exists():
+            errors.append(f"former root adoption/boundary check is still active: {former_path.as_posix()}")
 
     for contract in CONTRACTS:
         former_schema_path = root / "schemas" / contract.former_schema_name

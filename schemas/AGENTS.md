@@ -62,7 +62,7 @@ Mechanic-specific adoption and boundary bridge schemas live under
 `mechanics/agon/parts/adoption-retention/schemas/`,
 `mechanics/boundary-bridge/parts/*/schemas/`, and
 `mechanics/experience/parts/{adoption-and-regression,office-operations}/schemas/`.
-They are validated by `scripts/validate_adoption_boundary_contracts.py`.
+They are validated by `mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
 
 Mechanic-specific agent service schemas live under
 `mechanics/experience/parts/*/schemas/`,

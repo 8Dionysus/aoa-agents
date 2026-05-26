@@ -112,7 +112,7 @@ python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python mechanics/recurrence/scripts/validate_recursor_contracts.py
 python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
 python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-python scripts/validate_adoption_boundary_contracts.py
+python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 python -m pytest -q tests
 ```
 
