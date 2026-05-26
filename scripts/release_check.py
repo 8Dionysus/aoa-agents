@@ -198,6 +198,26 @@ COMMANDS = [
         ],
     ),
     (
+        "validate Codex specialization eligibility",
+        [
+            sys.executable,
+            "mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py",
+        ],
+    ),
+    (
+        "run Codex specialization eligibility tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/codex-projection/parts/specialization-eligibility/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
+    (
         "run assistant projection resolver tests",
         [
             sys.executable,

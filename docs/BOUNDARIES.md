@@ -40,6 +40,9 @@ or runtime worker.
 Codex projection remains base-role-only until an explicit projection
 eligibility surface records the install name, permission posture, refresh law,
 and owner consent for a specialization.
+That gate lives under
+`mechanics/codex-projection/parts/specialization-eligibility/` and does not
+install agents by itself.
 
 ## Rule 3: agent is not proof
 

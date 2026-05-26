@@ -1,0 +1,88 @@
+{
+  "schema_version": "codex_specialization_eligibility_v1",
+  "kind": "codex_specialization_eligibility",
+  "id": "codex-specialization-eligibility.coder.repo-refactor",
+  "owner_repo": "aoa-agents",
+  "projection_scope": "base_role_profiles_only",
+  "specialization_id": "coder.repo-refactor",
+  "specialization_ref": "agents/roles/coder/specializations/repo-refactor/specialization.json",
+  "base_role_id": "coder",
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
+  "codex_install": {
+    "install_state": "not_projected",
+    "proposed_agent_name": "coder-repo-refactor",
+    "generated_surface_policy": "no_generated_change",
+    "workspace_install_policy": "no_workspace_install"
+  },
+  "permission_posture": {
+    "sandbox_mode": "workspace-write",
+    "approval_gate": "required",
+    "tool_policy_refs": [
+      "git-local-diff",
+      "repo-local-tests"
+    ],
+    "skill_refs": [
+      "aoa-change-protocol",
+      "aoa-contract-test"
+    ],
+    "technique_refs": [
+      "plan-diff-apply-verify-report"
+    ],
+    "memory_routes": [
+      "aoa-agents:memo/write_candidate_only"
+    ],
+    "proof_routes": [
+      "scripts/validate_agents.py",
+      "scripts/release_check.py"
+    ]
+  },
+  "owner_consent": {
+    "consent_state": "not_requested",
+    "required_owners": [
+      "aoa-agents",
+      "workspace-codex",
+      "aoa-skills",
+      "aoa-techniques",
+      "aoa-memo",
+      "aoa-evals"
+    ],
+    "granted_owners": [
+      "aoa-agents"
+    ]
+  },
+  "evidence": {
+    "required_refs": [
+      "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+      "generated/role_specialization_catalog.min.json",
+      "generated/capability_pack_registry.min.json",
+      "generated/codex_agents/projection_manifest.json"
+    ],
+    "observed_refs": [
+      "repo:aoa-agents/pull/225",
+      "repo:aoa-agents/commit/1d5c52a8839db8cf6a8c33d3751a289bd4e7cc52"
+    ],
+    "missing_refs": [
+      "reviewed workspace Codex install consent",
+      "repeatable successful use evidence",
+      "reviewed proof route from aoa-evals"
+    ],
+    "proof_commands": [
+      "python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py",
+      "python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p \"test_*.py\""
+    ]
+  },
+  "decision": {
+    "status": "candidate_only",
+    "decided_by": null,
+    "decided_at": null,
+    "rationale": "This record sketches promotion requirements for coder.repo-refactor without widening the current base-role Codex projection.",
+    "next_review_trigger": "Review after repeated successful repo-refactor use and explicit owner consent."
+  },
+  "refresh_law_ref": "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md",
+  "guardrails": {
+    "no_generated_agent_change": true,
+    "no_workspace_install": true,
+    "no_runtime_activation": true,
+    "requires_reviewed_intake": true
+  }
+}

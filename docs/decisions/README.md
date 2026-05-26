@@ -62,3 +62,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Agents convex source tree](2026-05-26-agents-convex-source-tree.md)
 - [2026-05-26: Role specializations and capability packs](2026-05-26-role-specializations-and-capability-packs.md)
 - [2026-05-26: Specialization projection boundary](2026-05-26-specialization-projection-boundary.md)
+- [2026-05-26: Specialization eligibility gate](2026-05-26-specialization-eligibility-gate.md)
