@@ -1,0 +1,60 @@
+{
+  "$schema": "https://aoa-agents/schemas/capability-pack.schema.json",
+  "id": "release-readiness.readonly",
+  "status": "experimental",
+  "summary": "Read-only release readiness evaluation for agent-layer source and readers.",
+  "meaning": "Use this pack when an agent must judge whether a bounded change has enough checks, evidence, and reader freshness to be treated as release-ready.",
+  "permission_posture": {
+    "default_mode": "read-only",
+    "mutation_allowed": false,
+    "requires_gate": false,
+    "notes": [
+      "May run release checks and inspect artifacts.",
+      "Must hand off if readiness requires source mutation."
+    ]
+  },
+  "tool_refs": [
+    "python:release-check",
+    "git:diff-status-readonly",
+    "rg:proof-surface-scan"
+  ],
+  "skill_refs": [
+    "aoa-invariant-coverage-audit",
+    "aoa-contract-test",
+    "aoa-source-of-truth-check"
+  ],
+  "technique_refs": [
+    "aoa-techniques:release-readiness",
+    "aoa-techniques:evidence-led-closeout"
+  ],
+  "memory_routes": {
+    "read_refs": [
+      "aoa-memo:brief"
+    ],
+    "write_refs": [],
+    "owner": "aoa-memo"
+  },
+  "proof_routes": [
+    "scripts/release_check.py",
+    "scripts/validate_agents.py",
+    "python -m unittest discover -s tests -p 'test_*.py'"
+  ],
+  "projection_hints": [
+    "Suitable for evaluator specializations that score readiness without editing.",
+    "Projection should prefer validation and evidence tools over write tools."
+  ],
+  "owner_boundaries": [
+    {
+      "pressure": "proof rubric or verdict canon",
+      "route": "aoa-evals"
+    },
+    {
+      "pressure": "implementation fix",
+      "route": "coder.repo-refactor"
+    }
+  ],
+  "stop_lines": [
+    "Do not change source state through this pack.",
+    "Do not promote local readiness judgment into eval doctrine."
+  ]
+}

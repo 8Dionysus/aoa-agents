@@ -1,0 +1,54 @@
+{
+  "$schema": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "id": "memory-keeper.writeback-steward",
+  "role_id": "memory-keeper",
+  "slug": "writeback-steward",
+  "status": "experimental",
+  "summary": "Memory-keeper specialization for writeback checks and local memory candidates.",
+  "meaning": "Use this specialization when the memory-keeper must inspect provenance and prepare a local memory candidate while leaving durable memory authority with aoa-memo.",
+  "inherits_from": "agents/roles/memory-keeper/profile.json",
+  "activation_triggers": [
+    "A meaningful topology, route-law, or workflow change needs writeback judgment.",
+    "Session evidence must be preserved as a candidate rather than treated as canon.",
+    "A closeout needs explicit memory-worthy or no-writeback reasoning."
+  ],
+  "allowed_forms": [
+    "base",
+    "assistant"
+  ],
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/memo-writeback.write-candidate.capability.json",
+  "skill_refs": [
+    "aoa-source-of-truth-check",
+    "aoa-bounded-context-map"
+  ],
+  "technique_refs": [
+    "aoa-techniques:memory-writeback-check",
+    "aoa-techniques:provenance-preservation"
+  ],
+  "memory_route_refs": [
+    "aoa-memo:brief",
+    "memo/candidates:write-candidate"
+  ],
+  "proof_routes": [
+    "scripts/validate_agents.py",
+    "scripts/validate_agent_source_home.py"
+  ],
+  "projection_notes": [
+    "May project as memory-keeper-writeback-steward, but source remains inside the memory-keeper role house.",
+    "Projection may prepare candidates but must not grant durable promotion rights by default."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "durable memory canon",
+      "route": "aoa-memo"
+    },
+    {
+      "pressure": "raw session archive repair",
+      "route": ".aoa"
+    }
+  ],
+  "stop_lines": [
+    "Do not promote, demote, retire, or rewrite durable memory truth through this specialization.",
+    "Do not write outside a repo-local memory candidate route."
+  ]
+}

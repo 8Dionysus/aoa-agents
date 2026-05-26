@@ -1,0 +1,55 @@
+{
+  "$schema": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "id": "architect.topology-steward",
+  "role_id": "architect",
+  "slug": "topology-steward",
+  "status": "experimental",
+  "summary": "Architect specialization for read-only topology, owner, and boundary stewardship.",
+  "meaning": "Use this specialization when the architect must map role homes, source families, route law, and stronger-owner boundaries before implementation.",
+  "inherits_from": "agents/roles/architect/profile.json",
+  "activation_triggers": [
+    "A source tree shape or owner boundary is unclear.",
+    "A sibling repository pattern needs interpretation before local adoption.",
+    "Generated reader authority may be drifting above source authority."
+  ],
+  "allowed_forms": [
+    "base",
+    "agonic",
+    "assistant"
+  ],
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/topology-readonly.capability.json",
+  "skill_refs": [
+    "aoa-bounded-context-map",
+    "aoa-source-of-truth-check"
+  ],
+  "technique_refs": [
+    "aoa-techniques:boundary-map",
+    "aoa-techniques:source-before-summary"
+  ],
+  "memory_route_refs": [
+    "aoa-memo:brief",
+    "aoa-session-memory:search-readonly"
+  ],
+  "proof_routes": [
+    "scripts/validate_agent_source_home.py",
+    "scripts/validate_nested_agents.py"
+  ],
+  "projection_notes": [
+    "May project as architect-topology-steward, but source remains inside the architect role house.",
+    "Projection should be read-only unless paired with a separate workspace-write specialization."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "ecosystem doctrine",
+      "route": "Agents-of-Abyss"
+    },
+    {
+      "pressure": "implementation",
+      "route": "coder.repo-refactor"
+    }
+  ],
+  "stop_lines": [
+    "Do not mutate source state through this specialization.",
+    "Do not turn topology analysis into proof doctrine or durable memory canon."
+  ]
+}

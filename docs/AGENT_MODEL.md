@@ -13,16 +13,23 @@ The agent layer exists to make roles, posture, and handoff visible rather than l
 
 Within `aoa-agents`, an agent should mean a reusable role-bearing actor described through surfaces such as:
 - role contract
+- role-local specialization
 - preferred skill families
 - handoff posture
 - memory posture
 - evaluation posture
 - compact composition hints
+- reusable capability posture
 
 Future subject-bearing preparation may widen this layer later, but only through
 bounded role-authored surfaces. See [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md)
 for the local stop-lines before doctrine seed, resistance posture, or delta
 obligations are treated as agent-layer canon.
+
+Base role identity lives in `agents/roles/<role>/profile.json`. Narrower
+operating lanes live below that role as
+`agents/roles/<role>/specializations/<slug>/specialization.json` and reference
+capability packs from `agents/operating-model/capabilities/packs/`.
 
 The first official composition hint surface lives in
 [Agent Cohort Patterns](../mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md).
@@ -55,11 +62,14 @@ An agent focused on preserving provenance, recall, and memory hygiene.
 
 An agent profile should not silently become:
 - a skill bundle
+- a tool or permission bundle
 - a proof surface
 - a routing layer
 - a memory store
 
 An agent may use all of those layers, but does not replace them.
+Capability packs may name those layers as references, but they also do not
+implement or own them.
 
 ## Agent posture
 

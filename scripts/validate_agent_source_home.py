@@ -16,6 +16,8 @@ SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-source-home.schema.json"
 EXPECTED_FAMILY_IDS = {
     "base_profiles",
     "profile_adjuncts",
+    "role_specializations",
+    "capability_packs",
     "model_tiers",
     "orchestrator_classes",
     "cohort_patterns",

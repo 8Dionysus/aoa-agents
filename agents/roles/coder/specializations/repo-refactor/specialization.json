@@ -1,0 +1,63 @@
+{
+  "$schema": "https://aoa-agents/schemas/role-specialization.schema.json",
+  "id": "coder.repo-refactor",
+  "role_id": "coder",
+  "slug": "repo-refactor",
+  "status": "experimental",
+  "summary": "Coder specialization for bounded repo-local refactors with generated-reader repair.",
+  "meaning": "Use this specialization when the coder may change source topology, schemas, validators, docs, and generated readers inside a named repo-local route.",
+  "inherits_from": "agents/roles/coder/profile.json",
+  "activation_triggers": [
+    "A bounded repo-local structure change has an explicit owner surface.",
+    "Generated readers need regeneration from changed source objects.",
+    "Validators or tests need to move with the new source topology."
+  ],
+  "allowed_forms": [
+    "base",
+    "assistant"
+  ],
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
+  "skill_refs": [
+    "aoa-change-protocol",
+    "aoa-bounded-context-map",
+    "aoa-adr-write",
+    "aoa-source-of-truth-check"
+  ],
+  "technique_refs": [
+    "aoa-techniques:bounded-refactor",
+    "aoa-techniques:generated-from-source",
+    "aoa-techniques:validator-first-closeout"
+  ],
+  "memory_route_refs": [
+    "aoa-memo:brief",
+    "memo/candidates:write-candidate"
+  ],
+  "proof_routes": [
+    "scripts/build_published_surfaces.py",
+    "scripts/validate_agent_source_home.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "projection_notes": [
+    "May project as coder-repo-refactor, but source remains inside the coder role house.",
+    "Projection must keep mutation authority repo-local unless a stronger runtime route is explicit."
+  ],
+  "stronger_owner_routes": [
+    {
+      "pressure": "workflow body",
+      "route": "aoa-skills"
+    },
+    {
+      "pressure": "runtime behavior",
+      "route": "abyss-stack"
+    },
+    {
+      "pressure": "proof doctrine",
+      "route": "aoa-evals"
+    }
+  ],
+  "stop_lines": [
+    "Do not mutate service, runtime, secret, plugin, hook, or network posture through this specialization.",
+    "Do not hand-edit generated readers when the source builder can regenerate them."
+  ]
+}

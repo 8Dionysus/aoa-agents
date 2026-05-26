@@ -12,6 +12,8 @@ builder routes, and validation posture.
 Current published outputs include:
 
 - `generated/agent_registry.min.json`
+- `generated/role_specialization_catalog.min.json`
+- `generated/capability_pack_registry.min.json`
 - `generated/agent_agonic_formation_index.min.json`
 - `generated/assistant_civil_formation_index.min.json`
 - `generated/agent_formation_trial.min.json`
@@ -56,6 +58,8 @@ owns their builder and freshness check.
 These files are derived from:
 
 - `agents/roles/`
+- `agents/roles/*/specializations/`
+- `agents/operating-model/capabilities/packs/`
 - `agents/roles/*/forms/`
 - `agents/operating-model/tiers/`
 - `agents/operating-model/orchestrators/`
@@ -105,6 +109,10 @@ For `generated/agent_formation_trial.min.json`, use
 the canonical builder and
 `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py` as
 the explicit formation-trial validator.
+For `generated/role_specialization_catalog.min.json` and
+`generated/capability_pack_registry.min.json`, use
+`scripts/build_published_surfaces.py` as the canonical builder and
+`scripts/validate_agents.py` as the explicit source/catalog validator.
 For `generated/titan_codex_agents/`, use
 `mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py`
 as the canonical builder and freshness checker.

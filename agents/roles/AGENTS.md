@@ -10,11 +10,14 @@ Canonical authoring lives in:
 
 - `agents/roles/*/profile.json`
 - `agents/roles/*/forms/*`
+- `agents/roles/*/specializations/*/specialization.json`
 - `schemas/agent-profile.schema.json`
+- `schemas/role-specialization.schema.json`
 
 Published derived surface:
 
 - `generated/agent_registry.min.json`
+- `generated/role_specialization_catalog.min.json`
 - `generated/agent_agonic_formation_index.min.json`
 - `generated/assistant_civil_formation_index.min.json`
 - `generated/agent_formation_trial.min.json`
@@ -43,6 +46,9 @@ Keep this directory focused on role-bearing agent identity and posture:
 - role-house survival inputs that the formation trial reads without
   widening the base profile contract or turning candidate seats into live
   authority
+- role-owned specializations that narrow a base role into a named operating
+  posture while referencing reusable capability packs from
+  `agents/operating-model/capabilities/packs/`
 
 ## Does not own
 
@@ -53,6 +59,8 @@ Do not turn a profile into:
 - memory-object canon from `aoa-memo`
 - routing logic from `aoa-routing`
 - scenario composition from `aoa-playbooks`
+- tool implementation, technique bodies, or permission policy outside the
+  referenced capability pack
 - protocol law, verdicts, scars, retention history, runtime packets, or ToS
   promotion authority
 
@@ -64,6 +72,10 @@ Do not add giant persona prose, hidden orchestration logic, or secret operationa
 Keep each base `profile.json` file stable. When Agon-facing actor form is the
 real change, prefer the adjunct families under `agents/roles/*/forms/` instead of
 widening `schemas/agent-profile.schema.json` casually.
+When a role needs a narrower operating lane, add a specialization under
+`agents/roles/<role>/specializations/<slug>/specialization.json` and point it at
+a capability pack. Do not create top-level `coder-*`, `reviewer-*`, or
+`architect-*` role houses unless the base role taxonomy itself changes.
 
 ## Validation
 

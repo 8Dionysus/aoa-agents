@@ -60,3 +60,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Active legacy name cleanup](2026-05-26-active-legacy-name-cleanup.md)
 - [2026-05-26: Agents source home topology](2026-05-26-agents-source-home-topology.md)
 - [2026-05-26: Agents convex source tree](2026-05-26-agents-convex-source-tree.md)
+- [2026-05-26: Role specializations and capability packs](2026-05-26-role-specializations-and-capability-packs.md)

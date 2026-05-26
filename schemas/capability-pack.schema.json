@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/capability-pack.schema.json",
+  "title": "AoA capability pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "status",
+    "summary",
+    "meaning",
+    "permission_posture",
+    "tool_refs",
+    "skill_refs",
+    "technique_refs",
+    "memory_routes",
+    "proof_routes",
+    "projection_hints",
+    "owner_boundaries",
+    "stop_lines"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://aoa-agents/schemas/capability-pack.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 5
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "planned",
+        "experimental",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "meaning": {
+      "type": "string",
+      "minLength": 30
+    },
+    "permission_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_mode",
+        "mutation_allowed",
+        "requires_gate",
+        "notes"
+      ],
+      "properties": {
+        "default_mode": {
+          "type": "string",
+          "enum": [
+            "read-only",
+            "workspace-write",
+            "write-candidate-only"
+          ]
+        },
+        "mutation_allowed": {
+          "type": "boolean"
+        },
+        "requires_gate": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "tool_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "skill_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "technique_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "memory_routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read_refs",
+        "write_refs",
+        "owner"
+      ],
+      "properties": {
+        "read_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        },
+        "write_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "proof_routes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "projection_hints": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "owner_boundaries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pressure",
+          "route"
+        ],
+        "properties": {
+          "pressure": {
+            "type": "string",
+            "minLength": 5
+          },
+          "route": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "stop_lines": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    }
+  }
+}

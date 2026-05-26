@@ -12,16 +12,20 @@ if str(CODEX_PROJECTION_SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(CODEX_PROJECTION_SCRIPTS_DIR))
 
 from agent_profile_registry import BuildError, write_agent_registry
+from capability_pack_registry import write_capability_pack_registry
 from cohort_registry import write_cohort_registry
 from codex_subagent_projection import write_repo_projection_surfaces
 from model_tier_registry import write_model_tier_registry
 from orchestrator_class_registry import write_orchestrator_class_surfaces
+from role_specialization_registry import write_role_specialization_catalog
 from runtime_seam_registry import write_runtime_seam_registry
 
 
 def main() -> int:
     try:
         agent_payload = write_agent_registry()
+        specialization_payload = write_role_specialization_catalog()
+        capability_payload = write_capability_pack_registry()
         tier_payload = write_model_tier_registry()
         cohort_payload = write_cohort_registry()
         orchestrator_catalog, _, _ = write_orchestrator_class_surfaces()
@@ -34,6 +38,8 @@ def main() -> int:
     print(
         "[ok] wrote published surfaces from source-authored layers: "
         f"{len(agent_payload['agents'])} agents, "
+        f"{len(specialization_payload['role_specializations'])} role specializations, "
+        f"{len(capability_payload['capability_packs'])} capability packs, "
         f"{len(tier_payload['model_tiers'])} model tiers, "
         f"{len(cohort_payload['cohort_patterns'])} cohort patterns, "
         f"{len(orchestrator_catalog['orchestrator_classes'])} orchestrator classes, "

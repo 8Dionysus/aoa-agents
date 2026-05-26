@@ -6,6 +6,8 @@ This document records the most important ownership boundaries for `aoa-agents`.
 
 `aoa-agents` should own agent-layer meaning such as:
 - agent profiles
+- role specializations
+- capability pack references and permission posture
 - role contracts
 - handoff posture
 - memory posture
@@ -20,6 +22,13 @@ An agent may prefer or compose skills.
 That does not make the agent profile itself a skill bundle.
 
 Reusable execution still belongs to `aoa-skills`.
+
+## Rule 2a: capability pack is not implementation
+
+A capability pack may collect permission posture, tool refs, skill refs,
+technique refs, memory routes, proof routes, and projection hints for reuse.
+It does not implement the tools, skills, techniques, proof doctrine, memory
+canon, routing policy, or runtime behavior it references.
 
 ## Rule 3: agent is not proof
 

@@ -3,9 +3,9 @@
 `generated/` stores repo-wide derived reader surfaces for `aoa-agents`.
 
 These files help agents and tooling scan source-authored role objects, quest
-records, tier registries, orchestrator classes, cohort hints, runtime seam
-bindings, and Codex projection outputs while preserving authored source
-ownership.
+records, role specializations, capability packs, tier registries,
+orchestrator classes, cohort hints, runtime seam bindings, and Codex
+projection outputs while preserving authored source ownership.
 
 ## Operating Card
 
@@ -24,6 +24,8 @@ ownership.
 | Reader | Source shape | Builder or guard |
 | --- | --- | --- |
 | `generated/agent_registry.min.json` | base role profiles under `agents/roles/*/profile.json` | `scripts/build_published_surfaces.py` |
+| `generated/role_specialization_catalog.min.json` | role specialization source records under `agents/roles/*/specializations/` | `scripts/build_published_surfaces.py` |
+| `generated/capability_pack_registry.min.json` | capability pack source records under `agents/operating-model/capabilities/packs/` | `scripts/build_published_surfaces.py` |
 | `generated/agent_agonic_formation_index.min.json` | agonic form source records under `agents/roles/*/forms/agonic/` | `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py` |
 | `generated/assistant_civil_formation_index.min.json` | assistant form source records under `agents/roles/*/forms/assistant/` | `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py` |
 | `generated/agent_formation_trial.min.json` | base profiles plus agonic and assistant formation readers | `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` |

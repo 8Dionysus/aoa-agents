@@ -28,14 +28,16 @@ routes, and stronger-owner stop lines.
 `agents/` has two active branches:
 
 - `agents/roles/` for role houses: each role owns its base profile and nested
-  agonic/assistant forms.
+  agonic/assistant forms plus role-owned specializations.
 - `agents/operating-model/` for cross-role operating contracts: tiers,
-  orchestrators, cohorts, and runtime-seam bindings.
+  capability packs, orchestrators, cohorts, tiers, and runtime-seam bindings.
 
 | Family | Path | Publishes To |
 | --- | --- | --- |
 | base role houses | `agents/roles/*/profile.json` | `generated/agent_registry.min.json` |
 | agonic and assistant companions | `agents/roles/*/forms/` | formation indexes under `generated/` |
+| role specializations | `agents/roles/*/specializations/*/specialization.json` | `generated/role_specialization_catalog.min.json` |
+| capability packs | `agents/operating-model/capabilities/packs/*.capability.json` | `generated/capability_pack_registry.min.json` |
 | model tiers | `agents/operating-model/tiers/*.tier.json` | `generated/model_tier_registry.json` |
 | orchestrator classes | `agents/operating-model/orchestrators/*.class.json` | orchestrator generated readers |
 | cohort patterns | `agents/operating-model/cohorts/*.pattern.json` | `generated/cohort_composition_registry.json` |
@@ -69,6 +71,12 @@ Use `docs/` for public explanation, `schemas/` for shared contract shape,
 For agonic or assistant forms, read `agents/roles/AGENTS.md` before editing any
 companion object. Form source stays in the owning role house; mechanic-local
 schemas, docs, and validators stay with the owning mechanic part.
+
+For specializations, keep the source inside the base role house and reference a
+capability pack from `agents/operating-model/capabilities/packs/`. This keeps
+`coder`, `reviewer`, `architect`, and other roles stable while allowing
+`coder.repo-refactor` or `reviewer.route-drift-review` to carry narrower
+permission, tool, skill, technique, memory, and proof posture.
 
 ## Stop Lines
 
