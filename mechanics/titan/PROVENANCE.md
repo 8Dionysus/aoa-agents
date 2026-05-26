@@ -32,3 +32,14 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `docs/TITAN_SUMMON_BOUNDARY.md` | [parts/summon-boundary/docs/summon-boundary.md](parts/summon-boundary/docs/summon-boundary.md) | `summon-boundary` |
 | `docs/TITAN_SUMMON_PROTOCOL_V2.md` | [parts/summon-boundary/docs/summon-protocol-v2.md](parts/summon-boundary/docs/summon-protocol-v2.md) | `summon-boundary` |
 | `docs/WAVE5_A2A_SUMMON_RETURN_ROLE_POSTURE_HOLD.md` | [parts/summon-boundary/docs/wave5-a2a-summon-return-role-posture-hold.md](parts/summon-boundary/docs/wave5-a2a-summon-return-role-posture-hold.md) | `summon-boundary` |
+
+## 2026-05-26 Root Config Move
+
+3 mechanic-specific Titan configs moved from root `config/` into
+`titan/parts/*/config/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `config/titan_bearers.v0.json` | [parts/role-bearing/config/bearers.v0.json](parts/role-bearing/config/bearers.v0.json) | `role-bearing` |
+| `config/titan_role_classes.v0.json` | [parts/role-bearing/config/role-classes.v0.json](parts/role-bearing/config/role-classes.v0.json) | `role-bearing` |
+| `config/titan_lineage_ledger.v0.json` | [parts/lineage-ledger/config/ledger.v0.json](parts/lineage-ledger/config/ledger.v0.json) | `lineage-ledger` |

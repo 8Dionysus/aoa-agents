@@ -13,7 +13,7 @@ wiring route; it does not own Codex runtime behavior.
 | role | Codex-facing projection operation package |
 | input | profile, wiring, generated subagent, refresh-law, manifest, and projection-boundary pressure |
 | output | refreshed projection route, generated manifest, compatibility note, or runtime/config handoff |
-| owner | this package for projection routing; `agents/profiles/` and `config/` for source inputs |
+| owner | this package for projection routing; `agents/profiles/` and `parts/subagent-projection/config/` for source inputs |
 | next route | `PARTS.md`, Codex projection builders, `mechanics/agon/` for Agon projection boundaries |
 | validation | Codex projection validators plus repo validators |
 
@@ -33,7 +33,7 @@ wiring route; it does not own Codex runtime behavior.
 ## Validation
 
 ```bash
-python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

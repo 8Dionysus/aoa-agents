@@ -19,7 +19,7 @@ root district before the 2026-05-26 docs landing:
 | `generated/` | 36 | derived registries, indexes, Codex projections, quest/read-model companions |
 | `quests/` | 20 | quest-facing role posture and Agon quest surfaces |
 | `manifests/` | 11 | recurrence and projection component manifests |
-| `config/` | 11 | Agon, recursor, Codex, and Titan source seeds |
+| `config/` | 11 | Agon, recursor, Codex, and Titan source seeds; localized to part-level config routes on 2026-05-26 |
 | `memo/` | 9 | local memory port; route only, not mechanic authority |
 | `mechanics/` | 3 | prior atlas-only skeleton |
 | `Spark/` | 2 | local Spark-facing route support |
@@ -82,3 +82,10 @@ The docs landing satisfies that rule for mechanics-facing public docs by moving
 them into part-local `docs/` directories and preserving old-path accounting in
 package `PROVENANCE.md` plus `legacy/`. Other payload classes still need their
 own move proof before leaving their current owner districts.
+
+The config localization satisfies that rule for mechanic-specific source seed
+and wiring payloads by moving them into part-local `config/` directories with
+active config README cards, updated builders/validators, and package
+provenance maps. Shared schemas, examples, scripts, tests, generated readers,
+manifests, quest files, and source agent objects remain in their current
+districts until their own move proof exists.

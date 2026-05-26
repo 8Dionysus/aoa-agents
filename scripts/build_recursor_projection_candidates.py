@@ -8,7 +8,15 @@ from _recursor_common import ROOT, min_json, read_json, validate_projection_cand
 
 
 def build_projection() -> dict:
-    projection = read_json(ROOT / "config" / "codex_recursor_projection.candidate.json")
+    projection = read_json(
+        ROOT
+        / "mechanics"
+        / "recurrence"
+        / "parts"
+        / "codex-recursor-projection"
+        / "config"
+        / "projection-candidate.json"
+    )
     violations = validate_projection_candidate(projection)
     return {
         "schema_version": "recursor-projection-candidates-index/v1",

@@ -49,3 +49,14 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `docs/AGONIC_TRIAL_RUNTIME_HOLDS.md` | [parts/recursor-boundary/docs/trial-runtime-holds.md](parts/recursor-boundary/docs/trial-runtime-holds.md) | `recursor-boundary` |
 | `docs/AGON_RECURRENCE_ADAPTER.md` | [parts/recursor-boundary/docs/recurrence-adapter.md](parts/recursor-boundary/docs/recurrence-adapter.md) | `recursor-boundary` |
 | `docs/AGON_RECURSOR_BOUNDARY.md` | [parts/recursor-boundary/docs/recursor-boundary.md](parts/recursor-boundary/docs/recursor-boundary.md) | `recursor-boundary` |
+
+## 2026-05-26 Root Config Move
+
+3 mechanic-specific seed configs moved from root `config/` into
+`agon/parts/*/config/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `config/agon_agent_rank_jurisdiction.seed.json` | [parts/arena-rank-school/config/rank-jurisdiction.seed.json](parts/arena-rank-school/config/rank-jurisdiction.seed.json) | `arena-rank-school` |
+| `config/agon_agent_school_campaign_posture.seed.json` | [parts/arena-rank-school/config/school-campaign-posture.seed.json](parts/arena-rank-school/config/school-campaign-posture.seed.json) | `arena-rank-school` |
+| `config/agon_epistemic_actor_posture.seed.json` | [parts/epistemic-actor/config/posture.seed.json](parts/epistemic-actor/config/posture.seed.json) | `epistemic-actor` |

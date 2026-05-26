@@ -10,6 +10,18 @@ from unittest.mock import patch
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
+RECURSOR_READINESS_CONFIG_ROOT = (
+    ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "config"
+)
+RECURSOR_PROJECTION_CONFIG = (
+    ROOT
+    / "mechanics"
+    / "recurrence"
+    / "parts"
+    / "codex-recursor-projection"
+    / "config"
+    / "projection-candidate.json"
+)
 
 
 def load_common():
@@ -42,7 +54,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertEqual(first["boundary"]["status"], "pass")
 
     def test_witness_cannot_mutate_or_write_scar(self):
-        roles = json.loads((ROOT / "config" / "recursor_roles.seed.json").read_text(encoding="utf-8"))
+        roles = json.loads((RECURSOR_READINESS_CONFIG_ROOT / "roles.seed.json").read_text(encoding="utf-8"))
         witness = {role["recursor_id"]: role for role in roles["roles"]}["recursor.witness"]
         forbidden = set(witness["forbidden_actions"])
         self.assertIn("apply_patch", forbidden)
@@ -51,14 +63,14 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertFalse(witness["default_form"]["arena_eligible"])
 
     def test_executor_requires_approved_plan_and_cannot_self_verify_final(self):
-        roles = json.loads((ROOT / "config" / "recursor_roles.seed.json").read_text(encoding="utf-8"))
+        roles = json.loads((RECURSOR_READINESS_CONFIG_ROOT / "roles.seed.json").read_text(encoding="utf-8"))
         executor = {role["recursor_id"]: role for role in roles["roles"]}["recursor.executor"]
         self.assertIn("approved_propagation_plan", executor["allowed_inputs"])
         self.assertIn("execute_without_approved_plan", executor["forbidden_actions"])
         self.assertIn("self_verify_final_truth", executor["forbidden_actions"])
 
     def test_pair_separation_law(self):
-        pair = json.loads((ROOT / "config" / "recursor_pair.seed.json").read_text(encoding="utf-8"))
+        pair = json.loads((RECURSOR_READINESS_CONFIG_ROOT / "pair.seed.json").read_text(encoding="utf-8"))
         required = set(pair["required_separation"])
         self.assertEqual(pair["activation_status"], "readiness_only")
         self.assertIn("witness_cannot_apply_mutations", required)
@@ -66,7 +78,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         self.assertIn("neither_can_spawn_additional_agents", required)
 
     def test_projection_candidate_disabled_by_default(self):
-        projection = json.loads((ROOT / "config" / "codex_recursor_projection.candidate.json").read_text(encoding="utf-8"))
+        projection = json.loads(RECURSOR_PROJECTION_CONFIG.read_text(encoding="utf-8"))
         self.assertEqual(projection["projection_status"], "candidate_only")
         self.assertFalse(projection["install_by_default"])
         self.assertTrue(projection["requires_owner_review"])
@@ -90,7 +102,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_projection_rejects_unexpected_candidate_role(self):
         common = load_common()
-        projection = json.loads((ROOT / "config" / "codex_recursor_projection.candidate.json").read_text(encoding="utf-8"))
+        projection = json.loads(RECURSOR_PROJECTION_CONFIG.read_text(encoding="utf-8"))
         projection["candidate_agents"].append(
             {
                 "recursor_id": "recursor.admin",
@@ -114,7 +126,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_projection_requires_full_forbidden_tokens(self):
         common = load_common()
-        projection = json.loads((ROOT / "config" / "codex_recursor_projection.candidate.json").read_text(encoding="utf-8"))
+        projection = json.loads(RECURSOR_PROJECTION_CONFIG.read_text(encoding="utf-8"))
         broken = deepcopy(projection)
         for agent in broken["candidate_agents"]:
             if agent["recursor_id"] == "recursor.executor":
@@ -127,7 +139,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_readiness_rejects_missing_recursor_role(self):
         common = load_common()
-        roles = load_json("config/recursor_roles.seed.json")
+        roles = load_json("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json")
         broken = deepcopy(roles)
         broken["roles"] = [
             role for role in broken["roles"] if role["recursor_id"] != "recursor.executor"
@@ -138,7 +150,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_readiness_rejects_unexpected_recursor_role(self):
         common = load_common()
-        roles = load_json("config/recursor_roles.seed.json")
+        roles = load_json("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json")
         broken = deepcopy(roles)
         extra = deepcopy(broken["roles"][0])
         extra["recursor_id"] = "recursor.admin"
@@ -149,13 +161,13 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_readiness_index_reports_non_object_roles_without_crashing(self):
         common = load_common()
-        roles = load_json("config/recursor_roles.seed.json")
+        roles = load_json("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json")
         broken = deepcopy(roles)
         broken["roles"].append("not-a-role-object")
         original_read_json = common.read_json
 
         def fake_read_json(path):
-            if str(path).endswith("config/recursor_roles.seed.json"):
+            if str(path).endswith("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json"):
                 return broken
             return original_read_json(path)
 
@@ -173,14 +185,14 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
         )
         role_validator = schema_validator("schemas/recursor-role-contract.v1.schema.json")
         pair_validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
-        projection_validator.validate(load_json("config/codex_recursor_projection.candidate.json"))
-        pair_validator.validate(load_json("config/recursor_pair.seed.json"))
-        for role in load_json("config/recursor_roles.seed.json")["roles"]:
+        projection_validator.validate(load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json"))
+        pair_validator.validate(load_json("mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json"))
+        for role in load_json("mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json")["roles"]:
             role_validator.validate(role)
 
     def test_projection_schema_rejects_unexpected_candidate_role(self):
         validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
-        projection = load_json("config/codex_recursor_projection.candidate.json")
+        projection = load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json")
         broken = deepcopy(projection)
         broken["candidate_agents"].append(
             {
@@ -204,7 +216,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_projection_schema_rejects_missing_required_guards(self):
         validator = schema_validator("schemas/recursor-projection-candidate.v1.schema.json")
-        projection = load_json("config/codex_recursor_projection.candidate.json")
+        projection = load_json("mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json")
         broken = deepcopy(projection)
         for agent in broken["candidate_agents"]:
             if agent["recursor_id"] == "recursor.witness":
@@ -216,7 +228,7 @@ class RecursorRoleReadinessSeedTest(unittest.TestCase):
 
     def test_pair_schema_rejects_missing_required_boundary_tokens(self):
         validator = schema_validator("schemas/recursor-pair-contract.v1.schema.json")
-        pair = load_json("config/recursor_pair.seed.json")
+        pair = load_json("mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json")
         broken = deepcopy(pair)
         broken["required_separation"].remove("executor_cannot_close_review")
         broken["handoff_order"].remove("witness_trace_check")

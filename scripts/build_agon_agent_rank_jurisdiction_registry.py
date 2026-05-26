@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = ROOT / "config/agon_agent_rank_jurisdiction.seed.json"
+CONFIG = ROOT / "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
 OUTPUT = ROOT / "generated/agon_agent_rank_jurisdiction_registry.min.json"
 
 
@@ -24,7 +24,7 @@ def build_registry():
         "entry_count": len(seed["entries"]),
         "entries": sorted(seed["entries"], key=lambda item: item["id"]),
         "stop_lines": seed.get("stop_lines", []),
-        "source_config": "config/agon_agent_rank_jurisdiction.seed.json",
+        "source_config": "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json",
         "generated_note": "Generated from seed config. Review before integration into release checks."
     }
 

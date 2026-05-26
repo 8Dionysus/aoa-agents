@@ -6,4 +6,9 @@ This part routes `codex-recursor-projection` pressure inside `mechanics/recurren
 
 - [Codex Recursor Projection Boundary](docs/codex-recursor-projection-boundary.md)
 
+## Active Config
+
+- [Projection Candidate](config/projection-candidate.json)
+- [Config Route](config/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

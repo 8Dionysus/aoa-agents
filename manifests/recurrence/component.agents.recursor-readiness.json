@@ -6,9 +6,9 @@
   "component_kind": "agent_readiness",
   "authority_level": "owner_role_readiness",
   "source_inputs": [
-    "config/recursor_roles.seed.json",
-    "config/recursor_pair.seed.json",
-    "config/codex_recursor_projection.candidate.json",
+    "mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json",
+    "mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json",
+    "mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json",
     "mechanics/recurrence/parts/recursor-readiness/docs/recursor-agent-readiness.md",
     "mechanics/recurrence/parts/recursor-readiness/docs/recursor-witness-contract.md",
     "mechanics/recurrence/parts/recursor-readiness/docs/recursor-executor-contract.md",
@@ -90,8 +90,8 @@
     "open_window_days": 7
   },
   "rollback_anchors": [
-    "config/recursor_roles.seed.json",
-    "config/recursor_pair.seed.json",
-    "config/codex_recursor_projection.candidate.json"
+    "mechanics/recurrence/parts/recursor-readiness/config/roles.seed.json",
+    "mechanics/recurrence/parts/recursor-readiness/config/pair.seed.json",
+    "mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json"
   ]
 }

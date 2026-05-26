@@ -23,7 +23,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         for relative_path in (
             "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md",
             "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md",
-            "config/codex_subagent_wiring.v2.json",
+            "mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json",
             "generated/runtime_seam_bindings.json",
             "mechanics/antifragility/parts/stress-posture/docs/stress-posture.md",
             "mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md",

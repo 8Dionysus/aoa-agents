@@ -32,7 +32,10 @@ These files are derived from:
 - `agents/orchestrator_classes/`
 - `agents/cohort_patterns/`
 - `agents/runtime_seam/`
-- `config/codex_subagent_wiring.v2.json`
+- `mechanics/agon/parts/*/config/`
+- `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`
+- `mechanics/recurrence/parts/*/config/`
+- `mechanics/titan/parts/*/config/`
 
 ## Editing posture
 

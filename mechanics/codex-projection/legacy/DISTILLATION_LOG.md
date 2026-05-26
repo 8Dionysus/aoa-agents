@@ -9,3 +9,13 @@ Moved 3 mechanics-facing docs out of root `docs/` and into active part-local `do
 | `agon-boundary` | 1 |
 | `refresh-law` | 1 |
 | `subagent-projection` | 1 |
+
+## 2026-05-26 Root Config To Active Parts
+
+Moved 1 mechanic-specific wiring config out of root `config/` and into active
+part-local `config/`. Git history preserves the verbatim file body;
+`PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+| Part | Moved config files |
+| --- | ---: |
+| `subagent-projection` | 1 |

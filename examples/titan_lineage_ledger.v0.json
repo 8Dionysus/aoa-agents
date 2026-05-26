@@ -1,8 +1,8 @@
 {
   "version": 1,
   "ledger_id": "titan-lineage-ledger.v0",
-  "role_classes_ref": "config/titan_role_classes.v0.json",
-  "bearers_ref": "config/titan_bearers.v0.json",
+  "role_classes_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json",
+  "bearers_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
   "events": [
     {
       "event_id": "evt:2026-04-22:atlas:first-appearance",

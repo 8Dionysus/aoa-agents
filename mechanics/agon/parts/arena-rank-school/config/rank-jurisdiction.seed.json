@@ -257,7 +257,7 @@
   "live_protocol": false,
   "registry_id": "agon.agent.rank_jurisdiction.registry.v1",
   "runtime_effect": "candidate_only",
-  "source_config": "config/agon_agent_rank_jurisdiction.seed.json",
+  "source_config": "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json",
   "status": "seeded_wave14_actor_rank_surfaces",
   "stop_lines": [
     "no_live_verdict_authority",

@@ -9,9 +9,9 @@ It is an append-only record of named bearers, their role classes, incarnations, 
 ## Required ledgers
 
 ```text
-config/titan_role_classes.v0.json
-config/titan_bearers.v0.json
-config/titan_lineage_ledger.v0.json
+mechanics/titan/parts/role-bearing/config/role-classes.v0.json
+mechanics/titan/parts/role-bearing/config/bearers.v0.json
+mechanics/titan/parts/lineage-ledger/config/ledger.v0.json
 ```
 
 ## Required fields

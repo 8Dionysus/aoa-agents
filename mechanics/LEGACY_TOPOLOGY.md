@@ -28,11 +28,17 @@ accounted for in the target package `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`. Raw legacy files are not invented; git history
 preserves the moved file bodies.
 
+The 2026-05-26 config localization moved mechanic-specific source seed and
+wiring payloads from root `config/` into active part-local config under
+`mechanics/*/parts/*/config/`. Former root config paths are now legacy lookup
+facts and are accounted for in the target package `PROVENANCE.md`,
+`legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-`schemas/`, `examples/`, `agents/`, `config/`, `generated/`, `manifests/`,
-`quests/`, `scripts/`, and `tests/`. They are not automatically legacy. They
-remain current source/support/generated/validation districts until a
-package-local move changes their lookup topology.
+`schemas/`, `examples/`, `agents/`, `generated/`, `manifests/`, `quests/`,
+`scripts/`, and `tests/`. They are not automatically legacy. They remain
+current source/support/generated/validation districts until a package-local
+move changes their lookup topology.
 
 For this landing:
 

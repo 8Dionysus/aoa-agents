@@ -22,3 +22,14 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | `docs/RECURSOR_EXECUTOR_CONTRACT.md` | [parts/recursor-readiness/docs/recursor-executor-contract.md](parts/recursor-readiness/docs/recursor-executor-contract.md) | `recursor-readiness` |
 | `docs/RECURSOR_PAIR_SEPARATION_LAW.md` | [parts/recursor-readiness/docs/recursor-pair-separation-law.md](parts/recursor-readiness/docs/recursor-pair-separation-law.md) | `recursor-readiness` |
 | `docs/RECURSOR_WITNESS_CONTRACT.md` | [parts/recursor-readiness/docs/recursor-witness-contract.md](parts/recursor-readiness/docs/recursor-witness-contract.md) | `recursor-readiness` |
+
+## 2026-05-26 Root Config Move
+
+3 mechanic-specific seed and candidate configs moved from root `config/` into
+`recurrence/parts/*/config/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `config/codex_recursor_projection.candidate.json` | [parts/codex-recursor-projection/config/projection-candidate.json](parts/codex-recursor-projection/config/projection-candidate.json) | `codex-recursor-projection` |
+| `config/recursor_pair.seed.json` | [parts/recursor-readiness/config/pair.seed.json](parts/recursor-readiness/config/pair.seed.json) | `recursor-readiness` |
+| `config/recursor_roles.seed.json` | [parts/recursor-readiness/config/roles.seed.json](parts/recursor-readiness/config/roles.seed.json) | `recursor-readiness` |

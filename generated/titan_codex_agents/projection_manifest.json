@@ -13,8 +13,8 @@
       "status": "active",
       "sandbox_mode": "read-only",
       "config_path": "agents/Atlas.toml",
-      "source_bearer_ref": "config/titan_bearers.v0.json",
-      "source_role_ref": "config/titan_role_classes.v0.json"
+      "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+      "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json"
     },
     {
       "codex_name": "Sentinel",
@@ -26,8 +26,8 @@
       "status": "active",
       "sandbox_mode": "read-only",
       "config_path": "agents/Sentinel.toml",
-      "source_bearer_ref": "config/titan_bearers.v0.json",
-      "source_role_ref": "config/titan_role_classes.v0.json"
+      "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+      "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json"
     },
     {
       "codex_name": "Mneme",
@@ -39,8 +39,8 @@
       "status": "active",
       "sandbox_mode": "read-only",
       "config_path": "agents/Mneme.toml",
-      "source_bearer_ref": "config/titan_bearers.v0.json",
-      "source_role_ref": "config/titan_role_classes.v0.json"
+      "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+      "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json"
     },
     {
       "codex_name": "Forge",
@@ -52,8 +52,8 @@
       "status": "active",
       "sandbox_mode": "workspace-write",
       "config_path": "agents/Forge.toml",
-      "source_bearer_ref": "config/titan_bearers.v0.json",
-      "source_role_ref": "config/titan_role_classes.v0.json"
+      "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+      "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json"
     },
     {
       "codex_name": "Delta",
@@ -65,8 +65,8 @@
       "status": "active",
       "sandbox_mode": "read-only",
       "config_path": "agents/Delta.toml",
-      "source_bearer_ref": "config/titan_bearers.v0.json",
-      "source_role_ref": "config/titan_role_classes.v0.json"
+      "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+      "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json"
     }
   ]
 }

@@ -6,9 +6,9 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | --- | --- | --- |
 | `agon-recursor-boundary` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `anchor-return` | [Recurrence Discipline](parts/anchor-return/docs/recurrence-discipline.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
-| `codex-recursor-projection` | [Codex Recursor Projection Boundary](parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `codex-recursor-projection` | [Codex Recursor Projection Boundary](parts/codex-recursor-projection/docs/codex-recursor-projection-boundary.md) | [config/projection-candidate.json](parts/codex-recursor-projection/config/projection-candidate.json)<br>Old path lookup routes through `PROVENANCE.md`. |
 | `component-manifests` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
-| `recursor-readiness` | [Recursor Agent Readiness](parts/recursor-readiness/docs/recursor-agent-readiness.md)<br>[Recursor Executor Contract](parts/recursor-readiness/docs/recursor-executor-contract.md)<br>[Recursor Pair Separation Law](parts/recursor-readiness/docs/recursor-pair-separation-law.md)<br>[Recursor Witness Contract](parts/recursor-readiness/docs/recursor-witness-contract.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `recursor-readiness` | [Recursor Agent Readiness](parts/recursor-readiness/docs/recursor-agent-readiness.md)<br>[Recursor Executor Contract](parts/recursor-readiness/docs/recursor-executor-contract.md)<br>[Recursor Pair Separation Law](parts/recursor-readiness/docs/recursor-pair-separation-law.md)<br>[Recursor Witness Contract](parts/recursor-readiness/docs/recursor-witness-contract.md) | [config/roles.seed.json](parts/recursor-readiness/config/roles.seed.json)<br>[config/pair.seed.json](parts/recursor-readiness/config/pair.seed.json)<br>Old path lookup routes through `PROVENANCE.md`. |
 
 ## Legacy Bridge
 

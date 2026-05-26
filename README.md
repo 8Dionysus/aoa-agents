@@ -22,9 +22,9 @@ Use the shortest route by need:
 - source-authored role-contract surface: `docs/AGENT_PROFILE_SURFACE.md`
 - source-authored orchestrator-class surface: `docs/ORCHESTRATOR_CLASS_MODEL.md`
 - source-authored registry surface: `mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md`
-- Codex custom-agent projection surface and owner refresh law: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `config/codex_subagent_wiring.v2.json`, and `generated/codex_agents/`
+- Codex custom-agent projection surface and owner refresh law: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
 - Wave 1 assistant projection resolver and no-self-rewrite posture: `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `schemas/assistant-projection-resolver.schema.json`, and `examples/assistant_projection_resolver.example.json`
-- Titan service-cohort role, bearer lineage, and incarnation identity surfaces: `mechanics/titan/parts/service-cohort/docs/service-cohort.md`, `mechanics/titan/parts/summon-boundary/docs/summon-boundary.md`, `mechanics/titan/parts/role-bearing/docs/role-bearer-ontology.md`, `mechanics/titan/parts/lineage-ledger/docs/lineage-ledger.md`, `mechanics/titan/parts/incarnation-spine/docs/incarnation-spine.md`, `mechanics/titan/parts/incarnation-spine/docs/praxis-plane.md`, `config/titan_role_classes.v0.json`, `config/titan_bearers.v0.json`, `config/titan_lineage_ledger.v0.json`, `schemas/titan_incarnation_identity.schema.json`, and `examples/titan_incarnation_identity.example.json`
+- Titan service-cohort role, bearer lineage, and incarnation identity surfaces: `mechanics/titan/parts/service-cohort/docs/service-cohort.md`, `mechanics/titan/parts/summon-boundary/docs/summon-boundary.md`, `mechanics/titan/parts/role-bearing/docs/role-bearer-ontology.md`, `mechanics/titan/parts/lineage-ledger/docs/lineage-ledger.md`, `mechanics/titan/parts/incarnation-spine/docs/incarnation-spine.md`, `mechanics/titan/parts/incarnation-spine/docs/praxis-plane.md`, `mechanics/titan/parts/role-bearing/config/role-classes.v0.json`, `mechanics/titan/parts/role-bearing/config/bearers.v0.json`, `mechanics/titan/parts/lineage-ledger/config/ledger.v0.json`, `schemas/titan_incarnation_identity.schema.json`, and `examples/titan_incarnation_identity.example.json`
 - role-level memory posture: `docs/AGENT_MEMORY_POSTURE.md`
 - stress posture and stress handoff doctrine: `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md` and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
 - model-tier orchestration and cohort composition: `docs/MODEL_TIER_MODEL.md` and `mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md`
@@ -141,7 +141,7 @@ Refresh published registries only after editing source-authored registry inputs 
 ```bash
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
-python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring config/codex_subagent_wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
+python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
 ## License

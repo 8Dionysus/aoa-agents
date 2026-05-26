@@ -16,7 +16,7 @@ and configuration.
 | `schemas/` | shared JSON Schema contracts |
 | `examples/` | schema-backed public examples and negative fixtures |
 | `generated/` | derived registries, compact readers, and projections |
-| `config/` | publication and projection configuration |
+| `config/` | repository-level publication and projection configuration; mechanic-local seeds live under `mechanics/*/parts/*/config/` |
 | `scripts/` | deterministic builders and validators |
 | `tests/` | behavior and contract checks |
 

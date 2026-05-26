@@ -14,4 +14,10 @@ This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 - [Wave XIV Agents Landing](docs/wave14-agents-landing.md)
 - [Wave XVI Agents Landing](docs/wave16-agents-landing.md)
 
+## Active Config
+
+- [Rank/Jurisdiction Seed](config/rank-jurisdiction.seed.json)
+- [School/Campaign Posture Seed](config/school-campaign-posture.seed.json)
+- [Config Route](config/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

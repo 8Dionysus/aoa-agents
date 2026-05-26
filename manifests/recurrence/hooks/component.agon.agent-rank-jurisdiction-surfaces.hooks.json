@@ -8,7 +8,7 @@
     {
       "decision_authority": false,
       "emits": "recurrence.observation.owner_review_needed",
-      "source": "config/agon_agent_rank_jurisdiction.seed.json"
+      "source": "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
     }
   ],
   "hidden_scheduler_allowed": false,

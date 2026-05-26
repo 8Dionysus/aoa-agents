@@ -3,7 +3,7 @@
   "owner_repo": "aoa-agents",
   "projection_resolver": {
     "source_profile": "agents/profiles/coder.profile.json",
-    "wiring_config": "config/codex_subagent_wiring.v2.json",
+    "wiring_config": "mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json",
     "generated_agent": "generated/codex_agents/agents/coder.toml",
     "workspace_install": ".codex/agents/coder.toml"
   },

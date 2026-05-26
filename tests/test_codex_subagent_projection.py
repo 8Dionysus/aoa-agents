@@ -12,7 +12,15 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 BUILD_SCRIPT = REPO_ROOT / "scripts" / "build_codex_subagents_v2.py"
 VALIDATE_SCRIPT = REPO_ROOT / "scripts" / "validate_codex_subagents.py"
 PROFILES_ROOT = REPO_ROOT / "agents" / "profiles"
-WIRING_PATH = REPO_ROOT / "config" / "codex_subagent_wiring.v2.json"
+WIRING_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "subagent-projection"
+    / "config"
+    / "wiring.v2.json"
+)
 
 
 class CodexSubagentProjectionTests(unittest.TestCase):
