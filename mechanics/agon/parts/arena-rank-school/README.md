@@ -22,6 +22,7 @@ This part routes `arena-rank-school` pressure inside `mechanics/agon/`.
 
 ## Active Schemas
 
+- [Arena Eligibility Schema](schemas/arena-eligibility.schema.json)
 - [Rank/Jurisdiction Schema](schemas/rank-jurisdiction.schema.json)
 - [Rank/Jurisdiction Registry Schema](schemas/rank-jurisdiction-registry.schema.json)
 - [School/Campaign Posture Schema](schemas/school-campaign-posture.schema.json)

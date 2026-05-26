@@ -9,6 +9,9 @@ from pathlib import Path
 from typing import Any
 
 EXPECTED_BASE_ROLES = ["architect", "coder", "reviewer", "evaluator", "memory-keeper"]
+FORMATION_TRIAL_SCHEMA = (
+    "mechanics/agon/parts/formation/schemas/formation-trial.schema.json"
+)
 REQUIRED_DOCS = [
     "mechanics/agon/parts/formation/docs/formation-trial.md",
     "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
@@ -67,7 +70,7 @@ def import_builder(root: Path):
 
 
 def validate_schema(root: Path) -> None:
-    schema = load_json(root / "schemas" / "agent_formation_trial_v1.json")
+    schema = load_json(root / FORMATION_TRIAL_SCHEMA)
     require(schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema", "trial schema must use draft 2020-12")
     require(schema.get("additionalProperties") is False, "trial schema must be closed by default")
 

@@ -32,7 +32,7 @@ class Wave1RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("generated/agent_agonic_formation_index.min.json", profiles_agents)
         self.assertIn("generated/agent_agonic_formation_index.min.json", generated_agents)
         self.assertIn("scripts/build_agent_agonic_formation_index.py", generated_agents)
-        self.assertIn("agent_agonic_formation.example.json", examples_agents)
+        self.assertIn("mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json", examples_agents)
         self.assertIn("validate_agent_agonic_formation.py", examples_agents)
 
 

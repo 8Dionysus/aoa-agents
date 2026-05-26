@@ -110,13 +110,13 @@ Rechartering. Its checked surface is:
   `agents/profiles/adjuncts/arena_eligibility/*.arena_eligibility.json`, and
   `agents/profiles/adjuncts/resistance_revision/*.resistance_revision.json`
 - Wave I companion contracts and publication:
-  `schemas/agent_kind_v1.json`,
-  `schemas/agent_subjectivity_v1.json`,
-  `schemas/agent_office_overlay_v1.json`,
-  `schemas/agent_arena_eligibility_v1.json`,
-  `schemas/agent_resistance_revision_v1.json`,
+  `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`,
+  `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`,
+  `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`,
+  `mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json`,
+  `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json`,
   `generated/agent_agonic_formation_index.min.json`, and
-  `examples/agent_agonic_formation.example.json`
+  `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
 - explicit Wave I validation lane:
   `scripts/build_agent_agonic_formation_index.py`,
   `scripts/validate_agent_agonic_formation.py`, and
@@ -181,9 +181,9 @@ Its checked surface is:
   `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, and
   `mechanics/agon/parts/formation/docs/wave2-5-landing.md`
 - Wave II.5 companion contract and publication:
-  `schemas/agent_formation_trial_v1.json`,
+  `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`,
   `generated/agent_formation_trial.min.json`, and
-  `examples/agent_formation_trial.example.json`
+  `mechanics/agon/parts/formation/examples/formation-trial.example.json`
 - explicit Wave II.5 validation lane:
   `scripts/build_agent_formation_trial.py`,
   `scripts/validate_agent_formation_trial.py`, and

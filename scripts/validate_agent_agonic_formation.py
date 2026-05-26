@@ -10,6 +10,15 @@ import build_agent_agonic_formation_index as formation_builder
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_AGENTS = formation_builder.REQUIRED_AGENTS
+FORMATION_SCHEMA_DIR = ROOT / "mechanics" / "agon" / "parts" / "formation" / "schemas"
+ARENA_RANK_SCHOOL_SCHEMA_DIR = ROOT / "mechanics" / "agon" / "parts" / "arena-rank-school" / "schemas"
+SCHEMA_PATHS = {
+    "agent-kind.schema.json": FORMATION_SCHEMA_DIR / "agent-kind.schema.json",
+    "subjectivity.schema.json": FORMATION_SCHEMA_DIR / "subjectivity.schema.json",
+    "office-overlay.schema.json": FORMATION_SCHEMA_DIR / "office-overlay.schema.json",
+    "arena-eligibility.schema.json": ARENA_RANK_SCHOOL_SCHEMA_DIR / "arena-eligibility.schema.json",
+    "resistance-revision.schema.json": FORMATION_SCHEMA_DIR / "resistance-revision.schema.json",
+}
 
 SCHEMA_CONSTS = {
     "kind": "https://aoa-agents/schemas/agent_kind_v1.json",
@@ -74,16 +83,10 @@ def load_adjunct(agent_id: str, family: str, suffix: str) -> dict[str, Any]:
 
 
 def validate_schema_files() -> None:
-    for filename in [
-        "schemas/agent_kind_v1.json",
-        "schemas/agent_subjectivity_v1.json",
-        "schemas/agent_office_overlay_v1.json",
-        "schemas/agent_arena_eligibility_v1.json",
-        "schemas/agent_resistance_revision_v1.json",
-    ]:
-        payload = read_json(ROOT / filename)
-        require(payload.get("$schema") == "https://json-schema.org/draft/2020-12/schema", f"{filename} has wrong JSON schema marker")
-        require(payload.get("additionalProperties") is False, f"{filename} must be closed by default")
+    for label, path in SCHEMA_PATHS.items():
+        payload = read_json(path)
+        require(payload.get("$schema") == "https://json-schema.org/draft/2020-12/schema", f"{label} has wrong JSON schema marker")
+        require(payload.get("additionalProperties") is False, f"{label} must be closed by default")
 
 
 def validate_profile_cross_refs() -> dict[str, str]:

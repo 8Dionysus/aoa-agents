@@ -36,7 +36,7 @@ class Wave25RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("validate_agent_formation_trial.py", profiles_agents)
         self.assertIn("generated/agent_formation_trial.min.json", generated_agents)
         self.assertIn("build_agent_formation_trial.py", generated_agents)
-        self.assertIn("agent_formation_trial.example.json", examples_agents)
+        self.assertIn("mechanics/agon/parts/formation/examples/formation-trial.example.json", examples_agents)
         self.assertIn("validate_agent_formation_trial.py", examples_agents)
 
 

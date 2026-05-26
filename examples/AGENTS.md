@@ -7,12 +7,14 @@ These files illustrate published contracts. They are not the source-authored can
 
 ## Subtrees
 
-- `agent_agonic_formation.example.json` for the additive Wave I reader path
-  across base role contract plus agonic companion surfaces
+- `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
+  for the additive Wave I reader path across base role contract plus agonic
+  companion surfaces
 - `assistant_civil_formation.example.json` for the additive Wave II reader path
   across base role contract plus assistant civil companion surfaces
-- `agent_formation_trial.example.json` for the additive Wave II.5 reader path
-  across base role house plus agonic and assistant split-form judgment
+- `mechanics/agon/parts/formation/examples/formation-trial.example.json` for
+  the additive Wave II.5 reader path across base role house plus agonic and
+  assistant split-form judgment
 - `reference_routes/` for manifest-driven reference route packs over the published public loop
 - `alpha_reference_routes/` for curated Alpha cohort reference-route surfaces used by the readiness proof lane
 
@@ -60,6 +62,12 @@ Mechanic-specific Agon rank, school, and epistemic actor examples live under
 `scripts/validate_agon_rank_epistemic_contracts.py`. Their schemas live beside
 them under the corresponding Agon parts.
 
+Mechanic-specific Agon formation examples live under
+`mechanics/agon/parts/formation/examples/`. They are validated by
+`scripts/validate_agon_formation_contracts.py`. Their schemas live beside them
+under `mechanics/agon/parts/formation/schemas/`, with arena eligibility in the
+adjacent `arena-rank-school` schema route.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -78,6 +86,7 @@ For assistant projection resolver part-local examples, also run `python scripts/
 For runtime artifact contract part-local examples, also run `python scripts/validate_runtime_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
+For Agon formation part-local examples, also run `python scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
