@@ -247,6 +247,32 @@ FORBIDDEN_ACTIVE_PROVENANCE_SNIPPETS: tuple[str, ...] = (
     'Legacy is',
 )
 
+PROVENANCE_BRIDGE_DOCS: tuple[str, ...] = (
+    'mechanics/agon/PROVENANCE.md',
+    'mechanics/antifragility/PROVENANCE.md',
+    'mechanics/boundary-bridge/PROVENANCE.md',
+    'mechanics/checkpoint/PROVENANCE.md',
+    'mechanics/codex-projection/PROVENANCE.md',
+    'mechanics/experience/PROVENANCE.md',
+    'mechanics/questbook/PROVENANCE.md',
+    'mechanics/recurrence/PROVENANCE.md',
+    'mechanics/release-support/PROVENANCE.md',
+    'mechanics/rpg/PROVENANCE.md',
+    'mechanics/runtime-seam/PROVENANCE.md',
+    'mechanics/titan/PROVENANCE.md',
+)
+
+REQUIRED_PROVENANCE_BRIDGE_SNIPPETS: tuple[str, ...] = (
+    '## Current Route First',
+    'If those surfaces answer the task, stop there.',
+    '## Archive Route',
+    'legacy/INDEX.md',
+    'legacy/DISTILLATION_LOG.md',
+    'legacy/raw/README.md',
+    '## Distillation Rule',
+    'Active part docs must not grow',
+)
+
 
 class NestedAgentsValidationError(RuntimeError):
     pass
@@ -284,6 +310,15 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             joined = ', '.join(repr(snippet) for snippet in found)
             raise NestedAgentsValidationError(
                 f'{rel_path} should route through PROVENANCE.md without active archive leakage: {joined}'
+            )
+    for rel_path in PROVENANCE_BRIDGE_DOCS:
+        path = root / rel_path
+        text = _read_text(path)
+        missing = [snippet for snippet in REQUIRED_PROVENANCE_BRIDGE_SNIPPETS if snippet not in text]
+        if missing:
+            joined = ', '.join(repr(snippet) for snippet in missing)
+            raise NestedAgentsValidationError(
+                f'{rel_path} is missing provenance bridge operating snippet(s): {joined}'
             )
 
 

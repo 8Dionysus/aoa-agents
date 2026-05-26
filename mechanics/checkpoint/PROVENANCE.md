@@ -1,14 +1,30 @@
 # Checkpoint Provenance Bridge
 
-`PROVENANCE.md` is the single active bridge from current mechanic routes into legacy accounting.
+This is the only active bridge from current mechanic docs into source and
+archive accounting. Use it when auditing how former root paths or raw receipts
+feed active parts, not when you need the current operating contract.
 
-Use active surfaces first:
+## Current Route First
+
+Start with active surfaces:
 
 - [README.md](README.md)
 - [PARTS.md](PARTS.md)
 - [parts/](parts/)
 
-Open `legacy/` only for former path lookup, raw receipt intake, or distillation history. Former root file names stay historical here; active parts use their current route names.
+If those surfaces answer the task, stop there. Do not pull old-path
+inventories into active route cards.
+
+## Archive Route
+
+- [legacy index](legacy/INDEX.md): old-path lookup mapped to active part routes.
+- [distillation log](legacy/DISTILLATION_LOG.md): dated accounting for
+  raw-to-active movement.
+- [raw receipts](legacy/raw/README.md): preserved raw inputs when a migration
+  has real source payloads.
+
+The dated sections below preserve audit and accounting facts. Former root file
+names stay historical here; active parts use current route names.
 
 ## 2026-05-26 Root Docs Move
 
@@ -71,3 +87,10 @@ manifest `route_id` values remain contract identifiers.
 | `examples/reference_routes/orchestrated_loop_route/transition_decision.json` | [parts/reference-routes/examples/orchestrated-loop-route/transition_decision.json](parts/reference-routes/examples/orchestrated-loop-route/transition_decision.json) | `reference-routes` |
 | `examples/reference_routes/orchestrated_loop_route/verification_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/verification_result.json](parts/reference-routes/examples/orchestrated-loop-route/verification_result.json) | `reference-routes` |
 | `examples/reference_routes/orchestrated_loop_route/work_result.json` | [parts/reference-routes/examples/orchestrated-loop-route/work_result.json](parts/reference-routes/examples/orchestrated-loop-route/work_result.json) | `reference-routes` |
+
+## Distillation Rule
+
+When archived or former-path material changes current behavior, update the
+relevant active part first. Then update this bridge and the package archive
+index/log if route accounting changed. Active part docs must not grow
+per-source inventories.

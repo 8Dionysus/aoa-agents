@@ -38,3 +38,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Spark agent lane home](2026-05-26-spark-agent-lane-home.md)
 - [2026-05-26: Mechanics package route cards](2026-05-26-mechanics-package-route-cards.md)
 - [2026-05-26: Active provenance bridge wording](2026-05-26-active-provenance-bridge-wording.md)
+- [2026-05-26: Provenance bridge operating shape](2026-05-26-provenance-bridge-operating-shape.md)
