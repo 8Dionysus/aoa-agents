@@ -21,6 +21,15 @@ file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
 | `codex-recursor-projection` | 1 |
 | `recursor-readiness` | 2 |
 
+## 2026-05-26 Recursor Support To Active Package
+
+Moved the recursor helper, builders, validators, and focused tests out of root
+support districts and into the owning Recurrence package.
+
+| Package | Moved helpers | Moved builders | Moved validators | Moved tests |
+| --- | ---: | ---: | ---: | ---: |
+| `recurrence` | 1 | 2 | 3 | 2 |
+
 ## 2026-05-26 Root Recursor Contracts To Active Parts
 
 Moved 7 recursor schemas and 4 recursor examples out of root `schemas/` and

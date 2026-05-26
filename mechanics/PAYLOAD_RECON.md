@@ -136,7 +136,7 @@ adding `mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 The recursor contract localization satisfies that rule for recurrence recursor
 schemas/examples by splitting them into `recursor-readiness`,
 `codex-recursor-projection`, and `agon-recursor-boundary` parts and adding
-`scripts/validate_recursor_contracts.py`.
+`mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 
 The Agon rank/epistemic contract localization satisfies that rule for
 candidate-only rank, school/campaign, and epistemic actor schemas/examples by

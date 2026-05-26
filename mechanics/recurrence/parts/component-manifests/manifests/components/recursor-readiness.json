@@ -30,10 +30,10 @@
     "mechanics/agon/parts/recursor-boundary/docs/recursor-boundary.md"
   ],
   "proof_surfaces": [
-    "python scripts/build_recursor_role_readiness.py --check",
-    "python scripts/build_recursor_projection_candidates.py --check",
-    "python scripts/validate_recursor_role_readiness.py",
-    "python scripts/validate_recursor_boundary.py"
+    "python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check",
+    "python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check",
+    "python mechanics/recurrence/scripts/validate_recursor_role_readiness.py",
+    "python mechanics/recurrence/scripts/validate_recursor_boundary.py"
   ],
   "consumer_edges": [
     {

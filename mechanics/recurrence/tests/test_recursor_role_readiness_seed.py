@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 RECURSOR_READINESS_CONFIG_ROOT = (
     ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "config"
 )
@@ -35,7 +35,7 @@ RECURSOR_ROLES_CONFIG_REL = "mechanics/recurrence/parts/recursor-readiness/confi
 
 
 def load_common():
-    path = ROOT / "scripts" / "_recursor_common.py"
+    path = ROOT / "mechanics" / "recurrence" / "scripts" / "_recursor_common.py"
     spec = importlib.util.spec_from_file_location("_recursor_common_test", path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None

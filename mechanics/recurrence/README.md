@@ -34,11 +34,11 @@ anchor-return posture, and recurrence discipline.
 ## Validation
 
 ```bash
-python scripts/build_recursor_role_readiness.py --check
-python scripts/build_recursor_projection_candidates.py --check
-python scripts/validate_recursor_contracts.py
-python scripts/validate_recursor_role_readiness.py
-python scripts/validate_recursor_boundary.py
+python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
+python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
+python mechanics/recurrence/scripts/validate_recursor_contracts.py
+python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
+python mechanics/recurrence/scripts/validate_recursor_boundary.py
 python scripts/validate_recurrence_component_manifests.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py

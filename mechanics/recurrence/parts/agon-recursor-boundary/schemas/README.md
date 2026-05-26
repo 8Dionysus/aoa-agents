@@ -10,5 +10,5 @@ quietly becoming Agon runtime authority.
 Validate with:
 
 ```bash
-python scripts/validate_recursor_contracts.py
+python mechanics/recurrence/scripts/validate_recursor_contracts.py
 ```

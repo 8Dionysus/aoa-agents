@@ -5,9 +5,9 @@ import sys
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "validate_recursor_contracts.py"
-sys.path.insert(0, str(ROOT / "scripts"))
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = ROOT / "mechanics" / "recurrence" / "scripts" / "validate_recursor_contracts.py"
+sys.path.insert(0, str(ROOT / "mechanics" / "recurrence" / "scripts"))
 
 
 def _load_validator():

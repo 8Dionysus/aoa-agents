@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 RECURSOR_READINESS_CONFIG_ROOT = (
     ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "config"
 )

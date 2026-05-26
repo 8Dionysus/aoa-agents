@@ -100,6 +100,22 @@ part-local generated routes.
 | `generated/recursor_projection_candidates.min.json` | [parts/codex-recursor-projection/generated/projection-candidates.min.json](parts/codex-recursor-projection/generated/projection-candidates.min.json) | `codex-recursor-projection` |
 | `generated/recursor_agon_boundary_report.min.json` | [parts/agon-recursor-boundary/generated/boundary-report.min.json](parts/agon-recursor-boundary/generated/boundary-report.min.json) | `agon-recursor-boundary` |
 
+## 2026-05-26 Recursor Support Move
+
+The recursor helper, builders, validators, and focused tests moved from root
+support districts into the owning Recurrence package.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/_recursor_common.py` | [scripts/_recursor_common.py](scripts/_recursor_common.py) | package-local |
+| `scripts/build_recursor_role_readiness.py` | [scripts/build_recursor_role_readiness.py](scripts/build_recursor_role_readiness.py) | package-local |
+| `scripts/build_recursor_projection_candidates.py` | [scripts/build_recursor_projection_candidates.py](scripts/build_recursor_projection_candidates.py) | package-local |
+| `scripts/validate_recursor_contracts.py` | [scripts/validate_recursor_contracts.py](scripts/validate_recursor_contracts.py) | package-local |
+| `scripts/validate_recursor_role_readiness.py` | [scripts/validate_recursor_role_readiness.py](scripts/validate_recursor_role_readiness.py) | package-local |
+| `scripts/validate_recursor_boundary.py` | [scripts/validate_recursor_boundary.py](scripts/validate_recursor_boundary.py) | package-local |
+| `tests/test_recursor_contracts.py` | [tests/test_recursor_contracts.py](tests/test_recursor_contracts.py) | package-local |
+| `tests/test_recursor_role_readiness_seed.py` | [tests/test_recursor_role_readiness_seed.py](tests/test_recursor_role_readiness_seed.py) | package-local |
+
 ## Distillation Rule
 
 When archived or former-path material changes current behavior, update the

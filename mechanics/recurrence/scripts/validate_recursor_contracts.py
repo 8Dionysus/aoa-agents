@@ -9,10 +9,14 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 from _recursor_common import build_boundary_report, build_readiness_index, stable_hash
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 RECURRENCE_PARTS = Path("mechanics/recurrence/parts")
 RECURSOR_READINESS_PART = RECURRENCE_PARTS / "recursor-readiness"
 RECURSOR_PROJECTION_PART = RECURRENCE_PARTS / "codex-recursor-projection"

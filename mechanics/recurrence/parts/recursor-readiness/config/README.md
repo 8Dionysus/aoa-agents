@@ -9,7 +9,7 @@
 | output | generated readiness index, pair contract reader, and boundary report |
 | owner | `mechanics/recurrence/parts/recursor-readiness/` |
 | next route | recursor readiness docs, boundary validators, generated readiness surfaces |
-| tools | `scripts/build_recursor_role_readiness.py`, `scripts/validate_recursor_role_readiness.py`, `scripts/validate_recursor_boundary.py` |
+| tools | `mechanics/recurrence/scripts/build_recursor_role_readiness.py`, `mechanics/recurrence/scripts/validate_recursor_role_readiness.py`, `mechanics/recurrence/scripts/validate_recursor_boundary.py` |
 | validation | readiness builder with `--check` plus recursor validators |
 
 ## Active Seeds

@@ -34,10 +34,6 @@ from validate_recurrence_component_manifests import (
     ManifestValidationError,
     validate_recurrence_component_manifests,
 )
-from validate_recursor_contracts import (
-    RecursorContractsValidationError,
-    validate_recursor_contracts,
-)
 from validate_agon_rank_epistemic_contracts import (
     AgonRankEpistemicContractsValidationError,
     validate_agon_rank_epistemic_contracts,
@@ -127,6 +123,13 @@ CheckpointContractsValidationError = (
     _CHECKPOINT_CONTRACTS_MODULE.CheckpointContractsValidationError
 )
 validate_checkpoint_contracts = _CHECKPOINT_CONTRACTS_MODULE.validate_checkpoint_contracts
+
+_RECURSOR_CONTRACTS_MODULE = load_repo_python_module(
+    "recursor_contracts_validator",
+    "mechanics/recurrence/scripts/validate_recursor_contracts.py",
+)
+RecursorContractsValidationError = _RECURSOR_CONTRACTS_MODULE.RecursorContractsValidationError
+validate_recursor_contracts = _RECURSOR_CONTRACTS_MODULE.validate_recursor_contracts
 
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
