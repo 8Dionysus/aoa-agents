@@ -54,6 +54,9 @@ source truth is that part's examples.
 The reference-route check localization moved the Checkpoint reference-route
 validator/tests and the Questbook Alpha builder/validator/tests into owning
 package and part-local routes.
+The Questbook reader-builder localization moved the dedicated catalog/dispatch
+builder into the `dispatch-reader` part while keeping the root quest generated
+readers root-published because their source truth remains under `quests/`.
 The Agon rank/school/epistemic generated reader localization moved
 candidate-only rank, school/campaign, and epistemic registries into their
 owning Agon parts because their source truth is already part-local config.
@@ -123,6 +126,8 @@ mechanics packages from empty route skeletons into active route homes:
   Agon part-local `generated/` routes;
 - recursor generated readers live under their owning Recurrence part-local
   `generated/` routes;
+- the Questbook catalog/dispatch builder lives under
+  `mechanics/questbook/parts/dispatch-reader/scripts/`;
 - quest catalog and dispatch readers stay root-published under `generated/`
   because they summarize root quest records;
 - quest catalog records and Agon quest notes live under root `quests/`;

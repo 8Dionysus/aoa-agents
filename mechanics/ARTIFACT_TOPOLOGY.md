@@ -264,6 +264,12 @@ readers root-published under `generated/` because they summarize root
 `quests/` source records. `mechanics/questbook/parts/dispatch-reader/` owns the
 projection contract and validation route, not the generated files themselves.
 
+The 2026-05-26 Questbook reader-builder localization moves the dedicated
+catalog/dispatch builder into
+`mechanics/questbook/parts/dispatch-reader/scripts/`. The generated reader
+files stay root-published under `generated/`; the support tool is part-local
+because it protects only the dispatch-reader projection contract.
+
 The 2026-05-26 formation generated-reader posture keeps
 `generated/agent_agonic_formation_index.min.json`,
 `generated/assistant_civil_formation_index.min.json`, and

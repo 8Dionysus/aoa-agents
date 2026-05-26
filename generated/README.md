@@ -33,10 +33,10 @@ ownership.
 | `generated/orchestrator_class_sections.full.json` | orchestrator-class source records under `agents/orchestrator_classes/` | `scripts/build_published_surfaces.py` |
 | `generated/cohort_composition_registry.json` | cohort source records under `agents/cohort_patterns/` | `scripts/build_published_surfaces.py` |
 | `generated/runtime_seam_bindings.json` | runtime seam source bindings under `agents/runtime_seam/` | `scripts/build_published_surfaces.py` |
-| `generated/quest_catalog.min.json` | source quest records under `quests/` | `scripts/generate_questbook_readers.py` |
-| `generated/quest_dispatch.min.json` | source quest records under `quests/` | `scripts/generate_questbook_readers.py` |
-| `generated/quest_catalog.min.example.json` | public-safe quest catalog shape | `scripts/generate_questbook_readers.py` |
-| `generated/quest_dispatch.min.example.json` | public-safe quest dispatch shape | `scripts/generate_questbook_readers.py` |
+| `generated/quest_catalog.min.json` | source quest records under `quests/` | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
+| `generated/quest_dispatch.min.json` | source quest records under `quests/` | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
+| `generated/quest_catalog.min.example.json` | public-safe quest catalog shape | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
+| `generated/quest_dispatch.min.example.json` | public-safe quest dispatch shape | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
 | `generated/codex_agents/` | Codex subagent projection from profile source objects and projection wiring | `scripts/validate_codex_subagents.py` |
 | `generated/titan_codex_agents/` | Titan Codex projection from Titan part-local source payloads | Titan projection builders and validators |
 

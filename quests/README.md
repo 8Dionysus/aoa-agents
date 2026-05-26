@@ -40,7 +40,7 @@ quests/<lane>/<state>/<quest-file>
 | --- | --- | --- |
 | `agents/<state>/AOA-AG-Q-*.yaml` | schema-backed agent-layer obligations | YAML `state` must match the lifecycle directory |
 | `agon/<state>/*.md` | Agon posture quest notes | keep authority with Agon mechanics and owner routes |
-| `generated/quest_*.json` | root-published quest read models | rebuild with `scripts/generate_questbook_readers.py` |
+| `generated/quest_*.json` | root-published quest read models | rebuild with `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
 
 ## Boundaries
 

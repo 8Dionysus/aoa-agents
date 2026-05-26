@@ -3,15 +3,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[5]
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from validate_agents import (
     QUEST_CATALOG_EXAMPLE_PATH,
     QUEST_CATALOG_PATH,
     QUEST_DISPATCH_EXAMPLE_PATH,
     QUEST_DISPATCH_PATH,
-    REPO_ROOT,
     build_quest_catalog_projection,
     build_quest_dispatch_projection,
 )

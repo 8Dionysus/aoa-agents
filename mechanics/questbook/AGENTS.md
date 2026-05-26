@@ -20,7 +20,7 @@ reader contracts, execution passport posture, and Alpha reference routes.
 | output | bounded quest posture, generated quest reader, passport route, or playbook handoff |
 | owner | this package for operation law; root `QUESTBOOK.md` owns human index and root `quests/` owns source records |
 | next route | `README.md`, `PARTS.md`, `parts/AGENTS.md`, target part README, root `QUESTBOOK.md`, root `quests/`, root generated quest readers, `PROVENANCE.md` |
-| tools | questbook reader builder, Alpha reference builder, reference-route validator, repo validators |
+| tools | dispatch-reader builder, Alpha reference builder, reference-route validator, repo validators |
 | validation | quest/read-model checks plus repo validators |
 
 ## Read Before Editing
@@ -46,7 +46,7 @@ reader contracts, execution passport posture, and Alpha reference routes.
 ## Validation
 
 ```bash
-python scripts/generate_questbook_readers.py --check
+python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
 python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_semantic_agents.py

@@ -36,7 +36,7 @@ execution passport posture, and generated reader contract.
 After changing YAML source records or generated quest readers, run:
 
 ```bash
-python scripts/generate_questbook_readers.py --check
+python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
 python scripts/validate_agents.py
 ```
 

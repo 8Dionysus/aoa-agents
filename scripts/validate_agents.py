@@ -284,6 +284,10 @@ QUEST_CATALOG_PATH = REPO_ROOT / "generated" / "quest_catalog.min.json"
 QUEST_CATALOG_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_catalog.min.example.json"
 QUEST_DISPATCH_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.json"
 QUEST_DISPATCH_EXAMPLE_PATH = REPO_ROOT / "generated" / "quest_dispatch.min.example.json"
+QUESTBOOK_READER_BUILDER_PATH = (
+    QUESTBOOK_PARTS_DIR / "dispatch-reader" / "scripts" / "generate_questbook_readers.py"
+)
+FORMER_QUESTBOOK_READER_BUILDER_PATH = REPO_ROOT / "scripts" / ("generate" + "_questbook_readers.py")
 AGENTS_DISTRICT_PATH = REPO_ROOT / ".agents"
 SPARK_LANE_PATH = AGENTS_DISTRICT_PATH / "spark"
 FORMER_SPARK_ROOT_PATH = REPO_ROOT / "Spark"
@@ -2857,6 +2861,14 @@ def validate_runtime_seam_doc_coherence() -> None:
 
 
 def validate_questbook_surface() -> None:
+    if FORMER_QUESTBOOK_READER_BUILDER_PATH.exists():
+        fail(
+            "former Questbook reader builder root path must stay absent: "
+            f"{describe_path(FORMER_QUESTBOOK_READER_BUILDER_PATH)}"
+        )
+    if not QUESTBOOK_READER_BUILDER_PATH.is_file():
+        fail(f"missing Questbook dispatch-reader builder: {describe_path(QUESTBOOK_READER_BUILDER_PATH)}")
+
     questbook_text = read_text(QUESTBOOK_PATH)
     passport_text = read_text(QUEST_EXECUTION_PASSPORT_PATH)
     source_root = quest_source_root()

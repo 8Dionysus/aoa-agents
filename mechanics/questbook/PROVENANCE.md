@@ -113,7 +113,17 @@ Quest catalog and dispatch readers are active root-published read models:
 - [../../generated/quest_dispatch.min.example.json](../../generated/quest_dispatch.min.example.json)
 
 They are derived from root `quests/` through
-`scripts/generate_questbook_readers.py`.
+`parts/dispatch-reader/scripts/generate_questbook_readers.py`.
+
+## 2026-05-26 Questbook Reader Builder Move
+
+The root-published quest catalog and dispatch readers stayed under
+`generated/`, but their dedicated builder moved into the owning
+`dispatch-reader` part.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/generate_questbook_readers.py` | [parts/dispatch-reader/scripts/generate_questbook_readers.py](parts/dispatch-reader/scripts/generate_questbook_readers.py) | `dispatch-reader` |
 
 ## Distillation Rule
 
