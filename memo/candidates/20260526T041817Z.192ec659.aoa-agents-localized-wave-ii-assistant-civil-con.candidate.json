@@ -1,0 +1,38 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T041817Z:192ec659-aoa-agents-localized-wave-ii-ass",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Wave II assistant civil contracts into Experience part-local schema/example routes; root schemas/examples no longer own assistant civil payloads, and scripts/validate_experience_assistant_civil_contracts.py now guards the contract surface.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-experience-assistant-civil-contract-localization.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/experience/PARTS.md",
+    "mechanics/experience/PROVENANCE.md",
+    "scripts/validate_experience_assistant_civil_contracts.py",
+    "mechanics/recurrence/parts/component-manifests/manifests/components/agon-actor-formation-surfaces.json"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/0813b69",
+    "repo:aoa-agents/pull/149",
+    "repo:aoa-agents/commit-range/74beaa5..0813b69",
+    "tests/test_experience_assistant_civil_contracts.py",
+    "tests/test_assistant_civil_formation.py",
+    "tests/test_agent_formation_trial.py",
+    "tests/test_roadmap_parity.py",
+    "tests/test_wave2_route_surfaces.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T04:18:17Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
