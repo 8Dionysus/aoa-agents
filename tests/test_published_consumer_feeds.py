@@ -101,12 +101,20 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         agent_registry = load_json("generated/agent_registry.min.json")
         projection_manifest = load_json("generated/codex_agents/projection_manifest.json")
 
+        self.assertEqual(projection_manifest["projection_scope"], "base_role_profiles_only")
         active_names = {
             entry["name"] for entry in agent_registry["agents"] if entry["status"] == "active"
         }
         projected_names = {entry["name"] for entry in projection_manifest["generated_agents"]}
 
         self.assertEqual(active_names, projected_names)
+        self.assertTrue(all("." not in name for name in projected_names))
+        self.assertTrue(
+            all(
+                "/specializations/" not in f"/{entry['source_profile']}"
+                for entry in projection_manifest["generated_agents"]
+            )
+        )
 
     def test_codex_subagent_projection_publishes_bounded_planning_fields(self) -> None:
         projection_manifest = load_json("generated/codex_agents/projection_manifest.json")

@@ -96,6 +96,7 @@ DEFAULT_WIRING: dict[str, Any] = {
         },
     },
 }
+PROJECTION_SCOPE = "base_role_profiles_only"
 
 
 def _json_clone(payload: Mapping[str, Any]) -> dict[str, Any]:
@@ -378,6 +379,7 @@ def build_manifest(
         "wiring_version": wiring.get("version", 2),
         "workspace_defaults": wiring.get("workspace_defaults", {}),
         "config_file_prefix": config_file_prefix,
+        "projection_scope": PROJECTION_SCOPE,
         "generated_agents": [
             {
                 "name": agent["name"],
@@ -586,6 +588,10 @@ def collect_projection_validation_errors(
             if not isinstance(manifest_payload, Mapping):
                 errors.append(f"{manifest_path}: manifest must contain a JSON object")
             else:
+                if manifest_payload.get("projection_scope") != PROJECTION_SCOPE:
+                    errors.append(
+                        f"{manifest_path}: projection_scope must be {PROJECTION_SCOPE!r}"
+                    )
                 generated_agents = manifest_payload.get("generated_agents")
                 if not isinstance(generated_agents, list):
                     errors.append(f"{manifest_path}: generated_agents must be a list")
@@ -600,6 +606,20 @@ def collect_projection_validation_errors(
                         if not name:
                             errors.append(f"{manifest_path}: generated_agents entry missing name")
                             continue
+                        if "." in name:
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] must stay "
+                                "a base role, not a role specialization"
+                            )
+                        source_profile = item.get("source_profile")
+                        if (
+                            isinstance(source_profile, str)
+                            and "/specializations/" in f"/{source_profile}"
+                        ):
+                            errors.append(
+                                f"{manifest_path}: generated_agents[{name!r}] must not "
+                                "reference role specialization sources"
+                            )
                         manifest_names.add(name)
                         manifest_by_name[name] = item
                     if manifest_names != set(profiles):

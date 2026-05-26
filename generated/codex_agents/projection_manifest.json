@@ -7,6 +7,7 @@
     "agents_job_max_runtime_seconds": 1800
   },
   "config_file_prefix": "agents",
+  "projection_scope": "base_role_profiles_only",
   "generated_agents": [
     {
       "name": "architect",
