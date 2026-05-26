@@ -1,0 +1,33 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T070617Z:c17709ae-aoa-agents-clarified-root-agent",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents clarified root agent schema posture after sibling-source comparison: remaining root schemas stay under schemas/ because they constrain agents/ source families and repo-wide generated registries, while mechanic-specific schemas belong under owning mechanics parts once local route cards and validators exist.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-root-agent-schema-posture.md",
+    "schemas/README.md",
+    "schemas/AGENTS.md",
+    "agents/AGENTS.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/PAYLOAD_RECON.md"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/00fd7b3",
+    "repo:aoa-agents/pull/169",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T07:06:17Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
