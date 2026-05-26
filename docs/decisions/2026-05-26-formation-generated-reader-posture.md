@@ -57,7 +57,7 @@ mechanic source truth.
 
 ```bash
 python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
-python scripts/build_assistant_civil_formation_index.py --check
+python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
 python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
 python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
 python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py

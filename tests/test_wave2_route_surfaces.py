@@ -20,7 +20,7 @@ class Wave2RouteSurfacesTestCase(unittest.TestCase):
 
         self.assertIn("mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md", readme)
         self.assertIn("generated/assistant_civil_formation_index.min.json", readme)
-        self.assertIn("python scripts/validate_assistant_civil_formation.py", readme)
+        self.assertIn("python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py", readme)
         self.assertIn("Assistant Civil Rechartering", docs_readme)
         self.assertIn("Assistant Service Contract Model", docs_readme)
         self.assertIn("Assistant Escalation to Agon", docs_readme)

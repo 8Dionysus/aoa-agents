@@ -155,7 +155,14 @@ The Experience assistant civil contract localization satisfies that rule for
 Wave II assistant civil schemas/examples by placing service contracts under
 `mechanics/experience/parts/assistant-civil-service/`, arena exclusion under
 `mechanics/experience/parts/arena-exclusion/schemas/`, and adding
-`scripts/validate_experience_assistant_civil_contracts.py`.
+`mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`.
+
+The Experience assistant civil check localization satisfies that rule for Wave
+II assistant civil builders, validators, and tests by moving formation-reader
+support into `mechanics/experience/parts/assistant-civil-service/{scripts,tests}/`
+and the cross-part contract check into `mechanics/experience/{scripts,tests}/`.
+The generated reader stays root-published because it summarizes `agents/`
+source adjunct records.
 
 The Codex refresh-law example localization satisfies that rule for the Codex
 projection refresh route example by placing it under

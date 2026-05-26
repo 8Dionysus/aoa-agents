@@ -167,6 +167,15 @@ active `mechanics/experience/parts/assistant-civil-service/` and
 part-local validator. Stable schema `$id` values remain public contract
 identifiers, not active repo paths.
 
+The 2026-05-26 Experience assistant civil check localization moves the Wave II
+assistant civil formation builder, validator, and focused test from root
+`scripts/` and `tests/` into
+`mechanics/experience/parts/assistant-civil-service/{scripts,tests}/`. The
+cross-part Experience assistant civil contract validator and focused test live
+under `mechanics/experience/{scripts,tests}/` because they span
+`assistant-civil-service` and `arena-exclusion`. The generated reader remains
+root-published as described in the formation generated-reader posture.
+
 The 2026-05-26 Codex refresh-law example localization moves the Codex
 subagent projection refresh-law example from root `examples/` into active
 `mechanics/codex-projection/parts/refresh-law/examples/` after adding a

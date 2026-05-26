@@ -61,6 +61,10 @@ The Agon formation check localization moved Wave I formation and Wave II.5
 formation-trial builders, validators, and focused tests into the Agon
 `formation` part while keeping the generated readers root-published because
 their source truth remains under `agents/`.
+The Experience assistant civil check localization moved Wave II assistant
+civil builders, validators, and focused tests into Experience package and
+assistant-civil-service part-local routes while keeping the generated reader
+root-published because its source truth remains under `agents/`.
 The recursor generated reader localization moved readiness, pair, projection,
 and boundary readers into their owning Recurrence parts because their source
 truth is already part-local config/schema/example material.

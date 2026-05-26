@@ -56,7 +56,7 @@ Mechanic-specific Agon formation schemas live under
 Mechanic-specific Experience assistant civil schemas live under
 `mechanics/experience/parts/assistant-civil-service/schemas/`, with arena
 exclusion in `mechanics/experience/parts/arena-exclusion/schemas/`. They are
-validated by `scripts/validate_experience_assistant_civil_contracts.py`.
+validated by `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`.
 
 Mechanic-specific adoption and boundary bridge schemas live under
 `mechanics/agon/parts/adoption-retention/schemas/`,

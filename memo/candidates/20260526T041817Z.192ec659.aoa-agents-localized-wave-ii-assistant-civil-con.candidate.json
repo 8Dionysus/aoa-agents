@@ -5,21 +5,21 @@
   "kind": "decision",
   "family": "agent-role-memory",
   "scope": "repo",
-  "claim": "aoa-agents localized Wave II assistant civil contracts into Experience part-local schema/example routes; root schemas/examples no longer own assistant civil payloads, and scripts/validate_experience_assistant_civil_contracts.py now guards the contract surface.",
+  "claim": "aoa-agents localized Wave II assistant civil contracts into Experience part-local schema/example routes; root schemas/examples no longer own assistant civil payloads, and mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py now guards the contract surface.",
   "source_refs": [
     "docs/decisions/2026-05-26-experience-assistant-civil-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/experience/PARTS.md",
     "mechanics/experience/PROVENANCE.md",
-    "scripts/validate_experience_assistant_civil_contracts.py",
+    "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
     "mechanics/recurrence/parts/component-manifests/manifests/components/agon-actor-formation-surfaces.json"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/0813b69",
     "repo:aoa-agents/pull/149",
     "repo:aoa-agents/commit-range/74beaa5..0813b69",
-    "tests/test_experience_assistant_civil_contracts.py",
-    "tests/test_assistant_civil_formation.py",
+    "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
+    "mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py",
     "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
     "tests/test_roadmap_parity.py",
     "tests/test_wave2_route_surfaces.py"

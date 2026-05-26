@@ -18,7 +18,7 @@ ROOT_MARKERS = ("profiles", "schemas", "generated")
 
 
 def repo_root_from_script() -> Path:
-    return Path(__file__).resolve().parents[1]
+    return Path(__file__).resolve().parents[5]
 
 
 def load_json(path: Path) -> dict[str, Any]:

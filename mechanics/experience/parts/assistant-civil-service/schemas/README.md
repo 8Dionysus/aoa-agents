@@ -20,6 +20,6 @@ Arena exclusion lives in the adjacent
 Validate with:
 
 ```bash
-python scripts/validate_experience_assistant_civil_contracts.py
+python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
 python scripts/validate_agent_service_contracts.py
 ```

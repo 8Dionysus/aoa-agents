@@ -36,8 +36,10 @@ and arena-exclusion boundaries.
 Run affected assistant builders/tests, then:
 
 ```bash
-python scripts/validate_assistant_civil_formation.py
-python scripts/validate_experience_assistant_civil_contracts.py
+python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
+python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
+python -m unittest discover -s mechanics/experience/tests -p 'test_*.py'
+python -m unittest discover -s mechanics/experience/parts/assistant-civil-service/tests -p 'test_*.py'
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

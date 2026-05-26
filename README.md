@@ -127,10 +127,10 @@ python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_forma
 Verify the additive Wave II assistant civil surfaces explicitly:
 
 ```bash
-python scripts/build_assistant_civil_formation_index.py --check
-python scripts/validate_assistant_civil_formation.py
-python scripts/validate_experience_assistant_civil_contracts.py
-python -m pytest -q tests/test_assistant_civil_formation.py tests/test_experience_assistant_civil_contracts.py
+python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
+python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
+python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
+python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py mechanics/experience/tests/test_experience_assistant_civil_contracts.py
 ```
 
 Verify the additive Wave II.5 formation trial surfaces explicitly:
