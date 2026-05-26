@@ -64,7 +64,8 @@ Read:
 
 | Pressure | Do this |
 | --- | --- |
-| schema shape changes | edit `schemas/` and run the owning validator |
+| repo-wide schema shape changes | edit `schemas/` and run the owning validator |
+| mechanic-specific schema shape changes | route to the owning `mechanics/*/parts/*/schemas/` directory |
 | example fixture changes | edit `examples/` and run schema/example validation |
 | generated reader drift | edit source input, run the builder, then validate |
 | repeated operation pressure | route to `mechanics/` |
@@ -73,8 +74,9 @@ Read:
 ## Compact Rules
 
 - Keep source objects compact and reviewable.
-- Keep schemas under `schemas/` until a later package-local artifact move has a
-  mechanic owner and validator support.
+- Keep repo-wide agent source and registry schemas under `schemas/`.
+- Keep mechanic-specific schemas under the owning mechanic part once that part
+  has a route card and validator support.
 - Keep examples under `examples/` until a later package-local artifact move has
   a mechanic owner and validator support.
 - Do not turn role objects into skill workflows, proof verdicts, durable memory

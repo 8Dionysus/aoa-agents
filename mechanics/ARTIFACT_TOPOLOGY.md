@@ -203,6 +203,12 @@ truth is under `agents/` and their consumer posture is repo-wide. The Agon and
 Experience parts own formation contracts, examples, docs, and stop-lines around
 those readers, not the generated files as part-local companions.
 
+The 2026-05-26 root agent schema posture keeps remaining root schemas in
+`schemas/` because they constrain repo-wide agent source families and generated
+registries. Mechanic-specific schemas have moved part-local; root
+`agent-profile`, registry, tier, class, cohort, and runtime-seam schemas are
+not mechanic payloads.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
