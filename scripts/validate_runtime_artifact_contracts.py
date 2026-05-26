@@ -24,10 +24,12 @@ def _artifact_schema_name(artifact_name: str) -> str:
 
 
 def _expected_schema_paths() -> set[Path]:
-    return {
+    paths = {
         SCHEMAS_DIR / _artifact_schema_name(artifact_name)
         for artifact_name in validate_agents.RUNTIME_ARTIFACT_SCHEMA_PATHS
     }
+    paths.add(SCHEMAS_DIR / "agent-authority-claim.schema.json")
+    return paths
 
 
 def _expected_example_names() -> set[str]:
@@ -36,6 +38,7 @@ def _expected_example_names() -> set[str]:
         for artifact_name in validate_agents.RUNTIME_ARTIFACT_SCHEMA_PATHS
     }
     names.add("transition_decision.return.example.json")
+    names.add("agent-authority-claim.example.json")
     return names
 
 
@@ -103,7 +106,7 @@ def main() -> int:
     except RuntimeArtifactContractsValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1
-    print("Runtime artifact contract validation passed. schemas=7 examples=8 invalid=4")
+    print("Runtime artifact contract validation passed. schemas=8 examples=9 invalid=4")
     return 0
 
 

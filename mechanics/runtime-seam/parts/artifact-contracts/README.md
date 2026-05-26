@@ -9,6 +9,8 @@ This part routes `artifact-contracts` pressure inside `mechanics/runtime-seam/`.
   transition governance.
 - [examples/](examples/) contains schema-backed public examples and bounded
   invalid fixtures for negative coverage.
+- the agent authority claim contract lives beside the runtime artifact set
+  because it is runtime-readable but not self-certifying.
 
 ## Active Docs
 
@@ -18,6 +20,7 @@ This part routes `artifact-contracts` pressure inside `mechanics/runtime-seam/`.
 
 ```bash
 python scripts/validate_runtime_artifact_contracts.py
+python scripts/validate_agent_service_contracts.py
 python scripts/validate_agents.py
 ```
 

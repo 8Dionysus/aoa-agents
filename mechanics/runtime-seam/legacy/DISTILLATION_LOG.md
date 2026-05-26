@@ -23,3 +23,14 @@ The former example `AGENTS.md` became an active part-local examples README.
 Git history preserves the file bodies; `PROVENANCE.md` and `legacy/INDEX.md`
 preserve old-path lookup. Stable schema `$id` values remain unchanged for
 consumer compatibility.
+
+## 2026-05-26 Agent Authority Claim Contract To Active Part
+
+Moved the runtime-readable authority claim schema and example out of root
+`schemas/` and `examples/` into active `artifact-contracts` part-local routes.
+Git history preserves the file bodies; `PROVENANCE.md` and `legacy/INDEX.md`
+preserve old-path lookup.
+
+| Part | Moved schemas | Moved examples |
+| --- | ---: | ---: |
+| `artifact-contracts` | 1 | 1 |

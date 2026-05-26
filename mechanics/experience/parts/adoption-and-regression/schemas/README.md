@@ -12,12 +12,16 @@ Part-local schemas for assistant and agent adoption/regression contracts.
 | [assistant-adoption-regression-matrix.schema.json](assistant-adoption-regression-matrix.schema.json) | adoption regression matrix |
 | [assistant-adoption-release-candidate.schema.json](assistant-adoption-release-candidate.schema.json) | release candidate |
 | [assistant-adoption-rollback-marker.schema.json](assistant-adoption-rollback-marker.schema.json) | rollback marker |
+| [assistant-behavior-contract-delta.schema.json](assistant-behavior-contract-delta.schema.json) | behavior contract delta |
+| [assistant-canary-probe-matrix.schema.json](assistant-canary-probe-matrix.schema.json) | canary probe matrix |
 | [assistant-pattern-adoption-request.schema.json](assistant-pattern-adoption-request.schema.json) | pattern adoption request |
 | [assistant-pattern-release-delta.schema.json](assistant-pattern-release-delta.schema.json) | pattern release delta |
+| [assistant-regression-result.schema.json](assistant-regression-result.schema.json) | regression result |
 | [assistant-shared-pattern-adoption.schema.json](assistant-shared-pattern-adoption.schema.json) | shared pattern adoption |
 
 Validate with:
 
 ```bash
 python scripts/validate_adoption_boundary_contracts.py
+python scripts/validate_agent_service_contracts.py
 ```

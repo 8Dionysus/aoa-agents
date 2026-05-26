@@ -58,6 +58,10 @@ from validate_experience_assistant_civil_contracts import (
     ExperienceAssistantCivilContractsValidationError,
     validate_experience_assistant_civil_contracts,
 )
+from validate_agent_service_contracts import (
+    AgentServiceContractsValidationError,
+    validate_agent_service_contracts,
+)
 from validate_assistant_projection_resolver import (
     AssistantProjectionResolverValidationError,
     validate_assistant_projection_resolver,
@@ -1179,6 +1183,7 @@ def runtime_artifact_example_paths(artifact_name: str) -> list[Path]:
 def validate_runtime_artifact_contract_routes() -> None:
     actual_schema_paths = {path.name for path in RUNTIME_ARTIFACT_SCHEMA_DIR.glob("*.json")}
     expected_schema_paths = {path.name for path in RUNTIME_ARTIFACT_SCHEMA_PATHS.values()}
+    expected_schema_paths.add("agent-authority-claim.schema.json")
     if actual_schema_paths != expected_schema_paths:
         missing = sorted(expected_schema_paths - actual_schema_paths)
         extra = sorted(actual_schema_paths - expected_schema_paths)
@@ -1202,6 +1207,7 @@ def validate_runtime_artifact_contract_routes() -> None:
         for artifact_name in RUNTIME_ARTIFACT_SCHEMA_PATHS
     }
     expected_example_names.add("transition_decision.return.example.json")
+    expected_example_names.add("agent-authority-claim.example.json")
     actual_example_names = {path.name for path in RUNTIME_ARTIFACT_EXAMPLES_DIR.glob("*.example.json")}
     if actual_example_names != expected_example_names:
         missing = sorted(expected_example_names - actual_example_names)
@@ -3470,6 +3476,7 @@ def main() -> int:
         validate_agon_rank_epistemic_contracts(REPO_ROOT)
         validate_adoption_boundary_contracts(REPO_ROOT)
         validate_experience_assistant_civil_contracts(REPO_ROOT)
+        validate_agent_service_contracts(REPO_ROOT)
         validate_antifragility_stress_surfaces()
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
@@ -3519,6 +3526,7 @@ def main() -> int:
         AgonFormationContractsValidationError,
         AgonRankEpistemicContractsValidationError,
         ExperienceAssistantCivilContractsValidationError,
+        AgentServiceContractsValidationError,
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
         CodexRefreshLawContractsValidationError,
@@ -3548,6 +3556,7 @@ def main() -> int:
     print("[ok] validated Agon rank/school/epistemic part-local contracts")
     print("[ok] validated adoption and boundary part-local contracts")
     print("[ok] validated experience assistant civil part-local contracts")
+    print("[ok] validated agent service part-local contracts")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
     print("[ok] validated RPG progression schema and example")
     print("[ok] validated Alpha reference-route schema surface")

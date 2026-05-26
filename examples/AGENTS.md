@@ -88,6 +88,13 @@ They are validated by `scripts/validate_adoption_boundary_contracts.py`.
 Their schemas live beside them under the corresponding part-local `schemas/`
 routes.
 
+Mechanic-specific agent service examples live under
+`mechanics/experience/parts/*/examples/`,
+`mechanics/runtime-seam/parts/artifact-contracts/examples/`, and
+`mechanics/release-support/parts/runtime-release-hold/examples/`. They are
+validated by `scripts/validate_agent_service_contracts.py`. Their schemas live
+beside them under the corresponding part-local `schemas/` routes.
+
 ## Editing posture
 
 Keep examples minimal, portable, and public-safe.
@@ -111,6 +118,7 @@ For Agon formation part-local examples, also run `python scripts/validate_agon_f
 For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
 For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.
 For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
+For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.
 For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
 For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.

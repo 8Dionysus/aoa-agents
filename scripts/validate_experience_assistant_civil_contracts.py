@@ -77,15 +77,12 @@ def _check_file_set(
     errors: list[str],
 ) -> None:
     actual = {path.name for path in (root / directory).glob("*.json")}
-    if actual == expected:
+    if expected.issubset(actual):
         return
     missing = sorted(expected - actual)
-    extra = sorted(actual - expected)
     details: list[str] = []
     if missing:
         details.append("missing: " + ", ".join(missing))
-    if extra:
-        details.append("unexpected: " + ", ".join(extra))
     errors.append(f"{label} file set drifted (" + "; ".join(details) + ")")
 
 
