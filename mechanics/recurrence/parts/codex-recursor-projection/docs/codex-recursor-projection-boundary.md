@@ -7,14 +7,14 @@ Codex projection candidates are not installed agents.
 This seed may publish:
 
 ```text
-config/codex_recursor_projection.candidate.json
+mechanics/recurrence/parts/codex-recursor-projection/config/projection-candidate.json
 generated/recursor_projection_candidates.min.json
 ```
 
 It must not mutate:
 
 ```text
-config/codex_subagent_wiring.v2.json
+mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json
 generated/codex_agents/agents/*.toml
 generated/codex_agents/config.subagents.generated.toml
 .codex/agents/

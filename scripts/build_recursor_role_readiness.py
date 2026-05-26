@@ -16,7 +16,15 @@ def main(argv=None) -> int:
 
     index = build_readiness_index(ROOT)
     boundary = build_boundary_report(ROOT)
-    pair_contract = read_json(ROOT / "config" / "recursor_pair.seed.json")
+    pair_contract = read_json(
+        ROOT
+        / "mechanics"
+        / "recurrence"
+        / "parts"
+        / "recursor-readiness"
+        / "config"
+        / "pair.seed.json"
+    )
     expected = {
         ROOT / "generated" / "recursor_role_readiness.min.json": index,
         ROOT / "generated" / "recursor_pair_contract.min.json": pair_contract,

@@ -14,7 +14,15 @@ from agent_profile_registry import BuildError
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PROFILES_DIR = REPO_ROOT / "agents" / "profiles"
-WIRING_CONFIG_PATH = REPO_ROOT / "config" / "codex_subagent_wiring.v2.json"
+WIRING_CONFIG_PATH = (
+    REPO_ROOT
+    / "mechanics"
+    / "codex-projection"
+    / "parts"
+    / "subagent-projection"
+    / "config"
+    / "wiring.v2.json"
+)
 GENERATED_CODEX_ROOT = REPO_ROOT / "generated" / "codex_agents"
 GENERATED_AGENTS_DIR = GENERATED_CODEX_ROOT / "agents"
 GENERATED_CONFIG_SNIPPET_PATH = GENERATED_CODEX_ROOT / "config.subagents.generated.toml"

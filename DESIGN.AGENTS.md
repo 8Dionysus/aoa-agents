@@ -23,6 +23,7 @@ Use this file as the agent-facing reading card for repository design work.
 - `examples/` keeps schema-backed examples until a mechanic-local package owns
   a narrower example lane.
 - `generated/` remains derived.
+- mechanic-local seeds and wiring live under the owning `mechanics/*/parts/*/config/` route when the operation package has a validator.
 
 ## Operational Map Shape
 

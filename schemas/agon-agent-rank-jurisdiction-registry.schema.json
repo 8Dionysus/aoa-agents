@@ -36,7 +36,7 @@
       "$ref": "#/$defs/nonEmptyStringArray"
     },
     "source_config": {
-      "const": "config/agon_agent_rank_jurisdiction.seed.json"
+      "const": "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
     },
     "entry_count": {
       "type": "integer",

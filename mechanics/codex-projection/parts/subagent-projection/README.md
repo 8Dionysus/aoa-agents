@@ -6,4 +6,9 @@ This part routes `subagent-projection` pressure inside `mechanics/codex-projecti
 
 - [Codex Subagent Projection](docs/subagent-projection.md)
 
+## Active Config
+
+- [Codex Subagent Wiring](config/wiring.v2.json)
+- [Config Route](config/README.md)
+
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

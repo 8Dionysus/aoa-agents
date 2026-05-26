@@ -13,7 +13,7 @@
   "repo": "aoa-agents",
   "surfaces": [
     "generated/agon_agent_school_campaign_posture_registry.min.json",
-    "config/agon_agent_school_campaign_posture.seed.json",
+    "mechanics/agon/parts/arena-rank-school/config/school-campaign-posture.seed.json",
     "mechanics/agon/parts/arena-rank-school/docs/school-campaign-posture.md",
     "mechanics/agon/parts/arena-rank-school/docs/school-affiliation-boundary.md",
     "mechanics/agon/parts/arena-rank-school/docs/assistant-campaign-boundary.md",

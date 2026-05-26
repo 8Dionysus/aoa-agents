@@ -7,6 +7,18 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 ROOT = Path(__file__).resolve().parents[1]
+RECURSOR_READINESS_CONFIG_ROOT = (
+    ROOT / "mechanics" / "recurrence" / "parts" / "recursor-readiness" / "config"
+)
+RECURSOR_PROJECTION_CONFIG = (
+    ROOT
+    / "mechanics"
+    / "recurrence"
+    / "parts"
+    / "codex-recursor-projection"
+    / "config"
+    / "projection-candidate.json"
+)
 
 REQUIRED_FORBIDDEN = {
     "global": {
@@ -231,9 +243,9 @@ def validate_projection_candidate(projection: Dict[str, Any]) -> List[Dict[str, 
     return errors
 
 def build_readiness_index(root: Path = ROOT) -> Dict[str, Any]:
-    roles = read_json(root / "config" / "recursor_roles.seed.json")
-    pair = read_json(root / "config" / "recursor_pair.seed.json")
-    projection = read_json(root / "config" / "codex_recursor_projection.candidate.json")
+    roles = read_json(root / RECURSOR_READINESS_CONFIG_ROOT.relative_to(ROOT) / "roles.seed.json")
+    pair = read_json(root / RECURSOR_READINESS_CONFIG_ROOT.relative_to(ROOT) / "pair.seed.json")
+    projection = read_json(root / RECURSOR_PROJECTION_CONFIG.relative_to(ROOT))
     role_errors = validate_role_set(roles)
     raw_roles = roles.get("roles", [])
     role_entries = raw_roles if isinstance(raw_roles, list) else []
@@ -280,9 +292,9 @@ def build_readiness_index(root: Path = ROOT) -> Dict[str, Any]:
     return index
 
 def build_boundary_report(root: Path = ROOT) -> Dict[str, Any]:
-    roles = read_json(root / "config" / "recursor_roles.seed.json")
-    pair = read_json(root / "config" / "recursor_pair.seed.json")
-    projection = read_json(root / "config" / "codex_recursor_projection.candidate.json")
+    roles = read_json(root / RECURSOR_READINESS_CONFIG_ROOT.relative_to(ROOT) / "roles.seed.json")
+    pair = read_json(root / RECURSOR_READINESS_CONFIG_ROOT.relative_to(ROOT) / "pair.seed.json")
+    projection = read_json(root / RECURSOR_PROJECTION_CONFIG.relative_to(ROOT))
     violations: List[Dict[str, Any]] = []
     warnings: List[Dict[str, Any]] = []
 

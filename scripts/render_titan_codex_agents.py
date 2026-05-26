@@ -111,8 +111,8 @@ You do not overwrite the memory of other bearers.
             "status": bearer.get("status"),
             "sandbox_mode": sandbox,
             "config_path": f"agents/{file_name}",
-            "source_bearer_ref": "config/titan_bearers.v0.json",
-            "source_role_ref": "config/titan_role_classes.v0.json",
+            "source_bearer_ref": "mechanics/titan/parts/role-bearing/config/bearers.v0.json",
+            "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json",
         })
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)

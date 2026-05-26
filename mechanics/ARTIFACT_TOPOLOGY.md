@@ -46,6 +46,13 @@ objects. Those payload classes remain current support/source/generated
 districts until a dedicated package-local contract and validator route make
 the move smaller and reviewable.
 
+The 2026-05-26 config localization moves mechanic-specific seed and wiring
+payloads from root `config/` into the owning part-local
+`mechanics/*/parts/*/config/` route after each target part has an active config
+card and validator route. Root `config/` remains reserved for future
+repository-level config; it is not the active home for Agon, recurrence, Codex
+projection, or Titan mechanic seeds.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 

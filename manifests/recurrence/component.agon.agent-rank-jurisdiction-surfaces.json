@@ -3,7 +3,7 @@
   "hidden_scheduler_allowed": false,
   "observes": [
     "generated/agon_agent_rank_jurisdiction_registry.min.json",
-    "config/agon_agent_rank_jurisdiction.seed.json"
+    "mechanics/agon/parts/arena-rank-school/config/rank-jurisdiction.seed.json"
   ],
   "owner_review_required": true,
   "recurrence_role": "observe_retention_rank_pressure_without_authority",
