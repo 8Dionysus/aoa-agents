@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 2 |
+| candidates | 3 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 2 |
+| `reviewed_intake` | 3 |
 
 ## Open Items
 
@@ -23,6 +23,7 @@ Generated from `PORT.yaml` and local memo packets.
 |---|---|---|---|
 | `candidate:aoa-agents:20260526T015747Z:de2a2b2a-aoa-agents-owns-role-layer-memor` | `candidate` | `reviewed_intake` | `candidates/20260526T015747Z.de2a2b2a.aoa-agents-owns-role-layer-memory-rights-and-han.candidate.json` |
 | `candidate:aoa-agents:20260526T034728Z:f76675eb-aoa-agents-localized-mechanics-o` | `candidate` | `reviewed_intake` | `candidates/20260526T034728Z.f76675eb.aoa-agents-localized-mechanics-owned-role-layer.candidate.json` |
+| `candidate:aoa-agents:20260526T040157Z:54ac8820-aoa-agents-localized-agon-format` | `candidate` | `reviewed_intake` | `candidates/20260526T040157Z.54ac8820.aoa-agents-localized-agon-formation-contracts-in.candidate.json` |
 
 ## Agent Route
 

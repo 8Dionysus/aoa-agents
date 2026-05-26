@@ -1,0 +1,37 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T040157Z:54ac8820-aoa-agents-localized-agon-format",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized Agon formation contracts into part-local mechanics routes; Wave I formation adjuncts and Wave II.5 formation-trial contracts now start under mechanics/agon parts while generated readers remain derived.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-agon-formation-contract-localization.md",
+    "mechanics/ARTIFACT_TOPOLOGY.md",
+    "mechanics/PAYLOAD_RECON.md",
+    "mechanics/agon/PARTS.md",
+    "mechanics/agon/PROVENANCE.md",
+    "scripts/validate_agon_formation_contracts.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/f1b6f42",
+    "repo:aoa-agents/pull/147",
+    "repo:aoa-agents/commit-range/78b212f..f1b6f42",
+    "tests/test_agon_formation_contracts.py",
+    "tests/test_agent_agonic_formation.py",
+    "tests/test_agent_formation_trial.py",
+    "tests/test_roadmap_parity.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T04:01:57Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
