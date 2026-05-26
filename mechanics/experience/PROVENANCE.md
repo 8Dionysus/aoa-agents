@@ -121,6 +121,19 @@ adoption-retention and Boundary Bridge consumer/federation parts.
 | `scripts/validate_adoption_boundary_contracts.py` | [scripts/validate_adoption_boundary_contracts.py](scripts/validate_adoption_boundary_contracts.py) | `experience` package |
 | `tests/test_experience_wave3_seed_contracts.py` | [tests/test_experience_wave3_seed_contracts.py](tests/test_experience_wave3_seed_contracts.py) | `experience` package |
 
+## 2026-05-26 Agent Service Check Move
+
+Agent service validator support moved from root `scripts/` and `tests/` into
+Experience package routes. The check remains package-level because it
+validates assistant service, office, release, watch, rollback, governance, and
+arena-exclusion contracts together while reading Runtime Seam and Release
+Support part-local contracts.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/validate_agent_service_contracts.py` | [scripts/validate_agent_service_contracts.py](scripts/validate_agent_service_contracts.py) | `experience` package |
+| `tests/test_agent_service_contracts.py` | [tests/test_agent_service_contracts.py](tests/test_agent_service_contracts.py) | `experience` package |
+
 ## 2026-05-26 Root Adoption/Office Contract Move
 
 14 adoption/office schemas plus 14 examples moved from root `schemas/` and

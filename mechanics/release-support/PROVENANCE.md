@@ -39,7 +39,7 @@ names stay historical here; active parts use current route names.
 
 The release-hold schema/example moved from root `schemas/` and `examples/`
 into the `runtime-release-hold` part. It is validated with
-`scripts/validate_agent_service_contracts.py`.
+`mechanics/experience/scripts/validate_agent_service_contracts.py`.
 
 | Former root path | Active route | Part |
 | --- | --- | --- |

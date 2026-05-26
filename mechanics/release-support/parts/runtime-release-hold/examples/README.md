@@ -9,5 +9,5 @@ Public-safe example for the release-hold policy packet.
 Validate with:
 
 ```bash
-python scripts/validate_agent_service_contracts.py
+python mechanics/experience/scripts/validate_agent_service_contracts.py
 ```

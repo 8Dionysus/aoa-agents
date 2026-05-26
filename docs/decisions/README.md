@@ -42,6 +42,7 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Adoption and boundary contract localization](2026-05-26-adoption-boundary-contract-localization.md)
 - [2026-05-26: Experience adoption boundary check localization](2026-05-26-experience-adoption-boundary-check-localization.md)
 - [2026-05-26: Agent service contract localization](2026-05-26-agent-service-contract-localization.md)
+- [2026-05-26: Experience agent service check localization](2026-05-26-experience-agent-service-check-localization.md)
 - [2026-05-26: Reference route contract localization](2026-05-26-reference-route-contract-localization.md)
 - [2026-05-26: Alpha reference-route generated reader localization](2026-05-26-alpha-reference-generated-reader-localization.md)
 - [2026-05-26: Agon rank and epistemic generated reader localization](2026-05-26-agon-rank-epistemic-generated-reader-localization.md)

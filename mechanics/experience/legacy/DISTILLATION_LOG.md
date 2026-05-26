@@ -51,6 +51,18 @@ preserves the file bodies; root paths are lookup facts only.
 | --- | ---: | ---: |
 | Experience package | 1 | 1 |
 
+## 2026-05-26 Agent Service Checks To Active Routes
+
+Moved the agent service validator and focused test out of root `scripts/` and
+`tests` into Experience package-level routes. The check stays package-level
+because it spans multiple Experience parts and reads Runtime Seam and Release
+Support part-local contracts. Git history preserves the file bodies; root
+paths are lookup facts only.
+
+| Route | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| Experience package | 1 | 1 |
+
 ## 2026-05-26 Root Adoption/Office Contracts To Active Parts
 
 Moved 14 adoption and office-operation schemas plus 14 matching examples out

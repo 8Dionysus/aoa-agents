@@ -13,7 +13,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[3]
 
 EXPERIENCE_ADOPTION_PART = Path("mechanics/experience/parts/adoption-and-regression")
 EXPERIENCE_ARENA_PART = Path("mechanics/experience/parts/arena-exclusion")
@@ -226,6 +226,11 @@ CONTRACTS = (
         example_v1=True,
     ),
     _contract(RELEASE_HOLD_PART, "agent-release-hold", "agent", "release", "hold"),
+)
+
+FORMER_CHECK_PATHS = (
+    Path("scripts/validate_agent_service_contracts.py"),
+    Path("tests/test_agent_service_contracts.py"),
 )
 
 
@@ -489,6 +494,10 @@ def assert_invalid(errors: list[str], schema: dict[str, Any], value: object, lab
 
 def collect_agent_service_contract_errors(root: Path = ROOT) -> list[str]:
     errors: list[str] = []
+
+    for former_path in FORMER_CHECK_PATHS:
+        if (root / former_path).exists():
+            errors.append(f"former root agent service check is still active: {former_path.as_posix()}")
 
     if not CONTRACTS:
         errors.append("no agent service contracts configured")

@@ -82,7 +82,7 @@ support districts into the owning `artifact-contracts` part.
 
 The runtime-readable authority claim schema/example moved from root
 `schemas/` and `examples/` into the `artifact-contracts` part. It is validated
-with `scripts/validate_agent_service_contracts.py` alongside the runtime
+with `mechanics/experience/scripts/validate_agent_service_contracts.py` alongside the runtime
 artifact route check.
 
 | Former root path | Active route | Part |
