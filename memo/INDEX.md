@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 24 |
+| candidates | 25 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 24 |
+| `reviewed_intake` | 25 |
 
 ## Open Items
 
@@ -45,6 +45,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T083827Z:87f15279-aoa-agents-localized-checkpoi` | `candidate` | `reviewed_intake` | `candidates/20260526T083827Z.87f15279.aoa-agents-localized-checkpoint-contract-che.candidate.json` |
 | `candidate:aoa-agents:20260526T084859Z:f95be504-aoa-agents-localized-recursor` | `candidate` | `reviewed_intake` | `candidates/20260526T084859Z.f95be504.aoa-agents-localized-recursor-support-scripts.candidate.json` |
 | `candidate:aoa-agents:20260526T090000Z:b883f356-aoa-agents-localized-rpg-prog` | `candidate` | `reviewed_intake` | `candidates/20260526T090000Z.b883f356.aoa-agents-localized-rpg-progression-checks.candidate.json` |
+| `candidate:aoa-agents:20260526T090803Z:8b22aa85-aoa-agents-localized-codex-refresh` | `candidate` | `reviewed_intake` | `candidates/20260526T090803Z.8b22aa85.aoa-agents-localized-codex-refresh-law-checks.candidate.json` |
 
 ## Agent Route
 
