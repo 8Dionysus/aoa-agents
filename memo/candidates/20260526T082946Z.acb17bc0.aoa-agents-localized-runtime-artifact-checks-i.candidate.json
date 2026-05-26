@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T082946Z:acb17bc0-aoa-agents-localized-runtime",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the Runtime Seam artifact-contracts validator and focused tests into mechanics/runtime-seam/parts/artifact-contracts/{scripts,tests}/, made the validator self-contained instead of importing validate_agents.py, and kept validate_agents.py plus release_check.py as repo-wide coordinators.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-runtime-artifact-check-localization.md",
+    "mechanics/runtime-seam/PROVENANCE.md",
+    "mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py",
+    "mechanics/runtime-seam/parts/artifact-contracts/tests/test_artifact_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/eab443e79ad067585d139418bae9d8dddfe068b7",
+    "repo:aoa-agents/pull/183",
+    "mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py",
+    "mechanics/runtime-seam/parts/artifact-contracts/tests/test_artifact_contracts.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T08:29:46Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
