@@ -1067,7 +1067,15 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
         self.temp_dir = Path(tempfile.mkdtemp(prefix="aoa_agents_questbook_"))
         validate_agents.external_schema_validator.cache_clear()
         self.addCleanup(validate_agents.external_schema_validator.cache_clear)
-        self.questbook_path = self.temp_dir / "QUESTBOOK.md"
+        self.questbook_path = (
+            self.temp_dir
+            / "mechanics"
+            / "questbook"
+            / "parts"
+            / "quest-catalog"
+            / "docs"
+            / "quest-catalog.md"
+        )
         self.passport_path = (
             self.temp_dir
             / "mechanics"
@@ -1077,7 +1085,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             / "docs"
             / "quest-execution-passport.md"
         )
-        self.quests_dir = self.temp_dir / "quests"
+        self.quests_dir = self.temp_dir / validate_agents.QUESTS_RELATIVE_DIR
         self.quest_catalog_path = self.temp_dir / "generated" / "quest_catalog.min.json"
         self.quest_catalog_example_path = self.temp_dir / "generated" / "quest_catalog.min.example.json"
         self.quest_dispatch_path = self.temp_dir / "generated" / "quest_dispatch.min.json"
@@ -1123,7 +1131,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
             self.questbook_path,
             "\n".join(
                 (
-                    "# QUESTBOOK.md — aoa-agents",
+                    "# Quest Catalog — aoa-agents",
                     "",
                     "- `AOA-AG-Q-0001` — publish the quest execution passport",
                     "- `AOA-AG-Q-0002` — define the local-wrapper allowance matrix for leaf quests",
@@ -1571,7 +1579,7 @@ class ValidateQuestbookSurfaceTests(unittest.TestCase):
 
         with self.assertRaisesRegex(
             validate_agents.ValidationError,
-            "QUESTBOOK.md must not list closed quest id 'AOA-AG-Q-0003'",
+            "quest-catalog.md must not list closed quest id 'AOA-AG-Q-0003'",
         ):
             validate_agents.validate_questbook_surface()
 

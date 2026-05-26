@@ -40,7 +40,7 @@ Keep the initial bounded set explicit:
 
 Do not turn orchestrator classes into:
 
-- quest workloads from repo-local `quests/*.yaml`
+- quest workloads from `mechanics/questbook/parts/quest-catalog/quests/*.yaml`
 - playbooks from `aoa-playbooks`
 - proof doctrine from `aoa-evals`
 - memory-object canon from `aoa-memo`

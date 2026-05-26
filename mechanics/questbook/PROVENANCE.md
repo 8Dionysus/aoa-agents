@@ -17,3 +17,32 @@ Open `legacy/` only for former path lookup, raw receipt intake, or distillation 
 | Former root path | Active route | Part |
 | --- | --- | --- |
 | `docs/QUEST_EXECUTION_PASSPORT.md` | [parts/execution-passport/docs/quest-execution-passport.md](parts/execution-passport/docs/quest-execution-passport.md) | `execution-passport` |
+
+## 2026-05-26 Root Questbook Move
+
+1 root quest catalog doc and 20 root quest source files moved into
+`questbook/parts/*`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `QUESTBOOK.md` | [parts/quest-catalog/docs/quest-catalog.md](parts/quest-catalog/docs/quest-catalog.md) | `quest-catalog` |
+| `quests/AOA-AG-Q-0001.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0001.yaml](parts/quest-catalog/quests/AOA-AG-Q-0001.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0002.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0002.yaml](parts/quest-catalog/quests/AOA-AG-Q-0002.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0003.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0003.yaml](parts/quest-catalog/quests/AOA-AG-Q-0003.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0004.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0004.yaml](parts/quest-catalog/quests/AOA-AG-Q-0004.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0005.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0005.yaml](parts/quest-catalog/quests/AOA-AG-Q-0005.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0006.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0006.yaml](parts/quest-catalog/quests/AOA-AG-Q-0006.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0007.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0007.yaml](parts/quest-catalog/quests/AOA-AG-Q-0007.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0008.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0008.yaml](parts/quest-catalog/quests/AOA-AG-Q-0008.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-0009.yaml` | [parts/quest-catalog/quests/AOA-AG-Q-0009.yaml](parts/quest-catalog/quests/AOA-AG-Q-0009.yaml) | `quest-catalog` |
+| `quests/AOA-AG-Q-AGON-0002-agonic-actor-recharter.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0002-agonic-actor-recharter.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0002-agonic-actor-recharter.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0003-formation-index-integration.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0003-formation-index-integration.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0003-formation-index-integration.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0004-assistant-civil-recharter.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0004-assistant-civil-recharter.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0004-assistant-civil-recharter.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0005-assistant-formation-index-integration.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0005-assistant-formation-index-integration.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0005-assistant-formation-index-integration.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0006-assistant-projection-boundary.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0006-assistant-projection-boundary.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0006-assistant-projection-boundary.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0007-formation-trial.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0007-formation-trial.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0007-formation-trial.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md) | `agon-quest-surfaces` |
+| `quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md` | [parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md](parts/agon-quest-surfaces/quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md) | `agon-quest-surfaces` |
+| `quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0010-rank-jurisdiction-surfaces.md) | `agon-quest-surfaces` |
+| `quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0011-epistemic-actor-posture.md) | `agon-quest-surfaces` |
+| `quests/AOAG-Q-AGON-0012-school-campaign-posture.md` | [parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0012-school-campaign-posture.md](parts/agon-quest-surfaces/quests/AOAG-Q-AGON-0012-school-campaign-posture.md) | `agon-quest-surfaces` |

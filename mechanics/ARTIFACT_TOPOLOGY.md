@@ -59,6 +59,11 @@ manifests from root `manifests/` into
 manifest validator. Root `manifests/` is not the active owner for recurrence
 component declarations.
 
+The 2026-05-26 questbook localization moves the quest catalog doc, YAML quest
+records, and Agon quest notes into `mechanics/questbook/parts/*` after updating
+the questbook validator route and generated quest readers. Generated quest
+catalog and dispatch readers remain derived surfaces under `generated/`.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
