@@ -10,7 +10,7 @@
     "agents/source_home.manifest.json",
     "schemas/agent-source-home.schema.json",
     "scripts/validate_agent_source_home.py",
-    "agents/profiles/adjuncts/AGENTS.md",
+    "agents/roles/AGENTS.md",
     "docs/decisions/2026-05-26-agents-source-home-topology.md"
   ],
   "evidence_refs": [

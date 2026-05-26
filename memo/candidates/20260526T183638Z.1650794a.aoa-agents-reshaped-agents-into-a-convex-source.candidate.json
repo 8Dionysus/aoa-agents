@@ -1,0 +1,32 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T183638Z:1650794a-aoa-agents-reshaped-agents-into",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents reshaped agents/ into a convex source tree where role houses own base profiles plus agonic and assistant forms, while agents/operating-model owns cross-role tiers, orchestrators, cohorts, and runtime-seam bindings; active builders, validators, generated readers, and route cards must use those paths instead of legacy flat family directories.",
+  "source_refs": [
+    "agents/roles/README.md",
+    "agents/operating-model/README.md",
+    "agents/source_home.manifest.json",
+    "docs/decisions/2026-05-26-agents-convex-source-tree.md",
+    "scripts/validate_agent_source_home.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/221",
+    "repo:aoa-agents/commit/024dde6c51b345c97804825271ce897d4f689ccd",
+    "repo:aoa-agents/actions/runs/26467566542"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T18:36:38Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
