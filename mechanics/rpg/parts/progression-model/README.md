@@ -17,7 +17,8 @@ This part routes `progression-model` pressure inside `mechanics/rpg/`.
 ## Validation
 
 ```bash
-python scripts/validate_rpg_progression.py
+python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py
+python -m unittest discover -s mechanics/rpg/parts/progression-model/tests -p 'test_*.py'
 python scripts/validate_agents.py
 python -m pytest -q tests/test_validate_agents.py
 ```

@@ -30,7 +30,7 @@ Mechanic-specific antifragility stress schemas live under
 
 Mechanic-specific RPG progression schemas live under
 `mechanics/rpg/parts/progression-model/schemas/` and are validated by
-`scripts/validate_rpg_progression.py`.
+`mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
 
 Mechanic-specific assistant projection resolver schemas live under
 `mechanics/codex-projection/parts/assistant-projection/schemas/` and are

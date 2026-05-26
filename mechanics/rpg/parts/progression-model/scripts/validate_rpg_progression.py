@@ -11,13 +11,14 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[5]
 PROGRESSION_PART_ROOT = Path("mechanics/rpg/parts/progression-model")
 SCHEMA_PATH = PROGRESSION_PART_ROOT / "schemas" / "agent-progression.schema.json"
 EXAMPLE_PATH = PROGRESSION_PART_ROOT / "examples" / "agent-progression.example.json"
 FORMER_ROOT_PATHS = {
     Path("schemas") / ("agent" + "_progression.schema.json"),
     Path("examples") / ("agent" + "_progression.example.json"),
+    Path("scripts") / "validate_rpg_progression.py",
 }
 
 

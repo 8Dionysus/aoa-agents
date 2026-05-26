@@ -116,7 +116,8 @@ adding a part-local stress-posture validator.
 
 The RPG progression localization satisfies that rule for the adjunct
 progression schema and example by moving them into the `progression-model` part
-and adding `scripts/validate_rpg_progression.py`.
+and adding the part-local validator under
+`mechanics/rpg/parts/progression-model/scripts/`.
 
 The assistant projection resolver localization satisfies that rule for
 Codex-facing assistant projection resolver schemas and example by moving them

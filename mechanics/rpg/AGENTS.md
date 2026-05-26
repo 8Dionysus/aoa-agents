@@ -44,7 +44,7 @@ progression is a repeatable operation rather than decorative metaphor.
 ## Validation
 
 ```bash
-python scripts/validate_rpg_progression.py
+python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py
 python scripts/build_published_surfaces.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py

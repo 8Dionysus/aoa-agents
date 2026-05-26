@@ -89,8 +89,10 @@ contract identifiers, not active repo paths.
 The 2026-05-26 RPG progression localization moves the adjunct progression
 schema and example from root `schemas/` and `examples/` into active
 `mechanics/rpg/parts/progression-model/{schemas,examples}/` routes after adding
-a part-local validator. Stable schema `$id` values remain public contract
-identifiers, not active repo paths.
+a validator. The validator now lives in the same part under
+`mechanics/rpg/parts/progression-model/scripts/`, while
+`scripts/validate_agents.py` remains the repo-wide coordinator. Stable schema
+`$id` values remain public contract identifiers, not active repo paths.
 
 The 2026-05-26 assistant projection resolver localization moves Codex-facing
 assistant projection resolver schemas and example from root `schemas/` and
