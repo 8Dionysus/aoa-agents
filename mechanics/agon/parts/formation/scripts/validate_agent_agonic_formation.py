@@ -139,20 +139,20 @@ def validate_agent(agent_id: str, profiles: dict[str, str]) -> dict[str, Any]:
         bad_keys = sorted(FORBIDDEN_KEYS.intersection(set(iter_keys(payload))))
         require(not bad_keys, f"{agent_id} {label} contains forbidden protocol/memory keys: {bad_keys}")
 
-    require(kind["kind"] == "agonic", f"{agent_id} must be agonic in Wave I")
+    require(kind["kind"] == "agonic", f"{agent_id} must be agonic in Agonic Actor Rechartering")
     require(kind["evolution_mode"] == "endogenous_under_future_charter", f"{agent_id} has wrong evolution mode")
     require(kind["not_protocol_law"] is True, f"{agent_id} kind adjunct must deny protocol law")
 
     seats = arena["candidate_seats"]
-    require(seats["summon_initiator"] is False, f"{agent_id} cannot be summon initiator in Wave I")
-    require(seats["closer"] is False, f"{agent_id} cannot be closer in Wave I")
+    require(seats["summon_initiator"] is False, f"{agent_id} cannot be summon initiator in Agonic Actor Rechartering")
+    require(seats["closer"] is False, f"{agent_id} cannot be closer in Agonic Actor Rechartering")
     require(arena["requires_center_charter"] is True, f"{agent_id} arena eligibility must require center charter")
     require(arena["not_live_authority"] is True, f"{agent_id} arena eligibility must not be live authority")
 
     offices = office["offices"]
     require(sum(1 for entry in offices if entry.get("primary")) == 1, f"{agent_id} must have exactly one primary office")
-    require("summoner" in office["forbidden_offices"], f"{agent_id} must forbid summoner office in Wave I")
-    require("closer" in office["forbidden_offices"], f"{agent_id} must forbid closer office in Wave I")
+    require("summoner" in office["forbidden_offices"], f"{agent_id} must forbid summoner office in Agonic Actor Rechartering")
+    require("closer" in office["forbidden_offices"], f"{agent_id} must forbid closer office in Agonic Actor Rechartering")
 
     require(len(subjectivity["beliefs"]) >= 2, f"{agent_id} must have at least two beliefs")
     require(len(subjectivity["operational_affects"]) >= 2, f"{agent_id} must have at least two operational affects")
@@ -183,11 +183,11 @@ def validate_docs() -> None:
         "mechanics/experience/parts/office-operations/docs/agent-office-model.md",
         "mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md",
         "mechanics/agon/parts/formation/docs/resistance-revision-posture.md",
-        "mechanics/agon/parts/formation/docs/wave1-landing.md",
+        "mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md",
     ]:
         path = ROOT / filename
         require(path.exists(), f"missing doc: {filename}")
-        require("Agon" in path.read_text(encoding="utf-8") or "Agent" in path.name, f"{filename} does not look like a Wave I doc")
+        require("Agon" in path.read_text(encoding="utf-8") or "Agent" in path.name, f"{filename} does not look like an agonic formation doc")
 
 
 def main() -> int:
@@ -198,15 +198,15 @@ def main() -> int:
         validate_generated_index()
         validate_docs()
 
-        require(any(item["contestant"] for item in summaries), "Wave I needs at least one contestant candidate")
-        require(any(item["witness"] for item in summaries), "Wave I needs at least one witness candidate")
-        require(any(item["judge"] for item in summaries), "Wave I needs at least one judge candidate")
+        require(any(item["contestant"] for item in summaries), "Agonic Actor Rechartering needs at least one contestant candidate")
+        require(any(item["witness"] for item in summaries), "Agonic Actor Rechartering needs at least one witness candidate")
+        require(any(item["judge"] for item in summaries), "Agonic Actor Rechartering needs at least one judge candidate")
     except (FormationValidationError, formation_builder.FormationBuildError) as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
 
-    print("[ok] validated Agon Wave I agonic actor rechartering surfaces")
-    print("[ok] validated no closer or summon initiator authority in Wave I")
+    print("[ok] validated Agonic Actor Rechartering surfaces")
+    print("[ok] validated no closer or summon initiator authority in Agonic Actor Rechartering")
     print("[ok] validated generated/agent_agonic_formation_index.min.json")
     return 0
 

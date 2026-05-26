@@ -8,7 +8,7 @@ Resistance prevents false closure, silent scope capture, unsupported claims, and
 
 ## Resistance rights
 
-Wave I may grant role-owned rights such as:
+Agonic Actor Rechartering may grant role-owned rights such as:
 
 - refuse false closure
 - challenge scope bleed
@@ -19,7 +19,7 @@ Wave I may grant role-owned rights such as:
 
 ## Revision obligations
 
-Wave I may require:
+Agonic Actor Rechartering may require:
 
 - declared revision conditions
 - evidence threshold naming

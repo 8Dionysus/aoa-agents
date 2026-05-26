@@ -35,7 +35,7 @@ def load_json(path: pathlib.Path) -> Any:
 
 
 def load_builder():
-    spec = importlib.util.spec_from_file_location('_agon_wave16_builder', BUILDER)
+    spec = importlib.util.spec_from_file_location('_agon_school_campaign_builder', BUILDER)
     module = importlib.util.module_from_spec(spec)
     if spec.loader is None:
         raise RuntimeError(f'cannot load builder {BUILDER}')

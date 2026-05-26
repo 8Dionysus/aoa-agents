@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Wave II recharters the assistant side of `aoa-agents` under Agon.
+Assistant Civil Rechartering recharters the assistant side of `aoa-agents`
+under Agon.
 
 This is not a helper catalog.
 This is not a polite appendix to the agonic actors.
@@ -63,10 +64,10 @@ memory-keeper.assistant  -> librarian
 The base role remains the public role contract.
 The assistant variant is a civil/service form attached to it.
 
-## Relation to Wave I
+## Relation to Agonic Actor Rechartering
 
-Wave I produced agonic actor formation surfaces.
-Wave II produces assistant civil formation surfaces.
+Agonic Actor Rechartering produced agonic actor formation surfaces.
+Assistant Civil Rechartering produces assistant civil formation surfaces.
 
 The two forms may share a base role house, but they must not share hidden authority.
 

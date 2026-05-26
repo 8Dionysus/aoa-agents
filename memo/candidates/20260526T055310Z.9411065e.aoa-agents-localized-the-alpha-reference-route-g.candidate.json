@@ -19,7 +19,7 @@
     "repo:aoa-agents/pull/159",
     "scripts/release_check.py",
     "mechanics/questbook/tests/test_alpha_reference_routes.py",
-    "tests/test_roadmap_parity.py"
+    "tests/test_roadmap_surface_alignment.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

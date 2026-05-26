@@ -28,8 +28,8 @@
     "mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py",
     "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
     "mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py",
-    "tests/test_roadmap_parity.py",
-    "tests/test_wave2_route_surfaces.py"
+    "tests/test_roadmap_surface_alignment.py",
+    "tests/test_assistant_civil_route_surfaces.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

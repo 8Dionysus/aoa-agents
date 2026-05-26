@@ -94,5 +94,6 @@ python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 ```
 
-If adjunct formation surfaces changed, also run the Wave I/II/II.5 builders and
-validators named in `agents/profiles/AGENTS.md`.
+If adjunct formation surfaces changed, also run the agonic actor, assistant
+civil, and formation-trial builders and validators named in
+`agents/profiles/AGENTS.md`.

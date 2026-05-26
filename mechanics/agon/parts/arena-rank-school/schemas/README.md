@@ -6,11 +6,11 @@ authority, rank mutation, school canon, or campaign runtime.
 
 | Schema | Contract |
 | --- | --- |
-| [arena-eligibility.schema.json](arena-eligibility.schema.json) | Wave I candidate arena-seat posture |
-| [rank-jurisdiction.schema.json](rank-jurisdiction.schema.json) | Wave XIV rank/jurisdiction entry |
-| [rank-jurisdiction-registry.schema.json](rank-jurisdiction-registry.schema.json) | generated Wave XIV registry |
-| [school-campaign-posture.schema.json](school-campaign-posture.schema.json) | Wave XVI school/campaign posture entry |
-| [school-campaign-posture-registry.schema.json](school-campaign-posture-registry.schema.json) | generated Wave XVI registry |
+| [arena-eligibility.schema.json](arena-eligibility.schema.json) | candidate arena-seat posture |
+| [rank-jurisdiction.schema.json](rank-jurisdiction.schema.json) | rank/jurisdiction entry |
+| [rank-jurisdiction-registry.schema.json](rank-jurisdiction-registry.schema.json) | generated rank/jurisdiction registry |
+| [school-campaign-posture.schema.json](school-campaign-posture.schema.json) | school/campaign posture entry |
+| [school-campaign-posture-registry.schema.json](school-campaign-posture-registry.schema.json) | generated school/campaign posture registry |
 
 Validate with:
 

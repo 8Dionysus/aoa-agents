@@ -8,13 +8,13 @@ These files illustrate published contracts. They are not the source-authored can
 ## Subtrees
 
 - `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
-  for the additive Wave I reader path across base role contract plus agonic
+  for the additive agonic reader path across base role contract plus agonic
   companion surfaces
 - `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`
-  for the additive Wave II reader path across base role contract plus assistant
+  for the additive assistant civil reader path across base role contract plus assistant
   civil companion surfaces
 - `mechanics/agon/parts/formation/examples/formation-trial.example.json` for
-  the additive Wave II.5 reader path across base role house plus agonic and
+  the additive formation-trial reader path across base role house plus agonic and
   assistant split-form judgment
 - `mechanics/checkpoint/parts/reference-routes/examples/` for manifest-driven
   reference route packs over the published public loop
@@ -133,6 +133,6 @@ For Experience assistant civil part-local examples, also run `python mechanics/e
 For adoption and boundary bridge part-local examples, also run `python mechanics/experience/scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python mechanics/experience/scripts/validate_agent_service_contracts.py`.
 For reference-route part-local examples, also run `python scripts/validate_reference_route_contracts.py`.
-For the Wave I reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`.
-For the Wave II reader path example, also run `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`.
-For the Wave II.5 reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`.
+For the agonic reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`.
+For the assistant civil reader path example, also run `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`.
+For the formation-trial reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`.

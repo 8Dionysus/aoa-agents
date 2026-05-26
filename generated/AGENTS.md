@@ -95,16 +95,16 @@ For `generated/agent_agonic_formation_index.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`
 as the canonical builder and
 `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`
-as the explicit Wave I validator.
+as the explicit agonic actor validator.
 For `generated/assistant_civil_formation_index.min.json`, use
 `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py` as the canonical builder and
-`mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py` as the explicit Wave II
+`mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py` as the explicit assistant civil
 validator.
 For `generated/agent_formation_trial.min.json`, use
 `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` as
 the canonical builder and
 `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py` as
-the explicit Wave II.5 validator.
+the explicit formation-trial validator.
 For `generated/titan_codex_agents/`, use
 `mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py`
 as the canonical builder and freshness checker.
@@ -119,7 +119,7 @@ python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 ```
 
-If the Agon Wave I generated index changed, also run:
+If the agonic actor generated index changed, also run:
 
 ```bash
 python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
@@ -127,7 +127,7 @@ python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
 python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py
 ```
 
-If the Agon Wave II generated index changed, also run:
+If the assistant civil generated index changed, also run:
 
 ```bash
 python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
@@ -135,7 +135,7 @@ python mechanics/experience/parts/assistant-civil-service/scripts/validate_assis
 python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py
 ```
 
-If the Agon Wave II.5 formation-trial output changed, also run:
+If the formation-trial output changed, also run:
 
 ```bash
 python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check

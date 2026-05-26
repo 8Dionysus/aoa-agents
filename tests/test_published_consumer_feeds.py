@@ -12,8 +12,8 @@ def load_json(relative_path: str) -> dict:
     return json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
 
 
-class DownstreamFeedContractsTests(unittest.TestCase):
-    def test_expected_downstream_feeds_exist(self) -> None:
+class PublishedConsumerFeedsTests(unittest.TestCase):
+    def test_expected_published_feeds_exist(self) -> None:
         for relative_path in (
             "generated/agent_registry.min.json",
             "generated/model_tier_registry.json",

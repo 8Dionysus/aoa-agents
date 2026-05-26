@@ -153,22 +153,22 @@ jurisdiction, school/campaign, and epistemic actor schemas/examples from root
 validator. Stable schema `$id` values, where present, remain public contract
 identifiers, not active repo paths.
 
-The 2026-05-26 Agon formation contract localization moves Wave I agonic
-formation and Wave II.5 formation-trial schemas/examples from root `schemas/`
-and `examples/` into active `mechanics/agon/parts/formation/` and
+The 2026-05-26 Agon formation contract localization moves agonic formation and
+formation-trial schemas/examples from root `schemas/` and `examples/` into
+active `mechanics/agon/parts/formation/` and
 `mechanics/agon/parts/arena-rank-school/` contract routes after adding a
 part-local validator. Stable schema `$id` values remain public contract
 identifiers, not active repo paths.
 
-The 2026-05-26 Experience assistant civil contract localization moves Wave II
-assistant civil schemas/examples from root `schemas/` and `examples/` into
+The 2026-05-26 Experience assistant civil contract localization moves assistant
+civil schemas/examples from root `schemas/` and `examples/` into
 active `mechanics/experience/parts/assistant-civil-service/` and
 `mechanics/experience/parts/arena-exclusion/` contract routes after adding a
 part-local validator. Stable schema `$id` values remain public contract
 identifiers, not active repo paths.
 
-The 2026-05-26 Experience assistant civil check localization moves the Wave II
-assistant civil formation builder, validator, and focused test from root
+The 2026-05-26 Experience assistant civil check localization moves the assistant
+civil formation builder, validator, and focused test from root
 `scripts/` and `tests/` into
 `mechanics/experience/parts/assistant-civil-service/{scripts,tests}/`. The
 cross-part Experience assistant civil contract validator and focused test live
@@ -291,8 +291,8 @@ truth is under `agents/` and their consumer posture is repo-wide. The Agon and
 Experience parts own formation contracts, examples, docs, and stop-lines around
 those readers, not the generated files as part-local companions.
 
-The 2026-05-26 Agon formation check localization moves Wave I formation and
-Wave II.5 formation-trial builders, validators, and focused tests from root
+The 2026-05-26 Agon formation check localization moves agonic formation and
+formation-trial builders, validators, and focused tests from root
 `scripts/` and `tests/` into
 `mechanics/agon/parts/formation/{scripts,tests}/`. The generated readers remain
 root-published as described above, while their `generated_by` fields and

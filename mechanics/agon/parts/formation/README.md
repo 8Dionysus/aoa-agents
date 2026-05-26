@@ -10,9 +10,9 @@ This part routes `formation` pressure inside `mechanics/agon/`.
 - [Agent Resistance and Revision Posture](docs/resistance-revision-posture.md)
 - [Agent Subject Prep](docs/subject-prep.md)
 - [Agent Subjectivity Model](docs/subjectivity-model.md)
-- [Agon Wave I Landing Notes](docs/wave1-landing.md)
-- [Agon Wave II.5 Landing](docs/wave2-5-landing.md)
-- [Agon Wave II Landing](docs/wave2-landing.md)
+- [Agonic Actor Rechartering Landing](docs/agonic-actor-rechartering-landing.md)
+- [Assistant Civil Rechartering Landing](docs/assistant-civil-rechartering-landing.md)
+- [Formation Trial Landing](docs/formation-trial-landing.md)
 
 ## Active Schemas
 

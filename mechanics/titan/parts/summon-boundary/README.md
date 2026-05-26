@@ -6,7 +6,7 @@ This part routes `summon-boundary` pressure inside `mechanics/titan/`.
 
 - [Titan Summon Boundary](docs/summon-boundary.md)
 - [Titan Summon Protocol v2](docs/summon-protocol-v2.md)
-- [Wave5 A2A Summon Return Role Posture Hold](docs/wave5-a2a-summon-return-role-posture-hold.md)
+- [A2A Summon Return Role Posture Hold](docs/a2a-summon-return-role-posture-hold.md)
 
 ## Active Schemas
 

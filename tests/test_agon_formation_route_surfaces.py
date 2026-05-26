@@ -11,8 +11,8 @@ def read_text(relative_path: str) -> str:
     return (REPO_ROOT / relative_path).read_text(encoding="utf-8")
 
 
-class Wave1RouteSurfacesTestCase(unittest.TestCase):
-    def test_readme_and_docs_map_route_wave1_surfaces(self) -> None:
+class AgonFormationRouteSurfacesTestCase(unittest.TestCase):
+    def test_readme_and_docs_map_agon_formation_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
 
@@ -23,7 +23,7 @@ class Wave1RouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("Agent Kind Model", docs_readme)
         self.assertIn("Agent Resistance and Revision Posture", docs_readme)
 
-    def test_local_guides_name_wave1_companion_surfaces(self) -> None:
+    def test_local_guides_name_agon_formation_companion_surfaces(self) -> None:
         profiles_agents = read_text("agents/profiles/AGENTS.md")
         generated_agents = read_text("generated/AGENTS.md")
         examples_agents = read_text("examples/AGENTS.md")

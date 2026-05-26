@@ -17,7 +17,7 @@ REQUIRED_DOCS = [
     "mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md",
     "mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md",
     "mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md",
-    "mechanics/agon/parts/formation/docs/wave2-5-landing.md",
+    "mechanics/agon/parts/formation/docs/formation-trial-landing.md",
 ]
 FORBIDDEN_LIVE_KEYS = {
     "arena_session",
@@ -95,7 +95,7 @@ def validate_trial_payload(payload: dict[str, Any]) -> None:
     require(payload.get("schema_version") == "agent_formation_trial_v1", "wrong schema_version")
     require(payload.get("owner_repo") == "aoa-agents", "owner_repo must be aoa-agents")
     require(payload.get("wave") == "agon_wave2_5_formation_trial", "wrong wave marker")
-    require(payload.get("global_verdict") == "pass_pre_protocol_formation_trial", "formation trial must pass before Wave III")
+    require(payload.get("global_verdict") == "pass_pre_protocol_formation_trial", "formation trial must pass before lawful-move design")
 
     bad = sorted(FORBIDDEN_LIVE_KEYS.intersection(set(iter_keys(payload))))
     require(not bad, f"formation trial contains live protocol keys: {bad}")
@@ -135,7 +135,7 @@ def validate_trial_payload(payload: dict[str, Any]) -> None:
         require(anti_drift.get("persistent_policy_change_allowed") is False, f"{agent_id} assistant must not change persistent policy")
 
     gate = payload.get("next_wave_gate", {})
-    require(gate.get("wave_iii_allowed_to_start") is True, "Wave III gate must be open after passing trial")
+    require(gate.get("wave_iii_allowed_to_start") is True, "lawful-move design gate must be open after passing trial")
     blocked = set(gate.get("must_remain_outside_aoa_agents", []))
     for expected in ["arena_session_lifecycle", "verdict_logic", "scar_storage", "retention_checks", "ToS_promotion"]:
         require(expected in blocked, f"next_wave_gate must keep {expected} outside aoa-agents")
@@ -155,7 +155,7 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
-    print("[ok] validated Agon Wave II.5 Formation Trial")
+    print("[ok] validated Formation Trial")
     print("[ok] validated split-form survivors, assistant arena exclusion, and pre-protocol stop-lines")
     return 0
 

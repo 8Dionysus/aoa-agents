@@ -307,7 +307,7 @@ def write_valid_routing_root(
     )
 
 
-class ValidateAgentsTests(unittest.TestCase):
+class RepoValidatorTests(unittest.TestCase):
     def test_validate_memory_rights_rejects_non_string_band_without_typeerror(self) -> None:
         memory_rights = valid_memory_rights()
         memory_rights["default_read_bands"] = [[]]

@@ -20,7 +20,7 @@ def load_validator():
     return module
 
 
-class ValidateSemanticAgentsTests(unittest.TestCase):
+class SemanticRouteValidatorTests(unittest.TestCase):
     def test_repository_semantic_docs_validate(self) -> None:
         module = load_validator()
         self.assertEqual(module.validate(REPO_ROOT), [])

@@ -26,7 +26,7 @@ def load(path: pathlib.Path):
 
 
 class AgonAgentSchoolCampaignPostureRegistryTestCase(unittest.TestCase):
-    def test_wave16_registry_shape(self) -> None:
+    def test_school_campaign_registry_shape(self) -> None:
         reg = load(OUT)
         self.assertEqual(reg['wave'], 'XVI')
         self.assertEqual(reg['wave_name'], 'Schools / Lineages / Campaigns')

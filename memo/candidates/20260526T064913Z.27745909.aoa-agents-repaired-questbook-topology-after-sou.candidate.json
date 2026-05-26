@@ -20,8 +20,8 @@
     "repo:aoa-agents/commit/04e4626",
     "repo:aoa-agents/pull/165",
     "scripts/release_check.py",
-    "tests/test_validate_agents.py",
-    "tests/test_roadmap_parity.py"
+    "tests/test_repo_validator.py",
+    "tests/test_roadmap_surface_alignment.py"
   ],
   "route": "reviewed_intake",
   "review_state": "candidate",

@@ -7,7 +7,7 @@ Use it after the parent route has selected Agon as the owning mechanic.
 
 | Part | Operation | Current route |
 | --- | --- | --- |
-| `formation/` | Wave I agonic actor, Wave II assistant civil posture, Wave II.5 formation trial | `formation/README.md` |
+| `formation/` | agonic actor recharter, assistant civil posture, and formation trial | `formation/README.md` |
 | `pre-protocol-boundary/` | bounded pre-protocol posture before role promotion | `pre-protocol-boundary/README.md` |
 | `arena-rank-school/` | rank jurisdiction, school affiliation, campaign posture, arena limits | `arena-rank-school/README.md` |
 | `epistemic-actor/` | concept, model-of-other, and epistemic actor limits | `epistemic-actor/README.md` |

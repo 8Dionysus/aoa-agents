@@ -19,7 +19,7 @@
     "repo:aoa-agents/commit/70f9cba",
     "repo:aoa-agents/pull/153",
     "repo:aoa-agents/commit-range/8cd6678..70f9cba",
-    "mechanics/experience/tests/test_experience_wave3_seed_contracts.py",
+    "mechanics/experience/tests/test_adoption_boundary_seed_contracts.py",
     "scripts/validate_agents.py"
   ],
   "route": "reviewed_intake",

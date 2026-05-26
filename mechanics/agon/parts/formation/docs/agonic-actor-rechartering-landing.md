@@ -1,4 +1,4 @@
-# Agon Wave I Landing Notes
+# Agonic Actor Rechartering Landing
 
 ## Landing name
 
@@ -10,15 +10,15 @@
 
 ## Depends on
 
-Center-level Agon Wave 0 imposition gate in `Agents-of-Abyss`.
+Center-level Agon imposition gate in `Agents-of-Abyss`.
 
-## Why this wave exists
+## Why this landing exists
 
 The agent layer already has compact role profiles. Agon needs actors that are not only roles but also holders of doctrine, image, resistance, revision posture, and future arena eligibility.
 
 ## Acceptance signals
 
-Wave I is landed when:
+Agonic Actor Rechartering is landed when:
 
 - the five current role homes have agonic kind adjuncts
 - the five current role homes have subjectivity adjuncts
@@ -32,9 +32,9 @@ Wave I is landed when:
 
 ## Downstream handoff
 
-Wave II has now civilly rechartered assistant forms as non-contestant service
-actors.
+Assistant Civil Rechartering has now civilly rechartered assistant forms as
+non-contestant service actors.
 
-Wave III should build lawful move language in techniques and skills only after
+Lawful-move language should be built in techniques and skills only after
 Formation Trial proves that both actor ontology and assistant/service ontology
 are readable.

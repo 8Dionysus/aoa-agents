@@ -5,8 +5,8 @@ are public-safe examples, not live Agon protocol actions.
 
 | Example | Purpose |
 | --- | --- |
-| [agent-agonic-formation.example.json](agent-agonic-formation.example.json) | Wave I formation index reader path |
-| [formation-trial.example.json](formation-trial.example.json) | Wave II.5 split-form formation trial reader path |
+| [agent-agonic-formation.example.json](agent-agonic-formation.example.json) | agonic formation index reader path |
+| [formation-trial.example.json](formation-trial.example.json) | split-form formation trial reader path |
 
 Validate with:
 

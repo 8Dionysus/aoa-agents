@@ -21,11 +21,11 @@ The trial reads:
 The trial checks that every current role home has:
 
 - a surviving base profile
-- a Wave I agonic form
-- a Wave II assistant variant
+- an agonic actor form
+- an assistant civil variant
 - no accidental live arena authority
 - no assistant drift into contestant status
-- no closer or summon initiator authority in this wave
+- no closer or summon initiator authority in this formation slice
 
 ## Verdicts
 

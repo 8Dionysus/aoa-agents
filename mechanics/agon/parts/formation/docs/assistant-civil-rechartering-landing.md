@@ -1,4 +1,4 @@
-# Agon Wave II Landing
+# Assistant Civil Rechartering Landing
 
 ## Name
 
@@ -8,18 +8,20 @@ Assistant Civil Rechartering
 
 `aoa-agents`
 
-## Why this wave exists
+## Why this landing exists
 
-Wave I rechartered the agonic side of the current actor layer.
+Agonic Actor Rechartering rechartered the agonic side of the current actor
+layer.
 
-Wave II prevents a hidden collapse where all service functions become soft contestants.
+Assistant Civil Rechartering prevents a hidden collapse where all service
+functions become soft contestants.
 
 The assistant form is not a lesser agent.
 It is a separate civil/service species under Agon.
 
 ## Exit signals
 
-Wave II is landed when:
+Assistant Civil Rechartering is landed when:
 
 - each current base role has an explicit assistant variant or an explicit exclusion
 - assistant variants have service identity, contract, governance, certification, and arena exclusion surfaces
@@ -32,15 +34,15 @@ Wave II is landed when:
 
 ## Next bridge
 
-Wave II.5 Formation Trial has now landed as the next reviewed bridge:
+Formation Trial has now landed as the next reviewed bridge:
 
 ```text
 mechanics/agon/parts/formation/docs/formation-trial.md
-mechanics/agon/parts/formation/docs/wave2-5-landing.md
+mechanics/agon/parts/formation/docs/formation-trial-landing.md
 generated/agent_formation_trial.min.json
 ```
 
-Later waves may connect these assistant variants to:
+Later reviewed turns may connect these assistant variants to:
 
 ```text
 aoa-routing
@@ -50,5 +52,5 @@ aoa-memo
 Agents-of-Abyss / aoa-agon
 ```
 
-But this wave only lands actor-side civil form. The formation trial can judge
-that civil form. It still cannot turn it into live arena law.
+But this landing only lands actor-side civil form. The formation trial can
+judge that civil form. It still cannot turn it into live arena law.

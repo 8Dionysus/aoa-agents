@@ -19,13 +19,13 @@ def _load_validator():
     return module
 
 
-class ExperienceWave3SeedContractTests(unittest.TestCase):
-    def test_wave3_adoption_boundary_contracts_validate(self) -> None:
+class AdoptionBoundarySeedContractTests(unittest.TestCase):
+    def test_adoption_boundary_contracts_validate(self) -> None:
         validator = _load_validator()
 
         validator.validate_adoption_boundary_contracts(ROOT)
 
-    def test_wave3_adoption_boundary_contracts_are_part_local(self) -> None:
+    def test_adoption_boundary_contracts_are_part_local(self) -> None:
         validator = _load_validator()
 
         for former_path in validator.FORMER_CHECK_PATHS:

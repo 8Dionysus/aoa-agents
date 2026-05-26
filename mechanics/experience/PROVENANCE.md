@@ -79,7 +79,7 @@ names stay historical here; active parts use current route names.
 
 ## 2026-05-26 Assistant Civil Contract Move
 
-Wave II assistant civil schemas/examples moved from root contract districts
+Assistant civil schemas/examples moved from root contract districts
 into Experience part-local contract routes.
 
 | Former root path | Active route | Part |
@@ -95,7 +95,7 @@ into Experience part-local contract routes.
 
 ## 2026-05-26 Assistant Civil Check Move
 
-Wave II assistant civil builder/validator support moved from root `scripts/`
+Assistant civil builder/validator support moved from root `scripts/`
 and `tests/` into Experience package and part-local routes. The formation
 builder/validator live beside the `assistant-civil-service` part. The
 cross-part contract validator lives at package level because it checks
@@ -111,7 +111,7 @@ cross-part contract validator lives at package level because it checks
 
 ## 2026-05-26 Adoption Boundary Check Move
 
-Wave III adoption/boundary validator support moved from root `scripts/` and
+Adoption/boundary validator support moved from root `scripts/` and
 `tests/` into Experience package routes. The check remains package-level
 because it validates Experience adoption/office parts together with Agon
 adoption-retention and Boundary Bridge consumer/federation parts.
@@ -119,7 +119,7 @@ adoption-retention and Boundary Bridge consumer/federation parts.
 | Former root path | Active route | Part |
 | --- | --- | --- |
 | `scripts/validate_adoption_boundary_contracts.py` | [scripts/validate_adoption_boundary_contracts.py](scripts/validate_adoption_boundary_contracts.py) | `experience` package |
-| `tests/test_experience_wave3_seed_contracts.py` | [tests/test_experience_wave3_seed_contracts.py](tests/test_experience_wave3_seed_contracts.py) | `experience` package |
+| `tests/test_experience_wave3_seed_contracts.py` | [tests/test_adoption_boundary_seed_contracts.py](tests/test_adoption_boundary_seed_contracts.py) | `experience` package |
 
 ## 2026-05-26 Agent Service Check Move
 

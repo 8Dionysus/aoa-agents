@@ -6,8 +6,8 @@ retention, scar, rank, or doctrine authority.
 
 | Schema | Contract |
 | --- | --- |
-| [epistemic-actor-posture.schema.json](epistemic-actor-posture.schema.json) | Wave XV epistemic actor posture entry |
-| [epistemic-actor-posture-registry.schema.json](epistemic-actor-posture-registry.schema.json) | generated Wave XV registry |
+| [epistemic-actor-posture.schema.json](epistemic-actor-posture.schema.json) | epistemic actor posture entry |
+| [epistemic-actor-posture-registry.schema.json](epistemic-actor-posture-registry.schema.json) | generated epistemic actor posture registry |
 
 Validate with:
 

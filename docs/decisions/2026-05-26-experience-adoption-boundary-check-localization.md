@@ -21,7 +21,7 @@ Move the adoption/boundary validator and focused test into the Experience
 package:
 
 - `mechanics/experience/scripts/validate_adoption_boundary_contracts.py`
-- `mechanics/experience/tests/test_experience_wave3_seed_contracts.py`
+- `mechanics/experience/tests/test_adoption_boundary_seed_contracts.py`
 
 Keep the check package-level rather than part-local because it validates
 Experience adoption/office parts together with Agon adoption-retention and

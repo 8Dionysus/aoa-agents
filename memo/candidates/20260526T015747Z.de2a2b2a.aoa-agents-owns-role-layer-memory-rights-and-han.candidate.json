@@ -13,7 +13,7 @@
   ],
   "evidence_refs": [
     "docs/AGENT_MEMORY_POSTURE.md",
-    "tests/test_validate_agents.py",
+    "tests/test_repo_validator.py",
     "repo:aoa-agents/commit/48f26f17f83415b4e31441de345808434064427a"
   ],
   "route": "reviewed_intake",

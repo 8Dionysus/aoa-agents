@@ -8,7 +8,7 @@ This part routes `epistemic-actor` pressure inside `mechanics/agon/`.
 - [Agon Concept Delta Actor Boundary](docs/concept-delta-actor-boundary.md)
 - [Agon Epistemic Actor Posture](docs/epistemic-actor-posture.md)
 - [Agon Model Of Other Actor Boundary](docs/model-of-other-actor-boundary.md)
-- [Agon Wave15 Agents Landing](docs/wave15-agents-landing.md)
+- [Epistemic Actor Posture Landing](docs/epistemic-actor-posture-landing.md)
 
 ## Active Config
 
