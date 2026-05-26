@@ -133,6 +133,14 @@ and `examples/` into active `mechanics/recurrence/parts/*/{schemas,examples}/`
 routes after adding a part-local validator. Stable schema `$id` values remain
 public contract identifiers, not active repo paths.
 
+The 2026-05-26 recursor support localization moves the recursor helper,
+builders, validators, and focused tests from root `scripts/` and `tests/` into
+`mechanics/recurrence/{scripts,tests}/`. The move is package-local because the
+support spans recursor readiness, Codex recursor projection, and Agon recursor
+boundary parts. `scripts/validate_agents.py` remains the repo-wide coordinator
+by loading the recurrence validator directly, and `scripts/release_check.py`
+runs the recurrence tests explicitly.
+
 The 2026-05-26 Agon rank/epistemic contract localization moves rank,
 jurisdiction, school/campaign, and epistemic actor schemas/examples from root
 `schemas/` and `examples/` into active

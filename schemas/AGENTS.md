@@ -40,7 +40,7 @@ Mechanic-specific recursor schemas live under
 `mechanics/recurrence/parts/recursor-readiness/schemas/`,
 `mechanics/recurrence/parts/codex-recursor-projection/schemas/`, and
 `mechanics/recurrence/parts/agon-recursor-boundary/schemas/`. They are
-validated by `scripts/validate_recursor_contracts.py`.
+validated by `mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 
 Mechanic-specific Agon rank, school, and epistemic actor schemas live under
 `mechanics/agon/parts/arena-rank-school/schemas/` and

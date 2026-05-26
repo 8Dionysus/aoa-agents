@@ -63,8 +63,8 @@ Mechanic-specific Codex refresh-law examples live under
 Mechanic-specific recursor examples live under
 `mechanics/recurrence/parts/recursor-readiness/examples/` and
 `mechanics/recurrence/parts/agon-recursor-boundary/examples/`. They are
-validated by `scripts/validate_recursor_contracts.py`. Their schemas live
-beside them under the corresponding recurrence parts.
+validated by `mechanics/recurrence/scripts/validate_recursor_contracts.py`.
+Their schemas live beside them under the corresponding recurrence parts.
 
 Mechanic-specific Agon rank, school, and epistemic actor examples live under
 `mechanics/agon/parts/arena-rank-school/examples/` and
@@ -124,7 +124,7 @@ For assistant projection resolver part-local examples, also run `python scripts/
 For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
-For recursor part-local examples, also run `python scripts/validate_recursor_contracts.py`.
+For recursor part-local examples, also run `python mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 For Agon formation part-local examples, also run `python scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
 For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.

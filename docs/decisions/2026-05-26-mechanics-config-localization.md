@@ -58,10 +58,10 @@ python scripts/build_agon_agent_school_campaign_posture_registry.py --check
 python scripts/validate_agon_agent_school_campaign_posture_registry.py
 python scripts/build_agon_epistemic_actor_posture_registry.py --check
 python scripts/validate_agon_epistemic_actor_posture.py
-python scripts/build_recursor_role_readiness.py --check
-python scripts/build_recursor_projection_candidates.py --check
-python scripts/validate_recursor_role_readiness.py
-python scripts/validate_recursor_boundary.py
+python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
+python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
+python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
+python mechanics/recurrence/scripts/validate_recursor_boundary.py
 python scripts/validate_codex_subagents.py --profiles-root agents/profiles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python mechanics/titan/scripts/validate_titan_lineage.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --ledger mechanics/titan/parts/lineage-ledger/config/ledger.v0.json
 python scripts/validate_semantic_agents.py

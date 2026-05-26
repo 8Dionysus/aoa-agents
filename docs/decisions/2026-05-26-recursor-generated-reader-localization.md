@@ -34,7 +34,7 @@ mechanics/recurrence/parts/agon-recursor-boundary/generated/boundary-report.min.
 
 Teach the recursor builders, validators, tests, and recurrence component
 manifests the part-local routes. Guard former root generated paths through
-`scripts/validate_recursor_contracts.py`.
+`mechanics/recurrence/scripts/validate_recursor_contracts.py`.
 
 ## Consequences
 
@@ -50,11 +50,11 @@ reference the part-local paths.
 ## Validation
 
 ```bash
-python scripts/build_recursor_role_readiness.py --check
-python scripts/build_recursor_projection_candidates.py --check
-python scripts/validate_recursor_contracts.py
-python scripts/validate_recursor_role_readiness.py
-python scripts/validate_recursor_boundary.py
+python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
+python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
+python mechanics/recurrence/scripts/validate_recursor_contracts.py
+python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
+python mechanics/recurrence/scripts/validate_recursor_boundary.py
 python scripts/validate_recurrence_component_manifests.py
 python scripts/validate_agents.py
 ```

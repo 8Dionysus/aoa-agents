@@ -10,5 +10,5 @@ reviewable projection source, not an installed subagent or runtime authority.
 Validate with:
 
 ```bash
-python scripts/validate_recursor_contracts.py
+python mechanics/recurrence/scripts/validate_recursor_contracts.py
 ```

@@ -22,7 +22,7 @@ Move recursor contract payloads into their owning recurrence parts:
   `mechanics/recurrence/parts/codex-recursor-projection/schemas/`;
 - boundary-report schema and example move into
   `mechanics/recurrence/parts/agon-recursor-boundary/{schemas,examples}/`;
-- `scripts/validate_recursor_contracts.py` becomes the package-local contract
+- `mechanics/recurrence/scripts/validate_recursor_contracts.py` becomes the package-local contract
   validator and is called by `scripts/validate_agents.py`.
 
 Stable schema `$id` values remain unchanged as public contract identifiers.
@@ -39,11 +39,11 @@ these contracts, while generated recursor readers remain derived surfaces under
 Validation for this route is:
 
 ```bash
-python scripts/validate_recursor_contracts.py
-python scripts/build_recursor_role_readiness.py --check
-python scripts/build_recursor_projection_candidates.py --check
-python scripts/validate_recursor_role_readiness.py
-python scripts/validate_recursor_boundary.py
+python mechanics/recurrence/scripts/validate_recursor_contracts.py
+python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
+python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
+python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
+python mechanics/recurrence/scripts/validate_recursor_boundary.py
 python scripts/validate_agents.py
-python -m pytest -q tests/test_recursor_contracts.py tests/test_recursor_role_readiness_seed.py
+python -m unittest discover -s mechanics/recurrence/tests -p 'test_*.py'
 ```

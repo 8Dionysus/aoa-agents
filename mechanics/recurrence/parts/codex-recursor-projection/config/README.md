@@ -9,7 +9,7 @@
 | output | generated recursor projection candidate index |
 | owner | `mechanics/recurrence/parts/codex-recursor-projection/` |
 | next route | projection boundary docs, recursor readiness config, generated candidate reader |
-| tools | `scripts/build_recursor_projection_candidates.py`, `scripts/validate_recursor_boundary.py` |
+| tools | `mechanics/recurrence/scripts/build_recursor_projection_candidates.py`, `mechanics/recurrence/scripts/validate_recursor_boundary.py` |
 | validation | projection builder with `--check` plus recursor boundary validator |
 
 ## Active Config
