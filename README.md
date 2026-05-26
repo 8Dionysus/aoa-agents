@@ -46,7 +46,7 @@ Use the shortest route by need:
 - runtime seam bindings and runtime-facing artifact contracts: `agents/runtime_seam/*.binding.json`, `generated/runtime_seam_bindings.json`, and `schemas/artifact.*.schema.json`
 - additive stress posture and handoff adjuncts: `mechanics/antifragility/parts/stress-posture/schemas/agent-stress-posture.schema.json`, `mechanics/antifragility/parts/stress-posture/schemas/stress-handoff-envelope.schema.json`, `mechanics/antifragility/parts/stress-posture/examples/agent-stress-posture.example.json`, `mechanics/antifragility/parts/stress-posture/examples/stress-handoff-envelope.example.json`, `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
 - via negativa pruning checklist: `mechanics/antifragility/parts/via-negativa/docs/via-negativa-checklist.md`
-- progression, recurrence, and self-agent surfaces: `mechanics/rpg/parts/progression-model/docs/agent-progression-model.md`, `mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md`, `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`, and `mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md`
+- progression, recurrence, and self-agent surfaces: `mechanics/rpg/parts/progression-model/docs/agent-progression-model.md`, `mechanics/rpg/parts/progression-model/schemas/agent-progression.schema.json`, `mechanics/rpg/parts/progression-model/examples/agent-progression.example.json`, `mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md`, `mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md`, and `mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md`
 - example and bounded smoke surfaces: `examples/runtime_artifacts/*`, `examples/self_agent_checkpoint/*`, `mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md`, and `mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md`
 - adjunct quest and Alpha readiness surfaces: `mechanics/questbook/parts/quest-catalog/docs/quest-catalog.md`, `mechanics/questbook/parts/quest-catalog/quests/`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, `examples/alpha_reference_routes/*`, and `generated/alpha_reference_routes.min.json`
 
@@ -102,6 +102,7 @@ python scripts/validate_agents.py
 python scripts/validate_titan_schemas.py
 python scripts/validate_titan_examples.py
 python scripts/validate_antifragility_stress.py
+python scripts/validate_rpg_progression.py
 python -m pytest -q tests
 ```
 

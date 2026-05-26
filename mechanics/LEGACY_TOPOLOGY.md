@@ -64,6 +64,13 @@ antifragility `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public contract
 identifiers, not active repo paths.
 
+The 2026-05-26 RPG progression localization moved the adjunct progression
+schema and example into active part-local RPG routes. Former root progression
+schema and example paths are now legacy lookup facts and are accounted for in
+RPG `PROVENANCE.md`, `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+Stable schema `$id` values remain public contract identifiers, not active repo
+paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan `schemas/`, remaining non-Titan `examples/`,
 `agents/`, `generated/`, `scripts/`, and `tests/`. They are not automatically

@@ -39,6 +39,7 @@ from validate_antifragility_stress import (
     validate_antifragility_stress_payloads,
 )
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
+from validate_rpg_progression import RPGProgressionValidationError, validate_rpg_progression
 from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
 from validate_titan_schemas import TitanSchemasValidationError, validate_titan_schemas
 
@@ -3415,6 +3416,7 @@ def main() -> int:
         validate_reference_route_schema_surface()
         validate_titan_schemas()
         validate_antifragility_stress_surfaces()
+        validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
         validate_nested_agents_docs()
         validate_runtime_artifact_schema_surfaces()
@@ -3456,6 +3458,7 @@ def main() -> int:
         ManifestValidationError,
         AntifragilityStressValidationError,
         NestedAgentsValidationError,
+        RPGProgressionValidationError,
         TitanExamplesValidationError,
         TitanSchemasValidationError,
         ValidationError,
@@ -3477,6 +3480,7 @@ def main() -> int:
     print("[ok] validated reference-route example schema surface")
     print("[ok] validated Titan part-local schemas")
     print("[ok] validated antifragility stress posture and handoff adjunct surfaces")
+    print("[ok] validated RPG progression schema and example")
     print("[ok] validated Alpha reference-route schema surface")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")

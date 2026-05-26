@@ -6,7 +6,7 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | --- | --- | --- |
 | `checkpoint-growth` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `cohort-patterns` | [Agent Cohort Patterns](parts/cohort-patterns/docs/cohort-patterns.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
-| `progression-model` | [Agent Progression Model](parts/progression-model/docs/agent-progression-model.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `progression-model` | [Agent Progression Model](parts/progression-model/docs/agent-progression-model.md) | Part-local [schema](parts/progression-model/schemas/agent-progression.schema.json) and [example](parts/progression-model/examples/agent-progression.example.json); old path lookup routes through `PROVENANCE.md`. |
 | `quest-readable-status` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
 ## Legacy Bridge

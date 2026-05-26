@@ -642,8 +642,16 @@ class ValidateAgentsTests(unittest.TestCase):
 
         self.assertIn("at least one repo:aoa-agents/... ref", str(ctx.exception))
 
-    def test_agent_progression_schema_id_matches_canonical_path(self) -> None:
-        schema = read_json(REPO_ROOT / "schemas" / "agent_progression.schema.json")
+    def test_progression_schema_id_stays_stable_after_localization(self) -> None:
+        schema = read_json(
+            REPO_ROOT
+            / "mechanics"
+            / "rpg"
+            / "parts"
+            / "progression-model"
+            / "schemas"
+            / "agent-progression.schema.json"
+        )
         self.assertIsInstance(schema, dict)
         self.assertEqual(
             schema["$id"],
