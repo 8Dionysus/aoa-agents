@@ -17,7 +17,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn role-to-runtime contracts into runtime implementation.
 - Proof verdicts and live orchestration policy route away.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

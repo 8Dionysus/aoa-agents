@@ -9,6 +9,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `progression-model` | [Agent Progression Model](parts/progression-model/docs/agent-progression-model.md) | Part-local [schema](parts/progression-model/schemas/agent-progression.schema.json) and [example](parts/progression-model/examples/agent-progression.example.json); old path lookup routes through `PROVENANCE.md`. |
 | `quest-readable-status` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

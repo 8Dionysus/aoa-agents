@@ -17,7 +17,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn Titan role posture into runtime service ownership.
 - Durable memory truth, proof verdicts, and AoA center doctrine route away.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

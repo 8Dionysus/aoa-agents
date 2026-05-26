@@ -116,10 +116,9 @@ mechanics packages from empty route skeletons into active route homes:
 - package `AGENTS.md` files are the nearest package route cards;
 - package `PROVENANCE.md` files are the only active bridge into old-path
   accounting;
-- package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
-  former `docs/*`, `config/*`, `manifests/*`, prior flat quest-source,
-  reference-route schema, reference-route example, and localized generated reader
-  lookup maps without
+- package archive indexes preserve the former `docs/*`, `config/*`,
+  `manifests/*`, prior flat quest-source, reference-route schema,
+  reference-route example, and localized generated reader lookup maps without
   duplicating active authority.
 
 Shared schemas/examples that have not received a package-local contract,
@@ -138,8 +137,8 @@ When work starts from a file-name cluster, use `PAYLOAD_RECON.md` and the
 target package `PARTS.md` before deciding whether it is a mechanic, a source
 object, or a stronger-owner handoff.
 When work starts from old-path, former-route, or provenance pressure, use
-`LEGACY_TOPOLOGY.md` and the target package `PROVENANCE.md` before opening
-`legacy/`.
+`PROVENANCE_TOPOLOGY.md` and the target package `PROVENANCE.md` before opening
+archive accounting.
 
 ## Stop Lines
 
@@ -148,4 +147,4 @@ When work starts from old-path, former-route, or provenance pressure, use
 - A mechanic is not a runtime worker.
 - A mechanic is not a playbook scenario.
 - A mechanic is not a generated reader.
-- Legacy is not the active route for current behavior.
+- Archive accounting is not the active route for current behavior.

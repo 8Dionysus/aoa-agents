@@ -55,13 +55,12 @@ Extend each package with:
 - `parts/AGENTS.md` and `parts/README.md` as the active lower part route;
 - child `parts/<part>/README.md` cards for each named current part, while this
   slice kept payload anchors in root districts;
-- `PROVENANCE.md` as the active bridge into legacy;
-- `legacy/AGENTS.md`, `legacy/README.md`, `legacy/INDEX.md`,
-  `legacy/DISTILLATION_LOG.md`, and `legacy/raw/README.md` as provenance and
-  old-route accounting scaffolds.
+- `PROVENANCE.md` as the active bridge into archive accounting;
+- archive-local route cards, indexes, distillation logs, and raw inventories as
+  provenance and old-route accounting scaffolds.
 
-The legacy scaffolds start with empty raw inventories. Current root payloads
-are not called legacy merely because they are waiting for a later
+The archive scaffolds start with empty raw inventories. Current root payloads
+are not called archived merely because they are waiting for a later
 package-local move.
 
 Formation routes through `mechanics/agon/` as a part, because Agon is the
@@ -75,8 +74,8 @@ experience posture rather than the whole repository layer.
   the topology from filename clusters.
 - Future part work can start from `parts/README.md` after the parent package
   is selected, then enter the child part card before any payload move.
-- Historical or old-path lookup starts from `PROVENANCE.md`, then enters
-  `legacy/`; legacy is not the normal first route for current behavior.
+- Historical or old-path lookup starts from `PROVENANCE.md`; archive accounting
+  is not the normal first route for current behavior.
 - `docs/`, `schemas/`, `examples/`, `scripts/`, `tests/`, `generated/`,
   `config/`, `manifests/`, and `quests/` remained authoritative root districts
   for their current payload classes in this skeleton slice.
@@ -96,5 +95,5 @@ python scripts/validate_agents.py
 ```
 
 `mechanics/PAYLOAD_RECON.md` records the root-folder sweep that shaped the
-package set. `mechanics/LEGACY_TOPOLOGY.md` records the active/legacy split
-used by the package scaffolds.
+package set. `mechanics/PROVENANCE_TOPOLOGY.md` records the active/archive
+split used by the package scaffolds.

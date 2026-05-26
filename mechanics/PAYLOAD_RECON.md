@@ -79,9 +79,9 @@ mechanic has:
 - a decision or route note when the move changes lookup topology
 
 The docs landing satisfies that rule for mechanics-facing public docs by moving
-them into part-local `docs/` directories and preserving old-path accounting in
-package `PROVENANCE.md` plus `legacy/`. Other payload classes still need their
-own move proof before leaving their current owner districts.
+them into part-local `docs/` directories and preserving old-path accounting
+through package `PROVENANCE.md`. Other payload classes still need their own
+move proof before leaving their current owner districts.
 
 The config localization satisfies that rule for mechanic-specific source seed
 and wiring payloads by moving them into part-local `config/` directories with

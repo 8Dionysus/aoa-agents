@@ -4,7 +4,7 @@
 
 `aoa-agents` already had an active `mechanics/` atlas, package `README.md`
 files, package `PARTS.md` files, part-local `parts/AGENTS.md` cards, and
-legacy/provenance bridges. A source pass over `Agents-of-Abyss`, `aoa-memo`,
+provenance bridges. A source pass over `Agents-of-Abyss`, `aoa-memo`,
 `aoa-evals`, `aoa-skills`, and `aoa-techniques` showed that refactored
 mechanics packages also expose a nearest `mechanics/<package>/AGENTS.md`.
 

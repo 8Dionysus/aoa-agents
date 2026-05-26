@@ -9,6 +9,6 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `role-tier-bindings` | [Agent Runtime Seam](parts/role-tier-bindings/docs/agent-runtime-seam.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `transition-discipline` | [Kind Safe Runtime Enforcement](parts/transition-discipline/docs/kind-safe-runtime-enforcement.md)<br>[Runtime Artifact Transitions](parts/transition-discipline/docs/runtime-artifact-transitions.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 
-## Legacy Bridge
+## Provenance Bridge
 
-Use [PROVENANCE.md](PROVENANCE.md) as the only active bridge into `legacy/` for former root paths and distillation history.
+Use [PROVENANCE.md](PROVENANCE.md) only when a task must audit former root paths, source accounting, or distillation history.

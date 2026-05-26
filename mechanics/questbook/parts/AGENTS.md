@@ -18,7 +18,7 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 - Do not turn quest posture into playbook scenario choreography.
 - Proof verdicts and general routing policy route away.
-- Legacy is an accounting route, not current behavior.
+- Provenance accounting is not current behavior.
 
 ## Validation
 

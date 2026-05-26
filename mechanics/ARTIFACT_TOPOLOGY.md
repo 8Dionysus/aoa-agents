@@ -28,7 +28,7 @@ Move a payload only when the target mechanic has:
 - local stop-lines
 - validation commands
 - a route card that explains whether the payload is source, support,
-  generated, example, or legacy
+  generated, example, or archive accounting
 
 ## Current Slices
 
@@ -39,8 +39,8 @@ The next slice added package skeletons under `mechanics/` after a root payload
 sweep.
 
 The 2026-05-26 docs landing moves mechanics-facing public docs into
-part-local `mechanics/*/parts/*/docs/` routes and updates legacy accounting for
-former `docs/*` paths. It does not move shared schemas, examples, scripts,
+part-local `mechanics/*/parts/*/docs/` routes and updates old-path accounting
+for former `docs/*` paths. It does not move shared schemas, examples, scripts,
 tests, generated readers, manifests, quest files, config seeds, or agent source
 objects. Those payload classes remain current support/source/generated
 districts until a dedicated package-local contract and validator route make
@@ -219,7 +219,7 @@ The 2026-05-26 mechanics package route-card pass adds package-local
 navigation and validation coverage only; it does not move source, support,
 generated, schema, example, script, or test payloads.
 
-Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
+Use `mechanics/PAYLOAD_RECON.md`, `mechanics/PROVENANCE_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
 ## Stronger Owners
@@ -250,11 +250,11 @@ root pressure legible. A skeleton should name:
 Skeletons must not claim that payloads already moved or that a mechanic owns a
 root district wholesale.
 
-## Legacy Rule
+## Provenance Rule
 
-Do not call a current root payload legacy merely because it is waiting for a
-future package-local move. In this repository, `legacy/` means provenance and
-old-route accounting.
+Do not call a current root payload archived merely because it is waiting for a
+future package-local move. In this repository, archive accounting means
+provenance and old-route lookup.
 
-Add raw legacy receipts only when there is real historical material to
+Add raw archive receipts only when there is real historical material to
 preserve. Empty raw inventories should say they are empty.

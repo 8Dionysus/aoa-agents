@@ -32,7 +32,7 @@ reader contracts, execution passport posture, and Alpha reference routes.
 5. `PARTS.md`
 6. `parts/AGENTS.md` and the target part README
 7. root `QUESTBOOK.md` and `quests/AGENTS.md` when source quest records change
-8. `PROVENANCE.md` before using `legacy/`
+8. `PROVENANCE.md` for provenance accounting
 
 ## Boundaries
 
