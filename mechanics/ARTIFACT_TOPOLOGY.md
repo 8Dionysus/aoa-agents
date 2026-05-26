@@ -167,7 +167,9 @@ identifiers, not active repo paths.
 The 2026-05-26 Codex refresh-law example localization moves the Codex
 subagent projection refresh-law example from root `examples/` into active
 `mechanics/codex-projection/parts/refresh-law/examples/` after adding a
-part-local validator.
+validator. The validator now lives in the same part under
+`mechanics/codex-projection/parts/refresh-law/scripts/`, while
+`scripts/validate_agents.py` remains the repo-wide coordinator.
 
 The 2026-05-26 adoption/boundary contract localization moves adoption,
 retention, office, and boundary bridge schemas/examples from root `schemas/`

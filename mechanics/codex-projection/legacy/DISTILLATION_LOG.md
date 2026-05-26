@@ -39,3 +39,13 @@ Moved 1 refresh-law example out of root `examples/` and into the active
 | Part | Moved examples |
 | --- | ---: |
 | `refresh-law` | 1 |
+
+## 2026-05-26 Refresh Law Validator To Active Part
+
+Moved the Codex refresh-law validator out of root `scripts/` and into the
+active `refresh-law` part. Moved the focused refresh-law tests beside that part
+while keeping `scripts/validate_agents.py` as the repo-wide coordinator.
+
+| Part | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `refresh-law` | 1 | 1 |

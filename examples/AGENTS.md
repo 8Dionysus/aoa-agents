@@ -59,7 +59,7 @@ schemas live beside them under
 
 Mechanic-specific Codex refresh-law examples live under
 `mechanics/codex-projection/parts/refresh-law/examples/` and are validated by
-`scripts/validate_codex_refresh_law_contracts.py`.
+`mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py`.
 
 Mechanic-specific recursor examples live under
 `mechanics/recurrence/parts/recursor-readiness/examples/` and
@@ -122,7 +122,7 @@ For Titan part-local examples, also run `python mechanics/titan/scripts/validate
 For antifragility stress part-local examples, also run `python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py`.
 For RPG progression part-local examples, also run `python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py`.
 For assistant projection resolver part-local examples, also run `python scripts/validate_assistant_projection_resolver.py`.
-For Codex refresh-law part-local examples, also run `python scripts/validate_codex_refresh_law_contracts.py`.
+For Codex refresh-law part-local examples, also run `python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py`.
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python mechanics/recurrence/scripts/validate_recursor_contracts.py`.

@@ -158,8 +158,9 @@ Wave II assistant civil schemas/examples by placing service contracts under
 
 The Codex refresh-law example localization satisfies that rule for the Codex
 projection refresh route example by placing it under
-`mechanics/codex-projection/parts/refresh-law/examples/` and adding
-`scripts/validate_codex_refresh_law_contracts.py`.
+`mechanics/codex-projection/parts/refresh-law/examples/` and adding the
+part-local validator under
+`mechanics/codex-projection/parts/refresh-law/scripts/`.
 
 The adoption/boundary contract localization satisfies that rule for adoption,
 retention, office, and boundary bridge schemas/examples by placing them under

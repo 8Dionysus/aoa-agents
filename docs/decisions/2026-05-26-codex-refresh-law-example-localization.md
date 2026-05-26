@@ -18,9 +18,11 @@ Move the Codex subagent projection refresh-law example into
 `mechanics/codex-projection/parts/refresh-law/examples/` and preserve old root
 lookup through Codex Projection `PROVENANCE.md` and `legacy/`.
 
-Add `scripts/validate_codex_refresh_law_contracts.py` so repo validation
-checks the part-local example, former root-path absence, live surface patterns,
-refresh routes, drift route classes, and rollback anchors.
+Add an explicit Codex refresh-law validator so repo validation checks the
+part-local example, former root-path absence, live surface patterns, refresh
+routes, drift route classes, and rollback anchors. The validator later moved
+into the active part route:
+`mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py`.
 
 ## Consequences
 
@@ -32,7 +34,7 @@ it is not generated output and not installed workspace state.
 Validation for this route is:
 
 ```bash
-python scripts/validate_codex_refresh_law_contracts.py
-python -m pytest -q tests/test_codex_subagent_refresh_law.py
+python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
+python -m unittest discover -s mechanics/codex-projection/parts/refresh-law/tests -p 'test_*.py'
 python scripts/validate_agents.py
 ```

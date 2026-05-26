@@ -13,7 +13,8 @@ This part routes `refresh-law` pressure inside `mechanics/codex-projection/`.
 ## Validation
 
 ```bash
-python scripts/validate_codex_refresh_law_contracts.py
+python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
+python -m unittest discover -s mechanics/codex-projection/parts/refresh-law/tests -p 'test_*.py'
 ```
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

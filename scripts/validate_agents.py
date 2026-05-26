@@ -58,10 +58,6 @@ from validate_assistant_projection_resolver import (
     AssistantProjectionResolverValidationError,
     validate_assistant_projection_resolver,
 )
-from validate_codex_refresh_law_contracts import (
-    CodexRefreshLawContractsValidationError,
-    validate_codex_refresh_law_contracts,
-)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -136,6 +132,17 @@ _RPG_PROGRESSION_MODULE = load_repo_python_module(
 )
 RPGProgressionValidationError = _RPG_PROGRESSION_MODULE.RPGProgressionValidationError
 validate_rpg_progression = _RPG_PROGRESSION_MODULE.validate_rpg_progression
+
+_CODEX_REFRESH_LAW_MODULE = load_repo_python_module(
+    "codex_refresh_law_validator",
+    "mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py",
+)
+CodexRefreshLawContractsValidationError = (
+    _CODEX_REFRESH_LAW_MODULE.CodexRefreshLawContractsValidationError
+)
+validate_codex_refresh_law_contracts = (
+    _CODEX_REFRESH_LAW_MODULE.validate_codex_refresh_law_contracts
+)
 
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
