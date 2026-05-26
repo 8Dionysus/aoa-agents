@@ -59,6 +59,16 @@ paths are lookup facts only.
 | `formation` | 5 | 2 |
 | `arena-rank-school` | 1 | 0 |
 
+## 2026-05-26 Root Agon Formation Checks To Active Part
+
+Moved 5 Agon formation builders/validators and 3 focused tests out of root
+`scripts/` and `tests/` and into the active formation part. Git history
+preserves the verbatim file bodies; root paths are lookup facts only.
+
+| Part | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `formation` | 5 | 3 |
+
 ## 2026-05-26 Root Agon Adoption/Retention Contracts To Active Parts
 
 Moved 5 Agon adoption/retention schemas and 5 matching examples out of root

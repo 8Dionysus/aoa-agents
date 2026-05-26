@@ -123,6 +123,23 @@ civil contract localization later landed under `mechanics/experience/`.
 | `examples/agent_agonic_formation.example.json` | [parts/formation/examples/agent-agonic-formation.example.json](parts/formation/examples/agent-agonic-formation.example.json) | `formation` |
 | `examples/agent_formation_trial.example.json` | [parts/formation/examples/formation-trial.example.json](parts/formation/examples/formation-trial.example.json) | `formation` |
 
+## 2026-05-26 Root Agon Formation Check Move
+
+5 Agon formation builders/validators plus 3 focused tests moved from root
+`scripts/` and `tests/` into the active formation part. The generated readers
+remain root-published under `generated/`.
+
+| Former root path | Active route | Part |
+| --- | --- | --- |
+| `scripts/build_agent_agonic_formation_index.py` | [parts/formation/scripts/build_agent_agonic_formation_index.py](parts/formation/scripts/build_agent_agonic_formation_index.py) | `formation` |
+| `scripts/validate_agent_agonic_formation.py` | [parts/formation/scripts/validate_agent_agonic_formation.py](parts/formation/scripts/validate_agent_agonic_formation.py) | `formation` |
+| `scripts/build_agent_formation_trial.py` | [parts/formation/scripts/build_agent_formation_trial.py](parts/formation/scripts/build_agent_formation_trial.py) | `formation` |
+| `scripts/validate_agent_formation_trial.py` | [parts/formation/scripts/validate_agent_formation_trial.py](parts/formation/scripts/validate_agent_formation_trial.py) | `formation` |
+| `scripts/validate_agon_formation_contracts.py` | [parts/formation/scripts/validate_agon_formation_contracts.py](parts/formation/scripts/validate_agon_formation_contracts.py) | `formation` |
+| `tests/test_agent_agonic_formation.py` | [parts/formation/tests/test_agent_agonic_formation.py](parts/formation/tests/test_agent_agonic_formation.py) | `formation` |
+| `tests/test_agent_formation_trial.py` | [parts/formation/tests/test_agent_formation_trial.py](parts/formation/tests/test_agent_formation_trial.py) | `formation` |
+| `tests/test_agon_formation_contracts.py` | [parts/formation/tests/test_agon_formation_contracts.py](parts/formation/tests/test_agon_formation_contracts.py) | `formation` |
+
 ## 2026-05-26 Root Agon Adoption/Retention Contract Move
 
 5 Agon adoption/retention schemas plus 5 examples moved from root

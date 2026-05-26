@@ -20,7 +20,7 @@
     "repo:aoa-agents/commit-range/74beaa5..0813b69",
     "tests/test_experience_assistant_civil_contracts.py",
     "tests/test_assistant_civil_formation.py",
-    "tests/test_agent_formation_trial.py",
+    "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
     "tests/test_roadmap_parity.py",
     "tests/test_wave2_route_surfaces.py"
   ],

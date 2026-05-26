@@ -24,11 +24,13 @@ Move these Agon formation contract payloads into their owning parts:
   `mechanics/agon/parts/formation/{schemas,examples}/`;
 - arena eligibility moves into
   `mechanics/agon/parts/arena-rank-school/schemas/`;
-- `scripts/validate_agon_formation_contracts.py` becomes the package-local
+- `mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py` becomes the package-local
   contract validator and is called by `scripts/validate_agents.py`.
 
-Generated formation readers remain derived surfaces under `generated/`; builder
-scripts remain support surfaces under `scripts/`. Stable schema `$id` values
+Generated formation readers remain derived surfaces under `generated/`. The
+later Agon formation check-localization slice moved formation builders,
+validators, and focused tests into
+`mechanics/agon/parts/formation/{scripts,tests}/`. Stable schema `$id` values
 remain unchanged as public contract identifiers.
 
 Former root paths are recorded only through Agon `PROVENANCE.md` and `legacy/`.
@@ -44,10 +46,10 @@ separate Experience-owned localization slice, which later landed under
 Validation for this route is:
 
 ```bash
-python scripts/validate_agon_formation_contracts.py
-python scripts/validate_agent_agonic_formation.py
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
 python scripts/validate_agents.py
-python -m pytest -q tests/test_agon_formation_contracts.py tests/test_agent_agonic_formation.py tests/test_agent_formation_trial.py
+python -m unittest discover -s mechanics/agon/parts/formation/tests -p 'test_*.py'
 ```

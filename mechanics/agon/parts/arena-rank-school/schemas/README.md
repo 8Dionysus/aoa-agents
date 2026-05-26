@@ -15,6 +15,6 @@ authority, rank mutation, school canon, or campaign runtime.
 Validate with:
 
 ```bash
-python scripts/validate_agon_formation_contracts.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
 python scripts/validate_agon_rank_epistemic_contracts.py
 ```

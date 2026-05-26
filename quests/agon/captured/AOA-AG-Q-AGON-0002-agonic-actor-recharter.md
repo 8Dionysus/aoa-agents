@@ -24,4 +24,4 @@ Land Wave I source-authored companion surfaces for agonic actor formation in `ao
 
 ## Exit
 
-`python scripts/validate_agent_agonic_formation.py` passes after merge into `aoa-agents`.
+`python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py` passes after merge into `aoa-agents`.

@@ -51,7 +51,7 @@ Mechanic-specific Agon rank, school, and epistemic actor schemas live under
 Mechanic-specific Agon formation schemas live under
 `mechanics/agon/parts/formation/schemas/`, with arena eligibility in
 `mechanics/agon/parts/arena-rank-school/schemas/`. They are validated by
-`scripts/validate_agon_formation_contracts.py`.
+`mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 
 Mechanic-specific Experience assistant civil schemas live under
 `mechanics/experience/parts/assistant-civil-service/schemas/`, with arena

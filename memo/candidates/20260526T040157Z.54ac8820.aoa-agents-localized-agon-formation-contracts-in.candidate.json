@@ -12,15 +12,15 @@
     "mechanics/PAYLOAD_RECON.md",
     "mechanics/agon/PARTS.md",
     "mechanics/agon/PROVENANCE.md",
-    "scripts/validate_agon_formation_contracts.py"
+    "mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/f1b6f42",
     "repo:aoa-agents/pull/147",
     "repo:aoa-agents/commit-range/78b212f..f1b6f42",
-    "tests/test_agon_formation_contracts.py",
-    "tests/test_agent_agonic_formation.py",
-    "tests/test_agent_formation_trial.py",
+    "mechanics/agon/parts/formation/tests/test_agon_formation_contracts.py",
+    "mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py",
+    "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
     "tests/test_roadmap_parity.py"
   ],
   "route": "reviewed_intake",

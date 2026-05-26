@@ -110,7 +110,7 @@ python mechanics/codex-projection/parts/assistant-projection/scripts/validate_as
 python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
 python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python mechanics/recurrence/scripts/validate_recursor_contracts.py
-python scripts/validate_agon_formation_contracts.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
 python scripts/validate_agon_rank_epistemic_contracts.py
 python scripts/validate_adoption_boundary_contracts.py
 python -m pytest -q tests
@@ -119,9 +119,9 @@ python -m pytest -q tests
 Verify the additive Wave I actor-formation surfaces explicitly:
 
 ```bash
-python scripts/build_agent_agonic_formation_index.py --check
-python scripts/validate_agent_agonic_formation.py
-python -m pytest -q tests/test_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py
 ```
 
 Verify the additive Wave II assistant civil surfaces explicitly:
@@ -136,9 +136,9 @@ python -m pytest -q tests/test_assistant_civil_formation.py tests/test_experienc
 Verify the additive Wave II.5 formation trial surfaces explicitly:
 
 ```bash
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
-python -m pytest -q tests/test_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
 ```
 
 Optional bounded consumer smoke checks can be enabled with the documented `AOA_*_ROOT` variables when you want federated reachability checks against sibling repositories.

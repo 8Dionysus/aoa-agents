@@ -169,19 +169,19 @@
   ],
   "owner_repo": "aoa-agents",
   "proof_surfaces": [
-    "python scripts/validate_agent_agonic_formation.py",
+    "python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py",
     "python scripts/validate_assistant_civil_formation.py",
     "python scripts/validate_experience_assistant_civil_contracts.py",
-    "python scripts/validate_agent_formation_trial.py"
+    "python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py"
   ],
   "refresh_routes": [
     {
       "action": "revalidate",
       "commands": [
-        "python scripts/validate_agent_agonic_formation.py",
+        "python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py",
         "python scripts/validate_assistant_civil_formation.py",
         "python scripts/validate_experience_assistant_civil_contracts.py",
-        "python scripts/validate_agent_formation_trial.py"
+        "python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py"
       ],
       "notes": "Owner-local validation path. Recurrence may suggest this route; it must not run it as hidden authority."
     }

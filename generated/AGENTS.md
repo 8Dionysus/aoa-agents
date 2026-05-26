@@ -81,16 +81,19 @@ For Questbook catalog and dispatch readers, use
 `scripts/generate_questbook_readers.py`; the outputs are root-published under
 `generated/`.
 For `generated/agent_agonic_formation_index.min.json`, use
-`scripts/build_agent_agonic_formation_index.py` as the canonical builder and
-`scripts/validate_agent_agonic_formation.py` as the explicit Wave I validator.
+`mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`
+as the canonical builder and
+`mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`
+as the explicit Wave I validator.
 For `generated/assistant_civil_formation_index.min.json`, use
 `scripts/build_assistant_civil_formation_index.py` as the canonical builder and
 `scripts/validate_assistant_civil_formation.py` as the explicit Wave II
 validator.
 For `generated/agent_formation_trial.min.json`, use
-`scripts/build_agent_formation_trial.py` as the canonical builder and
-`scripts/validate_agent_formation_trial.py` as the explicit Wave II.5
-validator.
+`mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` as
+the canonical builder and
+`mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py` as
+the explicit Wave II.5 validator.
 
 ## Regenerate and validate
 
@@ -105,9 +108,9 @@ python scripts/validate_agents.py
 If the Agon Wave I generated index changed, also run:
 
 ```bash
-python scripts/build_agent_agonic_formation_index.py --check
-python scripts/validate_agent_agonic_formation.py
-python -m pytest -q tests/test_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py
 ```
 
 If the Agon Wave II generated index changed, also run:
@@ -121,7 +124,7 @@ python -m pytest -q tests/test_assistant_civil_formation.py
 If the Agon Wave II.5 formation-trial output changed, also run:
 
 ```bash
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
-python -m pytest -q tests/test_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
 ```

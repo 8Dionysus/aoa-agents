@@ -36,15 +36,17 @@ Document the posture in `generated/README.md`, `generated/AGENTS.md`,
 `mechanics/agon/parts/formation/README.md`, and
 `mechanics/experience/parts/assistant-civil-service/README.md`.
 
-Do not create legacy old-path accounting because no path moved. Treat this as
-a route-law clarification over the existing generated surfaces.
+Do not create generated-reader legacy old-path accounting because no generated
+reader path moved. Treat this as a route-law clarification over the existing
+generated surfaces.
 
 ## Consequences
 
 Future formation-reader work starts from the source agent family, then the
-builder, then the generated reader. The owning mechanics parts remain the
-place for contracts and stop-lines around formation, not a replacement source
-home for `agents/` records.
+part-local builder, then the root-published generated reader. The owning
+mechanics parts remain the place for builders, validators, contracts, and
+stop-lines around formation, not a replacement source home for `agents/`
+records.
 
 Root `generated/` continues to own repo-wide registries, formation readers,
 quest readers, and Codex/Titan projection outputs. Part-local generated
@@ -54,10 +56,11 @@ mechanic source truth.
 ## Validation
 
 ```bash
-python scripts/build_agent_agonic_formation_index.py --check
+python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
 python scripts/build_assistant_civil_formation_index.py --check
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

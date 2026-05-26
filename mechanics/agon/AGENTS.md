@@ -49,12 +49,12 @@ Run the narrow builder or validator for the affected part, then the smallest
 repo-safe subset from:
 
 ```bash
-python scripts/validate_agent_agonic_formation.py
+python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
 python scripts/validate_assistant_civil_formation.py
 python scripts/validate_experience_assistant_civil_contracts.py
-python scripts/build_agent_formation_trial.py --check
-python scripts/validate_agent_formation_trial.py
-python scripts/validate_agon_formation_contracts.py
+python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
+python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
+python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
 python scripts/validate_agon_rank_epistemic_contracts.py
 python scripts/build_agon_agent_rank_jurisdiction_registry.py --check
 python scripts/validate_agon_agent_rank_jurisdiction.py

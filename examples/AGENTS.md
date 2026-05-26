@@ -76,7 +76,7 @@ them under the corresponding Agon parts.
 
 Mechanic-specific Agon formation examples live under
 `mechanics/agon/parts/formation/examples/`. They are validated by
-`scripts/validate_agon_formation_contracts.py`. Their schemas live beside them
+`mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`. Their schemas live beside them
 under `mechanics/agon/parts/formation/schemas/`, with arena eligibility in the
 adjacent `arena-rank-school` schema route.
 
@@ -127,12 +127,12 @@ For Codex refresh-law part-local examples, also run `python mechanics/codex-proj
 For runtime artifact contract part-local examples, also run `python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py`.
 For checkpoint contract part-local examples, also run `python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py`.
 For recursor part-local examples, also run `python mechanics/recurrence/scripts/validate_recursor_contracts.py`.
-For Agon formation part-local examples, also run `python scripts/validate_agon_formation_contracts.py`.
+For Agon formation part-local examples, also run `python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py`.
 For Agon rank/school/epistemic part-local examples, also run `python scripts/validate_agon_rank_epistemic_contracts.py`.
 For Experience assistant civil part-local examples, also run `python scripts/validate_experience_assistant_civil_contracts.py`.
 For adoption and boundary bridge part-local examples, also run `python scripts/validate_adoption_boundary_contracts.py`.
 For agent service part-local examples, also run `python scripts/validate_agent_service_contracts.py`.
 For reference-route part-local examples, also run `python scripts/validate_reference_route_contracts.py`.
-For the Wave I reader path example, also run `python scripts/validate_agent_agonic_formation.py`.
+For the Wave I reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`.
 For the Wave II reader path example, also run `python scripts/validate_assistant_civil_formation.py`.
-For the Wave II.5 reader path example, also run `python scripts/validate_agent_formation_trial.py`.
+For the Wave II.5 reader path example, also run `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`.
