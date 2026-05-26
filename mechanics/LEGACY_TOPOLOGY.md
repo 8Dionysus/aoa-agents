@@ -57,11 +57,18 @@ now legacy lookup facts and are accounted for in Titan `PROVENANCE.md`,
 `legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`. Stable schema `$id`
 values remain public contract identifiers, not active repo paths.
 
+The 2026-05-26 antifragility stress localization moved stress-posture schemas
+and examples into active part-local antifragility routes. Former root stress
+schema and example paths are now legacy lookup facts and are accounted for in
+antifragility `PROVENANCE.md`, `legacy/INDEX.md`, and
+`legacy/DISTILLATION_LOG.md`. Stable schema `$id` values remain public contract
+identifiers, not active repo paths.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
-shared non-Titan `schemas/`, non-Titan `examples/`, `agents/`, `generated/`,
-`scripts/`, and `tests/`. They are not automatically legacy. They remain
-current source, support, generated, or validation districts until a
-package-local move changes their lookup topology.
+remaining shared non-Titan `schemas/`, remaining non-Titan `examples/`,
+`agents/`, `generated/`, `scripts/`, and `tests/`. They are not automatically
+legacy. They remain current source, support, generated, or validation districts
+until a package-local move changes their lookup topology.
 
 For this landing:
 

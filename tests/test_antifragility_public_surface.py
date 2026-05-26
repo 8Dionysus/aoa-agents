@@ -18,12 +18,12 @@ class AntifragilityPublicSurfaceTests(unittest.TestCase):
     def test_stress_schema_examples_validate(self) -> None:
         surfaces = (
             (
-                "schemas/agent_stress_posture_v1.json",
-                "examples/agent_stress_posture.example.json",
+                "mechanics/antifragility/parts/stress-posture/schemas/agent-stress-posture.schema.json",
+                "mechanics/antifragility/parts/stress-posture/examples/agent-stress-posture.example.json",
             ),
             (
-                "schemas/stress_handoff_envelope_v1.json",
-                "examples/stress_handoff_envelope.example.json",
+                "mechanics/antifragility/parts/stress-posture/schemas/stress-handoff-envelope.schema.json",
+                "mechanics/antifragility/parts/stress-posture/examples/stress-handoff-envelope.example.json",
             ),
         )
 
@@ -62,12 +62,24 @@ class AntifragilityPublicSurfaceTests(unittest.TestCase):
             self.assertIn(token, handoffs)
 
     def test_stress_posture_example_targets_existing_profile(self) -> None:
-        payload = load_json("examples/agent_stress_posture.example.json")
+        payload = load_json("mechanics/antifragility/parts/stress-posture/examples/agent-stress-posture.example.json")
         assert isinstance(payload, dict)
         applies_to = payload["applies_to"]
         assert isinstance(applies_to, dict)
         target = REPO_ROOT / applies_to["agent_profile"]
         self.assertTrue(target.is_file())
+
+    def test_stress_payloads_are_part_local(self) -> None:
+        former_paths = (
+            "schemas/" + "agent" + "_stress" + "_posture_v1.json",
+            "schemas/" + "stress" + "_handoff" + "_envelope_v1.json",
+            "examples/" + "agent" + "_stress" + "_posture.example.json",
+            "examples/" + "stress" + "_handoff" + "_envelope.example.json",
+        )
+
+        for relative_path in former_paths:
+            with self.subTest(path=relative_path):
+                self.assertFalse((REPO_ROOT / relative_path).exists())
 
 
 if __name__ == "__main__":

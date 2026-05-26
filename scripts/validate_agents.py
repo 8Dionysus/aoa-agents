@@ -34,6 +34,10 @@ from validate_recurrence_component_manifests import (
     ManifestValidationError,
     validate_recurrence_component_manifests,
 )
+from validate_antifragility_stress import (
+    AntifragilityStressValidationError,
+    validate_antifragility_stress_payloads,
+)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 from validate_titan_examples import TitanExamplesValidationError, validate_titan_examples
 from validate_titan_schemas import TitanSchemasValidationError, validate_titan_schemas
@@ -72,10 +76,10 @@ ORCHESTRATOR_CLASS_SCHEMA_PATH = REPO_ROOT / "schemas" / "orchestrator-class.sch
 ORCHESTRATOR_CLASS_MODEL_PATH = REPO_ROOT / "docs" / "ORCHESTRATOR_CLASS_MODEL.md"
 AGENT_STRESS_POSTURE_DOC_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-posture.md"
 AGENT_STRESS_HANDOFFS_DOC_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-handoffs.md"
-AGENT_STRESS_POSTURE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent_stress_posture_v1.json"
-STRESS_HANDOFF_ENVELOPE_SCHEMA_PATH = REPO_ROOT / "schemas" / "stress_handoff_envelope_v1.json"
-AGENT_STRESS_POSTURE_EXAMPLE_PATH = REPO_ROOT / "examples" / "agent_stress_posture.example.json"
-STRESS_HANDOFF_ENVELOPE_EXAMPLE_PATH = REPO_ROOT / "examples" / "stress_handoff_envelope.example.json"
+AGENT_STRESS_POSTURE_SCHEMA_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "schemas" / "agent-stress-posture.schema.json"
+STRESS_HANDOFF_ENVELOPE_SCHEMA_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "schemas" / "stress-handoff-envelope.schema.json"
+AGENT_STRESS_POSTURE_EXAMPLE_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "examples" / "agent-stress-posture.example.json"
+STRESS_HANDOFF_ENVELOPE_EXAMPLE_PATH = REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "examples" / "stress-handoff-envelope.example.json"
 ORCHESTRATOR_CLASS_CATALOG_PATH = REPO_ROOT / "generated" / "orchestrator_class_catalog.min.json"
 ORCHESTRATOR_CLASS_CAPSULES_PATH = REPO_ROOT / "generated" / "orchestrator_class_capsules.json"
 ORCHESTRATOR_CLASS_SECTIONS_PATH = REPO_ROOT / "generated" / "orchestrator_class_sections.full.json"
@@ -882,6 +886,7 @@ def validate_reference_route_schema_surface() -> None:
 
 
 def validate_antifragility_stress_surfaces() -> None:
+    validate_antifragility_stress_payloads(REPO_ROOT)
     posture_schema = validate_json_schema_surface(
         AGENT_STRESS_POSTURE_SCHEMA_PATH,
         "agent stress posture schema",
@@ -3449,6 +3454,7 @@ def main() -> int:
         checked_roots = validate_optional_consumer_smoke_checks(tiers_by_id, cohort_patterns_by_id)
     except (
         ManifestValidationError,
+        AntifragilityStressValidationError,
         NestedAgentsValidationError,
         TitanExamplesValidationError,
         TitanSchemasValidationError,
