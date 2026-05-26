@@ -28,25 +28,9 @@ def slug_name(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9_-]+", "-", name).strip("-")
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--roles", required=True, type=Path)
-    ap.add_argument("--bearers", required=True, type=Path)
-    ap.add_argument("--out-dir", required=True, type=Path)
-    ap.add_argument("--manifest", required=True, type=Path)
-    ap.add_argument("--prune", action="store_true")
-    args = ap.parse_args()
-
-    roles_doc = load(args.roles)
-    bearers_doc = load(args.bearers)
-
+def build_projection(roles_doc: dict, bearers_doc: dict) -> tuple[dict, dict[str, str]]:
     roles = {r["role_key"]: r for r in roles_doc.get("role_classes", [])}
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-
-    if args.prune:
-        for path in args.out_dir.glob("*.toml"):
-            path.unlink()
-
+    rendered_agents: dict[str, str] = {}
     manifest = {
         "version": 1,
         "projection": "titan_bearer_codex_agents",
@@ -61,7 +45,6 @@ def main() -> int:
         role = roles[role_key]
         titan_name = bearer["titan_name"]
         file_name = f"{slug_name(titan_name)}.toml"
-        out = args.out_dir / file_name
         sandbox = role["default_sandbox"]
         desc = f"Titan {titan_name}, active bearer of role class `{role_key}`. {role['description']}"
         personality = bearer.get("personality") or {}
@@ -92,7 +75,7 @@ If you fail, your fall must be recorded as lineage, not erased.
 You do not overwrite the memory of other bearers.
 """
 
-        text = (
+        rendered_agents[file_name] = (
             f'name = "{toml_escape(titan_name)}"\n'
             f'description = "{toml_escape(desc)}"\n'
             f'sandbox_mode = "{toml_escape(sandbox)}"\n'
@@ -100,7 +83,6 @@ You do not overwrite the memory of other bearers.
             f'{instructions}'
             '"""\n'
         )
-        out.write_text(text, encoding="utf-8")
         manifest["agents"].append({
             "codex_name": titan_name,
             "titan_name": titan_name,
@@ -115,8 +97,60 @@ You do not overwrite the memory of other bearers.
             "source_role_ref": "mechanics/titan/parts/role-bearing/config/role-classes.v0.json",
         })
 
+    return manifest, rendered_agents
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--roles", required=True, type=Path)
+    ap.add_argument("--bearers", required=True, type=Path)
+    ap.add_argument("--out-dir", required=True, type=Path)
+    ap.add_argument("--manifest", required=True, type=Path)
+    ap.add_argument("--prune", action="store_true")
+    ap.add_argument("--check", action="store_true")
+    args = ap.parse_args()
+
+    roles_doc = load(args.roles)
+    bearers_doc = load(args.bearers)
+    manifest, rendered_agents = build_projection(roles_doc, bearers_doc)
+
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+
+    if args.prune and not args.check:
+        for path in args.out_dir.glob("*.toml"):
+            path.unlink()
+
+    mismatches: list[str] = []
+    for file_name, text in rendered_agents.items():
+        out = args.out_dir / file_name
+        if args.check:
+            if not out.exists():
+                mismatches.append(f"{out}: missing")
+            elif out.read_text(encoding="utf-8") != text:
+                mismatches.append(f"{out}: stale")
+        else:
+            out.write_text(text, encoding="utf-8")
+
+    expected_agent_paths = {args.out_dir / file_name for file_name in rendered_agents}
+    for path in sorted(args.out_dir.glob("*.toml")):
+        if path not in expected_agent_paths:
+            mismatches.append(f"{path}: unexpected")
+
+    manifest_text = json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
-    args.manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if args.check:
+        if not args.manifest.exists():
+            mismatches.append(f"{args.manifest}: missing")
+        elif args.manifest.read_text(encoding="utf-8") != manifest_text:
+            mismatches.append(f"{args.manifest}: stale")
+        if mismatches:
+            for mismatch in mismatches:
+                print(mismatch)
+            return 1
+        print(f"Titan Codex projection is current. agents={len(manifest['agents'])}")
+        return 0
+
+    args.manifest.write_text(manifest_text, encoding="utf-8")
     print(f"Rendered {len(manifest['agents'])} Titan Codex agents into {args.out_dir}")
     return 0
 

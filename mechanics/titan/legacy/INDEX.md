@@ -50,3 +50,4 @@ This index is for old-path lookup only. Current behavior lives in the active par
 | `tests/test_validate_titan_lineage.py` | [mechanics/titan/tests/test_validate_titan_lineage.py](../tests/test_validate_titan_lineage.py) | moved into `titan` package tests on 2026-05-26 |
 | `tests/test_titan_schemas.py` | [mechanics/titan/tests/test_titan_schemas.py](../tests/test_titan_schemas.py) | moved into `titan` package tests on 2026-05-26 |
 | `tests/test_titan_examples.py` | [mechanics/titan/tests/test_titan_examples.py](../tests/test_titan_examples.py) | moved into `titan` package tests on 2026-05-26 |
+| `scripts/render_titan_codex_agents.py` | [mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py](../parts/codex-projection/scripts/render_titan_codex_agents.py) | moved into `codex-projection` scripts on 2026-05-26 |

@@ -48,15 +48,19 @@ python mechanics/titan/scripts/validate_titan_lineage.py --roles mechanics/titan
 python mechanics/titan/scripts/validate_titan_schemas.py
 python mechanics/titan/scripts/validate_titan_examples.py
 python -m unittest discover -s mechanics/titan/tests -p "test_*.py"
+python mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --out-dir generated/titan_codex_agents/agents --manifest generated/titan_codex_agents/projection_manifest.json --prune --check
+python -m unittest discover -s mechanics/titan/parts/codex-projection/tests -p "test_*.py"
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 ```
 
-If Titan Codex projection outputs change, also run:
+If Titan Codex projection sources change and generated outputs need refreshing,
+run without `--check`, review the generated diff, then run the validation route
+above:
 
 ```bash
-python scripts/render_titan_codex_agents.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --out-dir generated/titan_codex_agents/agents --manifest generated/titan_codex_agents/projection_manifest.json --prune
+python mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --out-dir generated/titan_codex_agents/agents --manifest generated/titan_codex_agents/projection_manifest.json --prune
 ```
 
 ## Closeout

@@ -35,6 +35,14 @@ decision before moving.
 Teach `scripts/release_check.py` to run the Titan package-local tests before
 the remaining root test suite.
 
+## Supersession Note
+
+The temporary root route for `scripts/render_titan_codex_agents.py` was
+superseded by
+[2026-05-26: Titan Codex projection builder localization](2026-05-26-titan-codex-projection-builder-localization.md).
+The builder now lives in `mechanics/titan/parts/codex-projection/scripts/`,
+while its generated output remains root-published.
+
 ## Consequences
 
 - Titan package checks now live next to the mechanic package they protect.

@@ -255,6 +255,10 @@ RUNTIME_ARTIFACT_SCHEMA_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "schemas"
 RUNTIME_ARTIFACT_EXAMPLES_DIR = RUNTIME_ARTIFACT_CONTRACTS_DIR / "examples"
 RUNTIME_ARTIFACT_INVALID_DIR = RUNTIME_ARTIFACT_EXAMPLES_DIR / "invalid"
 FORMER_RUNTIME_ARTIFACT_EXAMPLES_DIR = REPO_ROOT / "examples" / ("runtime" + "_artifacts")
+TITAN_CODEX_PROJECTION_BUILDER_PATH = (
+    REPO_ROOT / "mechanics" / "titan" / "parts" / "codex-projection" / "scripts" / "render_titan_codex_agents.py"
+)
+FORMER_TITAN_CODEX_PROJECTION_BUILDER_PATH = REPO_ROOT / "scripts" / ("render" + "_titan_codex_agents.py")
 SELF_AGENT_CHECKPOINT_EXAMPLES_DIR = SELF_AGENT_CHECKPOINT_PART_DIR / "examples"
 SELF_AGENT_CHECKPOINT_EXAMPLE_PATH = SELF_AGENT_CHECKPOINT_EXAMPLES_DIR / "self-agent-checkpoint.example.json"
 SELF_AGENCY_CONTINUITY_WINDOW_EXAMPLE_PATH = (
@@ -2784,6 +2788,16 @@ def validate_assistant_projection_resolver_surface() -> None:
     validate_assistant_projection_resolver(REPO_ROOT)
 
 
+def validate_titan_codex_projection_route() -> None:
+    if FORMER_TITAN_CODEX_PROJECTION_BUILDER_PATH.exists():
+        fail(
+            "former Titan Codex projection builder root path must stay absent: "
+            f"{describe_path(FORMER_TITAN_CODEX_PROJECTION_BUILDER_PATH)}"
+        )
+    if not TITAN_CODEX_PROJECTION_BUILDER_PATH.is_file():
+        fail(f"missing Titan Codex projection builder: {describe_path(TITAN_CODEX_PROJECTION_BUILDER_PATH)}")
+
+
 def validate_runtime_seam_doc_coherence() -> None:
     agent_profile_surface = read_text(REPO_ROOT / "docs" / "AGENT_PROFILE_SURFACE.md")
     agent_memory_posture = read_text(REPO_ROOT / "docs" / "AGENT_MEMORY_POSTURE.md")
@@ -3731,6 +3745,7 @@ def main() -> int:
         validate_agent_profile_references(profiles, tiers_by_id, cohort_patterns_by_id)
         bindings_by_phase = validate_runtime_seam_bindings(agent_names, tiers_by_id)
         validate_codex_subagent_projection()
+        validate_titan_codex_projection_route()
         validate_assistant_projection_resolver_surface()
         validate_codex_refresh_law_contracts(REPO_ROOT)
         validate_reference_route_examples(tiers_by_id, cohort_patterns_by_id, bindings_by_phase)

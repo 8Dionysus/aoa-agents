@@ -38,7 +38,7 @@ ownership.
 | `generated/quest_catalog.min.example.json` | public-safe quest catalog shape | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
 | `generated/quest_dispatch.min.example.json` | public-safe quest dispatch shape | `mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py` |
 | `generated/codex_agents/` | Codex subagent projection from profile source objects and projection wiring | `scripts/validate_codex_subagents.py` |
-| `generated/titan_codex_agents/` | Titan Codex projection from Titan part-local source payloads | Titan projection builders and validators |
+| `generated/titan_codex_agents/` | Titan Codex projection from Titan part-local source payloads | `mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py` |
 
 ## Part-Local Generated Companions
 
