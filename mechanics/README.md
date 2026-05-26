@@ -54,13 +54,16 @@ source truth is that part's examples.
 The Agon rank/school/epistemic generated reader localization moved
 candidate-only rank, school/campaign, and epistemic registries into their
 owning Agon parts because their source truth is already part-local config.
+The recursor generated reader localization moved readiness, pair, projection,
+and boundary readers into their owning Recurrence parts because their source
+truth is already part-local config/schema/example material.
 
 | Mechanic | Current Source Surfaces | Operation |
 | --- | --- | --- |
 | `agon/` | Agon docs, part-local config seeds, adjuncts, part-local rank/school/epistemic generated readers, formation indexes, Wave I/II/II.5 builders and tests | route contest, formation, arena, rank, school, epistemic actor, and adoption pressure; `formation` is a part of `agon`, not the parent mechanic |
 | `experience/` | assistant civil/service/office/adoption/release docs, adjuncts, schemas, examples | route assistant service, office, adoption, watch, and arena-exclusion pressure without becoming runtime service authority |
 | `titan/` | Titan docs, part-local config, schemas, examples, generated projections, and builders | route Titan role-bearing, lineage, summon, roster, and service-cohort posture inside the agent layer |
-| `recurrence/` | recursor docs, part-local config, part-local component manifests, schemas, examples, and generated readers | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |
+| `recurrence/` | recursor docs, part-local config, part-local component manifests, schemas, examples, and part-local generated readers | route recursor readiness, paired recurrence, projection refresh, and component-return pressure |
 | `runtime-seam/` | `agents/runtime_seam/`, runtime artifact schemas/examples, seam docs/generated readers | keep role x tier bindings and artifact transitions contract-first without owning runtime implementation |
 | `codex-projection/` | `agents/profiles/`, part-local Codex wiring config, generated Codex agents, projection docs/tests | keep Codex subagent projection source-owned, refreshable, and bounded to role contracts |
 | `checkpoint/` | self-agent, continuity, checkpoint, reviewed-closeout, and reference-route docs/schemas/examples | keep checkpoint posture reviewable, reversible, and separate from durable memory truth |
@@ -98,6 +101,8 @@ mechanics packages from empty route skeletons into active route homes:
   part-local `generated/` route;
 - Agon rank/school/epistemic generated readers live under their owning
   Agon part-local `generated/` routes;
+- recursor generated readers live under their owning Recurrence part-local
+  `generated/` routes;
 - quest catalog records and Agon quest notes live under
   `mechanics/questbook/parts/*/quests/`;
 - package `PARTS.md` files are the active part maps;
@@ -105,7 +110,8 @@ mechanics packages from empty route skeletons into active route homes:
   accounting;
 - package `legacy/INDEX.md` and `legacy/DISTILLATION_LOG.md` preserve the
   former `docs/*`, `config/*`, `manifests/*`, root quest catalog, and
-  root quest-source, reference-route schema, and reference-route example
+  root quest-source, reference-route schema, reference-route example, and
+  localized generated reader
   lookup maps without
   duplicating active authority.
 

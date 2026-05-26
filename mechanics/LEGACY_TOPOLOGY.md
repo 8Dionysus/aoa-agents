@@ -163,17 +163,23 @@ routes. Former root generated paths are now legacy lookup facts and are
 accounted for in Agon `PROVENANCE.md`, `legacy/INDEX.md`, and
 `legacy/DISTILLATION_LOG.md`.
 
+The 2026-05-26 recursor generated reader localization moved Recurrence
+readiness, pair, projection-candidate, and Agon boundary readers into active
+Recurrence part-local `generated/` routes. Former root generated paths are now
+legacy lookup facts and are accounted for in Recurrence `PROVENANCE.md`,
+`legacy/INDEX.md`, and `legacy/DISTILLATION_LOG.md`.
+
 Other mechanic-adjacent payload classes still live in their owner districts:
 remaining shared non-Titan, non-runtime-artifact, non-checkpoint,
-non-recursor, non-Agon-rank/epistemic, non-Agon-formation, and
+non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-adoption/boundary, non-agent-service,
 non-reference-route
 `schemas/`,
-remaining non-Titan, non-runtime-artifact, non-checkpoint, non-recursor,
+remaining non-Titan, non-runtime-artifact, non-checkpoint,
 non-Agon-rank/epistemic, non-Agon-formation, and
 non-Experience-assistant-civil, non-Codex-refresh-law,
 non-adoption/boundary, non-agent-service, non-reference-route `examples/`, `agents/`,
-remaining non-Alpha, non-Agon-rank/epistemic `generated/`, `scripts/`, and
+remaining non-Alpha, non-Agon-rank/epistemic, non-recursor `generated/`, `scripts/`, and
 `tests/`. They are not automatically legacy.
 They remain current source, support, generated, or validation districts until
 a package-local move changes their lookup topology.

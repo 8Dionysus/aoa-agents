@@ -31,3 +31,4 @@ validator route, or workflow boundary changed.
 - [2026-05-26: Reference route contract localization](2026-05-26-reference-route-contract-localization.md)
 - [2026-05-26: Alpha reference-route generated reader localization](2026-05-26-alpha-reference-generated-reader-localization.md)
 - [2026-05-26: Agon rank and epistemic generated reader localization](2026-05-26-agon-rank-epistemic-generated-reader-localization.md)
+- [2026-05-26: Recursor generated reader localization](2026-05-26-recursor-generated-reader-localization.md)

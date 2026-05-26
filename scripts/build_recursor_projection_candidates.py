@@ -4,7 +4,15 @@ from __future__ import annotations
 import argparse
 import json
 
-from _recursor_common import ROOT, min_json, read_json, validate_projection_candidate, stable_hash, utc_now
+from _recursor_common import (
+    RECURSOR_PROJECTION_GENERATED_ROOT,
+    ROOT,
+    min_json,
+    read_json,
+    stable_hash,
+    utc_now,
+    validate_projection_candidate,
+)
 
 
 def build_projection() -> dict:
@@ -42,7 +50,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     payload = build_projection()
-    path = ROOT / "generated" / "recursor_projection_candidates.min.json"
+    path = RECURSOR_PROJECTION_GENERATED_ROOT / "projection-candidates.min.json"
     mismatches = []
     if args.write:
         min_json(path, payload)

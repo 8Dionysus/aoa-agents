@@ -9,7 +9,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from _recursor_common import build_boundary_report, build_readiness_index
+from _recursor_common import build_boundary_report, build_readiness_index, stable_hash
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +17,9 @@ RECURRENCE_PARTS = Path("mechanics/recurrence/parts")
 RECURSOR_READINESS_PART = RECURRENCE_PARTS / "recursor-readiness"
 RECURSOR_PROJECTION_PART = RECURRENCE_PARTS / "codex-recursor-projection"
 RECURSOR_BOUNDARY_PART = RECURRENCE_PARTS / "agon-recursor-boundary"
+RECURSOR_READINESS_GENERATED = RECURSOR_READINESS_PART / "generated"
+RECURSOR_PROJECTION_GENERATED = RECURSOR_PROJECTION_PART / "generated"
+RECURSOR_BOUNDARY_GENERATED = RECURSOR_BOUNDARY_PART / "generated"
 
 EXPECTED_READINESS_SCHEMAS = {
     "handoff-ledger.schema.json",
@@ -33,6 +36,9 @@ EXPECTED_READINESS_EXAMPLES = {
 EXPECTED_PROJECTION_SCHEMAS = {"projection-candidate.schema.json"}
 EXPECTED_BOUNDARY_SCHEMAS = {"boundary-report.schema.json"}
 EXPECTED_BOUNDARY_EXAMPLES = {"boundary-report.example.json"}
+EXPECTED_READINESS_GENERATED = {"role-readiness.min.json", "pair-contract.min.json"}
+EXPECTED_PROJECTION_GENERATED = {"projection-candidates.min.json"}
+EXPECTED_BOUNDARY_GENERATED = {"boundary-report.min.json"}
 
 
 def _former_schema_name(stem: str) -> str:
@@ -57,6 +63,12 @@ FORMER_EXAMPLE_NAMES = (
     _former_example_name("witness_handoff"),
     _former_example_name("executor_receipt"),
     _former_example_name("boundary_report"),
+)
+FORMER_GENERATED_NAMES = (
+    "recursor" + "_role_readiness.min.json",
+    "recursor" + "_pair_contract.min.json",
+    "recursor" + "_projection_candidates.min.json",
+    "recursor" + "_agon_boundary_report.min.json",
 )
 
 
@@ -138,6 +150,11 @@ def collect_recursor_contract_errors(root: Path = ROOT) -> list[str]:
         if former_path.exists():
             errors.append(f"former root recursor example is still active: {former_path.relative_to(root).as_posix()}")
 
+    for file_name in FORMER_GENERATED_NAMES:
+        former_path = root / "generated" / file_name
+        if former_path.exists():
+            errors.append(f"former root recursor generated reader is still active: {former_path.relative_to(root).as_posix()}")
+
     readiness_schema_dir = RECURSOR_READINESS_PART / "schemas"
     readiness_examples_dir = RECURSOR_READINESS_PART / "examples"
     projection_schema_dir = RECURSOR_PROJECTION_PART / "schemas"
@@ -179,6 +196,27 @@ def collect_recursor_contract_errors(root: Path = ROOT) -> list[str]:
         label="agon-recursor-boundary example",
         errors=errors,
     )
+    _check_file_set(
+        root,
+        RECURSOR_READINESS_GENERATED,
+        EXPECTED_READINESS_GENERATED,
+        label="recursor-readiness generated",
+        errors=errors,
+    )
+    _check_file_set(
+        root,
+        RECURSOR_PROJECTION_GENERATED,
+        EXPECTED_PROJECTION_GENERATED,
+        label="codex-recursor-projection generated",
+        errors=errors,
+    )
+    _check_file_set(
+        root,
+        RECURSOR_BOUNDARY_GENERATED,
+        EXPECTED_BOUNDARY_GENERATED,
+        label="agon-recursor-boundary generated",
+        errors=errors,
+    )
 
     try:
         role_validator = _schema_validator(root / readiness_schema_dir / "role-contract.schema.json")
@@ -202,9 +240,10 @@ def collect_recursor_contract_errors(root: Path = ROOT) -> list[str]:
     witness_handoff = _read_json(root / readiness_examples_dir / "witness-handoff.example.json")
     executor_handoff = _read_json(root / readiness_examples_dir / "executor-receipt.example.json")
     boundary_example = _read_json(root / boundary_examples_dir / "boundary-report.example.json")
-    generated_readiness = _read_json(root / "generated" / "recursor_role_readiness.min.json")
-    generated_pair = _read_json(root / "generated" / "recursor_pair_contract.min.json")
-    generated_boundary = _read_json(root / "generated" / "recursor_agon_boundary_report.min.json")
+    generated_readiness = _read_json(root / RECURSOR_READINESS_GENERATED / "role-readiness.min.json")
+    generated_pair = _read_json(root / RECURSOR_READINESS_GENERATED / "pair-contract.min.json")
+    generated_projection = _read_json(root / RECURSOR_PROJECTION_GENERATED / "projection-candidates.min.json")
+    generated_boundary = _read_json(root / RECURSOR_BOUNDARY_GENERATED / "boundary-report.min.json")
 
     if not isinstance(roles, dict) or not isinstance(roles.get("roles"), list):
         errors.append("recursor-readiness roles seed must contain a roles array")
@@ -213,16 +252,26 @@ def collect_recursor_contract_errors(root: Path = ROOT) -> list[str]:
             _validate_payload(role_validator, role, location=f"roles.seed.json roles[{index}]", errors=errors)
 
     _validate_payload(pair_validator, pair, location="pair.seed.json", errors=errors)
-    _validate_payload(pair_validator, generated_pair, location="generated/recursor_pair_contract.min.json", errors=errors)
+    _validate_payload(pair_validator, generated_pair, location="recursor-readiness/generated/pair-contract.min.json", errors=errors)
     _validate_payload(projection_validator, projection, location="projection-candidate.json", errors=errors)
     _validate_payload(session_intent_validator, session_intent, location="session-intent.example.json", errors=errors)
     _validate_payload(handoff_validator, witness_handoff, location="witness-handoff.example.json", errors=errors)
     _validate_payload(handoff_validator, executor_handoff, location="executor-receipt.example.json", errors=errors)
     _validate_payload(boundary_validator, boundary_example, location="boundary-report.example.json", errors=errors)
-    _validate_payload(boundary_validator, generated_boundary, location="generated/recursor_agon_boundary_report.min.json", errors=errors)
-    _validate_payload(readiness_validator, generated_readiness, location="generated/recursor_role_readiness.min.json", errors=errors)
+    _validate_payload(boundary_validator, generated_boundary, location="agon-recursor-boundary/generated/boundary-report.min.json", errors=errors)
+    _validate_payload(readiness_validator, generated_readiness, location="recursor-readiness/generated/role-readiness.min.json", errors=errors)
     _validate_payload(readiness_validator, build_readiness_index(root), location="built recursor readiness index", errors=errors)
     _validate_payload(boundary_validator, build_boundary_report(root), location="built recursor boundary report", errors=errors)
+
+    if not isinstance(generated_projection, dict):
+        errors.append("codex-recursor-projection generated reader must be an object")
+    else:
+        if generated_projection.get("schema_version") != "recursor-projection-candidates-index/v1":
+            errors.append("codex-recursor-projection generated reader has wrong schema_version")
+        if generated_projection.get("boundary", {}).get("status") != "pass":
+            errors.append("codex-recursor-projection generated reader boundary must pass")
+        if generated_projection.get("source_hash") != stable_hash(projection):
+            errors.append("codex-recursor-projection generated reader source_hash is stale")
 
     return errors
 
@@ -242,7 +291,7 @@ def main() -> int:
     except RecursorContractsValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1
-    print("Recursor contract validation passed. schemas=7 examples=4 generated=3")
+    print("Recursor contract validation passed. schemas=7 examples=4 generated=4")
     return 0
 
 

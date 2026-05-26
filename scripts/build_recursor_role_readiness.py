@@ -4,7 +4,15 @@ from __future__ import annotations
 import argparse
 import json
 
-from _recursor_common import ROOT, build_boundary_report, build_readiness_index, min_json, read_json
+from _recursor_common import (
+    RECURSOR_BOUNDARY_GENERATED_ROOT,
+    RECURSOR_READINESS_GENERATED_ROOT,
+    ROOT,
+    build_boundary_report,
+    build_readiness_index,
+    min_json,
+    read_json,
+)
 
 
 def main(argv=None) -> int:
@@ -26,9 +34,9 @@ def main(argv=None) -> int:
         / "pair.seed.json"
     )
     expected = {
-        ROOT / "generated" / "recursor_role_readiness.min.json": index,
-        ROOT / "generated" / "recursor_pair_contract.min.json": pair_contract,
-        ROOT / "generated" / "recursor_agon_boundary_report.min.json": boundary,
+        RECURSOR_READINESS_GENERATED_ROOT / "role-readiness.min.json": index,
+        RECURSOR_READINESS_GENERATED_ROOT / "pair-contract.min.json": pair_contract,
+        RECURSOR_BOUNDARY_GENERATED_ROOT / "boundary-report.min.json": boundary,
     }
 
     mismatches = []

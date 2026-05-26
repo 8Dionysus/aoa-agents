@@ -182,6 +182,14 @@ validators. Root `generated/` continues to own repo-level registries and
 formation readers; these readers are part-local because they summarize Agon
 part-local config.
 
+The 2026-05-26 recursor generated reader localization moves readiness, pair,
+projection-candidate, and Agon boundary readers from root `generated/` into
+their owning Recurrence parts after the recursor configs, schemas, examples,
+and component manifests already had part-local routes and validators. Root
+`generated/` continues to own repo-level registries and formation readers;
+these readers are part-local because they summarize Recurrence part-local
+config and contract surfaces.
+
 Use `mechanics/PAYLOAD_RECON.md`, `mechanics/LEGACY_TOPOLOGY.md`, and the
 target package `PARTS.md` as evidence before proposing a move.
 
