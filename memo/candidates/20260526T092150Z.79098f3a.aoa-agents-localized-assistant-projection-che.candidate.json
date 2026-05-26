@@ -1,0 +1,36 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260526T092150Z:79098f3a-aoa-agents-localized-assistant-proje",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents localized the assistant projection resolver validator and focused tests into mechanics/codex-projection/parts/assistant-projection/{scripts,tests}/; validate_agents.py loads the part-local validator and release_check.py runs the part-local resolver tests.",
+  "source_refs": [
+    "docs/decisions/2026-05-26-assistant-projection-check-localization.md",
+    "mechanics/codex-projection/PROVENANCE.md",
+    "mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py",
+    "mechanics/codex-projection/parts/assistant-projection/tests/test_assistant_projection_resolver.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/commit/2b9c063ebbc83f7d2e37f9a1a83ed647dce4cff0",
+    "repo:aoa-agents/pull/193",
+    "mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py",
+    "mechanics/codex-projection/parts/assistant-projection/tests/test_assistant_projection_resolver.py",
+    "scripts/validate_agents.py",
+    "scripts/release_check.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-26T09:21:50Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
