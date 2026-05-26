@@ -49,3 +49,12 @@ Moved reference-route schema and example payloads out of root `schemas/` and
 The route-pack directories use active kebab-case package names. Manifest
 `route_id` values remain stable public identifiers. Git history preserves the
 file bodies; `PROVENANCE.md` and `legacy/INDEX.md` preserve old-path lookup.
+
+## 2026-05-26 Reference Route Checks To Active Package
+
+Moved the dedicated Checkpoint reference-route validator and focused tests out
+of root support districts and into the owning Checkpoint package.
+
+| Package | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `checkpoint` | 1 | 1 |

@@ -45,6 +45,16 @@ into the active Questbook `alpha-reference-routes` part.
 Git history preserves the file body; `PROVENANCE.md` and `legacy/INDEX.md`
 preserve old-path lookup.
 
+## 2026-05-26 Alpha Reference Route Checks To Active Package
+
+Moved the Alpha reference-route builder, validator, and focused tests out of
+root support districts and into the owning Questbook package and part-local
+routes.
+
+| Package | Moved scripts | Moved tests |
+| --- | ---: | ---: |
+| `questbook` | 2 | 1 |
+
 ## Active Root Quest Generated Readers
 
 Quest catalog and dispatch generated readers stay root-published under

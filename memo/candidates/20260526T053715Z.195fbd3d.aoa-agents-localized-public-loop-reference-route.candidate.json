@@ -5,20 +5,22 @@
   "kind": "decision",
   "family": "agent-role-memory",
   "scope": "repo",
-  "claim": "aoa-agents localized public-loop reference route contracts into Checkpoint reference-routes and Alpha readiness reference-route contracts into Questbook alpha-reference-routes; root examples now holds only its route card, root schemas retains only shared registry/profile/cohort/model-tier/runtime-seam-binding contracts, and scripts/validate_reference_route_contracts.py guards active part-local routes plus former-root absence.",
+  "claim": "aoa-agents localized public-loop reference route contracts into Checkpoint reference-routes and Alpha readiness reference-route contracts into Questbook alpha-reference-routes; root examples now holds only its route card, root schemas retains only shared registry/profile/cohort/model-tier/runtime-seam-binding contracts, and mechanics-local validators guard active part-local routes plus former-root absence.",
   "source_refs": [
     "docs/decisions/2026-05-26-reference-route-contract-localization.md",
     "mechanics/checkpoint/PROVENANCE.md",
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/PAYLOAD_RECON.md",
-    "scripts/validate_reference_route_contracts.py",
+    "mechanics/checkpoint/scripts/validate_reference_route_contracts.py",
+    "mechanics/questbook/scripts/validate_alpha_reference_routes.py",
     "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json"
   ],
   "evidence_refs": [
     "repo:aoa-agents/commit/a80c67e",
     "repo:aoa-agents/pull/157",
     "repo:aoa-agents/commit-range/251f469..a80c67e",
-    "tests/test_validate_agents.py",
+    "mechanics/checkpoint/tests/test_reference_route_contracts.py",
+    "mechanics/questbook/tests/test_alpha_reference_routes.py",
     "scripts/validate_agents.py"
   ],
   "route": "reviewed_intake",

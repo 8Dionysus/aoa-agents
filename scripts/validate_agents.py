@@ -273,6 +273,8 @@ FORMER_REFERENCE_ROUTE_ROOTS = (
     REPO_ROOT / "generated" / ("alpha" + "_reference" + "_routes.min.json"),
     REPO_ROOT / "schemas" / ("reference-route" + ".example.schema.json"),
     REPO_ROOT / "schemas" / ("alpha-reference-route" + ".schema.json"),
+    REPO_ROOT / "scripts" / ("validate" + "_reference_route_contracts.py"),
+    REPO_ROOT / "scripts" / ("generate" + "_alpha_reference_routes.py"),
 )
 QUESTBOOK_PATH = REPO_ROOT / "QUESTBOOK.md"
 QUEST_EXECUTION_PASSPORT_PATH = REPO_ROOT / "mechanics" / "questbook" / "parts" / "execution-passport" / "docs" / "quest-execution-passport.md"
@@ -1690,7 +1692,15 @@ def validate_alpha_reference_route_schema_surface() -> None:
 
 
 def load_alpha_reference_route_builder_module():
-    module_path = REPO_ROOT / "scripts" / "generate_alpha_reference_routes.py"
+    module_path = (
+        REPO_ROOT
+        / "mechanics"
+        / "questbook"
+        / "parts"
+        / "alpha-reference-routes"
+        / "scripts"
+        / "generate_alpha_reference_routes.py"
+    )
     spec = importlib.util.spec_from_file_location("generate_alpha_reference_routes", module_path)
     if spec is None or spec.loader is None:
         fail("unable to load Alpha reference-route generator module")

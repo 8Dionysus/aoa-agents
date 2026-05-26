@@ -198,14 +198,15 @@ The reference-route contract localization satisfies that rule for
 reference-route and Alpha reference-route schemas/examples by routing public
 loop route packs into `mechanics/checkpoint/parts/reference-routes/`, routing
 Alpha playbook-facing readiness examples into
-`mechanics/questbook/parts/alpha-reference-routes/`, and adding
-`scripts/validate_reference_route_contracts.py`.
+`mechanics/questbook/parts/alpha-reference-routes/`, and adding the
+reference-route validator now held at
+`mechanics/checkpoint/scripts/validate_reference_route_contracts.py`.
 
 The Alpha reference-route generated reader localization satisfies that rule for
 the derived Alpha reader by placing it next to the Questbook
 `alpha-reference-routes` examples it summarizes and teaching
-`scripts/generate_alpha_reference_routes.py`,
-`scripts/validate_reference_route_contracts.py`, and
+`mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py`,
+`mechanics/questbook/scripts/validate_alpha_reference_routes.py`, and
 `scripts/validate_agents.py` the part-local route plus former-root absence.
 
 The Agon rank/school/epistemic generated reader localization satisfies that

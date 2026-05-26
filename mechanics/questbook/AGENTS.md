@@ -47,8 +47,8 @@ reader contracts, execution passport posture, and Alpha reference routes.
 
 ```bash
 python scripts/generate_questbook_readers.py --check
-python scripts/generate_alpha_reference_routes.py --check
-python scripts/validate_reference_route_contracts.py
+python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
+python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

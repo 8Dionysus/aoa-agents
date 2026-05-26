@@ -223,7 +223,7 @@ and `scripts/release_check.py` runs the Experience package tests explicitly.
 The 2026-05-26 reference-route contract localization moves reference-route and
 Alpha reference-route schemas/examples from root `schemas/` and `examples/`
 into active Checkpoint and Questbook part-local contract routes after adding
-`scripts/validate_reference_route_contracts.py`. The route split follows the
+`mechanics/checkpoint/scripts/validate_reference_route_contracts.py`. The route split follows the
 current mechanic docs: public-loop route packs belong to Checkpoint
 `reference-routes`; Alpha playbook-facing readiness examples belong to
 Questbook `alpha-reference-routes`. Stable schema `$id` values and manifest

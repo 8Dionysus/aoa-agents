@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[5]
 EXAMPLES_ROOT = REPO_ROOT / "mechanics" / "questbook" / "parts" / "alpha-reference-routes" / "examples"
 OUTPUT_RELATIVE_PATH = (
     "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json"
@@ -95,7 +95,7 @@ def main(argv: list[str] | None = None) -> int:
         if current != payload:
             raise SystemExit(
                 f"[error] {OUTPUT_RELATIVE_PATH} is out of date; "
-                "run scripts/generate_alpha_reference_routes.py"
+                "run mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py"
             )
         print("[ok] alpha reference-route generated reader is current")
         return 0

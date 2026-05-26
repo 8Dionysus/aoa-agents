@@ -68,7 +68,8 @@ Do not hand edit anything under `generated/`.
 Change the source-authored layer or the builder if regeneration is wrong.
 Review diffs here as public contract deltas, not as arbitrary JSON churn.
 For the Alpha reference-route generated reader, use
-`scripts/generate_alpha_reference_routes.py`; the output is part-local under
+`mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py`;
+the output is part-local under
 `mechanics/questbook/parts/alpha-reference-routes/generated/`.
 For Agon rank/school/epistemic generated readers, use their dedicated
 `scripts/build_agon_*.py` builders; the outputs are part-local under the

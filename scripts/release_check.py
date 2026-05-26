@@ -78,6 +78,19 @@ COMMANDS = [
         ],
     ),
     (
+        "run Questbook tests",
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "mechanics/questbook/tests",
+            "-p",
+            "test_*.py",
+        ],
+    ),
+    (
         "run recurrence recursor tests",
         [
             sys.executable,
@@ -222,7 +235,17 @@ COMMANDS = [
     ),
     ("run tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]),
     ("rebuild published surfaces", [sys.executable, "scripts/build_published_surfaces.py"]),
-    ("check generated drift", ["git", "diff", "--exit-code", "--", "generated"]),
+    (
+        "check generated data drift",
+        [
+            "git",
+            "diff",
+            "--exit-code",
+            "--",
+            "generated",
+            ":(exclude)generated/AGENTS.md",
+        ],
+    ),
 ]
 
 

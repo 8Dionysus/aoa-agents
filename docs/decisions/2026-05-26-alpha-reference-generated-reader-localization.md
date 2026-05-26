@@ -23,10 +23,11 @@ Move the Alpha reference-route generated reader to:
 mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json
 ```
 
-Teach `scripts/generate_alpha_reference_routes.py`,
-`scripts/validate_reference_route_contracts.py`, and
-`scripts/validate_agents.py` the part-local route, and keep the former root
-path absent through validation.
+Teach
+`mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py`,
+`mechanics/questbook/scripts/validate_alpha_reference_routes.py`, and
+`scripts/validate_agents.py` the part-local route, and keep the former root path
+absent through validation.
 
 ## Consequences
 
@@ -41,8 +42,8 @@ should reference the part-local path.
 ## Validation
 
 ```bash
-python scripts/generate_alpha_reference_routes.py --check
-python scripts/validate_reference_route_contracts.py
+python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
+python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 ```

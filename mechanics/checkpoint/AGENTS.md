@@ -45,7 +45,7 @@ routes, and growth-facing checkpoint boundaries.
 
 ```bash
 python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
-python scripts/validate_reference_route_contracts.py
+python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py

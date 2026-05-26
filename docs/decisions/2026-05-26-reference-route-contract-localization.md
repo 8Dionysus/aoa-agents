@@ -26,7 +26,8 @@ Move reference-route contracts into their owning parts:
 - Alpha curated reference-route schema and examples into
   `mechanics/questbook/parts/alpha-reference-routes/{schemas,examples}/`
 
-Add `scripts/validate_reference_route_contracts.py` and route
+Add the reference-route validator now held at
+`mechanics/checkpoint/scripts/validate_reference_route_contracts.py` and route
 `scripts/validate_agents.py` through the part-local paths so former root
 paths stay absent, generated Alpha readers stay aligned, and reference route
 packs continue to validate against cohort, tier, and runtime-seam contracts.
@@ -44,7 +45,8 @@ kebab-case package names.
 Validation for this route is:
 
 ```bash
-python scripts/validate_reference_route_contracts.py
-python scripts/generate_alpha_reference_routes.py --check
+python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
+python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
+python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_agents.py
 ```
