@@ -48,6 +48,7 @@ Codex runtime behavior.
 python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
 python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
+python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
 python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
 python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
 python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py

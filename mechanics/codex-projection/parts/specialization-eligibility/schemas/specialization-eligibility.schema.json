@@ -107,6 +107,7 @@
         "sandbox_mode": {
           "enum": [
             "read-only",
+            "write-candidate-only",
             "workspace-write",
             "danger-full-access"
           ]

@@ -19,7 +19,10 @@ PART_ROOT = (
 )
 SCHEMA_PATH = PART_ROOT / "schemas" / "specialization-eligibility.schema.json"
 EXAMPLE_PATH = PART_ROOT / "examples" / "specialization-eligibility.example.json"
+RECORDS_DIR = PART_ROOT / "records"
+READINESS_PATH = PART_ROOT / "generated" / "specialization-eligibility-readiness.min.json"
 VALIDATOR_PATH = PART_ROOT / "scripts" / "validate_specialization_eligibility.py"
+BUILDER_PATH = PART_ROOT / "scripts" / "build_specialization_eligibility_readiness.py"
 MANIFEST_PATH = REPO_ROOT / "generated" / "codex_agents" / "projection_manifest.json"
 
 
@@ -50,6 +53,60 @@ class SpecializationEligibilityTests(unittest.TestCase):
         self.assertTrue(example["guardrails"]["no_generated_agent_change"])
         self.assertTrue(example["guardrails"]["no_workspace_install"])
         self.assertTrue(example["guardrails"]["no_runtime_activation"])
+
+    def test_records_cover_every_role_specialization_without_projection(self) -> None:
+        schema = load_json(SCHEMA_PATH)
+        manifest = load_json(MANIFEST_PATH)
+        generated_names = {entry["name"] for entry in manifest["generated_agents"]}
+        specialization_ids = {
+            load_json(path)["id"]
+            for path in (REPO_ROOT / "agents" / "roles").glob("*/specializations/*/specialization.json")
+        }
+        record_paths = sorted(RECORDS_DIR.glob("*.eligibility.json"))
+        records = [load_json(path) for path in record_paths]
+
+        self.assertEqual({record["specialization_id"] for record in records}, specialization_ids)
+        self.assertEqual(len(records), 5)
+        for record in records:
+            errors = [error.message for error in Draft202012Validator(schema).iter_errors(record)]
+            self.assertEqual(errors, [])
+            self.assertEqual(record["projection_scope"], "base_role_profiles_only")
+            self.assertEqual(record["decision"]["status"], "candidate_only")
+            self.assertEqual(record["codex_install"]["install_state"], "not_projected")
+            self.assertNotIn(record["codex_install"]["proposed_agent_name"], generated_names)
+            self.assertTrue(record["guardrails"]["no_generated_agent_change"])
+            self.assertTrue(record["guardrails"]["no_workspace_install"])
+            self.assertTrue(record["guardrails"]["no_runtime_activation"])
+
+    def test_readiness_reader_summarizes_records(self) -> None:
+        readiness = load_json(READINESS_PATH)
+        record_ids = {
+            load_json(path)["specialization_id"]
+            for path in RECORDS_DIR.glob("*.eligibility.json")
+        }
+
+        self.assertEqual(readiness["projection_scope"], "base_role_profiles_only")
+        self.assertEqual(readiness["counts"]["records"], len(record_ids))
+        self.assertEqual(readiness["counts"]["by_decision_status"], {"candidate_only": len(record_ids)})
+        self.assertEqual(readiness["counts"]["by_install_state"], {"not_projected": len(record_ids)})
+        self.assertEqual({item["specialization_id"] for item in readiness["records"]}, record_ids)
+        self.assertEqual(
+            readiness["projection_boundary"],
+            {
+                "generated_surface_policy": "no_generated_change",
+                "workspace_install_policy": "no_workspace_install",
+                "runtime_activation_policy": "no_runtime_activation",
+            },
+        )
+
+    def test_readiness_builder_accepts_generated_reader(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(BUILDER_PATH), "--check"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
 
     def test_validator_accepts_part(self) -> None:
         result = subprocess.run(

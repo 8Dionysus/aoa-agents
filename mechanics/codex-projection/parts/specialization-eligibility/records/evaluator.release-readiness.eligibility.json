@@ -1,0 +1,96 @@
+{
+  "schema_version": "codex_specialization_eligibility_v1",
+  "kind": "codex_specialization_eligibility",
+  "id": "codex-specialization-eligibility.evaluator.release-readiness",
+  "owner_repo": "aoa-agents",
+  "projection_scope": "base_role_profiles_only",
+  "specialization_id": "evaluator.release-readiness",
+  "specialization_ref": "agents/roles/evaluator/specializations/release-readiness/specialization.json",
+  "base_role_id": "evaluator",
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/release-readiness.readonly.capability.json",
+  "codex_install": {
+    "install_state": "not_projected",
+    "proposed_agent_name": "evaluator-release-readiness",
+    "generated_surface_policy": "no_generated_change",
+    "workspace_install_policy": "no_workspace_install"
+  },
+  "permission_posture": {
+    "sandbox_mode": "read-only",
+    "approval_gate": "not_required",
+    "tool_policy_refs": [
+      "python:release-check",
+      "git:diff-status-readonly",
+      "rg:proof-surface-scan"
+    ],
+    "skill_refs": [
+      "aoa-invariant-coverage-audit",
+      "aoa-contract-test",
+      "aoa-source-of-truth-check"
+    ],
+    "technique_refs": [
+      "aoa-techniques:release-readiness",
+      "aoa-techniques:evidence-led-closeout"
+    ],
+    "memory_routes": [
+      "aoa-memo:brief"
+    ],
+    "proof_routes": [
+      "scripts/release_check.py",
+      "scripts/validate_agents.py",
+      "python -m unittest discover -s tests -p 'test_*.py'"
+    ]
+  },
+  "owner_consent": {
+    "consent_state": "not_requested",
+    "required_owners": [
+      "aoa-agents",
+      "workspace-codex",
+      "aoa-skills",
+      "aoa-techniques",
+      "aoa-memo",
+      "aoa-evals"
+    ],
+    "granted_owners": [
+      "aoa-agents"
+    ]
+  },
+  "evidence": {
+    "required_refs": [
+      "agents/roles/evaluator/specializations/release-readiness/specialization.json",
+      "agents/operating-model/capabilities/packs/release-readiness.readonly.capability.json",
+      "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+      "generated/role_specialization_catalog.min.json",
+      "generated/capability_pack_registry.min.json",
+      "generated/codex_agents/projection_manifest.json"
+    ],
+    "observed_refs": [
+      "repo:aoa-agents/pull/223",
+      "repo:aoa-agents/pull/225",
+      "repo:aoa-agents/pull/227"
+    ],
+    "missing_refs": [
+      "reviewed workspace Codex install consent",
+      "repeatable successful use evidence for evaluator.release-readiness",
+      "reviewed proof route from aoa-evals"
+    ],
+    "proof_commands": [
+      "python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py",
+      "python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check"
+    ]
+  },
+  "decision": {
+    "status": "candidate_only",
+    "decided_by": null,
+    "decided_at": null,
+    "rationale": "Release readiness is valuable as a read-only specialization, but its evaluation posture must not become aoa-evals verdict canon through this repo.",
+    "next_review_trigger": "Review after release-readiness use repeatedly distinguishes local checks from aoa-evals proof authority."
+  },
+  "refresh_law_ref": "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md",
+  "guardrails": {
+    "no_generated_agent_change": true,
+    "no_workspace_install": true,
+    "no_runtime_activation": true,
+    "requires_reviewed_intake": true
+  }
+}
+

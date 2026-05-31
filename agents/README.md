@@ -84,6 +84,10 @@ Specializations are published through
 `.codex/agents/` entries until a separate projection eligibility surface says
 which specialization is installable, with which permissions, and under whose
 refresh law.
+That eligibility queue lives under
+`mechanics/codex-projection/parts/specialization-eligibility/records/`, with a
+generated readiness reader at
+`mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`.
 
 ## Stop Lines
 

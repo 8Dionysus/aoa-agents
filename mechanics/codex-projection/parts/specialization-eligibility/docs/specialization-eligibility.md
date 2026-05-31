@@ -23,6 +23,11 @@ Keep this order:
 
 The eligibility record sits at step 3. It is not step 4, 5, or 6.
 
+Current source eligibility records live under
+`mechanics/codex-projection/parts/specialization-eligibility/records/`.
+The generated readiness reader lives at
+`mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`.
+
 ## What The Gate Must Name
 
 An eligibility record must name:
@@ -74,19 +79,41 @@ It deliberately remains `not_projected` and keeps the repo manifest scope at
 That lets future agents inspect the shape of a promotion packet without
 accidentally installing a specialized agent.
 
+## Readiness Queue
+
+The active queue records every current role-local specialization:
+
+- `architect.topology-steward`
+- `coder.repo-refactor`
+- `evaluator.release-readiness`
+- `memory-keeper.writeback-steward`
+- `reviewer.route-drift-review`
+
+All five records currently remain `candidate_only` and `not_projected`.
+Their missing evidence keeps the next move explicit: workspace Codex install
+consent, repeatable successful use evidence, and reviewed proof routing.
+
+The readiness reader is generated from the records. It is useful for scanning
+candidate state, but it does not own projection decisions.
+
 ## Validation
 
 Run:
 
 ```bash
+python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
 python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
 python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
 ```
 
-The validator checks the schema, example, source specialization link, capability
-pack link, projection-scope boundary, and non-install guardrails.
+The validator checks the schema, example, source specialization links,
+capability pack links, record coverage for every current specialization,
+readiness-reader freshness, projection-scope boundary, and non-install
+guardrails.
 
 Active schema and example:
 
 - `mechanics/codex-projection/parts/specialization-eligibility/schemas/specialization-eligibility.schema.json`
 - `mechanics/codex-projection/parts/specialization-eligibility/examples/specialization-eligibility.example.json`
+- `mechanics/codex-projection/parts/specialization-eligibility/records/`
+- `mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`
