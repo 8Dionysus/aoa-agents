@@ -70,3 +70,4 @@
 ## 2026-05-31
 
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)

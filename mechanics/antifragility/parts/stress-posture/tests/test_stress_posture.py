@@ -38,11 +38,13 @@ class AntifragilityStressPostureTests(unittest.TestCase):
     def test_stress_surfaces_are_discoverable_and_bounded(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        contour = (REPO_ROOT / "docs" / "CURRENT_CONTOUR.md").read_text(encoding="utf-8")
         posture = (REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-posture.md").read_text(encoding="utf-8")
         handoffs = (REPO_ROOT / "mechanics" / "antifragility" / "parts" / "stress-posture" / "docs" / "stress-handoffs.md").read_text(encoding="utf-8")
 
-        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-posture.md", readme)
-        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md", readme)
+        self.assertIn("docs/CURRENT_CONTOUR.md", readme)
+        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-posture.md", contour)
+        self.assertIn("mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md", contour)
         self.assertIn("Agent Stress Posture", docs_readme)
         self.assertIn("Agent Stress Handoffs", docs_readme)
 

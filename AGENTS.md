@@ -2,51 +2,93 @@
 
 Root route card for `aoa-agents`.
 
+## Applies To
+
+This card applies to the whole repository unless a nearer nested `AGENTS.md`
+narrows the lane.
+
+## Role
+
+This card keeps local work inside the `aoa-agents` role and persona layer,
+names the nearest owner boundary, and routes wider claims to the owning surface.
+
+It is the agent-facing route law for this repository. It does not replace
+`README.md`, `CHARTER.md`, `DESIGN.md`, `DESIGN.AGENTS.md`,
+`docs/BOUNDARIES.md`, source objects, mechanic packages, or local owner truth.
+
 ## Purpose
 
-`aoa-agents` is the role and persona layer of AoA.
-It stores explicit agent profiles, role contracts, handoff posture, memory and evaluation posture, model-tier surfaces, bounded cohort hints, progression overlays, recurrence discipline, and self-agent checkpoint contract posture.
-It does not implement runtime autonomy.
+`aoa-agents` owns role-bearing actor meaning: profile structure, role
+contracts, handoff posture, memory posture, evaluation posture, operating-model
+surfaces, bounded cohort hints, role specializations, and generated
+agent-layer consumer seams.
 
-## Owner lane
+It does not implement runtime autonomy and does not own skill workflow truth,
+technique truth, proof doctrine, memory objects, routing policy, playbook
+scenario canon, KAG substrate semantics, stats summaries, or runtime workers.
 
-This repository owns:
+## Operating Map
 
-- profile structure and role-contract wording
-- handoff, memory, evaluation, model-tier, orchestrator-class, and cohort-pattern posture at the agent layer
-- progression, recurrence, mastery-axis, unlock, and self-agent checkpoint contract surfaces when defined here
-- generated registries and published agent-layer consumer seams
+| Field | Route |
+| --- | --- |
+| input | role, persona, handoff, posture, projection, or agent-layer operation pressure |
+| output | source role object, mechanic-local contract, generated companion, decision record, or stronger-owner handoff |
+| owner | source objects under `agents/`, operation packages under `mechanics/`, and route docs under `docs/` |
+| next route | nearest nested `AGENTS.md`, then the source surface, mechanic package, builder, validator, or sibling owner |
+| validation | [Verify](#verify), plus the nearest local card |
 
-It does not own:
+## Read Before Editing
 
-- skills, techniques, proof verdicts, routing policy, memory-object schemas, playbook scenarios, KAG substrate semantics, stats summaries, or live runtime checkpoint execution
+For first reading or outside orientation:
 
-## Start here
+1. [README](README.md)
+2. [CHARTER](CHARTER.md)
+3. [DESIGN](DESIGN.md)
+4. [agents](agents/README.md)
+5. [mechanics](mechanics/README.md)
+6. [BOUNDARIES](docs/BOUNDARIES.md)
+7. [ROADMAP.md](ROADMAP.md)
 
-1. `README.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md` for design/topology work
-4. [ROADMAP.md](ROADMAP.md)
-5. `CHARTER.md`
-6. `docs/BOUNDARIES.md`
-7. `agents/README.md` when source-authored agent objects are in scope
-8. `mechanics/README.md` when repeatable operation topology is in scope
-9. `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md` when Codex projection freshness or workspace subagent refresh is in scope
-10. the target profile, model-tier, orchestrator, schema, or generated surface
-11. neighboring repo docs when skills, memo, evals, playbooks, or routing are touched
-12. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+For agent editing:
 
+1. this `AGENTS.md`
+2. nearest nested `AGENTS.md` for every touched path
+3. the route-mode surface from the table below
+4. nearest source file, package card, schema, builder, validator, test, or
+   generated-source owner
+5. the narrowest relevant validator before broader gates
 
-## AGENTS stack law
+For preserved legacy root branches, use
+`docs/AGENTS_ROOT_REFERENCE.md` only as a reference. If a preserved rule still
+governs current work, move it to the nearest owner surface rather than
+re-bloating this card.
+
+## Route Modes
+
+| Route mode | Use when | First surface |
+| --- | --- | --- |
+| `first-reading` | you need the shortest honest overview | [README](README.md) |
+| `authority-boundary` | repository authority, owner split, or role-layer claim changes | [CHARTER](CHARTER.md) and [BOUNDARIES](docs/BOUNDARIES.md) |
+| `system-design` | repository shape, source/generated posture, or layer relationship changes | [DESIGN](DESIGN.md) |
+| `agent-surface-design` | route-card shape, agent-facing guidance, or card mesh posture changes | [DESIGN.AGENTS](DESIGN.AGENTS.md) |
+| `source-object` | role profiles, forms, specializations, tiers, capabilities, orchestrators, cohorts, or runtime-seam bindings change | [agents](agents/README.md) |
+| `mechanic-change` | repeatable operation topology, package route, part-local contract, provenance, or validation changes | [mechanics](mechanics/README.md) |
+| `codex-projection` | Codex custom-agent projection, specialization eligibility, workspace install, or freshness changes | [codex-projection](mechanics/codex-projection/README.md) and `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md` |
+| `direction-change` | roadmap, release contour, future trigger, or repo-level direction changes | [ROADMAP.md](ROADMAP.md) |
+| `current-contour` | shipped surface families or root discoverability change | [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md) |
+| `generated-surface` | generated registries, readers, or projections change | source surface -> builder -> generated output -> validator |
+| `local-memory-port` | repo-local memo candidate, receipt, export, or local note changes | [memo/AGENTS](memo/AGENTS.md) |
+
+## AGENTS Stack Law
 
 - Start with this root card, then follow the nearest nested `AGENTS.md` for every touched path.
 - Root guidance owns repository identity, owner boundaries, route choice, and the shortest honest verification path.
 - Nested guidance owns local contracts, local risk, exact files, and local checks.
 - Authored source surfaces own meaning. Generated, exported, compact, derived, runtime, and adapter surfaces summarize, transport, or support meaning.
-- Self-agency, recurrence, quest, progression, checkpoint, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
+- Self-agency, recurrence, quest, progression, checkpoint, formation, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
 - Report what changed, what was verified, what was not verified, and where the next agent should resume.
 
-## Memory route
+## Memory Route
 
 For recall, continuity, compaction recovery, comparison with past work, or
 preserved lessons, start with `aoa-memo` and the workspace memory map. Session
@@ -54,13 +96,23 @@ grounding routes through `.aoa`; local candidate writing routes through this
 repository's `memo/` port when that port exists; durable reviewed memory lands
 through `aoa-memo`.
 
-## Route away when
+## Decision Review
 
-- an agent profile starts becoming a skill, playbook, memory schema, proof doctrine, or runtime implementation
-- progression becomes a universal score or live routing policy
-- self-agent language skips approval, rollback, evidence, or handoff contracts
+After structural, ownership, workflow, route-law, validator-authority,
+public-contract, projection, or topology changes, check whether future agents
+need a decision record to understand why the path was chosen. Use
+`docs/decisions/AGENTS.md` and `docs/decisions/README.md` for the local rule.
 
-## GitHub landing workflow
+If no record is needed, say so in closeout.
+
+## Route Away When
+
+- an agent profile starts becoming a skill, playbook, memory schema, proof doctrine, route policy, or runtime implementation;
+- progression becomes a universal score or live routing policy;
+- formation, self-agent, checkpoint, Titan, quest, or recurrence language skips approval, rollback, evidence, or handoff contracts;
+- generated or projected files are treated as stronger than source role objects or mechanic-local contracts.
+
+## GitHub Landing Workflow
 
 Root `AGENTS.md` owns the repository-wide branch, PR, CI, and merge route.
 `.github/AGENTS.md` owns the GitHub-native files that support it.
@@ -74,26 +126,32 @@ When the user asks to commit, push, and merge in this repository, use this route
 5. Merge through GitHub after green validation. Use squash unless repository settings report a different required method; report the method that landed.
 6. Return to `main`, fast-forward from `origin/main`, and confirm the worktree is clean before closeout.
 
-If GitHub status or merge permissions cannot be observed, stop the landing route and report the exact blocker instead of guessing.
+If GitHub status or merge permissions cannot be observed, stop the landing
+route and report the exact blocker instead of guessing.
 
 ## Verify
 
-Minimum source or generated-surface validation:
+For root docs, route-card, and current-contour changes, run:
 
 ```bash
-python scripts/build_published_surfaces.py
 python scripts/validate_semantic_agents.py
 python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
+python -m pytest -q tests
+```
+
+For source or generated-surface changes, add:
+
+```bash
+python scripts/build_published_surfaces.py
 python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 ```
 
-Use optional federation smoke checks when sibling reachability matters.
+Use optional federation smoke checks only when sibling reachability matters.
 
 ## Report
 
-State which profile, contract, schema, progression, checkpoint, or published surface changed, whether role boundaries or authority changed, and what validation ran.
-
-## Full reference
-
-`docs/AGENTS_ROOT_REFERENCE.md` preserves the former detailed root guidance, including branch docs for progression, recurrence, self-agent checkpoints, orchestrator classes, and Codex projection.
+State which role, source family, mechanic, projection, contour, or published
+surface changed; whether role boundaries or authority changed; what validation
+ran; what was skipped; decision review result; and where the next owner route
+is.

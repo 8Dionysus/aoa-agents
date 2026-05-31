@@ -1,114 +1,115 @@
 # Documentation Map
 
-This file is the human-first entrypoint for the `docs/` surface of `aoa-agents`.
+This is the human and agent entrypoint for the `docs/` surface of
+`aoa-agents`.
 
-Use it when you want to understand the AoA agent layer rather than the broader federation as a whole.
+Use the root [README](../README.md) as the public front door. Use this file
+after entering `docs/` to choose the right role-layer source, map, boundary,
+decision, or operation route.
 
-## Start here
+Operational edit law belongs in the nearest `AGENTS.md`. This map explains
+where meaning lives and which surface to open next.
 
-- Read [CHARTER](../CHARTER.md) for the role and boundaries of the agent layer.
-- Read [DESIGN](../DESIGN.md), [agents/README](../agents/README.md), [agents/source_home.manifest.json](../agents/source_home.manifest.json), and [mechanics/README](../mechanics/README.md) for the current source-object home and operation-topology split.
-- Read [AGENT_MODEL](AGENT_MODEL.md) for the conceptual model.
-- Read [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md) for the bounded boundary note that now routes from legacy role contracts into landed agonic adjuncts, landed assistant civil adjuncts, and landed formation-trial judgment while keeping protocol law out of this repository.
-- Read [Agonic Actor Rechartering](../mechanics/agon/parts/formation/docs/actor-rechartering.md) and [Agonic Actor Rechartering Landing](../mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md) for the first landed Agon-facing actor turn.
-- Read [Assistant Civil Rechartering](../mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md) and [Assistant Civil Rechartering Landing](../mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md) for the landed civil/service turn that prevents assistant drift into hidden contestants.
-- Read [Agent Formation Trial](../mechanics/agon/parts/formation/docs/formation-trial.md) and [Formation Trial Landing](../mechanics/agon/parts/formation/docs/formation-trial-landing.md) for the first landed pre-protocol judgment that decides whether the split forms are readable enough for lawful-move design.
-- Read [Agon Pre-Protocol Agent Boundary](../mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md), [Formation Trial Readiness](../mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md), and [Codex Projection Agon Boundary](../mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md) for the stop-lines that keep formation judgment from quietly becoming arena protocol or live Codex prompt law.
-- Read [Assistant Kind Model](../mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md), [Assistant Service Identity Model](../mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md), [Assistant Service Contract Model](../mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md), [Assistant Service Governance Model](../mechanics/experience/parts/assistant-civil-service/docs/service-governance-model.md), [Assistant Service Certification Model](../mechanics/experience/parts/assistant-civil-service/docs/service-certification-model.md), [Assistant Arena Exclusion Model](../mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md), and [Assistant Escalation to Agon](../mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md) for the six assistant companion families and their escalation law.
-- Read [Agent Kind Model](../mechanics/agon/parts/formation/docs/kind-model.md), [Agent Subjectivity Model](../mechanics/agon/parts/formation/docs/subjectivity-model.md), [Agent Office Model](../mechanics/experience/parts/office-operations/docs/agent-office-model.md), [Agent Arena Eligibility Model](../mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md), and [Agent Resistance and Revision Posture](../mechanics/agon/parts/formation/docs/resistance-revision-posture.md) for the five companion adjunct families.
-- Read [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) for the source-authored role-contract surface.
-- Read [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) for the source-authored orchestrator-class surface.
-- Read [Registry Source Surfaces](../mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md) for the source-authored machine-readable registry layer.
-- Read [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) for the projected Codex custom-agent install surface.
-- Read [Codex Specialization Eligibility](../mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md) for the gate, eligibility records, and generated readiness reader between role-local specializations and any future Codex custom-agent projection.
-- Read [Codex Subagent Refresh Law](../mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md) for the owner refresh route when source profiles, projection wiring, generated agent TOML, or workspace install seams drift.
-- Read [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) for role-level memory rights and posture.
-- Read [Agent Stress Posture](../mechanics/antifragility/parts/stress-posture/docs/stress-posture.md) for additive role narrowing under stress.
-- Read [Agent Stress Handoffs](../mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md) for bounded stress handoff envelopes between actors.
-- Read [MODEL_TIER_MODEL](MODEL_TIER_MODEL.md) for the separate tier-oriented orchestration model.
-- Read [Agent Cohort Patterns](../mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md) for the bounded cohort composition surface.
-- Read [Agent Runtime Seam](../mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md) for the contract-first runtime seam.
-- Read [Federation Consumer Seams](../mechanics/boundary-bridge/parts/federation-consumer-seams/docs/federation-consumer-seams.md) for the bounded cross-repo consumer seams.
-- Read [Workspace Surface Trigger Posture](../mechanics/boundary-bridge/parts/workspace-trigger/docs/workspace-surface-trigger-posture.md) for the additive workspace-trigger law around `aoa surfaces detect`.
-- Read [Runtime Artifact Transitions](../mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md) for public loop coverage and transition discipline.
-- Read [Recurrence Discipline](../mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md) for explicit recurrence discipline and bounded return governance.
-- Read [Self-Agent Checkpoint Stack](../mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md) for the bounded self-agent contract.
-- Read [Self-Agency Continuity Lane](../mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md) for the bounded continuity window and anchor-return contract.
-- Read [Reference Route Examples](../mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md) for example-only and Alpha route packs.
-- Read [QUESTBOOK](../QUESTBOOK.md) and [quests](../quests/README.md) for active quest records and dispatch posture.
-- Read [QUEST execution passport](../mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md) for quest-facing execution posture.
-- Read [BOUNDARIES](BOUNDARIES.md) for ownership discipline relative to neighboring AoA layers.
-- Read [ROADMAP](../ROADMAP.md) for the current direction.
+## Operating Card
 
-## Docs in this repository
+| Field | Route |
+| --- | --- |
+| role | docs entrypoint and source-of-truth chooser |
+| input | role-model, boundary, contour, formation, projection, handoff, or docs-placement questions |
+| output | next owner surface, mechanic package, source object, decision record, or stronger-owner route |
+| owner | `docs/AGENTS.md` for docs edits; target source files own their meaning |
+| next route | `agents/`, `mechanics/`, `docs/decisions/`, or sibling owner repositories |
+| validation | [docs/AGENTS](AGENTS.md) and the nearest owner route card |
 
-- [AGENT_MODEL](AGENT_MODEL.md) — what the agent layer is for
-- [Agent Subject Prep](../mechanics/agon/parts/formation/docs/subject-prep.md) — what future subject-bearing agent preparation, agonic/assistant kind separation, and civil/service assistant formation may and may not move into the agent layer
-- [Agonic Actor Rechartering](../mechanics/agon/parts/formation/docs/actor-rechartering.md) — how existing role homes survive Agon scrutiny through reviewed companion surfaces rather than profile-schema widening
-- [Agonic Actor Rechartering Landing](../mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md) — the agonic actor landing law, acceptance signals, and downstream handoff
-- [Assistant Civil Rechartering](../mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md) — how assistant variants become explicit civil/service forms instead of hidden contestants
-- [Assistant Civil Rechartering Landing](../mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md) — the assistant civil landing law, exit signals, and downstream bridge
-- [Agent Formation Trial](../mechanics/agon/parts/formation/docs/formation-trial.md) — how the first pre-protocol judgment decides whether current role houses survive as readable split forms
-- [Formation Trial Landing](../mechanics/agon/parts/formation/docs/formation-trial-landing.md) — the formation-trial landing law and the first passed formation-trial result
-- [Agon Pre-Protocol Agent Boundary](../mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md) — how candidate seats, eligibility, and assistant escalation remain distinct from live protocol authority
-- [Formation Trial Readiness](../mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md) — how disciplined incompleteness becomes enough actor clarity for lawful-move design without opening an arena
-- [Codex Projection Agon Boundary](../mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md) — how Codex projection stays outside live Agon formation law until owner-reviewed projection work exists
-- [Agent Kind Model](../mechanics/agon/parts/formation/docs/kind-model.md) — how `kind` separates agonic form from office while keeping agonic files distinct from landed assistant files
-- [Agent Subjectivity Model](../mechanics/agon/parts/formation/docs/subjectivity-model.md) — how beliefs, image, affects, and thought posture stay role-owned without becoming scars, verdicts, or runtime packets
-- [Agent Office Model](../mechanics/experience/parts/office-operations/docs/agent-office-model.md) — how battle-facing office overlays stay adjunct and do not widen the public profile catalog too early
-- [Agent Arena Eligibility Model](../mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md) — how eligibility remains candidate posture rather than live arena authority
-- [Agent Resistance and Revision Posture](../mechanics/agon/parts/formation/docs/resistance-revision-posture.md) — how role-owned resistance rights and revision duties stay explicit without becoming battle history
-- [Assistant Kind Model](../mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md) — how assistant form becomes an explicit second side of the kind split
-- [Assistant Service Identity Model](../mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md) — how assistant dignity stays service-shaped and low-variance
-- [Assistant Service Contract Model](../mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md) — how mandate, scope, receipts, and escalation stay explicit for assistant variants
-- [Assistant Service Governance Model](../mechanics/experience/parts/assistant-civil-service/docs/service-governance-model.md) — how assistant revision stays external, release-governed, and rollback-aware
-- [Assistant Service Certification Model](../mechanics/experience/parts/assistant-civil-service/docs/service-certification-model.md) — how assistant trust stays tied to certification profiles rather than victory
-- [Assistant Arena Exclusion Model](../mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md) — how service actors remain excluded from contestant, judge, closer, scar-writer, and ToS promotion authority
-- [Assistant Escalation to Agon](../mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md) — how assistants lawfully escalate pressure upward without becoming agonic actors
-- [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) — how source-authored role contracts stay distinct from the compact generated registry
-- [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) — how orchestrator classes stay source-authored, capsule-friendly, and distinct from quest workloads
-- [Registry Source Surfaces](../mechanics/boundary-bridge/parts/source-surface-registry/docs/registry-source-surfaces.md) — how source-authored machine-readable tier, cohort, and seam surfaces publish compact registries
-- [Codex Subagent Projection](../mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md) — how active role profiles project into generated Codex custom-agent TOML and workspace config snippets without moving authorship out of `agents/roles/`
-- [Codex Specialization Eligibility](../mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md) — how role-local specializations can be considered for future Codex projection through candidate-only eligibility records and readiness readers without becoming installed agents by default
-- [Codex Subagent Refresh Law](../mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md) — how repeated projection drift turns into owner-owned refresh work without making generated or installed agent files canonical
-- [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) — how role-level memory rights stay explicit without becoming memory canon
-- [Agent Stress Posture](../mechanics/antifragility/parts/stress-posture/docs/stress-posture.md) — how role-bearing actors narrow mutation appetite, proof posture, and memory writeback under stress without widening authority
-- [Agent Stress Handoffs](../mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md) — how stressed actors pass bounded evidence, blocked actions, and re-entry conditions without turning handoff envelopes into proof
-- [MODEL_TIER_MODEL](MODEL_TIER_MODEL.md) — how the tier-oriented orchestration side stays explicit and bounded
-- [Agent Cohort Patterns](../mechanics/rpg/parts/cohort-patterns/docs/cohort-patterns.md) — how official cohort patterns stay compact and distinct from playbooks
-- [Agent Runtime Seam](../mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md) — how role-and-tier binding stays explicit without turning into runtime implementation
-- [Workspace checkpoint-growth role posture](../mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md) — how the April 9 workspace checkpoint-growth closeout leaves one bounded agent-layer role-posture adjunct without widening profiles
-- [A2A Summon Return Role Posture Hold](../mechanics/titan/parts/summon-boundary/docs/a2a-summon-return-role-posture-hold.md) — how the A2A summon return closeout leaves one bounded agent-layer hold without widening profiles
-- [Federation Consumer Seams](../mechanics/boundary-bridge/parts/federation-consumer-seams/docs/federation-consumer-seams.md) — how neighboring repositories consume bounded agent-layer contracts without moving canon here
-- [Workspace Surface Trigger Posture](../mechanics/boundary-bridge/parts/workspace-trigger/docs/workspace-surface-trigger-posture.md) — how workspace sessions open additive `aoa surfaces detect` without turning the agent layer into routing or skill canon
-- [Runtime Artifact Transitions](../mechanics/runtime-seam/parts/transition-discipline/docs/runtime-artifact-transitions.md) — how artifact coverage and transition governance stay bounded inside the public loop
-- [Recurrence Discipline](../mechanics/recurrence/parts/anchor-return/docs/recurrence-discipline.md) — how recurrence stays explicit, anchor-based, and bounded without becoming runtime implementation
-- [Self-Agent Checkpoint Stack](../mechanics/checkpoint/parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md) — how self-agent surfaces stay bounded, reviewable, and rollback-aware
-- [Self-Agency Continuity Lane](../mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md) — how continuity windows, bounded revision, and anchor-return posture stay explicit at the agent layer
-- [Reference Route Examples](../mechanics/checkpoint/parts/reference-routes/docs/reference-route-examples.md) — how reference route packs and Alpha companions stay example-only and playbook-facing
-- [QUESTBOOK](../QUESTBOOK.md) - how active quest records and dispatch readers stay agent-layer and bounded
-- [QUEST execution passport](../mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md) — how quest difficulty, risk, control, and delegate-tier posture stay inspectable
-- [BOUNDARIES](BOUNDARIES.md) — what the agent layer owns and must not absorb
+## First Route
 
-## Verify current published surfaces
+| Question | Open |
+| --- | --- |
+| What is this repository? | [aoa-agents](../README.md) |
+| May this claim live here? | [CHARTER](../CHARTER.md), then [BOUNDARIES](BOUNDARIES.md) |
+| What shape is the role layer preserving? | [DESIGN](../DESIGN.md) |
+| How should agent-facing route cards look? | [DESIGN.AGENTS](../DESIGN.AGENTS.md) |
+| What is an agent here? | [AGENT_MODEL](AGENT_MODEL.md) |
+| Where do role source objects live? | [agents](../agents/README.md) |
+| Which shipped route family should I inspect? | [CURRENT_CONTOUR](CURRENT_CONTOUR.md) |
+| Which repeatable operation owns this? | [mechanics](../mechanics/README.md), then the owning package |
+| What should happen next at repo level? | [ROADMAP](../ROADMAP.md) |
+| Why was this topology chosen? | [decisions](decisions/README.md) |
 
-- Run `python scripts/validate_agents.py` for the local non-mutating contract and example checks.
-- Run `python -m pytest -q tests` for the local test suite.
-- Run `python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check`, `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, and `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py` for the explicit agonic actor recharter lane.
-- Run `python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check`, `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`, `python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`, and `python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py mechanics/experience/tests/test_experience_assistant_civil_contracts.py` for the explicit assistant civil recharter lane.
-- Run `python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check`, `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`, and `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py` for the explicit formation-trial lane.
-- Add `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, and `AOA_ROUTING_ROOT` only when you want bounded consumer-smoke checks against sibling repositories.
-- Use `python scripts/build_published_surfaces.py` only after editing source-authored registry inputs.
+## Source Families
+
+| Family | Owner Surface |
+| --- | --- |
+| Agent conceptual model | [AGENT_MODEL](AGENT_MODEL.md) |
+| Source-authored profile shape | [AGENT_PROFILE_SURFACE](AGENT_PROFILE_SURFACE.md) |
+| Role-level memory posture | [AGENT_MEMORY_POSTURE](AGENT_MEMORY_POSTURE.md) |
+| Model-tier posture | [MODEL_TIER_MODEL](MODEL_TIER_MODEL.md) |
+| Orchestrator class identity | [ORCHESTRATOR_CLASS_MODEL](ORCHESTRATOR_CLASS_MODEL.md) |
+| Repository boundaries | [BOUNDARIES](BOUNDARIES.md) |
+| Current shipped contour | [CURRENT_CONTOUR](CURRENT_CONTOUR.md) |
+| Structural decisions | [decisions](decisions/README.md) |
+| Preserved root reference | [AGENTS_ROOT_REFERENCE](AGENTS_ROOT_REFERENCE.md) |
+
+## Mechanic Routes
+
+Mechanic-local docs live with their mechanics, not as a flat `docs/` pile.
+
+| Route Family | Start Surface |
+| --- | --- |
+| Codex projection, specialization eligibility, and Codex Subagent Refresh Law | [mechanics/codex-projection](../mechanics/codex-projection/README.md) |
+| Agonic Actor Rechartering, Agent Kind Model, Agent Resistance and Revision Posture, Agent Formation Trial, Formation Trial Landing, and Codex Projection Agon Boundary | [mechanics/agon](../mechanics/agon/README.md) |
+| Assistant Civil Rechartering, Assistant Service Contract Model, Assistant Escalation to Agon, service identity, governance, certification, and arena exclusion | [mechanics/experience](../mechanics/experience/README.md) |
+| Titan role-bearing, lineage, summon, runtime roster, service cohort, and incarnation identity | [mechanics/titan](../mechanics/titan/README.md) |
+| Agent Stress Posture, Agent Stress Handoffs, via negativa, and scar/adaptation posture | [mechanics/antifragility](../mechanics/antifragility/README.md) |
+| Runtime seam, role-tier bindings, artifact contracts, and transition discipline | [mechanics/runtime-seam](../mechanics/runtime-seam/README.md) |
+| Self-agent checkpoint, continuity lane, reference routes, and reviewed closeout holds | [mechanics/checkpoint](../mechanics/checkpoint/README.md) |
+| Quest execution passport, Alpha reference routes, dispatch readers, and quest source store posture | [mechanics/questbook](../mechanics/questbook/README.md) |
+| Workspace Surface Trigger Posture, federation consumer seams, source registry, and published compatibility | [mechanics/boundary-bridge](../mechanics/boundary-bridge/README.md) |
+| Recursor readiness, recurrence discipline, component manifests, and projection candidates | [mechanics/recurrence](../mechanics/recurrence/README.md) |
+| Cohort patterns, progression model, checkpoint growth, and quest-readable status | [mechanics/rpg](../mechanics/rpg/README.md) |
+
+## Claim Routes
+
+| Question | Route |
+| --- | --- |
+| Is this role or persona meaning? | [CHARTER](../CHARTER.md), [AGENT_MODEL](AGENT_MODEL.md), then `agents/` |
+| Is this a source object or generated reader? | [agents](../agents/README.md), source object, builder, generated output, validator |
+| Is this repeatable operation pressure? | [mechanics](../mechanics/README.md), then package `AGENTS.md` and `PARTS.md` |
+| Is this Codex install or projection drift? | [codex-projection](../mechanics/codex-projection/README.md), then refresh-law and projection docs |
+| Is this proof or verdict logic? | route to `aoa-evals` |
+| Is this workflow execution? | route to `aoa-skills` |
+| Is this reusable practice? | route to `aoa-techniques` |
+| Is this memory object or recall truth? | route to `aoa-memo` |
+| Is this dispatch policy? | route to `aoa-routing` |
+| Is this scenario choreography? | route to `aoa-playbooks` |
+| Is this runtime implementation? | route to `abyss-stack` |
+
+## Change Routes
+
+| Change | First route |
+| --- | --- |
+| Root or docs-map wording | [AGENTS](../AGENTS.md), [DESIGN](../DESIGN.md), this map |
+| Source object family | [agents](../agents/README.md), then nearest branch card |
+| Mechanic package or part | [mechanics](../mechanics/README.md), then package `AGENTS.md` and `PARTS.md` |
+| Current contour discoverability | [CURRENT_CONTOUR](CURRENT_CONTOUR.md) |
+| Generated parity | source surface, builder, generated output, validator, and test together |
+| Decision rationale | [decisions/AGENTS](decisions/AGENTS.md), then [decisions/README](decisions/README.md) |
+| Release-visible public docs | [AGENTS](../AGENTS.md), [CHANGELOG](../CHANGELOG.md) when a release note is actually needed |
+
+## Validation Route
+
+Executable commands for docs-map and root-route changes live in
+[AGENTS.md#verify](../AGENTS.md#verify) and the nearest local route card.
+
+Generated reader parity routes through [generated/AGENTS](../generated/AGENTS.md).
+Mechanic-owned payload docs route through [mechanics/AGENTS](../mechanics/AGENTS.md)
+and the package card.
 
 ## Notes
 
-This repository should stay bounded.
-If a document starts trying to become a technique corpus, workflow corpus, proof corpus, or memory store, it probably belongs in a neighboring AoA repository instead.
-
-Inspectable runtime seam examples live in `mechanics/runtime-seam/parts/artifact-contracts/examples/`.
-Inspectable self-agent checkpoint examples live in
-`mechanics/checkpoint/parts/self-agent-checkpoint/examples/` and continuity
-examples live in `mechanics/checkpoint/parts/continuity-lane/examples/`.
-Adjunct published outputs currently include `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and `generated/codex_agents/`.
-`generated/codex_agents/` is the repo-side install surface for workspace `.codex/agents/`.
-Optional validator smoke checks may read neighboring published surfaces when `AOA_PLAYBOOKS_ROOT`, `AOA_EVALS_ROOT`, `AOA_MEMO_ROOT`, or `AOA_ROUTING_ROOT` are set, but they only test bounded contract reachability and do not import neighboring meaning into this repo.
+- Prefer [CURRENT_CONTOUR](CURRENT_CONTOUR.md) for shipped surface inventories.
+- Prefer [BOUNDARIES](BOUNDARIES.md) when a document starts absorbing sibling
+  meaning.
+- Prefer [decisions](decisions/README.md) when future contributors need to know
+  why a route or topology changed.
+- Prefer the nearest owner route over adding another root paragraph.

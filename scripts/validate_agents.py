@@ -1255,12 +1255,15 @@ def validate_antifragility_stress_surfaces() -> None:
 
     readme = read_text(REPO_ROOT / "README.md")
     docs_readme = read_text(REPO_ROOT / "docs" / "README.md")
+    current_contour = read_text(REPO_ROOT / "docs" / "CURRENT_CONTOUR.md")
     posture_doc = read_text(AGENT_STRESS_POSTURE_DOC_PATH)
     handoff_doc = read_text(AGENT_STRESS_HANDOFFS_DOC_PATH)
 
     for token in ("mechanics/antifragility/parts/stress-posture/docs/stress-posture.md", "mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md"):
-        if token not in readme:
-            fail(f"README.md must link {token}")
+        if token not in current_contour:
+            fail(f"docs/CURRENT_CONTOUR.md must link {token}")
+    if "docs/CURRENT_CONTOUR.md" not in readme:
+        fail("README.md must route shipped surface inventory to docs/CURRENT_CONTOUR.md")
     for token in ("Agent Stress Posture", "Agent Stress Handoffs"):
         if token not in docs_readme:
             fail(f"docs/README.md must mention {token}")

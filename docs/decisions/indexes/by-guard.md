@@ -13,6 +13,7 @@
 - [AOA-AG-D-0046 2026-05-26: Spark Agent Lane Home](../AOA-AG-D-0046-spark-agent-lane-home.md) (`docs/decisions/AOA-AG-D-0046-spark-agent-lane-home.md`)
 - [AOA-AG-D-0047 2026-05-26: Mechanics Package Route Cards](../AOA-AG-D-0047-mechanics-package-route-cards.md) (`docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md`)
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## source topology
 
@@ -23,6 +24,7 @@
 - [AOA-AG-D-0051 2026-05-26: agents source home topology](../AOA-AG-D-0051-agents-source-home-topology.md) (`docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## package route
 
@@ -119,6 +121,7 @@
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
 - [AOA-AG-D-0056 2026-05-30: Specialization Eligibility Registry](../AOA-AG-D-0056-specialization-eligibility-registry.md) (`docs/decisions/AOA-AG-D-0056-specialization-eligibility-registry.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## validation guard
 
@@ -137,6 +140,7 @@
 - [AOA-AG-D-0035 2026-05-26: Experience Adoption Boundary Check Localization](../AOA-AG-D-0035-experience-adoption-boundary-check-localization.md) (`docs/decisions/AOA-AG-D-0035-experience-adoption-boundary-check-localization.md`)
 - [AOA-AG-D-0037 2026-05-26: Experience Agent Service Check Localization](../AOA-AG-D-0037-experience-agent-service-check-localization.md) (`docs/decisions/AOA-AG-D-0037-experience-agent-service-check-localization.md`)
 - [AOA-AG-D-0040 2026-05-26: Reference Route Check Localization](../AOA-AG-D-0040-reference-route-check-localization.md) (`docs/decisions/AOA-AG-D-0040-reference-route-check-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## projection guard
 

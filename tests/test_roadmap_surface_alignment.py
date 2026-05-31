@@ -5,20 +5,31 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+CONTOUR_PATH = REPO_ROOT / "docs" / "CURRENT_CONTOUR.md"
 
 
 class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
-    def test_roadmap_matches_current_v0_2_release_surfaces(self) -> None:
+    def test_roadmap_routes_inventory_to_current_contour(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
-        subject_prep = (REPO_ROOT / "mechanics" / "agon" / "parts" / "formation" / "docs" / "subject-prep.md").read_text(
-            encoding="utf-8"
-        )
+        contour = CONTOUR_PATH.read_text(encoding="utf-8")
+        subject_prep = (
+            REPO_ROOT
+            / "mechanics"
+            / "agon"
+            / "parts"
+            / "formation"
+            / "docs"
+            / "subject-prep.md"
+        ).read_text(encoding="utf-8")
 
         self.assertIn("v0.2.3", readme)
         self.assertIn("[0.2.3]", changelog)
         self.assertIn("v0.2.x", roadmap)
+        self.assertIn("[CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md)", roadmap)
+        self.assertIn("roadmap drift", roadmap)
+        self.assertIn("agonic/assistant kind split", roadmap)
 
         for relative_path in (
             "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md",
@@ -37,23 +48,21 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             "mechanics/agon/parts/formation/docs/subject-prep.md",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
-            self.assertIn(relative_path, roadmap)
+            self.assertIn(relative_path, contour)
 
         self.assertIn("Codex subagent projection", changelog)
         self.assertIn("self-agency continuity posture", changelog)
-        self.assertIn("agonic/assistant kind split", roadmap)
         self.assertIn("civil/service", subject_prep)
         self.assertIn("Agonic Actor Rechartering has now landed", subject_prep)
         self.assertIn("Assistant Civil Rechartering has now landed", subject_prep)
         self.assertIn("Formation Trial has now landed", subject_prep)
         self.assertIn("future additive adjunct", subject_prep)
-        self.assertIn("roadmap drift", roadmap)
 
-    def test_roadmap_names_agonic_actor_recharter_turn(self) -> None:
-        roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    def test_current_contour_names_agonic_actor_recharter_turn(self) -> None:
+        contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("## Unreleased next turn: Agonic Actor Rechartering", roadmap)
-        self.assertIn("explicit agonic actor recharter validation lane", roadmap)
+        self.assertIn("## Agonic Actor Rechartering", contour)
+        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py", contour)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/actor-rechartering.md",
@@ -75,13 +84,16 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             "mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
-            self.assertIn(relative_path, roadmap)
+            self.assertIn(relative_path, contour)
 
-    def test_roadmap_names_assistant_civil_recharter_turn(self) -> None:
-        roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    def test_current_contour_names_assistant_civil_recharter_turn(self) -> None:
+        contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("## Unreleased follow-on turn: Assistant Civil Rechartering", roadmap)
-        self.assertIn("explicit assistant civil validation lane", roadmap)
+        self.assertIn("## Assistant Civil Rechartering", contour)
+        self.assertIn(
+            "python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+            contour,
+        )
 
         for relative_path in (
             "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
@@ -109,13 +121,13 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             "mechanics/experience/tests/test_experience_assistant_civil_contracts.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
-            self.assertIn(relative_path, roadmap)
+            self.assertIn(relative_path, contour)
 
-    def test_roadmap_names_formation_trial_turn(self) -> None:
-        roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    def test_current_contour_names_formation_trial_turn(self) -> None:
+        contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("## Unreleased follow-on turn: Formation Trial", roadmap)
-        self.assertIn("explicit formation-trial validation lane", roadmap)
+        self.assertIn("## Formation Trial", contour)
+        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py", contour)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/formation-trial.md",
@@ -131,7 +143,7 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             "mechanics/agon/parts/formation/tests/test_agent_formation_trial.py",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
-            self.assertIn(relative_path, roadmap)
+            self.assertIn(relative_path, contour)
 
 
 if __name__ == "__main__":

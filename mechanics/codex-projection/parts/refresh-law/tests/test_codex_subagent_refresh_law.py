@@ -42,6 +42,7 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         agents = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        contour = (REPO_ROOT / "docs" / "CURRENT_CONTOUR.md").read_text(encoding="utf-8")
         projection = (REPO_ROOT / "mechanics" / "codex-projection" / "parts" / "subagent-projection" / "docs" / "subagent-projection.md").read_text(
             encoding="utf-8"
         )
@@ -49,7 +50,8 @@ class CodexSubagentRefreshLawTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", readme)
+        self.assertIn("docs/CURRENT_CONTOUR.md", readme)
+        self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", contour)
         self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", agents)
         self.assertIn("Codex Subagent Refresh Law", docs_readme)
         self.assertIn("mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md", projection)
