@@ -140,6 +140,10 @@ python scripts/validate_agents.py
 python -m pytest -q tests
 ```
 
+Keep executable validation command blocks in `AGENTS.md` route cards. Overview,
+contour, roadmap, and decision surfaces should route here instead of duplicating
+commands.
+
 For source or generated-surface changes, add:
 
 ```bash

@@ -20,7 +20,7 @@ class AgonFormationRouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("docs/CURRENT_CONTOUR.md", readme)
         self.assertIn("mechanics/agon/parts/formation/docs/actor-rechartering.md", contour)
         self.assertIn("generated/agent_agonic_formation_index.min.json", contour)
-        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py", contour)
+        self.assertIn("mechanics/agon/AGENTS.md", contour)
         self.assertIn("Agonic Actor Rechartering", docs_readme)
         self.assertIn("Agent Kind Model", docs_readme)
         self.assertIn("Agent Resistance and Revision Posture", docs_readme)

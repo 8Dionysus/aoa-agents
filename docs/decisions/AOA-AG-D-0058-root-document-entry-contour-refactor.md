@@ -104,10 +104,7 @@ full inventory back to `README.md` or `ROADMAP.md`.
 
 ## Verification
 
-```bash
-python scripts/generate_decision_indexes.py --check
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
+Verification ran through the root `AGENTS.md` route: decision-index check,
+semantic and nested AGENTS validation, repo validation, and the root test suite.
+Exact executable command blocks belong in `AGENTS.md`, not in this decision
+record.

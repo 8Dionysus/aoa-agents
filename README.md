@@ -104,17 +104,9 @@ meaning.
 Executable validation routes live in [AGENTS](AGENTS.md#verify) and the
 nearest nested `AGENTS.md`.
 
-For root documentation route changes, the usual narrow check is:
-
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
-
-Run source builders only when source-authored inputs or generated companions
-move.
+For root documentation route changes, use the root route card. Run source
+builders only when source-authored inputs or generated companions move, and
+take those commands from the nearest owning `AGENTS.md`.
 
 ## Working Rule
 
