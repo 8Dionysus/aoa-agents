@@ -35,6 +35,7 @@ where meaning lives and which surface to open next.
 | Which repeatable operation owns this? | [mechanics](../mechanics/README.md), then the owning package |
 | What should happen next at repo level? | [ROADMAP](../ROADMAP.md) |
 | Why was this topology chosen? | [decisions](decisions/README.md) |
+| How is a release prepared? | [RELEASING](RELEASING.md) |
 
 ## Source Families
 
@@ -94,7 +95,7 @@ Mechanic-local docs live with their mechanics, not as a flat `docs/` pile.
 | Current contour discoverability | [CURRENT_CONTOUR](CURRENT_CONTOUR.md) |
 | Generated parity | source surface, builder, generated output, validator, and test together |
 | Decision rationale | [decisions/AGENTS](decisions/AGENTS.md), then [decisions/README](decisions/README.md) |
-| Release-visible public docs | [AGENTS](../AGENTS.md), [CHANGELOG](../CHANGELOG.md) when a release note is actually needed |
+| Release-visible public docs | [AGENTS](../AGENTS.md), [RELEASING](RELEASING.md), and [CHANGELOG](../CHANGELOG.md) when a release note is actually needed |
 
 ## Validation Route
 
