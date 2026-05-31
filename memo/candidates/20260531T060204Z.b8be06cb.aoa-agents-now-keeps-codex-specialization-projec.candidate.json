@@ -1,0 +1,32 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260531T060204Z:b8be06cb-aoa-agents-now-keeps-codex-speci",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents now keeps Codex specialization projection readiness as a candidate-only registry under mechanics/codex-projection/parts/specialization-eligibility/records plus a generated readiness reader; every current role specialization has an explicit non-installing status before any projection builder change.",
+  "source_refs": [
+    "docs/decisions/2026-05-30-specialization-eligibility-registry.md",
+    "mechanics/codex-projection/parts/specialization-eligibility/records/",
+    "mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json",
+    "mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py",
+    "mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py"
+  ],
+  "evidence_refs": [
+    "repo:aoa-agents/pull/229",
+    "repo:aoa-agents/commit/5c4e8fd06b6e5edd9883e46eba72488c5c35f8a5",
+    "repo:aoa-agents/actions/runs/26704863034"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-31T06:02:04Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
