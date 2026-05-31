@@ -115,6 +115,16 @@ No unreleased changes yet.
   generated registries, memo candidates, and the root-document follow-up that
   keeps validation command blocks in `AGENTS.md` route cards.
 
+### Notes
+
+- `v0.4.0` intentionally bundles the source-home, mechanics-localization,
+  projection, memo-port, and root-contour work into one release line instead of
+  treating each route repair as a separate public milestone.
+- Release command examples stay in `AGENTS.md` route cards. This changelog
+  records what shipped and how the release was reconciled.
+- The release does not promote specializations into installed Codex agents and
+  does not promote local memo candidates into durable memory truth.
+
 ## [0.2.3] - 2026-04-23
 
 ### Summary
@@ -166,16 +176,9 @@ No unreleased changes yet.
 
 ### Validation
 
-- `python scripts/release_check.py`
-- `python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check`
-- `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`
-- `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py`
-- `python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check`
-- `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`
-- `python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py`
-- `python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check`
-- `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`
-- `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py`
+- Validated through the repository release gate plus the Agon formation,
+  assistant civil formation, and formation-trial builder/validator/test lanes
+  that are now routed from owner `AGENTS.md` cards.
 
 ### Notes
 
@@ -205,7 +208,7 @@ No unreleased changes yet.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- Validated through the repository release gate for the `v0.2.2` line.
 
 ### Notes
 
@@ -234,7 +237,7 @@ No unreleased changes yet.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- Validated through the repository release gate for the `v0.2.1` line.
 
 ### Notes
 
@@ -250,7 +253,7 @@ No unreleased changes yet.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- Validated through the repository release gate for the `v0.2.0` line.
 
 ### Notes
 
@@ -304,8 +307,8 @@ This changelog entry uses the release-prep merge date.
 
 ### Validation
 
-- `python scripts/build_published_surfaces.py`
-- `python scripts/validate_agents.py`
+- Validated through the baseline generated-surface build and agent-validation
+  routes now owned by `AGENTS.md` cards.
 
 ### Notes
 
