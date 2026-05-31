@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Wave III adoption/boundary validator and focused test into mechanics/experience package routes; root scripts/tests no longer own those checks, while the Experience package validator guards former root check absence and cross-routes Agon and Boundary Bridge contract parts.",
   "source_refs": [
-    "docs/decisions/2026-05-26-experience-adoption-boundary-check-localization.md",
+    "docs/decisions/AOA-AG-D-0035-experience-adoption-boundary-check-localization.md",
     "mechanics/experience/PROVENANCE.md",
     "mechanics/experience/PARTS.md",
     "mechanics/experience/scripts/validate_adoption_boundary_contracts.py",

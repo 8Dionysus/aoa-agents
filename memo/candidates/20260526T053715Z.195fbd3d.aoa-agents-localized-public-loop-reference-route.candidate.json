@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized public-loop reference route contracts into Checkpoint reference-routes and Alpha readiness reference-route contracts into Questbook alpha-reference-routes; root examples now holds only its route card, root schemas retains only shared registry/profile/cohort/model-tier/runtime-seam-binding contracts, and mechanics-local validators guard active part-local routes plus former-root absence.",
   "source_refs": [
-    "docs/decisions/2026-05-26-reference-route-contract-localization.md",
+    "docs/decisions/AOA-AG-D-0038-reference-route-contract-localization.md",
     "mechanics/checkpoint/PROVENANCE.md",
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/PAYLOAD_RECON.md",

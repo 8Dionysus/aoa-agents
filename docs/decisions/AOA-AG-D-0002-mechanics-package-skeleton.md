@@ -1,0 +1,109 @@
+# 2026-05-25: Mechanics Package Skeleton
+
+## Status
+
+Accepted. Extended by
+[`AOA-AG-D-0003-mechanics-docs-part-localization.md`](AOA-AG-D-0003-mechanics-docs-part-localization.md).
+
+## Index Metadata
+
+- Decision ID: AOA-AG-D-0002
+- Original date: 2026-05-25
+- Surface classes: mechanic package, docs route
+- Agent facets: mechanics atlas, quest/alpha
+- Mechanic parents: cross-mechanic, questbook, agon, antifragility, boundary-bridge, checkpoint, codex-projection, experience, recurrence, release-support, rpg, runtime-seam, titan
+- Guard families: package route, docs route, quest dispatch
+- Posture: accepted
+
+## Context
+
+`mechanics/` existed as an atlas, but the repeatable operations inside
+`aoa-agents` were still implicit in large root payload districts:
+`docs/`, `schemas/`, `examples/`, `agents/`, `tests/`, `scripts/`,
+`generated/`, `quests/`, `manifests/`, and `config/`.
+
+The root sweep showed dense operation clusters around Agon, assistant
+experience, Titan, recurrence, runtime seam, Codex projection, checkpoint,
+quest posture, progression, antifragility, boundary handoff, and release
+support. At the same time, many payload paths are public contract anchors or
+validator inputs, so moving them all into packages now would create a large
+contract-sensitive topology change.
+
+## Considered Options
+
+- Keep `mechanics/` atlas-only until the next payload migration.
+- Create a top-level `formation/` package for the visible formation work.
+- Create topic folders for every dense filename cluster and move matching
+  payloads immediately.
+- Create operation-parent package skeletons now, and leave payloads in their
+  current owner districts until package-local contracts and validators exist.
+
+## Decision
+
+Create package skeletons under `mechanics/` for the current repeatable
+agent-layer mechanics:
+
+- `agon/`
+- `experience/`
+- `titan/`
+- `recurrence/`
+- `runtime-seam/`
+- `codex-projection/`
+- `checkpoint/`
+- `questbook/`
+- `rpg/`
+- `antifragility/`
+- `boundary-bridge/`
+- `release-support/`
+
+Each package starts with `README.md` and `PARTS.md`. The skeletons name the
+operation, current payload anchors, stronger-owner stop-lines, and validation
+route. In this skeleton slice they did not move payloads from root districts.
+
+Extend each package with:
+
+- `parts/AGENTS.md` and `parts/README.md` as the active lower part route;
+- child `parts/<part>/README.md` cards for each named current part, while this
+  slice kept payload anchors in root districts;
+- `PROVENANCE.md` as the active bridge into archive accounting;
+- archive-local route cards, indexes, distillation logs, and raw inventories as
+  provenance and old-route accounting scaffolds.
+
+The archive scaffolds start with empty raw inventories. Current root payloads
+are not called archived merely because they are waiting for a later
+package-local move.
+
+Formation routes through `mechanics/agon/` as a part, because Agon is the
+parent operation. Assistant service, office, adoption, watch, and rollback
+pressure routes through `mechanics/experience/`, because it is service
+experience posture rather than the whole repository layer.
+
+## Consequences
+
+- Future mechanics work can start from a package card instead of reconstructing
+  the topology from filename clusters.
+- Future part work can start from `parts/README.md` after the parent package
+  is selected, then enter the child part card before any payload move.
+- Historical or old-path lookup starts from `PROVENANCE.md`; archive accounting
+  is not the normal first route for current behavior.
+- `docs/`, `schemas/`, `examples/`, `scripts/`, `tests/`, `generated/`,
+  `config/`, `manifests/`, and `quests/` remained authoritative root districts
+  for their current payload classes in this skeleton slice.
+- A later payload move must be a smaller slice with package-local validation,
+  compatibility handling, and a route note when lookup topology changes.
+- The skeleton may grow or split, but it should stay operation-first rather
+  than becoming a topic taxonomy.
+
+## Verification
+
+This decision is verified by:
+
+```bash
+python scripts/validate_semantic_agents.py
+python scripts/validate_nested_agents.py
+python scripts/validate_agents.py
+```
+
+`mechanics/PAYLOAD_RECON.md` records the root-folder sweep that shaped the
+package set. `mechanics/PROVENANCE_TOPOLOGY.md` records the active/archive
+split used by the package scaffolds.

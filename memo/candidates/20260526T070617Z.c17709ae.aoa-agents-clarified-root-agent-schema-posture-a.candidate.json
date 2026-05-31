@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents clarified root agent schema posture after sibling-source comparison: remaining root schemas stay under schemas/ because they constrain agents/ source families and repo-wide generated registries, while mechanic-specific schemas belong under owning mechanics parts once local route cards and validators exist.",
   "source_refs": [
-    "docs/decisions/2026-05-26-root-agent-schema-posture.md",
+    "docs/decisions/AOA-AG-D-0045-root-agent-schema-posture.md",
     "schemas/README.md",
     "schemas/AGENTS.md",
     "agents/AGENTS.md",

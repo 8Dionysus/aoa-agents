@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Wave II assistant civil contracts into Experience part-local schema/example routes; root schemas/examples no longer own assistant civil payloads, and mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py now guards the contract surface.",
   "source_refs": [
-    "docs/decisions/2026-05-26-experience-assistant-civil-contract-localization.md",
+    "docs/decisions/AOA-AG-D-0029-experience-assistant-civil-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/experience/PARTS.md",
     "mechanics/experience/PROVENANCE.md",

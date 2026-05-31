@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the remaining Titan-only contract test from root tests into mechanics/titan/tests, updating Titan provenance and legacy accounting so root tests stay repo-wide.",
   "source_refs": [
-    "docs/decisions/2026-05-26-titan-check-localization.md",
+    "docs/decisions/AOA-AG-D-0011-titan-check-localization.md",
     "mechanics/titan/PROVENANCE.md",
     "mechanics/titan/legacy/INDEX.md",
     "mechanics/titan/tests/test_titan_contracts.py"

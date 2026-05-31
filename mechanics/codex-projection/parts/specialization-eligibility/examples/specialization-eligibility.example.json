@@ -52,7 +52,7 @@
   },
   "evidence": {
     "required_refs": [
-      "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+      "docs/decisions/AOA-AG-D-0054-specialization-projection-boundary.md",
       "generated/role_specialization_catalog.min.json",
       "generated/capability_pack_registry.min.json",
       "generated/codex_agents/projection_manifest.json"

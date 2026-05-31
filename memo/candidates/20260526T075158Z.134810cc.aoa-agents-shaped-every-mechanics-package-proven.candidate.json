@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents shaped every mechanics package PROVENANCE.md as the single active bridge with Current Route First, Archive Route, dated accounting, and Distillation Rule sections; validate_nested_agents.py now enforces that active parts stay current-route-first while former paths and raw receipts remain bridge/archive accounting.",
   "source_refs": [
-    "docs/decisions/2026-05-26-provenance-bridge-operating-shape.md",
+    "docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md",
     "mechanics/agon/PROVENANCE.md",
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/PROVENANCE_TOPOLOGY.md",

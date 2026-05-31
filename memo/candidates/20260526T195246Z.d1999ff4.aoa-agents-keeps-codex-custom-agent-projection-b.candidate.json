@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents keeps Codex custom-agent projection base-role-only: role specializations remain source/catalog entries until an explicit projection eligibility surface names install identity, permission posture, refresh law, and owner consent.",
   "source_refs": [
-    "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+    "docs/decisions/AOA-AG-D-0054-specialization-projection-boundary.md",
     "mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md",
     "mechanics/codex-projection/parts/subagent-projection/scripts/codex_subagent_projection.py",
     "generated/codex_agents/projection_manifest.json"

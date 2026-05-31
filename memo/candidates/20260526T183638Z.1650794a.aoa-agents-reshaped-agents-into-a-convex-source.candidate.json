@@ -10,7 +10,7 @@
     "agents/roles/README.md",
     "agents/operating-model/README.md",
     "agents/source_home.manifest.json",
-    "docs/decisions/2026-05-26-agents-convex-source-tree.md",
+    "docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md",
     "scripts/validate_agent_source_home.py"
   ],
   "evidence_refs": [

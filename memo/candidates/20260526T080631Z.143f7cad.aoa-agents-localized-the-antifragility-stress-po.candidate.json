@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the antifragility stress-posture validator and focused test into mechanics/antifragility/parts/stress-posture/{scripts,tests}/ while keeping repo-wide validation wired through validate_agents.py and release_check.py; old root check paths are now provenance/legacy lookup only.",
   "source_refs": [
-    "docs/decisions/2026-05-26-antifragility-stress-check-localization.md",
+    "docs/decisions/AOA-AG-D-0014-antifragility-stress-check-localization.md",
     "mechanics/antifragility/PROVENANCE.md",
     "mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py",
     "mechanics/antifragility/parts/stress-posture/tests/test_stress_posture.py",

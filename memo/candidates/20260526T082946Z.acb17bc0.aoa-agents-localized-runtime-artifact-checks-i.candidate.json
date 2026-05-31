@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Runtime Seam artifact-contracts validator and focused tests into mechanics/runtime-seam/parts/artifact-contracts/{scripts,tests}/, made the validator self-contained instead of importing validate_agents.py, and kept validate_agents.py plus release_check.py as repo-wide coordinators.",
   "source_refs": [
-    "docs/decisions/2026-05-26-runtime-artifact-check-localization.md",
+    "docs/decisions/AOA-AG-D-0020-runtime-artifact-check-localization.md",
     "mechanics/runtime-seam/PROVENANCE.md",
     "mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py",
     "mechanics/runtime-seam/parts/artifact-contracts/tests/test_artifact_contracts.py",

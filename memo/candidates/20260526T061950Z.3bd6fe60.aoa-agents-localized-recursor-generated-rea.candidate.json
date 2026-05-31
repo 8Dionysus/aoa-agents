@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Recurrence recursor readiness, pair, projection-candidate, and Agon boundary generated readers into part-local Recurrence generated routes; root generated no longer owns those mechanics-specific derived readers, and recursor builders, validators, recurrence manifests, and tests guard the new routes plus former-root absence.",
   "source_refs": [
-    "docs/decisions/2026-05-26-recursor-generated-reader-localization.md",
+    "docs/decisions/AOA-AG-D-0043-recursor-generated-reader-localization.md",
     "mechanics/recurrence/PROVENANCE.md",
     "mechanics/recurrence/parts/recursor-readiness/generated/role-readiness.min.json",
     "mechanics/recurrence/parts/recursor-readiness/generated/pair-contract.min.json",

@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Agon rank, school campaign, and epistemic actor generated readers into Agon part-local generated routes; root generated no longer owns those mechanics-specific derived readers, and dedicated builders, validators, recurrence manifests, and tests guard the new routes plus former-root absence.",
   "source_refs": [
-    "docs/decisions/2026-05-26-agon-rank-epistemic-generated-reader-localization.md",
+    "docs/decisions/AOA-AG-D-0042-agon-rank-epistemic-generated-reader-localization.md",
     "mechanics/agon/PROVENANCE.md",
     "mechanics/agon/parts/arena-rank-school/generated/rank-jurisdiction-registry.min.json",
     "mechanics/agon/parts/arena-rank-school/generated/school-campaign-posture-registry.min.json",

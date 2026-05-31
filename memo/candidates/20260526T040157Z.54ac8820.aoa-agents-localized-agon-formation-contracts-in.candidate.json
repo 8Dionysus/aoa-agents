@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Agon formation contracts into part-local mechanics routes; Wave I formation adjuncts and Wave II.5 formation-trial contracts now start under mechanics/agon parts while generated readers remain derived.",
   "source_refs": [
-    "docs/decisions/2026-05-26-agon-formation-contract-localization.md",
+    "docs/decisions/AOA-AG-D-0027-agon-formation-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/PAYLOAD_RECON.md",
     "mechanics/agon/PARTS.md",

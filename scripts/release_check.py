@@ -25,6 +25,10 @@ def _env() -> dict[str, str]:
 
 COMMANDS = [
     (
+        "check decision lookup indexes",
+        [sys.executable, "scripts/generate_decision_indexes.py", "--check"],
+    ),
+    (
         "check Questbook generated readers",
         [
             sys.executable,

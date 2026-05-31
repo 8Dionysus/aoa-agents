@@ -7,8 +7,8 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Titan Codex projection builder into mechanics/titan/parts/codex-projection, superseding the temporary root-builder route from the Titan check localization decision while keeping generated/titan_codex_agents root-published as a derived Codex install seam.",
   "source_refs": [
-    "docs/decisions/2026-05-26-titan-codex-projection-builder-localization.md",
-    "docs/decisions/2026-05-26-titan-check-localization.md",
+    "docs/decisions/AOA-AG-D-0012-titan-codex-projection-builder-localization.md",
+    "docs/decisions/AOA-AG-D-0011-titan-check-localization.md",
     "mechanics/titan/parts/codex-projection/README.md",
     "mechanics/titan/PROVENANCE.md",
     "generated/AGENTS.md"
