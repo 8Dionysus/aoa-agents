@@ -24,7 +24,7 @@ class FormationTrialRouteSurfacesTestCase(unittest.TestCase):
         self.assertIn("docs/CURRENT_CONTOUR.md", readme)
         self.assertIn("mechanics/agon/parts/formation/docs/formation-trial.md", contour)
         self.assertIn("generated/agent_formation_trial.min.json", contour)
-        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py", contour)
+        self.assertIn("mechanics/agon/AGENTS.md", contour)
         self.assertIn("Agent Formation Trial", docs_readme)
         self.assertIn("Formation Trial Landing", docs_readme)
         self.assertIn("Codex Projection Agon Boundary", docs_readme)

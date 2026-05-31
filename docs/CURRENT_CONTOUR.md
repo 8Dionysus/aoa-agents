@@ -15,7 +15,7 @@ packages, generated builders, tests, and sibling owners keep authority.
 | output | route family, owner surface, generated reader, or validation lane |
 | owner | this map for discoverability; named source or mechanic owns meaning |
 | next route | source object, mechanic package, generated reader, builder, validator, or sibling owner |
-| validation | `python scripts/validate_agents.py` and route-family tests when this map moves |
+| validation | root `AGENTS.md#verify` and the owning route-family `AGENTS.md` when this map moves |
 
 ## Release Marker
 
@@ -48,7 +48,8 @@ bootstrap baseline.
 | generated workspace config | `generated/codex_agents/config.subagents.generated.toml` |
 | generated agents | `generated/codex_agents/agents/*.toml` |
 | projection manifest | `generated/codex_agents/projection_manifest.json` |
-| validator | `python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json` |
+| validator script | `mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py` |
+| validation route | `mechanics/codex-projection/AGENTS.md` and the subagent projection part route |
 
 Codex custom-agent projection remains `base_role_profiles_only`.
 Specializations are visible through source and generated catalogs, but they do
@@ -61,7 +62,9 @@ not become installed agents unless an eligibility record promotes them.
 | gate docs | `mechanics/codex-projection/parts/specialization-eligibility/docs/specialization-eligibility.md` |
 | records | `mechanics/codex-projection/parts/specialization-eligibility/records/` |
 | readiness reader | `mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json` |
-| validator | `python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py` |
+| builder script | `mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py` |
+| validator script | `mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py` |
+| validation route | `mechanics/codex-projection/AGENTS.md` and the specialization eligibility part route |
 
 Eligibility is candidate-only and non-installing.
 
@@ -80,7 +83,10 @@ Eligibility is candidate-only and non-installing.
 | schemas | `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`, `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`, `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`, `mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json`, `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json` |
 | generated reader | `generated/agent_agonic_formation_index.min.json` |
 | example | `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json` |
-| validation | `python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check`, `python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py` |
+| builder script | `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py` |
+| validator script | `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py` |
+| test route | `mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py` |
+| validation route | `mechanics/agon/AGENTS.md` and the formation part route |
 
 Agonic Actor Rechartering has now landed as an additive companion-form turn.
 
@@ -100,7 +106,10 @@ Agonic Actor Rechartering has now landed as an additive companion-form turn.
 | schemas | `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json`, `mechanics/experience/parts/assistant-civil-service/schemas/civil-formation.schema.json`, `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json` |
 | generated reader | `generated/assistant_civil_formation_index.min.json` |
 | example | `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json` |
-| validation | `python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check`, `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`, `python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`, `python -m pytest -q mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py mechanics/experience/tests/test_experience_assistant_civil_contracts.py` |
+| builder script | `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py` |
+| validator script | `mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`, `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py` |
+| test route | `mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py`, `mechanics/experience/tests/test_experience_assistant_civil_contracts.py` |
+| validation route | `mechanics/experience/AGENTS.md` and the assistant civil service part route |
 
 Assistant Civil Rechartering has now landed as a civil/service companion-form
 turn, not as contestant or judge authority.
@@ -117,7 +126,10 @@ turn, not as contestant or judge authority.
 | schema | `mechanics/agon/parts/formation/schemas/formation-trial.schema.json` |
 | generated reader | `generated/agent_formation_trial.min.json` |
 | example | `mechanics/agon/parts/formation/examples/formation-trial.example.json` |
-| validation | `python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check`, `python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`, `python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py` |
+| builder script | `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py` |
+| validator script | `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py` |
+| test route | `mechanics/agon/parts/formation/tests/test_agent_formation_trial.py` |
+| validation route | `mechanics/agon/AGENTS.md` and the formation part route |
 
 Formation Trial has now landed as pre-protocol readability judgment.
 
@@ -154,15 +166,8 @@ center and runtime owners keep their stronger authority.
 
 ## Root Validation Route
 
-Use the root route card for exact scope. For root docs and route-map changes,
-the normal validation set is:
-
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
+Use root `AGENTS.md#verify` for exact commands. This contour names shipped
+surface families and owner routes; it does not own executable validation blocks.
 
 When generated readers or source objects move, add the relevant builder checks
-from the owning source or mechanic.
+from the owning source or mechanic `AGENTS.md`.

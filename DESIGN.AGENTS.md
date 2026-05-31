@@ -48,14 +48,9 @@ When a boundary is needed, state the positive route that handles the pressure.
 
 ## Verification
 
-Design topology changes should run:
+Design topology changes use the command routes in root `AGENTS.md` and the
+nearest nested `AGENTS.md`.
 
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
-
-Add `python scripts/validate_agent_source_home.py` when the source-object home,
-family map, or generated-reader routes move. Add builder checks when source
-objects or generated readers move.
+Add the source-home validation lane when the source-object home, family map, or
+generated-reader routes move. Add builder checks when source objects or
+generated readers move, taking the exact commands from the owning route card.

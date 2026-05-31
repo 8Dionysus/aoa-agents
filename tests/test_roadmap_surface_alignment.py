@@ -62,7 +62,8 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
         contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
         self.assertIn("## Agonic Actor Rechartering", contour)
-        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py", contour)
+        self.assertIn("validation route", contour)
+        self.assertIn("mechanics/agon/AGENTS.md", contour)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/actor-rechartering.md",
@@ -90,10 +91,7 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
         contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
         self.assertIn("## Assistant Civil Rechartering", contour)
-        self.assertIn(
-            "python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
-            contour,
-        )
+        self.assertIn("mechanics/experience/AGENTS.md", contour)
 
         for relative_path in (
             "mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md",
@@ -127,7 +125,7 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
         contour = CONTOUR_PATH.read_text(encoding="utf-8")
 
         self.assertIn("## Formation Trial", contour)
-        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py", contour)
+        self.assertIn("mechanics/agon/AGENTS.md", contour)
 
         for relative_path in (
             "mechanics/agon/parts/formation/docs/formation-trial.md",
