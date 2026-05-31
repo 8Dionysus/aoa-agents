@@ -24,9 +24,9 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             / "subject-prep.md"
         ).read_text(encoding="utf-8")
 
-        self.assertIn("v0.2.3", readme)
-        self.assertIn("[0.2.3]", changelog)
-        self.assertIn("v0.2.x", roadmap)
+        self.assertIn("v0.4.0", readme)
+        self.assertIn("[0.4.0]", changelog)
+        self.assertIn("v0.4.x", roadmap)
         self.assertIn("[CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md)", roadmap)
         self.assertIn("roadmap drift", roadmap)
         self.assertIn("agonic/assistant kind split", roadmap)

@@ -7,17 +7,113 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+No unreleased changes yet.
+
+## [0.4.0] - 2026-05-31
+
+### Summary
+
+- This release turns `aoa-agents` into a checked role-layer topology: source
+  role objects live under `agents/`, repeatable operation pressure lives under
+  `mechanics/`, generated readers stay derived, and root documents stay compact
+  route cards instead of inventories.
+- The release reconciles the full `v0.2.3..HEAD` span: 124 first-parent
+  commits, 58 canonical decision records, 43 local memo candidates, 25 portable
+  skill surfaces, 12 mechanics packages, and 63 mechanics parts.
+- `aoa-agents` remains the role, bearer, handoff, formation, projection, and
+  checkpoint-contract layer. It still does not own skills, proof verdicts,
+  durable memory truth, routing policy, playbooks, stats, KAG, or runtime
+  behavior.
+
+### Added
+
+- A source-authored `agents/` home with five base role houses, companion form
+  branches, role specializations, capability packs, model tiers, orchestrator
+  classes, cohort patterns, runtime seam bindings, local route cards, and
+  `agents/source_home.manifest.json`.
+- Five candidate-only role specializations and matching capability packs:
+  topology steward, repo refactor, release readiness, route drift review, and
+  writeback steward.
+- A package-shaped `mechanics/` atlas for Agon, Antifragility,
+  Boundary Bridge, Checkpoint, Codex Projection, Experience, Questbook,
+  Recurrence, Release Support, RPG, Runtime Seam, and Titan role-layer
+  operations.
+- Localized mechanics parts for formation, arena/rank/school posture,
+  epistemic actor posture, assistant civil service, adoption/regression,
+  runtime release holds, stress posture, checkpoint posture, quest readers,
+  recurrence readers, runtime artifacts, Titan role-bearing, and release
+  support.
+- Codex projection infrastructure for source-owned subagent projection,
+  refresh-law validation, assistant projection, Titan projection, and
+  specialization eligibility records.
+- Generated readers and registries for agent profiles, agonic formation,
+  assistant civil formation, formation trials, role specializations,
+  capability packs, model tiers, orchestrators, cohorts, runtime seam bindings,
+  quest catalogs, quest dispatch, Codex agents, Titan Codex agents, and
+  specialization eligibility readiness.
+- A local `memo/` port with candidate, receipt, export, local, and compact
+  index surfaces so role-layer decisions can be handed toward reviewed memory
+  without claiming durable memory authority.
+- Canonical `AOA-AG-D-####` decision records and generated lookup indexes by
+  number, date, surface, agent facet, mechanic parent, and guard family.
+- A portable `.agents/` skill foundation and the maintained Spark lane under
+  `.agents/spark`.
+
 ### Changed
 
-- Moved source-authored agent object families under `agents/` and added the
-  `mechanics/` operation atlas with design and decision records for the new
-  topology split.
-- Tightened role-level memory posture so agents route reviewed recall through
-  `aoa-memo` object ids/read models and local writeback through `memo/`
-  candidates, receipts, and exports.
-- Named the `aoa_memo` MCP access-plane boundary for agent roles: brief/search,
-  validation, local candidate work, and landing-plan dry-runs can support
-  reviewed handoff, but they do not grant durable memory authority.
+- Root documents were refactored into a compact entry contour: `README.md`,
+  `AGENTS.md`, `CHARTER.md`, `DESIGN.md`, `DESIGN.AGENTS.md`, `ROADMAP.md`,
+  `docs/README.md`, `docs/BOUNDARIES.md`, and `docs/CURRENT_CONTOUR.md` now
+  have separated jobs instead of duplicating ledgers.
+- Validation command authority was moved back to `AGENTS.md` route cards; other
+  root-facing documents route to the owner surface instead of carrying command
+  blocks.
+- The roadmap and current contour now route shipped inventories to source
+  homes, package READMEs, generated readers, and decision records instead of
+  expanding root prose.
+- Role-level memory posture now routes reviewed recall through `aoa-memo`
+  object ids/read models and local writeback through `memo/` candidates,
+  receipts, and exports.
+- The `aoa_memo` MCP access-plane boundary is named for agent roles: brief and
+  search, validation, local candidate work, and landing-plan dry-runs can
+  support reviewed handoff, but they do not grant durable memory authority.
+- Source/generated separation is stricter: builders own generated readers,
+  generated readers remain evidence, and source role objects remain the
+  authority.
+- Codex custom-agent projection stays `base_role_profiles_only`; role
+  specializations are visible through source and generated catalogs but remain
+  candidate-only until eligibility records authorize projection.
+- Mechanics packages now carry their own `AGENTS.md`, `PARTS.md`, provenance,
+  legacy, scripts, schemas, examples, tests, and generated read models where
+  applicable.
+- Release validation is broader: the repository release gate now includes
+  decision-index parity, source-home validation, semantic AGENTS checks,
+  localized mechanics checks, published-surface generation, and generated drift
+  detection.
+- Workspace paths and repo-local route cards now target the `/srv/AbyssOS`
+  workspace posture.
+
+### Moved Or Retired
+
+- Maintained Spark route surfaces moved under `.agents/spark`.
+- Active root and mechanics legacy names were cleaned so old compatibility
+  names do not appear as live owner surfaces.
+- Date-prefixed decision lookup files were retired in favor of canonical
+  `AOA-AG-D-####` paths and generated indexes.
+- Mechanics docs, configs, examples, schemas, scripts, and tests that were
+  previously root-adjacent or loosely grouped were localized under the owning
+  package and part.
+- Historical mechanics payloads now route through package-local provenance and
+  legacy surfaces instead of acting like current authority.
+
+### Validation
+
+- Release validation is owned by the root `AGENTS.md` route and the
+  `scripts/release_check.py` release gate.
+- This release note was manually reconciled from the `v0.2.3..HEAD`
+  first-parent history, canonical decision records, current source trees,
+  generated registries, memo candidates, and the root-document follow-up that
+  keeps validation command blocks in `AGENTS.md` route cards.
 
 ## [0.2.3] - 2026-04-23
 
