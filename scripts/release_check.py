@@ -198,6 +198,14 @@ COMMANDS = [
         ],
     ),
     (
+        "check Codex specialization eligibility readiness",
+        [
+            sys.executable,
+            "mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py",
+            "--check",
+        ],
+    ),
+    (
         "validate Codex specialization eligibility",
         [
             sys.executable,

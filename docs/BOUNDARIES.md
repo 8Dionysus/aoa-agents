@@ -44,6 +44,10 @@ That gate lives under
 `mechanics/codex-projection/parts/specialization-eligibility/` and does not
 install agents by itself.
 
+Eligibility records and the generated readiness reader may show that a
+specialization is being considered. They do not create a generated Codex agent,
+workspace `.codex/agents/` install, runtime worker, or proof verdict.
+
 ## Rule 3: agent is not proof
 
 An agent may be judged by eval surfaces.

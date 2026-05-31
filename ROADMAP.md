@@ -15,6 +15,7 @@ runtime, playbook, routing, memo, or eval canon into this repository.
 The current `v0.2.x` release line already carries:
 - checkpoint role follow-through, Codex subagent projection, and self-agency continuity posture as live repo-owned surfaces rather than future ideas
 - Codex custom-agent projection and owner refresh-law surfaces in `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/refresh-law/examples/subagent-refresh-law.example.json`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
+- role specialization projection readiness as candidate-only eligibility records and a generated readiness reader under `mechanics/codex-projection/parts/specialization-eligibility/`, while Codex projection remains `base_role_profiles_only`
 - runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
 - adjunct quest and Alpha readiness surfaces in `QUESTBOOK.md`, `quests/`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`
 - subject-prep boundary plus unreleased companion turns and the first formation
@@ -87,6 +88,7 @@ The currently published agent-layer contour already includes:
 - the mechanics atlas under `mechanics/`
 - published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
 - Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`
+- Codex specialization eligibility records and readiness reader under `mechanics/codex-projection/parts/specialization-eligibility/records/` and `mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`
 - role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`, `mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`
 
 The main near-term risk is roadmap drift: Codex subagent projection, stress

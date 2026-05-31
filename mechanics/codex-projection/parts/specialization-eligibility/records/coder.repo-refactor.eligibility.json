@@ -1,0 +1,101 @@
+{
+  "schema_version": "codex_specialization_eligibility_v1",
+  "kind": "codex_specialization_eligibility",
+  "id": "codex-specialization-eligibility.coder.repo-refactor",
+  "owner_repo": "aoa-agents",
+  "projection_scope": "base_role_profiles_only",
+  "specialization_id": "coder.repo-refactor",
+  "specialization_ref": "agents/roles/coder/specializations/repo-refactor/specialization.json",
+  "base_role_id": "coder",
+  "capability_pack_ref": "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
+  "codex_install": {
+    "install_state": "not_projected",
+    "proposed_agent_name": "coder-repo-refactor",
+    "generated_surface_policy": "no_generated_change",
+    "workspace_install_policy": "no_workspace_install"
+  },
+  "permission_posture": {
+    "sandbox_mode": "workspace-write",
+    "approval_gate": "required",
+    "tool_policy_refs": [
+      "apply_patch:repo-local-edits",
+      "rg:source-search",
+      "git:status-diff-add-commit",
+      "python:builders-and-validators"
+    ],
+    "skill_refs": [
+      "aoa-change-protocol",
+      "aoa-bounded-context-map",
+      "aoa-adr-write",
+      "aoa-source-of-truth-check"
+    ],
+    "technique_refs": [
+      "aoa-techniques:bounded-refactor",
+      "aoa-techniques:generated-from-source",
+      "aoa-techniques:validator-first-closeout"
+    ],
+    "memory_routes": [
+      "aoa-memo:brief",
+      "memo/candidates:write-candidate"
+    ],
+    "proof_routes": [
+      "scripts/build_published_surfaces.py",
+      "scripts/validate_agent_source_home.py",
+      "scripts/validate_agents.py",
+      "scripts/release_check.py"
+    ]
+  },
+  "owner_consent": {
+    "consent_state": "not_requested",
+    "required_owners": [
+      "aoa-agents",
+      "workspace-codex",
+      "aoa-skills",
+      "aoa-techniques",
+      "aoa-memo",
+      "aoa-evals"
+    ],
+    "granted_owners": [
+      "aoa-agents"
+    ]
+  },
+  "evidence": {
+    "required_refs": [
+      "agents/roles/coder/specializations/repo-refactor/specialization.json",
+      "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
+      "docs/decisions/2026-05-26-specialization-projection-boundary.md",
+      "generated/role_specialization_catalog.min.json",
+      "generated/capability_pack_registry.min.json",
+      "generated/codex_agents/projection_manifest.json"
+    ],
+    "observed_refs": [
+      "repo:aoa-agents/pull/223",
+      "repo:aoa-agents/pull/225",
+      "repo:aoa-agents/pull/227"
+    ],
+    "missing_refs": [
+      "reviewed workspace Codex install consent",
+      "repeatable successful use evidence for coder.repo-refactor",
+      "reviewed proof route from aoa-evals"
+    ],
+    "proof_commands": [
+      "python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py",
+      "python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check"
+    ]
+  },
+  "decision": {
+    "status": "candidate_only",
+    "decided_by": null,
+    "decided_at": null,
+    "rationale": "Repo refactor is the strongest near-term projection candidate, but it still needs repeated bounded-use evidence and explicit workspace install consent before builder projection.",
+    "next_review_trigger": "Review after repeated repo-refactor landings pass release checks and preserve memo writeback evidence."
+  },
+  "refresh_law_ref": "mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md",
+  "guardrails": {
+    "no_generated_agent_change": true,
+    "no_workspace_install": true,
+    "no_runtime_activation": true,
+    "requires_reviewed_intake": true
+  }
+}
+

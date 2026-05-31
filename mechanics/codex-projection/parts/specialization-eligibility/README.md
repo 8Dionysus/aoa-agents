@@ -10,12 +10,12 @@ It does not project agents and it does not install anything into workspace
 
 | Field | Route |
 | --- | --- |
-| role | Codex specialization projection eligibility gate |
-| input | role specialization source records, capability-pack refs, owner-consent pressure, proof evidence, and projection-boundary pressure |
-| output | schema-backed eligibility record, example, validation result, or stronger-owner handoff |
+| role | Codex specialization projection eligibility gate and readiness queue |
+| input | role specialization source records, capability-pack refs, eligibility records, owner-consent pressure, proof evidence, and projection-boundary pressure |
+| output | schema-backed eligibility record, generated readiness reader, example, validation result, or stronger-owner handoff |
 | owner | this part owns the eligibility contract; `agents/roles/*/specializations/` owns specialization source truth; `subagent-projection/` owns actual Codex projection behavior |
 | next route | docs, schema, example, validator, subagent projection boundary, refresh law, owner consent surfaces |
-| tools | [scripts/validate_specialization_eligibility.py](scripts/validate_specialization_eligibility.py) |
+| tools | [scripts/validate_specialization_eligibility.py](scripts/validate_specialization_eligibility.py), [scripts/build_specialization_eligibility_readiness.py](scripts/build_specialization_eligibility_readiness.py) |
 | validation | validator, part tests, `scripts/validate_agents.py`, `scripts/release_check.py` |
 
 ## Active Docs
@@ -27,9 +27,15 @@ It does not project agents and it does not install anything into workspace
 - [Eligibility schema](schemas/specialization-eligibility.schema.json)
 - [Eligibility example](examples/specialization-eligibility.example.json)
 
+## Active Records And Generated Readers
+
+- [Eligibility records](records/)
+- [Readiness reader](generated/specialization-eligibility-readiness.min.json)
+
 ## Active Scripts And Tests
 
 - [Eligibility validator](scripts/validate_specialization_eligibility.py)
+- [Readiness builder](scripts/build_specialization_eligibility_readiness.py)
 - [Eligibility tests](tests/test_specialization_eligibility.py)
 
 ## Boundary
@@ -40,9 +46,15 @@ A specialization can be discussed here without becoming a generated Codex
 agent. The current generated projection remains `base_role_profiles_only` until
 a future reviewed change deliberately widens it.
 
+The source queue lives under
+`mechanics/codex-projection/parts/specialization-eligibility/records/`.
+The generated readiness reader lives at
+`mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`.
+
 ## Validation
 
 ```bash
+python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
 python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
 python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
 ```
