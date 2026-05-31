@@ -10,7 +10,7 @@
     "agents/roles/README.md",
     "agents/operating-model/capabilities/README.md",
     "agents/source_home.manifest.json",
-    "docs/decisions/2026-05-26-role-specializations-and-capability-packs.md",
+    "docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md",
     "generated/role_specialization_catalog.min.json",
     "generated/capability_pack_registry.min.json"
   ],

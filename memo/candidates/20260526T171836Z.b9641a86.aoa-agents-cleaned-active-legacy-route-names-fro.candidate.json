@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents cleaned active legacy route names from tests, mechanics docs, generated surfaces, and route references while preserving old names only in legacy/provenance/memo evidence zones and adding a guard test for future active-path noise.",
   "source_refs": [
-    "docs/decisions/2026-05-26-active-legacy-name-cleanup.md",
+    "docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md",
     "tests/test_active_legacy_name_noise.py",
     "ROADMAP.md",
     "mechanics/ARTIFACT_TOPOLOGY.md"

@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Checkpoint package-owned contract validator and focused tests into mechanics/checkpoint/{scripts,tests}/ because the check spans self-agent-checkpoint and continuity-lane parts; validate_agents.py loads the package validator and release_check.py runs the package-local tests.",
   "source_refs": [
-    "docs/decisions/2026-05-26-checkpoint-check-localization.md",
+    "docs/decisions/AOA-AG-D-0022-checkpoint-check-localization.md",
     "mechanics/checkpoint/PROVENANCE.md",
     "mechanics/checkpoint/scripts/validate_checkpoint_contracts.py",
     "mechanics/checkpoint/tests/test_checkpoint_contracts.py",

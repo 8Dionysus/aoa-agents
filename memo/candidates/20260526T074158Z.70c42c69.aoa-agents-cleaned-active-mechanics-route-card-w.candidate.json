@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents cleaned active mechanics route-card wording so package cards and part maps route through PROVENANCE.md as the bridge for former-path accounting; mechanics/PROVENANCE_TOPOLOGY.md replaces the legacy-named central note, and validate_nested_agents.py now guards against repeated active archive bridge wording.",
   "source_refs": [
-    "docs/decisions/2026-05-26-active-provenance-bridge-wording.md",
+    "docs/decisions/AOA-AG-D-0048-active-provenance-bridge-wording.md",
     "mechanics/PROVENANCE_TOPOLOGY.md",
     "mechanics/AGENTS.md",
     "mechanics/README.md",

@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents now keeps Codex specialization projection readiness as a candidate-only registry under mechanics/codex-projection/parts/specialization-eligibility/records plus a generated readiness reader; every current role specialization has an explicit non-installing status before any projection builder change.",
   "source_refs": [
-    "docs/decisions/2026-05-30-specialization-eligibility-registry.md",
+    "docs/decisions/AOA-AG-D-0056-specialization-eligibility-registry.md",
     "mechanics/codex-projection/parts/specialization-eligibility/records/",
     "mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json",
     "mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py",

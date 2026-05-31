@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Titan package-owned validators and focused tests into mechanics/titan/{scripts,tests}/ while keeping validate_agents.py and release_check.py as repo-wide validation coordinators; scripts/render_titan_codex_agents.py intentionally remains root-owned until a dedicated projection-builder route decision.",
   "source_refs": [
-    "docs/decisions/2026-05-26-titan-check-localization.md",
+    "docs/decisions/AOA-AG-D-0011-titan-check-localization.md",
     "mechanics/titan/PROVENANCE.md",
     "mechanics/titan/scripts/validate_titan_lineage.py",
     "mechanics/titan/scripts/validate_titan_schemas.py",

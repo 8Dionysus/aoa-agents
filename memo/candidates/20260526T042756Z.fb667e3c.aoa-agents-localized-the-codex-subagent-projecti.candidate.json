@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Codex subagent projection refresh-law example into the Codex Projection refresh-law part-local examples route; root examples no longer own that mechanic contract, and the part-local refresh-law validator now guards the route.",
   "source_refs": [
-    "docs/decisions/2026-05-26-codex-refresh-law-example-localization.md",
+    "docs/decisions/AOA-AG-D-0031-codex-refresh-law-example-localization.md",
     "mechanics/codex-projection/PARTS.md",
     "mechanics/codex-projection/PROVENANCE.md",
     "mechanics/codex-projection/parts/refresh-law/README.md",

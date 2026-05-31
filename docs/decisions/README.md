@@ -1,66 +1,111 @@
-# Decision Records
+# Decision Records Index
 
-This directory records meaningful structural and route-law decisions for
-`aoa-agents`.
+This directory is the durable decision surface for `aoa-agents`.
 
-Use it when future contributors will need to know why a topology, owner split,
-validator route, or workflow boundary changed.
+Use it when a future contributor needs the rationale for a route, topology,
+owner split, validator route, workflow boundary, agent-layer source surface,
+mechanic package, generated read model, or Codex projection posture.
 
-## Records
+Ordinary edit summaries, generated output, runtime logs, private evidence,
+memory objects, proof verdicts, and one-off planning thoughts route to their
+owning surfaces instead.
 
-- [2026-05-25: agents and mechanics districts](2026-05-25-agents-and-mechanics-districts.md)
-- [2026-05-25: mechanics package skeleton](2026-05-25-mechanics-package-skeleton.md)
-- [2026-05-26: mechanics docs part localization](2026-05-26-mechanics-docs-part-localization.md)
-- [2026-05-26: mechanics config localization](2026-05-26-mechanics-config-localization.md)
-- [2026-05-26: recurrence component manifest localization](2026-05-26-recurrence-component-manifest-localization.md)
-- [2026-05-26: Recurrence component check localization](2026-05-26-recurrence-component-check-localization.md)
-- [2026-05-26: questbook payload localization](2026-05-26-questbook-payload-localization.md)
-- [2026-05-26: Questbook source store topology repair](2026-05-26-questbook-source-store-topology-repair.md)
-- [2026-05-26: Titan example localization](2026-05-26-titan-example-localization.md)
-- [2026-05-26: Titan schema localization](2026-05-26-titan-schema-localization.md)
-- [2026-05-26: Titan check localization](2026-05-26-titan-check-localization.md)
-- [2026-05-26: Titan Codex projection builder localization](2026-05-26-titan-codex-projection-builder-localization.md)
-- [2026-05-26: antifragility stress payload localization](2026-05-26-antifragility-stress-payload-localization.md)
-- [2026-05-26: Antifragility stress check localization](2026-05-26-antifragility-stress-check-localization.md)
-- [2026-05-26: RPG progression payload localization](2026-05-26-rpg-progression-payload-localization.md)
-- [2026-05-26: RPG progression check localization](2026-05-26-rpg-progression-check-localization.md)
-- [2026-05-26: assistant projection resolver localization](2026-05-26-assistant-projection-resolver-localization.md)
-- [2026-05-26: Codex subagent projection builder localization](2026-05-26-codex-subagent-projection-builder-localization.md)
-- [2026-05-26: runtime artifact contract localization](2026-05-26-runtime-artifact-contract-localization.md)
-- [2026-05-26: Runtime artifact check localization](2026-05-26-runtime-artifact-check-localization.md)
-- [2026-05-26: checkpoint contract localization](2026-05-26-checkpoint-contract-localization.md)
-- [2026-05-26: Checkpoint check localization](2026-05-26-checkpoint-check-localization.md)
-- [2026-05-26: recursor contract localization](2026-05-26-recursor-contract-localization.md)
-- [2026-05-26: Recursor support localization](2026-05-26-recursor-support-localization.md)
-- [2026-05-26: Agon rank and epistemic contract localization](2026-05-26-agon-rank-epistemic-contract-localization.md)
-- [2026-05-26: Agon rank and epistemic check localization](2026-05-26-agon-rank-epistemic-check-localization.md)
-- [2026-05-26: Agon formation contract localization](2026-05-26-agon-formation-contract-localization.md)
-- [2026-05-26: Agon formation check localization](2026-05-26-agon-formation-check-localization.md)
-- [2026-05-26: Experience assistant civil contract localization](2026-05-26-experience-assistant-civil-contract-localization.md)
-- [2026-05-26: Experience assistant civil check localization](2026-05-26-experience-assistant-civil-check-localization.md)
-- [2026-05-26: Codex refresh law example localization](2026-05-26-codex-refresh-law-example-localization.md)
-- [2026-05-26: Codex refresh law check localization](2026-05-26-codex-refresh-law-check-localization.md)
-- [2026-05-26: Assistant projection check localization](2026-05-26-assistant-projection-check-localization.md)
-- [2026-05-26: Adoption and boundary contract localization](2026-05-26-adoption-boundary-contract-localization.md)
-- [2026-05-26: Experience adoption boundary check localization](2026-05-26-experience-adoption-boundary-check-localization.md)
-- [2026-05-26: Agent service contract localization](2026-05-26-agent-service-contract-localization.md)
-- [2026-05-26: Experience agent service check localization](2026-05-26-experience-agent-service-check-localization.md)
-- [2026-05-26: Reference route contract localization](2026-05-26-reference-route-contract-localization.md)
-- [2026-05-26: Alpha reference-route generated reader localization](2026-05-26-alpha-reference-generated-reader-localization.md)
-- [2026-05-26: Reference route check localization](2026-05-26-reference-route-check-localization.md)
-- [2026-05-26: Questbook reader builder localization](2026-05-26-questbook-reader-builder-localization.md)
-- [2026-05-26: Agon rank and epistemic generated reader localization](2026-05-26-agon-rank-epistemic-generated-reader-localization.md)
-- [2026-05-26: Recursor generated reader localization](2026-05-26-recursor-generated-reader-localization.md)
-- [2026-05-26: Formation generated reader posture](2026-05-26-formation-generated-reader-posture.md)
-- [2026-05-26: Root agent schema posture](2026-05-26-root-agent-schema-posture.md)
-- [2026-05-26: Spark agent lane home](2026-05-26-spark-agent-lane-home.md)
-- [2026-05-26: Mechanics package route cards](2026-05-26-mechanics-package-route-cards.md)
-- [2026-05-26: Active provenance bridge wording](2026-05-26-active-provenance-bridge-wording.md)
-- [2026-05-26: Provenance bridge operating shape](2026-05-26-provenance-bridge-operating-shape.md)
-- [2026-05-26: Active legacy name cleanup](2026-05-26-active-legacy-name-cleanup.md)
-- [2026-05-26: Agents source home topology](2026-05-26-agents-source-home-topology.md)
-- [2026-05-26: Agents convex source tree](2026-05-26-agents-convex-source-tree.md)
-- [2026-05-26: Role specializations and capability packs](2026-05-26-role-specializations-and-capability-packs.md)
-- [2026-05-26: Specialization projection boundary](2026-05-26-specialization-projection-boundary.md)
-- [2026-05-26: Specialization eligibility gate](2026-05-26-specialization-eligibility-gate.md)
-- [2026-05-30: Specialization eligibility registry](2026-05-30-specialization-eligibility-registry.md)
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | durable decision rationale entrypoint and agent-facing index chooser |
+| entry | use when a structural, topology, validation, public-contract, source/generated, role-boundary, mechanic, or projection change needs recoverable rationale |
+| input | changed source surface, owner boundary, rejected option, validator guard, or cross-surface route pressure |
+| output | canonical decision note, metadata-backed lookup index, and route back to the source surface |
+| owner | `docs/decisions/AGENTS.md` for lane law; canonical decision notes for rationale; generated indexes for lookup only |
+| next route | source surface first, then nearest route card, `CHARTER.md`, `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/BOUNDARIES.md`, generated lookup indexes, or the affected agent/mechanic owner |
+| validation | `python scripts/generate_decision_indexes.py --check`, `git diff --check`, and the owning validator for the changed surface |
+
+## Authority
+
+Decision notes explain why a route was chosen.
+
+They are weaker than the source surface they describe:
+
+- repository authority stays in `CHARTER.md`;
+- role/persona layer identity stays in `README.md`, `DESIGN.md`, and
+  `DESIGN.AGENTS.md`;
+- owner boundaries stay in `docs/BOUNDARIES.md` and nearest `AGENTS.md` cards;
+- source-authored agent object meaning stays in `agents/`;
+- mechanic shape stays in `mechanics/`, local route cards, and generated
+  mechanic read models;
+- generated readers stay derived from their builders;
+- memo candidates stay local recall/writeback surfaces, not decision authority;
+- sibling repositories keep their stronger truth for skills, techniques, evals,
+  routing, memory objects, playbooks, stats, and runtime behavior.
+
+Generated decision indexes are weaker than the decision notes. They exist to
+make lookup cheaper for agents, not to carry decision rationale.
+
+## Index Shape
+
+Each decision owns:
+
+- a canonical `Decision ID: AOA-AG-D-####`;
+- a full canonical-ID filename, for example `AOA-AG-D-0001-*.md`;
+- an `## Index Metadata` block naming original date, surface classes, agent
+  facets, mechanic parents, guard families, and posture.
+
+The lookup indexes under [indexes](indexes/README.md) are generated from that
+metadata:
+
+- [Decisions by canonical ID and number](indexes/by-number.md)
+- [Decisions by date](indexes/by-date.md)
+- [Decisions by surface class](indexes/by-surface.md)
+- [Decisions by agent facet](indexes/by-agent-facet.md)
+- [Decisions by mechanic parent](indexes/by-mechanic.md)
+- [Decisions by validation or guard family](indexes/by-guard.md)
+
+Use them in both directions:
+
+- top down: repo route -> role/source surface -> agent facet -> mechanic parent
+  -> guard family -> decision rationale;
+- bottom up: changed source surface -> local route card or generated read model
+  -> validator guard -> decision rationale -> stronger owner surface.
+
+Regenerate the read models after decision metadata changes:
+
+```bash
+python scripts/generate_decision_indexes.py
+```
+
+Check generated parity before closeout:
+
+```bash
+python scripts/generate_decision_indexes.py --check
+```
+
+## Addressing
+
+Full canonical-ID decision paths are the active source files:
+
+- `docs/decisions/AOA-AG-D-0001-*.md`
+- `docs/decisions/AOA-AG-D-0002-*.md`
+- `docs/decisions/AOA-AG-D-####-*.md`
+
+Canonical IDs remain the stable handles. Previous date-prefixed paths are not
+live files and are not preserved as a repository lookup layer. Use git history,
+PRs, or release notes when old path archaeology is actually needed.
+
+Do not recreate date-named files or generated compatibility maps for retired
+paths.
+
+## Naming
+
+Use the full canonical decision ID as the filename prefix:
+
+`AOA-AG-D-0057-short-decision-slug.md`
+
+Prefer short titles that name the route, not the whole debate.
+
+## Template
+
+Start from [TEMPLATE.md](TEMPLATE.md) for new decisions. Keep notes concise, but
+include enough context, options, rationale, consequences, index metadata, and
+validation for a future agent to avoid repeating the same route question.

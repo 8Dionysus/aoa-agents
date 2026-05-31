@@ -1,0 +1,28 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260531T063230Z:46728307-aoa-agents-decisions-now-use-can",
+  "repo": "aoa-agents",
+  "kind": "route",
+  "family": "memory-access",
+  "scope": "repo",
+  "claim": "aoa-agents decisions now use canonical AOA-AG-D IDs and generated role-layer lookup indexes, with memo candidates refreshed to canonical decision refs.",
+  "source_refs": [
+    "docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md",
+    "docs/decisions/indexes/by-number.md"
+  ],
+  "evidence_refs": [
+    "docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md",
+    "docs/decisions/indexes/by-number.md"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-31T06:32:30Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

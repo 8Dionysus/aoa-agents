@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Agon rank, school/campaign, and epistemic actor builders, validators, and focused tests into mechanics/agon package and part-local routes; root scripts/tests now keep only repo-level coordination while former root check paths are provenance facts.",
   "source_refs": [
-    "docs/decisions/2026-05-26-agon-rank-epistemic-check-localization.md",
+    "docs/decisions/AOA-AG-D-0026-agon-rank-epistemic-check-localization.md",
     "mechanics/agon/PROVENANCE.md",
     "mechanics/agon/PARTS.md",
     "mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py",

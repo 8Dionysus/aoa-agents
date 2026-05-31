@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized mechanics-owned role-layer contract payloads into part-local schemas/examples routes; root schemas/examples remain active only for shared or not-yet-localized contracts, and generated registries remain derived surfaces.",
   "source_refs": [
-    "docs/decisions/2026-05-26-agon-rank-epistemic-contract-localization.md",
+    "docs/decisions/AOA-AG-D-0025-agon-rank-epistemic-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/PAYLOAD_RECON.md",
     "mechanics/agon/PARTS.md",

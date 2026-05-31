@@ -11,7 +11,7 @@
     "schemas/agent-source-home.schema.json",
     "scripts/validate_agent_source_home.py",
     "agents/roles/AGENTS.md",
-    "docs/decisions/2026-05-26-agents-source-home-topology.md"
+    "docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md"
   ],
   "evidence_refs": [
     "repo:aoa-agents/pull/219",

@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the Alpha reference-route generated reader into the Questbook alpha-reference-routes part-local generated route; root generated no longer owns that mechanics-specific derived reader, and the part-local Alpha builder plus Questbook validator and scripts/validate_agents.py guard the new route and former-root absence.",
   "source_refs": [
-    "docs/decisions/2026-05-26-alpha-reference-generated-reader-localization.md",
+    "docs/decisions/AOA-AG-D-0039-alpha-reference-generated-reader-localization.md",
     "mechanics/questbook/PROVENANCE.md",
     "mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json",
     "mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py",

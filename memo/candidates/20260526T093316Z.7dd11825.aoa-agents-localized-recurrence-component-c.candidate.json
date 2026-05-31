@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized the recurrence component manifest validator and focused tests into mechanics/recurrence/parts/component-manifests/{scripts,tests}/; validate_agents.py loads the part-local validator and release_check.py runs the part-local manifest tests.",
   "source_refs": [
-    "docs/decisions/2026-05-26-recurrence-component-check-localization.md",
+    "docs/decisions/AOA-AG-D-0006-recurrence-component-check-localization.md",
     "mechanics/recurrence/PROVENANCE.md",
     "mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py",
     "mechanics/recurrence/parts/component-manifests/tests/test_recurrence_component_manifests.py",

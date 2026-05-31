@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents moved the maintained Spark fast-loop lane from root Spark/ to .agents/spark/ after sibling-source comparison; .agents/ now owns agent-facing companion lanes, while agents/ remains source role truth and mechanics/ remains operation topology.",
   "source_refs": [
-    "docs/decisions/2026-05-26-spark-agent-lane-home.md",
+    "docs/decisions/AOA-AG-D-0046-spark-agent-lane-home.md",
     ".agents/AGENTS.md",
     ".agents/spark/AGENTS.md",
     ".agents/spark/SWARM.md",

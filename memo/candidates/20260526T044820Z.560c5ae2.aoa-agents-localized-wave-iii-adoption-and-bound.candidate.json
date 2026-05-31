@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents localized Wave III adoption and boundary contracts into Agon adoption-retention, Boundary Bridge consumer/federation, and Experience adoption/office part-local schema/example routes; root schemas/examples no longer own those contracts, and mechanics/experience/scripts/validate_adoption_boundary_contracts.py guards active file sets plus schema/example invariants.",
   "source_refs": [
-    "docs/decisions/2026-05-26-adoption-boundary-contract-localization.md",
+    "docs/decisions/AOA-AG-D-0034-adoption-boundary-contract-localization.md",
     "mechanics/ARTIFACT_TOPOLOGY.md",
     "mechanics/PAYLOAD_RECON.md",
     "mechanics/agon/PARTS.md",

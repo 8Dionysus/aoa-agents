@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents added package-level AGENTS.md route cards for every active mechanics package after comparing refactored sibling repos; mechanics packages now have a nearest owner card between mechanics/AGENTS.md and parts/AGENTS.md, while payload movement still requires package-local contract and validator proof.",
   "source_refs": [
-    "docs/decisions/2026-05-26-mechanics-package-route-cards.md",
+    "docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md",
     "mechanics/AGENTS.md",
     "mechanics/README.md",
     "scripts/validate_nested_agents.py",

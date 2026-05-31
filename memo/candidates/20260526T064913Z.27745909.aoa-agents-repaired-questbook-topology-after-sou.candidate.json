@@ -7,7 +7,7 @@
   "scope": "repo",
   "claim": "aoa-agents repaired Questbook topology after source comparison: root QUESTBOOK.md owns human obligation visibility, root quests/ owns lane-first source quest records, root generated/quest_catalog and generated/quest_dispatch remain consumer read models, and mechanics/questbook now owns public-index, quest-item-store, and dispatch-reader route law instead of part-local quest source ownership.",
   "source_refs": [
-    "docs/decisions/2026-05-26-questbook-source-store-topology-repair.md",
+    "docs/decisions/AOA-AG-D-0008-questbook-source-store-topology-repair.md",
     "QUESTBOOK.md",
     "quests/README.md",
     "quests/AGENTS.md",
