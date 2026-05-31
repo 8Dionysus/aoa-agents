@@ -12,15 +12,20 @@ def read_text(relative_path: str) -> str:
 
 
 class AssistantCivilRouteSurfacesTestCase(unittest.TestCase):
-    def test_readme_and_docs_map_assistant_civil_surfaces(self) -> None:
+    def test_docs_map_and_contour_route_assistant_civil_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
+        contour = read_text("docs/CURRENT_CONTOUR.md")
         subject_prep = read_text("mechanics/agon/parts/formation/docs/subject-prep.md")
         kind_model = read_text("mechanics/agon/parts/formation/docs/kind-model.md")
 
-        self.assertIn("mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md", readme)
-        self.assertIn("generated/assistant_civil_formation_index.min.json", readme)
-        self.assertIn("python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py", readme)
+        self.assertIn("docs/CURRENT_CONTOUR.md", readme)
+        self.assertIn("mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md", contour)
+        self.assertIn("generated/assistant_civil_formation_index.min.json", contour)
+        self.assertIn(
+            "python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py",
+            contour,
+        )
         self.assertIn("Assistant Civil Rechartering", docs_readme)
         self.assertIn("Assistant Service Contract Model", docs_readme)
         self.assertIn("Assistant Escalation to Agon", docs_readme)

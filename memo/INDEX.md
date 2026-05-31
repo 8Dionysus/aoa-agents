@@ -6,7 +6,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 42 |
+| candidates | 43 |
 | receipts | 0 |
 | exports | 0 |
 | local | 0 |
@@ -15,7 +15,7 @@ Generated from `PORT.yaml` and local memo packets.
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 42 |
+| `reviewed_intake` | 43 |
 
 ## Open Items
 
@@ -63,6 +63,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260526T202419Z:bb425d3b-aoa-agents-now-has-a-codex-speci` | `candidate` | `reviewed_intake` | `candidates/20260526T202419Z.bb425d3b.aoa-agents-now-has-a-codex-specialization-eligib.candidate.json` |
 | `candidate:aoa-agents:20260531T060204Z:b8be06cb-aoa-agents-now-keeps-codex-speci` | `candidate` | `reviewed_intake` | `candidates/20260531T060204Z.b8be06cb.aoa-agents-now-keeps-codex-specialization-projec.candidate.json` |
 | `candidate:aoa-agents:20260531T063230Z:46728307-aoa-agents-decisions-now-use-can` | `candidate` | `reviewed_intake` | `candidates/20260531T063230Z.46728307.aoa-agents-decisions-now-use-canonical-aoa-ag-d.candidate.json` |
+| `candidate:aoa-agents:20260531T064523Z:93125574-aoa-agents-root-documentation-no` | `candidate` | `reviewed_intake` | `candidates/20260531T064523Z.93125574.aoa-agents-root-documentation-now-uses-compact-r.candidate.json` |
 
 ## Agent Route
 

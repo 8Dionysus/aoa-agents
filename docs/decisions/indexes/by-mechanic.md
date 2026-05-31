@@ -24,17 +24,20 @@
 - [AOA-AG-D-0047 2026-05-26: Mechanics Package Route Cards](../AOA-AG-D-0047-mechanics-package-route-cards.md) (`docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## antifragility
 
 - [AOA-AG-D-0002 2026-05-25: Mechanics Package Skeleton](../AOA-AG-D-0002-mechanics-package-skeleton.md) (`docs/decisions/AOA-AG-D-0002-mechanics-package-skeleton.md`)
 - [AOA-AG-D-0013 2026-05-26: Antifragility Stress Payload Localization](../AOA-AG-D-0013-antifragility-stress-payload-localization.md) (`docs/decisions/AOA-AG-D-0013-antifragility-stress-payload-localization.md`)
 - [AOA-AG-D-0014 2026-05-26: Antifragility Stress Check Localization](../AOA-AG-D-0014-antifragility-stress-check-localization.md) (`docs/decisions/AOA-AG-D-0014-antifragility-stress-check-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## boundary-bridge
 
 - [AOA-AG-D-0002 2026-05-25: Mechanics Package Skeleton](../AOA-AG-D-0002-mechanics-package-skeleton.md) (`docs/decisions/AOA-AG-D-0002-mechanics-package-skeleton.md`)
 - [AOA-AG-D-0034 2026-05-26: Adoption And Boundary Contract Localization](../AOA-AG-D-0034-adoption-boundary-contract-localization.md) (`docs/decisions/AOA-AG-D-0034-adoption-boundary-contract-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## checkpoint
 
@@ -62,6 +65,7 @@
 - [AOA-AG-D-0054 2026-05-26: Specialization Projection Boundary](../AOA-AG-D-0054-specialization-projection-boundary.md) (`docs/decisions/AOA-AG-D-0054-specialization-projection-boundary.md`)
 - [AOA-AG-D-0055 2026-05-26: Specialization Eligibility Gate](../AOA-AG-D-0055-specialization-eligibility-gate.md) (`docs/decisions/AOA-AG-D-0055-specialization-eligibility-gate.md`)
 - [AOA-AG-D-0056 2026-05-30: Specialization Eligibility Registry](../AOA-AG-D-0056-specialization-eligibility-registry.md) (`docs/decisions/AOA-AG-D-0056-specialization-eligibility-registry.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## experience
 
@@ -77,6 +81,7 @@
 - [AOA-AG-D-0037 2026-05-26: Experience Agent Service Check Localization](../AOA-AG-D-0037-experience-agent-service-check-localization.md) (`docs/decisions/AOA-AG-D-0037-experience-agent-service-check-localization.md`)
 - [AOA-AG-D-0044 2026-05-26: Formation Generated Reader Posture](../AOA-AG-D-0044-formation-generated-reader-posture.md) (`docs/decisions/AOA-AG-D-0044-formation-generated-reader-posture.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## questbook
 
@@ -89,6 +94,7 @@
 - [AOA-AG-D-0041 2026-05-26: Questbook Reader Builder Localization](../AOA-AG-D-0041-questbook-reader-builder-localization.md) (`docs/decisions/AOA-AG-D-0041-questbook-reader-builder-localization.md`)
 - [AOA-AG-D-0044 2026-05-26: Formation Generated Reader Posture](../AOA-AG-D-0044-formation-generated-reader-posture.md) (`docs/decisions/AOA-AG-D-0044-formation-generated-reader-posture.md`)
 - [AOA-AG-D-0047 2026-05-26: Mechanics Package Route Cards](../AOA-AG-D-0047-mechanics-package-route-cards.md) (`docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## recurrence
 
@@ -122,6 +128,7 @@
 - [AOA-AG-D-0038 2026-05-26: Reference Route Contract Localization](../AOA-AG-D-0038-reference-route-contract-localization.md) (`docs/decisions/AOA-AG-D-0038-reference-route-contract-localization.md`)
 - [AOA-AG-D-0045 2026-05-26: Root Agent Schema Posture](../AOA-AG-D-0045-root-agent-schema-posture.md) (`docs/decisions/AOA-AG-D-0045-root-agent-schema-posture.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## titan
 
@@ -133,6 +140,7 @@
 - [AOA-AG-D-0011 2026-05-26: Titan Check Localization](../AOA-AG-D-0011-titan-check-localization.md) (`docs/decisions/AOA-AG-D-0011-titan-check-localization.md`)
 - [AOA-AG-D-0012 2026-05-26: Titan Codex Projection Builder Localization](../AOA-AG-D-0012-titan-codex-projection-builder-localization.md) (`docs/decisions/AOA-AG-D-0012-titan-codex-projection-builder-localization.md`)
 - [AOA-AG-D-0044 2026-05-26: Formation Generated Reader Posture](../AOA-AG-D-0044-formation-generated-reader-posture.md) (`docs/decisions/AOA-AG-D-0044-formation-generated-reader-posture.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## cross-mechanic
 
@@ -145,3 +153,4 @@
 - [AOA-AG-D-0051 2026-05-26: agents source home topology](../AOA-AG-D-0051-agents-source-home-topology.md) (`docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md`)
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)

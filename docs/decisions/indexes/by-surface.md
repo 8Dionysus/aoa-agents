@@ -8,6 +8,7 @@
 - [AOA-AG-D-0045 2026-05-26: Root Agent Schema Posture](../AOA-AG-D-0045-root-agent-schema-posture.md) (`docs/decisions/AOA-AG-D-0045-root-agent-schema-posture.md`)
 - [AOA-AG-D-0051 2026-05-26: agents source home topology](../AOA-AG-D-0051-agents-source-home-topology.md) (`docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## agent source
 
@@ -39,6 +40,7 @@
 - [AOA-AG-D-0002 2026-05-25: Mechanics Package Skeleton](../AOA-AG-D-0002-mechanics-package-skeleton.md) (`docs/decisions/AOA-AG-D-0002-mechanics-package-skeleton.md`)
 - [AOA-AG-D-0003 2026-05-26: Mechanics Docs Part Localization](../AOA-AG-D-0003-mechanics-docs-part-localization.md) (`docs/decisions/AOA-AG-D-0003-mechanics-docs-part-localization.md`)
 - [AOA-AG-D-0047 2026-05-26: Mechanics Package Route Cards](../AOA-AG-D-0047-mechanics-package-route-cards.md) (`docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## decision record
 
@@ -167,6 +169,7 @@
 - [AOA-AG-D-0037 2026-05-26: Experience Agent Service Check Localization](../AOA-AG-D-0037-experience-agent-service-check-localization.md) (`docs/decisions/AOA-AG-D-0037-experience-agent-service-check-localization.md`)
 - [AOA-AG-D-0040 2026-05-26: Reference Route Check Localization](../AOA-AG-D-0040-reference-route-check-localization.md) (`docs/decisions/AOA-AG-D-0040-reference-route-check-localization.md`)
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## codex projection
 

@@ -12,13 +12,15 @@ def read_text(relative_path: str) -> str:
 
 
 class AgonFormationRouteSurfacesTestCase(unittest.TestCase):
-    def test_readme_and_docs_map_agon_formation_surfaces(self) -> None:
+    def test_docs_map_and_contour_route_agon_formation_surfaces(self) -> None:
         readme = read_text("README.md")
         docs_readme = read_text("docs/README.md")
+        contour = read_text("docs/CURRENT_CONTOUR.md")
 
-        self.assertIn("mechanics/agon/parts/formation/docs/actor-rechartering.md", readme)
-        self.assertIn("generated/agent_agonic_formation_index.min.json", readme)
-        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py", readme)
+        self.assertIn("docs/CURRENT_CONTOUR.md", readme)
+        self.assertIn("mechanics/agon/parts/formation/docs/actor-rechartering.md", contour)
+        self.assertIn("generated/agent_agonic_formation_index.min.json", contour)
+        self.assertIn("python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py", contour)
         self.assertIn("Agonic Actor Rechartering", docs_readme)
         self.assertIn("Agent Kind Model", docs_readme)
         self.assertIn("Agent Resistance and Revision Posture", docs_readme)

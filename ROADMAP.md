@@ -1,285 +1,174 @@
 # AoA Agents Roadmap
 
-This roadmap tracks the bootstrap baseline and the current `v0.2.x`
-contract-hardening waves for the AoA agent layer.
+This roadmap tracks repo-level direction for `aoa-agents` as the AoA role and
+persona layer.
 
-## Current phase
+Use it when the question is "what direction should shape the next role-layer
+change?", not "which shipped surface should I open?"
 
-The bootstrap baseline is landed.
+## Authority
 
-The current goal is not to widen the catalog too early.
-The current goal is to make the existing public agent-layer surfaces stable,
-scenario-backed, projection-aware, and consumer-provable without moving
-runtime, playbook, routing, memo, or eval canon into this repository.
+Root `ROADMAP.md` owns:
 
-The current `v0.2.x` release line already carries:
-- checkpoint role follow-through, Codex subagent projection, and self-agency continuity posture as live repo-owned surfaces rather than future ideas
-- Codex custom-agent projection and owner refresh-law surfaces in `mechanics/codex-projection/parts/subagent-projection/docs/subagent-projection.md`, `mechanics/codex-projection/parts/refresh-law/docs/subagent-refresh-law.md`, `mechanics/codex-projection/parts/refresh-law/examples/subagent-refresh-law.example.json`, `mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json`, and `generated/codex_agents/`
-- role specialization projection readiness as candidate-only eligibility records and a generated readiness reader under `mechanics/codex-projection/parts/specialization-eligibility/`, while Codex projection remains `base_role_profiles_only`
-- runtime seam, stress posture, and stress handoff adjuncts in `generated/runtime_seam_bindings.json`, `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, and `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`
-- adjunct quest and Alpha readiness surfaces in `QUESTBOOK.md`, `quests/`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`
-- subject-prep boundary plus unreleased companion turns and the first formation
-  trial in `mechanics/agon/parts/formation/docs/subject-prep.md`, `mechanics/agon/parts/formation/docs/actor-rechartering.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`, `mechanics/agon/parts/formation/docs/formation-trial.md`, and
-  `generated/agent_formation_trial.min.json`, keeping the agonic/assistant kind split
-  additive without changing profile schemas yet
+- repo-level role-layer direction;
+- current `v0.2.x` contract-hardening posture;
+- source-home, mechanics, projection, formation, and generated-reader pressure
+  when that pressure changes the whole repo contour;
+- future triggers that belong to `aoa-agents`.
 
-The near-term roadmap should therefore read as projection and contract
-hardening, not as a pre-projection bootstrap placeholder.
+It does not own release history, local mechanic roadmaps, checked mechanic
+landings, quest state, generated truth, proof verdicts, memory objects,
+routing policy, runtime implementation, or sibling-repository direction.
 
-The current topology line also now separates source-authored agent objects from
-repeatable operation mechanics:
+Use the stronger surface when the change is narrower:
 
-- `agents/` owns role, tier, orchestrator-class, cohort, and runtime-seam
-  source inputs.
-- `agents/source_home.manifest.json` owns the checked map of source families,
-  publication targets, validators, and stronger-owner stop lines for the
-  `agents/` home.
-- `mechanics/` owns the operation atlas for formation, projection,
-  runtime-seam binding, checkpoint posture, quest posture, Titan role-bearing
-  movement, and release-support pressure.
-- Large public docs, shared schemas, examples, scripts, tests, and generated
-  readers stay in their current districts until a later mechanic package has a
-  local contract and validator support.
+- repository authority: [CHARTER](CHARTER.md);
+- role/source topology: [agents](agents/README.md) and `agents/source_home.manifest.json`;
+- operation topology: [mechanics](mechanics/README.md);
+- current shipped inventory: [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md);
+- owner boundaries: [BOUNDARIES](docs/BOUNDARIES.md);
+- durable obligations: [QUESTBOOK](QUESTBOOK.md) and [quests](quests/README.md);
+- released history: [CHANGELOG](CHANGELOG.md);
+- structural rationale: [docs/decisions](docs/decisions/README.md).
 
-## Current cycle
+## Update Rule
 
-### Wave 1: public contract stabilization
+Update this roadmap only when a change moves repo-level direction, role-layer
+topology, source/generated posture, projection posture, formation posture,
+mechanics-to-source interface, or a concrete future trigger.
 
-Goals:
-- publish explicit compatibility discipline for source-authored and generated contract surfaces
-- harden validator checks around top-level metadata, stable publication order, and silent field drift
-- keep existing generated wire shapes and artifact schemas unchanged
+Do not update it for local package landings, generated refreshes, release
+notes, quest lifecycle moves, candidate records, or validator maintenance unless
+that local change changes repo-level direction.
 
-Exit signals:
-- published compatibility rules are documented
-- validator fails on accidental generated-surface drift
-- generated registry order remains deterministic and inspectable
+Before closeout, ask: did this change move the role layer's direction, or did it
+only land a local surface?
 
-### Wave 2: scenario-backed reference routes
+## Operating Card
 
-Goals:
-- add example-only route packs over the current public loop
-- validate cohort fit, tier fit, seam fit, and artifact fit for each route pack
-- keep these surfaces educational and inspectable rather than normative
+| Field | Route |
+| --- | --- |
+| input | repo-level role-layer pressure, direction changes, horizon order, or public-contour changes |
+| output | direction, horizon posture, future trigger, or owner-route pressure |
+| owner | root roadmap for direction; source, mechanics, decisions, and contour docs for detail |
+| next route | [agents](agents/README.md), [mechanics](mechanics/README.md), [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md), then nearest local route card |
+| validation | [AGENTS.md#verify](AGENTS.md#verify), plus route-specific tests when roadmap contracts move |
 
-Exit signals:
-- four reference route packs validate end-to-end
-- manifests remain schema-backed and example-only
-- no runtime logic or playbook canon is introduced
+## Current Direction
 
-### Wave 3: federation consumer proof
+The bootstrap baseline is landed. The current `v0.2.x` line is contract
+hardening, not catalog expansion.
 
-Goals:
-- make bounded consumer promises explicit for `aoa-playbooks`, `aoa-evals`, `aoa-memo`, and `aoa-routing`
-- expand optional smoke checks around those seams without requiring cross-repo checkout by default
-- preserve self-contained local validation when consumer roots are not supplied
+The repo should now:
 
-Exit signals:
-- federated smoke checks cover all four current consumer seams
-- the consumer check matrix is documented
-- local validation remains autonomous when roots are absent
+- keep root entry surfaces compact enough to trust;
+- keep role-bearing source truth in `agents/`;
+- keep repeatable operation pressure in `mechanics/`;
+- keep generated readers subordinate to source objects and builders;
+- keep Codex projection source-owned and refresh-law bounded;
+- keep role-local specializations candidate-only until a projection eligibility
+  surface records install name, permission posture, owner consent, and refresh
+  law;
+- keep the agonic/assistant kind split, formation trial, Titan role-bearing,
+  quest posture, stress posture, and runtime seam visible without turning root
+  docs into path ledgers;
+- keep proof, memory, routing, playbooks, skills, techniques, stats, KAG, and
+  runtime truth with their owners.
 
-## Current published contour
+The main near-term risk is roadmap drift: shipped formation, projection, stress,
+quest, Titan, and runtime-seam surfaces must remain discoverable, but their
+full inventories belong in [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md), package
+READMEs, generated readers, and local route cards rather than in this roadmap.
 
-The currently published agent-layer contour already includes:
-- source-authored role, tier, orchestrator, cohort, and runtime-seam inputs under `agents/roles/`, `agents/operating-model/tiers/`, `agents/operating-model/orchestrators/`, `agents/operating-model/cohorts/`, and `agents/operating-model/runtime-seams/`
-- the checked source-home manifest under `agents/source_home.manifest.json`
-- the mechanics atlas under `mechanics/`
-- published registries and consumer seams under `generated/agent_registry.min.json`, `generated/model_tier_registry.json`, `generated/cohort_composition_registry.json`, and `generated/runtime_seam_bindings.json`
-- Codex subagent projection outputs under `generated/codex_agents/agents/*.toml` and `generated/codex_agents/config.subagents.generated.toml`
-- Codex specialization eligibility records and readiness reader under `mechanics/codex-projection/parts/specialization-eligibility/records/` and `mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`
-- role-posture adjuncts for stress, checkpoint-growth, quest, and Alpha reference routes under `mechanics/antifragility/parts/stress-posture/docs/stress-posture.md`, `mechanics/antifragility/parts/stress-posture/docs/stress-handoffs.md`, `mechanics/checkpoint/parts/growth-checkpoint/docs/workspace-checkpoint-growth-role-posture.md`, `mechanics/questbook/parts/execution-passport/docs/quest-execution-passport.md`, `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`, `generated/quest_catalog.min.json`, and `generated/quest_dispatch.min.json`
+## Current Released Contour
 
-The main near-term risk is roadmap drift: Codex subagent projection, stress
-adjuncts, quest capture, and Alpha readiness are already shipped surfaces and
-should stay visible in current-direction docs instead of hiding only in
-README or release notes.
+Current release marker: `v0.2.3`.
 
-## Unreleased next turn: Agonic Actor Rechartering
+The public role-layer contour is:
 
-The next unreleased agent-layer turn after `v0.2.3` is Agonic Actor
-Rechartering. Its checked surface is:
+- role sources and operating-model inputs under `agents/`;
+- package-shaped operation routes under `mechanics/`;
+- compact public explanation under `docs/`;
+- generated companions under `generated/`;
+- quest source records under `quests/` with derived quest readers;
+- local memo candidate writeback under `memo/`.
 
-- agonic actor doctrine and landing docs:
-  `mechanics/agon/parts/formation/docs/actor-rechartering.md`,
-  `mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md`,
-  `mechanics/agon/parts/formation/docs/kind-model.md`,
-  `mechanics/agon/parts/formation/docs/subjectivity-model.md`,
-  `mechanics/experience/parts/office-operations/docs/agent-office-model.md`,
-  `mechanics/agon/parts/arena-rank-school/docs/arena-eligibility-model.md`, and
-  `mechanics/agon/parts/formation/docs/resistance-revision-posture.md`
-- additive companion source surfaces:
-  `agents/roles/*/forms/agonic/kind.json`,
-  `agents/roles/*/forms/agonic/subjectivity.json`,
-  `agents/roles/*/forms/agonic/office-overlay.json`,
-  `agents/roles/*/forms/agonic/arena-eligibility.json`, and
-  `agents/roles/*/forms/agonic/resistance-revision.json`
-- agonic actor companion contracts and publication:
-  `mechanics/agon/parts/formation/schemas/agent-kind.schema.json`,
-  `mechanics/agon/parts/formation/schemas/subjectivity.schema.json`,
-  `mechanics/agon/parts/formation/schemas/office-overlay.schema.json`,
-  `mechanics/agon/parts/arena-rank-school/schemas/arena-eligibility.schema.json`,
-  `mechanics/agon/parts/formation/schemas/resistance-revision.schema.json`,
-  `generated/agent_agonic_formation_index.min.json`, and
-  `mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json`
-- explicit agonic actor recharter validation lane:
-  `mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py`,
-  `mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py`, and
-  `mechanics/agon/parts/formation/tests/test_agent_agonic_formation.py`
+The detailed surface list for Codex projection, specialization eligibility,
+Agon formation, assistant civil formation, formation trial, Titan, stress,
+runtime seam, workspace trigger, Questbook, and generated readers lives in
+[CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md).
 
-This turn keeps the base `agents/roles/*/profile.json` files as legacy role
-contracts while Agonic Actor Rechartering lands reviewed companion surfaces for
-agonic actor readiness. It does not widen `schemas/agent-profile.schema.json`, does not
-rewrite generated role registries, and does not start arena protocol, scars,
-retention, runtime packets, or ToS promotion.
+## Horizons
 
-## Unreleased follow-on turn: Assistant Civil Rechartering
+### Horizon: Root Clarity
 
-The next unreleased follow-on turn after Agonic Actor Rechartering is Assistant
-Civil Rechartering. Its checked surface is:
+| Field | Direction |
+| --- | --- |
+| Current posture | `README.md`, `AGENTS.md`, `CHARTER.md`, `DESIGN.md`, `ROADMAP.md`, `docs/README.md`, and `docs/BOUNDARIES.md` now have separate jobs. |
+| Next honest move | Keep root surfaces as entry, authority, shape, direction, and route law. Move inventories to docs maps, contour docs, generated readers, mechanics, or decisions. |
+| Guardrail | Root docs must not become archives of every part, validator, release note, or session. |
 
-- assistant civil doctrine and landing docs:
-  `mechanics/experience/parts/assistant-civil-service/docs/civil-rechartering.md`,
-  `mechanics/agon/parts/formation/docs/assistant-civil-rechartering-landing.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/assistant-kind-model.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/service-identity-model.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/service-contract-model.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/service-governance-model.md`,
-  `mechanics/experience/parts/assistant-civil-service/docs/service-certification-model.md`,
-  `mechanics/experience/parts/arena-exclusion/docs/arena-exclusion-model.md`, and
-  `mechanics/experience/parts/arena-exclusion/docs/escalation-to-agon.md`
-- additive assistant companion source surfaces:
-  `agents/roles/*/forms/assistant/variant.json`,
-  `agents/roles/*/forms/assistant/service-identity.json`,
-  `agents/roles/*/forms/assistant/service-contract.json`,
-  `agents/roles/*/forms/assistant/service-governance.json`,
-  `agents/roles/*/forms/assistant/service-certification.json`, and
-  `agents/roles/*/forms/assistant/arena-exclusion.json`
-- assistant civil companion contracts and publication:
-  `mechanics/experience/parts/assistant-civil-service/schemas/assistant-variant.schema.json`,
-  `mechanics/experience/parts/assistant-civil-service/schemas/service-identity.schema.json`,
-  `mechanics/experience/parts/assistant-civil-service/schemas/service-contract.schema.json`,
-  `mechanics/experience/parts/assistant-civil-service/schemas/service-governance.schema.json`,
-  `mechanics/experience/parts/assistant-civil-service/schemas/service-certification.schema.json`,
-  `mechanics/experience/parts/assistant-civil-service/schemas/civil-formation.schema.json`,
-  `mechanics/experience/parts/arena-exclusion/schemas/arena-exclusion.schema.json`,
-  `generated/assistant_civil_formation_index.min.json`, and
-  `mechanics/experience/parts/assistant-civil-service/examples/civil-formation.example.json`
-- explicit assistant civil validation lane:
-  `mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py`,
-  `mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py`,
-  `mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py`, and
-  `mechanics/experience/parts/assistant-civil-service/tests/test_assistant_civil_formation.py` plus
-  `mechanics/experience/tests/test_experience_assistant_civil_contracts.py`
+### Horizon: Source Home
 
-This turn keeps assistant variants as civil/service forms anchored to the same
-five role houses without widening the public role catalog, without granting
-contestant or judge authority, and without pulling runtime packets, scars,
-verdicts, durable incident logs, or ToS promotion into `aoa-agents`.
+| Field | Direction |
+| --- | --- |
+| Current posture | `agents/` is the source-authored home for base role houses, companion forms, specializations, capability packs, tiers, orchestrators, cohorts, and runtime-seam bindings. |
+| Next honest move | Keep source-family changes tied to `agents/source_home.manifest.json`, local route cards, builders, validators, and generated companions. |
+| Guardrail | Generated registries and projected agents never replace source role objects. |
 
-## Unreleased follow-on turn: Formation Trial
+### Horizon: Mechanics Atlas
 
-The next unreleased follow-on turn after Assistant Civil Rechartering is
-Formation Trial. Its checked surface is:
+| Field | Direction |
+| --- | --- |
+| Current posture | `mechanics/` owns repeatable role-layer operations such as formation, Codex projection, Titan posture, runtime seams, checkpoint posture, quest posture, recurrence, stress posture, and release support. |
+| Next honest move | Let package route cards and `PARTS.md` files carry local detail while root watches only repo-wide direction. |
+| Guardrail | Mechanics route operation pressure; they do not become proof verdicts, memory objects, playbooks, runtime workers, or generated truth. |
 
-- formation-trial doctrine and landing docs:
-  `mechanics/agon/parts/formation/docs/formation-trial.md`,
-  `mechanics/agon/parts/pre-protocol-boundary/docs/pre-protocol-agent-boundary.md`,
-  `mechanics/agon/parts/pre-protocol-boundary/docs/formation-trial-readiness.md`,
-  `mechanics/codex-projection/parts/agon-boundary/docs/projection-agon-boundary.md`, and
-  `mechanics/agon/parts/formation/docs/formation-trial-landing.md`
-- formation-trial companion contract and publication:
-  `mechanics/agon/parts/formation/schemas/formation-trial.schema.json`,
-  `generated/agent_formation_trial.min.json`, and
-  `mechanics/agon/parts/formation/examples/formation-trial.example.json`
-- explicit formation-trial validation lane:
-  `mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py`,
-  `mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py`, and
-  `mechanics/agon/parts/formation/tests/test_agent_formation_trial.py`
+### Horizon: Projection And Specialization
 
-This turn judges whether the current five role houses survive as readable split
-forms after Agonic Actor Rechartering and Assistant Civil Rechartering. It
-opens lawful-move design only as pre-protocol readability, and it does not open
-arena sessions, lawful moves, sealed commits, verdict logic, scars, retention
-checks, runtime packets, or ToS promotion inside `aoa-agents`.
+| Field | Direction |
+| --- | --- |
+| Current posture | Codex custom-agent projection remains base-role-only; specialization eligibility is candidate-only and non-installing. |
+| Next honest move | Treat installability as a reviewed projection decision with owner consent, permission posture, and refresh law. |
+| Guardrail | Do not hand-author installed agent files as role truth, and do not promote specializations by proximity. |
 
-## Bootstrap substep: runtime seam hardening
+### Horizon: Formation And Companion Forms
 
-Status: landed as baseline.
+| Field | Direction |
+| --- | --- |
+| Current posture | Agonic actor forms, assistant civil forms, and formation trial are landed as additive companion surfaces around the current role houses. |
+| Next honest move | Keep split forms readable and validator-backed before opening any broader protocol, arena, scar, retention, runtime packet, or ToS-promotion work. |
+| Guardrail | Formation posture is not live arena authority. Assistant service posture is not contestant or judge authority. |
 
-Goals:
-- add inspectable runtime artifact examples and bounded negative fixtures
-- publish a machine-readable role × tier binding surface
-- make transition and artifact coverage discipline explicit
-- make recurrence discipline explicit without turning return into a new runtime stage
-- add optional published-contract smoke checks without requiring cross-repo CI checkout
+### Horizon: Consumer Seams
 
-Exit signals:
-- every published runtime artifact schema has a valid example and bounded invalid fixture coverage
-- the public role × tier mapping is machine-readable without changing existing registry wire shape
-- `transition_decision` can express anchor-based return in a compact inspectable way
-- the validator can confirm public contract reachability in neighboring repos when local roots are supplied
+| Field | Direction |
+| --- | --- |
+| Current posture | Runtime seams, Questbook, stress handoffs, workspace triggers, and federation consumer seams make bounded role-layer consumption inspectable. |
+| Next honest move | Expand optional smoke or consumer checks only when the source owner and generated reader route are explicit. |
+| Guardrail | Consumer reachability does not import sibling owner truth into `aoa-agents`. |
 
-## Phase 1: agent layer definition
+## When The Time Comes
 
-Goals:
-- define `aoa-agents` as the canonical role and persona layer within AoA
-- make the distinction between agent, skill, proof, memory, and routing explicit
-- establish a compact agent registry and a minimal validator
+These are repo-level triggers that should wait for real evidence:
 
-Exit signals:
-- the repository role is clear
-- agent-layer boundaries are documented
-- a compact machine-readable registry exists
+- Add a broader projection promotion workflow only after multiple eligibility
+  records prove stable review shape.
+- Add richer formation or actor companion families only after current agonic and
+  assistant forms remain readable under validation.
+- Split or add a mechanic only when an existing package would become less clear
+  by owning the pressure.
+- Promote generated-reader coverage only after source ownership and builder
+  parity are explicit.
 
-## Phase 2: first agent profile discipline
+## Standing Direction
 
-Goals:
-- define the first public shape for agent profiles
-- distinguish basic role contracts such as architect, coder, reviewer, evaluator, and memory-keeper
-- keep profile forms compact enough to review
+Keep the role layer legible:
 
-## Phase 3: handoff and posture surfaces
-
-Goals:
-- make handoff rules explicit
-- make memory posture explicit
-- make evaluation posture explicit
-- keep agent boundaries readable to humans and smaller models
-
-## Phase 4: cohort composition
-
-Goals:
-- define bounded multi-agent composition hints
-- clarify when agents operate solo, in pairs, or under orchestration
-- avoid turning the agent layer into a hidden runtime monolith too early
-
-Exit signals:
-- the first official cohort pattern set is documented
-- a machine-readable cohort composition registry exists
-- the validator checks cohort pattern alignment against role and tier registries
-- the self-agent checkpoint route maps to a canonical cohort pattern without absorbing playbook logic
-
-## Phase 5: federation integration
-
-Goals:
-- connect `aoa-agents` cleanly to `aoa-skills`
-- connect agent postures to `aoa-evals`
-- connect agent memory posture to `aoa-memo`
-- preserve clear boundaries relative to `aoa-routing`
-- harden bounded consumer seams against routing-published memo recall entrypoints
-  without moving tiny-model family-selection policy into `aoa-agents`
-
-Near-term interpretation:
-- prove the current published seams first
-- stabilize the contract before any larger catalog growth
-- postpone new role families until after the current cycle lands
-
-## Standing discipline
-
-Across all phases:
-- keep roles explicit
-- keep profiles compact
-- keep handoff rules reviewable
-- do not confuse the actor layer with execution, proof, memory, or routing
+- source role objects own actor meaning;
+- mechanics route repeatable operations;
+- generated readers summarize source;
+- projection remains refresh-law bounded;
+- formation remains pre-protocol until stronger owners move;
+- sibling repositories keep their own practice, workflow, proof, memory,
+  routing, playbook, graph, stats, runtime, and center-law truth.

@@ -39,6 +39,7 @@
 - [AOA-AG-D-0054 2026-05-26: Specialization Projection Boundary](../AOA-AG-D-0054-specialization-projection-boundary.md) (`docs/decisions/AOA-AG-D-0054-specialization-projection-boundary.md`)
 - [AOA-AG-D-0055 2026-05-26: Specialization Eligibility Gate](../AOA-AG-D-0055-specialization-eligibility-gate.md) (`docs/decisions/AOA-AG-D-0055-specialization-eligibility-gate.md`)
 - [AOA-AG-D-0056 2026-05-30: Specialization Eligibility Registry](../AOA-AG-D-0056-specialization-eligibility-registry.md) (`docs/decisions/AOA-AG-D-0056-specialization-eligibility-registry.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## agon formation
 
@@ -47,6 +48,7 @@
 - [AOA-AG-D-0027 2026-05-26: Agon Formation Contract Localization](../AOA-AG-D-0027-agon-formation-contract-localization.md) (`docs/decisions/AOA-AG-D-0027-agon-formation-contract-localization.md`)
 - [AOA-AG-D-0028 2026-05-26: Agon Formation Check Localization](../AOA-AG-D-0028-agon-formation-check-localization.md) (`docs/decisions/AOA-AG-D-0028-agon-formation-check-localization.md`)
 - [AOA-AG-D-0042 2026-05-26: Agon Rank And Epistemic Generated Reader Localization](../AOA-AG-D-0042-agon-rank-epistemic-generated-reader-localization.md) (`docs/decisions/AOA-AG-D-0042-agon-rank-epistemic-generated-reader-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## assistant civil
 
@@ -58,6 +60,7 @@
 - [AOA-AG-D-0035 2026-05-26: Experience Adoption Boundary Check Localization](../AOA-AG-D-0035-experience-adoption-boundary-check-localization.md) (`docs/decisions/AOA-AG-D-0035-experience-adoption-boundary-check-localization.md`)
 - [AOA-AG-D-0036 2026-05-26: Agent Service Contract Localization](../AOA-AG-D-0036-agent-service-contract-localization.md) (`docs/decisions/AOA-AG-D-0036-agent-service-contract-localization.md`)
 - [AOA-AG-D-0037 2026-05-26: Experience Agent Service Check Localization](../AOA-AG-D-0037-experience-agent-service-check-localization.md) (`docs/decisions/AOA-AG-D-0037-experience-agent-service-check-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## titan role-bearing
 
@@ -105,6 +108,7 @@
 
 - [AOA-AG-D-0013 2026-05-26: Antifragility Stress Payload Localization](../AOA-AG-D-0013-antifragility-stress-payload-localization.md) (`docs/decisions/AOA-AG-D-0013-antifragility-stress-payload-localization.md`)
 - [AOA-AG-D-0014 2026-05-26: Antifragility Stress Check Localization](../AOA-AG-D-0014-antifragility-stress-check-localization.md) (`docs/decisions/AOA-AG-D-0014-antifragility-stress-check-localization.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## mechanics atlas
 
@@ -153,7 +157,12 @@
 - [AOA-AG-D-0048 2026-05-26: Active Provenance Bridge Wording](../AOA-AG-D-0048-active-provenance-bridge-wording.md) (`docs/decisions/AOA-AG-D-0048-active-provenance-bridge-wording.md`)
 - [AOA-AG-D-0049 2026-05-26: Provenance Bridge Operating Shape](../AOA-AG-D-0049-provenance-bridge-operating-shape.md) (`docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 
 ## decision index
 
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
+
+## root clarity
+
+- [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)

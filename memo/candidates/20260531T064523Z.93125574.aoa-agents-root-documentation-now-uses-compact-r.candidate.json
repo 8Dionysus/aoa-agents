@@ -1,0 +1,42 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260531T064523Z:93125574-aoa-agents-root-documentation-no",
+  "repo": "aoa-agents",
+  "kind": "decision",
+  "family": "agent-role-memory",
+  "scope": "repo",
+  "claim": "aoa-agents root documentation now uses compact role-bound entry surfaces and routes shipped surface inventories through docs/CURRENT_CONTOUR.md, keeping README, AGENTS, CHARTER, ROADMAP, and docs maps readable while preserving route discoverability.",
+  "source_refs": [
+    "README.md",
+    "AGENTS.md",
+    "CHARTER.md",
+    "ROADMAP.md",
+    "docs/README.md",
+    "docs/BOUNDARIES.md",
+    "docs/CURRENT_CONTOUR.md",
+    "docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md"
+  ],
+  "evidence_refs": [
+    "README.md",
+    "AGENTS.md",
+    "CHARTER.md",
+    "ROADMAP.md",
+    "docs/README.md",
+    "docs/BOUNDARIES.md",
+    "docs/CURRENT_CONTOUR.md",
+    "docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md",
+    "tests/test_roadmap_surface_alignment.py",
+    "scripts/validate_agents.py"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-05-31T06:45:23Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}
