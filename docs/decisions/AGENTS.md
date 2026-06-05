@@ -18,6 +18,9 @@ the repository.
 - When a decision changes a route, link the owning route card.
 - Use canonical `AOA-AG-D-####` filenames for live decision records.
 - Treat `indexes/` as generated lookup read models, not rationale authority.
+- Keep `modeled_surfaces` in `indexes/index_contract.yaml` as a top-level list
+  of normalized repo-relative paths under `docs/decisions/`; do not use it for
+  root non-record Markdown.
 - Do not recreate retired date-prefixed paths or compatibility maps for old
   decision names.
 
