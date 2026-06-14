@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -47,6 +49,21 @@ class AgentSourceHomeTests(unittest.TestCase):
         self.assertEqual(branch_ids, {"role_houses", "operating_model"})
         self.assertTrue((REPO_ROOT / "agents" / "roles" / "AGENTS.md").is_file())
         self.assertTrue((REPO_ROOT / "agents" / "operating-model" / "AGENTS.md").is_file())
+
+    def test_manifest_rejects_unlisted_top_level_agent_source_directories(self) -> None:
+        module = load_validator_module()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir) / "repo"
+            shutil.copytree(
+                REPO_ROOT,
+                temp_root,
+                ignore=shutil.ignore_patterns(".git", ".mypy_cache", ".pytest_cache", "__pycache__"),
+            )
+            (temp_root / "agents" / "new_family").mkdir()
+
+            issues = module.validate_manifest(temp_root)
+
+        self.assertIn("unexpected direct agents source directories: new_family", issues)
 
 
 if __name__ == "__main__":
