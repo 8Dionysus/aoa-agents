@@ -67,6 +67,12 @@ from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
+MEMO_AGENTS_PATH = Path("memo/AGENTS.md")
+HOST_SPECIFIC_MEMO_ROOT = "/srv/AbyssOS/aoa-memo"
+MEMO_AGENTS_VALIDATION_COMMANDS = (
+    'python "$AOA_MEMO_ROOT/scripts/memory/validate_local_memo_port.py" --path memo',
+    'python "$AOA_MEMO_ROOT/scripts/memory/build_local_memo_port_index.py" --path memo --check',
+)
 
 
 def load_repo_python_module(module_name: str, relative_path: str) -> Any:
@@ -823,6 +829,24 @@ def read_yaml(path: Path, *, root: Path = REPO_ROOT) -> dict[str, object]:
         fail(f"{describe_path(path, root=root)} must contain a YAML object")
 
     return payload
+
+
+def validate_memo_agents_portable_validation_route(repo_root: Path = REPO_ROOT) -> None:
+    memo_agents_path = repo_root / MEMO_AGENTS_PATH
+    text = read_text(memo_agents_path, root=repo_root)
+    if HOST_SPECIFIC_MEMO_ROOT in text:
+        fail(
+            f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must not use "
+            f"host-specific {HOST_SPECIFIC_MEMO_ROOT}"
+        )
+    if "AOA_MEMO_ROOT:?" not in text:
+        fail(
+            f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must require "
+            "an explicit AOA_MEMO_ROOT instead of guessing a sibling checkout path"
+        )
+    for command in MEMO_AGENTS_VALIDATION_COMMANDS:
+        if command not in text:
+            fail(f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must include `{command}`")
 
 
 def format_schema_path(path_parts: list[object]) -> str:
@@ -4100,6 +4124,7 @@ def main() -> int:
         validate_reference_route_contract_routes()
         validate_spark_agent_lane()
         validate_nested_agents_docs()
+        validate_memo_agents_portable_validation_route()
         validate_runtime_artifact_contracts(REPO_ROOT)
         self_agent_checkpoint_example = validate_self_agent_checkpoint_example()
         self_agency_continuity_window_example = validate_self_agency_continuity_window_example()
