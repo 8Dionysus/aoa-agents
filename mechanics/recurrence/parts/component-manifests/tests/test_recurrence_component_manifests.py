@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import importlib.util
+import json
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -31,6 +34,75 @@ class RecurrenceComponentManifestTests(unittest.TestCase):
         validator = _load_validator()
 
         validator.validate_recurrence_component_manifests(ROOT)
+
+    def test_literal_manifest_path_fields_are_validated(self) -> None:
+        validator = _load_validator()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir) / "repo"
+            shutil.copytree(
+                ROOT,
+                temp_root,
+                ignore=shutil.ignore_patterns(
+                    ".git",
+                    ".mypy_cache",
+                    ".pytest_cache",
+                    "__pycache__",
+                ),
+            )
+            missing_paths = [
+                "mechanics/agon/parts/missing/school-campaign-posture.md",
+                "mechanics/agon/parts/missing/rank-jurisdiction-registry.min.json",
+                "mechanics/agon/parts/missing/rank-jurisdiction.seed.json",
+            ]
+
+            school_component = (
+                temp_root
+                / "mechanics"
+                / "recurrence"
+                / "parts"
+                / "component-manifests"
+                / "manifests"
+                / "components"
+                / "agon-school-campaign-posture.json"
+            )
+            school_payload = json.loads(school_component.read_text(encoding="utf-8"))
+            school_payload["surfaces"][0] = missing_paths[0]
+            school_component.write_text(json.dumps(school_payload, indent=2) + "\n", encoding="utf-8")
+
+            rank_component = (
+                temp_root
+                / "mechanics"
+                / "recurrence"
+                / "parts"
+                / "component-manifests"
+                / "manifests"
+                / "components"
+                / "agon-rank-jurisdiction-surfaces.json"
+            )
+            rank_payload = json.loads(rank_component.read_text(encoding="utf-8"))
+            rank_payload["observes"][0] = missing_paths[1]
+            rank_component.write_text(json.dumps(rank_payload, indent=2) + "\n", encoding="utf-8")
+
+            rank_hooks = (
+                temp_root
+                / "mechanics"
+                / "recurrence"
+                / "parts"
+                / "component-manifests"
+                / "manifests"
+                / "hooks"
+                / "agon-rank-jurisdiction-surfaces.json"
+            )
+            hooks_payload = json.loads(rank_hooks.read_text(encoding="utf-8"))
+            hooks_payload["bindings"][1]["source"] = missing_paths[2]
+            rank_hooks.write_text(json.dumps(hooks_payload, indent=2) + "\n", encoding="utf-8")
+
+            errors = validator.collect_manifest_errors(temp_root)
+
+        joined_errors = "\n".join(errors)
+        for missing_path in missing_paths:
+            self.assertIn(f"path does not exist: {missing_path}", joined_errors)
 
     def test_active_payload_text_rejects_old_manifest_namespace(self) -> None:
         validator = _load_validator()
