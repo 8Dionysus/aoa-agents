@@ -185,6 +185,24 @@ CONTRACTS = (
     ),
 )
 
+AGENT_SERVICE_CONTRACT_STEMS_BY_PART = {
+    EXPERIENCE_ADOPTION_PART: {
+        "assistant-behavior-contract-delta",
+        "assistant-canary-probe-matrix",
+        "assistant-regression-result",
+    },
+    EXPERIENCE_OFFICE_PART: {
+        "agent-office-charter-change",
+        "assistant-multi-office-release-result",
+        "assistant-office-install-profile",
+        "assistant-office-live-profile",
+        "assistant-office-pairing",
+        "assistant-office-revision-ledger-entry",
+        "assistant-office-service-contract",
+        "assistant-train-release-participant",
+    },
+}
+
 FORMER_CHECK_PATHS = (
     Path("scripts/validate_adoption_boundary_contracts.py"),
     Path("tests/test_experience_wave3_seed_contracts.py"),
@@ -209,12 +227,15 @@ def _check_file_set(
     errors: list[str],
 ) -> None:
     actual = {path.name for path in (root / directory).glob("*.json")}
-    if expected.issubset(actual):
+    if actual == expected:
         return
     missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
     details: list[str] = []
     if missing:
         details.append("missing: " + ", ".join(missing))
+    if extra:
+        details.append("unexpected: " + ", ".join(extra))
     errors.append(f"{label} file set drifted (" + "; ".join(details) + ")")
 
 
@@ -473,8 +494,13 @@ def collect_adoption_boundary_contract_errors(root: Path = ROOT) -> list[str]:
 
     for part in sorted({contract.part for contract in CONTRACTS}, key=lambda path: path.as_posix()):
         part_contracts = [contract for contract in CONTRACTS if contract.part == part]
-        expected_schemas = {contract.schema_rel.name for contract in part_contracts}
-        expected_examples = {contract.example_rel.name for contract in part_contracts}
+        allowed_agent_service_stems = AGENT_SERVICE_CONTRACT_STEMS_BY_PART.get(part, set())
+        expected_schemas = {contract.schema_rel.name for contract in part_contracts} | {
+            f"{stem}.schema.json" for stem in allowed_agent_service_stems
+        }
+        expected_examples = {contract.example_rel.name for contract in part_contracts} | {
+            f"{stem}.example.json" for stem in allowed_agent_service_stems
+        }
         _check_file_set(root, part / "schemas", expected_schemas, label=f"{part.as_posix()} schema", errors=errors)
         _check_file_set(root, part / "examples", expected_examples, label=f"{part.as_posix()} example", errors=errors)
 

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -22,6 +24,25 @@ class ExperienceAssistantCivilContractsTestCase(unittest.TestCase):
         validator = _load_validator()
 
         validator.validate_experience_assistant_civil_contracts(ROOT)
+
+    def test_experience_assistant_civil_contracts_reject_unexpected_json_files(self) -> None:
+        validator = _load_validator()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir) / "repo"
+            shutil.copytree(
+                ROOT,
+                temp_root,
+                ignore=shutil.ignore_patterns(".git", ".mypy_cache", ".pytest_cache", "__pycache__"),
+            )
+            unexpected_schema = temp_root / validator.ASSISTANT_SCHEMA_DIR / "unexpected.schema.json"
+            unexpected_schema.write_text("{}", encoding="utf-8")
+
+            errors = validator.collect_experience_assistant_civil_contract_errors(temp_root)
+
+        self.assertIn(
+            "assistant civil schema file set drifted (unexpected: unexpected.schema.json)",
+            errors,
+        )
 
     def test_experience_assistant_civil_contracts_are_part_local(self) -> None:
         former_paths = (
