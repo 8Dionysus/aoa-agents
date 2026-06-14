@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -116,6 +118,40 @@ class SpecializationEligibilityTests(unittest.TestCase):
             text=True,
         )
         self.assertEqual(result.returncode, 0, msg=result.stderr)
+
+    def test_validator_reports_readiness_builder_failures_without_traceback(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir)
+            temp_part_root = temp_root / PART_ROOT.relative_to(REPO_ROOT)
+
+            shutil.copytree(PART_ROOT, temp_part_root)
+            shutil.copytree(REPO_ROOT / "agents" / "roles", temp_root / "agents" / "roles")
+            shutil.copytree(
+                REPO_ROOT / "agents" / "operating-model" / "capabilities" / "packs",
+                temp_root / "agents" / "operating-model" / "capabilities" / "packs",
+            )
+            temp_manifest_path = temp_root / MANIFEST_PATH.relative_to(REPO_ROOT)
+            temp_manifest_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(MANIFEST_PATH, temp_manifest_path)
+
+            record_path = temp_part_root / "records" / "architect.topology-steward.eligibility.json"
+            record = load_json(record_path)
+            self.assertIsInstance(record, dict)
+            del record["decision"]
+            record_path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, str(VALIDATOR_PATH), "--root", str(temp_root)],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+            )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("Traceback", result.stderr)
+        self.assertIn("schema violation", result.stderr)
+        self.assertIn("readiness reader could not be validated", result.stderr)
+        self.assertIn("decision", result.stderr)
 
 
 if __name__ == "__main__":

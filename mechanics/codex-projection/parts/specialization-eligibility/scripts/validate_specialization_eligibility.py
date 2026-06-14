@@ -30,7 +30,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from build_specialization_eligibility_readiness import build_readiness_payload  # noqa: E402
+from build_specialization_eligibility_readiness import (  # noqa: E402
+    SpecializationEligibilityReadinessError,
+    build_readiness_payload,
+)
 
 
 class SpecializationEligibilityValidationError(RuntimeError):
@@ -254,6 +257,13 @@ def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
         expected_readiness = build_readiness_payload(root)
     except SpecializationEligibilityValidationError as exc:
         errors.append(str(exc))
+    except SpecializationEligibilityReadinessError as exc:
+        errors.append(f"{READINESS_PATH.as_posix()} readiness reader could not be validated: {exc}")
+    except KeyError as exc:
+        errors.append(
+            f"{READINESS_PATH.as_posix()} readiness reader could not be validated: "
+            f"missing required field {exc}"
+        )
     else:
         if readiness != expected_readiness:
             errors.append(
