@@ -308,6 +308,28 @@ def write_valid_routing_root(
 
 
 class RepoValidatorTests(unittest.TestCase):
+    def test_current_memo_agents_validation_route_is_portable(self) -> None:
+        validate_agents.validate_memo_agents_portable_validation_route(REPO_ROOT)
+
+    def test_memo_agents_validation_route_rejects_host_specific_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            repo_root = Path(tmp_dir)
+            write_text(
+                repo_root / "memo" / "AGENTS.md",
+                """# AGENTS.md
+
+## Validation
+
+```bash
+python /srv/AbyssOS/aoa-memo/scripts/memory/validate_local_memo_port.py --path memo
+python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --path memo --check
+```
+""",
+            )
+
+            with self.assertRaises(validate_agents.ValidationError):
+                validate_agents.validate_memo_agents_portable_validation_route(repo_root)
+
     def test_validate_memory_rights_rejects_non_string_band_without_typeerror(self) -> None:
         memory_rights = valid_memory_rights()
         memory_rights["default_read_bands"] = [[]]
