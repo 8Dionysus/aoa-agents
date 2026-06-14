@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
+import tempfile
 from pathlib import Path
 import unittest
 
@@ -41,6 +43,41 @@ class TitanSchemaValidatorTests(unittest.TestCase):
         )
 
         self.assertTrue(errors)
+
+    def test_schema_discovery_reports_nested_schema_drift(self) -> None:
+        validator = _load_validator()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir) / "repo"
+            shutil.copytree(
+                ROOT,
+                temp_root,
+                ignore=shutil.ignore_patterns(".git", ".mypy_cache", ".pytest_cache", "__pycache__"),
+            )
+            nested_schema = (
+                temp_root
+                / "mechanics"
+                / "titan"
+                / "parts"
+                / "role-bearing"
+                / "schemas"
+                / "archive"
+                / "foo.schema.json"
+            )
+            nested_schema.parent.mkdir(parents=True)
+            nested_schema.write_text(
+                '{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object"}\n',
+                encoding="utf-8",
+            )
+
+            errors = validator.collect_titan_schema_errors(temp_root)
+
+        self.assertTrue(
+            any(
+                "mechanics/titan/parts/role-bearing/schemas/archive/foo.schema.json" in error
+                for error in errors
+            ),
+            errors,
+        )
 
 
 if __name__ == "__main__":
