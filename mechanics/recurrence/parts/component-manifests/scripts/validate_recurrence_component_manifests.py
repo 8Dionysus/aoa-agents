@@ -42,6 +42,9 @@ PATH_FIELD_NAMES = {
     "candidate_targets",
     "documentation_surfaces",
     "decision_surfaces",
+    "observes",
+    "source",
+    "surfaces",
 }
 REPO_PATH_PREFIXES = (
     "agents/",
