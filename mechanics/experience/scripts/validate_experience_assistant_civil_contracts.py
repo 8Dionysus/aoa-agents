@@ -22,6 +22,7 @@ ASSISTANT_EXAMPLE_DIR = ASSISTANT_PART / "examples"
 ARENA_SCHEMA_DIR = ARENA_PART / "schemas"
 
 EXPECTED_ASSISTANT_SCHEMAS = {
+    "agent-governance-posture.schema.json",
     "assistant-variant.schema.json",
     "civil-formation.schema.json",
     "service-certification.schema.json",
@@ -29,8 +30,15 @@ EXPECTED_ASSISTANT_SCHEMAS = {
     "service-governance.schema.json",
     "service-identity.schema.json",
 }
-EXPECTED_ASSISTANT_EXAMPLES = {"civil-formation.example.json"}
-EXPECTED_ARENA_SCHEMAS = {"arena-exclusion.schema.json"}
+EXPECTED_ASSISTANT_EXAMPLES = {
+    "agent-governance-posture.example.json",
+    "civil-formation.example.json",
+}
+EXPECTED_ARENA_SCHEMAS = {
+    "agent-kind-conflict-case.schema.json",
+    "arena-exclusion.schema.json",
+    "assistant-recharter-request.schema.json",
+}
 
 ADJUNCT_SCHEMA_ROUTES = {
     "assistant-variant.schema.json": ("assistant_variant", "variant.json"),
@@ -83,12 +91,15 @@ def _check_file_set(
     errors: list[str],
 ) -> None:
     actual = {path.name for path in (root / directory).glob("*.json")}
-    if expected.issubset(actual):
+    if actual == expected:
         return
     missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
     details: list[str] = []
     if missing:
         details.append("missing: " + ", ".join(missing))
+    if extra:
+        details.append("unexpected: " + ", ".join(extra))
     errors.append(f"{label} file set drifted (" + "; ".join(details) + ")")
 
 
@@ -149,7 +160,12 @@ def _validate_adjunct_family(
         _validate_payload(schema, _read_json(path), location=path.relative_to(root).as_posix(), errors=errors)
 
 
-def _validate_examples(root: Path, civil_schema: dict[str, Any], errors: list[str]) -> None:
+def _validate_examples(
+    root: Path,
+    civil_schema: dict[str, Any],
+    governance_schema: dict[str, Any],
+    errors: list[str],
+) -> None:
     example_path = root / ASSISTANT_EXAMPLE_DIR / "civil-formation.example.json"
     example = _read_json(example_path)
     _validate_payload(civil_schema, example, location=example_path.relative_to(root).as_posix(), errors=errors)
@@ -163,6 +179,15 @@ def _validate_examples(root: Path, civil_schema: dict[str, Any], errors: list[st
         errors.append("civil-formation.example.json must preserve not_a_contestant=true")
     if "issue_verdict" not in civil_reading.get("must_not", []):
         errors.append("civil-formation.example.json must preserve issue_verdict prohibition")
+
+    governance_example_path = root / ASSISTANT_EXAMPLE_DIR / "agent-governance-posture.example.json"
+    governance_example = _read_json(governance_example_path)
+    _validate_payload(
+        governance_schema,
+        governance_example,
+        location=governance_example_path.relative_to(root).as_posix(),
+        errors=errors,
+    )
 
 
 def _load_formation_validator(root: Path):
@@ -244,7 +269,12 @@ def collect_experience_assistant_civil_contract_errors(root: Path = ROOT) -> lis
 
     arena_family, arena_filename = ARENA_ADJUNCT_ROUTE
     _validate_adjunct_family(root, arena_schema, family=arena_family, filename=arena_filename, errors=errors)
-    _validate_examples(root, assistant_schemas["civil-formation.schema.json"], errors)
+    _validate_examples(
+        root,
+        assistant_schemas["civil-formation.schema.json"],
+        assistant_schemas["agent-governance-posture.schema.json"],
+        errors,
+    )
     errors.extend(_collect_dependency_errors(root))
     return errors
 
@@ -264,7 +294,7 @@ def main() -> int:
     except ExperienceAssistantCivilContractsValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1
-    print("Experience assistant civil contract validation passed. schemas=7 examples=1 adjunct_families=6")
+    print("Experience assistant civil contract validation passed. schemas=7 examples=2 adjunct_families=6")
     return 0
 
 
