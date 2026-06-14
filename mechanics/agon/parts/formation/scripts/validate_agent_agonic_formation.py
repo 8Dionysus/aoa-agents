@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import importlib.util
 import sys
@@ -86,22 +87,34 @@ def require(condition: bool, message: str) -> None:
         raise FormationValidationError(message)
 
 
-def load_adjunct(agent_id: str, family: str, suffix: str) -> dict[str, Any]:
-    path = ROOT / formation_builder.ROLES_DIR / agent_id / formation_builder.AGONIC_FILES[family]
+def schema_paths(root: Path) -> dict[str, Path]:
+    formation_schema_dir = root / "mechanics" / "agon" / "parts" / "formation" / "schemas"
+    arena_rank_school_schema_dir = root / "mechanics" / "agon" / "parts" / "arena-rank-school" / "schemas"
+    return {
+        "agent-kind.schema.json": formation_schema_dir / "agent-kind.schema.json",
+        "subjectivity.schema.json": formation_schema_dir / "subjectivity.schema.json",
+        "office-overlay.schema.json": formation_schema_dir / "office-overlay.schema.json",
+        "arena-eligibility.schema.json": arena_rank_school_schema_dir / "arena-eligibility.schema.json",
+        "resistance-revision.schema.json": formation_schema_dir / "resistance-revision.schema.json",
+    }
+
+
+def load_adjunct(root: Path, agent_id: str, family: str, suffix: str) -> dict[str, Any]:
+    path = root / formation_builder.ROLES_DIR / agent_id / formation_builder.AGONIC_FILES[family]
     payload = read_json(path)
     require(payload.get("agent_id") == agent_id, f"{path} agent_id mismatch")
     return payload
 
 
-def validate_schema_files() -> None:
-    for label, path in SCHEMA_PATHS.items():
+def validate_schema_files(root: Path = ROOT) -> None:
+    for label, path in schema_paths(root).items():
         payload = read_json(path)
         require(payload.get("$schema") == "https://json-schema.org/draft/2020-12/schema", f"{label} has wrong JSON schema marker")
         require(payload.get("additionalProperties") is False, f"{label} must be closed by default")
 
 
-def validate_profile_cross_refs() -> dict[str, str]:
-    profiles_dir = ROOT / "agents" / "roles"
+def validate_profile_cross_refs(root: Path = ROOT) -> dict[str, str]:
+    profiles_dir = root / "agents" / "roles"
     require(profiles_dir.exists(), "agents/roles/ directory missing; run after merging seed into aoa-agents")
     profiles: dict[str, str] = {}
     for path in sorted(profiles_dir.glob("*/profile.json")):
@@ -117,12 +130,12 @@ def validate_profile_cross_refs() -> dict[str, str]:
     return profiles
 
 
-def validate_agent(agent_id: str, profiles: dict[str, str]) -> dict[str, Any]:
-    kind = load_adjunct(agent_id, "kind", ".kind.json")
-    subjectivity = load_adjunct(agent_id, "subjectivity", ".subjectivity.json")
-    office = load_adjunct(agent_id, "office", ".office.json")
-    arena = load_adjunct(agent_id, "arena", ".arena_eligibility.json")
-    resistance = load_adjunct(agent_id, "resistance", ".resistance_revision.json")
+def validate_agent(agent_id: str, profiles: dict[str, str], root: Path = ROOT) -> dict[str, Any]:
+    kind = load_adjunct(root, agent_id, "kind", ".kind.json")
+    subjectivity = load_adjunct(root, agent_id, "subjectivity", ".subjectivity.json")
+    office = load_adjunct(root, agent_id, "office", ".office.json")
+    arena = load_adjunct(root, agent_id, "arena", ".arena_eligibility.json")
+    resistance = load_adjunct(root, agent_id, "resistance", ".resistance_revision.json")
 
     adjuncts = {
         "kind": kind,
@@ -168,13 +181,13 @@ def validate_agent(agent_id: str, profiles: dict[str, str]) -> dict[str, Any]:
     }
 
 
-def validate_generated_index() -> None:
-    expected = formation_builder.build_index(ROOT)
-    actual = read_json(ROOT / formation_builder.OUTPUT)
+def validate_generated_index(root: Path = ROOT) -> None:
+    expected = formation_builder.build_index(root)
+    actual = read_json(root / formation_builder.OUTPUT)
     require(actual == expected, f"{formation_builder.OUTPUT} is stale; rebuild it")
 
 
-def validate_docs() -> None:
+def validate_docs(root: Path = ROOT) -> None:
     for filename in [
         "mechanics/agon/parts/formation/docs/actor-rechartering.md",
         "mechanics/agon/parts/formation/docs/kind-model.md",
@@ -184,18 +197,23 @@ def validate_docs() -> None:
         "mechanics/agon/parts/formation/docs/resistance-revision-posture.md",
         "mechanics/agon/parts/formation/docs/agonic-actor-rechartering-landing.md",
     ]:
-        path = ROOT / filename
+        path = root / filename
         require(path.exists(), f"missing doc: {filename}")
         require("Agon" in path.read_text(encoding="utf-8") or "Agent" in path.name, f"{filename} does not look like an agonic formation doc")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Validate Agonic Actor Rechartering surfaces.")
+    parser.add_argument("--root", type=Path, default=ROOT)
+    args = parser.parse_args(argv)
+    root = args.root.resolve()
+
     try:
-        validate_schema_files()
-        profiles = validate_profile_cross_refs()
-        summaries = [validate_agent(agent_id, profiles) for agent_id in REQUIRED_AGENTS]
-        validate_generated_index()
-        validate_docs()
+        validate_schema_files(root)
+        profiles = validate_profile_cross_refs(root)
+        summaries = [validate_agent(agent_id, profiles, root) for agent_id in REQUIRED_AGENTS]
+        validate_generated_index(root)
+        validate_docs(root)
 
         require(any(item["contestant"] for item in summaries), "Agonic Actor Rechartering needs at least one contestant candidate")
         require(any(item["witness"] for item in summaries), "Agonic Actor Rechartering needs at least one witness candidate")

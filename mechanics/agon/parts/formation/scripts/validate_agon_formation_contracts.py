@@ -149,7 +149,7 @@ def _collect_dependency_errors(root: Path) -> list[str]:
     captured_stderr = io.StringIO()
     with contextlib.redirect_stdout(captured_stdout), contextlib.redirect_stderr(captured_stderr):
         try:
-            if validate_agent_agonic_formation.main() != 0:
+            if validate_agent_agonic_formation.main(["--root", str(root)]) != 0:
                 errors.append("validate_agent_agonic_formation.py failed")
         except SystemExit as exc:
             errors.append(f"validate_agent_agonic_formation.py exited with {exc.code}")
