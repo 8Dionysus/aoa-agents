@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -21,6 +23,22 @@ class AgonFormationContractsTestCase(unittest.TestCase):
     def test_agon_formation_contracts_validate(self) -> None:
         validator = _load_validator()
         validator.validate_agon_formation_contracts(ROOT)
+
+    def test_dependency_validation_uses_requested_root(self) -> None:
+        validator = _load_validator()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir) / "repo"
+            shutil.copytree(
+                ROOT,
+                temp_root,
+                ignore=shutil.ignore_patterns(".git", ".mypy_cache", ".pytest_cache", "__pycache__"),
+            )
+            wave_i_doc = temp_root / "mechanics" / "agon" / "parts" / "formation" / "docs" / "actor-rechartering.md"
+            wave_i_doc.unlink()
+
+            errors = validator._collect_dependency_errors(temp_root)
+
+        self.assertIn("validate_agent_agonic_formation.py failed", errors)
 
     def test_agon_formation_contracts_are_part_local(self) -> None:
         former_paths = (
