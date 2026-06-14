@@ -143,6 +143,23 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, contour)
 
+    def test_current_contour_names_active_titan_projection_routes(self) -> None:
+        contour = CONTOUR_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("## Titan Role Bearing", contour)
+        for relative_path in (
+            "mechanics/titan/parts/runtime-roster/docs/runtime-roster.md",
+            "mechanics/titan/parts/runtime-roster/docs/appserver-bridge-boundary.md",
+            "mechanics/titan/parts/runtime-roster/docs/agent-report-boundary.md",
+            "mechanics/titan/parts/codex-projection/README.md",
+            "mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py",
+            "mechanics/titan/parts/codex-projection/tests/test_titan_codex_projection.py",
+            "generated/titan_codex_agents/agents/Atlas.toml",
+            "generated/titan_codex_agents/projection_manifest.json",
+        ):
+            self.assertTrue((REPO_ROOT / relative_path).is_file())
+            self.assertIn(relative_path, contour)
+
 
 if __name__ == "__main__":
     unittest.main()
