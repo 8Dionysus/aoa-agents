@@ -22,6 +22,42 @@ class AgonRankEpistemicContractsTestCase(unittest.TestCase):
         validator = _load_validator()
         validator.validate_agon_rank_epistemic_contracts(ROOT)
 
+    def test_subvalidator_system_exit_is_aggregated(self) -> None:
+        validator = _load_validator()
+
+        class RankValidator:
+            @staticmethod
+            def main() -> int:
+                raise SystemExit("rank drift")
+
+        class SchoolValidator:
+            @staticmethod
+            def validate() -> int:
+                return 0
+
+        class EpistemicValidator:
+            @staticmethod
+            def validate() -> int:
+                return 0
+
+        def fake_load_script(relative_path: str):
+            if "validate_agon_agent_rank_jurisdiction.py" in relative_path:
+                return RankValidator
+            if "validate_agon_agent_school_campaign_posture_registry.py" in relative_path:
+                return SchoolValidator
+            if "validate_agon_epistemic_actor_posture.py" in relative_path:
+                return EpistemicValidator
+            raise AssertionError(f"unexpected script: {relative_path}")
+
+        original_load_script = validator._load_script
+        try:
+            validator._load_script = fake_load_script
+            errors = validator._collect_script_result_errors()
+        finally:
+            validator._load_script = original_load_script
+
+        self.assertIn("validate_agon_agent_rank_jurisdiction.py exited with rank drift", errors)
+
     def test_agon_rank_epistemic_contracts_are_part_local(self) -> None:
         former_paths = (
             Path("schemas") / ("agon-" + "agent-rank-jurisdiction.schema.json"),
