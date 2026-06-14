@@ -142,6 +142,16 @@ def _load_script(relative_path: str):
     return module
 
 
+def _append_script_result(errors: list[str], label: str, callback) -> None:
+    try:
+        result = callback()
+    except SystemExit as exc:
+        errors.append(f"{label} exited with {exc.code}")
+        return
+    if result != 0:
+        errors.append(f"{label} failed")
+
+
 def _collect_script_result_errors() -> list[str]:
     errors: list[str] = []
     rank_validator = _load_script(
@@ -157,12 +167,13 @@ def _collect_script_result_errors() -> list[str]:
     captured_stdout = io.StringIO()
     captured_stderr = io.StringIO()
     with contextlib.redirect_stdout(captured_stdout), contextlib.redirect_stderr(captured_stderr):
-        if rank_validator.main() != 0:
-            errors.append("validate_agon_agent_rank_jurisdiction.py failed")
-        if school_validator.validate() != 0:
-            errors.append("validate_agon_agent_school_campaign_posture_registry.py failed")
-        if epistemic_validator.validate() != 0:
-            errors.append("validate_agon_epistemic_actor_posture.py failed")
+        _append_script_result(errors, "validate_agon_agent_rank_jurisdiction.py", rank_validator.main)
+        _append_script_result(
+            errors,
+            "validate_agon_agent_school_campaign_posture_registry.py",
+            school_validator.validate,
+        )
+        _append_script_result(errors, "validate_agon_epistemic_actor_posture.py", epistemic_validator.validate)
     return errors
 
 
