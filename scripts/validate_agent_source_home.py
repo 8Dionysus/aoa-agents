@@ -136,6 +136,9 @@ def validate_manifest(repo_root: Path = REPO_ROOT) -> list[str]:
     forbidden_direct_dirs = sorted(FORBIDDEN_DIRECT_DIRS & direct_dirs)
     if forbidden_direct_dirs:
         issues.append(f"flat legacy agents source directories still active: {', '.join(forbidden_direct_dirs)}")
+    unexpected_direct_dirs = sorted(direct_dirs - EXPECTED_DIRECT_DIRS - FORBIDDEN_DIRECT_DIRS)
+    if unexpected_direct_dirs:
+        issues.append(f"unexpected direct agents source directories: {', '.join(unexpected_direct_dirs)}")
 
     covered_direct_dirs = {
         Path(family["path"]).parts[1]
