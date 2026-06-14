@@ -43,7 +43,7 @@ def read_json(path: Path) -> Any:
 
 
 def active_schema_files(root: Path) -> list[Path]:
-    return sorted((root / TITAN_PARTS_ROOT).glob("*/schemas/*.schema.json"))
+    return sorted((root / TITAN_PARTS_ROOT).rglob("*.schema.json"))
 
 
 def validate_active_schema_path(relative_path: Path, errors: list[str]) -> None:
