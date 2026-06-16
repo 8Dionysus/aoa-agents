@@ -32,6 +32,22 @@ def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def copy_validator_fixture(temp_root: Path) -> Path:
+    temp_part_root = temp_root / PART_ROOT.relative_to(REPO_ROOT)
+
+    shutil.copytree(PART_ROOT, temp_part_root)
+    shutil.copytree(REPO_ROOT / "agents" / "roles", temp_root / "agents" / "roles")
+    shutil.copytree(
+        REPO_ROOT / "agents" / "operating-model" / "capabilities" / "packs",
+        temp_root / "agents" / "operating-model" / "capabilities" / "packs",
+    )
+    temp_manifest_path = temp_root / MANIFEST_PATH.relative_to(REPO_ROOT)
+    temp_manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MANIFEST_PATH, temp_manifest_path)
+
+    return temp_part_root
+
+
 class SpecializationEligibilityTests(unittest.TestCase):
     def test_example_validates_against_schema(self) -> None:
         schema = load_json(SCHEMA_PATH)
@@ -122,17 +138,7 @@ class SpecializationEligibilityTests(unittest.TestCase):
     def test_validator_reports_readiness_builder_failures_without_traceback(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_root = Path(tmp_dir)
-            temp_part_root = temp_root / PART_ROOT.relative_to(REPO_ROOT)
-
-            shutil.copytree(PART_ROOT, temp_part_root)
-            shutil.copytree(REPO_ROOT / "agents" / "roles", temp_root / "agents" / "roles")
-            shutil.copytree(
-                REPO_ROOT / "agents" / "operating-model" / "capabilities" / "packs",
-                temp_root / "agents" / "operating-model" / "capabilities" / "packs",
-            )
-            temp_manifest_path = temp_root / MANIFEST_PATH.relative_to(REPO_ROOT)
-            temp_manifest_path.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(MANIFEST_PATH, temp_manifest_path)
+            temp_part_root = copy_validator_fixture(temp_root)
 
             record_path = temp_part_root / "records" / "architect.topology-steward.eligibility.json"
             record = load_json(record_path)
@@ -152,6 +158,30 @@ class SpecializationEligibilityTests(unittest.TestCase):
         self.assertIn("schema violation", result.stderr)
         self.assertIn("readiness reader could not be validated", result.stderr)
         self.assertIn("decision", result.stderr)
+
+    def test_validator_reports_non_mapping_readiness_fields_without_traceback(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_root = Path(tmp_dir)
+            temp_part_root = copy_validator_fixture(temp_root)
+
+            record_path = temp_part_root / "records" / "architect.topology-steward.eligibility.json"
+            record = load_json(record_path)
+            self.assertIsInstance(record, dict)
+            record["decision"] = None
+            record_path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, str(VALIDATOR_PATH), "--root", str(temp_root)],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+            )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn("Traceback", result.stderr)
+        self.assertIn("schema violation at decision", result.stderr)
+        self.assertIn("readiness reader could not be validated", result.stderr)
+        self.assertIn("invalid required field shape", result.stderr)
 
 
 if __name__ == "__main__":

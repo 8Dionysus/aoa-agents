@@ -67,6 +67,11 @@ def iter_strings(value: Any) -> Iterable[str]:
             yield from iter_strings(item)
 
 
+def optional_mapping(payload: dict[str, Any], key: str) -> dict[str, Any]:
+    value = payload.get(key)
+    return value if isinstance(value, dict) else {}
+
+
 def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
@@ -134,6 +139,10 @@ def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
     }
 
     def validate_payload(path: Path, payload: dict[str, Any]) -> None:
+        codex_install = optional_mapping(payload, "codex_install")
+        decision = optional_mapping(payload, "decision")
+        guardrails = optional_mapping(payload, "guardrails")
+
         validation_errors = sorted(
             Draft202012Validator(schema).iter_errors(payload),
             key=lambda error: (list(error.absolute_path), error.message),
@@ -163,12 +172,12 @@ def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
         if isinstance(capability_pack_ref, str) and not (root / capability_pack_ref).is_file():
             errors.append(f"{path.as_posix()}: missing capability pack ref: {capability_pack_ref}")
 
-        proposed_agent_name = (payload.get("codex_install") or {}).get("proposed_agent_name")
+        proposed_agent_name = codex_install.get("proposed_agent_name")
         if proposed_agent_name in generated_names:
             errors.append(f"{path.as_posix()}: proposed agent is already generated: {proposed_agent_name}")
 
-        decision_status = (payload.get("decision") or {}).get("status")
-        install_state = (payload.get("codex_install") or {}).get("install_state")
+        decision_status = decision.get("status")
+        install_state = codex_install.get("install_state")
         if decision_status == "candidate_only" and install_state != "not_projected":
             errors.append(f"{path.as_posix()}: candidate_only records must stay not_projected")
         if decision_status == "eligible" and install_state != "eligible_not_projected":
@@ -193,7 +202,7 @@ def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
             "no_runtime_activation",
             "requires_reviewed_intake",
         ):
-            if (payload.get("guardrails") or {}).get(key) is not True:
+            if guardrails.get(key) is not True:
                 errors.append(f"{path.as_posix()}: guardrails.{key} must stay true")
 
         for text in iter_strings(payload):
@@ -263,6 +272,11 @@ def collect_specialization_eligibility_errors(root: Path = ROOT) -> list[str]:
         errors.append(
             f"{READINESS_PATH.as_posix()} readiness reader could not be validated: "
             f"missing required field {exc}"
+        )
+    except TypeError as exc:
+        errors.append(
+            f"{READINESS_PATH.as_posix()} readiness reader could not be validated: "
+            f"invalid required field shape: {exc}"
         )
     else:
         if readiness != expected_readiness:
