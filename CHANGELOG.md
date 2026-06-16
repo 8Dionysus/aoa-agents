@@ -11,6 +11,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 - Experience assistant civil validation now enforces the exact arena-exclusion
   example file set alongside the arena schema file set.
+- Current contour now routes Titan Codex projection outputs through the full
+  generated agents wildcard instead of publishing only `Atlas.toml`.
 
 ## [0.4.0] - 2026-05-31
 

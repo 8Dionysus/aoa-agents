@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from pathlib import Path
 
@@ -145,6 +146,11 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
 
     def test_current_contour_names_active_titan_projection_routes(self) -> None:
         contour = CONTOUR_PATH.read_text(encoding="utf-8")
+        manifest = json.loads(
+            (REPO_ROOT / "generated" / "titan_codex_agents" / "projection_manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
         self.assertIn("## Titan Role Bearing", contour)
         for relative_path in (
@@ -154,11 +160,16 @@ class RoadmapSurfaceAlignmentTestCase(unittest.TestCase):
             "mechanics/titan/parts/codex-projection/README.md",
             "mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py",
             "mechanics/titan/parts/codex-projection/tests/test_titan_codex_projection.py",
-            "generated/titan_codex_agents/agents/Atlas.toml",
             "generated/titan_codex_agents/projection_manifest.json",
         ):
             self.assertTrue((REPO_ROOT / relative_path).is_file())
             self.assertIn(relative_path, contour)
+
+        self.assertIn("generated/titan_codex_agents/agents/*.toml", contour)
+        for agent in manifest["agents"]:
+            relative_path = "generated/titan_codex_agents/" + agent["config_path"]
+            with self.subTest(path=relative_path):
+                self.assertTrue((REPO_ROOT / relative_path).is_file())
 
 
 if __name__ == "__main__":
