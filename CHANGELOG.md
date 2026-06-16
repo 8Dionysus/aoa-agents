@@ -7,7 +7,10 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
-No unreleased changes yet.
+### Fixed
+
+- Experience assistant civil validation now enforces the exact arena-exclusion
+  example file set alongside the arena schema file set.
 
 ## [0.4.0] - 2026-05-31
 

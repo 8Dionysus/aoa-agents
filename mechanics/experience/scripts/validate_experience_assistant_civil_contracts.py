@@ -20,6 +20,7 @@ ARENA_PART = Path("mechanics/experience/parts/arena-exclusion")
 ASSISTANT_SCHEMA_DIR = ASSISTANT_PART / "schemas"
 ASSISTANT_EXAMPLE_DIR = ASSISTANT_PART / "examples"
 ARENA_SCHEMA_DIR = ARENA_PART / "schemas"
+ARENA_EXAMPLE_DIR = ARENA_PART / "examples"
 
 EXPECTED_ASSISTANT_SCHEMAS = {
     "agent-governance-posture.schema.json",
@@ -38,6 +39,10 @@ EXPECTED_ARENA_SCHEMAS = {
     "agent-kind-conflict-case.schema.json",
     "arena-exclusion.schema.json",
     "assistant-recharter-request.schema.json",
+}
+EXPECTED_ARENA_EXAMPLES = {
+    "agent-kind-conflict-case.example.json",
+    "assistant-recharter-request.example.json",
 }
 
 ADJUNCT_SCHEMA_ROUTES = {
@@ -253,6 +258,7 @@ def collect_experience_assistant_civil_contract_errors(root: Path = ROOT) -> lis
     _check_file_set(root, ASSISTANT_SCHEMA_DIR, EXPECTED_ASSISTANT_SCHEMAS, label="assistant civil schema", errors=errors)
     _check_file_set(root, ASSISTANT_EXAMPLE_DIR, EXPECTED_ASSISTANT_EXAMPLES, label="assistant civil example", errors=errors)
     _check_file_set(root, ARENA_SCHEMA_DIR, EXPECTED_ARENA_SCHEMAS, label="arena exclusion schema", errors=errors)
+    _check_file_set(root, ARENA_EXAMPLE_DIR, EXPECTED_ARENA_EXAMPLES, label="arena exclusion example", errors=errors)
 
     try:
         assistant_schemas = {
@@ -294,7 +300,7 @@ def main() -> int:
     except ExperienceAssistantCivilContractsValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1
-    print("Experience assistant civil contract validation passed. schemas=7 examples=2 adjunct_families=6")
+    print("Experience assistant civil contract validation passed. schemas=7 examples=4 adjunct_families=6")
     return 0
 
 

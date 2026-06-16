@@ -36,11 +36,17 @@ class ExperienceAssistantCivilContractsTestCase(unittest.TestCase):
             )
             unexpected_schema = temp_root / validator.ASSISTANT_SCHEMA_DIR / "unexpected.schema.json"
             unexpected_schema.write_text("{}", encoding="utf-8")
+            unexpected_arena_example = temp_root / validator.ARENA_EXAMPLE_DIR / "stale.example.json"
+            unexpected_arena_example.write_text("{}", encoding="utf-8")
 
             errors = validator.collect_experience_assistant_civil_contract_errors(temp_root)
 
         self.assertIn(
             "assistant civil schema file set drifted (unexpected: unexpected.schema.json)",
+            errors,
+        )
+        self.assertIn(
+            "arena exclusion example file set drifted (unexpected: stale.example.json)",
             errors,
         )
 
