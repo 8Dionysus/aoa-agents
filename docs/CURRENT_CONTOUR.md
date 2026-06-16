@@ -147,7 +147,7 @@ Formation Trial has now landed as pre-protocol readability judgment.
 | incarnation schema/example | `mechanics/titan/parts/incarnation-spine/schemas/incarnation-identity.schema.json`, `mechanics/titan/parts/incarnation-spine/examples/incarnation-identity.example.json` |
 | runtime roster docs | `mechanics/titan/parts/runtime-roster/docs/runtime-roster.md`, `mechanics/titan/parts/runtime-roster/docs/appserver-bridge-boundary.md`, `mechanics/titan/parts/runtime-roster/docs/agent-report-boundary.md` |
 | Titan Codex projection part | `mechanics/titan/parts/codex-projection/README.md` |
-| Titan Codex projection output | `generated/titan_codex_agents/agents/Atlas.toml`, `generated/titan_codex_agents/projection_manifest.json` |
+| Titan Codex projection output | `generated/titan_codex_agents/agents/*.toml`, `generated/titan_codex_agents/projection_manifest.json` |
 | Titan Codex projection validation | `mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py`, `mechanics/titan/parts/codex-projection/tests/test_titan_codex_projection.py` |
 
 Titan surfaces are role-bearing and lineage posture inside `aoa-agents`; AoA
