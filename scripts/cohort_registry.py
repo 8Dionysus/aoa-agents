@@ -45,10 +45,10 @@ COHORT_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
         "generated/cohort_composition_registry.json rebuilt from "
         "agents/operating-model/cohorts/*.pattern.json and compared by scripts/validate_agents.py."
     ),
-    abi_epoch="aoa_agents_cohort_composition_registry_v1",
+    abi_epoch="aoa_agents_cohort_composition_registry_v2",
     contract_version=(
         "schemas/cohort-composition-registry.schema.json@"
-        "aoa_agents_cohort_composition_registry_v1#artifact_identity"
+        "aoa_agents_cohort_composition_registry_v2#artifact_identity"
     ),
 )
 
@@ -94,7 +94,7 @@ def build_cohort_registry_payload(patterns: list[dict[str, object]]) -> dict[str
             entry[key] = pattern[key]
         cohort_patterns.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
         "artifact_identity": COHORT_REGISTRY_ARTIFACT_IDENTITY,
         "cohort_patterns": cohort_patterns,

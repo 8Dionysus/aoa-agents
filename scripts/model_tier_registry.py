@@ -48,8 +48,8 @@ MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identi
         "generated/model_tier_registry.json rebuilt from "
         "agents/operating-model/tiers/*.tier.json and compared by scripts/validate_agents.py."
     ),
-    abi_epoch="aoa_agents_model_tier_registry_v1",
-    contract_version="schemas/model-tier-registry.schema.json@aoa_agents_model_tier_registry_v1#artifact_identity",
+    abi_epoch="aoa_agents_model_tier_registry_v2",
+    contract_version="schemas/model-tier-registry.schema.json@aoa_agents_model_tier_registry_v2#artifact_identity",
 )
 
 
@@ -92,7 +92,7 @@ def build_model_tier_registry_payload(tiers: list[dict[str, object]]) -> dict[st
             entry[key] = tier[key]
         model_tiers.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
         "artifact_identity": MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY,
         "model_tiers": model_tiers,

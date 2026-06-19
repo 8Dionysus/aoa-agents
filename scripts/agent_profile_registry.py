@@ -40,8 +40,8 @@ AGENT_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
         "generated/agent_registry.min.json rebuilt from agents/roles/*/profile.json "
         "and compared by scripts/validate_agents.py."
     ),
-    abi_epoch="aoa_agents_role_registry_v1",
-    contract_version="schemas/agent-registry.schema.json@aoa_agents_role_registry_v1#artifact_identity",
+    abi_epoch="aoa_agents_role_registry_v2",
+    contract_version="schemas/agent-registry.schema.json@aoa_agents_role_registry_v2#artifact_identity",
 )
 
 
@@ -103,7 +103,7 @@ def build_agent_registry_payload(profiles: list[dict[str, object]]) -> dict[str,
             entry[key] = profile[key]
         agents.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
         "artifact_identity": AGENT_REGISTRY_ARTIFACT_IDENTITY,
         "agents": agents,

@@ -30,9 +30,9 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         agent_registry = load_json("generated/agent_registry.min.json")
         tier_registry = load_json("generated/model_tier_registry.json")
 
-        self.assertEqual(agent_registry["version"], 1)
+        self.assertEqual(agent_registry["version"], 2)
         self.assertEqual(agent_registry["layer"], "aoa-agents")
-        self.assertEqual(tier_registry["version"], 1)
+        self.assertEqual(tier_registry["version"], 2)
         self.assertEqual(tier_registry["layer"], "aoa-agents")
         self.assertEqual(
             agent_registry["artifact_identity"]["trust_layer"],
@@ -71,7 +71,7 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         known_runtime_roles = {entry["name"] for entry in agent_registry["agents"]}
         known_tier_ids = {entry["id"] for entry in tier_registry["model_tiers"]}
 
-        self.assertEqual(seam_bindings["version"], 1)
+        self.assertEqual(seam_bindings["version"], 2)
         self.assertEqual(seam_bindings["layer"], "aoa-agents")
         self.assertEqual(
             seam_bindings["artifact_identity"]["artifact_class"],
@@ -90,7 +90,7 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
     def test_cohort_registry_carries_artifact_identity_contract(self) -> None:
         cohort_registry = load_json("generated/cohort_composition_registry.json")
 
-        self.assertEqual(cohort_registry["version"], 1)
+        self.assertEqual(cohort_registry["version"], 2)
         self.assertEqual(cohort_registry["layer"], "aoa-agents")
         self.assertEqual(
             cohort_registry["artifact_identity"]["artifact_class"],

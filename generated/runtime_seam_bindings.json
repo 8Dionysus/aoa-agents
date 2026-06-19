@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "layer": "aoa-agents",
   "artifact_identity": {
     "artifact_class": "agent_runtime_seam_binding_registry",
@@ -10,8 +10,8 @@
     "consumer_expectation": "Verify version, layer, artifact_identity, source runtime-seam bindings, phase coverage, role refs, tier refs, artifact schema coverage, builder parity, and validate_agents before using this as runtime-seam orientation; do not treat it as routing logic, network protocol, playbook canon, memory doctrine, eval doctrine, or runtime infrastructure.",
     "privacy_boundary": "Public source-authored agent-layer metadata only; no private prompts, session transcripts, secrets, live runtime state, or hidden operator traces.",
     "content_identity": "generated/runtime_seam_bindings.json rebuilt from agents/operating-model/runtime-seams/*.binding.json and compared by scripts/validate_agents.py.",
-    "abi_epoch": "aoa_agents_runtime_seam_bindings_v1",
-    "contract_version": "schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v1#artifact_identity",
+    "abi_epoch": "aoa_agents_runtime_seam_bindings_v2",
+    "contract_version": "schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v2#artifact_identity",
     "trust_layer": [
       "abi_contract_signature",
       "w3c_prov_lineage"

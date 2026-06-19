@@ -12,7 +12,8 @@
   ],
   "properties": {
     "version": {
-      "type": "integer"
+      "type": "integer",
+      "const": 2
     },
     "layer": {
       "type": "string",

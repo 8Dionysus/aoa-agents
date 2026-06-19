@@ -44,8 +44,8 @@ RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_iden
         "generated/runtime_seam_bindings.json rebuilt from "
         "agents/operating-model/runtime-seams/*.binding.json and compared by scripts/validate_agents.py."
     ),
-    abi_epoch="aoa_agents_runtime_seam_bindings_v1",
-    contract_version="schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v1#artifact_identity",
+    abi_epoch="aoa_agents_runtime_seam_bindings_v2",
+    contract_version="schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v2#artifact_identity",
 )
 
 
@@ -90,7 +90,7 @@ def build_runtime_seam_registry_payload(bindings: list[dict[str, object]]) -> di
             entry[key] = binding[key]
         published_bindings.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
         "artifact_identity": RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY,
         "bindings": published_bindings,
