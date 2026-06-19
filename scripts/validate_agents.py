@@ -42,15 +42,31 @@ try:
 except ModuleNotFoundError:
     yaml = None
 
-from agent_profile_registry import BuildError, PROFILES_DIR, build_agent_registry_payload, load_profiles
+from agent_profile_registry import (
+    AGENT_REGISTRY_ARTIFACT_IDENTITY,
+    BuildError,
+    PROFILES_DIR,
+    build_agent_registry_payload,
+    load_profiles,
+)
 from capability_pack_registry import (
     CAPABILITY_PACKS_DIR,
     build_capability_pack_registry_payload,
     load_capability_packs,
 )
-from cohort_registry import COHORT_PATTERNS_DIR, build_cohort_registry_payload, load_cohort_patterns
+from cohort_registry import (
+    COHORT_PATTERNS_DIR,
+    COHORT_REGISTRY_ARTIFACT_IDENTITY,
+    build_cohort_registry_payload,
+    load_cohort_patterns,
+)
 from codex_subagent_projection import collect_repo_projection_errors
-from model_tier_registry import MODEL_TIERS_DIR, build_model_tier_registry_payload, load_model_tiers
+from model_tier_registry import (
+    MODEL_TIERS_DIR,
+    MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY,
+    build_model_tier_registry_payload,
+    load_model_tiers,
+)
 from orchestrator_class_registry import (
     ORCHESTRATOR_CLASS_ORDER,
     ORCHESTRATOR_CLASSES_DIR,
@@ -63,7 +79,12 @@ from role_specialization_registry import (
     build_role_specialization_catalog_payload,
     load_role_specializations,
 )
-from runtime_seam_registry import RUNTIME_SEAM_DIR, build_runtime_seam_registry_payload, load_runtime_seam_bindings
+from runtime_seam_registry import (
+    RUNTIME_SEAM_DIR,
+    RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY,
+    build_runtime_seam_registry_payload,
+    load_runtime_seam_bindings,
+)
 from validate_nested_agents import NestedAgentsValidationError, validate_nested_agents_docs
 
 AOA_EVALS_ROOT = Path(os.environ.get("AOA_EVALS_ROOT", REPO_ROOT.parent / "aoa-evals")).expanduser().resolve()
@@ -395,7 +416,7 @@ ALLOWED_TIER_MEMORY_SCOPE = {
 }
 ALLOWED_RUNTIME_PHASES = ("route", "plan", "do", "verify", "transition", "deep", "distill")
 PUBLIC_LOOP = "route -> plan -> do -> verify -> deep? -> distill"
-PUBLISHED_AGENT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "agents")
+PUBLISHED_AGENT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "artifact_identity", "agents")
 PUBLISHED_AGENT_REGISTRY_ITEM_KEYS = (
     "id",
     "name",
@@ -454,7 +475,7 @@ PUBLISHED_CAPABILITY_PACK_REGISTRY_ITEM_KEYS = (
     "stop_lines",
     "source_path",
 )
-PUBLISHED_MODEL_TIER_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "model_tiers")
+PUBLISHED_MODEL_TIER_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "artifact_identity", "model_tiers")
 PUBLISHED_MODEL_TIER_REGISTRY_ITEM_KEYS = (
     "id",
     "status",
@@ -516,7 +537,7 @@ PUBLISHED_ORCHESTRATOR_CLASS_SECTION_ITEM_KEYS = (
     "source_path",
     "sections",
 )
-PUBLISHED_COHORT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "cohort_patterns")
+PUBLISHED_COHORT_REGISTRY_TOP_LEVEL_KEYS = ("version", "layer", "artifact_identity", "cohort_patterns")
 PUBLISHED_COHORT_REGISTRY_ITEM_KEYS = (
     "id",
     "status",
@@ -527,7 +548,7 @@ PUBLISHED_COHORT_REGISTRY_ITEM_KEYS = (
     "required_handoffs",
     "boundary_note",
 )
-PUBLISHED_RUNTIME_SEAM_TOP_LEVEL_KEYS = ("version", "layer", "bindings")
+PUBLISHED_RUNTIME_SEAM_TOP_LEVEL_KEYS = ("version", "layer", "artifact_identity", "bindings")
 PUBLISHED_RUNTIME_SEAM_ITEM_KEYS = (
     "phase",
     "tier_id",
@@ -1064,6 +1085,13 @@ def ensure_object_key_order(payload: object, expected_keys: tuple[str, ...], loc
             f"{location} must publish keys in stable order: "
             f"expected {list(expected_keys)}, got {list(actual_keys)}"
         )
+
+
+def validate_artifact_identity(
+    payload: dict[str, object], expected: dict[str, object], location: str
+) -> None:
+    if payload.get("artifact_identity") != expected:
+        fail(f"{location} artifact_identity must match the builder contract")
 
 
 def validate_stable_sequence_order(
@@ -2201,6 +2229,7 @@ def validate_registry() -> set[str]:
         fail("registry 'version' must be an integer >= 1")
     if payload["layer"] != "aoa-agents":
         fail("registry 'layer' must equal 'aoa-agents'")
+    validate_artifact_identity(payload, AGENT_REGISTRY_ARTIFACT_IDENTITY, "agent registry")
 
     agents = payload["agents"]
     if not isinstance(agents, list) or not agents:
@@ -2743,6 +2772,7 @@ def validate_model_tier_registry() -> dict[str, dict[str, object]]:
         fail("model-tier registry 'version' must be an integer >= 1")
     if payload["layer"] != "aoa-agents":
         fail("model-tier registry 'layer' must equal 'aoa-agents'")
+    validate_artifact_identity(payload, MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY, "model-tier registry")
 
     model_tiers = payload["model_tiers"]
     if not isinstance(model_tiers, list) or not model_tiers:
@@ -3027,6 +3057,7 @@ def validate_cohort_composition_registry(
         fail("cohort composition registry 'version' must be an integer >= 1")
     if payload.get("layer") != "aoa-agents":
         fail("cohort composition registry 'layer' must equal 'aoa-agents'")
+    validate_artifact_identity(payload, COHORT_REGISTRY_ARTIFACT_IDENTITY, "cohort composition registry")
 
     cohort_patterns = payload.get("cohort_patterns")
     if not isinstance(cohort_patterns, list) or not cohort_patterns:
@@ -3113,6 +3144,7 @@ def validate_runtime_seam_bindings(
         fail("runtime seam bindings 'version' must be an integer >= 1")
     if payload.get("layer") != "aoa-agents":
         fail("runtime seam bindings 'layer' must equal 'aoa-agents'")
+    validate_artifact_identity(payload, RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY, "runtime seam bindings")
 
     bindings = payload.get("bindings")
     if not isinstance(bindings, list):

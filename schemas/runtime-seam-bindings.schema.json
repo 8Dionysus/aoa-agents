@@ -7,6 +7,7 @@
   "required": [
     "version",
     "layer",
+    "artifact_identity",
     "bindings"
   ],
   "properties": {
@@ -16,6 +17,79 @@
     "layer": {
       "type": "string",
       "const": "aoa-agents"
+    },
+    "artifact_identity": {
+      "type": "object",
+      "required": [
+        "artifact_class",
+        "surface_state",
+        "owner_repo",
+        "authority_ref",
+        "producer",
+        "consumer_expectation",
+        "privacy_boundary",
+        "content_identity",
+        "abi_epoch",
+        "contract_version",
+        "trust_layer",
+        "verification",
+        "action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_class": { "type": "string", "minLength": 3 },
+        "surface_state": { "type": "string", "minLength": 3 },
+        "owner_repo": { "type": "string", "const": "aoa-agents" },
+        "authority_ref": { "type": "string", "minLength": 3 },
+        "producer": { "type": "string", "minLength": 3 },
+        "consumer_expectation": { "type": "string", "minLength": 3 },
+        "privacy_boundary": { "type": "string", "minLength": 3 },
+        "content_identity": { "type": "string", "minLength": 3 },
+        "abi_epoch": { "type": "string", "minLength": 3 },
+        "contract_version": { "type": "string", "minLength": 3 },
+        "trust_layer": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "abi_contract_signature",
+              "local_provenance",
+              "w3c_prov_lineage",
+              "slsa_in_toto",
+              "sbom",
+              "ml_bom",
+              "sigstore_cosign",
+              "c2pa",
+              "tuf",
+              "scitt"
+            ]
+          }
+        },
+        "verification": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 3 } },
+        "action": {
+          "type": "string",
+          "enum": [
+            "KEEP",
+            "DEFINE_ABI",
+            "ADD_CONTRACT_SIGNATURE",
+            "ADD_LOCAL_PROVENANCE",
+            "ADD_CONSUMER_EXPECTATION",
+            "HARDEN_VALIDATOR",
+            "ADD_TEST",
+            "ADD_RELEASE_PROVENANCE",
+            "ADD_BOM",
+            "ADD_ML_BOM",
+            "ADD_COSIGN",
+            "ADD_C2PA",
+            "PREPARE_TUF",
+            "PREPARE_SCITT",
+            "ROUTE_TO_OWNER",
+            "DEFER_WITH_RATIONALE"
+          ]
+        }
+      }
     },
     "bindings": {
       "type": "array",

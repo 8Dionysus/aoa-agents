@@ -17,6 +17,7 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         for relative_path in (
             "generated/agent_registry.min.json",
             "generated/model_tier_registry.json",
+            "generated/cohort_composition_registry.json",
             "generated/runtime_seam_bindings.json",
             "generated/codex_agents/config.subagents.generated.toml",
             "generated/codex_agents/projection_manifest.json",
@@ -33,6 +34,18 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         self.assertEqual(agent_registry["layer"], "aoa-agents")
         self.assertEqual(tier_registry["version"], 1)
         self.assertEqual(tier_registry["layer"], "aoa-agents")
+        self.assertEqual(
+            agent_registry["artifact_identity"]["trust_layer"],
+            ["abi_contract_signature", "w3c_prov_lineage"],
+        )
+        self.assertEqual(
+            tier_registry["artifact_identity"]["artifact_class"],
+            "agent_model_tier_registry",
+        )
+        self.assertIn(
+            "no private prompts",
+            agent_registry["artifact_identity"]["privacy_boundary"],
+        )
 
         agent_ids = [entry["id"] for entry in agent_registry["agents"]]
         tier_ids = [entry["id"] for entry in tier_registry["model_tiers"]]
@@ -60,11 +73,33 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
 
         self.assertEqual(seam_bindings["version"], 1)
         self.assertEqual(seam_bindings["layer"], "aoa-agents")
+        self.assertEqual(
+            seam_bindings["artifact_identity"]["artifact_class"],
+            "agent_runtime_seam_binding_registry",
+        )
+        self.assertIn(
+            "do not treat it as routing logic",
+            seam_bindings["artifact_identity"]["consumer_expectation"],
+        )
 
         for entry in seam_bindings["bindings"]:
             self.assertIn(entry["tier_id"], known_tier_ids)
             self.assertTrue(set(entry["role_names"]).issubset(known_runtime_roles))
             self.assertIn("artifact_type", entry)
+
+    def test_cohort_registry_carries_artifact_identity_contract(self) -> None:
+        cohort_registry = load_json("generated/cohort_composition_registry.json")
+
+        self.assertEqual(cohort_registry["version"], 1)
+        self.assertEqual(cohort_registry["layer"], "aoa-agents")
+        self.assertEqual(
+            cohort_registry["artifact_identity"]["artifact_class"],
+            "agent_cohort_composition_registry",
+        )
+        self.assertIn(
+            "do not treat cohort hints as playbooks",
+            cohort_registry["artifact_identity"]["consumer_expectation"],
+        )
 
     def test_workspace_surface_trigger_posture_is_linked_and_bounded(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")

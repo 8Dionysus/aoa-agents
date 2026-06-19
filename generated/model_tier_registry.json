@@ -1,6 +1,28 @@
 {
   "version": 1,
   "layer": "aoa-agents",
+  "artifact_identity": {
+    "artifact_class": "agent_model_tier_registry",
+    "surface_state": "public_generated_agent_operating_model_registry",
+    "owner_repo": "aoa-agents",
+    "authority_ref": "agents/operating-model/tiers/AGENTS.md",
+    "producer": "scripts/build_published_surfaces.py via scripts/model_tier_registry.py from agents/operating-model/tiers/*.tier.json",
+    "consumer_expectation": "Verify version, layer, artifact_identity, source tier objects, artifact requirements, schema, builder parity, and validate_agents before using this as tier orientation; do not treat tiers as vendor model brands, routing policy, playbook canon, or runtime implementation.",
+    "privacy_boundary": "Public source-authored agent-layer metadata only; no private prompts, session transcripts, secrets, live runtime state, or hidden operator traces.",
+    "content_identity": "generated/model_tier_registry.json rebuilt from agents/operating-model/tiers/*.tier.json and compared by scripts/validate_agents.py.",
+    "abi_epoch": "aoa_agents_model_tier_registry_v1",
+    "contract_version": "schemas/model-tier-registry.schema.json@aoa_agents_model_tier_registry_v1#artifact_identity",
+    "trust_layer": [
+      "abi_contract_signature",
+      "w3c_prov_lineage"
+    ],
+    "verification": [
+      "python scripts/build_published_surfaces.py",
+      "python scripts/validate_agents.py",
+      "python -m pytest -q tests/test_published_consumer_feeds.py"
+    ],
+    "action": "ADD_CONSUMER_EXPECTATION"
+  },
   "model_tiers": [
     {
       "id": "router",

@@ -1,6 +1,28 @@
 {
   "version": 1,
   "layer": "aoa-agents",
+  "artifact_identity": {
+    "artifact_class": "agent_runtime_seam_binding_registry",
+    "surface_state": "public_generated_agent_runtime_seam_registry",
+    "owner_repo": "aoa-agents",
+    "authority_ref": "agents/operating-model/runtime-seams/AGENTS.md",
+    "producer": "scripts/build_published_surfaces.py via scripts/runtime_seam_registry.py from agents/operating-model/runtime-seams/*.binding.json",
+    "consumer_expectation": "Verify version, layer, artifact_identity, source runtime-seam bindings, phase coverage, role refs, tier refs, artifact schema coverage, builder parity, and validate_agents before using this as runtime-seam orientation; do not treat it as routing logic, network protocol, playbook canon, memory doctrine, eval doctrine, or runtime infrastructure.",
+    "privacy_boundary": "Public source-authored agent-layer metadata only; no private prompts, session transcripts, secrets, live runtime state, or hidden operator traces.",
+    "content_identity": "generated/runtime_seam_bindings.json rebuilt from agents/operating-model/runtime-seams/*.binding.json and compared by scripts/validate_agents.py.",
+    "abi_epoch": "aoa_agents_runtime_seam_bindings_v1",
+    "contract_version": "schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v1#artifact_identity",
+    "trust_layer": [
+      "abi_contract_signature",
+      "w3c_prov_lineage"
+    ],
+    "verification": [
+      "python scripts/build_published_surfaces.py",
+      "python scripts/validate_agents.py",
+      "python -m pytest -q tests/test_published_consumer_feeds.py"
+    ],
+    "action": "ADD_CONSUMER_EXPECTATION"
+  },
   "bindings": [
     {
       "phase": "route",

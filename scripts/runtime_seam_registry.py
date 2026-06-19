@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from agent_profile_registry import BuildError, describe_path, read_json
+from artifact_identity import build_generated_registry_artifact_identity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNTIME_SEAM_DIR = REPO_ROOT / "agents" / "operating-model" / "runtime-seams"
@@ -23,6 +24,28 @@ REGISTRY_FIELDS = (
     "tier_id",
     "role_names",
     "artifact_type",
+)
+RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
+    artifact_class="agent_runtime_seam_binding_registry",
+    surface_state="public_generated_agent_runtime_seam_registry",
+    authority_ref="agents/operating-model/runtime-seams/AGENTS.md",
+    producer=(
+        "scripts/build_published_surfaces.py via scripts/runtime_seam_registry.py "
+        "from agents/operating-model/runtime-seams/*.binding.json"
+    ),
+    consumer_expectation=(
+        "Verify version, layer, artifact_identity, source runtime-seam bindings, "
+        "phase coverage, role refs, tier refs, artifact schema coverage, builder "
+        "parity, and validate_agents before using this as runtime-seam orientation; "
+        "do not treat it as routing logic, network protocol, playbook canon, "
+        "memory doctrine, eval doctrine, or runtime infrastructure."
+    ),
+    content_identity=(
+        "generated/runtime_seam_bindings.json rebuilt from "
+        "agents/operating-model/runtime-seams/*.binding.json and compared by scripts/validate_agents.py."
+    ),
+    abi_epoch="aoa_agents_runtime_seam_bindings_v1",
+    contract_version="schemas/runtime-seam-bindings.schema.json@aoa_agents_runtime_seam_bindings_v1#artifact_identity",
 )
 
 
@@ -69,6 +92,7 @@ def build_runtime_seam_registry_payload(bindings: list[dict[str, object]]) -> di
     return {
         "version": 1,
         "layer": "aoa-agents",
+        "artifact_identity": RUNTIME_SEAM_REGISTRY_ARTIFACT_IDENTITY,
         "bindings": published_bindings,
     }
 

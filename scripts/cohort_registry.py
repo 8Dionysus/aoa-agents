@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from agent_profile_registry import BuildError, describe_path, read_json
+from artifact_identity import build_generated_registry_artifact_identity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COHORT_PATTERNS_DIR = REPO_ROOT / "agents" / "operating-model" / "cohorts"
@@ -25,6 +26,30 @@ REGISTRY_FIELDS = (
     "activation_conditions",
     "required_handoffs",
     "boundary_note",
+)
+COHORT_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
+    artifact_class="agent_cohort_composition_registry",
+    surface_state="public_generated_agent_operating_model_registry",
+    authority_ref="agents/operating-model/cohorts/AGENTS.md",
+    producer=(
+        "scripts/build_published_surfaces.py via scripts/cohort_registry.py "
+        "from agents/operating-model/cohorts/*.pattern.json"
+    ),
+    consumer_expectation=(
+        "Verify version, layer, artifact_identity, source cohort patterns, role "
+        "refs, tier refs, schema, builder parity, and validate_agents before using "
+        "this as cohort orientation; do not treat cohort hints as playbooks, "
+        "routing policy, memory doctrine, eval doctrine, or runtime implementation."
+    ),
+    content_identity=(
+        "generated/cohort_composition_registry.json rebuilt from "
+        "agents/operating-model/cohorts/*.pattern.json and compared by scripts/validate_agents.py."
+    ),
+    abi_epoch="aoa_agents_cohort_composition_registry_v1",
+    contract_version=(
+        "schemas/cohort-composition-registry.schema.json@"
+        "aoa_agents_cohort_composition_registry_v1#artifact_identity"
+    ),
 )
 
 
@@ -71,6 +96,7 @@ def build_cohort_registry_payload(patterns: list[dict[str, object]]) -> dict[str
     return {
         "version": 1,
         "layer": "aoa-agents",
+        "artifact_identity": COHORT_REGISTRY_ARTIFACT_IDENTITY,
         "cohort_patterns": cohort_patterns,
     }
 
