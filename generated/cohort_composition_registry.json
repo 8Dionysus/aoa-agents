@@ -1,6 +1,28 @@
 {
-  "version": 1,
+  "version": 2,
   "layer": "aoa-agents",
+  "artifact_identity": {
+    "artifact_class": "agent_cohort_composition_registry",
+    "surface_state": "public_generated_agent_operating_model_registry",
+    "owner_repo": "aoa-agents",
+    "authority_ref": "agents/operating-model/cohorts/AGENTS.md",
+    "producer": "scripts/build_published_surfaces.py via scripts/cohort_registry.py from agents/operating-model/cohorts/*.pattern.json",
+    "consumer_expectation": "Verify version, layer, artifact_identity, source cohort patterns, role refs, tier refs, schema, builder parity, and validate_agents before using this as cohort orientation; do not treat cohort hints as playbooks, routing policy, memory doctrine, eval doctrine, or runtime implementation.",
+    "privacy_boundary": "Public source-authored agent-layer metadata only; no private prompts, session transcripts, secrets, live runtime state, or hidden operator traces.",
+    "content_identity": "generated/cohort_composition_registry.json rebuilt from agents/operating-model/cohorts/*.pattern.json and compared by scripts/validate_agents.py.",
+    "abi_epoch": "aoa_agents_cohort_composition_registry_v2",
+    "contract_version": "schemas/cohort-composition-registry.schema.json@aoa_agents_cohort_composition_registry_v2#artifact_identity",
+    "trust_layer": [
+      "abi_contract_signature",
+      "w3c_prov_lineage"
+    ],
+    "verification": [
+      "python scripts/build_published_surfaces.py",
+      "python scripts/validate_agents.py",
+      "python -m pytest -q tests/test_published_consumer_feeds.py"
+    ],
+    "action": "ADD_CONSUMER_EXPECTATION"
+  },
   "cohort_patterns": [
     {
       "id": "solo",

@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from artifact_identity import build_generated_registry_artifact_identity
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ROLES_DIR = REPO_ROOT / "agents" / "roles"
 PROFILES_DIR = ROLES_DIR
@@ -19,6 +21,27 @@ REGISTRY_FIELDS = (
     "memory_rights",
     "evaluation_posture",
     "handoff_rule",
+)
+AGENT_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
+    artifact_class="role_contract_registry",
+    surface_state="public_generated_agent_role_registry",
+    authority_ref="agents/roles/AGENTS.md",
+    producer=(
+        "scripts/build_published_surfaces.py via scripts/agent_profile_registry.py "
+        "from agents/roles/*/profile.json"
+    ),
+    consumer_expectation=(
+        "Verify version, layer, artifact_identity, source role profiles, schema, "
+        "builder parity, and validate_agents before using this as role identity "
+        "orientation; do not treat it as skill, proof, memory, routing, playbook, "
+        "or runtime authority."
+    ),
+    content_identity=(
+        "generated/agent_registry.min.json rebuilt from agents/roles/*/profile.json "
+        "and compared by scripts/validate_agents.py."
+    ),
+    abi_epoch="aoa_agents_role_registry_v2",
+    contract_version="schemas/agent-registry.schema.json@aoa_agents_role_registry_v2#artifact_identity",
 )
 
 
@@ -80,8 +103,9 @@ def build_agent_registry_payload(profiles: list[dict[str, object]]) -> dict[str,
             entry[key] = profile[key]
         agents.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
+        "artifact_identity": AGENT_REGISTRY_ARTIFACT_IDENTITY,
         "agents": agents,
     }
 

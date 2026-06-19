@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from agent_profile_registry import BuildError, describe_path, read_json
+from artifact_identity import build_generated_registry_artifact_identity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MODEL_TIERS_DIR = REPO_ROOT / "agents" / "operating-model" / "tiers"
@@ -28,6 +29,27 @@ REGISTRY_FIELDS = (
     "handoff_targets",
     "artifact_requirement",
     "activation_conditions",
+)
+MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY = build_generated_registry_artifact_identity(
+    artifact_class="agent_model_tier_registry",
+    surface_state="public_generated_agent_operating_model_registry",
+    authority_ref="agents/operating-model/tiers/AGENTS.md",
+    producer=(
+        "scripts/build_published_surfaces.py via scripts/model_tier_registry.py "
+        "from agents/operating-model/tiers/*.tier.json"
+    ),
+    consumer_expectation=(
+        "Verify version, layer, artifact_identity, source tier objects, artifact "
+        "requirements, schema, builder parity, and validate_agents before using "
+        "this as tier orientation; do not treat tiers as vendor model brands, "
+        "routing policy, playbook canon, or runtime implementation."
+    ),
+    content_identity=(
+        "generated/model_tier_registry.json rebuilt from "
+        "agents/operating-model/tiers/*.tier.json and compared by scripts/validate_agents.py."
+    ),
+    abi_epoch="aoa_agents_model_tier_registry_v2",
+    contract_version="schemas/model-tier-registry.schema.json@aoa_agents_model_tier_registry_v2#artifact_identity",
 )
 
 
@@ -70,8 +92,9 @@ def build_model_tier_registry_payload(tiers: list[dict[str, object]]) -> dict[st
             entry[key] = tier[key]
         model_tiers.append(entry)
     return {
-        "version": 1,
+        "version": 2,
         "layer": "aoa-agents",
+        "artifact_identity": MODEL_TIER_REGISTRY_ARTIFACT_IDENTITY,
         "model_tiers": model_tiers,
     }
 
