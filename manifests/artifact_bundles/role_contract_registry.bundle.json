@@ -72,8 +72,11 @@
   },
   "consumer_contract": {
     "stable_interface": "python scripts/validate_abyss_machine_role_registry_bundle.py --json and abyss-machine artifacts trust-gate --artifact-class role_contract_registry --consumer-intent agent --json",
-    "consumer_expectation": "Agent-layer consumers select a role_contract_registry bundle from the registry latest read-model only after ABI verification, SLSA/in-toto generation provenance, materialized subject-store verification, build_published_surfaces parity, validate_agents, role-boundary checks, and consumer trust-gate allow/warn succeeds.",
-    "registry_required": true
+    "consumer_expectation": "Agent-layer consumers select a role_contract_registry bundle from the registry latest read-model only after ABI verification, SLSA/in-toto generation provenance, durable evidence promotion, materialized subject-store verification, source/trust-root matching, build_published_surfaces parity, validate_agents, role-boundary checks, and consumer trust-gate allow/warn succeeds.",
+    "registry_required": true,
+    "subject_store_required": true,
+    "admission_gate": "fail_closed_consumer_admission",
+    "consumer_verdict": "allow_or_deny_required_before_use"
   },
   "consumer_command": [
     "abyss-machine artifacts build-sidecars --manifest manifests/artifact_bundles/role_contract_registry.bundle.json --bundle-dir BUNDLE_DIR",
@@ -81,7 +84,7 @@
     "abyss-machine artifacts verify BUNDLE_DIR",
     "abyss-machine artifacts release-check BUNDLE_DIR",
     "abyss-machine artifacts evidence-promote BUNDLE_DIR --registry-dir REGISTRY_DIR --lifecycle-state release-ready --consumer-ref aoa-agents:role-contract-registry --evidence-ref BUNDLE_DIR/artifact.verify.json --source-repo aoa-agents --source-ref manifests/artifact_bundles/role_contract_registry.bundle.json --producer aoa-agents-role-registry-builder --trust-root-mode host_managed --json",
-    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --registry-dir REGISTRY_DIR --manifest manifests/artifact_bundles/role_contract_registry.bundle.json --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
+    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --store-root SUBJECT_STORE_ROOT --registry-dir REGISTRY_DIR --manifest manifests/artifact_bundles/role_contract_registry.bundle.json --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
     "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class role_contract_registry --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
     "abyss-machine artifacts registry-latest --registry-dir REGISTRY_DIR --artifact-class role_contract_registry --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
     "python scripts/validate_abyss_machine_role_registry_bundle.py --json",
