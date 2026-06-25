@@ -42,6 +42,10 @@ COMMANDS = [
         [sys.executable, "scripts/validate_agent_source_home.py"],
     ),
     (
+        "validate OS Abyss role registry artifact bundle",
+        [sys.executable, "scripts/validate_abyss_machine_role_registry_bundle.py"],
+    ),
+    (
         "run antifragility stress tests",
         [
             sys.executable,

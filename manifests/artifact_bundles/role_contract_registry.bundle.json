@@ -1,0 +1,90 @@
+{
+  "schema": "abyss_machine_artifact_bundle_manifest_v1",
+  "id": "aoa-agents-role-contract-registry",
+  "artifact_class": "role_contract_registry",
+  "owner_repo": "aoa-agents",
+  "policy_ref": "repo:abyss-machine/manifests/artifact_signature_policy.manifest.json",
+  "mode": "os_abyss_local",
+  "public_safe": true,
+  "purpose": "Repo-local OS Abyss artifact bundle input for generated/agent_registry.min.json.",
+  "subject_repo_root": "../..",
+  "artifact_source": {
+    "kind": "generated_agent_role_registry",
+    "content_identity_ref": "generated/agent_registry.min.json",
+    "artifact_identity_ref": "generated/agent_registry.min.json#/artifact_identity"
+  },
+  "artifact_identity": {
+    "artifact_class": "role_contract_registry",
+    "abi_epoch": "aoa_agents_role_registry_v2"
+  },
+  "abi_subject": {
+    "path": "generated/agent_registry.min.json",
+    "artifact_identity_pointer": "/artifact_identity"
+  },
+  "artifact_subjects": [
+    {
+      "path": "generated/agent_registry.min.json",
+      "role": "role_contract_registry"
+    },
+    {
+      "path": "schemas/agent-registry.schema.json",
+      "role": "schema"
+    },
+    {
+      "path": "agents/roles/AGENTS.md",
+      "role": "authority_doc"
+    },
+    {
+      "path": "scripts/agent_profile_registry.py",
+      "role": "builder"
+    },
+    {
+      "path": "scripts/artifact_identity.py",
+      "role": "builder_contract"
+    },
+    {
+      "path": "scripts/build_published_surfaces.py",
+      "role": "builder_entrypoint"
+    }
+  ],
+  "build_type": "https://abyssos.local/buildtypes/aoa-agents-role-registry/v1",
+  "package": {
+    "ecosystem": "generated-readmodel",
+    "name": "aoa-agents-role-contract-registry",
+    "purl": "pkg:generic/aoa-agents-role-contract-registry@0"
+  },
+  "lifecycle": {
+    "initial_state": "candidate",
+    "promotion_path": [
+      "candidate",
+      "built-local",
+      "manually-verified",
+      "release-ready",
+      "published",
+      "superseded",
+      "revoked"
+    ],
+    "latest_eligible_states": [
+      "manually-verified",
+      "release-ready",
+      "published"
+    ]
+  },
+  "consumer_contract": {
+    "stable_interface": "python scripts/validate_abyss_machine_role_registry_bundle.py --json and abyss-machine artifacts trust-gate --artifact-class role_contract_registry --consumer-intent agent --json",
+    "consumer_expectation": "Agent-layer consumers select a role_contract_registry bundle from the registry latest read-model only after ABI verification, SLSA/in-toto generation provenance, materialized subject-store verification, build_published_surfaces parity, validate_agents, role-boundary checks, and consumer trust-gate allow/warn succeeds.",
+    "registry_required": true
+  },
+  "consumer_command": [
+    "abyss-machine artifacts build-sidecars --manifest manifests/artifact_bundles/role_contract_registry.bundle.json --bundle-dir BUNDLE_DIR",
+    "abyss-machine artifacts sign BUNDLE_DIR",
+    "abyss-machine artifacts verify BUNDLE_DIR",
+    "abyss-machine artifacts release-check BUNDLE_DIR",
+    "abyss-machine artifacts evidence-promote BUNDLE_DIR --registry-dir REGISTRY_DIR --lifecycle-state release-ready --consumer-ref aoa-agents:role-contract-registry --evidence-ref BUNDLE_DIR/artifact.verify.json --source-repo aoa-agents --source-ref manifests/artifact_bundles/role_contract_registry.bundle.json --producer aoa-agents-role-registry-builder --trust-root-mode host_managed --json",
+    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --registry-dir REGISTRY_DIR --manifest manifests/artifact_bundles/role_contract_registry.bundle.json --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
+    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class role_contract_registry --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
+    "abyss-machine artifacts registry-latest --registry-dir REGISTRY_DIR --artifact-class role_contract_registry --consumer-intent agent --source-repo aoa-agents --trust-root-mode host_managed --json",
+    "python scripts/validate_abyss_machine_role_registry_bundle.py --json",
+    "abyss-machine artifacts bundle-registry --registry-dir dist/abyss-artifact-registry/aoa-agents-role-registry --artifact-class role_contract_registry --json"
+  ]
+}

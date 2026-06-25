@@ -63,6 +63,38 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
             self.assertIn("output_contract", entry)
             self.assertIn("handoff_targets", entry)
 
+    def test_role_registry_artifact_bundle_requires_registry_lifecycle_and_slsa(self) -> None:
+        manifest = load_json("manifests/artifact_bundles/role_contract_registry.bundle.json")
+
+        self.assertEqual(manifest["schema"], "abyss_machine_artifact_bundle_manifest_v1")
+        self.assertEqual(manifest["artifact_class"], "role_contract_registry")
+        self.assertEqual(manifest["owner_repo"], "aoa-agents")
+        self.assertTrue(manifest["public_safe"])
+        self.assertEqual(manifest["artifact_identity"]["abi_epoch"], "aoa_agents_role_registry_v2")
+        self.assertEqual(manifest["abi_subject"]["path"], "generated/agent_registry.min.json")
+        self.assertIn(
+            {"path": "generated/agent_registry.min.json", "role": "role_contract_registry"},
+            manifest["artifact_subjects"],
+        )
+        self.assertIn(
+            {"path": "scripts/agent_profile_registry.py", "role": "builder"},
+            manifest["artifact_subjects"],
+        )
+        self.assertEqual(manifest["lifecycle"]["initial_state"], "candidate")
+        self.assertIn("release-ready", manifest["lifecycle"]["promotion_path"])
+        self.assertIn("revoked", manifest["lifecycle"]["promotion_path"])
+        self.assertTrue(manifest["consumer_contract"]["registry_required"])
+        self.assertIn("SLSA/in-toto generation provenance", manifest["consumer_contract"]["consumer_expectation"])
+        self.assertIn("materialized subject-store verification", manifest["consumer_contract"]["consumer_expectation"])
+        commands = "\n".join(manifest["consumer_command"])
+        self.assertIn("evidence-promote", commands)
+        self.assertIn("materialize-subjects", commands)
+        self.assertIn("trust-gate", commands)
+        self.assertIn("registry-latest", commands)
+        self.assertIn("--consumer-intent agent", commands)
+        self.assertIn("--source-repo aoa-agents", commands)
+        self.assertIn("--trust-root-mode host_managed", commands)
+
     def test_runtime_seam_bindings_reference_known_tiers(self) -> None:
         agent_registry = load_json("generated/agent_registry.min.json")
         tier_registry = load_json("generated/model_tier_registry.json")

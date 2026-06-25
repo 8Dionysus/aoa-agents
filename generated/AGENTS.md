@@ -117,6 +117,12 @@ For `generated/role_specialization_catalog.min.json` and
 `generated/capability_pack_registry.min.json`, use
 `scripts/build_published_surfaces.py` as the canonical builder and
 `scripts/validate_agents.py` as the explicit source/catalog validator.
+For `generated/agent_registry.min.json`, `manifests/artifact_bundles/role_contract_registry.bundle.json`
+adds the OS Abyss ABI/SLSA registry envelope. Validate that transport surface
+with `python scripts/validate_abyss_machine_role_registry_bundle.py`; release
+or export consumers must use the durable registry plus materialized subject
+store trust-gate path. The generated registry remains subordinate to
+`agents/roles/*/profile.json` and `agents/roles/AGENTS.md`.
 For `generated/titan_codex_agents/`, use
 `mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.py`
 as the canonical builder and freshness checker.
