@@ -65,6 +65,12 @@ When the release marker moves, check the public marker surfaces together:
 - tests that assert public release-line alignment.
 
 Generated surfaces should change only when their source builders require it.
+The OS Abyss artifact envelope for `generated/agent_registry.min.json` lives in
+`manifests/artifact_bundles/role_contract_registry.bundle.json`; verify it with
+`python scripts/validate_abyss_machine_role_registry_bundle.py` before treating
+the generated role registry as a release/export handoff. That validator builds
+the bundle, promotes durable evidence, materializes the subject store, and
+requires an OS Abyss consumer trust-gate allow/warn verdict.
 
 ## Closeout
 
