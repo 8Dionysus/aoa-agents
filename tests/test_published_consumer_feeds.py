@@ -84,7 +84,13 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         self.assertIn("release-ready", manifest["lifecycle"]["promotion_path"])
         self.assertIn("revoked", manifest["lifecycle"]["promotion_path"])
         self.assertTrue(manifest["consumer_contract"]["registry_required"])
+        self.assertTrue(manifest["consumer_contract"]["subject_store_required"])
+        self.assertEqual(
+            manifest["consumer_contract"]["admission_gate"],
+            "fail_closed_consumer_admission",
+        )
         self.assertIn("SLSA/in-toto generation provenance", manifest["consumer_contract"]["consumer_expectation"])
+        self.assertIn("durable evidence promotion", manifest["consumer_contract"]["consumer_expectation"])
         self.assertIn("materialized subject-store verification", manifest["consumer_contract"]["consumer_expectation"])
         commands = "\n".join(manifest["consumer_command"])
         self.assertIn("evidence-promote", commands)
@@ -93,6 +99,7 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         self.assertIn("registry-latest", commands)
         self.assertIn("--consumer-intent agent", commands)
         self.assertIn("--source-repo aoa-agents", commands)
+        self.assertIn("--store-root SUBJECT_STORE_ROOT", commands)
         self.assertIn("--trust-root-mode host_managed", commands)
 
     def test_runtime_seam_bindings_reference_known_tiers(self) -> None:
