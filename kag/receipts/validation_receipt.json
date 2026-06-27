@@ -1,0 +1,54 @@
+{
+  "schema_version": "aoa-local-kag-record-v1",
+  "repo": "aoa-agents",
+  "local_id": "receipt:validation:agents-provider",
+  "record_class": "receipt",
+  "source_refs": [
+    {
+      "repo": "aoa-agents",
+      "path": "agents/source_home.manifest.json",
+      "source_class": "agent_source",
+      "role": "primary",
+      "authority": "authored_source"
+    },
+    {
+      "repo": "aoa-agents",
+      "path": "agents/README.md",
+      "source_class": "agent_source",
+      "role": "owner_route",
+      "authority": "authored_source"
+    }
+  ],
+  "source_owner": "aoa-agents",
+  "provenance_mode": "strict_source_linked",
+  "derived_method": "source-linked local KAG receipt over agent roles and capability pack registries",
+  "generated_or_authored": "authored_control",
+  "status": "active",
+  "owner_return_route": {
+    "repo": "aoa-agents",
+    "surface": "agents/README.md",
+    "route_kind": "authored_meaning"
+  },
+  "freshness": {
+    "mode": "validator_receipt",
+    "state": "current",
+    "checked_ref": "kag/manifest.json"
+  },
+  "builder": {
+    "route": "local KAG provider authoring",
+    "surface": "kag/manifest.json"
+  },
+  "validator": {
+    "route": "aoa-kag:scripts/validate_kag.py",
+    "lane": "local-kag"
+  },
+  "storage_posture": {
+    "git_surface": "receipt",
+    "payload_class": "receipt",
+    "runtime_route": "source-repo"
+  },
+  "consumer_route": "aoa-kag registry",
+  "receipt_kind": "validation",
+  "result": "current",
+  "fallback_route": "scripts/validate_agent_source_home.py"
+}
