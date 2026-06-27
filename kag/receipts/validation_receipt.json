@@ -22,7 +22,7 @@
   "source_owner": "aoa-agents",
   "provenance_mode": "strict_source_linked",
   "derived_method": "source-linked local KAG receipt over agent roles and capability pack registries",
-  "generated_or_authored": "generated_from_source",
+  "generated_or_authored": "authored_control",
   "status": "active",
   "owner_return_route": {
     "repo": "aoa-agents",
@@ -30,17 +30,17 @@
     "route_kind": "authored_meaning"
   },
   "freshness": {
-    "mode": "source_snapshot",
+    "mode": "validator_receipt",
     "state": "current",
-    "checked_ref": "agents/README.md"
+    "checked_ref": "kag/manifest.json"
   },
   "builder": {
-    "route": "published surface builder",
-    "surface": "scripts/build_published_surfaces.py"
+    "route": "local KAG provider authoring",
+    "surface": "kag/manifest.json"
   },
   "validator": {
-    "route": "scripts/validate_agent_source_home.py",
-    "lane": "owner-local"
+    "route": "aoa-kag:scripts/validate_kag.py",
+    "lane": "local-kag"
   },
   "storage_posture": {
     "git_surface": "receipt",

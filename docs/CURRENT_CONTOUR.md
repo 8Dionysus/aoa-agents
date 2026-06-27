@@ -36,6 +36,7 @@ already-landed bootstrap baseline.
 | orchestrator classes | `agents/operating-model/orchestrators/*.class.json` | `generated/orchestrator_class_catalog.min.json`, `generated/orchestrator_class_capsules.json`, `generated/orchestrator_class_sections.full.json` |
 | cohort patterns | `agents/operating-model/cohorts/*.pattern.json` | `generated/cohort_composition_registry.json` |
 | runtime seam bindings | `agents/operating-model/runtime-seams/*.binding.json` | `generated/runtime_seam_bindings.json` |
+| local KAG provider | `kag/` | `kag/manifest.json`, `kag/projections/mcp_source_return.json`, `kag/receipts/validation_receipt.json` |
 
 ## Codex Projection
 
