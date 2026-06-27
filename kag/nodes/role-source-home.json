@@ -1,0 +1,46 @@
+{
+  "schema_version": "aoa-local-kag-record-v1",
+  "repo": "aoa-agents",
+  "local_id": "node:agents:role-source-home",
+  "record_class": "node",
+  "source_refs": [
+    {
+      "repo": "aoa-agents",
+      "path": "agents/source_home.manifest.json",
+      "source_class": "agent_source",
+      "role": "primary",
+      "authority": "authored_source"
+    }
+  ],
+  "source_owner": "aoa-agents",
+  "provenance_mode": "strict_source_linked",
+  "derived_method": "source-linked local KAG node over agent roles and capability pack registries",
+  "generated_or_authored": "authored_control",
+  "status": "active",
+  "owner_return_route": {
+    "repo": "aoa-agents",
+    "surface": "agents/README.md",
+    "route_kind": "authored_meaning"
+  },
+  "freshness": {
+    "mode": "source_snapshot",
+    "state": "current",
+    "checked_ref": "agents/source_home.manifest.json"
+  },
+  "builder": {
+    "route": "published surface builder",
+    "surface": "scripts/build_published_surfaces.py"
+  },
+  "validator": {
+    "route": "scripts/validate_agent_source_home.py",
+    "lane": "owner-local"
+  },
+  "storage_posture": {
+    "git_surface": "portable_records",
+    "payload_class": "node",
+    "runtime_route": "source-repo"
+  },
+  "consumer_route": "aoa-kag registry",
+  "node_kind": "source_surface",
+  "label": "aoa-agents source-home manifest"
+}
