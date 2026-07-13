@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import tempfile
 import unittest
 from pathlib import Path
+
+from scripts import validate_abyss_machine_role_registry_bundle as role_bundle_validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +66,22 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
             self.assertIn("output_contract", entry)
             self.assertIn("handoff_targets", entry)
 
+    def test_published_registry_v2_has_documented_migration_surface(self) -> None:
+        compatibility = (
+            REPO_ROOT
+            / "mechanics"
+            / "boundary-bridge"
+            / "parts"
+            / "published-compatibility"
+            / "docs"
+            / "published-contract-compatibility.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("## Registry v2 migration surface", compatibility)
+        self.assertIn("This is an intentional versioning move", compatibility)
+        self.assertIn("Consumers must inspect `version` and `layer`", compatibility)
+        self.assertIn("future version changes require a documented migration surface", compatibility)
+
     def test_role_registry_artifact_bundle_requires_registry_lifecycle_and_slsa(self) -> None:
         manifest = load_json("manifests/artifact_bundles/role_contract_registry.bundle.json")
 
@@ -89,6 +108,10 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
             manifest["consumer_contract"]["admission_gate"],
             "fail_closed_consumer_admission",
         )
+        self.assertEqual(
+            manifest["consumer_contract"]["consumer_verdict"],
+            "allow_or_deny_required_before_use",
+        )
         self.assertIn("SLSA/in-toto generation provenance", manifest["consumer_contract"]["consumer_expectation"])
         self.assertIn("durable evidence promotion", manifest["consumer_contract"]["consumer_expectation"])
         self.assertIn("materialized subject-store verification", manifest["consumer_contract"]["consumer_expectation"])
@@ -101,6 +124,21 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         self.assertIn("--source-repo aoa-agents", commands)
         self.assertIn("--store-root SUBJECT_STORE_ROOT", commands)
         self.assertIn("--trust-root-mode host_managed", commands)
+
+    def test_role_registry_bundle_validator_requires_consumer_verdict(self) -> None:
+        manifest = load_json("manifests/artifact_bundles/role_contract_registry.bundle.json")
+        manifest["consumer_contract"].pop("consumer_verdict")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest_path = root / "manifests" / "artifact_bundles" / "role_contract_registry.bundle.json"
+            subject_path = root / "generated" / "agent_registry.min.json"
+            manifest_path.parent.mkdir(parents=True)
+            subject_path.parent.mkdir(parents=True)
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            subject_path.write_text("{}", encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "consumer_verdict"):
+                role_bundle_validator._assert_manifest_matches_subject(manifest_path, subject_path)
 
     def test_runtime_seam_bindings_reference_known_tiers(self) -> None:
         agent_registry = load_json("generated/agent_registry.min.json")

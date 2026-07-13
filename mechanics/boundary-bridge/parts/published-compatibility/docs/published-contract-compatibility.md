@@ -41,6 +41,24 @@ Source-authored files may evolve, but published surfaces must remain legible, de
 
 `version` and `layer` remain required top-level fields on every published generated registry.
 
+## Registry v2 migration surface
+
+The current committed generated registry contract is `version: 2` for:
+
+- `generated/agent_registry.min.json`
+- `generated/model_tier_registry.json`
+- `generated/cohort_composition_registry.json`
+- `generated/runtime_seam_bindings.json`
+
+This is an intentional versioning move, not silent top-level metadata drift.
+
+Migration/deprecation contract:
+
+- Consumers must inspect `version` and `layer` before interpreting a published registry.
+- Current v2 field names and stable publication order remain present during the documented overlap period.
+- v1-only consumers must pin to a pre-v2 release or add an explicit compatibility adapter; this repository does not publish a hidden v1 shadow registry from the v2 generated files.
+- A future v3 or another top-level metadata change needs a new migration section here before generated registries switch.
+
 ## Compatibility classes
 
 ### Additive
@@ -84,7 +102,8 @@ Current order discipline is:
 
 - Do not silently rename published keys.
 - Do not silently remove published keys.
-- Do not introduce `v2` or new required env vars in this stabilization cycle.
+- Do not silently switch published registry `version`; the current registry contract is v2 and future version changes require a documented migration surface before generated registries switch.
+- Historical v1 stabilization guard retained for traceability: Do not introduce `v2` or new required env vars in this stabilization cycle.
 - Do not treat example-only surfaces as runtime-facing canon.
 
 ## Validation

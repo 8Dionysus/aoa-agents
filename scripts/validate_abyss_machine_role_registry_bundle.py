@@ -172,6 +172,8 @@ def _assert_manifest_matches_subject(manifest: Path, subject: Path) -> None:
         raise ValueError("manifest consumer_contract.subject_store_required must be true")
     if contract.get("admission_gate") != "fail_closed_consumer_admission":
         raise ValueError("manifest consumer_contract.admission_gate must be fail_closed_consumer_admission")
+    if contract.get("consumer_verdict") != "allow_or_deny_required_before_use":
+        raise ValueError("manifest consumer_contract.consumer_verdict must be allow_or_deny_required_before_use")
     commands = "\n".join(str(item) for item in payload.get("consumer_command") or [])
     for token in (
         "artifacts evidence-promote",
