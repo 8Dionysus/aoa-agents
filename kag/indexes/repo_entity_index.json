@@ -823,7 +823,7 @@
     {"anchor_ids":["aoa:aoa-agents:anchor:6e47fe39fbcf0b2d223e2ae4"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:ee6988b404d239be48256d96","label":"docs","provenance_ref":"deterministic","semantic_key":"directory:mechanics/titan/parts/lineage-ledger/docs","source_digest":"716818ce88147e780db2ae67cd78ea99fbf9f0f52d647f01e563570caa5dccb6","source_record_ids":["aoa:aoa-agents:artifact:34a19a4c11086d739d030ac7"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-agents:anchor:929d297be844ed467b327fc1"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:eea500cebae87eb21f565e62","label":"legacy","provenance_ref":"deterministic","semantic_key":"directory:mechanics/questbook/legacy","source_digest":"7a9c609841673b0c6443d14f90f9baa3fc9bce80ee1d0c5f618975d88b72b998","source_record_ids":["aoa:aoa-agents:artifact:02e130c7aa24ec4b2d97dd68"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-agents:anchor:ff7548673b4c47f7873c73db"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:efd0189110febcc05bb7f9f9","label":"coder","provenance_ref":"deterministic","semantic_key":"directory:agents/roles/coder","source_digest":"9fb0640474e9d05f0767d57c017cf1a0d43a2bb3502af2d83bf4048fbd7736e2","source_record_ids":["aoa:aoa-agents:artifact:c72abc47acac9abf5160e6f9"],"temporal_ref":"current","trust_ref":"deterministic"},
-    {"anchor_ids":["aoa:aoa-agents:anchor:33e4546ac22a9f149d13baef"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:f019620edd42955bd2ad859f","label":"workflows","provenance_ref":"deterministic","semantic_key":"directory:.github/workflows","source_digest":"a50c9d11bf1e5bcb4eae0f1a0f3bc566d47d8c117653509565a26aac790f65ba","source_record_ids":["aoa:aoa-agents:artifact:3affb923d04bc06217e2c3a1"],"temporal_ref":"current","trust_ref":"deterministic"},
+    {"anchor_ids":["aoa:aoa-agents:anchor:33e4546ac22a9f149d13baef"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:f019620edd42955bd2ad859f","label":"workflows","provenance_ref":"deterministic","semantic_key":"directory:.github/workflows","source_digest":"b783f252e3c802bd3b5f45b10dc8f445606cbd3a625c86de8ab0cbcee4deb26a","source_record_ids":["aoa:aoa-agents:artifact:3affb923d04bc06217e2c3a1"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-agents:anchor:3b126eedf7d1306093a39849"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:f0b9d456ca9cf199b2b0fc6b","label":"schemas","provenance_ref":"deterministic","semantic_key":"directory:mechanics/titan/parts/service-cohort/schemas","source_digest":"5cf69208e4c945a70bc87069a2604f354f681f47f290e2a370d00cbc413c2a47","source_record_ids":["aoa:aoa-agents:artifact:6ba7b5b9ccc55f37c7465771"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-agents:anchor:af6cf75f8225e7ec2e62add1"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:f10362f3dc659c8391e065cf","label":"assistant","provenance_ref":"deterministic","semantic_key":"directory:agents/roles/coder/forms/assistant","source_digest":"912747860ed081b18259c409d49e0f30bbaacd59ae5bfdcc397603a49eb48c04","source_record_ids":["aoa:aoa-agents:artifact:237dbbdb3a9a3b144917a164"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-agents:anchor:2020d803f31364a17911708b"],"entity_kind":"directory","id":"aoa:aoa-agents:entity:f2afd2ff037caa398b0e0665","label":"references","provenance_ref":"deterministic","semantic_key":"directory:.agents/skills/aoa-session-donor-harvest/references","source_digest":"5b19ec201599c0bce62f51dba9519a4b84b156bea4446ea1ca595891e9064978","source_record_ids":["aoa:aoa-agents:artifact:18e4d7b9ab04bf529f3f4af7"],"temporal_ref":"current","trust_ref":"deterministic"},
@@ -2459,7 +2459,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_entity_index",
-    "content_digest": "b5b2ba4eeeb0319fb3da2f4fa35aa7d7d2d01915cee11c0f27edb84179210cf9",
+    "content_digest": "077e1b097801f481346685f4835e9ef7a0c1797cf8929b2346e70523acf7204d",
     "index_kind": "entity",
     "local_id": "index:repo-local:entities",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -2544,7 +2544,7 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v2",
   "source_index": {
-    "content_digest": "3174819a533da7e40bba62c3b314b24edc0e9e31ab79528b4d19854490a6ac99",
+    "content_digest": "7e0de6d0f913c7111acdaa6a3c5cd066057ceb42ffd55fec56f9703a0faa140b",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
