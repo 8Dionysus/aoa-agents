@@ -49,10 +49,4 @@ package and validation route.
 
 ## Verification
 
-```bash
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python -m pytest -q tests
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

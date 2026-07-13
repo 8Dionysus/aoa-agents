@@ -65,13 +65,4 @@ while its generated output remains root-published.
 
 ## Verification
 
-```bash
-python mechanics/titan/scripts/validate_titan_lineage.py --roles mechanics/titan/parts/role-bearing/config/role-classes.v0.json --bearers mechanics/titan/parts/role-bearing/config/bearers.v0.json --ledger mechanics/titan/parts/lineage-ledger/config/ledger.v0.json
-python mechanics/titan/scripts/validate_titan_schemas.py
-python mechanics/titan/scripts/validate_titan_examples.py
-python -m unittest discover -s mechanics/titan/tests -p "test_*.py"
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

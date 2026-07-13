@@ -16,10 +16,3 @@ release contracts.
 | [office-adoption-posture.schema.json](office-adoption-posture.schema.json) | office adoption posture |
 | [office-pair-adoption-policy.schema.json](office-pair-adoption-policy.schema.json) | pair office adoption policy |
 | [office-pattern-compatibility.schema.json](office-pattern-compatibility.schema.json) | office pattern compatibility |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

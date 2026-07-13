@@ -52,9 +52,4 @@ absence by the package-local validator.
 
 ## Validation
 
-```bash
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-python -m unittest discover -s mechanics/experience/tests -p 'test_*.py'
-python scripts/validate_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

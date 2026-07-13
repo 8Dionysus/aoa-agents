@@ -11,10 +11,3 @@ authority, rank mutation, school canon, or campaign runtime.
 | [rank-jurisdiction-registry.schema.json](rank-jurisdiction-registry.schema.json) | generated rank/jurisdiction registry |
 | [school-campaign-posture.schema.json](school-campaign-posture.schema.json) | school/campaign posture entry |
 | [school-campaign-posture-registry.schema.json](school-campaign-posture-registry.schema.json) | generated school/campaign posture registry |
-
-Validate with:
-
-```bash
-python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-```

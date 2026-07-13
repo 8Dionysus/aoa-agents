@@ -55,12 +55,4 @@ Preserve former root lookup only through Runtime Seam `PROVENANCE.md` and
 
 ## Verification
 
-```bash
-python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python -m unittest discover -s mechanics/runtime-seam/parts/artifact-contracts/tests -p 'test_*.py'
-python -m pytest -q tests
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

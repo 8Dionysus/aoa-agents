@@ -98,11 +98,7 @@ experience posture rather than the whole repository layer.
 
 This decision is verified by:
 
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.
 
 `mechanics/PAYLOAD_RECON.md` records the root-folder sweep that shaped the
 package set. `mechanics/PROVENANCE_TOPOLOGY.md` records the active/archive

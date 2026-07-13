@@ -13,9 +13,3 @@ Current bundle:
   as `role_contract_registry` with ABI identity, SLSA/in-toto generation
   provenance, durable evidence promotion, materialized subject-store gating,
   registry latest selection, and explicit no-SBOM/no-Sigstore/no-C2PA deferrals.
-
-Validate with:
-
-```bash
-python scripts/validate_abyss_machine_role_registry_bundle.py
-```

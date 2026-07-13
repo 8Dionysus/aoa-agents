@@ -16,13 +16,7 @@ This part routes `artifact-contracts` pressure inside `mechanics/runtime-seam/`.
 
 - [Agent Authority Claim Runtime](docs/authority-claim-runtime.md)
 
-## Validation
-
-```bash
-python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-python scripts/validate_agents.py
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent
 [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

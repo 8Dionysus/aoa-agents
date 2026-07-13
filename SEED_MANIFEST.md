@@ -37,14 +37,6 @@ quests/AOA-AG-Q-AGON-0008-formation-trial-validation-integration.md
 quests/AOA-AG-Q-AGON-0009-pre-protocol-agent-boundary.md
 ```
 
-## Commands after merge
-
-```bash
-python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
-python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
-python -m pytest -q mechanics/agon/parts/formation/tests/test_agent_formation_trial.py
-```
-
 ## Expected first verdict
 
 The expected global verdict is:

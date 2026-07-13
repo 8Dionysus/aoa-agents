@@ -8,9 +8,3 @@ retention, scar, rank, or doctrine authority.
 | --- | --- |
 | [epistemic-actor-posture.schema.json](epistemic-actor-posture.schema.json) | epistemic actor posture entry |
 | [epistemic-actor-posture-registry.schema.json](epistemic-actor-posture-registry.schema.json) | generated epistemic actor posture registry |
-
-Validate with:
-
-```bash
-python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-```

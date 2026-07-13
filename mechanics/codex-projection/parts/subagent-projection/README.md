@@ -46,12 +46,6 @@ through `generated/role_specialization_catalog.min.json` until a later
 projection eligibility contract promotes a specific specialization into an
 installable Codex agent.
 
-## Validation
-
-```bash
-python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
-python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -63,17 +63,4 @@ directories are not active source homes.
 
 ## Validation
 
-Topology-aware validation should include:
-
-```bash
-python scripts/validate_agent_source_home.py
-python scripts/build_published_surfaces.py
-python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
-python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
-python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m unittest discover -s tests -p 'test_*.py'
-```
+Verification routes through the focused owner checks and the repository release gate.

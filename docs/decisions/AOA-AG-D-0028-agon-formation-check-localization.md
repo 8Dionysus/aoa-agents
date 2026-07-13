@@ -56,12 +56,4 @@ absence by the part-local formation contract validator.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py --check
-python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
-python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
-python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
-python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python -m unittest discover -s mechanics/agon/parts/formation/tests -p 'test_*.py'
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

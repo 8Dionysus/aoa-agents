@@ -58,8 +58,4 @@ target package `PROVENANCE.md` and `legacy/` maps.
 
 Validation for this route is:
 
-```bash
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

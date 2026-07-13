@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AOA_EVALS_ROOT: ${{ github.workspace }}/.deps/aoa-evals
+      AOA_STATS_ROOT: ${{ github.workspace }}/.deps/aoa-stats
       ABYSS_MACHINE_REPO_ROOT: ${{ github.workspace }}/.deps/abyss-machine
     steps:
       - name: Checkout
@@ -36,6 +37,13 @@ jobs:
           repository: 8Dionysus/aoa-evals
           ref: 3f2873419a5f498691ea9559c32a2a642ce3f2ef
           path: .deps/aoa-evals
+
+      - name: Checkout aoa-stats
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: 8Dionysus/aoa-stats
+          ref: ebc2da5d18259f1f84068aee0ef1a7f4f6a42733
+          path: .deps/aoa-stats
 
       - name: Setup Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405

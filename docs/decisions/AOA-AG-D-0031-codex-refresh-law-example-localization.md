@@ -43,8 +43,4 @@ it is not generated output and not installed workspace state.
 
 Validation for this route is:
 
-```bash
-python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
-python -m unittest discover -s mechanics/codex-projection/parts/refresh-law/tests -p 'test_*.py'
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

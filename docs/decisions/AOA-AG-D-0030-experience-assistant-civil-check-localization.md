@@ -51,11 +51,4 @@ absence by the package-local contract validator.
 
 ## Validation
 
-```bash
-python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
-python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python -m unittest discover -s mechanics/experience/tests -p 'test_*.py'
-python -m unittest discover -s mechanics/experience/parts/assistant-civil-service/tests -p 'test_*.py'
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

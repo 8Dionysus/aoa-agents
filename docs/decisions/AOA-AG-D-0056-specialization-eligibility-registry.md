@@ -61,10 +61,4 @@ records and does not own projection decisions.
 
 ## Verification
 
-```bash
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
-python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
-python scripts/validate_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

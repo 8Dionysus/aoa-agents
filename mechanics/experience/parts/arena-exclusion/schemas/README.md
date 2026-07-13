@@ -10,10 +10,3 @@ route explicitly changes that posture.
 | [agent-kind-conflict-case.schema.json](agent-kind-conflict-case.schema.json) | kind-boundary conflict case |
 | [arena-exclusion.schema.json](arena-exclusion.schema.json) | assistant arena-exclusion adjunct |
 | [assistant-recharter-request.schema.json](assistant-recharter-request.schema.json) | reviewed assistant recharter request |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

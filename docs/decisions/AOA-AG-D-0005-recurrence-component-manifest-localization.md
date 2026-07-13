@@ -61,11 +61,4 @@ focused manifest tests beside the part.
 
 ## Verification
 
-```bash
-python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
-python -m unittest discover -s mechanics/recurrence/parts/component-manifests/tests -p 'test_*.py'
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
+Verification routes through the focused owner checks and the repository release gate.

@@ -54,12 +54,4 @@ or generated readers into mechanic-local packages.
 
 ## Verification
 
-Topology-aware validation should include:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
+Verification routes through the focused owner checks and the repository release gate.

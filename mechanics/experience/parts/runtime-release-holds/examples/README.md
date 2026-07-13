@@ -13,9 +13,3 @@ candidate, service version, service release, and runtime hold contracts.
 | [assistant-runtime-hold.example.json](assistant-runtime-hold.example.json) | assistant runtime hold |
 | [assistant-service-release.example.json](assistant-service-release.example.json) | service release |
 | [assistant-service-version.example.json](assistant-service-version.example.json) | service version |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

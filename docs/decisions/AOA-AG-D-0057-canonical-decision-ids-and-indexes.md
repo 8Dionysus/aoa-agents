@@ -99,8 +99,4 @@ index check before closeout.
 
 ## Verification
 
-```bash
-python scripts/generate_decision_indexes.py --check
-python -m unittest tests.test_decision_indexes
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

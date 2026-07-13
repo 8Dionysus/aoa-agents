@@ -72,6 +72,12 @@ anchors for the curated readiness lane.
 
 ## Validation
 
-Run `python -m pip install -r requirements-dev.txt` first. Then `python mechanics/checkpoint/scripts/validate_reference_route_contracts.py` validates the manifest schema, route pack coverage, cohort fit, tier path fit, runtime seam fit, and every referenced artifact instance.
+The checkpoint contract validator covers the manifest schema, route-pack
+coverage, cohort fit, tier path fit, runtime-seam fit, and every referenced
+artifact instance.
 
-For the Alpha companion set, `python mechanics/questbook/scripts/validate_alpha_reference_routes.py` checks that `mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json` stays aligned with `mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json`. Repo-wide validation remains `python scripts/validate_agents.py`.
+For the Alpha companion set, the Questbook validator checks that
+`mechanics/questbook/parts/alpha-reference-routes/generated/alpha-reference-routes.min.json`
+stays aligned with
+`mechanics/questbook/parts/alpha-reference-routes/examples/*.example.json`.
+The repository release gate owns the wider check.

@@ -8,9 +8,3 @@ a live spawn, scheduler, arena, or durable memory write.
 | [session-intent.example.json](session-intent.example.json) | [../schemas/session-intent.schema.json](../schemas/session-intent.schema.json) |
 | [witness-handoff.example.json](witness-handoff.example.json) | [../schemas/handoff-ledger.schema.json](../schemas/handoff-ledger.schema.json) |
 | [executor-receipt.example.json](executor-receipt.example.json) | [../schemas/handoff-ledger.schema.json](../schemas/handoff-ledger.schema.json) |
-
-Validate with:
-
-```bash
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-```

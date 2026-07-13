@@ -21,7 +21,7 @@ routes, and stronger-owner stop lines.
 | owner | `agents/source_home.manifest.json` plus nearest branch `AGENTS.md` |
 | next route | target family, builder, generated reader, validator |
 | tools | `scripts/validate_agent_source_home.py`, `scripts/build_published_surfaces.py`, and family-specific builders |
-| validation | `python scripts/validate_agent_source_home.py`, `python scripts/validate_agents.py`, plus family-specific checks |
+| validation | `scripts/validate_agent_source_home.py`, `scripts/validate_agents.py`, plus family-specific checks |
 
 ## Active Source Families
 

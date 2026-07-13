@@ -53,9 +53,4 @@ weaken the release gate.
 
 ## Verification
 
-```bash
-python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python -m unittest discover -s mechanics/runtime-seam/parts/artifact-contracts/tests -p 'test_*.py'
-python scripts/validate_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

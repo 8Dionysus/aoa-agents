@@ -48,12 +48,4 @@ these contracts, while generated recursor readers remain derived surfaces under
 
 Validation for this route is:
 
-```bash
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
-python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
-python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
-python mechanics/recurrence/scripts/validate_recursor_boundary.py
-python scripts/validate_agents.py
-python -m unittest discover -s mechanics/recurrence/tests -p 'test_*.py'
-```
+Verification routes through the focused owner checks and the repository release gate.

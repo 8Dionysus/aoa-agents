@@ -64,12 +64,7 @@ contract and validation route exists.
 
 ## Verification
 
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
+Verification routes through the focused owner checks and the repository release gate.
 
 The release check should be run after generated files are staged, because it
-uses `git diff --exit-code -- generated` to catch unstaged generated drift.
+uses the patch-integrity check to catch unstaged generated drift.

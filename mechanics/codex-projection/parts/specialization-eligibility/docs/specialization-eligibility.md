@@ -98,14 +98,6 @@ candidate state, but it does not own projection decisions.
 
 ## Validation
 
-Run:
-
-```bash
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
-python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
-```
-
 The validator checks the schema, example, source specialization links,
 capability pack links, record coverage for every current specialization,
 readiness-reader freshness, projection-scope boundary, and non-install

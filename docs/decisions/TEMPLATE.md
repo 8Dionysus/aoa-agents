@@ -47,6 +47,4 @@ Name the next owner surface or validator that should carry future work.
 
 ## Verification
 
-```bash
-python scripts/generate_decision_indexes.py --check
-```
+Verification routes through the focused owner checks and the repository release gate.

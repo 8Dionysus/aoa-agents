@@ -18,10 +18,3 @@ Public-safe examples for assistant and agent adoption/regression contracts.
 | [assistant-pattern-release-delta.example.json](assistant-pattern-release-delta.example.json) | pattern release delta |
 | [assistant-regression-result.example.json](assistant-regression-result.example.json) | regression result |
 | [assistant-shared-pattern-adoption.example.json](assistant-shared-pattern-adoption.example.json) | shared pattern adoption |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

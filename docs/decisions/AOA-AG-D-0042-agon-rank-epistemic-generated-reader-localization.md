@@ -51,14 +51,4 @@ preserve old-path lookup. Active docs should reference the part-local paths.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
-python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
-python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
-python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

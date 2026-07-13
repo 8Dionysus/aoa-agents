@@ -54,9 +54,4 @@ kebab-case package names.
 
 Validation for this route is:
 
-```bash
-python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
-python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
-python mechanics/questbook/scripts/validate_alpha_reference_routes.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

@@ -51,9 +51,4 @@ should reference the part-local path.
 
 ## Validation
 
-```bash
-python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
-python mechanics/questbook/scripts/validate_alpha_reference_routes.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

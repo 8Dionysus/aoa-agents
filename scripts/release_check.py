@@ -234,6 +234,10 @@ COMMANDS = [
         ],
     ),
     (
+        "validate owner-local stats port",
+        [sys.executable, "scripts/validate_local_stats_port.py"],
+    ),
+    (
         "run assistant projection resolver tests",
         [
             sys.executable,

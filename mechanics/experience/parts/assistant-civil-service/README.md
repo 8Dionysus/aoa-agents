@@ -43,13 +43,6 @@ authority.
 - [Formation Validator](scripts/validate_assistant_civil_formation.py)
 - [Formation Tests](tests/test_assistant_civil_formation.py)
 
-## Validation
-
-```bash
-python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
-python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python -m unittest discover -s mechanics/experience/parts/assistant-civil-service/tests -p 'test_*.py'
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

@@ -13,9 +13,3 @@ readiness lane.
 
 Stable `$id` values remain public contract identifiers. Active lookup for these
 files is this part-local `schemas/` route.
-
-Validate with:
-
-```bash
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-```

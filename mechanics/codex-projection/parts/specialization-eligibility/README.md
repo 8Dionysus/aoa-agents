@@ -51,10 +51,6 @@ The source queue lives under
 The generated readiness reader lives at
 `mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json`.
 
-## Validation
-
-```bash
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
-python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
-```
+The owner-local [stats port](../../../../stats/README.md) reports the fraction
+of this current queue whose explicit decision status is `eligible`. That
+reference statistic observes the gate; it does not widen or replace it.

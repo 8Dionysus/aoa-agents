@@ -48,13 +48,4 @@ explicit by running the package-local recurrence tests from
 
 ## Verification
 
-```bash
-python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
-python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
-python mechanics/recurrence/scripts/validate_recursor_boundary.py
-python -m unittest discover -s mechanics/recurrence/tests -p 'test_*.py'
-python scripts/validate_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

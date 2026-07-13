@@ -12,10 +12,6 @@ This part routes `arena-exclusion` pressure inside `mechanics/experience/`.
 
 - [Assistant Arena Exclusion](schemas/arena-exclusion.schema.json)
 
-## Validation
-
-```bash
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

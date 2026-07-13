@@ -62,9 +62,4 @@ because their names include role, tier, class, cohort, or runtime-seam language.
 
 ## Validation
 
-```bash
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

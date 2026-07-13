@@ -7,6 +7,18 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Added
+
+- An owner-local `stats/` port now reports the reference-only ratio of current
+  role-specialization eligibility records whose explicit owner decision is
+  `eligible`, using the shared `aoa-stats` measurement protocol without
+  claiming projection or install authority.
+
+### Changed
+
+- Runnable validation and test commands are consolidated in executable owners
+  and `AGENTS.md` route cards instead of general Markdown documentation.
+
 ### Fixed
 
 - Experience assistant civil validation now enforces the exact arena-exclusion

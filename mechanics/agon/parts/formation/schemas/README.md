@@ -14,9 +14,3 @@ runtime authority.
 
 Arena eligibility lives in the adjacent
 [arena-rank-school schema route](../../arena-rank-school/schemas/arena-eligibility.schema.json).
-
-Validate with:
-
-```bash
-python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-```

@@ -140,7 +140,8 @@ without mutating profiles, inventing a new orchestrator class, or turning
 
 ## Optional Consumer Smoke Checks
 
-Run `python -m pip install -r requirements-dev.txt` before `python scripts/validate_agents.py`.
+The optional smoke checks are owned by the repository validator and its
+dependency route in the nearest `AGENTS.md`.
 
 When these environment variables are set, the validator may also confirm that
 published neighboring surfaces still resolve back to public agent-layer

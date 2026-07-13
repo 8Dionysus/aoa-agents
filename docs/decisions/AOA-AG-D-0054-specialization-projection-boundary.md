@@ -77,11 +77,4 @@ names its install identity, permission posture, refresh law, and owner consent.
 
 ## Verification
 
-The intended verification route is:
-
-```bash
-python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
-python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

@@ -9,9 +9,3 @@ Part-local schemas for Agon adoption and retention contracts.
 | [agonic-pattern-adoption-trial.schema.json](agonic-pattern-adoption-trial.schema.json) | pattern adoption trial |
 | [agonic-pattern-retention-obligation.schema.json](agonic-pattern-retention-obligation.schema.json) | retention obligation |
 | [agonic-shared-scar-harvest.schema.json](agonic-shared-scar-harvest.schema.json) | shared scar harvest |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-```

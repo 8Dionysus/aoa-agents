@@ -27,7 +27,7 @@ They do not move their canon into `aoa-agents`.
 - `aoa-routing` consumes model-tier registry for tier hints and selects the next
   memo path
 - `aoa-sdk` may consume agent-layer workspace trigger posture as additive
-  guidance for when `aoa surfaces detect` should open after ingress and guard,
+  guidance for when surface detection should open after ingress and guard,
   and may consume the Codex projection manifest for local child-target planning
 - workspace `.codex/` may consume the generated Codex custom-agent projection
   for the five active role seeds
@@ -102,14 +102,14 @@ Out of scope:
 
 Promise:
 - `aoa-agents` may publish bounded workspace trigger posture for when additive
-  `aoa surfaces detect` should open after ingress and mutation gate passes
+  surface detection should open after ingress and mutation gate passes
 - `aoa-agents` may publish bounded Codex projection-manifest fields for
   `aoa-sdk` local child-target planning: `sandbox_mode`,
   `nickname_candidates`, `mcp_affinity`, and config-relative `config_path`
 
 Validator confirms:
-- the trigger posture keeps `aoa skills enter`, `aoa skills guard`, and
-  `aoa surfaces detect` in explicit order
+- the trigger posture keeps skills ingress, mutation guard, and surface
+  detection in explicit order
 - the trigger posture keeps shortlist and ambiguity hints advisory-only
 - `aoa-skills` remains the only immediate activation lane in this slice
 - the projection manifest keeps those child-target planning fields aligned with
@@ -200,8 +200,8 @@ It does not consume cohort patterns in this slice.
 
 ## Optional smoke-check posture
 
-After `python -m pip install -r requirements-dev.txt`, `python scripts/validate_agents.py`
-may smoke-check the bounded consumer seams below when the corresponding roots are supplied:
+The repository validator may smoke-check the bounded consumer seams below when
+the corresponding roots are supplied:
 
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`

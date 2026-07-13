@@ -1,0 +1,111 @@
+{
+  "schema_version": "aoa_stats_local_port_v1",
+  "contract_version": "1.0.0",
+  "owner_repo": "aoa-agents",
+  "status": "active",
+  "owner_boundary_ref": "AGENTS.md",
+  "central_contract_refs": [
+    "aoa-stats:stats/measurement-contract/measurement-contract.schema.json",
+    "aoa-stats:stats/measurement-contract/measurement-packet.schema.json"
+  ],
+  "evidence_posture": {
+    "live_state": "reference_only",
+    "privacy": "public",
+    "raw_content_allowed": false
+  },
+  "questions": [
+    {
+      "id": "question:specialization-projection-eligible-ratio",
+      "question": "What fraction of current role-specialization eligibility records have an explicit owner decision of eligible at this source revision?",
+      "consumer_refs": [
+        "stats/README.md",
+        "mechanics/codex-projection/parts/specialization-eligibility/README.md"
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "schema_version": "aoa_stats_measurement_contract_v1",
+      "measurement_id": "aoa-agents/specialization-projection-eligible-ratio",
+      "contract_version": "1.0.0",
+      "owner_repo": "aoa-agents",
+      "question_ref": "question:specialization-projection-eligible-ratio",
+      "semantic_class": "statistic",
+      "statistic": "ratio",
+      "object_kind": "codex-specialization-eligibility-record",
+      "unit": {
+        "symbol": "1",
+        "quantity": "proportion"
+      },
+      "population": {
+        "subject": "current role-specialization eligibility records",
+        "definition": "one records entry in the generated specialization eligibility readiness reader",
+        "inclusion_rule": "every current record emitted from the source eligibility registry by its owner builder",
+        "exclusion_rule": "schema examples, base-role projection entries, proposed agent names, workspace installs, runtime state, and specializations absent from the owner-validated readiness cohort",
+        "sampling": "census"
+      },
+      "window": {
+        "temporality": "instant",
+        "clock": "owner_defined"
+      },
+      "dimensions": {
+        "allowed": [],
+        "prohibited": [
+          "specialization_id",
+          "proposed_agent_name",
+          "missing_ref"
+        ]
+      },
+      "aggregation": {
+        "operator": "none",
+        "across": []
+      },
+      "missingness": {
+        "states": [
+          "missing",
+          "unknown",
+          "stale"
+        ],
+        "zero_is_observation": true
+      },
+      "uncertainty": {
+        "required": false,
+        "methods": [
+          "not_applicable"
+        ]
+      },
+      "provenance": {
+        "evidence_refs_required": true,
+        "source_revision_required": true
+      },
+      "lifecycle": {
+        "status": "active",
+        "compatible_with": []
+      },
+      "privacy": {
+        "classification": "public",
+        "raw_content_allowed": false,
+        "sensitive_dimensions_allowed": false
+      },
+      "live_state": {
+        "capability": "reference_only"
+      },
+      "authority_ceiling": "Reports only the fraction of current specialization eligibility records whose explicit owner decision status is eligible; it does not establish projection, installability, external owner consent, proof strength, successful use, workspace acceptance, runtime activation, or generated-agent availability."
+    }
+  ],
+  "exports": [
+    {
+      "measurement_id": "aoa-agents/specialization-projection-eligible-ratio",
+      "posture": "reference",
+      "packet_refs": [
+        "stats/packets/specialization-projection-eligible-ratio.reference.json"
+      ],
+      "evidence_refs": [
+        "mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json",
+        "mechanics/codex-projection/parts/specialization-eligibility/records/",
+        "mechanics/codex-projection/parts/specialization-eligibility/schemas/specialization-eligibility.schema.json",
+        "generated/codex_agents/projection_manifest.json"
+      ]
+    }
+  ]
+}

@@ -57,7 +57,4 @@ rewritten in this localization pass.
 
 Validation for this route is:
 
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python scripts/validate_agents.py
-```
+Verification routes through the focused owner checks and the repository release gate.

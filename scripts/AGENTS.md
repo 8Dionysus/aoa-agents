@@ -19,4 +19,5 @@ Verify with:
 python scripts/build_published_surfaces.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
+python scripts/validate_local_stats_port.py
 ```
