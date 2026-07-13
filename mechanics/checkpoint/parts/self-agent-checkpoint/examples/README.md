@@ -26,12 +26,3 @@ Do not turn an invalid fixture into a second example.
 
 Keep approval, rollback, audit, health, and bounded-iteration posture explicit.
 Do not turn this subtree into runtime implementation, execution logs, or scenario canon.
-
-## Validation
-
-Run `python -m pip install -r requirements-dev.txt`, then:
-
-```bash
-python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
-python scripts/validate_agents.py
-```

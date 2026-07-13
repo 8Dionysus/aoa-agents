@@ -10,11 +10,6 @@ This part routes `refresh-law` pressure inside `mechanics/codex-projection/`.
 
 - [Codex Subagent Refresh Law Example](examples/subagent-refresh-law.example.json)
 
-## Validation
-
-```bash
-python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
-python -m unittest discover -s mechanics/codex-projection/parts/refresh-law/tests -p 'test_*.py'
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

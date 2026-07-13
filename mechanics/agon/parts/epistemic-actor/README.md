@@ -39,12 +39,6 @@ candidate-only support surface, not live epistemic authority.
 - [Epistemic Actor Validator](scripts/validate_agon_epistemic_actor_posture.py)
 - [Epistemic Actor Tests](tests/)
 
-## Validation
-
-```bash
-python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
-python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
-python -m unittest discover -s mechanics/agon/parts/epistemic-actor/tests -p 'test_*.py'
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

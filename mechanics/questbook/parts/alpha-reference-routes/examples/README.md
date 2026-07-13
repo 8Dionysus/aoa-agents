@@ -29,6 +29,5 @@ They do not replace playbooks, memo doctrine, or eval doctrine.
 
 ## Validation
 
-Run `python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check`,
-`python mechanics/questbook/scripts/validate_alpha_reference_routes.py`, and
-`python scripts/validate_agents.py`.
+The owning generator, Questbook validator, and repository release gate cover
+these examples. Their executable routes live in the nearest `AGENTS.md`.

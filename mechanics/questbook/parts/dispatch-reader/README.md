@@ -20,12 +20,7 @@ in `QUESTBOOK.md`. Generated readers remain root-published consumer seams under
 
 - [scripts/generate_questbook_readers.py](scripts/generate_questbook_readers.py)
 
-## Validation
-
-```bash
-python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
-python scripts/validate_agents.py
-```
+## Navigation
 
 Use parent [PARTS](../../PARTS.md) for the full mechanic map and parent
 [PROVENANCE](../../PROVENANCE.md) for former path accounting.

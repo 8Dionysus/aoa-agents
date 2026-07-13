@@ -50,9 +50,4 @@ continues to cover the moved tests.
 
 ## Verification
 
-```bash
-python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
-python -m unittest discover -s mechanics/checkpoint/tests -p 'test_*.py'
-python scripts/validate_agents.py
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

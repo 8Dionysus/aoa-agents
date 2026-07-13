@@ -70,10 +70,4 @@ Publish separate generated readers:
 
 ## Validation
 
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agent_source_home.py
-python scripts/validate_agents.py
-python -m unittest discover -s tests -p 'test_*.py'
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

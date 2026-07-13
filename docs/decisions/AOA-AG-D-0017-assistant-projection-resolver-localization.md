@@ -51,12 +51,4 @@ Preserve former root lookup only through Codex projection `PROVENANCE.md` and
 
 ## Verification
 
-```bash
-python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
-python -m unittest discover -s mechanics/codex-projection/parts/assistant-projection/tests -p 'test_*.py'
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python -m pytest -q tests
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

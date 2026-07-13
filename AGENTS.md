@@ -21,11 +21,13 @@ It is the agent-facing route law for this repository. It does not replace
 `aoa-agents` owns role-bearing actor meaning: profile structure, role
 contracts, handoff posture, memory posture, evaluation posture, operating-model
 surfaces, bounded cohort hints, role specializations, and generated
-agent-layer consumer seams.
+agent-layer consumer seams. It also owns the meaning of agent-local
+statistical questions and evidence references exposed through `stats/`.
 
 It does not implement runtime autonomy and does not own skill workflow truth,
 technique truth, proof doctrine, memory objects, routing policy, playbook
-scenario canon, KAG substrate semantics, stats summaries, or runtime workers.
+scenario canon, KAG substrate semantics, shared statistical grammar,
+cross-owner statistical composition, or runtime workers.
 
 ## Operating Map
 
@@ -46,8 +48,9 @@ For first reading or outside orientation:
 3. [DESIGN](DESIGN.md)
 4. [agents](agents/README.md)
 5. [mechanics](mechanics/README.md)
-6. [BOUNDARIES](docs/BOUNDARIES.md)
-7. [ROADMAP.md](ROADMAP.md)
+6. [stats](stats/README.md)
+7. [BOUNDARIES](docs/BOUNDARIES.md)
+8. [ROADMAP.md](ROADMAP.md)
 
 For agent editing:
 
@@ -78,6 +81,7 @@ re-bloating this card.
 | `current-contour` | shipped surface families or root discoverability change | [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md) |
 | `generated-surface` | generated registries, readers, or projections change | source surface -> builder -> generated output -> validator |
 | `local-memory-port` | repo-local memo candidate, receipt, export, or local note changes | [memo/AGENTS](memo/AGENTS.md) |
+| `local-stats-port` | agent-local statistical question, contract, or reference packet changes | [stats/AGENTS](stats/AGENTS.md) |
 
 ## AGENTS Stack Law
 

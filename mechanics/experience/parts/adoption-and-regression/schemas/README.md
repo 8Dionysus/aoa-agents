@@ -18,10 +18,3 @@ Part-local schemas for assistant and agent adoption/regression contracts.
 | [assistant-pattern-release-delta.schema.json](assistant-pattern-release-delta.schema.json) | pattern release delta |
 | [assistant-regression-result.schema.json](assistant-regression-result.schema.json) | regression result |
 | [assistant-shared-pattern-adoption.schema.json](assistant-shared-pattern-adoption.schema.json) | shared pattern adoption |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

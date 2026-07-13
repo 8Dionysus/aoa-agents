@@ -6,11 +6,7 @@ Decide how the Formation Trial validator enters the normal repo validation conto
 
 ## Suggested integration
 
-After owner review, call:
-
-```bash
-python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
-```
+Executable verification is handled by the owning mechanic route and repository release gate.
 
 from the main validation route or release check path.
 

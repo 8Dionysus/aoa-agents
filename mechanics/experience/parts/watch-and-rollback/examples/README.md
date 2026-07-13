@@ -17,9 +17,3 @@ post-release watch, rollback, and runtime behavior snapshots.
 | [assistant-rollback-policy.example.json](assistant-rollback-policy.example.json) | rollback policy |
 | [assistant-runtime-behavior-snapshot.example.json](assistant-runtime-behavior-snapshot.example.json) | runtime behavior snapshot |
 | [assistant-watchtower-alarm.example.json](assistant-watchtower-alarm.example.json) | watchtower alarm |
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

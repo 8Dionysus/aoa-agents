@@ -51,7 +51,7 @@ operation topology in `mechanics/` and generated readers in `generated/`.
 ## Consequences
 
 - Future source-family additions or publication-route changes must update the
-  manifest and run `python scripts/validate_agent_source_home.py`.
+  manifest and pass the source-home validator.
 - Adjunct profile companions stay additive to base role houses and route to
   mechanic-local schemas and validators for their narrower contracts.
 - The change does not move source JSON files and does not change generated
@@ -61,8 +61,5 @@ operation topology in `mechanics/` and generated readers in `generated/`.
 
 ## Validation
 
-- `python scripts/validate_agent_source_home.py`
-- `python scripts/validate_semantic_agents.py`
-- `python scripts/validate_nested_agents.py`
-- `python scripts/validate_agents.py`
-- `python -m unittest discover -s tests -p 'test_*.py'`
+Verification covers the source-home, semantic and nested-agent,
+repository-wide, and focused test gates.

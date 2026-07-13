@@ -6,9 +6,3 @@ stop-lines only, not a verdict, scar, arena session, or promotion.
 | Example | Schema |
 | --- | --- |
 | [boundary-report.example.json](boundary-report.example.json) | [../schemas/boundary-report.schema.json](../schemas/boundary-report.schema.json) |
-
-Validate with:
-
-```bash
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-```

@@ -11,8 +11,8 @@ See also:
 
 1. Keep the release bounded to agent-role and handoff meaning.
 2. Update `CHANGELOG.md` in the `Summary / Validation / Notes` shape.
-3. Run the repo-level verifier:
-   - `python scripts/release_check.py`
-4. Run federation preflight:
-   - `aoa release audit /srv --phase preflight --repo aoa-agents --strict --json`
-5. Publish only through `aoa release publish`.
+3. Pass the repository release gate.
+4. Pass federation preflight.
+5. Publish through the root landing route.
+
+The exact executable flow is owned by root `AGENTS.md`.

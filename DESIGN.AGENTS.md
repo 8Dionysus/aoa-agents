@@ -10,9 +10,10 @@ Use this file as the agent-facing reading card for repository design work.
 2. `DESIGN.md`
 3. `agents/AGENTS.md` when source objects move
 4. `mechanics/AGENTS.md` when operation topology moves
-5. `.agents/AGENTS.md` when agent-facing companion lanes move
-6. `docs/decisions/` when structural ownership changes
-7. nearest nested `AGENTS.md`
+5. `stats/AGENTS.md` when an agent-local statistical question or packet moves
+6. `.agents/AGENTS.md` when agent-facing companion lanes move
+7. `docs/decisions/` when structural ownership changes
+8. nearest nested `AGENTS.md`
 
 ## Design Law
 
@@ -27,6 +28,8 @@ Use this file as the agent-facing reading card for repository design work.
 - `examples/` keeps schema-backed examples until a mechanic-local package owns
   a narrower example lane.
 - `generated/` remains derived.
+- `stats/` owns agent-local statistical meaning and reference packets while
+  shared grammar and cross-owner composition remain in `aoa-stats`.
 - mechanic-local seeds and wiring live under the owning `mechanics/*/parts/*/config/` route when the operation package has a validator.
 - recurrence component manifests live under `mechanics/recurrence/parts/component-manifests/manifests/`.
 

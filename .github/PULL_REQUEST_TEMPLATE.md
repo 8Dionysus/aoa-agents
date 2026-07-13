@@ -35,7 +35,7 @@ Describe how you checked the change.
 Examples:
 - read for consistency with `CHARTER.md`
 - checked `docs/AGENT_MODEL.md` and `docs/BOUNDARIES.md` for alignment
-- ran `python scripts/validate_agents.py`
+- ran the repository-wide validation route
 
 ## Notes
 

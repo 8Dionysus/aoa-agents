@@ -156,7 +156,7 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
         self.assertIn("Workspace Surface Trigger Posture", docs_readme)
 
         for token in (
-            "`aoa surfaces detect` is additive and read-only.",
+            "Surface detection is additive and read-only.",
             "`aoa-skills` remains the only immediate activation lane in this slice.",
             "route drift",
             "owner-layer ambiguity",
@@ -164,7 +164,9 @@ class PublishedConsumerFeedsTests(unittest.TestCase):
             "recall need",
             "role posture pressure",
             "recurring scenario pressure",
-            "aoa surfaces detect <repo_root> --root /srv/AbyssOS",
+            "skills-ingress operation",
+            "skills mutation guard",
+            "Open surface detection",
         ):
             self.assertIn(token, posture)
 

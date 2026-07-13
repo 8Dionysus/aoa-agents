@@ -18,7 +18,7 @@ move pressure across those surfaces and keeps owner boundaries visible.
 | owner | `mechanics/AGENTS.md`, this atlas, and future mechanic package cards |
 | next route | `mechanics/ARTIFACT_TOPOLOGY.md`, active route family, source owner, decision record |
 | tools | repo validators and owning builders |
-| validation | `python scripts/validate_semantic_agents.py`, `python scripts/validate_nested_agents.py`, `python scripts/validate_agents.py` |
+| validation | `scripts/validate_semantic_agents.py`, `scripts/validate_nested_agents.py`, `scripts/validate_agents.py` |
 
 ## Active Package Map
 

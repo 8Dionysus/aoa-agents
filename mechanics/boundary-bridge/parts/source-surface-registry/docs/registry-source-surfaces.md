@@ -30,10 +30,6 @@ These source files publish the current compact registries:
 
 Regenerate the published machine-readable surfaces with:
 
-```bash
-python scripts/build_published_surfaces.py
-```
-
 This build keeps a stable public order for:
 
 - model tiers
@@ -66,13 +62,6 @@ The item schemas for these source-authored surfaces are:
 - `schemas/orchestrator-class.schema.json`
 - `schemas/cohort-pattern.schema.json`
 - `schemas/runtime-seam-binding.schema.json`
-
-Validation still runs through:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/validate_agents.py
-```
 
 Validation confirms:
 

@@ -47,13 +47,4 @@ Preserve former root lookup only through Titan `PROVENANCE.md` and `legacy/`.
 
 ## Verification
 
-```bash
-python mechanics/titan/scripts/validate_titan_schemas.py
-python mechanics/titan/scripts/validate_titan_examples.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python -m unittest discover -s mechanics/titan/tests -p "test_*.py"
-python -m unittest discover -s tests -p "test_*.py"
-python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

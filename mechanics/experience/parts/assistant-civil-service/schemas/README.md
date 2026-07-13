@@ -16,10 +16,3 @@ automation, runtime policy, or Agon arena authority.
 
 Arena exclusion lives in the adjacent
 [arena-exclusion schema route](../../arena-exclusion/schemas/arena-exclusion.schema.json).
-
-Validate with:
-
-```bash
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-```

@@ -1,0 +1,82 @@
+{
+  "schema_version": "aoa_stats_measurement_packet_v1",
+  "contract_ref": "stats/port.manifest.json#/measurements/0",
+  "contract_version": "1.0.0",
+  "measurement_id": "aoa-agents/specialization-projection-eligible-ratio",
+  "writer_repo": "aoa-agents",
+  "observation_id": "aoa-agents:specialization-projection-eligible-ratio:7837d8951b68a47d",
+  "observed_at": "2026-07-13T12:16:04-06:00",
+  "object_ref": {
+    "kind": "codex-specialization-eligibility-record",
+    "id": "specialization-eligibility-record-cohort:7837d8951b68a47d",
+    "version": "7837d8951b68a47d576fa0495ab36650f770e0da"
+  },
+  "population": {
+    "id": "current-specialization-eligibility-records:7837d8951b68a47d",
+    "definition_ref": "stats/port.manifest.json#/measurements/0/population",
+    "size": 5
+  },
+  "sample": {
+    "size": 5,
+    "selection": "census of records entries in the generated specialization eligibility readiness reader"
+  },
+  "cohort": null,
+  "window": {
+    "id": "source-revision:7837d8951b68a47d576fa0495ab36650f770e0da",
+    "start": "2026-07-13T12:16:04-06:00",
+    "end": "2026-07-13T12:16:04-06:00",
+    "temporality": "instant"
+  },
+  "dimensions": {},
+  "value": {
+    "status": "observed",
+    "kind": "ratio",
+    "unit": "1",
+    "number": 0.0,
+    "numerator": 0,
+    "denominator": 5
+  },
+  "uncertainty": {
+    "status": "not_applicable",
+    "sample_size": 5,
+    "method": "not_applicable",
+    "reason": "The packet is a census of the owner-validated eligibility record cohort."
+  },
+  "provenance": {
+    "evidence_refs": [
+      {
+        "kind": "specialization-eligibility-readiness",
+        "ref": "mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json"
+      },
+      {
+        "kind": "specialization-eligibility-records",
+        "ref": "mechanics/codex-projection/parts/specialization-eligibility/records/"
+      },
+      {
+        "kind": "specialization-eligibility-schema",
+        "ref": "mechanics/codex-projection/parts/specialization-eligibility/schemas/specialization-eligibility.schema.json"
+      },
+      {
+        "kind": "codex-projection-boundary",
+        "ref": "generated/codex_agents/projection_manifest.json"
+      }
+    ],
+    "derivation_ref": "stats/README.md#current-reference-measurement",
+    "source_revision": "7837d8951b68a47d576fa0495ab36650f770e0da"
+  },
+  "reporting_rule": {
+    "id": "aoa-agents/specialization-projection-eligible-ratio/reference-census",
+    "version": "1.0.0"
+  },
+  "posture": {
+    "freshness": "current",
+    "live_state": "reference",
+    "privacy": "public",
+    "raw_content_included": false
+  },
+  "progress": {
+    "state": "terminal",
+    "completed": 5,
+    "total": 5
+  }
+}

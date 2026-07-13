@@ -51,14 +51,6 @@ support surfaces, not live rank, school, or campaign authority.
 - [School/Campaign Validator](scripts/validate_agon_agent_school_campaign_posture_registry.py)
 - [Arena Rank School Tests](tests/)
 
-## Validation
-
-```bash
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
-python -m unittest discover -s mechanics/agon/parts/arena-rank-school/tests -p 'test_*.py'
-```
+## Navigation
 
 Use parent [PARTS.md](../../PARTS.md) for the full mechanic map and parent [PROVENANCE.md](../../PROVENANCE.md) for former root-path accounting.

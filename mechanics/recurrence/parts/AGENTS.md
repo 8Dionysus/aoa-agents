@@ -21,4 +21,4 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 
 ## Validation
 
-Use the package validation route in `../README.md`, plus root validators.
+Use the package validation route in `../AGENTS.md`, plus root validators.

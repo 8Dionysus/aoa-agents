@@ -58,11 +58,4 @@ negative prose or topic buckets.
 
 ## Validation
 
-```bash
-python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python -m pytest -q mechanics/questbook/tests tests/test_repo_validator.py
-PYTHONDONTWRITEBYTECODE=1 python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

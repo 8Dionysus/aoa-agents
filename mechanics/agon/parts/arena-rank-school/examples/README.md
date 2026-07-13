@@ -7,9 +7,3 @@ public-safe examples, not live Agon protocol actions.
 | --- | --- |
 | [rank-surface.example.json](rank-surface.example.json) | [../schemas/rank-jurisdiction.schema.json](../schemas/rank-jurisdiction.schema.json) |
 | [school-campaign-posture.example.json](school-campaign-posture.example.json) | [../schemas/school-campaign-posture.schema.json](../schemas/school-campaign-posture.schema.json) |
-
-Validate with:
-
-```bash
-python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-```

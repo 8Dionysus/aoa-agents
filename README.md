@@ -24,6 +24,7 @@ linked owner surface instead of expanding this page.
 | Agent route law and local checks | [AGENTS](AGENTS.md), then the nearest nested `AGENTS.md` |
 | Source-authored agent object home | [agents](agents/README.md) |
 | Repeatable agent-layer mechanics | [mechanics](mechanics/README.md) |
+| Agent-local statistical questions and reference packets | [stats](stats/README.md) |
 | Documentation and owner-route map | [docs](docs/README.md) |
 | Current shipped surface contour | [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md) |
 | Owner boundaries | [BOUNDARIES](docs/BOUNDARIES.md) |
@@ -44,6 +45,7 @@ Read only the surface that matches the job.
 | Decide whether something belongs here | [CHARTER](CHARTER.md) -> [BOUNDARIES](docs/BOUNDARIES.md) |
 | Edit role source objects | [agents](agents/README.md), then the nearest `agents/**/AGENTS.md` |
 | Work on a repeatable operation | [mechanics](mechanics/README.md), then the owning package `AGENTS.md` and `PARTS.md` |
+| Inspect agent-local statistics | [stats](stats/README.md), then [stats route law](stats/AGENTS.md) |
 | Inspect current shipped route families | [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md) |
 | Inspect generated companions | [generated](generated/README.md) and the source surface named by the generated file |
 | Update direction | [ROADMAP.md](ROADMAP.md) |
@@ -62,7 +64,8 @@ owner that can answer it.
 | Is this a base role, companion form, specialization, tier, cohort, orchestrator, capability pack, or runtime seam binding? | [agents](agents/README.md), then the owning branch card |
 | Is this recurring operation pressure? | [mechanics](mechanics/README.md), then the package route |
 | Is this a Codex projection or refresh question? | [codex-projection](mechanics/codex-projection/README.md) |
-| Is this proof, memory, routing, skill, technique, playbook, KAG, stats, or runtime truth? | route to the sibling owner named in [BOUNDARIES](docs/BOUNDARIES.md) |
+| Is this an agent-local statistical question? | keep its meaning and owner evidence in [stats](stats/README.md); shared grammar and composition route to `aoa-stats` |
+| Is this proof, memory, routing, skill, technique, playbook, KAG, cross-owner stats, or runtime truth? | route to the sibling owner named in [BOUNDARIES](docs/BOUNDARIES.md) |
 
 ## Current Contour
 
@@ -94,6 +97,7 @@ The root README should not become that inventory.
 | [tests](tests/AGENTS.md) | regression and contract checks |
 | [.agents](.agents/AGENTS.md) | agent-facing companion lanes |
 | [memo](memo/README.md) | local memory candidates and writeback port |
+| [stats](stats/README.md) | agent-local statistical questions and evidence-linked reference packets |
 
 Generated files are companions, not authority. Source docs, source JSON,
 mechanic packages, builders, validators, tests, and decision records keep the

@@ -9,7 +9,6 @@
 - Guard families: part-local artifact, validation guard, generated/read-model, quest dispatch
 - Posture: accepted
 
-
 ## Context
 
 Reference-route contracts had already moved into active mechanic homes:
@@ -59,12 +58,4 @@ outputs after `scripts/build_published_surfaces.py`.
 
 ## Validation
 
-```bash
-python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
-python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
-python mechanics/questbook/scripts/validate_alpha_reference_routes.py
-python -m unittest discover -s mechanics/checkpoint/tests -p 'test_*.py'
-python -m unittest discover -s mechanics/questbook/tests -p 'test_*.py'
-python scripts/validate_agents.py
-PYTHONDONTWRITEBYTECODE=1 python scripts/release_check.py
-```
+Verification routes through the focused owner checks and the repository release gate.

@@ -17,7 +17,8 @@ Composition hints are allowed here, but scenario composition, routing logic, mem
 - **Coordinator**: выбирает один role-bearing surface
 - **Scout**: картографирует profile/contract/handoff/memory/eval posture
 - **Builder**: делает минимальный diff
-- **Verifier**: запускает `python scripts/validate_agents.py`
+- **Verifier**: запускает проверку через исполняемый маршрут из ближайшего
+  `AGENTS.md`
 - **Boundary Keeper**: следит, чтобы agent layer не проглотил skills/evals/memo/playbooks
 
 ## Параллельные дорожки
@@ -81,11 +82,9 @@ Rules:
 
 ## Промпт для Verifier
 ```text
-Run:
-- python -m pip install -r requirements-dev.txt
-- python scripts/validate_agents.py
+Use the dependency and validation routes from the nearest AGENTS.md.
 Then report:
-- commands run
+- checks run
 - whether registry surfaces changed
 - any wording conflicts that remain
 ```
@@ -98,12 +97,6 @@ Check:
 - no playbook or memory object meaning was absorbed
 - role boundaries remain bounded and reviewable
 - no giant prompt archive behavior slipped in
-```
-
-## Verify
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/validate_agents.py
 ```
 
 ## Done when

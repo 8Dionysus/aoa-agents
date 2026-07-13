@@ -8,10 +8,3 @@ This directory contains inspectable examples for the `continuity-lane` part.
 
 The example illustrates a bounded continuity window. It is not live session
 memory, a runtime checkpoint, or a permission to keep acting without re-entry.
-
-## Validation
-
-```bash
-python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
-python scripts/validate_agents.py
-```

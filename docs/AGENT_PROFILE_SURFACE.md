@@ -68,11 +68,9 @@ repository instead.
 
 ## Editing flow
 
-When profile sources change:
-
-1. edit the target file under `agents/roles/`
-2. regenerate `generated/agent_registry.min.json` with `python scripts/build_agent_registry.py`
-3. install validator deps with `python -m pip install -r requirements-dev.txt`, then validate with `python scripts/validate_agents.py`
+When profile sources change, edit the target file under `agents/roles/`, refresh
+`generated/agent_registry.min.json` through its owner builder, and use the
+validation route in the nearest `AGENTS.md`.
 
 This keeps the authored role contract distinct from the compact published
 registry while preserving a deterministic review surface.

@@ -25,5 +25,5 @@ Use only already-published artifact schemas.
 
 ## Validation
 
-Run `python mechanics/checkpoint/scripts/validate_reference_route_contracts.py` and then
-`python scripts/validate_agents.py`.
+The checkpoint contract validator and repository release gate cover these
+examples; their executable routes live in the nearest `AGENTS.md`.

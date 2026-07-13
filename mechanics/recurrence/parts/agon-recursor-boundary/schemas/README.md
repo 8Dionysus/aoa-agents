@@ -6,9 +6,3 @@ quietly becoming Agon runtime authority.
 | Schema | Contract |
 | --- | --- |
 | [boundary-report.schema.json](boundary-report.schema.json) | generated boundary report contract for recursor stop-lines |
-
-Validate with:
-
-```bash
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-```

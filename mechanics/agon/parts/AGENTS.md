@@ -27,5 +27,5 @@ pressure appears.
 
 ## Validation
 
-Use the package validation route in `../README.md`, plus the root validators
+Use the package validation route in `../AGENTS.md`, plus the root validators
 named by `mechanics/AGENTS.md`.

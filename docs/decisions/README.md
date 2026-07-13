@@ -20,7 +20,7 @@ owning surfaces instead.
 | output | canonical decision note, metadata-backed lookup index, and route back to the source surface |
 | owner | `docs/decisions/AGENTS.md` for lane law; canonical decision notes for rationale; generated indexes for lookup only |
 | next route | source surface first, then nearest route card, `CHARTER.md`, `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/BOUNDARIES.md`, generated lookup indexes, or the affected agent/mechanic owner |
-| validation | `python scripts/generate_decision_indexes.py --check`, `git diff --check`, and the owning validator for the changed surface |
+| validation | `scripts/generate_decision_indexes.py`, the patch-integrity check, and the owning validator for the changed surface |
 
 ## Authority
 
@@ -69,17 +69,9 @@ Use them in both directions:
 - bottom up: changed source surface -> local route card or generated read model
   -> validator guard -> decision rationale -> stronger owner surface.
 
-Regenerate the read models after decision metadata changes:
-
-```bash
-python scripts/generate_decision_indexes.py
-```
-
-Check generated parity before closeout:
-
-```bash
-python scripts/generate_decision_indexes.py --check
-```
+`scripts/generate_decision_indexes.py` owns both rebuilding these read models
+and checking their parity. Its executable route lives in the nearest
+`AGENTS.md`.
 
 ## Addressing
 

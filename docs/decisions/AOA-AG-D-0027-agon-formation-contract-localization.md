@@ -55,11 +55,4 @@ separate Experience-owned localization slice, which later landed under
 
 Validation for this route is:
 
-```bash
-python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
-python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
-python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
-python scripts/validate_agents.py
-python -m unittest discover -s mechanics/agon/parts/formation/tests -p 'test_*.py'
-```
+Verification routes through the focused owner checks and the repository release gate.

@@ -20,5 +20,5 @@ Land assistant civil/service form as an explicit actor kind under Agon.
 ## Exit
 
 - `generated/assistant_civil_formation_index.min.json` is current
-- `python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py` passes
+- `mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py` passes
 - assistant variants cannot claim arena contestant, judge, closer, summoner, scar writer, or ToS promotion authority

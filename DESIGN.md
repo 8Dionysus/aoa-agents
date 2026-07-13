@@ -16,6 +16,7 @@ and configuration.
 | `schemas/` | shared JSON Schema contracts |
 | `examples/` | schema-backed public examples and negative fixtures |
 | `generated/` | derived registries, compact readers, and projections |
+| `stats/` | agent-local statistical questions, measurement contracts, and evidence-linked reference packets |
 | `config/` | repository-level publication and projection configuration; mechanic-local seeds live under `mechanics/*/parts/*/config/` |
 | `scripts/` | deterministic builders and validators |
 | `tests/` | behavior and contract checks |
@@ -66,11 +67,13 @@ stronger owner of each payload.
 
 ## Boundary Rule
 
-This repository owns role and persona meaning.
+This repository owns role and persona meaning, including the meaning and
+owner evidence of agent-local statistical questions.
 
 It does not own reusable techniques, skill workflows, proof verdicts, memory
-truth, routing policy, playbook choreography, KAG substrate semantics, stats
-summaries, runtime workers, or infrastructure implementation.
+truth, routing policy, playbook choreography, KAG substrate semantics, shared
+statistical grammar, cross-owner statistical composition, runtime workers, or
+infrastructure implementation.
 
 ## Growth Rule
 
