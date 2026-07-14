@@ -19,10 +19,10 @@ packages, generated builders, tests, and sibling owners keep authority.
 
 ## Release Marker
 
-Current release: `v0.4.0`.
+Current release: `v0.5.0`.
 
-The current release line is `v0.4.x`: role-layer topology hardening over an
-already-landed bootstrap baseline.
+The current release line is `v0.5.x`: publication, local evidence-port, and
+consumer-contract hardening over the landed role-layer topology baseline.
 
 ## Source And Generated Spine
 

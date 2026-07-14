@@ -11,7 +11,7 @@ change?", not "which shipped surface should I open?"
 Root `ROADMAP.md` owns:
 
 - repo-level role-layer direction;
-- current `v0.4.x` role-layer topology-hardening posture;
+- current `v0.5.x` publication, evidence-port, and consumer-hardening posture;
 - source-home, mechanics, projection, formation, and generated-reader pressure
   when that pressure changes the whole repo contour;
 - future triggers that belong to `aoa-agents`.
@@ -56,8 +56,9 @@ only land a local surface?
 
 ## Current Direction
 
-The bootstrap baseline is landed. The current `v0.4.x` line is role-layer
-topology hardening, not catalog expansion.
+The bootstrap and topology-hardening baselines are landed. The current
+`v0.5.x` line hardens publication, local evidence ports, and consumer
+contracts without turning the role layer into their stronger owners.
 
 The repo should now:
 
@@ -82,7 +83,7 @@ READMEs, generated readers, and local route cards rather than in this roadmap.
 
 ## Current Released Contour
 
-Current release marker: `v0.4.0`.
+Current release marker: `v0.5.0`.
 
 The public role-layer contour is:
 

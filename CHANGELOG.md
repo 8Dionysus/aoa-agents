@@ -7,8 +7,40 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-13
+
+### Summary
+
+- This release hardens `aoa-agents` as a publishable role-contract provider:
+  agent registries now carry explicit artifact identity, the role-registry
+  bundle must pass OS Abyss artifact and subject-store trust gates, and
+  published compatibility is checked at the consumer boundary.
+- Local evidence ports are now explicit without absorbing their stronger
+  owners: `evals/` provides a repo-local eval intake/report route, `kag/`
+  publishes a canonical seven-index repository family, and `stats/` owns the
+  reference-only specialization-eligibility ratio.
+- The full pre-release span was reconstructed from Git rather than from the
+  previous `[Unreleased]` section: all 27 first-parent commits from `v0.4.0`
+  through `766a694` are accounted for below, covering 240 changed paths and
+  34,254 additions / 1,185 deletions. Only 3 of those 27 commits had updated
+  this changelog before release preparation.
+
 ### Added
 
+- A repo-local `evals/` port with explicit route law, intake, suite, and report
+  homes. It can carry local evaluation pressure and results without claiming
+  central eval verdict authority.
+- Versioned artifact identity in the agent, cohort, model-tier, and runtime-seam
+  registries, backed by shared builder support, schemas, validation, and
+  published-consumer tests.
+- An OS Abyss artifact-bundle manifest and release validator for the published
+  role registry. The release route now verifies artifact evidence, promotes the
+  subject store, and requires the consumer trust gate to return `allow` or
+  `warn` before publication.
+- An agent-local KAG provider home with owner-return edges, provider manifest,
+  MCP source-return projection, validation receipt, and canonical repository
+  indexes for source surfaces, entities, artifacts, anchors, events,
+  assertions, and relations.
 - An owner-local `stats/` port now reports the reference-only ratio of current
   role-specialization eligibility records whose explicit owner decision is
   `eligible`, using the shared `aoa-stats` measurement protocol without
@@ -16,15 +48,87 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Decision-index generation now requires every modeled decision surface to be
+  an explicit list and rejects unmodeled decision-lane surfaces instead of
+  silently omitting them.
+- Repo-local KAG publication is now a deterministic CI contract: the builder
+  action is pinned, the complete index family is checked for parity, lineage
+  and streaming contracts are carried, and history remains stable across
+  squash landing.
+- The current contour once again exposes Titan role routes and now routes the
+  complete generated Titan Codex agent family rather than only `Atlas.toml`.
 - Runnable validation and test commands are consolidated in executable owners
   and `AGENTS.md` route cards instead of general Markdown documentation.
 
 ### Fixed
 
-- Experience assistant civil validation now enforces the exact arena-exclusion
-  example file set alongside the arena schema file set.
-- Current contour now routes Titan Codex projection outputs through the full
-  generated agents wildcard instead of publishing only `Atlas.toml`.
+- Specialization-eligibility validation now reports readiness-builder failures
+  and malformed readiness fields instead of collapsing them into ambiguous
+  downstream errors.
+- Source-home validation rejects undeclared top-level agent directories, while
+  experience/adoption validators require their exact schema and example file
+  sets, including the arena-exclusion examples.
+- Agon formation validators forward the selected dependency root and aggregate
+  all subvalidator exits; Titan schema validation discovers nested schemas
+  recursively.
+- Recurrence component manifests validate literal repository-path fields and
+  their generated boundary/readiness companions were refreshed.
+- The root validation lane now requires the portable agent-memo validator.
+- Published role-registry compatibility checks now reject identity, bundle,
+  subject-store, and consumer-contract drift at the actual handoff boundary.
+
+### First-Parent Reconciliation (27/27)
+
+The ordered pre-release history is recorded explicitly so changes absent from
+the old changelog remain discoverable:
+
+1. `985c8af` — Detect unmodeled decision lane surfaces (#236).
+2. `a59a0a3` — Require modeled surfaces to be explicit lists (#237).
+3. `907a627` — Add local eval port skeleton (#238).
+4. `3ac8066` — Add local eval port landing (#239).
+5. `9ee7e55` — Restore Titan routes in current contour (#240).
+6. `c6d3ee5` — Report specialization readiness builder failures (#241).
+7. `973d68c` — Reject unlisted agent source directories (#242).
+8. `935768a` — Restore exact experience contract file sets (#243).
+9. `c3ad36f` — Forward Agon formation dependency root (#244).
+10. `f39a216` — Aggregate Agon subvalidator exits (#245).
+11. `ddf16cf` — Discover Titan schemas recursively (#246).
+12. `8701a64` — Validate literal recurrence manifest path fields.
+13. `a57a2dd` — Require portable agents memo validation (#248).
+14. `66a6836` — Guard arena example file set (#249).
+15. `defa772` — Report malformed eligibility readiness fields (#250).
+16. `4c2378e` — Route all Titan Codex contour outputs (#251).
+17. `af74d82` — Add artifact identity to agent registries (#252).
+18. `733fa46` — Add OS Abyss trust gate for role registry bundle (#253).
+19. `1790da9` — Require subject-store trust gate for role registry (#254).
+20. `e3703f0` — Add agent KAG provider home (#255).
+21. `6b9c84e` — Add repo-local KAG indexes (#257).
+22. `7cddea6` — Enforce repo-local KAG index parity (#258).
+23. `0a39d9b` — Pin deterministic repo-local KAG index gate (#259).
+24. `34bd09f` — Add repository KAG index family (#260).
+25. `7837d89` — Publish canonical repository KAG indexes (#261).
+26. `328ff64` — Add agent-local stats port (#262).
+27. `766a694` — Harden published role registry compatibility (#263).
+
+### Validation
+
+- Release preparation reconciled the exact `v0.4.0..766a694` first-parent
+  history, changed-path inventory, source owners, generated registries,
+  decision/index contracts, local evidence ports, and published-consumer
+  boundary instead of treating the prior `[Unreleased]` text as complete.
+- The release gate validates source and mechanics contracts, generated drift,
+  decision indexes, the complete repo-local KAG family, the local stats port,
+  portable memo validation, published consumer feeds, and the OS Abyss
+  role-registry artifact/subject-store trust route.
+
+### Notes
+
+- The local eval port does not become central proof authority; the KAG provider
+  does not become global knowledge truth; the stats packet does not become a
+  cross-owner metric; and artifact identity does not grant runtime install or
+  projection authority.
+- Release-only marker, changelog, and regenerated-index commits follow the 27
+  reconciled product/maintenance commits and are not hidden inside that count.
 
 ## [0.4.0] - 2026-05-31
 
