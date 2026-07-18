@@ -49,6 +49,7 @@ It should:
 | Projection posture | Codex and specialization eligibility boundaries when source-owned and refresh-law bounded |
 | Generated companions | registries, readers, and projections derived from source-owned role-layer inputs |
 | Agent-layer mechanics | repeatable operation routes around role formation, projection, checkpoint, stress, quest, Titan, recurrence, and release posture |
+| Owner skill front doors | callable procedures that expose progression and delegation meaning already owned by this repository without absorbing shared workflow truth |
 
 ## Routed To Stronger Owners
 

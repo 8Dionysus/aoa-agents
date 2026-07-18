@@ -182,3 +182,11 @@
 - [AOA-AG-D-0048 2026-05-26: Active Provenance Bridge Wording](../AOA-AG-D-0048-active-provenance-bridge-wording.md) (`docs/decisions/AOA-AG-D-0048-active-provenance-bridge-wording.md`)
 - [AOA-AG-D-0049 2026-05-26: Provenance Bridge Operating Shape](../AOA-AG-D-0049-provenance-bridge-operating-shape.md) (`docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
+
+## owner skill home
+
+- [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## user projection
+
+- [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)

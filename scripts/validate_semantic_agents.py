@@ -29,13 +29,13 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
         ),
     ),
     AgentsDocSpec(
-        Path('.agents/skills/AGENTS.md'),
+        Path('skills/AGENTS.md'),
         (
-            'role-layer maintenance',
-            'role contracts',
-            'source-authored profiles',
-            'public-safe',
-            'validate_agents.py',
+            'canonical `aoa-agents/skills/` owner home',
+            'progression',
+            'Summon plans are not launched children',
+            'OS user profile',
+            'Manual',
         ),
     ),
     AgentsDocSpec(

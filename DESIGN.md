@@ -12,6 +12,7 @@ and configuration.
 | --- | --- |
 | `agents/` | source-authored agent object home and compact role-facing inputs |
 | `mechanics/` | repeatable operation topology around agent-layer movement |
+| `skills/` | canonical packages for admitted callable procedures whose meaning is agent-owner-specific |
 | `docs/` | public explanation, doctrine, boundaries, and maps |
 | `schemas/` | shared JSON Schema contracts |
 | `examples/` | schema-backed public examples and negative fixtures |

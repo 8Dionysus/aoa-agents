@@ -1,0 +1,31 @@
+{
+  "schema_version": "aoa_skill_home_port_v2",
+  "contract_ref": "aoa-skills:schemas/skill-home-port.schema.json",
+  "owner_repo": "aoa-agents",
+  "owner_ref": "AGENTS.md",
+  "bundles": [
+    {
+      "name": "aoa-session-progression-lift",
+      "path": "skills/aoa-session-progression-lift",
+      "version": "0.2.2",
+      "lifecycle": "admitted",
+      "visibility": "advertised",
+      "admission_ref": "docs/decisions/AOA-AG-D-0059-owner-skill-home.md"
+    },
+    {
+      "name": "aoa-summon",
+      "path": "skills/aoa-summon",
+      "version": "0.2.2",
+      "lifecycle": "admitted",
+      "visibility": "advertised",
+      "admission_ref": "docs/decisions/AOA-AG-D-0059-owner-skill-home.md"
+    }
+  ],
+  "exposure": {
+    "runtime": "codex",
+    "scope": "user",
+    "profile": "os-user-default",
+    "mode": "profile-selected",
+    "skills": ["aoa-session-progression-lift", "aoa-summon"]
+  }
+}

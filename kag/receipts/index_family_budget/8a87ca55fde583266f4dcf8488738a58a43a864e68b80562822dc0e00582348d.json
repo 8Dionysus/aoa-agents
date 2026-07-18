@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 12715207,
+  "allowed_tracked_bytes": 13623018,
+  "approved_by": "repository-owner",
+  "base_ref": "ab5229bcb08f3ea0253ec6bb3aa7e8a854028f93",
+  "changed_generated_bytes": 12715207,
+  "changed_generated_files": 424,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "8a87ca55fde583266f4dcf8488738a58a43a864e68b80562822dc0e00582348d",
+  "reason": "Refresh the deterministic source-linked KAG family after retiring the copied foreign skill catalog and adding the canonical aoa-session-progression-lift and aoa-summon owner packages.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 13623018,
+  "tracked_bytes_max": 16777216
+}

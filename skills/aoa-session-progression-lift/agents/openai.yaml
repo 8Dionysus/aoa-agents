@@ -1,0 +1,7 @@
+interface:
+  display_name: "AoA Session Progression Lift"
+  short_description: "Lift reviewed evidence into bounded progression"
+  default_prompt: "Use $aoa-session-progression-lift to assess this reviewed session evidence without changing owner state."
+
+policy:
+  allow_implicit_invocation: true
