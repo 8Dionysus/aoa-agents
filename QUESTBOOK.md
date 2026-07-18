@@ -25,7 +25,9 @@ This questbook tracks agent-layer obligations related to quest delegation, contr
 
 ## Quest-harvest posture
 
-`aoa-quest-harvest` may be installed at `.agents/skills/aoa-quest-harvest` as a post-session aid for this repo.
+Use the globally installed `aoa-session-harvest` bundle in its `promote` mode
+as the post-session quest aid for this repository. Do not install a second
+repository copy or fall back to generic classification.
 
 - use it only after a reviewed run, closure, or pause
 - do not use it inside an active route

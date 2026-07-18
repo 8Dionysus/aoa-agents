@@ -48,9 +48,10 @@ For first reading or outside orientation:
 3. [DESIGN](DESIGN.md)
 4. [agents](agents/README.md)
 5. [mechanics](mechanics/README.md)
-6. [stats](stats/README.md)
-7. [BOUNDARIES](docs/BOUNDARIES.md)
-8. [ROADMAP.md](ROADMAP.md)
+6. [skills](skills/README.md)
+7. [stats](stats/README.md)
+8. [BOUNDARIES](docs/BOUNDARIES.md)
+9. [ROADMAP.md](ROADMAP.md)
 
 For agent editing:
 

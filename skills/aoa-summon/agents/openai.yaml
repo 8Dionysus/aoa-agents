@@ -1,0 +1,7 @@
+interface:
+  display_name: "AoA Summon"
+  short_description: "Gate and return one bounded child-agent route"
+  default_prompt: "Use $aoa-summon to decide whether this anchored child-agent route may run and how its result must return."
+
+policy:
+  allow_implicit_invocation: true

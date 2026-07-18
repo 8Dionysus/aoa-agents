@@ -7,8 +7,9 @@ This card applies to `.agents/` and all descendants unless a nearer
 
 ## Role
 
-`.agents/` holds agent-facing companion surfaces for operating inside this
-repository, including exported skills and bounded Spark lanes.
+`.agents/` holds bounded agent-facing companion surfaces for operating inside
+this repository. The active local surface is the Spark lane; globally exposed
+owner skills remain canonical under `skills/`.
 
 It is not the source-authored `agents/` district. Source role meaning remains
 under `agents/`, with docs, schemas, mechanics, builders, and validators as
@@ -29,8 +30,8 @@ For Codex Spark work, read `.agents/spark/AGENTS.md` and use
   durable memory, routing policy, or runtime state.
 - Do not add prompt material that bypasses source-family validation, route
   cards, or owner boundaries.
-- Keep `.agents/skills/` as companion skill guidance and `.agents/spark/` as a
-  fast-loop lane; neither replaces authored source surfaces.
+- Keep `.agents/spark/` as a fast-loop lane. Do not recreate globally installed
+  owner or shared skill copies under `.agents/skills/`.
 
 ## Validation
 

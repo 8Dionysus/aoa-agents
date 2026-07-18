@@ -1,0 +1,71 @@
+schema_version: aoa-skill-contract-v1
+identity:
+  name: aoa-summon
+  owner: aoa-agents
+  version: 0.2.2
+  health: candidate
+purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
+applicability:
+  positive: explicit delegation intent or summon-law question with an anchored parent route
+  negative: implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
+input_abi:
+  type: summon-request-v3
+  schema: summon-request-v3.schema.json
+  required_additions:
+    - intent
+    - return_owner
+    - child_scope
+    - child_stop_line
+output_abi:
+  type: summon-result-v3
+  schema: summon-result-v3.schema.json
+  required_additions:
+    - decision_state
+    - binding
+    - runtime_state
+    - return_validation
+    - closeout_handoff
+    - actual_effects
+    - stop_line
+modes:
+  decide:
+    effects: [none]
+  execute:
+    effects: [child-agent-runtime]
+freedom_level: bounded-judgment
+tool_requirements:
+  - Read access to parent passport, anchor, gates, and relevant owner contracts.
+  - A callable host child-agent delegation and return interface for execute mode.
+execution_states:
+  - decided
+  - blocked
+  - launched
+  - running
+  - returned
+  - accepted
+  - failed
+termination:
+  success: decision-only result or one child return validated and handed to parent closeout
+  blocked: anchor, outputs, gates, explicit intent, or host binding is unavailable
+relations:
+  - {kind: requires, target: guard.operations.approval, condition: child effects require approval}
+  - {kind: consumes, target: progression-delta-candidate, condition: only after aoa-agents owner review when progression is required}
+  - {kind: hands-off-to, target: aoa-checkpoint-closeout-bridge, condition: child return changes parent checkpoint or closeout posture}
+  - {kind: hands-off-to, target: aoa-memo-writeback, condition: reviewed child return contains one bounded memory-worthy lesson}
+trust:
+  posture: owner-authored-procedure
+  runtime_authority: host-only
+  proof_authority: false
+provenance:
+  source: skills/aoa-summon
+  source_return: same-bundle install handle or matching aoa-agents owner-home manifest
+  owner_contracts:
+    - mechanics/rpg/parts/progression-model
+    - mechanics/titan/parts/summon-boundary
+  techniques_runtime_dependency: false
+failure_modes:
+  - plan reported as launched child
+  - child launched without explicit intent or a parent anchor
+  - output accepted without return validation
+  - child scope widened or gate bypassed
+  - raw trace promoted to proof or memory truth

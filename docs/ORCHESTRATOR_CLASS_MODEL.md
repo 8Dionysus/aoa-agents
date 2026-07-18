@@ -84,7 +84,8 @@ It does not answer "what work is active right now?".
 
 ## Installed quest-harvest posture
 
-`aoa-quest-harvest` may assist this repo only as a post-session installed skill under `.agents/skills/aoa-quest-harvest`.
+The `aoa-session-harvest` shared front door may assist this repo only after a
+reviewed session through the single OS user skill catalog.
 
 - use it after a reviewed run, closure, or pause
 - do not use it inside an active route

@@ -117,6 +117,7 @@
 - [AOA-AG-D-0002 2026-05-25: Mechanics Package Skeleton](../AOA-AG-D-0002-mechanics-package-skeleton.md) (`docs/decisions/AOA-AG-D-0002-mechanics-package-skeleton.md`)
 - [AOA-AG-D-0015 2026-05-26: RPG Progression Payload Localization](../AOA-AG-D-0015-rpg-progression-payload-localization.md) (`docs/decisions/AOA-AG-D-0015-rpg-progression-payload-localization.md`)
 - [AOA-AG-D-0016 2026-05-26: RPG Progression Check Localization](../AOA-AG-D-0016-rpg-progression-check-localization.md) (`docs/decisions/AOA-AG-D-0016-rpg-progression-check-localization.md`)
+- [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 
 ## runtime-seam
 
@@ -141,6 +142,7 @@
 - [AOA-AG-D-0012 2026-05-26: Titan Codex Projection Builder Localization](../AOA-AG-D-0012-titan-codex-projection-builder-localization.md) (`docs/decisions/AOA-AG-D-0012-titan-codex-projection-builder-localization.md`)
 - [AOA-AG-D-0044 2026-05-26: Formation Generated Reader Posture](../AOA-AG-D-0044-formation-generated-reader-posture.md) (`docs/decisions/AOA-AG-D-0044-formation-generated-reader-posture.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 
 ## cross-mechanic
 

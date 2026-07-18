@@ -24,6 +24,7 @@ linked owner surface instead of expanding this page.
 | Agent route law and local checks | [AGENTS](AGENTS.md), then the nearest nested `AGENTS.md` |
 | Source-authored agent object home | [agents](agents/README.md) |
 | Repeatable agent-layer mechanics | [mechanics](mechanics/README.md) |
+| Admitted agent-owner callable procedures | [skills](skills/README.md) |
 | Agent-local statistical questions and reference packets | [stats](stats/README.md) |
 | Documentation and owner-route map | [docs](docs/README.md) |
 | Current shipped surface contour | [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md) |

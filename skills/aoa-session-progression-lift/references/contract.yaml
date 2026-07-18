@@ -1,0 +1,61 @@
+schema_version: aoa-skill-contract-v1
+identity:
+  name: aoa-session-progression-lift
+  owner: aoa-agents
+  version: 0.2.2
+  health: candidate
+purpose: Convert reviewed agent evidence into one bounded progression delta candidate.
+applicability:
+  positive: reviewed evidence shows attributable movement or regression for one agent
+  negative: live impressions, missing agent identity, universal scoring, direct authority, or hidden routing
+input_abi:
+  type: reviewed-progression-evidence
+  required:
+    - agent_id
+    - review_and_closure_posture
+    - current_session_boundary
+    - evidence_refs
+    - attribution_limits
+    - baseline_posture
+output_abi:
+  type: progression-delta-candidate
+  required:
+    - agent_id
+    - baseline_posture
+    - verdict
+    - axes
+    - attribution_limits
+    - unlock_hints
+    - rejected_nearest_route
+    - owner_review
+    - effects
+    - stop_line
+freedom_level: bounded-judgment
+tool_requirements:
+  - Read access to reviewed evidence and mechanics/rpg/parts/progression-model.
+effects: [none]
+verification:
+  - each movement has current reviewed refs, evidence posture, and attribution limit
+  - no profile, progression object, rank, unlock, authority, route, quest, proof, memory, or stats owner changed
+termination:
+  success: one candidate and explicit aoa-agents owner-review handoff
+  blocked: review, agent identity, evidence boundary, baseline posture, or owner contract is missing
+relations:
+  - {kind: consumes, target: reviewed-session-evidence}
+  - {kind: requires, target: aoa-evals, condition: a mastery claim needs proof rather than candidate classification}
+  - {kind: hands-off-to, target: aoa-summon, condition: owner-reviewed unlock posture is required by an anchored summon}
+  - {kind: alternative-to, target: aoa-session-harvest, condition: generic reusable-unit extraction is the real task}
+trust:
+  posture: owner-authored-procedure
+  progression_authority: false
+  proof_authority: false
+provenance:
+  source: skills/aoa-session-progression-lift
+  owner_contract: mechanics/rpg/parts/progression-model
+  source_return: same-bundle install handle or matching aoa-agents owner-home manifest
+  techniques_runtime_dependency: false
+failure_modes:
+  - one success converted to broad growth
+  - first observation called improvement
+  - tool or environment contribution hidden
+  - unlock hint treated as permission

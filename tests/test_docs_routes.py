@@ -7,7 +7,7 @@ import unittest
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXECUTABLE_MARKDOWN_PREFIXES = (".agents/skills/",)
+EXECUTABLE_MARKDOWN_PREFIXES = ("skills/",)
 SHELL_FENCE_PATTERN = re.compile(
     r"^ {0,3}```(?:bash|console|sh|shell|zsh)(?:\s+.*)?$",
     re.IGNORECASE | re.MULTILINE,
