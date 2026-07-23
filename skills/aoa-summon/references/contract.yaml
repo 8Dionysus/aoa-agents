@@ -2,7 +2,7 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.2.2
+  version: 0.2.3
   health: candidate
 purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
 applicability:

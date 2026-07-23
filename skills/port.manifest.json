@@ -7,7 +7,7 @@
     {
       "name": "aoa-session-progression-lift",
       "path": "skills/aoa-session-progression-lift",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-AG-D-0059-owner-skill-home.md"
@@ -15,7 +15,7 @@
     {
       "name": "aoa-summon",
       "path": "skills/aoa-summon",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-AG-D-0059-owner-skill-home.md"
