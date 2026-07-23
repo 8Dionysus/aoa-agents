@@ -22,11 +22,14 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    same-bundle handle:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
-   `aoa_skill_source_receipt_v1`, this bundle name, owner `aoa-agents`, an
-   existing absolute `owner_root`, a safe relative `source_path`, and
-   `<owner_root>/<source_path>/SKILL.md`. If the path exists but is invalid,
-   mismatched, or not a regular file, return `blocked_missing_owner_source`;
-   do not try another location.
+   `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
+   name, owner `aoa-agents`, version `0.2.3`, an existing absolute
+   `owner_root`, a safe relative `source_path`, and
+   `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
+   `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
+   `prompt_description_sha256`; preserve `capability_graph_hash` when present.
+   If the path exists but is invalid, mismatched, or not a regular file,
+   return `blocked_missing_owner_source`; do not try another location.
 3. Only when that exact same-bundle handle path does not exist, set
    `<source_route>` to `git` and run
    `git -C <bundle_dir> rev-parse --show-toplevel` exactly once. Require the
@@ -49,13 +52,14 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    conventions, temporary fixtures, `.system`, or another skill directory to
    discover a substitute owner root.
 
-Treat handle ref, owner ref, dirty posture, and digest as install provenance,
-not authority or current-parity proof. A
+Treat handle schema, owner ref, dirty posture, digest, source fingerprint,
+capability graph hash, and prompt-description hash as install provenance, not
+authority or current-parity proof. A
 failed or non-serial resolution is terminal for this invocation; do not
 execute or decide an owner-dependent summon from the installed copy alone. On
-success, report `<source_route>`, `<owner_root>`, the receipt or git action
-ref, the manifest action ref, and the later owner-document action ref. Read
-exactly
+success, report `<source_route>`, `<owner_root>`, the receipt schema and
+identity dimensions or git action ref, the manifest action ref, and the later
+owner-document action ref. Read exactly
 `<owner_root>/mechanics/titan/parts/summon-boundary/README.md`,
 `<owner_root>/mechanics/titan/parts/summon-boundary/docs/summon-boundary.md`,
 and
