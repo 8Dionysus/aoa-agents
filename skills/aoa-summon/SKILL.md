@@ -23,11 +23,12 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.3`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.4`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
-   `prompt_description_sha256`; preserve `capability_graph_hash` when present.
+   `prompt_description_sha256`. When `capability_graph_hash` is present,
+   require it to be a non-empty string and preserve it.
    If the path exists but is invalid, mismatched, or not a regular file,
    return `blocked_missing_owner_source`; do not try another location.
 3. Only when that exact same-bundle handle path does not exist, set
