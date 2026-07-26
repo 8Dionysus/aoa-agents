@@ -15,7 +15,7 @@
     {
       "name": "aoa-summon",
       "path": "skills/aoa-summon",
-      "version": "0.2.6",
+      "version": "0.2.7",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-AG-D-0059-owner-skill-home.md"

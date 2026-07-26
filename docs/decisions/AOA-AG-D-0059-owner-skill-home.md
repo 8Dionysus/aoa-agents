@@ -76,3 +76,21 @@ Missing required objects, fields, bounded task content, or input refs returns
 correction is justified by the observed negative case and still requires a
 fresh rerun; it does not broaden delegation authority or prove general routing
 lift.
+
+### 2026-07-25 - Make pre-admission blocking representable
+
+Review of the correction found that version `0.2.6` named bounded task content
+and child input refs only as prose additions; `summon-request-v3` could not
+represent them. It also blocked before lane selection while
+`summon-result-v3` required a concrete lane, forcing either invalid output or
+an invented route.
+
+Version `0.2.7` makes intent, return owner, bounded child scope, stop line, and
+typed child input refs required request fields. An input-free child is explicit
+as `child_inputs: []`. The result schema now carries the full declared output
+additions and permits `lane: null` only for a blocked, not-run pre-admission
+result. Null is absence of a route, not a new execution lane.
+
+This closes the representability defect. Existing validators and fresh manual
+blocked and complete-request trials must still confirm the schema and behavior;
+the schema does not itself prove a lawful delegation outcome.

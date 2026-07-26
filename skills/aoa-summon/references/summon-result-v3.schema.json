@@ -4,22 +4,157 @@
   "title": "aoa-summon result v3",
   "type": "object",
   "additionalProperties": true,
-  "required": ["allowed", "lane", "execution_surface", "cohort_pattern", "closeout_required"],
+  "required": [
+    "allowed",
+    "lane",
+    "execution_surface",
+    "cohort_pattern",
+    "closeout_required",
+    "decision_state",
+    "binding",
+    "runtime_state",
+    "return_validation",
+    "closeout_handoff",
+    "actual_effects",
+    "stop_line"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {"lane": {"const": null}},
+        "required": ["lane"]
+      },
+      "then": {
+        "properties": {
+          "allowed": {"const": false},
+          "decision_state": {"const": "blocked"},
+          "runtime_state": {
+            "properties": {"state": {"const": "not_run"}},
+            "required": ["state"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"allowed": {"const": true}},
+        "required": ["allowed"]
+      },
+      "then": {
+        "properties": {
+          "decision_state": {"const": "allowed"},
+          "lane": {"type": "string"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision_state": {
+            "enum": ["blocked", "split_required", "human_gate"]
+          }
+        },
+        "required": ["decision_state"]
+      },
+      "then": {
+        "properties": {"allowed": {"const": false}}
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reason_codes": {
+            "contains": {"const": "blocked_missing_request_input"}
+          }
+        },
+        "required": ["reason_codes"]
+      },
+      "then": {
+        "properties": {"lane": {"const": null}}
+      }
+    }
+  ],
   "properties": {
     "allowed": {"type": "boolean"},
     "lane": {
-      "type": "string",
+      "type": ["string", "null"],
       "enum": [
         "codex_local_leaf",
         "codex_local_reviewed",
         "remote_reviewed",
         "split_required",
-        "human_gate"
+        "human_gate",
+        null
       ]
     },
-    "execution_surface": {"type": "string"},
-    "cohort_pattern": {"type": "string"},
+    "execution_surface": {"type": ["string", "null"]},
+    "cohort_pattern": {"type": ["string", "null"]},
     "closeout_required": {"type": "boolean"},
+    "decision_state": {
+      "type": "string",
+      "enum": ["allowed", "blocked", "split_required", "human_gate"]
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["interface", "available", "reason"],
+      "properties": {
+        "interface": {"type": ["string", "null"]},
+        "available": {"type": "boolean"},
+        "reason": {"type": ["string", "null"]}
+      }
+    },
+    "runtime_state": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["state", "child_handle"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "decided",
+            "not_run",
+            "launched",
+            "running",
+            "returned",
+            "accepted",
+            "failed"
+          ]
+        },
+        "child_handle": {"type": ["string", "null"]}
+      }
+    },
+    "return_validation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["expected_outputs", "received_outputs", "accepted"],
+      "properties": {
+        "expected_outputs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "received_outputs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "accepted": {"type": "boolean"}
+      }
+    },
+    "closeout_handoff": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["parent_owner", "residual_risk", "next_route"],
+      "properties": {
+        "parent_owner": {"type": ["string", "null"]},
+        "residual_risk": {"type": ["string", "null"]},
+        "next_route": {"type": ["string", "null"]}
+      }
+    },
+    "actual_effects": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "stop_line": {"type": "string", "minLength": 1},
     "checkpoint_required": {"type": "boolean"},
     "progression_required": {"type": "boolean"},
     "requested_posture": {"type": ["string", "null"]},

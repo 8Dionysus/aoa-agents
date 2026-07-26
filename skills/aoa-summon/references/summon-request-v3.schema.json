@@ -4,7 +4,16 @@
   "title": "aoa-summon request v3",
   "type": "object",
   "additionalProperties": false,
-  "required": ["quest_passport", "summon_request", "expected_outputs"],
+  "required": [
+    "quest_passport",
+    "summon_request",
+    "expected_outputs",
+    "intent",
+    "return_owner",
+    "child_scope",
+    "child_stop_line",
+    "child_inputs"
+  ],
   "allOf": [
     {
       "anyOf": [
@@ -85,7 +94,54 @@
     "expected_outputs": {
       "type": "array",
       "minItems": 1,
-      "items": {"type": "string"}
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "intent": {
+      "type": "string",
+      "enum": ["decide", "execute"]
+    },
+    "return_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "child_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task", "allowed_tools", "allowed_effects", "authority_limit"],
+      "properties": {
+        "task": {"type": "string", "minLength": 1},
+        "allowed_tools": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "allowed_effects": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "authority_limit": {"type": "string", "minLength": 1}
+      }
+    },
+    "child_stop_line": {
+      "type": "string",
+      "minLength": 1
+    },
+    "child_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "ref"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["artifact", "context", "contract", "evidence", "source", "other"]
+          },
+          "ref": {"type": "string", "minLength": 1}
+        }
+      }
     },
     "progression_overlay_ref": {"type": ["string", "null"]},
     "self_agent_checkpoint_ref": {"type": ["string", "null"]},

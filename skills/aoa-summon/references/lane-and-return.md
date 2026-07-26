@@ -2,6 +2,11 @@
 
 ## Lane decision
 
+If the literal request fails the request ABI, no lane exists yet. Return
+`lane: null`, `allowed: false`, `decision_state: blocked`, and
+`runtime_state.state: not_run`; do not manufacture a routing lane merely to
+satisfy the result shape.
+
 | Passport and posture | Lane |
 |---|---|
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
@@ -37,6 +42,9 @@ child-agent interface.
 - `return_validation`: expected versus received outputs and acceptance
 - `closeout_handoff`: parent owner, checkpoint, residual risk, next route
 - `actual_effects` and `stop_line`
+
+The nullable lane is reserved for pre-admission request failure. Once the
+request ABI passes, select one concrete lane from the table.
 
 Blocked, failed, and narrowed children return through the same parent surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.

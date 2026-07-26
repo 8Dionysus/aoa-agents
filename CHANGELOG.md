@@ -14,6 +14,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Make `aoa-summon` return `blocked_missing_request_input` when a
   route-shaped prompt omits the literal `summon-request-v3` fields or child
   input refs, instead of permitting an `allowed` decision on inferred inputs.
+- Make the complete summon request ABI representable in its JSON Schema,
+  including bounded task content and explicit child input refs, and reserve a
+  null result lane for schema-valid pre-admission blocks.
 
 ## [0.5.0] - 2026-07-13
 
