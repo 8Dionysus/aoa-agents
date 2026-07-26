@@ -51,7 +51,10 @@ accepted return, and no actual effects. A non-allowed decision remains
 Aggregate return acceptance implies the `accepted` runtime state. An available
 inspected binding names its concrete interface. `split_required` and
 `human_gate` decisions use only their matching lanes in both directions, and
-every allowed decision requires parent closeout.
+every allowed decision preserves the named outputs plus a concrete parent owner
+and next route. Gate lanes carry no executable target. Launched and running
+states carry no return checks yet, while every launched, running, returned, or
+accepted state records the `child-agent-runtime` effect.
 
 ## Required result additions
 

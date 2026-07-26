@@ -158,3 +158,12 @@ requires every allowed decision to preserve parent closeout. Per-output records
 also reject impossible received, artifact, and acceptance combinations. These
 are state-machine consistency rules; they do not prove that a delegation or
 artifact is valid in the environment.
+
+### 2026-07-26 - Make executable intent closeable before launch
+
+Version `0.2.14` requires every allowed result to preserve its unique named
+outputs and a concrete parent owner and next route before execution. Gate lanes
+carry no execution target, launched/running states carry no premature return
+checks, and every live child state records the `child-agent-runtime` effect.
+This keeps decision, launch, return, and closeout evidence aligned without
+claiming that the host effect itself proves a valid result.

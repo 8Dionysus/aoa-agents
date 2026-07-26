@@ -56,8 +56,22 @@
             ]
           },
           "execution_surface": {"type": "string", "minLength": 1},
-          "cohort_pattern": {"type": "string", "minLength": 1}
-        }
+          "cohort_pattern": {"type": "string", "minLength": 1},
+          "expected_outputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "closeout_handoff": {
+            "properties": {
+              "parent_owner": {"type": "string", "minLength": 1},
+              "next_route": {"type": "string", "minLength": 1}
+            },
+            "required": ["parent_owner", "next_route"]
+          }
+        },
+        "required": ["expected_outputs"]
       }
     },
     {
@@ -88,6 +102,22 @@
             },
             "required": ["state", "child_handle"]
           }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision_state": {
+            "enum": ["split_required", "human_gate"]
+          }
+        },
+        "required": ["decision_state"]
+      },
+      "then": {
+        "properties": {
+          "execution_surface": {"const": null},
+          "cohort_pattern": {"const": null}
         }
       }
     },
@@ -307,6 +337,34 @@
               "child_handle": {"type": "string", "minLength": 1}
             },
             "required": ["child_handle"]
+          },
+          "actual_effects": {
+            "minItems": 1,
+            "contains": {"const": "child-agent-runtime"}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "runtime_state": {
+            "properties": {
+              "state": {"enum": ["launched", "running"]}
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["runtime_state"]
+      },
+      "then": {
+        "properties": {
+          "return_validation": {
+            "properties": {
+              "output_checks": {"maxItems": 0},
+              "accepted": {"const": false}
+            },
+            "required": ["output_checks", "accepted"]
           }
         }
       }

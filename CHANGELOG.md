@@ -35,6 +35,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Make aggregate acceptance imply the accepted runtime state, align
   `split_required` and `human_gate` decisions bidirectionally with their lanes,
   and require named available bindings plus parent closeout for allowed routes.
+- Require allowed results to preserve named expected outputs and a concrete
+  closeout owner/route; keep gate lanes non-executable, pre-return live states
+  free of output checks, and every live child state tied to its host effect.
 
 ## [0.5.0] - 2026-07-13
 
