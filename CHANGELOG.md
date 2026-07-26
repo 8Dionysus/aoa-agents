@@ -17,6 +17,8 @@ Tracking starts with the community-docs baseline for this repository.
 - Make the complete summon request ABI representable in its JSON Schema,
   including bounded task content and explicit child input refs, and reserve a
   null result lane for schema-valid pre-admission blocks.
+- Represent uninspected decision-only host binding as unknown instead of
+  available, and require inspected availability for live runtime states.
 
 ## [0.5.0] - 2026-07-13
 

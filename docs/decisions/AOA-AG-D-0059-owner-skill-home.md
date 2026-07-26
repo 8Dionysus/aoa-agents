@@ -94,3 +94,16 @@ result. Null is absence of a route, not a new execution lane.
 This closes the representability defect. Existing validators and fresh manual
 blocked and complete-request trials must still confirm the schema and behavior;
 the schema does not itself prove a lawful delegation outcome.
+
+### 2026-07-25 - Keep decision-only binding availability unknown
+
+The first complete-request rerun selected `codex_local_leaf` correctly and did
+not launch a child, but it returned `binding.available: true` without
+inspecting the host interface. That turned a lawful route decision into an
+unsupported runtime-currentness claim.
+
+Version `0.2.8` requires every result to state whether the binding was actually
+inspected. An uninspected decision reports `available: null`; only a real host
+probe may report true or false, and live runtime states require inspected,
+available binding. The same complete request must be rerun to prove the
+behavioral correction.

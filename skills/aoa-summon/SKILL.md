@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.7`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.8`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -96,7 +96,11 @@ authority or evade a gate.
    carry an explicit empty `child_inputs` array. Only then evaluate gates.
    `d3+` returns `split_required`; missing
    progression/self-agent/stress/approval evidence returns the matching gate.
-3. In `decide`, stop after one typed decision and executable return plan.
+3. In `decide`, stop after one typed decision and executable return plan. Do
+   not probe the host merely to strengthen a decision-only answer. When the
+   binding was not actually inspected, return `binding.inspected: false` and
+   `binding.available: null`; an allowed lane is not a claim that launch is
+   currently available.
 4. In `execute`, require explicit user delegation intent and a callable host
    binding; launch exactly one bounded child, record its runtime handle, await
    or retrieve its terminal result, validate named outputs, and close the
@@ -115,6 +119,9 @@ authority or evade a gate.
 
 - confirm parent anchor, named outputs, selected lane, all required gates, and
   exact host binding before launch
+- never report binding availability from configuration, catalog presence, or
+  assumption; only a real host-interface inspection may set
+  `binding.inspected: true`
 - confirm every required request field and input ref was literally supplied
   before returning `allowed`; a task with no inputs must say so through an
   explicit empty `child_inputs` array

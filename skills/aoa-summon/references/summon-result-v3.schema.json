@@ -72,6 +72,51 @@
       "then": {
         "properties": {"lane": {"const": null}}
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "binding": {
+            "properties": {"inspected": {"const": false}},
+            "required": ["inspected"]
+          }
+        },
+        "required": ["binding"]
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {"available": {"const": null}},
+            "required": ["available"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "runtime_state": {
+            "properties": {
+              "state": {
+                "enum": ["launched", "running", "returned", "accepted"]
+              }
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["runtime_state"]
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "inspected": {"const": true},
+              "available": {"const": true}
+            },
+            "required": ["inspected", "available"]
+          }
+        }
+      }
     }
   ],
   "properties": {
@@ -97,10 +142,11 @@
     "binding": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["interface", "available", "reason"],
+      "required": ["interface", "inspected", "available", "reason"],
       "properties": {
         "interface": {"type": ["string", "null"]},
-        "available": {"type": "boolean"},
+        "inspected": {"type": "boolean"},
+        "available": {"type": ["boolean", "null"]},
         "reason": {"type": ["string", "null"]}
       }
     },

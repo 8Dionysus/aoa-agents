@@ -34,6 +34,12 @@ child-agent interface.
    residual risk, checkpoint consequence, optional memo candidate route, owner
    publication route, and whether parent work may continue.
 
+Decision-only output does not need a host probe. If no probe occurred, set
+`binding.inspected: false` and `binding.available: null`. A concrete
+`available` value requires an actual interface inspection; launched, running,
+returned, or accepted runtime state additionally requires
+`binding.available: true`.
+
 ## Required result additions
 
 - `decision_state`: `allowed`, `blocked`, `split_required`, or `human_gate`
