@@ -7,6 +7,46 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Changed
+
+- Compact the progression and summon descriptions while retaining reviewed
+  evidence, explicit delegation, parent-anchor, and authority boundaries.
+- Make `aoa-summon` return `blocked_missing_request_input` when a
+  route-shaped prompt omits the literal `summon-request-v3` fields or child
+  input refs, instead of permitting an `allowed` decision on inferred inputs.
+- Make the complete summon request ABI representable in its JSON Schema,
+  including bounded task content and explicit child input refs, and reserve a
+  null result lane for schema-valid pre-admission blocks.
+- Represent uninspected decision-only host binding as unknown instead of
+  available, and require inspected availability for live runtime states.
+- Reject allowed results on non-executable gate lanes, reserve a null lane
+  bidirectionally for missing-request blocks, and require concrete boolean
+  availability after any claimed binding inspection.
+- Make allowed decisions bidirectionally consistent, require concrete
+  execution targets for executable lanes, require runtime identity for live
+  child states, and admit `accepted` only after successful return validation
+  and concrete parent closeout.
+- Keep every non-allowed decision in `not_run`, clear child handles from
+  decision-only and non-run states, and require an inspected unavailable
+  binding to explain its failure.
+- Represent each requested child output with one explicit validation record,
+  admit `accepted` only when every record is received and artifact-linked, and
+  prohibit return evidence or actual effects in decision-only/non-run states.
+- Make aggregate acceptance imply the accepted runtime state, align
+  `split_required` and `human_gate` decisions bidirectionally with their lanes,
+  and require named available bindings plus parent closeout for allowed routes.
+- Require allowed results to preserve named expected outputs and a concrete
+  closeout owner/route; keep gate lanes non-executable, pre-return live states
+  free of output checks, and every live child state tied to its host effect.
+- Replace duplicated result-side output names with one canonical map keyed by
+  the request names; also clear targets from null lanes, reserve `not_run` for
+  non-allowed results, and clear failure reasons from available bindings.
+- Bind request and result through one immutable ref, digest, and copied intent;
+  keep expected outputs only in the request, require exact cross-instance
+  key-set review before acceptance, and reserve `decided` for decide mode.
+- Preserve binding, handle, and runtime effect in failed post-launch results,
+  and explicitly reject the retired result-side expected-output list.
+
 ## [0.5.0] - 2026-07-13
 
 ### Summary

@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Decide, launch, and close one bounded child-agent route from an anchored parent task through quest-passport gates, host delegation, named outputs, return validation, and reviewed closeout. Use when the user asks to delegate or summon one narrower reviewer, evaluator, verifier, or leaf helper and a real parent anchor exists. Do not use without explicit delegation intent, with unresolved branch choice, unnamed outputs, d3+ unsplit work, or to bypass approval, proof, progression, stress, or owner boundaries.
+description: Delegate one bounded child-agent route from an anchored parent task, including host launch, named outputs, return validation, and parent closeout. Use only when the user explicitly asks to delegate or summon a narrower helper. An incomplete summon request must block, not receive an allowed decision. Do not use without a parent anchor, with unresolved branching or unnamed outputs, for unsplit deep work, or to bypass approval, owner, or proof boundaries.
 ---
 
 # aoa-summon
@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.4`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.17`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -82,18 +82,34 @@ authority or evade a gate.
 - input: `summon-request-v3` plus explicit intent `decide` or `execute`; see
   `references/summon-request-v3.schema.json` and `references/contract.yaml`
 - output: `summon-result-v3` with decision, binding and runtime state, child
-  handle when launched, return validation, closeout handoff, effects, and stop
+  handle when launched, immutable request identity and intent, one validation
+  record per named output, closeout handoff, effects, and stop
 
 ## Procedure
 
 1. Read `references/contract.yaml` and `references/lane-and-return.md` to EOF.
-2. Validate the request and gates. `d3+` returns `split_required`; missing
+2. Validate the literal supplied request against `summon-request-v3` and the
+   additions in `references/contract.yaml` before deciding a lane. A
+   route-shaped description is not a request packet: if required objects,
+   fields, input refs, or bounded task content are absent, return
+   `blocked_missing_request_input` with `lane: null`, `allowed: false`, and
+   runtime state `not_run`; never infer or mint them. An input-free child must
+   carry an explicit empty `child_inputs` array. Only then evaluate gates.
+   The request carries one immutable `request_ref` and a `request_digest`
+   computed as SHA-256 over canonical JSON with `request_digest` omitted.
+   `d3+` returns `split_required`; missing
    progression/self-agent/stress/approval evidence returns the matching gate.
-3. In `decide`, stop after one typed decision and executable return plan.
+3. In `decide`, stop after one typed decision and executable return plan. Do
+   not probe the host merely to strengthen a decision-only answer. When the
+   binding was not actually inspected, return `binding.inspected: false` and
+   `binding.available: null`; an allowed lane is not a claim that launch is
+   currently available.
 4. In `execute`, require explicit user delegation intent and a callable host
    binding; launch exactly one bounded child, record its runtime handle, await
    or retrieve its terminal result, validate named outputs, and close the
    parent handoff. If the binding is absent, return `blocked_binding_unavailable`.
+   Copy the request ref, digest, and intent into the result; execute intent may
+   never terminate as a decision-only `decided` state.
 
 ## Contracts
 
@@ -108,7 +124,29 @@ authority or evade a gate.
 
 - confirm parent anchor, named outputs, selected lane, all required gates, and
   exact host binding before launch
+- never report binding availability from configuration, catalog presence, or
+  assumption; only a real host-interface inspection may set
+  `binding.inspected: true`
+- confirm every required request field and input ref was literally supplied
+  before returning `allowed`; a task with no inputs must say so through an
+  explicit empty `child_inputs` array
 - distinguish decided, launched, running, returned, accepted, blocked, and
   failed; a JSON plan is not runtime execution
+- require failed child execution to preserve the inspected binding, child
+  handle, and `child-agent-runtime` effect just like every other post-launch
+  state; reject the retired result-side `expected_outputs` field
 - validate returned artifacts against the request and preserve residual risk,
   checkpoint/memo candidates, and owner closeout without promoting them
+- build `return_validation.output_checks` as an object keyed by every request
+  `expected_outputs` name and no others; the key is the output identity, so
+  duplicates cannot exist; accept only when every value is received,
+  artifact-linked, and accepted
+- resolve `request_ref`, verify `request_digest`, and compare the request
+  `expected_outputs` set exactly with the result `output_checks` keys before
+  aggregate acceptance; no missing or extra key may advance parent work
+- keep gate decisions and lanes bidirectionally aligned; aggregate acceptance
+  is true only in the accepted runtime state, and every allowed route requires
+  parent closeout
+- preserve immutable request identity, request intent, concrete parent owner,
+  and next route in every allowed result; executable child states must carry
+  the actual host execution effect

@@ -2,6 +2,18 @@
 
 ## Lane decision
 
+If the literal request fails the request ABI, no lane exists yet. Return
+`lane: null`, `allowed: false`, `decision_state: blocked`, and
+`runtime_state.state: not_run`; do not manufacture a routing lane merely to
+satisfy the result shape.
+
+The request has exactly one expected-output list at its top level. Preserve a
+content-addressed `request_ref`; compute `request_digest` as SHA-256 over
+canonical JSON with the digest field omitted. Every result copies the ref,
+digest, and intent. Before aggregate acceptance, resolve that request, verify
+its digest, and require exact key-set equality between request
+`expected_outputs` and result `return_validation.output_checks`.
+
 | Passport and posture | Lane |
 |---|---|
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
@@ -24,19 +36,52 @@ child-agent interface.
 4. Track `launched` and `running` only from host state. Await or retrieve the
    terminal result; do not fabricate status from the request packet.
 5. On return, check every expected output, source ref, scope boundary, actual
-   effect, uncertainty, and stop condition. Reject or narrow incomplete output.
+   effect, uncertainty, and stop condition. Represent the request's complete
+   `expected_outputs` list as an `output_checks` object with exactly one key per
+   named output; reject or narrow any missing, extra, or incomplete output.
 6. Produce the parent closeout handoff: accepted outputs, rejected claims,
    residual risk, checkpoint consequence, optional memo candidate route, owner
    publication route, and whether parent work may continue.
+
+Decision-only output does not need a host probe. If no probe occurred, set
+`binding.inspected: false` and `binding.available: null`. A concrete
+`available` value requires an actual interface inspection; launched, running,
+returned, or accepted runtime state additionally requires
+`binding.available: true`, a non-empty binding interface, and a non-empty child
+handle. An `accepted` state additionally requires successful return validation,
+at least one output check, and concrete parent-owner and next-route closeout
+fields. Every accepted output check is received, artifact-linked, and accepted.
+A `decided` state is reserved for `decide` intent, has no child handle or
+actual effects, and carries the complete
+named output map with unreceived values. A `not_run` state has no child handle,
+output checks, accepted return, or actual effects and is never allowed. An
+inspected unavailable binding carries a non-empty reason; an inspected available
+binding carries no failure reason.
+An allowed `execute` result must be launched, running, returned, accepted, or
+failed; it cannot stop as a plan. A failed post-launch result retains the
+inspected binding, child handle, and `child-agent-runtime` effect. The retired
+result-side `expected_outputs` field is invalid; output identity exists only in
+the immutable request and the keyed validation map.
+Aggregate return acceptance implies the `accepted` runtime state. An available
+inspected binding names its concrete interface. `split_required` and
+`human_gate` decisions use only their matching lanes in both directions, and
+every allowed decision preserves the named outputs plus a concrete parent owner
+and next route. Gate lanes carry no executable target. Launched and running
+states carry no return checks yet, while every launched, running, returned, or
+accepted state records the `child-agent-runtime` effect.
 
 ## Required result additions
 
 - `decision_state`: `allowed`, `blocked`, `split_required`, or `human_gate`
 - `binding`: interface, availability, and reason when unavailable
 - `runtime_state`: state, child handle, launch/return timestamps or `not_run`
-- `return_validation`: expected versus received outputs and acceptance
+- `return_validation`: one uniquely keyed check per requested output and aggregate acceptance
 - `closeout_handoff`: parent owner, checkpoint, residual risk, next route
 - `actual_effects` and `stop_line`
+- immutable request ref, digest, and copied intent
+
+The nullable lane is reserved for pre-admission request failure. Once the
+request ABI passes, select one concrete lane from the table.
 
 Blocked, failed, and narrowed children return through the same parent surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.

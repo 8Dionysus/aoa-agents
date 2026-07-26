@@ -2,12 +2,12 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.2.4
+  version: 0.2.17
   health: candidate
 purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
 applicability:
   positive: explicit delegation intent or summon-law question with an anchored parent route
-  negative: implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
+  negative: incomplete request ABI, implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
 input_abi:
   type: summon-request-v3
   schema: summon-request-v3.schema.json
@@ -16,6 +16,9 @@ input_abi:
     - return_owner
     - child_scope
     - child_stop_line
+    - child_inputs
+    - request_ref
+    - request_digest
 output_abi:
   type: summon-result-v3
   schema: summon-result-v3.schema.json
@@ -27,6 +30,9 @@ output_abi:
     - closeout_handoff
     - actual_effects
     - stop_line
+    - request_ref
+    - request_digest
+    - request_intent
 modes:
   decide:
     effects: [none]
@@ -46,7 +52,7 @@ execution_states:
   - failed
 termination:
   success: decision-only result or one child return validated and handed to parent closeout
-  blocked: anchor, outputs, gates, explicit intent, or host binding is unavailable
+  blocked: request ABI, anchor, literal inputs, outputs, gates, explicit intent, or host binding is unavailable
 relations:
   - {kind: requires, target: guard.operations.approval, condition: child effects require approval}
   - {kind: consumes, target: progression-delta-candidate, condition: only after aoa-agents owner review when progression is required}
@@ -64,8 +70,19 @@ provenance:
     - mechanics/titan/parts/summon-boundary
   techniques_runtime_dependency: false
 failure_modes:
+  - incomplete route-shaped prompt reported as an allowed summon request
+  - missing child input or contract ref inferred or minted
   - plan reported as launched child
+  - decision-only plan reported an uninspected host binding as available
   - child launched without explicit intent or a parent anchor
   - output accepted without return validation
+  - output names duplicated or omitted by a second aggregate list
+  - available binding carries a contradictory failure reason
+  - allowed execution remains in the non-run state
+  - result output keys are accepted without resolving and matching the immutable request
+  - execute intent terminates as a decision-only plan
+  - request names expected outputs in more than one place
+  - failed child state loses its runtime binding, handle, or effect
+  - retired result expected-output list reappears beside the canonical map
   - child scope widened or gate bypassed
   - raw trace promoted to proof or memory truth

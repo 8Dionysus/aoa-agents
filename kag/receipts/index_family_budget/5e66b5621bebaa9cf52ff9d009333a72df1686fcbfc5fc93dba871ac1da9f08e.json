@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3915079,
+  "allowed_tracked_bytes": 13654202,
+  "approved_by": "repository-owner",
+  "base_ref": "66f8bf22d03518b1e2367fd4f51dab80650f6d37",
+  "changed_generated_bytes": 3915079,
+  "changed_generated_files": 116,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "5e66b5621bebaa9cf52ff9d009333a72df1686fcbfc5fc93dba871ac1da9f08e",
+  "reason": "Preserve failed summon runtime identity and reject the retired result output list.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 13654202,
+  "tracked_bytes_max": 16777216
+}
