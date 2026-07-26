@@ -29,7 +29,10 @@ child-agent interface.
 4. Track `launched` and `running` only from host state. Await or retrieve the
    terminal result; do not fabricate status from the request packet.
 5. On return, check every expected output, source ref, scope boundary, actual
-   effect, uncertainty, and stop condition. Reject or narrow incomplete output.
+   effect, uncertainty, and stop condition. Represent the request's complete
+   `expected_outputs` list as exactly one ordered `output_checks` record per
+   named output; reject or narrow any missing, extra, duplicate, or incomplete
+   output.
 6. Produce the parent closeout handoff: accepted outputs, rejected claims,
    residual risk, checkpoint consequence, optional memo candidate route, owner
    publication route, and whether parent work may continue.
@@ -40,17 +43,18 @@ Decision-only output does not need a host probe. If no probe occurred, set
 returned, or accepted runtime state additionally requires
 `binding.available: true`, a non-empty binding interface, and a non-empty child
 handle. An `accepted` state additionally requires successful return validation,
-at least one received output, and concrete parent-owner and next-route closeout
-fields. A `decided` or `not_run` state has no child handle. A non-allowed
-decision remains `not_run`; an inspected unavailable binding carries a
-non-empty reason.
+at least one output check, and concrete parent-owner and next-route closeout
+fields. Every accepted output check is received, artifact-linked, and accepted.
+A `decided` or `not_run` state has no child handle, no output checks, no
+accepted return, and no actual effects. A non-allowed decision remains
+`not_run`; an inspected unavailable binding carries a non-empty reason.
 
 ## Required result additions
 
 - `decision_state`: `allowed`, `blocked`, `split_required`, or `human_gate`
 - `binding`: interface, availability, and reason when unavailable
 - `runtime_state`: state, child handle, launch/return timestamps or `not_run`
-- `return_validation`: expected versus received outputs and acceptance
+- `return_validation`: one ordered check per requested output and aggregate acceptance
 - `closeout_handoff`: parent owner, checkpoint, residual risk, next route
 - `actual_effects` and `stop_line`
 

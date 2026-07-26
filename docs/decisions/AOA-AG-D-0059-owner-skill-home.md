@@ -138,3 +138,13 @@ explicit. Blocked and gate decisions remain `not_run`, `decided` and
 `not_run` cannot carry a child handle, and an inspected unavailable binding
 must include a concrete reason. This prevents a gate, plan, or failed binding
 probe from masquerading as runtime identity.
+
+### 2026-07-26 - Make output acceptance complete and non-run evidence empty
+
+Version `0.2.12` replaces aggregate expected-versus-received lists with one
+ordered validation record per requested output. An accepted result requires
+every record to be received, artifact-linked, and accepted; the procedure
+requires the records to match the request names exactly. Decision-only and
+non-run results carry no output checks, accepted return, or actual effects.
+These invariants prevent partial child returns and pre-execution plans from
+masquerading as completed execution.

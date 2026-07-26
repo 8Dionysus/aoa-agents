@@ -29,6 +29,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Keep every non-allowed decision in `not_run`, clear child handles from
   decision-only and non-run states, and require an inspected unavailable
   binding to explain its failure.
+- Represent each requested child output with one explicit validation record,
+  admit `accepted` only when every record is received and artifact-linked, and
+  prohibit return evidence or actual effects in decision-only/non-run states.
 
 ## [0.5.0] - 2026-07-13
 
