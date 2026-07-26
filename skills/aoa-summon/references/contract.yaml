@@ -2,12 +2,12 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.2.5
+  version: 0.2.6
   health: candidate
 purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
 applicability:
   positive: explicit delegation intent or summon-law question with an anchored parent route
-  negative: implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
+  negative: incomplete request ABI, implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
 input_abi:
   type: summon-request-v3
   schema: summon-request-v3.schema.json
@@ -46,7 +46,7 @@ execution_states:
   - failed
 termination:
   success: decision-only result or one child return validated and handed to parent closeout
-  blocked: anchor, outputs, gates, explicit intent, or host binding is unavailable
+  blocked: request ABI, anchor, literal inputs, outputs, gates, explicit intent, or host binding is unavailable
 relations:
   - {kind: requires, target: guard.operations.approval, condition: child effects require approval}
   - {kind: consumes, target: progression-delta-candidate, condition: only after aoa-agents owner review when progression is required}
@@ -64,6 +64,8 @@ provenance:
     - mechanics/titan/parts/summon-boundary
   techniques_runtime_dependency: false
 failure_modes:
+  - incomplete route-shaped prompt reported as an allowed summon request
+  - missing child input or contract ref inferred or minted
   - plan reported as launched child
   - child launched without explicit intent or a parent anchor
   - output accepted without return validation

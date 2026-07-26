@@ -61,3 +61,18 @@ The semantic graph and KAG may index these owner contracts but cannot replace
 them. Progression application remains a separate owner review. Runtime failure
 or missing host binding remains visible. Raw trials and task-local state remain
 outside the repository.
+
+### 2026-07-25 - Block incomplete summon requests before lane admission
+
+A fresh installed-profile trial supplied explicit delegation intent, a parent
+anchor, and named outputs, but described two "named" child inputs without
+actually supplying their identifiers or a complete `summon-request-v3`.
+The correct owner skill was selected and no child launched, yet decision mode
+returned `allowed`.
+
+Version `0.2.6` now validates the literal request ABI before lane selection.
+Missing required objects, fields, bounded task content, or input refs returns
+`blocked_missing_request_input`; the skill may not infer or mint them. This
+correction is justified by the observed negative case and still requires a
+fresh rerun; it does not broaden delegation authority or prove general routing
+lift.

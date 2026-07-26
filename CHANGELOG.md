@@ -11,6 +11,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 - Compact the progression and summon descriptions while retaining reviewed
   evidence, explicit delegation, parent-anchor, and authority boundaries.
+- Make `aoa-summon` return `blocked_missing_request_input` when a
+  route-shaped prompt omits the literal `summon-request-v3` fields or child
+  input refs, instead of permitting an `allowed` decision on inferred inputs.
 
 ## [0.5.0] - 2026-07-13
 

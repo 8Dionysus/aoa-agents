@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Delegate one bounded child-agent route from an anchored parent task, including host launch, named outputs, return validation, and parent closeout. Use only when the user explicitly asks to delegate or summon a narrower helper. Do not use without a parent anchor, with unresolved branching or unnamed outputs, for unsplit deep work, or to bypass approval, owner, or proof boundaries.
+description: Delegate one bounded child-agent route from an anchored parent task, including host launch, named outputs, return validation, and parent closeout. Use only when the user explicitly asks to delegate or summon a narrower helper. An incomplete summon request must block, not receive an allowed decision. Do not use without a parent anchor, with unresolved branching or unnamed outputs, for unsplit deep work, or to bypass approval, owner, or proof boundaries.
 ---
 
 # aoa-summon
@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.5`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.6`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -87,7 +87,12 @@ authority or evade a gate.
 ## Procedure
 
 1. Read `references/contract.yaml` and `references/lane-and-return.md` to EOF.
-2. Validate the request and gates. `d3+` returns `split_required`; missing
+2. Validate the literal supplied request against `summon-request-v3` and the
+   additions in `references/contract.yaml` before deciding a lane. A
+   route-shaped description is not a request packet: if required objects,
+   fields, input refs, or bounded task content are absent, return
+   `blocked_missing_request_input`; never infer or mint them. Only then
+   evaluate gates. `d3+` returns `split_required`; missing
    progression/self-agent/stress/approval evidence returns the matching gate.
 3. In `decide`, stop after one typed decision and executable return plan.
 4. In `execute`, require explicit user delegation intent and a callable host
@@ -108,6 +113,8 @@ authority or evade a gate.
 
 - confirm parent anchor, named outputs, selected lane, all required gates, and
   exact host binding before launch
+- confirm every required request field and input ref was literally supplied
+  before returning `allowed`
 - distinguish decided, launched, running, returned, accepted, blocked, and
   failed; a JSON plan is not runtime execution
 - validate returned artifacts against the request and preserve residual risk,
