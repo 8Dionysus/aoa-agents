@@ -177,3 +177,12 @@ impossible. Allowed decisions carry the complete unreceived map; acceptance
 requires every value to be received, artifact-linked, and accepted. The same
 revision makes a null lane clear both execution targets, reserves `not_run` for
 non-allowed results, and clears failure reason from an available binding.
+
+### 2026-07-26 - Bind result acceptance to one immutable request
+
+Version `0.2.16` gives every request and result the same immutable request ref,
+digest, and intent. Expected outputs exist only once in the request. Aggregate
+acceptance requires resolving that request, verifying its digest, and manually
+checking exact equality between its expected-output set and the result's keyed
+output map. The result schema also prevents an allowed `execute` request from
+terminating as the decision-only `decided` state.

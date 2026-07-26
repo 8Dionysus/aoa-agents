@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.15`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.16`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -82,8 +82,8 @@ authority or evade a gate.
 - input: `summon-request-v3` plus explicit intent `decide` or `execute`; see
   `references/summon-request-v3.schema.json` and `references/contract.yaml`
 - output: `summon-result-v3` with decision, binding and runtime state, child
-  handle when launched, one validation record per named output, closeout
-  handoff, effects, and stop
+  handle when launched, immutable request identity and intent, one validation
+  record per named output, closeout handoff, effects, and stop
 
 ## Procedure
 
@@ -95,6 +95,8 @@ authority or evade a gate.
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and
    runtime state `not_run`; never infer or mint them. An input-free child must
    carry an explicit empty `child_inputs` array. Only then evaluate gates.
+   The request carries one immutable `request_ref` and a `request_digest`
+   computed as SHA-256 over canonical JSON with `request_digest` omitted.
    `d3+` returns `split_required`; missing
    progression/self-agent/stress/approval evidence returns the matching gate.
 3. In `decide`, stop after one typed decision and executable return plan. Do
@@ -106,6 +108,8 @@ authority or evade a gate.
    binding; launch exactly one bounded child, record its runtime handle, await
    or retrieve its terminal result, validate named outputs, and close the
    parent handoff. If the binding is absent, return `blocked_binding_unavailable`.
+   Copy the request ref, digest, and intent into the result; execute intent may
+   never terminate as a decision-only `decided` state.
 
 ## Contracts
 
@@ -134,9 +138,12 @@ authority or evade a gate.
   `expected_outputs` name and no others; the key is the output identity, so
   duplicates cannot exist; accept only when every value is received,
   artifact-linked, and accepted
+- resolve `request_ref`, verify `request_digest`, and compare the request
+  `expected_outputs` set exactly with the result `output_checks` keys before
+  aggregate acceptance; no missing or extra key may advance parent work
 - keep gate decisions and lanes bidirectionally aligned; aggregate acceptance
   is true only in the accepted runtime state, and every allowed route requires
   parent closeout
-- preserve the named expected outputs plus concrete parent owner and next route
-  in every allowed result; executable child states must carry the actual host
-  execution effect
+- preserve immutable request identity, request intent, concrete parent owner,
+  and next route in every allowed result; executable child states must carry
+  the actual host execution effect

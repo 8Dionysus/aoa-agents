@@ -12,7 +12,9 @@
     "return_owner",
     "child_scope",
     "child_stop_line",
-    "child_inputs"
+    "child_inputs",
+    "request_ref",
+    "request_digest"
   ],
   "allOf": [
     {
@@ -73,6 +75,7 @@
     "summon_request": {
       "type": "object",
       "additionalProperties": true,
+      "not": {"required": ["expected_outputs"]},
       "properties": {
         "desired_role": {"type": ["string", "null"]},
         "child_agent_id": {"type": ["string", "null"]},
@@ -82,11 +85,6 @@
         },
         "parent_task_id": {"type": ["string", "null"]},
         "session_ref": {"type": ["string", "null"]},
-        "expected_outputs": {
-          "type": "array",
-          "minItems": 1,
-          "items": {"type": "string"}
-        },
         "reviewed_artifact_path": {"type": ["string", "null"]},
         "require_progression": {"type": "boolean"}
       }
@@ -100,6 +98,14 @@
     "intent": {
       "type": "string",
       "enum": ["decide", "execute"]
+    },
+    "request_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
     },
     "return_owner": {
       "type": "string",

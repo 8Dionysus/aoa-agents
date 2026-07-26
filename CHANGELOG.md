@@ -41,6 +41,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Replace duplicated result-side output names with one canonical map keyed by
   the request names; also clear targets from null lanes, reserve `not_run` for
   non-allowed results, and clear failure reasons from available bindings.
+- Bind request and result through one immutable ref, digest, and copied intent;
+  keep expected outputs only in the request, require exact cross-instance
+  key-set review before acceptance, and reserve `decided` for decide mode.
 
 ## [0.5.0] - 2026-07-13
 

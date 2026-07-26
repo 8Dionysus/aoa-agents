@@ -16,9 +16,47 @@
     "return_validation",
     "closeout_handoff",
     "actual_effects",
-    "stop_line"
+    "stop_line",
+    "request_ref",
+    "request_digest",
+    "request_intent"
   ],
   "allOf": [
+    {
+      "if": {
+        "properties": {"request_intent": {"const": "decide"}},
+        "required": ["request_intent"]
+      },
+      "then": {
+        "properties": {
+          "runtime_state": {
+            "properties": {"state": {"enum": ["decided", "not_run"]}},
+            "required": ["state"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "request_intent": {"const": "execute"},
+          "allowed": {"const": true}
+        },
+        "required": ["request_intent", "allowed"]
+      },
+      "then": {
+        "properties": {
+          "runtime_state": {
+            "properties": {
+              "state": {
+                "enum": ["launched", "running", "returned", "accepted", "failed"]
+              }
+            },
+            "required": ["state"]
+          }
+        }
+      }
+    },
     {
       "if": {
         "properties": {"lane": {"const": null}},
@@ -618,6 +656,15 @@
       "uniqueItems": true
     },
     "stop_line": {"type": "string", "minLength": 1},
+    "request_ref": {"type": "string", "minLength": 1},
+    "request_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "request_intent": {
+      "type": "string",
+      "enum": ["decide", "execute"]
+    },
     "checkpoint_required": {"type": "boolean"},
     "progression_required": {"type": "boolean"},
     "requested_posture": {"type": ["string", "null"]},
