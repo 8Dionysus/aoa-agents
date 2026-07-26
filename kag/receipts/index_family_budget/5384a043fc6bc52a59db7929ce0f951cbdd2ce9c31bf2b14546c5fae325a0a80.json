@@ -1,17 +1,17 @@
 {
-  "allowed_bytes": 3656509,
-  "allowed_tracked_bytes": 13643352,
+  "allowed_bytes": 3656528,
+  "allowed_tracked_bytes": 13643350,
   "approved_by": "repository-owner",
   "base_ref": "66f8bf22d03518b1e2367fd4f51dab80650f6d37",
-  "changed_generated_bytes": 3656509,
+  "changed_generated_bytes": 3656528,
   "changed_generated_files": 109,
   "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
   "default_limit_bytes": 1048576,
-  "head_family_digest": "cb6aa71c193d9c6b456042fc78608fb7d3bd5702bb0452cd3b251fccd3b2ffa6",
-  "reason": "Regenerate the final closeable summon decision projection with the repository-pinned KAG action against the pull-request merge base.",
+  "head_family_digest": "5384a043fc6bc52a59db7929ce0f951cbdd2ce9c31bf2b14546c5fae325a0a80",
+  "reason": "Refresh the admitted aoa-summon capability contract and its deterministic owner-local projection.",
   "repo": "aoa-agents",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
   "scope": "generated_delta",
-  "tracked_bytes": 13643352,
+  "tracked_bytes": 13643350,
   "tracked_bytes_max": 16777216
 }

@@ -167,3 +167,13 @@ carry no execution target, launched/running states carry no premature return
 checks, and every live child state records the `child-agent-runtime` effect.
 This keeps decision, launch, return, and closeout evidence aligned without
 claiming that the host effect itself proves a valid result.
+
+### 2026-07-26 - Use one canonical output identity map
+
+Version `0.2.15` removes the duplicated expected-output list from the result.
+`return_validation.output_checks` is now the single result-side output set,
+keyed by the names from the request, so duplicate names are structurally
+impossible. Allowed decisions carry the complete unreceived map; acceptance
+requires every value to be received, artifact-linked, and accepted. The same
+revision makes a null lane clear both execution targets, reserves `not_run` for
+non-allowed results, and clears failure reason from an available binding.

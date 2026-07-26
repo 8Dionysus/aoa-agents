@@ -38,6 +38,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Require allowed results to preserve named expected outputs and a concrete
   closeout owner/route; keep gate lanes non-executable, pre-return live states
   free of output checks, and every live child state tied to its host effect.
+- Replace duplicated result-side output names with one canonical map keyed by
+  the request names; also clear targets from null lanes, reserve `not_run` for
+  non-allowed results, and clear failure reasons from available bindings.
 
 ## [0.5.0] - 2026-07-13
 

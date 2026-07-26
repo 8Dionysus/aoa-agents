@@ -2,7 +2,7 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.2.14
+  version: 0.2.15
   health: candidate
 purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
 applicability:
@@ -71,5 +71,8 @@ failure_modes:
   - decision-only plan reported an uninspected host binding as available
   - child launched without explicit intent or a parent anchor
   - output accepted without return validation
+  - output names duplicated or omitted by a second aggregate list
+  - available binding carries a contradictory failure reason
+  - allowed execution remains in the non-run state
   - child scope widened or gate bypassed
   - raw trace promoted to proof or memory truth
