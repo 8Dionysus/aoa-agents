@@ -48,6 +48,10 @@ fields. Every accepted output check is received, artifact-linked, and accepted.
 A `decided` or `not_run` state has no child handle, no output checks, no
 accepted return, and no actual effects. A non-allowed decision remains
 `not_run`; an inspected unavailable binding carries a non-empty reason.
+Aggregate return acceptance implies the `accepted` runtime state. An available
+inspected binding names its concrete interface. `split_required` and
+`human_gate` decisions use only their matching lanes in both directions, and
+every allowed decision requires parent closeout.
 
 ## Required result additions
 

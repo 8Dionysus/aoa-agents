@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.12`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.13`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -133,3 +133,6 @@ authority or evade a gate.
 - build exactly one `return_validation.output_checks` entry for every request
   `expected_outputs` entry and no others; preserve request order and accept
   only when every entry is received, artifact-linked, and accepted
+- keep gate decisions and lanes bidirectionally aligned; aggregate acceptance
+  is true only in the accepted runtime state, and every allowed route requires
+  parent closeout

@@ -32,6 +32,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Represent each requested child output with one explicit validation record,
   admit `accepted` only when every record is received and artifact-linked, and
   prohibit return evidence or actual effects in decision-only/non-run states.
+- Make aggregate acceptance imply the accepted runtime state, align
+  `split_required` and `human_gate` decisions bidirectionally with their lanes,
+  and require named available bindings plus parent closeout for allowed routes.
 
 ## [0.5.0] - 2026-07-13
 

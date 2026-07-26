@@ -47,6 +47,7 @@
       "then": {
         "properties": {
           "decision_state": {"const": "allowed"},
+          "closeout_required": {"const": true},
           "lane": {
             "enum": [
               "codex_local_leaf",
@@ -92,6 +93,46 @@
     },
     {
       "if": {
+        "properties": {"decision_state": {"const": "split_required"}},
+        "required": ["decision_state"]
+      },
+      "then": {
+        "properties": {"lane": {"const": "split_required"}},
+        "required": ["lane"]
+      }
+    },
+    {
+      "if": {
+        "properties": {"lane": {"const": "split_required"}},
+        "required": ["lane"]
+      },
+      "then": {
+        "properties": {"decision_state": {"const": "split_required"}},
+        "required": ["decision_state"]
+      }
+    },
+    {
+      "if": {
+        "properties": {"decision_state": {"const": "human_gate"}},
+        "required": ["decision_state"]
+      },
+      "then": {
+        "properties": {"lane": {"const": "human_gate"}},
+        "required": ["lane"]
+      }
+    },
+    {
+      "if": {
+        "properties": {"lane": {"const": "human_gate"}},
+        "required": ["lane"]
+      },
+      "then": {
+        "properties": {"decision_state": {"const": "human_gate"}},
+        "required": ["decision_state"]
+      }
+    },
+    {
+      "if": {
         "properties": {
           "reason_codes": {
             "contains": {"const": "blocked_missing_request_input"}
@@ -118,6 +159,30 @@
           "binding": {
             "properties": {"available": {"const": null}},
             "required": ["available"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "inspected": {"const": true},
+              "available": {"const": true}
+            },
+            "required": ["inspected", "available"]
+          }
+        },
+        "required": ["binding"]
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "interface": {"type": "string", "minLength": 1}
+            },
+            "required": ["interface"]
           }
         }
       }
@@ -172,6 +237,25 @@
             "required": ["output_checks", "accepted"]
           },
           "actual_effects": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "return_validation": {
+            "properties": {"accepted": {"const": true}},
+            "required": ["accepted"]
+          }
+        },
+        "required": ["return_validation"]
+      },
+      "then": {
+        "properties": {
+          "runtime_state": {
+            "properties": {"state": {"const": "accepted"}},
+            "required": ["state"]
+          }
         }
       }
     },
@@ -340,8 +424,35 @@
               "received": {"type": "boolean"},
               "artifact_ref": {"type": ["string", "null"]},
               "accepted": {"type": "boolean"}
-            }
-          }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {"received": {"const": false}},
+                  "required": ["received"]
+                },
+                "then": {
+                  "properties": {
+                    "artifact_ref": {"const": null},
+                    "accepted": {"const": false}
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {"accepted": {"const": true}},
+                  "required": ["accepted"]
+                },
+                "then": {
+                  "properties": {
+                    "received": {"const": true},
+                    "artifact_ref": {"type": "string", "minLength": 1}
+                  }
+                }
+              }
+            ]
+          },
+          "uniqueItems": true
         },
         "accepted": {"type": "boolean"}
       }
@@ -358,7 +469,8 @@
     },
     "actual_effects": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
     },
     "stop_line": {"type": "string", "minLength": 1},
     "checkpoint_required": {"type": "boolean"},

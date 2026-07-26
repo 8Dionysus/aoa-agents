@@ -148,3 +148,13 @@ requires the records to match the request names exactly. Decision-only and
 non-run results carry no output checks, accepted return, or actual effects.
 These invariants prevent partial child returns and pre-execution plans from
 masquerading as completed execution.
+
+### 2026-07-26 - Close acceptance, lane, binding, and closeout implications
+
+Version `0.2.13` makes aggregate return acceptance imply the accepted runtime
+state, binds split and human-gate decisions to their matching lanes in both
+directions, requires an inspected available binding to name its interface, and
+requires every allowed decision to preserve parent closeout. Per-output records
+also reject impossible received, artifact, and acceptance combinations. These
+are state-machine consistency rules; they do not prove that a delegation or
+artifact is valid in the environment.
