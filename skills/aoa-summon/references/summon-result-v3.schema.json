@@ -53,8 +53,19 @@
               "codex_local_reviewed",
               "remote_reviewed"
             ]
-          }
+          },
+          "execution_surface": {"type": "string", "minLength": 1},
+          "cohort_pattern": {"type": "string", "minLength": 1}
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {"decision_state": {"const": "allowed"}},
+        "required": ["decision_state"]
+      },
+      "then": {
+        "properties": {"allowed": {"const": true}}
       }
     },
     {
@@ -139,10 +150,46 @@
         "properties": {
           "binding": {
             "properties": {
+              "interface": {"type": "string", "minLength": 1},
               "inspected": {"const": true},
               "available": {"const": true}
             },
-            "required": ["inspected", "available"]
+            "required": ["interface", "inspected", "available"]
+          },
+          "runtime_state": {
+            "properties": {
+              "child_handle": {"type": "string", "minLength": 1}
+            },
+            "required": ["child_handle"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "runtime_state": {
+            "properties": {"state": {"const": "accepted"}},
+            "required": ["state"]
+          }
+        },
+        "required": ["runtime_state"]
+      },
+      "then": {
+        "properties": {
+          "return_validation": {
+            "properties": {
+              "received_outputs": {"type": "array", "minItems": 1},
+              "accepted": {"const": true}
+            },
+            "required": ["received_outputs", "accepted"]
+          },
+          "closeout_handoff": {
+            "properties": {
+              "parent_owner": {"type": "string", "minLength": 1},
+              "next_route": {"type": "string", "minLength": 1}
+            },
+            "required": ["parent_owner", "next_route"]
           }
         }
       }

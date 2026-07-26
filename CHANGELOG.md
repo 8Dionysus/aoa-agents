@@ -22,6 +22,10 @@ Tracking starts with the community-docs baseline for this repository.
 - Reject allowed results on non-executable gate lanes, reserve a null lane
   bidirectionally for missing-request blocks, and require concrete boolean
   availability after any claimed binding inspection.
+- Make allowed decisions bidirectionally consistent, require concrete
+  execution targets for executable lanes, require runtime identity for live
+  child states, and admit `accepted` only after successful return validation
+  and concrete parent closeout.
 
 ## [0.5.0] - 2026-07-13
 

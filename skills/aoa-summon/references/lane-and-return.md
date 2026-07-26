@@ -38,7 +38,10 @@ Decision-only output does not need a host probe. If no probe occurred, set
 `binding.inspected: false` and `binding.available: null`. A concrete
 `available` value requires an actual interface inspection; launched, running,
 returned, or accepted runtime state additionally requires
-`binding.available: true`.
+`binding.available: true`, a non-empty binding interface, and a non-empty child
+handle. An `accepted` state additionally requires successful return validation,
+at least one received output, and concrete parent-owner and next-route closeout
+fields.
 
 ## Required result additions
 

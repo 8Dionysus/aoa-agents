@@ -120,3 +120,13 @@ and `blocked_missing_request_input` imply one another, and requires boolean
 availability after inspection. These schema invariants encode the already
 stated procedure; they do not prove that a particular delegation is lawful or
 that a host binding is available.
+
+### 2026-07-26 - Require an executable and closeable live result
+
+Version `0.2.10` closes the remaining one-way implications in the result ABI.
+An allowed decision now requires `allowed: true` plus concrete execution
+surface and cohort fields; live child states require a real interface and
+child handle; and `accepted` requires successful return validation, received
+output, and a concrete parent closeout route. These are contract consistency
+invariants, not evidence that a host launch or returned artifact actually
+occurred.
