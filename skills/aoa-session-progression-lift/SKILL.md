@@ -1,6 +1,6 @@
 ---
 name: aoa-session-progression-lift
-description: Lift closed, reviewed session evidence into a bounded multi-axis progression delta candidate for an AoA agent, with explicit baseline posture, attribution limits, holds or regressions, and small unlock hints. Use when meaningful mastery evidence needs owner review. Do not use on live impressions, to invent growth without a baseline, assign one universal score, mutate a role profile, grant authority, or turn progression into routing policy.
+description: Turn closed, reviewed session evidence into a bounded multi-axis progression candidate with baseline and attribution limits for aoa-agents review. Do not use on live impressions, without a baseline, to assign one universal score, mutate a role, grant authority, or set routing policy.
 ---
 
 # aoa-session-progression-lift
@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.4`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.5`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and

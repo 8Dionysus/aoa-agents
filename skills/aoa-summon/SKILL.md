@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Decide, launch, and close one bounded child-agent route from an anchored parent task through quest-passport gates, host delegation, named outputs, return validation, and reviewed closeout. Use when the user asks to delegate or summon one narrower reviewer, evaluator, verifier, or leaf helper and a real parent anchor exists. Do not use without explicit delegation intent, with unresolved branch choice, unnamed outputs, d3+ unsplit work, or to bypass approval, proof, progression, stress, or owner boundaries.
+description: Delegate one bounded child-agent route from an anchored parent task, including host launch, named outputs, return validation, and parent closeout. Use only when the user explicitly asks to delegate or summon a narrower helper. Do not use without a parent anchor, with unresolved branching or unnamed outputs, for unsplit deep work, or to bypass approval, owner, or proof boundaries.
 ---
 
 # aoa-summon
@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.4`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.5`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and

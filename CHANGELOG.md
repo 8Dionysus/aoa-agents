@@ -7,6 +7,11 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Changed
+
+- Compact the progression and summon descriptions while retaining reviewed
+  evidence, explicit delegation, parent-anchor, and authority boundaries.
+
 ## [0.5.0] - 2026-07-13
 
 ### Summary
