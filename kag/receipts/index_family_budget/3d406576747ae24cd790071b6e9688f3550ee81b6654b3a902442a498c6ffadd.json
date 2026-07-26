@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3655554,
+  "allowed_tracked_bytes": 13642394,
+  "approved_by": "repository-owner",
+  "base_ref": "66f8bf22d03518b1e2367fd4f51dab80650f6d37",
+  "changed_generated_bytes": 3655554,
+  "changed_generated_files": 109,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3d406576747ae24cd790071b6e9688f3550ee81b6654b3a902442a498c6ffadd",
+  "reason": "Regenerate the reviewed summon state-machine projection with the repository-pinned KAG action against the pull-request merge base.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 13642394,
+  "tracked_bytes_max": 16777216
+}
