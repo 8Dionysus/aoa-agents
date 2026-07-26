@@ -1,17 +1,17 @@
 {
-  "allowed_bytes": 3545269,
-  "allowed_tracked_bytes": 13638426,
+  "allowed_bytes": 3546236,
+  "allowed_tracked_bytes": 13639393,
   "approved_by": "repository-owner",
   "base_ref": "66f8bf22d03518b1e2367fd4f51dab80650f6d37",
-  "changed_generated_bytes": 3545269,
+  "changed_generated_bytes": 3546236,
   "changed_generated_files": 106,
   "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
   "default_limit_bytes": 1048576,
-  "head_family_digest": "53e0fe79c894bbfc12d5ac22f944b8b2987ba736867bfd20a6b1d74643869c36",
-  "reason": "PR #269 hardens the aoa-summon request and result contracts and refreshes their deterministic owner projection.",
+  "head_family_digest": "2642845c6c4c74976b048e9d1a69153796559a8d796da5dcbb5ccc89d0b7d367",
+  "reason": "PR #269 preserves summon and progression routing while closing contradictory decision, live-runtime identity, executable-target, and accepted-return states in the owner contract.",
   "repo": "aoa-agents",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
   "scope": "generated_delta",
-  "tracked_bytes": 13638426,
+  "tracked_bytes": 13639393,
   "tracked_bytes_max": 16777216
 }
