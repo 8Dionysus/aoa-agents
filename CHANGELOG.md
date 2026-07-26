@@ -44,6 +44,8 @@ Tracking starts with the community-docs baseline for this repository.
 - Bind request and result through one immutable ref, digest, and copied intent;
   keep expected outputs only in the request, require exact cross-instance
   key-set review before acceptance, and reserve `decided` for decide mode.
+- Preserve binding, handle, and runtime effect in failed post-launch results,
+  and explicitly reject the retired result-side expected-output list.
 
 ## [0.5.0] - 2026-07-13
 

@@ -186,3 +186,11 @@ acceptance requires resolving that request, verifying its digest, and manually
 checking exact equality between its expected-output set and the result's keyed
 output map. The result schema also prevents an allowed `execute` request from
 terminating as the decision-only `decided` state.
+
+### 2026-07-26 - Preserve failed runtime identity
+
+Version `0.2.17` applies the live runtime identity, inspected binding, and
+`child-agent-runtime` effect requirements to failed post-launch children as
+well as launched, running, returned, and accepted children. It also explicitly
+rejects the retired result-side `expected_outputs` field so a legacy list
+cannot contradict the canonical request plus keyed validation map.

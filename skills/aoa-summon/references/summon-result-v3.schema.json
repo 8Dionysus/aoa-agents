@@ -4,6 +4,7 @@
   "title": "aoa-summon result v3",
   "type": "object",
   "additionalProperties": true,
+  "not": {"required": ["expected_outputs"]},
   "required": [
     "allowed",
     "lane",
@@ -431,7 +432,7 @@
           "runtime_state": {
             "properties": {
               "state": {
-                "enum": ["launched", "running", "returned", "accepted"]
+                "enum": ["launched", "running", "returned", "accepted", "failed"]
               }
             },
             "required": ["state"]

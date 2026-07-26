@@ -23,7 +23,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.16`, an existing absolute
+   name, owner `aoa-agents`, version `0.2.17`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -132,6 +132,9 @@ authority or evade a gate.
   explicit empty `child_inputs` array
 - distinguish decided, launched, running, returned, accepted, blocked, and
   failed; a JSON plan is not runtime execution
+- require failed child execution to preserve the inspected binding, child
+  handle, and `child-agent-runtime` effect just like every other post-launch
+  state; reject the retired result-side `expected_outputs` field
 - validate returned artifacts against the request and preserve residual risk,
   checkpoint/memo candidates, and owner closeout without promoting them
 - build `return_validation.output_checks` as an object keyed by every request

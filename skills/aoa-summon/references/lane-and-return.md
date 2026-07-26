@@ -58,7 +58,10 @@ output checks, accepted return, or actual effects and is never allowed. An
 inspected unavailable binding carries a non-empty reason; an inspected available
 binding carries no failure reason.
 An allowed `execute` result must be launched, running, returned, accepted, or
-failed; it cannot stop as a plan.
+failed; it cannot stop as a plan. A failed post-launch result retains the
+inspected binding, child handle, and `child-agent-runtime` effect. The retired
+result-side `expected_outputs` field is invalid; output identity exists only in
+the immutable request and the keyed validation map.
 Aggregate return acceptance implies the `accepted` runtime state. An available
 inspected binding names its concrete interface. `split_required` and
 `human_gate` decisions use only their matching lanes in both directions, and
