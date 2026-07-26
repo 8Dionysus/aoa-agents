@@ -78,7 +78,16 @@
         "required": ["decision_state"]
       },
       "then": {
-        "properties": {"allowed": {"const": false}}
+        "properties": {
+          "allowed": {"const": false},
+          "runtime_state": {
+            "properties": {
+              "state": {"const": "not_run"},
+              "child_handle": {"const": null}
+            },
+            "required": ["state", "child_handle"]
+          }
+        }
       }
     },
     {
@@ -109,6 +118,51 @@
           "binding": {
             "properties": {"available": {"const": null}},
             "required": ["available"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "inspected": {"const": true},
+              "available": {"const": false}
+            },
+            "required": ["inspected", "available"]
+          }
+        },
+        "required": ["binding"]
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {
+              "reason": {"type": "string", "minLength": 1}
+            },
+            "required": ["reason"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "runtime_state": {
+            "properties": {
+              "state": {"enum": ["decided", "not_run"]}
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["runtime_state"]
+      },
+      "then": {
+        "properties": {
+          "runtime_state": {
+            "properties": {"child_handle": {"const": null}},
+            "required": ["child_handle"]
           }
         }
       }

@@ -26,6 +26,9 @@ Tracking starts with the community-docs baseline for this repository.
   execution targets for executable lanes, require runtime identity for live
   child states, and admit `accepted` only after successful return validation
   and concrete parent closeout.
+- Keep every non-allowed decision in `not_run`, clear child handles from
+  decision-only and non-run states, and require an inspected unavailable
+  binding to explain its failure.
 
 ## [0.5.0] - 2026-07-13
 

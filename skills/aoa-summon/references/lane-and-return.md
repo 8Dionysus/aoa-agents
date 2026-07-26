@@ -41,7 +41,9 @@ returned, or accepted runtime state additionally requires
 `binding.available: true`, a non-empty binding interface, and a non-empty child
 handle. An `accepted` state additionally requires successful return validation,
 at least one received output, and concrete parent-owner and next-route closeout
-fields.
+fields. A `decided` or `not_run` state has no child handle. A non-allowed
+decision remains `not_run`; an inspected unavailable binding carries a
+non-empty reason.
 
 ## Required result additions
 

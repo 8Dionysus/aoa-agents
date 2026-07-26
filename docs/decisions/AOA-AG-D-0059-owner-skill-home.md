@@ -130,3 +130,11 @@ child handle; and `accepted` requires successful return validation, received
 output, and a concrete parent closeout route. These are contract consistency
 invariants, not evidence that a host launch or returned artifact actually
 occurred.
+
+### 2026-07-26 - Exclude phantom execution from non-run states
+
+Version `0.2.11` makes the pre-execution side of the state machine equally
+explicit. Blocked and gate decisions remain `not_run`, `decided` and
+`not_run` cannot carry a child handle, and an inspected unavailable binding
+must include a concrete reason. This prevents a gate, plan, or failed binding
+probe from masquerading as runtime identity.
