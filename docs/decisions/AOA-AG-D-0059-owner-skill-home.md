@@ -107,3 +107,16 @@ inspected. An uninspected decision reports `available: null`; only a real host
 probe may report true or false, and live runtime states require inspected,
 available binding. The same complete request must be rerun to prove the
 behavioral correction.
+
+### 2026-07-25 - Close contradictory result states
+
+Review of the corrected result ABI found three remaining contradictions:
+`allowed` could accompany a gate-only lane, `lane: null` did not itself require
+the missing-request reason, and an inspected binding could still report
+unknown availability.
+
+Version `0.2.9` limits allowed results to executable lanes, makes a null lane
+and `blocked_missing_request_input` imply one another, and requires boolean
+availability after inspection. These schema invariants encode the already
+stated procedure; they do not prove that a particular delegation is lawful or
+that a host binding is available.

@@ -19,6 +19,9 @@ Tracking starts with the community-docs baseline for this repository.
   null result lane for schema-valid pre-admission blocks.
 - Represent uninspected decision-only host binding as unknown instead of
   available, and require inspected availability for live runtime states.
+- Reject allowed results on non-executable gate lanes, reserve a null lane
+  bidirectionally for missing-request blocks, and require concrete boolean
+  availability after any claimed binding inspection.
 
 ## [0.5.0] - 2026-07-13
 

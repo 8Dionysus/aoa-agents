@@ -28,11 +28,15 @@
         "properties": {
           "allowed": {"const": false},
           "decision_state": {"const": "blocked"},
+          "reason_codes": {
+            "contains": {"const": "blocked_missing_request_input"}
+          },
           "runtime_state": {
             "properties": {"state": {"const": "not_run"}},
             "required": ["state"]
           }
-        }
+        },
+        "required": ["reason_codes"]
       }
     },
     {
@@ -43,7 +47,13 @@
       "then": {
         "properties": {
           "decision_state": {"const": "allowed"},
-          "lane": {"type": "string"}
+          "lane": {
+            "enum": [
+              "codex_local_leaf",
+              "codex_local_reviewed",
+              "remote_reviewed"
+            ]
+          }
         }
       }
     },
@@ -87,6 +97,25 @@
         "properties": {
           "binding": {
             "properties": {"available": {"const": null}},
+            "required": ["available"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "binding": {
+            "properties": {"inspected": {"const": true}},
+            "required": ["inspected"]
+          }
+        },
+        "required": ["binding"]
+      },
+      "then": {
+        "properties": {
+          "binding": {
+            "properties": {"available": {"type": "boolean"}},
             "required": ["available"]
           }
         }
