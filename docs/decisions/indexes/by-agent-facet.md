@@ -73,6 +73,7 @@
 
 - [AOA-AG-D-0019 2026-05-26: Runtime Artifact Contract Localization](../AOA-AG-D-0019-runtime-artifact-contract-localization.md) (`docs/decisions/AOA-AG-D-0019-runtime-artifact-contract-localization.md`)
 - [AOA-AG-D-0020 2026-05-26: Runtime Artifact Check Localization](../AOA-AG-D-0020-runtime-artifact-check-localization.md) (`docs/decisions/AOA-AG-D-0020-runtime-artifact-check-localization.md`)
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## checkpoint/self-agent
 
@@ -170,6 +171,14 @@
 ## handoff
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## memo posture
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
+## model tier
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## progression
 

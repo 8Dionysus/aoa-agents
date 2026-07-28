@@ -18,7 +18,8 @@ owner boundaries must say why the pack does not own implementation.
 
 Do not turn a pack into a workflow body. Route workflow implementation to
 `aoa-skills`, proof doctrine to `aoa-evals`, memory truth to `aoa-memo`,
-routing policy to `aoa-routing`, and runtime behavior to `abyss-stack`.
+routing policy to the `aoa-sdk` routing control plane, and runtime behavior to
+`abyss-stack`.
 
 ## Validation
 

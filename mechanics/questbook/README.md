@@ -34,4 +34,4 @@ reference routes legible without taking playbook scenario authority.
   root-published read models built from `quests/`.
 - `aoa-playbooks` owns scenario composition and choreography.
 - `aoa-evals` owns quest proof or verdict surfaces.
-- `aoa-routing` owns general routing policy.
+- The `aoa-sdk` routing control plane owns general routing policy.

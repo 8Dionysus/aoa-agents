@@ -131,7 +131,8 @@ without mutating profiles, inventing a new orchestrator class, or turning
 ## Boundaries To Preserve
 
 - runtime may read `generated/agent_registry.min.json` and `generated/model_tier_registry.json`
-- `aoa-routing` still owns navigation and dispatch surfaces
+- the `aoa-sdk` routing control plane owns navigation and dispatch surfaces;
+  `aoa-routing` remains the stable compatibility layer
 - `aoa-playbooks` still owns scenario composition
 - `aoa-skills` still owns bounded execution workflows
 - `aoa-memo` still owns memory objects and writeback doctrine
@@ -150,15 +151,16 @@ contracts in this repository:
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`
 - `AOA_MEMO_ROOT`
-- `AOA_ROUTING_ROOT`
+- `AOA_SDK_ROUTING_BUNDLE_ROOT`
 
 These checks verify bounded contract reachability only.
 They do not move playbook meaning, eval doctrine, memo object meaning, or
 routing meaning into `aoa-agents`.
 
-For `aoa-routing`, the role-and-tier contract stays tier-aware, while the memo
-follow-up may also confirm routing-published doctrine-default and
-`memory_objects` tiny-model recall entrypoints.
+For the SDK-produced `aoa-routing` compatibility bundle, the role-and-tier
+contract stays tier-aware, while the memo follow-up may also confirm
+routing-published doctrine-default and `memory_objects` tiny-model recall
+entrypoints after canonical producer and digest admission.
 Router remains tier-aware, not cohort-aware, and memo dispatch policy still
 stays outside `aoa-agents`.
 

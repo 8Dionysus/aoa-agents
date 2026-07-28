@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import os
 import re
@@ -641,11 +642,11 @@ REQUIRED_FEDERATION_DOC_SNIPPETS = (
     "### `aoa-playbooks`",
     "### `aoa-evals`",
     "### `aoa-memo`",
-    "### `aoa-routing`",
+    "### SDK routing compatibility bundle",
     "- `aoa-playbooks` consumes agent names, model-tier artifacts, and a bounded",
     "- `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may",
-    "- `aoa-routing` consumes model-tier registry for tier hints and selects the next",
-    "- `aoa-agents` may read routing-published memo recall entrypoints as bounded",
+    "- the `aoa-sdk` routing producer consumes the model-tier registry for tier",
+    "- `aoa-agents` may read SDK-produced routing memo recall entrypoints from an",
     "- `AOA-P-0006 -> checkpoint_cohort`",
     "- `AOA-P-0008 -> orchestrated_loop`",
     "Router remains tier-aware, not cohort-aware, in this slice.",
@@ -655,7 +656,7 @@ REQUIRED_FEDERATION_DOC_SNIPPETS = (
 
 REQUIRED_AGENT_MEMORY_POSTURE_SNIPPETS = (
     "`aoa-memo` owns memory-object canon, memory doctrine, and recall meaning.",
-    "`aoa-routing` selects the next memo path.",
+    "The `aoa-sdk` routing control plane selects the next memo path.",
     "`aoa-agents` only states which roles may use published or routed object recall seams.",
     "the default memo path and `memory_objects` remains an explicit parallel family",
     "Read reviewed memory through `aoa-memo` object ids, provenance, lifecycle, and",
@@ -749,33 +750,54 @@ PHASE_ALPHA_PLAYBOOK_NAMES_BY_ID = {
 }
 
 MEMO_OBJECT_SURFACE_PATHS = (
-    "generated/memory_object_catalog.min.json",
-    "generated/memory_object_capsules.json",
-    "generated/memory_object_sections.full.json",
+    "generated/memory-objects/memory_object_catalog.min.json",
+    "generated/memory-objects/memory_object_capsules.json",
+    "generated/memory-objects/memory_object_sections.full.json",
 )
 
 MEMO_OBJECT_RECALL_CONTRACTS = (
-    ("examples/recall_contract.object.working.json", "working"),
-    ("examples/recall_contract.object.semantic.json", "semantic"),
-    ("examples/recall_contract.object.lineage.json", "lineage"),
+    ("examples/recall/recall_contract.object.working.json", "working"),
+    ("examples/recall/recall_contract.object.semantic.json", "semantic"),
+    ("examples/recall/recall_contract.object.lineage.json", "lineage"),
 )
 
-MEMO_OBJECT_INSPECT_SURFACE = "generated/memory_object_catalog.min.json"
-MEMO_OBJECT_CAPSULE_SURFACE = "generated/memory_object_capsules.json"
-MEMO_OBJECT_EXPAND_SURFACE = "generated/memory_object_sections.full.json"
+MEMO_OBJECT_INSPECT_SURFACE = "generated/memory-objects/memory_object_catalog.min.json"
+MEMO_OBJECT_CAPSULE_SURFACE = "generated/memory-objects/memory_object_capsules.json"
+MEMO_OBJECT_EXPAND_SURFACE = "generated/memory-objects/memory_object_sections.full.json"
 MEMO_CAPSULE_REQUIRED_MODES = {"semantic", "lineage"}
-MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE = "generated/runtime_writeback_governance.min.json"
+MEMO_RUNTIME_WRITEBACK_GOVERNANCE_SURFACE = (
+    "mechanics/writeback/parts/runtime-and-temperature/generated/"
+    "runtime_writeback_governance.min.json"
+)
 MEMO_REVIEWED_CANDIDATE_TARGETS = (
     ("distillation_bridge_candidate", "bridge"),
     ("distillation_claim_candidate", "claim"),
     ("distillation_pattern_candidate", "pattern"),
 )
 ROUTING_TASK_TO_SURFACE_HINTS_PATH = "generated/task_to_surface_hints.json"
+ROUTING_TASK_TO_TIER_HINTS_PATH = "generated/task_to_tier_hints.json"
 ROUTING_TINY_MODEL_ENTRYPOINTS_PATH = "generated/tiny_model_entrypoints.json"
 ROUTING_MEMO_OBJECT_RECALL_FAMILY = "memory_objects"
-ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory_catalog.min.json"
-ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory_capsules.json"
-ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory_sections.full.json"
+ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE = "generated/memory/memory_catalog.min.json"
+ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE = "generated/memory/memory_capsules.json"
+ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE = "generated/memory/memory_sections.full.json"
+SDK_ROUTING_CANONICAL_MANIFEST_PATH = "artifact.bundle.json"
+SDK_ROUTING_CANONICAL_PROVENANCE_PATH = (
+    "succession/routing-g5-canonical-provenance.json"
+)
+SDK_ROUTING_OWNER_SWITCH_RECEIPT_PATH = (
+    "succession/routing-g5-owner-switch.json"
+)
+SDK_ROUTING_RUNTIME_MANIFEST_PATH = "manifest/federation_mirror_manifest.json"
+SDK_ROUTING_ABI_EPOCH = "aoa_routing_thin_router_v1"
+SDK_ROUTING_G5_AUTHORITY = {
+    "archive_authorized": False,
+    "canonical_producer_switch_authorized": True,
+    "compatibility_window_started": True,
+    "live_runtime_mutation_authorized": True,
+    "predecessor_maintenance_only": True,
+    "sdk_canonical": True,
+}
 ALLOWED_QUEST_CAPABILITY_TARGETS = {
     "repo_layer_selection",
     "evidence_closure",
@@ -3611,6 +3633,200 @@ def env_repo_root(name: str) -> Path | None:
     return root
 
 
+def stable_json_digest(payload: object) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
+def validate_sdk_routing_file_hashes(
+    bundle_root: Path,
+    hashes: object,
+    *,
+    label: str,
+) -> None:
+    if not isinstance(hashes, dict) or not hashes:
+        fail(f"{label} must expose non-empty file hashes")
+
+    required_paths = {
+        ROUTING_TASK_TO_TIER_HINTS_PATH,
+        ROUTING_TASK_TO_SURFACE_HINTS_PATH,
+        ROUTING_TINY_MODEL_ENTRYPOINTS_PATH,
+    }
+    missing = sorted(required_paths - set(hashes))
+    if missing:
+        fail(f"{label} is missing required routing files: {', '.join(missing)}")
+
+    resolved_root = bundle_root.resolve()
+    for relative_path, expected_digest in hashes.items():
+        if not isinstance(relative_path, str) or not relative_path:
+            fail(f"{label} paths must be non-empty strings")
+        if (
+            not isinstance(expected_digest, str)
+            or not re.fullmatch(r"(?:sha256:)?[0-9a-f]{64}", expected_digest)
+        ):
+            fail(f"{label}[{relative_path!r}] must be a SHA-256 digest")
+        candidate = (resolved_root / relative_path).resolve()
+        try:
+            candidate.relative_to(resolved_root)
+        except ValueError:
+            fail(f"{label} path escapes the SDK routing bundle: {relative_path}")
+        if not candidate.is_file():
+            fail(f"{label} points at a missing file: {relative_path}")
+        actual_digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        if actual_digest != expected_digest.removeprefix("sha256:"):
+            fail(f"{label} digest mismatch for {relative_path}")
+
+
+def validate_sdk_routing_owner_switch_receipt(
+    receipt: object,
+    *,
+    source_ref: object,
+    label: str,
+) -> None:
+    if not isinstance(receipt, dict):
+        fail(f"{label} must be a JSON object")
+    sdk = receipt.get("sdk")
+    predecessor = receipt.get("predecessor")
+    if (
+        receipt.get("schema") != "aoa_sdk_routing_g5_owner_switch_receipt_v1"
+        or receipt.get("status") != "g5_switch_authorized"
+        or receipt.get("g5_authority") != SDK_ROUTING_G5_AUTHORITY
+        or not isinstance(sdk, dict)
+        or sdk.get("owner_repo") != "aoa-sdk"
+        or sdk.get("source_ref") != source_ref
+        or sdk.get("abi_epoch") != SDK_ROUTING_ABI_EPOCH
+        or not isinstance(predecessor, dict)
+        or predecessor.get("owner_repo") != "aoa-routing"
+        or predecessor.get("rollback_posture") != "retained"
+    ):
+        fail(f"{label} does not carry the exact SDK canonical owner switch")
+
+
+def validate_sdk_routing_bundle_admission(bundle_root: Path) -> None:
+    canonical_manifest_path = bundle_root / SDK_ROUTING_CANONICAL_MANIFEST_PATH
+    runtime_manifest_path = bundle_root / SDK_ROUTING_RUNTIME_MANIFEST_PATH
+
+    if canonical_manifest_path.is_file():
+        manifest = read_json(canonical_manifest_path, root=bundle_root)
+        provenance = read_json(
+            bundle_root / SDK_ROUTING_CANONICAL_PROVENANCE_PATH,
+            root=bundle_root,
+        )
+        receipt = read_json(
+            bundle_root / SDK_ROUTING_OWNER_SWITCH_RECEIPT_PATH,
+            root=bundle_root,
+        )
+        if not isinstance(manifest, dict):
+            fail("SDK routing canonical manifest must be a JSON object")
+        if (
+            manifest.get("schema") != "abyss_machine_artifact_bundle_manifest_v1"
+            or manifest.get("artifact_class") != "thin_routing_readmodel_bundle"
+            or manifest.get("owner_repo") != "aoa-sdk"
+            or manifest.get("producer_admission_profile_id")
+            != "aoa-sdk-g5-canonical"
+            or manifest.get("artifact_identity")
+            != {
+                "abi_epoch": SDK_ROUTING_ABI_EPOCH,
+                "artifact_class": "thin_routing_readmodel_bundle",
+            }
+        ):
+            fail("SDK routing canonical manifest is outside the admitted producer contract")
+        if not isinstance(provenance, dict):
+            fail("SDK routing canonical provenance must be a JSON object")
+        canonical_producer = provenance.get("canonical_producer")
+        artifact_identity = provenance.get("artifact_identity")
+        receipt_summary = provenance.get("owner_switch_receipt")
+        source_ref = (
+            canonical_producer.get("source_ref")
+            if isinstance(canonical_producer, dict)
+            else None
+        )
+        if (
+            provenance.get("state") != "sdk_canonical"
+            or provenance.get("g5_authority") != SDK_ROUTING_G5_AUTHORITY
+            or not isinstance(canonical_producer, dict)
+            or canonical_producer.get("owner_repo") != "aoa-sdk"
+            or canonical_producer.get("implementation")
+            != "aoa_sdk.control_plane.routing"
+            or not isinstance(source_ref, str)
+            or not source_ref
+            or artifact_identity
+            != {
+                "abi_epoch": SDK_ROUTING_ABI_EPOCH,
+                "artifact_class": "thin_routing_readmodel_bundle",
+                "owner_repo": "aoa-sdk",
+            }
+            or not isinstance(receipt_summary, dict)
+            or receipt_summary.get("path")
+            != SDK_ROUTING_OWNER_SWITCH_RECEIPT_PATH
+            or receipt_summary.get("schema")
+            != "aoa_sdk_routing_g5_owner_switch_receipt_v1"
+            or receipt_summary.get("status") != "g5_switch_authorized"
+        ):
+            fail("SDK routing canonical provenance does not admit aoa-sdk as producer")
+        validate_sdk_routing_owner_switch_receipt(
+            receipt,
+            source_ref=source_ref,
+            label="SDK routing canonical owner-switch receipt",
+        )
+        if receipt_summary.get("digest") != stable_json_digest(receipt):
+            fail("SDK routing canonical owner-switch receipt digest mismatch")
+        validate_sdk_routing_file_hashes(
+            bundle_root,
+            provenance.get("assembly_file_sha256"),
+            label="SDK routing canonical assembly_file_sha256",
+        )
+        return
+
+    if runtime_manifest_path.is_file():
+        manifest = read_json(runtime_manifest_path, root=bundle_root)
+        if not isinstance(manifest, dict):
+            fail("SDK routing runtime manifest must be a JSON object")
+        canonical_producer = manifest.get("canonical_producer")
+        source_ref = (
+            canonical_producer.get("source_ref")
+            if isinstance(canonical_producer, dict)
+            else None
+        )
+        if (
+            manifest.get("schema") != "abyss_stack_federation_mirror_manifest_v1"
+            or manifest.get("layer") != "aoa-routing"
+            or manifest.get("routing_producer_posture") != "sdk_canonical"
+            or manifest.get("cutover_activation_mode") != "authorized_live_cutover"
+            or manifest.get("g5_authority") != SDK_ROUTING_G5_AUTHORITY
+            or not isinstance(canonical_producer, dict)
+            or canonical_producer.get("owner_repo") != "aoa-sdk"
+            or not isinstance(source_ref, str)
+            or not source_ref
+            or manifest.get("source_git_commit") != source_ref
+        ):
+            fail("SDK routing runtime manifest does not admit aoa-sdk as producer")
+        receipt = manifest.get("owner_switch_receipt")
+        validate_sdk_routing_owner_switch_receipt(
+            receipt,
+            source_ref=source_ref,
+            label="SDK routing runtime owner-switch receipt",
+        )
+        if manifest.get("owner_switch_receipt_digest") != stable_json_digest(receipt):
+            fail("SDK routing runtime owner-switch receipt digest mismatch")
+        validate_sdk_routing_file_hashes(
+            bundle_root,
+            manifest.get("file_sha256"),
+            label="SDK routing runtime file_sha256",
+        )
+        return
+
+    fail(
+        "AOA_SDK_ROUTING_BUNDLE_ROOT must point at an SDK canonical routing "
+        "bundle or admitted runtime mirror"
+    )
+
+
 def iter_string_values(payload: object) -> list[str]:
     values: list[str] = []
     if isinstance(payload, str):
@@ -3811,27 +4027,28 @@ def validate_reference_playbook_cohort_compatibility(
 
 
 def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[str, dict[str, object]]) -> None:
-    payload = read_json(routing_root / "generated" / "task_to_tier_hints.json", root=routing_root)
+    validate_sdk_routing_bundle_admission(routing_root)
+    payload = read_json(routing_root / ROUTING_TASK_TO_TIER_HINTS_PATH, root=routing_root)
     if not isinstance(payload, dict):
-        fail("aoa-routing generated/task_to_tier_hints.json must be a JSON object")
+        fail("SDK routing task_to_tier_hints.json must be a JSON object")
 
     source_of_truth = payload.get("source_of_truth")
     if not isinstance(source_of_truth, dict):
-        fail("aoa-routing task_to_tier_hints.json must expose source_of_truth")
+        fail("SDK routing task_to_tier_hints.json must expose source_of_truth")
     if source_of_truth.get("tier_registry_repo") != "aoa-agents":
-        fail("aoa-routing task_to_tier_hints.json must keep source_of_truth.tier_registry_repo = 'aoa-agents'")
+        fail("SDK routing task_to_tier_hints.json must keep source_of_truth.tier_registry_repo = 'aoa-agents'")
     if source_of_truth.get("tier_registry_path") != "generated/model_tier_registry.json":
         fail(
-            "aoa-routing task_to_tier_hints.json must keep "
+            "SDK routing task_to_tier_hints.json must keep "
             "source_of_truth.tier_registry_path = 'generated/model_tier_registry.json'"
         )
 
     hints = payload.get("hints")
     if not isinstance(hints, list) or not hints:
-        fail("aoa-routing task_to_tier_hints.json must expose a non-empty hints list")
+        fail("SDK routing task_to_tier_hints.json must expose a non-empty hints list")
 
     for index, hint in enumerate(hints):
-        location = f"aoa-routing task_to_tier_hints.json.hints[{index}]"
+        location = f"SDK routing task_to_tier_hints.json.hints[{index}]"
         if not isinstance(hint, dict):
             fail(f"{location} must be an object")
         preferred_tier = hint.get("preferred_tier")
@@ -3852,54 +4069,54 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
 
     routing_hints = read_json(routing_root / ROUTING_TASK_TO_SURFACE_HINTS_PATH, root=routing_root)
     if not isinstance(routing_hints, dict):
-        fail(f"aoa-routing {ROUTING_TASK_TO_SURFACE_HINTS_PATH} must be a JSON object")
+        fail(f"SDK routing {ROUTING_TASK_TO_SURFACE_HINTS_PATH} must be a JSON object")
 
     hint_entries = routing_hints.get("hints")
     memo_hint = find_mapping_by_key(hint_entries, key="kind", expected_value="memo")
     if memo_hint is None:
-        fail("aoa-routing task_to_surface_hints.json must publish a memo hint")
+        fail("SDK routing task_to_surface_hints.json must publish a memo hint")
     actions = memo_hint.get("actions")
     if not isinstance(actions, dict):
-        fail("aoa-routing memo hint must expose actions")
+        fail("SDK routing memo hint must expose actions")
 
     inspect = actions.get("inspect")
     if not isinstance(inspect, dict) or inspect.get("surface_file") != ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE:
         fail(
-            "aoa-routing memo hint must keep doctrine inspect_surface = "
+            "SDK routing memo hint must keep doctrine inspect_surface = "
             f"'{ROUTING_MEMO_DOCTRINE_INSPECT_SURFACE}'"
         )
 
     expand = actions.get("expand")
     if not isinstance(expand, dict) or expand.get("surface_file") != ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE:
         fail(
-            "aoa-routing memo hint must keep doctrine expand_surface = "
+            "SDK routing memo hint must keep doctrine expand_surface = "
             f"'{ROUTING_MEMO_DOCTRINE_EXPAND_SURFACE}'"
         )
 
     recall = actions.get("recall")
     if not isinstance(recall, dict) or recall.get("enabled") is not True:
-        fail("aoa-routing memo hint must expose enabled recall routing")
+        fail("SDK routing memo hint must expose enabled recall routing")
 
     doctrine_supported_modes = recall.get("supported_modes")
     if not isinstance(doctrine_supported_modes, list) or not doctrine_supported_modes:
-        fail("aoa-routing memo recall hint must expose non-empty doctrine supported_modes")
+        fail("SDK routing memo recall hint must expose non-empty doctrine supported_modes")
     doctrine_supported_mode_set = set()
     for mode in doctrine_supported_modes:
         if not isinstance(mode, str) or not mode:
-            fail("aoa-routing memo recall supported_modes must contain non-empty strings")
+            fail("SDK routing memo recall supported_modes must contain non-empty strings")
         doctrine_supported_mode_set.add(mode)
 
     doctrine_default_mode = recall.get("default_mode")
     if not isinstance(doctrine_default_mode, str) or doctrine_default_mode not in doctrine_supported_mode_set:
-        fail("aoa-routing memo recall default_mode must resolve in doctrine supported_modes")
+        fail("SDK routing memo recall default_mode must resolve in doctrine supported_modes")
 
     doctrine_contracts_by_mode = recall.get("contracts_by_mode")
     if not isinstance(doctrine_contracts_by_mode, dict):
-        fail("aoa-routing memo recall hint must expose doctrine contracts_by_mode")
+        fail("SDK routing memo recall hint must expose doctrine contracts_by_mode")
     for mode in doctrine_supported_mode_set:
         if mode not in doctrine_contracts_by_mode:
             fail(
-                "aoa-routing memo recall hint must publish a doctrine contract for mode "
+                "SDK routing memo recall hint must publish a doctrine contract for mode "
                 f"'{mode}'"
             )
     doctrine_capsule_surfaces_by_mode = recall.get("capsule_surfaces_by_mode")
@@ -3907,61 +4124,61 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
     if doctrine_capsule_surfaces_by_mode is not None and not isinstance(
         doctrine_capsule_surfaces_by_mode, dict
     ):
-        fail("aoa-routing memo recall hint capsule_surfaces_by_mode must be an object when present")
+        fail("SDK routing memo recall hint capsule_surfaces_by_mode must be an object when present")
     if required_doctrine_capsule_modes:
         if not isinstance(doctrine_capsule_surfaces_by_mode, dict):
-            fail("aoa-routing memo recall hint must expose doctrine capsule_surfaces_by_mode")
+            fail("SDK routing memo recall hint must expose doctrine capsule_surfaces_by_mode")
         for mode in required_doctrine_capsule_modes:
             if doctrine_capsule_surfaces_by_mode.get(mode) != ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE:
                 fail(
-                    "aoa-routing memo recall hint must publish doctrine capsule_surfaces_by_mode "
+                    "SDK routing memo recall hint must publish doctrine capsule_surfaces_by_mode "
                     f"for mode '{mode}' -> '{ROUTING_MEMO_DOCTRINE_CAPSULE_SURFACE}'"
                 )
 
     parallel_families = recall.get("parallel_families")
     if not isinstance(parallel_families, dict):
-        fail("aoa-routing memo recall hint must expose parallel_families")
+        fail("SDK routing memo recall hint must expose parallel_families")
     object_family = parallel_families.get(ROUTING_MEMO_OBJECT_RECALL_FAMILY)
     if not isinstance(object_family, dict):
         fail(
-            "aoa-routing memo recall hint must publish the "
+            "SDK routing memo recall hint must publish the "
             f"'{ROUTING_MEMO_OBJECT_RECALL_FAMILY}' recall family"
         )
     if object_family.get("inspect_surface") != MEMO_OBJECT_INSPECT_SURFACE:
         fail(
-            "aoa-routing memory_objects recall family must point inspect_surface at "
+            "SDK routing memory_objects recall family must point inspect_surface at "
             f"'{MEMO_OBJECT_INSPECT_SURFACE}'"
         )
     if object_family.get("expand_surface") != MEMO_OBJECT_EXPAND_SURFACE:
         fail(
-            "aoa-routing memory_objects recall family must point expand_surface at "
+            "SDK routing memory_objects recall family must point expand_surface at "
             f"'{MEMO_OBJECT_EXPAND_SURFACE}'"
         )
 
     object_supported_mode_set = {mode for _, mode in MEMO_OBJECT_RECALL_CONTRACTS}
     object_supported_modes = object_family.get("supported_modes")
     if not isinstance(object_supported_modes, list):
-        fail("aoa-routing memory_objects recall family must expose supported_modes")
+        fail("SDK routing memory_objects recall family must expose supported_modes")
     actual_object_mode_set: set[str] = set()
     for mode in object_supported_modes:
         if not isinstance(mode, str) or not mode:
-            fail("aoa-routing memory_objects supported_modes must contain non-empty strings")
+            fail("SDK routing memory_objects supported_modes must contain non-empty strings")
         actual_object_mode_set.add(mode)
     if actual_object_mode_set != object_supported_mode_set:
         fail(
-            "aoa-routing memory_objects supported_modes must match aoa-memo object recall modes: "
+            "SDK routing memory_objects supported_modes must match aoa-memo object recall modes: "
             f"expected {sorted(object_supported_mode_set)}, got {sorted(actual_object_mode_set)}"
         )
     if object_family.get("default_mode") != "working":
-        fail("aoa-routing memory_objects recall family must keep default_mode = 'working'")
+        fail("SDK routing memory_objects recall family must keep default_mode = 'working'")
 
     object_contracts_by_mode = object_family.get("contracts_by_mode")
     if not isinstance(object_contracts_by_mode, dict):
-        fail("aoa-routing memory_objects recall family must expose contracts_by_mode")
+        fail("SDK routing memory_objects recall family must expose contracts_by_mode")
     for contract_file, mode in MEMO_OBJECT_RECALL_CONTRACTS:
         if object_contracts_by_mode.get(mode) != contract_file:
             fail(
-                "aoa-routing memory_objects recall family must mirror aoa-memo object contract "
+                "SDK routing memory_objects recall family must mirror aoa-memo object contract "
                 f"'{contract_file}' for mode '{mode}'"
             )
     object_capsule_surfaces_by_mode = object_family.get("capsule_surfaces_by_mode")
@@ -3969,27 +4186,27 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
     if object_capsule_surfaces_by_mode is not None and not isinstance(
         object_capsule_surfaces_by_mode, dict
     ):
-        fail("aoa-routing memory_objects recall family capsule_surfaces_by_mode must be an object when present")
+        fail("SDK routing memory_objects recall family capsule_surfaces_by_mode must be an object when present")
     if required_object_capsule_modes:
         if not isinstance(object_capsule_surfaces_by_mode, dict):
-            fail("aoa-routing memory_objects recall family must expose capsule_surfaces_by_mode")
+            fail("SDK routing memory_objects recall family must expose capsule_surfaces_by_mode")
         for mode in required_object_capsule_modes:
             if object_capsule_surfaces_by_mode.get(mode) != MEMO_OBJECT_CAPSULE_SURFACE:
                 fail(
-                    "aoa-routing memory_objects recall family must publish capsule_surfaces_by_mode "
+                    "SDK routing memory_objects recall family must publish capsule_surfaces_by_mode "
                     f"for mode '{mode}' -> '{MEMO_OBJECT_CAPSULE_SURFACE}'"
                 )
 
     tiny_payload = read_json(routing_root / ROUTING_TINY_MODEL_ENTRYPOINTS_PATH, root=routing_root)
     if not isinstance(tiny_payload, dict):
-        fail(f"aoa-routing {ROUTING_TINY_MODEL_ENTRYPOINTS_PATH} must be a JSON object")
+        fail(f"SDK routing {ROUTING_TINY_MODEL_ENTRYPOINTS_PATH} must be a JSON object")
 
     queries = tiny_payload.get("queries")
     if not isinstance(queries, list) or not queries:
-        fail("aoa-routing tiny_model_entrypoints.json must expose a non-empty queries list")
+        fail("SDK routing tiny_model_entrypoints.json must expose a non-empty queries list")
     starters = tiny_payload.get("starters")
     if not isinstance(starters, list) or not starters:
-        fail("aoa-routing tiny_model_entrypoints.json must expose a non-empty starters list")
+        fail("SDK routing tiny_model_entrypoints.json must expose a non-empty starters list")
 
     doctrine_query_found = False
     object_query_found = False
@@ -4009,10 +4226,10 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
             object_query_found = True
 
     if not doctrine_query_found:
-        fail("aoa-routing tiny_model_entrypoints.json must publish a doctrine-default memo recall query")
+        fail("SDK routing tiny_model_entrypoints.json must publish a doctrine-default memo recall query")
     if not object_query_found:
         fail(
-            "aoa-routing tiny_model_entrypoints.json must publish a memo recall query for "
+            "SDK routing tiny_model_entrypoints.json must publish a memo recall query for "
             f"recall_family = '{ROUTING_MEMO_OBJECT_RECALL_FAMILY}'"
         )
 
@@ -4030,10 +4247,10 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
         if starter.get("allowed_kinds") != ["memo"]:
             continue
         if starter.get("target_kind") != "memo" or starter.get("target_value") != "memo":
-            fail("aoa-routing memo recall starters must keep target_kind/target_value = 'memo'")
+            fail("SDK routing memo recall starters must keep target_kind/target_value = 'memo'")
         recall_mode = starter.get("recall_mode")
         if not isinstance(recall_mode, str) or not recall_mode:
-            fail("aoa-routing memo recall starters must expose a non-empty recall_mode")
+            fail("SDK routing memo recall starters must expose a non-empty recall_mode")
         recall_family = starter.get("recall_family")
         if recall_family is None:
             doctrine_starter_modes.add(recall_mode)
@@ -4042,12 +4259,12 @@ def validate_optional_routing_smoke_check(routing_root: Path, tiers_by_id: dict[
 
     if doctrine_starter_modes != doctrine_supported_mode_set:
         fail(
-            "aoa-routing doctrine recall starters must match doctrine supported_modes: "
+            "SDK routing doctrine recall starters must match doctrine supported_modes: "
             f"expected {sorted(doctrine_supported_mode_set)}, got {sorted(doctrine_starter_modes)}"
         )
     if object_starter_modes != object_supported_mode_set:
         fail(
-            "aoa-routing memory_objects recall starters must match object family supported_modes: "
+            "SDK routing memory_objects recall starters must match object family supported_modes: "
             f"expected {sorted(object_supported_mode_set)}, got {sorted(object_starter_modes)}"
         )
 
@@ -4119,10 +4336,10 @@ def validate_optional_consumer_smoke_checks(
         validate_optional_memo_reviewed_candidate_smoke_check(memo_root)
         checked.append("aoa-memo")
 
-    routing_root = env_repo_root("AOA_ROUTING_ROOT")
+    routing_root = env_repo_root("AOA_SDK_ROUTING_BUNDLE_ROOT")
     if routing_root is not None:
         validate_optional_routing_smoke_check(routing_root, tiers_by_id)
-        checked.append("aoa-routing")
+        checked.append("aoa-sdk")
 
     return checked
 

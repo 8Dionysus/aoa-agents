@@ -110,7 +110,8 @@ Preferred default shape:
 
 - tier roles are not brand names
 - tier roles are not the same as human role archetypes
-- `aoa-routing` may point toward tiers, but it does not own tier doctrine
+- the `aoa-sdk` routing control plane may point toward tiers through the stable
+  `aoa-routing` compatibility layer, but it does not own tier doctrine
 - `abyss-stack` may document model profiles, but it does not own agent-layer tier meaning
 
 ## Minimal contract

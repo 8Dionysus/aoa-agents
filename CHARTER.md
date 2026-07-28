@@ -59,7 +59,7 @@ It should:
 | bounded execution workflows | `aoa-skills` |
 | proof doctrine, verdicts, scoring, and regression claims | `aoa-evals` |
 | memory objects, recall truth, and retention | `aoa-memo` |
-| navigation, dispatch, and route policy | `aoa-routing` |
+| navigation, dispatch, and route policy | `aoa-sdk` routing control plane; `aoa-routing` remains the stable compatibility layer |
 | recurring scenario choreography | `aoa-playbooks` |
 | derived graph or retrieval substrate semantics | `aoa-kag` |
 | observability summaries and movement windows | `aoa-stats` |

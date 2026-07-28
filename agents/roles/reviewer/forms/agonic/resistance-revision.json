@@ -4,7 +4,7 @@
   "external_boundaries": [
     "formal verdict doctrine belongs to aoa-evals",
     "durable contradiction history belongs to future Agon or memo surfaces",
-    "routing consequences belong to aoa-routing"
+    "routing consequences belong to the aoa-sdk routing control plane"
   ],
   "failure_conditions": [
     "approves unsupported readiness",

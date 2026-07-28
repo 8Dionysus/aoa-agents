@@ -82,14 +82,13 @@
     {
       "kind": "routes_via",
       "target": "generated/return_navigation_hints.min.json",
-      "target_repo": "aoa-routing",
+      "target_repo": "aoa-sdk",
       "required": false,
       "suggested_action": "reroute",
       "suggested_commands": [
-        "python scripts/build_router.py",
-        "python scripts/validate_router.py"
+        "python scripts/release_check.py"
       ],
-      "notes": "refresh return navigation hints when subagent projection meaning changes"
+      "notes": "refresh return navigation hints through the SDK routing producer when subagent projection meaning changes"
     },
     {
       "kind": "handoff_home",

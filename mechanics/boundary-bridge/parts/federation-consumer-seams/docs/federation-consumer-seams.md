@@ -24,16 +24,18 @@ They do not move their canon into `aoa-agents`.
 - `aoa-evals` consumes artifact schema refs only
 - `aoa-memo` owns memory-object canon and recall meaning; `aoa-agents` may
   consume published object recall seams as role posture only
-- `aoa-routing` consumes model-tier registry for tier hints and selects the next
-  memo path
+- the `aoa-sdk` routing producer consumes the model-tier registry for tier
+  hints and publishes the next memo path through the stable `aoa-routing`
+  compatibility layer
 - `aoa-sdk` may consume agent-layer workspace trigger posture as additive
   guidance for when surface detection should open after ingress and guard,
   and may consume the Codex projection manifest for local child-target planning
 - workspace `.codex/` may consume the generated Codex custom-agent projection
   for the five active role seeds
-- `aoa-agents` may read routing-published memo recall entrypoints as bounded
-  consumer guidance, where doctrine recall stays the default tiny-model path and
-  `memory_objects` stays an explicit parallel family
+- `aoa-agents` may read SDK-produced routing memo recall entrypoints from an
+  admitted canonical bundle or runtime mirror as bounded consumer guidance,
+  where doctrine recall stays the default tiny-model path and `memory_objects`
+  stays an explicit parallel family
 
 ## Consumer Check Matrix
 
@@ -82,13 +84,17 @@ Out of scope:
 - recall doctrine ownership
 - memo lifecycle policy
 
-### `aoa-routing`
+### SDK routing compatibility bundle
 
 Promise:
 - `aoa-agents` publishes the model-tier registry and may read routing-published
   memo entry surfaces as consumer guidance only
+- `aoa-sdk` remains the canonical producer while `aoa-routing` remains the
+  compatibility namespace, ABI, and runtime layer name
 
 Validator confirms:
+- the bundle or runtime mirror admits `aoa-sdk` as canonical producer
+- the owner-switch receipt, ABI epoch, and declared file digests match
 - routing tier hints resolve back to the published tier registry
 - doctrine-default memo recall entrypoints remain intact
 - `memory_objects` remains a parallel recall family
@@ -158,7 +164,8 @@ mapping in this slice.
 
 ## Routing seam
 
-`aoa-routing` currently consumes `generated/model_tier_registry.json` through
+The `aoa-sdk` routing producer consumes `generated/model_tier_registry.json`
+and publishes the stable compatibility artifact
 `generated/task_to_tier_hints.json`.
 
 The bounded routing contract for this slice is:
@@ -171,7 +178,8 @@ The bounded routing contract for this slice is:
 
 Router remains tier-aware, not cohort-aware, in this slice.
 
-`aoa-agents` may also read routing-published memo recall entry surfaces through:
+`aoa-agents` may also read SDK-produced routing memo recall entry surfaces
+through:
 
 - `generated/task_to_surface_hints.json`
 - `generated/tiny_model_entrypoints.json`
@@ -206,10 +214,12 @@ the corresponding roots are supplied:
 - `AOA_PLAYBOOKS_ROOT`
 - `AOA_EVALS_ROOT`
 - `AOA_MEMO_ROOT`
-- `AOA_ROUTING_ROOT`
+- `AOA_SDK_ROUTING_BUNDLE_ROOT`
 
-These checks confirm bounded consumer contract reachability only.
-They do not validate whole neighboring repositories or import their meaning.
+These checks confirm bounded consumer contract reachability only. The SDK
+routing bundle check additionally fails closed unless canonical producer,
+owner-switch receipt, ABI, and file digests are admitted. They do not validate
+whole neighboring repositories or import their meaning.
 `AOA_MEMO_ROOT` also confirms published object recall surface reachability for
 `aoa-agents` consumer posture only.
 
@@ -219,7 +229,7 @@ remain docs-and-contract surfaces rather than optional smoke-check targets.
 ## Boundaries to preserve
 
 - do not require new fields in neighboring repos for this slice
-- do not make `aoa-routing` consume the cohort registry
+- do not make the `aoa-sdk` routing producer consume the cohort registry
 - do not make `aoa-evals` or `aoa-memo` cohort-aware here
 - do not widen reference playbook checks into universal playbook doctrine
 - do not move tiny-model recall-family selection policy into `aoa-agents`

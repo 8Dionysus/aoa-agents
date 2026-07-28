@@ -340,7 +340,7 @@ mechanic-localizing it here:
 | runtime implementation | runtime owner, usually `abyss-stack` |
 | proof verdict or eval bundle | `aoa-evals` |
 | durable memory object or recall truth | `aoa-memo` |
-| routing policy | `aoa-routing` |
+| routing policy | `aoa-sdk` routing control plane |
 | playbook scenario choreography | `aoa-playbooks` |
 | reusable skill or technique | `aoa-skills` or `aoa-techniques` |
 

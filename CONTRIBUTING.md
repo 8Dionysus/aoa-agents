@@ -38,7 +38,7 @@ Examples:
 - `aoa-techniques` owns practice meaning
 - `aoa-skills` owns execution meaning
 - `aoa-evals` owns proof meaning
-- `aoa-routing` owns navigation surfaces
+- `aoa-sdk` owns the routing control plane; `aoa-routing` remains the stable compatibility layer
 - `aoa-memo` owns memory meaning
 
 ## How to decide where a change belongs
@@ -56,7 +56,7 @@ Ask these questions in order:
 5. Is this change mainly about memory objects or recall truth?
    - If yes, it probably belongs in `aoa-memo`.
 6. Is this change mainly about dispatch across repos?
-   - If yes, it probably belongs in `aoa-routing`.
+   - If yes, it probably belongs in the `aoa-sdk` routing control plane.
 
 ## Pull request shape
 

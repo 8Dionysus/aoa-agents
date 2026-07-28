@@ -183,10 +183,22 @@
 - [AOA-AG-D-0049 2026-05-26: Provenance Bridge Operating Shape](../AOA-AG-D-0049-provenance-bridge-operating-shape.md) (`docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
 
+## federation consumer seam
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
 ## owner skill home
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 
+## sibling-owner boundary
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
 ## user projection
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## validator
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)

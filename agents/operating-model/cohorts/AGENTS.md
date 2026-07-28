@@ -36,7 +36,7 @@ Keep the official bounded set explicit:
 Do not turn cohort patterns into:
 
 - playbooks from `aoa-playbooks`
-- routing policy from `aoa-routing`
+- routing policy from the `aoa-sdk` routing control plane
 - memory doctrine from `aoa-memo`
 - eval doctrine from `aoa-evals`
 

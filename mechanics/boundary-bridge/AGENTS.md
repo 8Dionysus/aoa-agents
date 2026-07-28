@@ -36,7 +36,8 @@ workspace triggers, install compatibility, and source-surface registries.
 
 ## Boundaries
 
-- General routing policy belongs to `aoa-routing`.
+- General routing policy belongs to the `aoa-sdk` routing control plane;
+  `aoa-routing` remains its stable compatibility layer.
 - Runtime boundaries belong to runtime owners.
 - Public entry orientation belongs to `8Dionysus`.
 - Durable memory handoff belongs to `aoa-memo`.

@@ -104,7 +104,7 @@ This keeps rollback posture real rather than ceremonial.
 
 - `aoa-playbooks` still owns scenario composition and named route method
 - `aoa-memo` still owns memory objects, checkpoint export, and writeback meaning
-- `aoa-routing` still owns navigation and dispatch surfaces
+- the `aoa-sdk` routing control plane owns navigation and dispatch surfaces
 - `aoa-evals` still owns proof doctrine and verdict logic
 - `abyss-stack` still owns runtime context rebuild, retries, wrapper policy, and infrastructure implementation
 

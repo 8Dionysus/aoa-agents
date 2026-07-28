@@ -45,7 +45,7 @@ generated/agent_formation_trial.min.json
 Later reviewed turns may connect these assistant variants to:
 
 ```text
-aoa-routing
+aoa-sdk routing control plane
 aoa-playbooks
 aoa-evals
 aoa-memo

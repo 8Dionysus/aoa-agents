@@ -194,13 +194,29 @@
 
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
 
+## canonical producer admission
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
 ## closeout
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 
+## compatibility ABI
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
+## consumer-zero
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
 ## evidence boundary
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## owner succession
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## runtime binding
 

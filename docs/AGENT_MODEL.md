@@ -138,7 +138,8 @@ This gap creates review surfaces and makes self-agent posture legible.
 - `aoa-techniques` stores reusable practice
 - `aoa-skills` stores bounded execution
 - `aoa-evals` stores bounded proof
-- `aoa-routing` stores navigation and dispatch
+- the `aoa-sdk` routing control plane publishes navigation and dispatch through
+  the stable `aoa-routing` compatibility layer
 - `aoa-memo` stores memory and recall surfaces
 - `aoa-agents` stores reusable role-bearing actors
 
