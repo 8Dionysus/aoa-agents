@@ -38,6 +38,7 @@
 - [AOA-AG-D-0002 2026-05-25: Mechanics Package Skeleton](../AOA-AG-D-0002-mechanics-package-skeleton.md) (`docs/decisions/AOA-AG-D-0002-mechanics-package-skeleton.md`)
 - [AOA-AG-D-0034 2026-05-26: Adoption And Boundary Contract Localization](../AOA-AG-D-0034-adoption-boundary-contract-localization.md) (`docs/decisions/AOA-AG-D-0034-adoption-boundary-contract-localization.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## checkpoint
 
@@ -106,6 +107,7 @@
 - [AOA-AG-D-0024 2026-05-26: Recursor Support Localization](../AOA-AG-D-0024-recursor-support-localization.md) (`docs/decisions/AOA-AG-D-0024-recursor-support-localization.md`)
 - [AOA-AG-D-0042 2026-05-26: Agon Rank And Epistemic Generated Reader Localization](../AOA-AG-D-0042-agon-rank-epistemic-generated-reader-localization.md) (`docs/decisions/AOA-AG-D-0042-agon-rank-epistemic-generated-reader-localization.md`)
 - [AOA-AG-D-0043 2026-05-26: Recursor Generated Reader Localization](../AOA-AG-D-0043-recursor-generated-reader-localization.md) (`docs/decisions/AOA-AG-D-0043-recursor-generated-reader-localization.md`)
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## release-support
 
@@ -130,6 +132,7 @@
 - [AOA-AG-D-0045 2026-05-26: Root Agent Schema Posture](../AOA-AG-D-0045-root-agent-schema-posture.md) (`docs/decisions/AOA-AG-D-0045-root-agent-schema-posture.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
 ## titan
 

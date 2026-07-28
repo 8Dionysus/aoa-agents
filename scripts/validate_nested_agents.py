@@ -90,7 +90,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'Operating Card',
         'parts/AGENTS.md',
         'PROVENANCE.md',
-        'General routing policy belongs to `aoa-routing`.',
+        "General routing policy belongs to the `aoa-sdk` routing control plane;",
     ),
     'mechanics/checkpoint/AGENTS.md': (
         'mechanics/checkpoint/',

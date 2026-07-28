@@ -75,3 +75,7 @@
 ## 2026-07-16
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## 2026-07-27
+
+- [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)

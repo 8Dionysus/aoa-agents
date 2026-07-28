@@ -81,7 +81,7 @@ Mechanic-local docs live with their mechanics, not as a flat `docs/` pile.
 | Is this workflow execution? | route to `aoa-skills` |
 | Is this reusable practice? | route to `aoa-techniques` |
 | Is this memory object or recall truth? | route to `aoa-memo` |
-| Is this dispatch policy? | route to `aoa-routing` |
+| Is this dispatch policy? | route to the `aoa-sdk` routing control plane |
 | Is this scenario choreography? | route to `aoa-playbooks` |
 | Is this runtime implementation? | route to `abyss-stack` |
 

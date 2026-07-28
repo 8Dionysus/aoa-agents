@@ -13,7 +13,7 @@
   ],
   "does_not_own": [
     "workflow execution owned by coder and aoa-skills",
-    "cross-repo routing policy owned by aoa-routing",
+    "cross-repo routing policy owned by the aoa-sdk routing control plane",
     "durable memory canon owned by aoa-memo"
   ],
   "preferred_skill_families": [

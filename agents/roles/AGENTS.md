@@ -57,7 +57,7 @@ Do not turn a profile into:
 - a skill bundle from `aoa-skills`
 - proof doctrine from `aoa-evals`
 - memory-object canon from `aoa-memo`
-- routing logic from `aoa-routing`
+- routing logic from the `aoa-sdk` routing control plane
 - scenario composition from `aoa-playbooks`
 - tool implementation, technique bodies, or permission policy outside the
   referenced capability pack

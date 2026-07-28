@@ -67,7 +67,8 @@ anchors for the curated readiness lane.
 
 - do not turn these examples into scenario canon
 - do not add hidden transport, tool wiring, or runtime logs
-- do not let manifests replace `aoa-playbooks` or `aoa-routing`
+- do not let manifests replace `aoa-playbooks` or the `aoa-sdk` routing control
+  plane
 - keep the surface public-safe and portable
 
 ## Validation

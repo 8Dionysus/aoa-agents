@@ -41,7 +41,7 @@ Each tier should stay compact and expose:
 Do not encode here:
 
 - vendor or model-family branding
-- routing policy owned by `aoa-routing`
+- routing policy owned by the `aoa-sdk` routing control plane
 - scenario canon owned by `aoa-playbooks`
 - runtime infrastructure owned outside this repository
 

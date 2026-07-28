@@ -49,7 +49,7 @@ Healthy role-layer surfaces answer:
 | bounded execution workflows | `aoa-skills` |
 | proof doctrine, verdicts, scoring, and regression claims | `aoa-evals` |
 | memory objects, recall truth, retention, and reviewed memory corpus | `aoa-memo` |
-| navigation, dispatch, and route policy | `aoa-routing` |
+| navigation, dispatch, and route policy | `aoa-sdk` routing control plane; `aoa-routing` remains the stable compatibility layer |
 | recurring scenario choreography, questline method, and campaigns | `aoa-playbooks` |
 | derived graph or retrieval substrate semantics | `aoa-kag` |
 | movement summaries and observability views | `aoa-stats` |
@@ -97,7 +97,9 @@ layer the owner of memory objects or recall truth. Memory stays in `aoa-memo`.
 ### Agent Is Not Routing
 
 An agent may rely on routing. That does not make the role layer the owner of
-cross-repo dispatch. Navigation and route policy stay in `aoa-routing`.
+cross-repo dispatch. Navigation and route policy stay in the `aoa-sdk` routing
+control plane; the `aoa-routing` name remains the compatibility ABI and runtime
+layer, not a predecessor checkout requirement.
 
 ### Agent Is Not Runtime
 

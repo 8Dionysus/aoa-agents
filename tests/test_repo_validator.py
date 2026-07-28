@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -178,11 +179,22 @@ def write_valid_memo_root(root: Path) -> None:
     )
 
 
+def stable_json_digest(payload: object) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
 def write_valid_routing_root(
     root: Path,
     tiers_by_id: dict[str, dict[str, object]],
     *,
     doctrine_modes: list[str] | None = None,
+    bundle_form: str = "runtime",
 ) -> None:
     if doctrine_modes is None:
         doctrine_modes = ["working", "semantic", "lineage"]
@@ -305,6 +317,102 @@ def write_valid_routing_root(
             "starters": starters,
         },
     )
+
+    generated_paths = (
+        validate_agents.ROUTING_TASK_TO_TIER_HINTS_PATH,
+        validate_agents.ROUTING_TASK_TO_SURFACE_HINTS_PATH,
+        validate_agents.ROUTING_TINY_MODEL_ENTRYPOINTS_PATH,
+    )
+    file_hashes = {
+        relative_path: hashlib.sha256((root / relative_path).read_bytes()).hexdigest()
+        for relative_path in generated_paths
+    }
+    source_ref = "1" * 40
+    authority = dict(validate_agents.SDK_ROUTING_G5_AUTHORITY)
+    receipt = {
+        "schema": "aoa_sdk_routing_g5_owner_switch_receipt_v1",
+        "status": "g5_switch_authorized",
+        "sdk": {
+            "abi_epoch": validate_agents.SDK_ROUTING_ABI_EPOCH,
+            "owner_repo": "aoa-sdk",
+            "source_ref": source_ref,
+            "version": "0.8.0",
+        },
+        "predecessor": {
+            "owner_repo": "aoa-routing",
+            "rollback_posture": "retained",
+            "source_ref": "2" * 40,
+        },
+        "runtime_consumer": {
+            "owner_repo": "abyss-stack",
+            "source_ref": "3" * 40,
+        },
+        "g5_authority": authority,
+    }
+
+    if bundle_form == "runtime":
+        write_json(
+            root / validate_agents.SDK_ROUTING_RUNTIME_MANIFEST_PATH,
+            {
+                "schema": "abyss_stack_federation_mirror_manifest_v1",
+                "layer": "aoa-routing",
+                "source_git_commit": source_ref,
+                "routing_producer_posture": "sdk_canonical",
+                "cutover_activation_mode": "authorized_live_cutover",
+                "canonical_producer": {
+                    "owner_repo": "aoa-sdk",
+                    "source_ref": source_ref,
+                },
+                "g5_authority": authority,
+                "owner_switch_receipt": receipt,
+                "owner_switch_receipt_digest": stable_json_digest(receipt),
+                "file_sha256": file_hashes,
+            },
+        )
+    elif bundle_form == "canonical":
+        write_json(
+            root / validate_agents.SDK_ROUTING_CANONICAL_MANIFEST_PATH,
+            {
+                "schema": "abyss_machine_artifact_bundle_manifest_v1",
+                "artifact_class": "thin_routing_readmodel_bundle",
+                "owner_repo": "aoa-sdk",
+                "producer_admission_profile_id": "aoa-sdk-g5-canonical",
+                "artifact_identity": {
+                    "abi_epoch": validate_agents.SDK_ROUTING_ABI_EPOCH,
+                    "artifact_class": "thin_routing_readmodel_bundle",
+                },
+            },
+        )
+        write_json(
+            root / validate_agents.SDK_ROUTING_OWNER_SWITCH_RECEIPT_PATH,
+            receipt,
+        )
+        write_json(
+            root / validate_agents.SDK_ROUTING_CANONICAL_PROVENANCE_PATH,
+            {
+                "state": "sdk_canonical",
+                "canonical_producer": {
+                    "implementation": "aoa_sdk.control_plane.routing",
+                    "owner_repo": "aoa-sdk",
+                    "source_ref": source_ref,
+                },
+                "artifact_identity": {
+                    "abi_epoch": validate_agents.SDK_ROUTING_ABI_EPOCH,
+                    "artifact_class": "thin_routing_readmodel_bundle",
+                    "owner_repo": "aoa-sdk",
+                },
+                "owner_switch_receipt": {
+                    "digest": stable_json_digest(receipt),
+                    "path": validate_agents.SDK_ROUTING_OWNER_SWITCH_RECEIPT_PATH,
+                    "schema": "aoa_sdk_routing_g5_owner_switch_receipt_v1",
+                    "status": "g5_switch_authorized",
+                },
+                "g5_authority": authority,
+                "assembly_file_sha256": file_hashes,
+            },
+        )
+    else:
+        raise AssertionError(f"unsupported SDK routing bundle form: {bundle_form}")
 
 
 class RepoValidatorTests(unittest.TestCase):
@@ -602,7 +710,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": str(evals_root),
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -621,7 +729,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": str(evals_root),
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -650,7 +758,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": str(evals_root),
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -836,7 +944,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": str(playbooks_root),
                     "AOA_EVALS_ROOT": "",
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -855,7 +963,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": str(evals_root),
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -874,7 +982,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": "",
                     "AOA_MEMO_ROOT": str(memo_root),
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -905,7 +1013,7 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": "",
                     "AOA_MEMO_ROOT": str(memo_root),
-                    "AOA_ROUTING_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": "",
                 },
                 clear=False,
             ):
@@ -914,11 +1022,11 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
 
         self.assertIn("distillation_pattern_candidate", str(ctx.exception))
 
-    def test_optional_consumer_smoke_checks_validate_routing_root(self) -> None:
+    def test_optional_consumer_smoke_checks_validate_sdk_routing_runtime_mirror(self) -> None:
         tiers_by_id, _, _ = registry_context()
 
         with tempfile.TemporaryDirectory() as tmp_dir:
-            routing_root = Path(tmp_dir) / "aoa-routing"
+            routing_root = Path(tmp_dir) / "aoa-sdk-routing-runtime-mirror"
             write_valid_routing_root(routing_root, tiers_by_id)
 
             with patch.dict(
@@ -927,19 +1035,111 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": "",
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": str(routing_root),
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": str(routing_root),
                 },
                 clear=False,
             ):
                 checked = validate_agents.validate_optional_consumer_smoke_checks(tiers_by_id, {})
 
-        self.assertEqual(checked, ["aoa-routing"])
+        self.assertEqual(checked, ["aoa-sdk"])
+
+    def test_optional_consumer_smoke_checks_validate_sdk_routing_canonical_bundle(self) -> None:
+        tiers_by_id, _, _ = registry_context()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            routing_root = Path(tmp_dir) / "aoa-sdk-routing-canonical"
+            write_valid_routing_root(
+                routing_root,
+                tiers_by_id,
+                bundle_form="canonical",
+            )
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": "",
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": str(routing_root),
+                },
+                clear=False,
+            ):
+                checked = validate_agents.validate_optional_consumer_smoke_checks(
+                    tiers_by_id,
+                    {},
+                )
+
+        self.assertEqual(checked, ["aoa-sdk"])
+
+    def test_optional_consumer_smoke_checks_reject_predecessor_routing_owner(self) -> None:
+        tiers_by_id, _, _ = registry_context()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            routing_root = Path(tmp_dir) / "predecessor-routing-mirror"
+            write_valid_routing_root(routing_root, tiers_by_id)
+            manifest_path = (
+                routing_root / validate_agents.SDK_ROUTING_RUNTIME_MANIFEST_PATH
+            )
+            manifest = read_json(manifest_path)
+            assert isinstance(manifest, dict)
+            manifest["canonical_producer"] = {
+                "owner_repo": "aoa-routing",
+                "source_ref": "1" * 40,
+            }
+            write_json(manifest_path, manifest)
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": "",
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": str(routing_root),
+                },
+                clear=False,
+            ):
+                with self.assertRaises(validate_agents.ValidationError) as ctx:
+                    validate_agents.validate_optional_consumer_smoke_checks(
+                        tiers_by_id,
+                        {},
+                    )
+
+        self.assertIn("does not admit aoa-sdk as producer", str(ctx.exception))
+
+    def test_optional_consumer_smoke_checks_reject_sdk_routing_byte_drift(self) -> None:
+        tiers_by_id, _, _ = registry_context()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            routing_root = Path(tmp_dir) / "aoa-sdk-routing-runtime-mirror"
+            write_valid_routing_root(routing_root, tiers_by_id)
+            write_json(
+                routing_root / validate_agents.ROUTING_TASK_TO_TIER_HINTS_PATH,
+                {"drifted": True},
+            )
+
+            with patch.dict(
+                os.environ,
+                {
+                    "AOA_PLAYBOOKS_ROOT": "",
+                    "AOA_EVALS_ROOT": "",
+                    "AOA_MEMO_ROOT": "",
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": str(routing_root),
+                },
+                clear=False,
+            ):
+                with self.assertRaises(validate_agents.ValidationError) as ctx:
+                    validate_agents.validate_optional_consumer_smoke_checks(
+                        tiers_by_id,
+                        {},
+                    )
+
+        self.assertIn("digest mismatch", str(ctx.exception))
 
     def test_optional_consumer_smoke_checks_allow_working_only_doctrine_without_capsules(self) -> None:
         tiers_by_id, _, _ = registry_context()
 
         with tempfile.TemporaryDirectory() as tmp_dir:
-            routing_root = Path(tmp_dir) / "aoa-routing"
+            routing_root = Path(tmp_dir) / "aoa-sdk-routing-runtime-mirror"
             write_valid_routing_root(routing_root, tiers_by_id, doctrine_modes=["working"])
 
             with patch.dict(
@@ -948,13 +1148,13 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                     "AOA_PLAYBOOKS_ROOT": "",
                     "AOA_EVALS_ROOT": "",
                     "AOA_MEMO_ROOT": "",
-                    "AOA_ROUTING_ROOT": str(routing_root),
+                    "AOA_SDK_ROUTING_BUNDLE_ROOT": str(routing_root),
                 },
                 clear=False,
             ):
                 checked = validate_agents.validate_optional_consumer_smoke_checks(tiers_by_id, {})
 
-        self.assertEqual(checked, ["aoa-routing"])
+        self.assertEqual(checked, ["aoa-sdk"])
 
 
 class ValidateQuestbookSurfaceTests(unittest.TestCase):

@@ -10,10 +10,10 @@ It defines how existing agent roles are expected to read, write, promote, freeze
 ## Core rule
 
 `aoa-memo` owns memory-object canon, memory doctrine, and recall meaning.
-`aoa-routing` selects the next memo path.
+The `aoa-sdk` routing control plane selects the next memo path.
 `aoa-agents` owns role-level memory rights and posture.
 `aoa-agents` only states which roles may use published or routed object recall seams.
-When consumed through `aoa-routing` tiny-model entrypoints, doctrine recall remains
+When consumed through SDK-produced `aoa-routing` tiny-model entrypoints, doctrine recall remains
 the default memo path and `memory_objects` remains an explicit parallel family
 selected through `recall_family`.
 

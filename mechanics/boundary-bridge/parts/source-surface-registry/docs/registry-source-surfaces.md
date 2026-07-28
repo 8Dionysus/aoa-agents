@@ -45,7 +45,7 @@ These source-authored files are still agent-layer surfaces.
 
 They must not absorb:
 
-- routing policy from `aoa-routing`
+- routing policy from the `aoa-sdk` routing control plane
 - scenario composition from `aoa-playbooks`
 - memory-object canon from `aoa-memo`
 - proof doctrine from `aoa-evals`

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9043820,
+  "allowed_tracked_bytes": 13741707,
+  "approved_by": "repository-owner",
+  "base_ref": "8e5a989428a11108b8fc427cb351c313df2a14c2",
+  "changed_generated_bytes": 9043820,
+  "changed_generated_files": 282,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "c65d1d005cef431dd1289d9dbdfd032ca875044ee2d0dd47c7c9d87c5a91ff2f",
+  "reason": "Return aoa-agents active routing ownership, consumer admission, role profiles, and recurrence source anchors from the predecessor checkout to the aoa-sdk routing control plane; content-addressed source and decision anchors disperse across existing portable shards while the family remains below its standing cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 13741707,
+  "tracked_bytes_max": 16777216
+}

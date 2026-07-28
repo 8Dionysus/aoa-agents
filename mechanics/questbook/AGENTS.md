@@ -41,7 +41,7 @@ reader contracts, execution passport posture, and Alpha reference routes.
 - Root quest generated readers are read models built from `quests/`.
 - `aoa-playbooks` owns scenario composition and choreography.
 - `aoa-evals` owns quest proof or verdict surfaces.
-- `aoa-routing` owns general routing policy.
+- The `aoa-sdk` routing control plane owns general routing policy.
 
 ## Validation
 

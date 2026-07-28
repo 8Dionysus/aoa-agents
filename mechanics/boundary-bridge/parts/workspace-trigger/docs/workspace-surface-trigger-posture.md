@@ -16,7 +16,7 @@ Surface detection is additive and read-only.
 It may open a second look when workspace signals show route drift, owner-layer
 ambiguity, proof need, recall need, role posture pressure, or a recurring
 scenario. It does not replace skills ingress, the skills mutation guard,
-`aoa-routing`, `aoa-playbooks`, or owner-layer meaning.
+the `aoa-sdk` routing control plane, `aoa-playbooks`, or owner-layer meaning.
 
 `aoa-skills` remains the only immediate activation lane in this slice.
 Non-skill surfaces stay advisory, candidate-shaped, or reviewed handoff-shaped.
@@ -53,8 +53,9 @@ present:
 ## Consumer seam
 
 - `aoa-sdk` owns the typed surface-detection and reviewed-handoff seam
-- `aoa-routing` may contribute shortlist hints and ambiguity signals, but it
-  does not own surface meaning
+- the `aoa-sdk` routing control plane may contribute SDK-produced
+  `aoa-routing` shortlist hints and ambiguity signals, but it does not own
+  surface meaning
 - `aoa-stats` may later describe ambiguity frequency and candidate posture, but
   it does not decide promotion or owner truth
 - `aoa-playbooks`, `aoa-memo`, `aoa-evals`, and `aoa-techniques` remain the

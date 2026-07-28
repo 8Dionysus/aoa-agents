@@ -16,6 +16,88 @@ def load_json(relative_path: str) -> dict:
 
 
 class PublishedConsumerFeedsTests(unittest.TestCase):
+    @staticmethod
+    def _role_registry_roundtrip() -> dict:
+        return {
+            "promoted": {
+                "record": {
+                    "subject_digest": "sha256:" + ("0" * 64),
+                }
+            }
+        }
+
+    @staticmethod
+    def _trust_gate_payload(*, extra_blocker: str | None = None) -> dict:
+        blockers = ["required_artifact_subject_store_not_verified"]
+        if extra_blocker:
+            blockers.append(extra_blocker)
+        return {
+            "ok": False,
+            "verdict": "deny",
+            "blockers": blockers,
+            "reasons": list(blockers),
+            "decision": {
+                "model": "fail_closed_consumer_admission",
+                "allow": False,
+            },
+            "inspected_claims": {
+                "registry_latest": {"selected_record_is_latest": True},
+                "controls": {"required_controls_missing": []},
+                "source": {"source_repo_matched": True},
+                "trust_root": {"trust_root_mode_matched": True},
+                "artifact_subject_store": {"ok": False},
+            },
+        }
+
+    def test_role_registry_pre_materialization_accepts_exact_subject_store_deny(self) -> None:
+        class ArtifactBundles:
+            @staticmethod
+            def trust_gate(*_args, **_kwargs) -> dict:
+                return PublishedConsumerFeedsTests._trust_gate_payload()
+
+        result = role_bundle_validator._trust_gate_allow_latest(
+            ArtifactBundles,
+            Path("."),
+            self._role_registry_roundtrip(),
+            require_subject_store=False,
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["posture"], "expected_pre_materialization_deny")
+
+    def test_role_registry_pre_materialization_rejects_any_additional_blocker(self) -> None:
+        class ArtifactBundles:
+            @staticmethod
+            def trust_gate(*_args, **_kwargs) -> dict:
+                return PublishedConsumerFeedsTests._trust_gate_payload(
+                    extra_blocker="required_control_missing",
+                )
+
+        result = role_bundle_validator._trust_gate_allow_latest(
+            ArtifactBundles,
+            Path("."),
+            self._role_registry_roundtrip(),
+            require_subject_store=False,
+        )
+
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["posture"], "invalid")
+
+    def test_role_registry_final_gate_still_requires_materialized_subject_store(self) -> None:
+        class ArtifactBundles:
+            @staticmethod
+            def trust_gate(*_args, **_kwargs) -> dict:
+                return PublishedConsumerFeedsTests._trust_gate_payload()
+
+        result = role_bundle_validator._trust_gate_allow_latest(
+            ArtifactBundles,
+            Path("."),
+            self._role_registry_roundtrip(),
+        )
+
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["posture"], "invalid")
+
     def test_expected_published_feeds_exist(self) -> None:
         for relative_path in (
             "generated/agent_registry.min.json",

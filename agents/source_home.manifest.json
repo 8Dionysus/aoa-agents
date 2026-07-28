@@ -60,7 +60,7 @@
     },
     {
       "pressure": "dispatch or navigation policy",
-      "route": "aoa-routing"
+      "route": "aoa-sdk"
     },
     {
       "pressure": "scenario choreography or campaign playbook",

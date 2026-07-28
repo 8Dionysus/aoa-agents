@@ -13,7 +13,7 @@
   ],
   "does_not_own": [
     "primary implementation owned by coder",
-    "routing policy owned by aoa-routing",
+    "routing policy owned by the aoa-sdk routing control plane",
     "memory-object canon owned by aoa-memo"
   ],
   "preferred_skill_families": [
