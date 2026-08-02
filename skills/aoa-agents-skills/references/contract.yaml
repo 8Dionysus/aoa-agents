@@ -5,7 +5,7 @@ identity:
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
   version: 0.1.0
-  lifecycle: candidate
+  lifecycle: admitted
   health: challenger
 
 purpose: Detect independent obligation pressure and preserve responsibility through role formation, replaceable incarnation, external execution, return, and wake.
