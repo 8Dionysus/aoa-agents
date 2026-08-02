@@ -1,0 +1,115 @@
+schema_version: aoa-owner-skill-contract-v1
+
+identity:
+  name: aoa-agents-skills
+  owner: aoa-agents
+  canonical_source: skills/aoa-agents-skills
+  version: 0.1.0
+  lifecycle: candidate
+  health: challenger
+
+purpose: Detect independent obligation pressure and preserve responsibility through role formation, replaceable incarnation, external execution, return, and wake.
+
+authority:
+  procedure_owner: skills/aoa-agents-skills
+  role_meaning:
+    - agents/roles/**/profile.json
+    - agents/roles/**/specializations/*/specialization.json
+    - agents/operating-model/**
+  stronger_owners:
+    model_fit: aoa-models
+    runtime_planning: aoa-sdk
+    external_cli_runtime: abyss-stack
+    domain_procedure: named domain owner
+    task_local_dag_grammar: aoa-skills
+  trust_rule: No later model, launcher, transport, graph, or result may retroactively create the obligation or widen its mandate.
+
+trigger_strengths:
+  notice:
+    meaning: Report plausible independent obligation pressure without changing the task-local DAG.
+    activation_authority: current actor
+  required_branch:
+    meaning: Add a required obligation branch to the current task-local DAG, but do not incarnate it automatically.
+    activation_authority: current goal owner or source-authorized planner
+  master_decision:
+    meaning: Preserve the candidate and ask the current responsibility holder whether to form or wake an actor.
+    activation_authority: current responsibility holder
+  preauthorized_reflex:
+    meaning: Activate an existing persistent role only when its exact reviewed trigger, authority, runtime, and rollback contract match.
+    activation_authority: prior explicit role-specific authorization
+
+modes:
+  detect-obligation:
+    input_abi: goal-pressure-v1
+    output_abi: agent-obligation-v1
+    effects: [none, task-local-dag-branch-candidate]
+    reference: detect-obligation.md
+  form-actor:
+    input_abi: agent-obligation-v1
+    output_abi: actor-mandate-v1
+    effects: [none, task-local-role-identity]
+    reference: form-actor.md
+  bind-incarnation:
+    input_abi: actor-mandate-v1
+    output_abi: agent-incarnation-binding-ref-v1
+    effects: [none, owner-external-binding]
+    reference: bind-incarnation.md
+  transfer-responsibility:
+    input_abi: responsibility-transfer-request-v1
+    output_abi: responsibility-transfer-v1
+    effects: [none, external-actor-runtime]
+    reference: transfer-responsibility.md
+  receive-return:
+    input_abi: actor-return-event-v1
+    output_abi: responsibility-return-disposition-v1
+    effects: [none, task-local-dag-update, actor-wake-request]
+    reference: receive-return.md
+
+common_output_abi:
+  required:
+    - goal and obligation anchors
+    - selected mode or task-local DAG node
+    - input and output refs
+    - responsibility holder before and after
+    - owner sources and stronger-owner bindings
+    - actual effects and evidence class
+    - usage receipt refs when execution occurred
+    - uncertainty, stop line, and next owner route
+
+relations:
+  primary-capability-parent: aoa-agents actor lifecycle
+  composes-with:
+    - aoa-models model-fit projection
+    - aoa-sdk agent-incarnation-binding-v1
+    - abyss-stack external CLI runtime
+    - aoa-task-local-dag-v2
+  hands-off-to:
+    - aoa-summon external execution leaf
+    - named domain skill owner
+    - current goal responsibility holder
+  conflicts-with:
+    - model-first-launch
+    - implicit-generic-autospawn
+    - built-in-child-as-external-incarnation
+    - transport-as-a2a
+    - domain-procedure-absorption
+    - budget-as-initiative-gate
+
+termination:
+  success: One bounded lifecycle transition or the smallest valid task-local chain with explicit responsibility movement.
+  blocked: Required goal, obligation, role, fit, runtime, authority, return, or owner input is absent or contradictory.
+
+health:
+  recheck_after:
+    - material model or reasoning-mode change
+    - external runtime or continuation change
+    - role, capability, or domain-procedure change
+    - trigger false positive, missed obligation, or unsafe return
+  manual_cases:
+    - positive and negative obligation detection
+    - future-duty detection during planning
+    - writer and independent reviewer separation
+    - external process and session proof
+    - pause and resume across process lifetime
+    - refusal, failed return, filtered event, and controlled wake
+    - model realization substitution without role mutation

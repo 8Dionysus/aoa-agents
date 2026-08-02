@@ -39,6 +39,7 @@
 - [AOA-AG-D-0034 2026-05-26: Adoption And Boundary Contract Localization](../AOA-AG-D-0034-adoption-boundary-contract-localization.md) (`docs/decisions/AOA-AG-D-0034-adoption-boundary-contract-localization.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
 ## checkpoint
 
@@ -133,6 +134,7 @@
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
 ## titan
 
@@ -159,3 +161,4 @@
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)

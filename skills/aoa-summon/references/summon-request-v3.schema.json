@@ -50,6 +50,30 @@
           }
         }
       ]
+    },
+    {
+      "if": {
+        "properties": {
+          "summon_request": {
+            "properties": {"transport_preference": {"const": "external_cli"}},
+            "required": ["transport_preference"]
+          }
+        },
+        "required": ["summon_request"]
+      },
+      "then": {
+        "required": ["external_incarnation"],
+        "properties": {
+          "external_incarnation": {
+            "properties": {
+              "launches_separate_os_process": {"const": true},
+              "uses_builtin_codex_subagents": {"const": false},
+              "separate_cli_session": {"const": true},
+              "usage_metering": {"const": "observe_only_no_budget"}
+            }
+          }
+        }
+      }
     }
   ],
   "properties": {
@@ -81,7 +105,7 @@
         "child_agent_id": {"type": ["string", "null"]},
         "transport_preference": {
           "type": "string",
-          "enum": ["codex_local", "a2a_remote", "either"]
+          "enum": ["codex_local", "a2a_remote", "external_cli", "either"]
         },
         "parent_task_id": {"type": ["string", "null"]},
         "session_ref": {"type": ["string", "null"]},
@@ -149,6 +173,52 @@
         }
       }
     },
+    "external_incarnation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "obligation_ref",
+        "actor_mandate_ref",
+        "task_local_dag_ref",
+        "incarnation_binding_ref",
+        "sdk_summon_request_ref",
+        "sdk_summon_decision_ref",
+        "runtime_launch_ref",
+        "runtime_interface",
+        "responsibility_from",
+        "responsibility_to",
+        "domain_procedure_refs",
+        "continuity_ref",
+        "return_event_schema_ref",
+        "launches_separate_os_process",
+        "uses_builtin_codex_subagents",
+        "separate_cli_session",
+        "usage_metering"
+      ],
+      "properties": {
+        "obligation_ref": {"$ref": "#/$defs/contentRef"},
+        "actor_mandate_ref": {"$ref": "#/$defs/contentRef"},
+        "task_local_dag_ref": {"$ref": "#/$defs/contentRef"},
+        "incarnation_binding_ref": {"$ref": "#/$defs/contentRef"},
+        "sdk_summon_request_ref": {"$ref": "#/$defs/contentRef"},
+        "sdk_summon_decision_ref": {"$ref": "#/$defs/contentRef"},
+        "runtime_launch_ref": {"$ref": "#/$defs/contentRef"},
+        "runtime_interface": {"type": "string", "minLength": 1},
+        "responsibility_from": {"type": "string", "minLength": 1},
+        "responsibility_to": {"type": "string", "minLength": 1},
+        "domain_procedure_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/contentRef"}
+        },
+        "continuity_ref": {"$ref": "#/$defs/contentRef"},
+        "return_event_schema_ref": {"$ref": "#/$defs/contentRef"},
+        "launches_separate_os_process": {"type": "boolean"},
+        "uses_builtin_codex_subagents": {"type": "boolean"},
+        "separate_cli_session": {"type": "boolean"},
+        "usage_metering": {"type": "string", "enum": ["observe_only_no_budget"]}
+      }
+    },
     "progression_overlay_ref": {"type": ["string", "null"]},
     "self_agent_checkpoint_ref": {"type": ["string", "null"]},
     "stress_bundle_ref": {"type": ["string", "null"]},
@@ -158,6 +228,19 @@
     "audit_refs": {
       "type": "array",
       "items": {"type": "string"}
+    }
+  },
+  "$defs": {
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
     }
   }
 }

@@ -1,0 +1,501 @@
+schema_version: aoa-capability-family-v1
+family_id: agent-lifecycle
+title: aoa-agents skill tree
+description: Detect independent obligation pressure and preserve role-bearing responsibility through replaceable incarnation, external execution, return, and wake.
+owner: &family_owner
+  repo: aoa-agents
+  surface: capabilities/families/agent-lifecycle.yaml
+  authority: authored
+
+nodes:
+  - id: aoa-agents
+    title: AoA agents
+    description: Own role-bearing actor meaning, responsibility posture, and the agent lifecycle skill tree without owning runtime dispatch or domain procedures.
+    kind: capability
+    contract_level: navigation
+    primary_parent: null
+    owner: *family_owner
+    lifecycle: &navigation_lifecycle
+      state: active
+      version: 1.0.0
+      visibility: internal
+      evidence_state: owner-verified
+      health: healthy
+    keywords: [agents, roles, responsibility, actors, агенты, роли, ответственность]
+
+  - id: aoa-agents-skills
+    title: aoa-agents-skills tree
+    description: Navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves.
+    kind: capability
+    contract_level: navigation
+    primary_parent: aoa-agents
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [agent-skills, obligation, incarnation, a2a, return, wake, обязанность, воплощение, возврат]
+
+  - id: skill.aoa-agents-skills
+    title: aoa-agents-skills organ router
+    description: Detect when a goal creates or predicts an independently owned obligation, form a bounded role mandate for it, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
+    purpose: Route the smallest owner-local actor lifecycle node or task-local DAG without creating an actor from available compute.
+    kind: skill
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner:
+      repo: aoa-agents
+      surface: skills/aoa-agents-skills/SKILL.md
+      authority: authored
+    lifecycle: &root_candidate_lifecycle
+      state: active
+      version: 0.1.0
+      visibility: advertised
+      evidence_state: evaluated
+      health: challenger
+    applicability:
+      use_when:
+        - Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.
+        - An existing persistent role may need rebinding, return filtering, or controlled wake.
+      do_not_use_when:
+        - The pressure is ordinary task decomposition, available cheap compute, a generic helper, or a domain procedure with no independent responsibility boundary.
+      ambiguous_when:
+        - Independent review or continuity may be useful but the current actor could still own the duty without conflicting authority.
+    abi:
+      inputs:
+        - {name: pressure, type: goal-pressure-v1, required: true, description: "Goal, phase, current holder, observed or anticipated duty, owner, independence signals, and uncertainty."}
+      outputs:
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: One typed mode result or smallest task-local DAG with explicit responsibility movement and stop line.}
+    binding: {kind: skill, ref: skills/aoa-agents-skills/SKILL.md, operation: route-lifecycle, availability: available}
+    execution: &bounded_execution
+      freedom: bounded-judgment
+      tool_requirements: [owner source read access, stronger-owner bindings only for selected lifecycle nodes]
+      verification: ["Every transition preserves goal, obligation, mandate, owner, responsibility holder, evidence class, and stop line.", "Model, process, transport, and domain procedure remain replaceable owner-bound bindings."]
+      termination: [Stop after one bounded transition or smallest valid task-local chain., "Stop at the first missing owner, authority, fit, runtime, return, or wake input."]
+      effects: [none, runtime-mutation]
+      reversibility: reversible
+      failure_modes: [Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
+    trust: &runtime_trust
+      public_safe: true
+      requires_human_approval: true
+      posture: authored-procedure
+    provenance:
+      source_refs:
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.1.0, role: owner-skill-procedure, authority: authored}
+      optional_refs:
+        - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
+        - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding.schema.json, ref: agent-incarnation-binding-v1, role: runtime-planning-owner-contract, authority: external-authority}
+        - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/runtime-profile.v1.json, ref: external-codex-runtime-v1, role: external-runtime-owner-contract, authority: external-authority}
+    classification: {category: independent-callable, disposition: retain, rationale: "External workspace-write, independent return, controlled re-entry, filtering, and ambiguity evidence admit the obligation router as a challenger; model fit and effect routes remain separately unadmitted."}
+    procedure: &root_procedure
+      ref: skills/aoa-agents-skills/SKILL.md
+      required_sections: [Applicability preflight, Start, Organ boundary, Execution leaf, Verification and stop]
+      runtime_adaptation: Resolve logical owner, model-fit, SDK binding, and runtime roots independently before executing a selected leaf.
+    mutation:
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Pause or terminate only the exact external actor process through its runtime owner., Return responsibility to the previous holder and preserve the task-local obligation as unresolved.]
+      postconditions: [A launched actor has separate process and session handles., Responsibility and return ownership remain explicit., Usage is counted from receipts without a budget gate.]
+    security:
+      permissions: [read-owner-source, form-task-local-mandate, invoke-admitted-external-runtime]
+      network: optional-explicit
+      external_dependencies: [aoa-models, aoa-sdk, abyss-stack]
+      untrusted_input: treat-as-data
+    keywords: [obligation, actor, role, incarnation, external-cli, responsibility, a2a, return, wake, обязанность, актор, воплощение, ответственность]
+
+  - id: agents.lifecycle.pressure
+    title: Obligation pressure
+    description: Distinguish an independently owned duty from an ordinary step or available-compute opportunity.
+    kind: capability
+    contract_level: navigation
+    primary_parent: skill.aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [pressure, obligation, future-duty, trigger, давление, обязанность, триггер]
+
+  - id: mode.agents.detect-obligation
+    title: Detect independent obligation
+    description: Test current or anticipated pressure and assign one bounded trigger strength without launching an actor.
+    purpose: Return one bounded independent-obligation disposition and trigger strength without selecting a model or runtime.
+    kind: mode
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: &internal_lifecycle
+      state: candidate
+      version: 0.1.0
+      visibility: internal
+      evidence_state: hypothesis
+      health: challenger
+    applicability:
+      use_when: [A goal phase exposes current or future duty pressure whose responsibility boundary is unresolved.]
+      do_not_use_when: [An admitted obligation already exists or the work is clearly an ordinary step.]
+      ambiguous_when: [A convenience split resembles independent review but has no separate authority or return need.]
+    abi:
+      inputs:
+        - {name: pressure, type: goal-pressure-v1, required: true, description: Anchored duty pressure and independence evidence.}
+      outputs:
+        - {name: obligation, type: agent-obligation-v1, required: true, description: Admitted obligation or explicit not-independent disposition with trigger strength.}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/detect-obligation.md, operation: detect-obligation, availability: available}
+    execution: &read_execution
+      freedom: bounded-judgment
+      tool_requirements: [goal and owner source read access]
+      verification: [Positive and negative independence signals are explicit., No model or runtime was selected.]
+      termination: [Stop after one obligation disposition and trigger strength.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Autospawn from a keyword., Mistaking task decomposition for responsibility., Using cheap compute as the cause.]
+    trust: &read_trust {public_safe: true, requires_human_approval: false, posture: authored-procedure}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-agents-skills/references/detect-obligation.md, ref: capability-home-v0.1.0, role: internal-mode, authority: authored}], optional_refs: []}
+    classification: &internal_classification {category: local-mode, disposition: retain, rationale: Internal lifecycle stage composes through the organ root and has no independent prompt trigger evidence.}
+    procedure: {ref: skills/aoa-agents-skills/references/detect-obligation.md, required_sections: ["Mode: detect-obligation", Input, Procedure, Output], runtime_adaptation: Use the current goal and owner sources; do not probe model or runtime surfaces.}
+    security: &read_security {permissions: [read-owner-source], network: forbidden, external_dependencies: [], untrusted_input: treat-as-data}
+    keywords: [detect, independent-duty, trigger-strength, future-obligation, обнаружить, самостоятельная-обязанность]
+
+  - id: mode.agents.form-actor
+    title: Form role-bearing actor
+    description: Bind an admitted obligation to a stable role mandate and behavioral executor requirements without selecting a model.
+    purpose: Form one stable role mandate with domain-owner procedure refs, authority, continuity, return, and wake posture.
+    kind: mode
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [One admitted obligation needs a role, mandate, authority, continuity, domain procedure, outputs, and return posture.]
+      do_not_use_when: [No independent obligation exists or the task asks only to launch a model.]
+      ambiguous_when: [An existing role specialization partially fits but a task-specific permanent role name is tempting.]
+    abi:
+      inputs:
+        - {name: obligation, type: agent-obligation-v1, required: true, description: One admitted task-local obligation.}
+      outputs:
+        - {name: mandate, type: actor-mandate-v1, required: true, description: "Stable role, behavioral requirements, authority, continuity, domain procedure, return, and wake posture."}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/form-actor.md, operation: form-actor, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [exact role, specialization, tier, capability-pack, and domain-owner source refs]
+      verification: [The mandate cites one admitted obligation and exact owner sources., Behavioral executor properties contain no model brand., "Authority, continuity, named outputs, return, refusal, and wake posture are explicit."]
+      termination: [Stop after one complete actor mandate or the first missing owner input.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Minting a permanent task-named role., Absorbing the domain procedure., Selecting a model before behavioral requirements exist.]
+    trust: *read_trust
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-agents-skills/references/form-actor.md, ref: capability-home-v0.1.0, role: internal-mode, authority: authored}], optional_refs: []}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-agents-skills/references/form-actor.md, required_sections: ["Mode: form-actor", Input, Procedure, Output], runtime_adaptation: "Resolve only exact supplied role, specialization, tier, capability-pack, and domain-owner refs."}
+    security: *read_security
+    keywords: [form-actor, role-mandate, executor-properties, continuity, сформировать-актора, мандат]
+
+  - id: agents.lifecycle.incarnation
+    title: Replaceable actor incarnation
+    description: Bind stable role requirements to current model-fit evidence, a specialized environment, and an independently addressable runtime body.
+    kind: capability
+    contract_level: navigation
+    primary_parent: skill.aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [incarnation, model-fit, environment, external-cli, воплощение, модель, окружение]
+
+  - id: mode.agents.bind-incarnation
+    title: Bind current incarnation
+    description: Consume model-fit, SDK, and runtime-owner contracts to bind a replaceable realization without mutating the role.
+    purpose: Bind a complete stable mandate to current model-fit evidence and an independently addressable runtime profile.
+    kind: mode
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [A complete actor mandate needs a current model realization, specialized environment, permissions, continuation, and wake binding.]
+      do_not_use_when: [The mandate is incomplete or a model brand has been selected without property-fit evidence.]
+      ambiguous_when: [Several realizations fit but comparison evidence is stale or environment-specific.]
+    abi:
+      inputs:
+        - {name: mandate, type: actor-mandate-v1, required: true, description: Complete stable role mandate.}
+      outputs:
+        - {name: incarnation, type: agent-incarnation-binding-ref-v1, required: true, description: Content-addressed stronger-owner binding for one current realization and external runtime profile.}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/bind-incarnation.md, operation: bind-incarnation, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [current model-fit projection, exact SDK incarnation contract, exact external runtime profile]
+      verification: [Model fit answers the mandate's behavioral properties with current evidence., SDK and runtime refs bind the exact mandate and environment., The runtime profile requires a separate process and session., No process was launched.]
+      termination: ["Stop after one content-addressed incarnation binding or the first missing fit, SDK, runtime, permission, continuation, or wake input."]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Selecting by model brand or price alone., Treating a catalog entry as fit evidence., Mutating the stable role when realization changes., Reporting a configured runtime as launched.]
+    trust: *read_trust
+    provenance:
+      source_refs: [{repo: aoa-agents, path: skills/aoa-agents-skills/references/bind-incarnation.md, ref: capability-home-v0.1.0, role: internal-mode, authority: authored}]
+      optional_refs:
+        - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
+        - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding.schema.json, ref: agent-incarnation-binding-v1, role: runtime-planning-owner-contract, authority: external-authority}
+        - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/runtime-profile.v1.json, ref: external-codex-runtime-v1, role: external-runtime-owner-contract, authority: external-authority}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-agents-skills/references/bind-incarnation.md, required_sections: ["Mode: bind-incarnation", Input, Procedure, Output], runtime_adaptation: "Resolve model-fit, SDK, and runtime owners independently and preserve their exact binding refs."}
+    security: {permissions: [read-owner-source, read-model-fit, read-runtime-binding], network: optional-explicit, external_dependencies: [aoa-models, aoa-sdk, abyss-stack], untrusted_input: treat-as-data}
+    keywords: [bind, incarnation, model-realization, runtime-profile, resume, привязать, воплощение, продолжение]
+
+  - id: agents.lifecycle.execution
+    title: External actor execution leaf
+    description: Execute one complete responsibility transfer through a real separately addressable process and session binding.
+    kind: capability
+    contract_level: navigation
+    primary_parent: agents.lifecycle.incarnation
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [execute, external-cli, separate-session, runtime-handle, запуск, отдельная-сессия]
+
+  - id: skill.aoa-summon
+    title: aoa-summon execution leaf
+    description: Execute one bounded actor route from an anchored goal, including compatibility child lanes or an independently bound external CLI incarnation, named outputs, return validation, and responsibility closeout. Use when the user explicitly delegates or when aoa-agents-skills selects this leaf from a complete task-local actor DAG. An incomplete request must block. Do not use for generic implicit spawning, unresolved branching, unnamed outputs, unsplit deep work, or to bypass obligation, mandate, incarnation, approval, owner, or proof boundaries.
+    purpose: Preserve one anchored execution request, real host binding, runtime handle, named return validation, and parent closeout while the external incarnation ABI is evolved.
+    kind: skill
+    contract_level: executable
+    primary_parent: agents.lifecycle.execution
+    owner: {repo: aoa-agents, surface: skills/aoa-summon/SKILL.md, authority: authored}
+    lifecycle:
+      state: active
+      version: 0.3.0
+      visibility: advertised
+      evidence_state: evaluated
+      health: challenger
+    applicability:
+      use_when: [The user explicitly requests one bounded anchored child route with named outputs and a return owner.]
+      do_not_use_when: [The request is incomplete, implicit, unsplit deep work, or intended to widen authority.]
+      ambiguous_when: [A separate external CLI surface is required but the request lacks exact SDK incarnation/summon refs or an inspected runtime binding.]
+    abi:
+      inputs:
+        - {name: request, type: summon-request-v3, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, and intent."}
+      outputs:
+        - {name: result, type: summon-result-v3, required: true, description: "Decision, inspected binding, runtime handle, output validation, and closeout handoff."}
+    binding: {kind: skill, ref: skills/aoa-summon/SKILL.md, operation: decide-or-execute, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [parent anchor and request packet, callable host delegation for execute mode]
+      verification: [A plan is never reported as launch., Every named output and actual effect returns through the immutable request., Binding availability follows real interface inspection.]
+      termination: [Stop after one decision or one real return and parent closeout., "Block when request, gate, binding, output, or return owner is absent."]
+      effects: [none, runtime-mutation]
+      reversibility: reversible
+      failure_modes: [Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
+    trust: *runtime_trust
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.3.0, role: owner-skill-procedure, authority: authored}], optional_refs: []}
+    classification: {category: independent-callable, disposition: retain, rationale: Existing admitted leaf preserves execution and return evidence; external CLI compatibility remains an explicit evolution gate.}
+    procedure: {<<: *root_procedure, ref: skills/aoa-summon/SKILL.md, required_sections: [Trigger boundary, Inputs and outputs, Procedure, Verification]}
+    mutation:
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Stop only the exact launched runtime handle through its host binding., Preserve blocked, failed, or narrowed return for parent closeout.]
+      postconditions: [Every executable state carries a real inspected binding and handle., Every accepted return matches the immutable named-output set.]
+    security: {permissions: [read-parent-anchor, invoke-host-delegation], network: optional-explicit, external_dependencies: [aoa-sdk, abyss-stack], untrusted_input: runtime-policy-enforced}
+    keywords: [summon, delegate, child-agent, passport, return-validation, призвать, делегировать, дочерний-агент]
+
+  - id: mode.aoa-summon.decide
+    title: Decide bounded summon
+    description: Validate one complete summon request and return a lawful lane and return plan without probing or launching a host binding.
+    purpose: Preserve a decision-only summon result without claiming host availability or runtime execution.
+    kind: mode
+    contract_level: executable
+    primary_parent: agents.lifecycle.execution
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [The caller asks whether one complete anchored summon request is lawful.]
+      do_not_use_when: [The caller requests real execution or the request ABI is incomplete.]
+      ambiguous_when: [The route is allowed in principle but external binding availability is unknown.]
+    abi:
+      inputs: [{name: request, type: summon-request-v3, required: true, description: Complete immutable decision request.}]
+      outputs: [{name: result, type: summon-result-v3, required: true, description: Decision-only result with no runtime effect.}]
+    binding: {kind: mode, ref: skills/aoa-summon/references/lane-and-return.md, operation: decide, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [complete immutable summon request and owner contracts]
+      verification: [The request ABI and digest are valid., The selected lane is lawful., Binding availability remains unknown when uninspected., No runtime effect occurred.]
+      termination: [Stop after one decision-only result with named return map.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Probing a host in decision-only mode., Reporting an allowed lane as execution., Inferring missing request fields.]
+    trust: *read_trust
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.3.0, role: internal-mode, authority: authored}], optional_refs: []}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: decide"], runtime_adaptation: Do not inspect or launch a host binding in decision-only mode.}
+    security: *read_security
+    keywords: [summon-decision, lane, no-launch, решение, без-запуска]
+
+  - id: mode.aoa-summon.execute
+    title: Execute bounded summon
+    description: Inspect one callable host binding, launch one bounded runtime, validate named outputs, and close the parent return.
+    purpose: Preserve real launch, handle, return, and closeout evidence for one complete summon request.
+    kind: mode
+    contract_level: executable
+    primary_parent: agents.lifecycle.execution
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [The user explicitly requests execution and the complete request has one callable host binding.]
+      do_not_use_when: [The request is decision-only, incomplete, or the binding cannot be inspected.]
+      ambiguous_when: [A same-host external CLI is needed but only the built-in child interface is bound.]
+    abi:
+      inputs: [{name: request, type: summon-request-v3, required: true, description: Complete immutable execution request.}]
+      outputs: [{name: result, type: summon-result-v3, required: true, description: "Runtime result with binding, handle, output checks, effects, and closeout."}]
+    binding: {kind: mode, ref: skills/aoa-summon/references/lane-and-return.md, operation: execute, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [complete summon request, callable inspected host binding]
+      verification: [The binding was inspected., A real runtime handle exists., Exact SDK summon and runtime return refs are preserved., Output keys exactly match the immutable request., Parent closeout names the next owner.]
+      termination: ["Stop after one accepted, failed, blocked, or narrowed return."]
+      effects: [runtime-mutation]
+      reversibility: reversible
+      failure_modes: [Plan reported as launch., Built-in child reported as external incarnation., Owner-local receipt replaces the SDK A2A or runtime result ABI., Missing output accepted., Runtime handle lost on failure.]
+    trust: *runtime_trust
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.3.0, role: internal-mode, authority: authored}], optional_refs: []}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: execute"], runtime_adaptation: Bind only the exact inspected host interface and preserve its runtime handle.}
+    mutation:
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Stop only the exact launched runtime handle through the inspected host interface., Return failed or narrowed state to parent closeout.]
+      postconditions: [Every post-launch state retains binding, handle, and runtime effect., Every accepted result has exact named-output checks.]
+    security: {permissions: [read-parent-anchor, invoke-host-delegation], network: optional-explicit, external_dependencies: [aoa-sdk, abyss-stack], untrusted_input: runtime-policy-enforced}
+    keywords: [summon-execute, host-binding, runtime-handle, return-validation, запуск, возврат]
+
+  - id: agents.lifecycle.relationship
+    title: Responsibility relationship
+    description: Preserve who holds an obligation, under what mandate, and how refusal, return, escalation, pause, and wake change that relation.
+    kind: capability
+    contract_level: navigation
+    primary_parent: skill.aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [a2a, responsibility, handoff, return, wake, ответственность, передача, возврат, пробуждение]
+
+  - id: mode.agents.transfer-responsibility
+    title: Transfer responsibility
+    description: Establish a bounded A2A responsibility relation and hand a complete external incarnation request to an execution leaf.
+    purpose: Transfer one exact obligation to a role-bearing actor without equating runtime transport with the A2A relation.
+    kind: mode
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [Obligation, mandate, incarnation, current and intended holders, authority, outputs, return owner, and stop line are complete.]
+      do_not_use_when: [Any owner input is missing or only a launcher command exists.]
+      ambiguous_when: [The runtime can launch a process but the receiving actor has not explicitly accepted or narrowed the mandate.]
+    abi:
+      inputs:
+        - {name: transfer-request, type: responsibility-transfer-request-v1, required: true, description: "Obligation, mandate, holders, authority, outputs, return, refusal, wake, and stop posture."}
+        - {name: incarnation, type: agent-incarnation-binding-ref-v1, required: true, description: Exact replaceable runtime binding.}
+      outputs:
+        - {name: transfer, type: responsibility-transfer-v1, required: true, description: "Accepted, narrowed, refused, or launched responsibility relation with evidence classes."}
+        - {name: execution-request, type: summon-request-v3, required: false, description: Complete immutable external execution-leaf request emitted only after responsibility transfer is admitted.}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/transfer-responsibility.md, operation: transfer-responsibility, availability: available}
+    execution: *bounded_execution
+    trust: *runtime_trust
+    provenance:
+      source_refs: [{repo: aoa-agents, path: skills/aoa-agents-skills/references/transfer-responsibility.md, ref: capability-home-v0.1.0, role: internal-mode, authority: authored}]
+      optional_refs:
+        - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding.schema.json, ref: agent-incarnation-binding-v1, role: runtime-planning-owner-contract, authority: external-authority}
+        - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/runtime-profile.v1.json, ref: external-codex-runtime-v1, role: external-runtime-owner-contract, authority: external-authority}
+    mutation:
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Return responsibility to the previous holder., Stop only the exact external runtime handle through its owner.]
+      postconditions: [Current responsibility holder is explicit., Transport state is not substituted for A2A meaning.]
+    security: {permissions: [read-owner-source, transfer-bounded-responsibility, invoke-admitted-external-runtime], network: optional-explicit, external_dependencies: [aoa-sdk, abyss-stack], untrusted_input: runtime-policy-enforced}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-agents-skills/references/transfer-responsibility.md, required_sections: ["Mode: transfer-responsibility", Input, Procedure, Output], runtime_adaptation: Use only the exact incarnation binding and an admitted external execution leaf.}
+    keywords: [transfer, responsibility, a2a, external-actor, передать, ответственность]
+
+  - id: mode.agents.receive-return
+    title: Receive and filter actor return
+    description: Validate one event or return, filter outputs and effects, move responsibility, update the task-local DAG, or request controlled wake.
+    purpose: Filter one exact actor event or return and make responsibility, DAG, residual duty, and wake posture explicit.
+    kind: mode
+    contract_level: executable
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [A progress, pause, refusal, failure, return, or wake-relevant event is bound to an exact obligation and runtime handle.]
+      do_not_use_when: [The event lacks provenance, expected outputs, return owner, or responsibility context.]
+      ambiguous_when: [Runtime success is present but owner review or responsibility acceptance remains unresolved.]
+    abi:
+      inputs:
+        - {name: event, type: actor-return-event-v1, required: true, description: "Exact obligation, mandate, incarnation, runtime, outputs, effects, usage, holder, and return-owner refs."}
+        - {name: transfer, type: responsibility-transfer-v1, required: false, description: Exact upstream responsibility relation when the return follows a transfer in the same DAG.}
+        - {name: summon-result, type: summon-result-v3, required: false, description: Validated execution-leaf result when return follows aoa-summon in the same DAG.}
+      outputs:
+        - {name: disposition, type: responsibility-return-disposition-v1, required: true, description: "Filtered outputs, holder transition, DAG update, residual obligations, and optional wake request."}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/receive-return.md, operation: receive-return, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [exact runtime event, transfer and mandate refs, named outputs, return-owner contract]
+      verification: ["Event provenance matches obligation, incarnation, runtime handle, and output names.", Each output and effect has an explicit disposition., Responsibility holder before and after is explicit., Wake requires an exact role identity and preauthorized contract.]
+      termination: ["Stop after one return disposition, task-local DAG update, and residual-obligation set."]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Treating runtime success as return acceptance., Losing responsibility holder on failure., Waking from an unfiltered event., Promoting raw trace to proof or memory truth.]
+    trust: *read_trust
+    provenance:
+      source_refs: [{repo: aoa-agents, path: skills/aoa-agents-skills/references/receive-return.md, ref: capability-home-v0.1.0, role: internal-mode, authority: authored}]
+      optional_refs:
+        - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/schemas/external-codex-event.schema.json, ref: external-codex-event-v1, role: runtime-event-owner-contract, authority: external-authority}
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-agents-skills/references/receive-return.md, required_sections: ["Mode: receive-return", Input, Procedure, Output], runtime_adaptation: Resolve the exact runtime event and return-owner contracts before changing task-local responsibility.}
+    security: *read_security
+    keywords: [receive, filter, return, event, wake, holder, принять, фильтр, возврат, пробуждение]
+
+  - id: agents.progression
+    title: Reviewed agent progression
+    description: Convert closed reviewed evidence into bounded progression candidates without changing role or authority.
+    kind: capability
+    contract_level: navigation
+    primary_parent: aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *navigation_lifecycle
+    keywords: [progression, reviewed-evidence, baseline, attribution, прогресс, свидетельство]
+
+  - id: skill.aoa-session-progression-lift
+    title: Session progression lift
+    description: Turn closed, reviewed session evidence into a bounded multi-axis progression candidate with baseline and attribution limits for aoa-agents review. Do not use on live impressions, without a baseline, to assign one universal score, mutate a role, grant authority, or set routing policy.
+    purpose: Return one evidence-linked progression delta candidate for aoa-agents owner review.
+    kind: skill
+    contract_level: executable
+    primary_parent: agents.progression
+    owner: {repo: aoa-agents, surface: skills/aoa-session-progression-lift/SKILL.md, authority: authored}
+    lifecycle:
+      state: active
+      version: 0.2.5
+      visibility: advertised
+      evidence_state: evaluated
+      health: challenger
+    applicability:
+      use_when: [Closed reviewed evidence shows attributable movement or regression for one agent with a baseline.]
+      do_not_use_when: [Evidence is live, no baseline exists, or the request would mutate a role, grant authority, or set routing policy.]
+      ambiguous_when: [Observed improvement may come primarily from a changed model, tool, environment, or task.]
+    abi:
+      inputs:
+        - {name: evidence, type: reviewed-progression-evidence, required: true, description: "Closed reviewed evidence, agent identity, baseline, boundary, and attribution limits."}
+      outputs:
+        - {name: candidate, type: progression-delta-candidate, required: true, description: "Multi-axis candidate with attribution limits, rejected route, owner review, effects, and stop line."}
+    binding: {kind: skill, ref: skills/aoa-session-progression-lift/SKILL.md, operation: lift-reviewed-progression, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [closed reviewed evidence, agent identity, baseline, attribution limits, progression owner contract]
+      verification: [Each movement has current reviewed refs and an attribution limit., "No role, authority, route, proof, memory, or stats owner changed."]
+      termination: [Stop after one bounded progression candidate and aoa-agents owner-review handoff.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Calling one success broad growth., Hiding model, tool, environment, or task contribution., Treating an unlock hint as authority.]
+    trust: *read_trust
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-session-progression-lift/SKILL.md, ref: capability-home-v0.2.5, role: owner-skill-procedure, authority: authored}], optional_refs: []}
+    classification: {category: independent-callable, disposition: retain, rationale: Existing admitted leaf has distinct reviewed-evidence and progression-candidate ABI.}
+    procedure: {<<: *root_procedure, ref: skills/aoa-session-progression-lift/SKILL.md, required_sections: [Intent, Owner-source return, Trigger boundary, Procedure, Verification]}
+    security: {permissions: [read-reviewed-evidence, read-owner-source], network: forbidden, external_dependencies: [], untrusted_input: treat-as-data}
+    keywords: [progression-lift, mastery, baseline, attribution, owner-review, рост, мастерство, прогресс]
+
+relations:
+  - {kind: produces, source: mode.agents.detect-obligation, target: mode.agents.form-actor, condition: One independent obligation is admitted and actor formation is required.}
+  - {kind: produces, source: mode.agents.form-actor, target: mode.agents.bind-incarnation, condition: The stable mandate is complete and a physical realization is required.}
+  - {kind: requires, source: mode.agents.transfer-responsibility, target: mode.agents.bind-incarnation, condition: External transfer requires the exact admitted incarnation binding.}
+  - {kind: hands-off-to, source: mode.agents.transfer-responsibility, target: skill.aoa-summon, condition: The admitted transfer emits a complete external execution request and the selected leaf exposes a real external CLI lane.}
+  - {kind: hands-off-to, source: skill.aoa-summon, target: mode.agents.receive-return, condition: "A bound runtime result, event, refusal, failure, or return enters the responsibility filter."}
+  - {kind: conflicts-with, source: mode.agents.form-actor, target: skill.aoa-session-progression-lift, condition: A progression candidate cannot mutate the stable role or grant the new mandate.}
+  - {kind: conflicts-with, source: skill.aoa-session-progression-lift, target: mode.agents.form-actor, condition: Role formation cannot cite an unreviewed progression candidate as authority.}

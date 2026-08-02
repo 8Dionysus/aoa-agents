@@ -18,27 +18,45 @@ its digest, and require exact key-set equality between request
 |---|---|
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
 | bounded `d2_slice`, low risk, narrowing reviewer/evaluator/verifier | `codex_local_reviewed` |
+| complete `aoa-agents-skills` actor packet with exact SDK incarnation and separate CLI runtime launch | `external_cli_reviewed` |
 | separate endpoint or execution surface is truly required | `remote_reviewed` |
 | `d3+` still unsplit | `split_required` |
 | required progression/self-agent/approval evidence missing | `human_gate` |
 | stress says `stop_before_mutation` | non-mutating narrowing child or `human_gate` |
 
-Branch choice must already be settled. Default transport is the local host
-child-agent interface.
+Branch choice must already be settled. The local host child-agent interface is
+the compatibility default for explicit child requests only. A source-authorized
+external actor packet selects `external_cli_reviewed`; it may not fall back to
+a built-in child lane.
 
-## Execute mode
+### Mode: decide
+
+Validate one complete request, select a lawful lane, preserve the immutable
+request identity and named return map, and stop without probing or launching a
+host binding. An allowed decision is not execution evidence.
+
+### Mode: execute
 
 1. Build a child passport containing parent anchor, one bounded task, expected
    outputs, allowed tools/effects, evidence inputs, stop line, and return owner.
 2. Resolve the host binding before claiming execution. Record interface name,
-   availability, and any runtime constraints.
-3. Launch exactly one child and record `child_handle` or canonical task name.
+   availability, binding kind, runtime owner, and any runtime constraints. The
+   external lane additionally resolves exact incarnation, canonical SDK summon
+   request/decision, and runtime-profile refs and confirms built-in Codex
+   subagents are disabled.
+3. Launch exactly one runtime. Record the compatibility `child_handle` where
+   material; for the external lane also record canonical actor, process,
+   session, and continuation handles.
 4. Track `launched` and `running` only from host state. Await or retrieve the
    terminal result; do not fabricate status from the request packet.
 5. On return, check every expected output, source ref, scope boundary, actual
    effect, uncertainty, and stop condition. Represent the request's complete
    `expected_outputs` list as an `output_checks` object with exactly one key per
    named output; reject or narrow any missing, extra, or incomplete output.
+   For the external lane, resolve the exact runtime-owned terminal result,
+   reviewed A2A return, and usage observation. Keep them as refs: the
+   `aoa-summon` result is an actor-execution/closeout receipt, not a fork of the
+   SDK A2A schema or the runtime result schema.
 6. Produce the parent closeout handoff: accepted outputs, rejected claims,
    residual risk, checkpoint consequence, optional memo candidate route, owner
    publication route, and whether parent work may continue.
@@ -83,5 +101,15 @@ accepted state records the `child-agent-runtime` effect.
 The nullable lane is reserved for pre-admission request failure. Once the
 request ABI passes, select one concrete lane from the table.
 
-Blocked, failed, and narrowed children return through the same parent surface.
+For `external_cli_reviewed`, every post-launch state carries
+`external-actor-runtime`, an `external_cli_incarnation` binding, the exact
+`aoa-sdk` incarnation, summon request, summon decision, and runtime-profile
+refs, runtime owner, and all four canonical handles. Returned or accepted
+states also carry exact runtime result, reviewed A2A-return, and usage refs; a
+failed terminal state carries the exact runtime result and usage refs without
+inventing a reviewed return. Usage remains observe-only counting and never
+becomes a caller-authored execution budget.
+
+Blocked, failed, and narrowed actors return through the same responsibility
+surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.

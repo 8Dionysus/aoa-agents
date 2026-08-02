@@ -13,6 +13,7 @@
 - [AOA-AG-D-0045 2026-05-26: Root Agent Schema Posture](../AOA-AG-D-0045-root-agent-schema-posture.md) (`docs/decisions/AOA-AG-D-0045-root-agent-schema-posture.md`)
 - [AOA-AG-D-0051 2026-05-26: agents source home topology](../AOA-AG-D-0051-agents-source-home-topology.md) (`docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
 ## role specialization
 
@@ -171,6 +172,11 @@
 ## handoff
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+
+## incarnation
+
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
 ## memo posture
 
@@ -183,6 +189,10 @@
 ## progression
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## responsibility posture
+
+- [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
 ## root clarity
 
