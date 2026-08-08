@@ -481,7 +481,7 @@
           "binding": {
             "properties": {
               "binding_kind": {"const": "external_cli_incarnation"},
-              "runtime_owner": {"type": "string", "minLength": 1},
+              "runtime_owner": {"const": "abyss-stack"},
               "incarnation_binding_ref": {"$ref": "#/$defs/incarnationBindingRef"},
               "sdk_summon_request_ref": {"$ref": "#/$defs/sdkSummonRequestRef"},
               "sdk_summon_decision_ref": {"$ref": "#/$defs/sdkSummonDecisionRef"},

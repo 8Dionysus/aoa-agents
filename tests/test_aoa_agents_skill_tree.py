@@ -224,6 +224,11 @@ class TestAoAAgentsSkillTreeContracts:
         result["binding"]["uses_builtin_codex_subagents"] = True
         assert list(self.result_validator.iter_errors(result))
 
+    def test_external_result_requires_the_abyss_stack_runtime_owner(self) -> None:
+        result = base_external_result()
+        result["binding"]["runtime_owner"] = "unrelated-owner"
+        assert list(self.result_validator.iter_errors(result))
+
     def test_external_accepted_result_requires_runtime_owned_return_refs(self) -> None:
         result = base_external_result()
         del result["runtime_state"]["runtime_a2a_return_ref"]
