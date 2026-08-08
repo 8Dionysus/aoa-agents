@@ -19,7 +19,7 @@ input_abi:
     - child_inputs
     - request_ref
     - request_digest
-    - external_incarnation when transport_preference is external_cli
+    - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
 output_abi:
   type: summon-result-v3
   schema: summon-result-v3.schema.json

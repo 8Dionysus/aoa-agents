@@ -18,7 +18,7 @@ its digest, and require exact key-set equality between request
 |---|---|
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
 | bounded `d2_slice`, low risk, narrowing reviewer/evaluator/verifier | `codex_local_reviewed` |
-| complete `aoa-agents-skills` actor packet with exact SDK incarnation and separate CLI runtime launch | `external_cli_reviewed` |
+| complete `aoa-agents-skills` actor packet with an admitted distinct-holder responsibility transfer, exact SDK incarnation, and separate CLI runtime launch | `external_cli_reviewed` |
 | separate endpoint or execution surface is truly required | `remote_reviewed` |
 | `d3+` still unsplit | `split_required` |
 | required progression/self-agent/approval evidence missing | `human_gate` |
@@ -42,8 +42,9 @@ host binding. An allowed decision is not execution evidence.
 2. Resolve the host binding before claiming execution. Record interface name,
    availability, binding kind, runtime owner, and any runtime constraints. The
    external lane additionally resolves exact incarnation, canonical SDK summon
-   request/decision, and runtime-profile refs and confirms built-in Codex
-   subagents are disabled.
+   request/decision, admitted `aoa-agents` responsibility-transfer ref and its
+   ordered distinct holder pair, and runtime-profile refs, and confirms
+   built-in Codex subagents are disabled.
 3. Launch exactly one runtime. Record the compatibility `child_handle` where
    material; for the external lane also record canonical actor, process,
    session, and continuation handles.

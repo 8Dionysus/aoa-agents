@@ -185,8 +185,7 @@
         "sdk_summon_decision_ref",
         "runtime_launch_ref",
         "runtime_interface",
-        "responsibility_from",
-        "responsibility_to",
+        "responsibility_transfer_ref",
         "domain_procedure_refs",
         "continuity_ref",
         "return_event_schema_ref",
@@ -204,8 +203,9 @@
         "sdk_summon_decision_ref": {"$ref": "#/$defs/sdkSummonDecisionRef"},
         "runtime_launch_ref": {"$ref": "#/$defs/runtimeLaunchRef"},
         "runtime_interface": {"type": "string", "minLength": 1},
-        "responsibility_from": {"type": "string", "minLength": 1},
-        "responsibility_to": {"type": "string", "minLength": 1},
+        "responsibility_transfer_ref": {
+          "$ref": "#/$defs/responsibilityTransferAdmissionRef"
+        },
         "domain_procedure_refs": {
           "type": "array",
           "minItems": 1,
@@ -259,6 +259,38 @@
         {"$ref": "#/$defs/contentRef"},
         {"properties": {"owner_repo": {"const": "aoa-skills"}, "schema_version": {"const": "aoa-task-local-dag-v2"}}}
       ]
+    },
+    "responsibilityTransferAdmissionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "owner_repo",
+        "schema_version",
+        "digest",
+        "admitted_state",
+        "holder_ids"
+      ],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"const": "aoa-agents"},
+        "schema_version": {"const": "responsibility-transfer-v1"},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "admitted_state": {
+          "enum": ["accepted", "narrowed", "launched"]
+        },
+        "holder_ids": {
+          "type": "array",
+          "description": "Ordered previous and current responsibility holders.",
+          "prefixItems": [
+            {"type": "string", "minLength": 1},
+            {"type": "string", "minLength": 1}
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        }
+      }
     },
     "incarnationBindingRef": {
       "allOf": [

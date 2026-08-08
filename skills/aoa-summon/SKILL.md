@@ -77,9 +77,10 @@ Use through either of two exact authorities:
 - the user explicitly requests delegation/summoning and the anchored route has
   one settled branch, quest passport, named outputs, and return owner; or
 - `aoa-agents-skills` has produced one complete task-local execution-leaf
-  packet with obligation, actor mandate, incarnation binding, responsibility
-  holders, domain procedures, separate CLI runtime launch, outputs, return,
-  continuation, and stop refs.
+  packet with obligation, actor mandate, incarnation binding, an owner-qualified
+  admitted responsibility-transfer ref with distinct previous/current holders,
+  domain procedures, separate CLI runtime launch, outputs, return, continuation,
+  and stop refs.
 
 Use decision-only mode when the caller asks whether either route is lawful.
 

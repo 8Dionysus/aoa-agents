@@ -62,8 +62,15 @@ def external_incarnation() -> dict[str, object]:
         "sdk_summon_decision_ref": content_ref("aoa-sdk", "summon-decision:landing-writer", "urn:aoa-sdk:a2a:summon-result:v4"),
         "runtime_launch_ref": content_ref("abyss-stack", "launch:landing-writer", "abyss_stack_external_codex_launch_v1"),
         "runtime_interface": "abyss_stack_external_codex_agent_v1",
-        "responsibility_from": "actor://goal-owner",
-        "responsibility_to": "actor://landing-writer",
+        "responsibility_transfer_ref": {
+            **content_ref(
+                "aoa-agents",
+                "transfer:goal-owner-to-landing-writer",
+                "responsibility-transfer-v1",
+            ),
+            "admitted_state": "accepted",
+            "holder_ids": ["actor://goal-owner", "actor://landing-writer"],
+        },
         "domain_procedure_refs": [
             content_ref("target-owner", "procedure:landing-preparation", "owner-procedure-v1")
         ],
@@ -165,6 +172,7 @@ class TestAoAAgentsSkillTreeContracts:
             "runtime_launch_ref": "abyss-stack",
             "continuity_ref": "aoa-sdk",
             "return_event_schema_ref": "abyss-stack",
+            "responsibility_transfer_ref": "aoa-agents",
         }
         for field, expected_owner in owner_fields.items():
             request = base_request("external_cli")
@@ -175,6 +183,23 @@ class TestAoAAgentsSkillTreeContracts:
                 field,
                 expected_owner,
             )
+
+    def test_external_cli_request_requires_admitted_holder_transition(self) -> None:
+        for mutation in ("same-holder", "unadmitted", "wrong-owner"):
+            request = base_request("external_cli")
+            packet = external_incarnation()
+            transfer = packet["responsibility_transfer_ref"]
+            if mutation == "same-holder":
+                transfer["holder_ids"] = [
+                    "actor://goal-owner",
+                    "actor://goal-owner",
+                ]
+            elif mutation == "unadmitted":
+                transfer["admitted_state"] = "proposed"
+            else:
+                transfer["owner_repo"] = "unrelated-owner"
+            request["external_incarnation"] = packet
+            assert list(self.request_validator.iter_errors(request)), mutation
 
         stable_contract_fields = (
             "obligation_ref",
