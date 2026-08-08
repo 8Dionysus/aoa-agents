@@ -116,7 +116,7 @@ nodes:
     purpose: Return one bounded independent-obligation disposition and trigger strength without selecting a model or runtime.
     kind: mode
     contract_level: executable
-    primary_parent: aoa-agents-skills
+    primary_parent: agents.lifecycle.pressure
     owner: *family_owner
     lifecycle: &internal_lifecycle
       state: candidate
@@ -155,7 +155,7 @@ nodes:
     purpose: Form one stable role mandate with domain-owner procedure refs, authority, continuity, return, and wake posture.
     kind: mode
     contract_level: executable
-    primary_parent: aoa-agents-skills
+    primary_parent: agents.lifecycle.pressure
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:
@@ -199,7 +199,7 @@ nodes:
     purpose: Bind a complete stable mandate to current model-fit evidence and an independently addressable runtime profile.
     kind: mode
     contract_level: executable
-    primary_parent: aoa-agents-skills
+    primary_parent: agents.lifecycle.incarnation
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:
@@ -330,7 +330,9 @@ nodes:
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:
-      use_when: [The user explicitly requests execution and the complete request has one callable host binding.]
+      use_when:
+        - The user explicitly requests execution and the complete request has one callable host binding.
+        - A complete task-local actor DAG carries an admitted responsibility transfer into this execution mode with one callable host binding.
       do_not_use_when: [The request is decision-only, incomplete, or the binding cannot be inspected.]
       ambiguous_when: [A same-host external CLI is needed but only the built-in child interface is bound.]
     abi:
@@ -373,7 +375,7 @@ nodes:
     purpose: Transfer one exact obligation to a role-bearing actor without equating runtime transport with the A2A relation.
     kind: mode
     contract_level: executable
-    primary_parent: aoa-agents-skills
+    primary_parent: agents.lifecycle.relationship
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:
@@ -411,7 +413,7 @@ nodes:
     purpose: Filter one exact actor event or return and make responsibility, DAG, residual duty, and wake posture explicit.
     kind: mode
     contract_level: executable
-    primary_parent: aoa-agents-skills
+    primary_parent: agents.lifecycle.relationship
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:

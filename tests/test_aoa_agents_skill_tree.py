@@ -154,8 +154,48 @@ class TestAoAAgentsSkillTreeContracts:
         request["external_incarnation"] = packet
         assert list(self.request_validator.iter_errors(request))
 
+    def test_external_cli_request_rejects_stronger_owner_ref_drift(self) -> None:
+        owner_fields = {
+            "obligation_ref": "aoa-agents",
+            "actor_mandate_ref": "aoa-agents",
+            "task_local_dag_ref": "aoa-skills",
+            "incarnation_binding_ref": "aoa-sdk",
+            "sdk_summon_request_ref": "aoa-sdk",
+            "sdk_summon_decision_ref": "aoa-sdk",
+            "runtime_launch_ref": "abyss-stack",
+            "continuity_ref": "aoa-sdk",
+            "return_event_schema_ref": "abyss-stack",
+        }
+        for field, expected_owner in owner_fields.items():
+            request = base_request("external_cli")
+            packet = external_incarnation()
+            packet[field]["owner_repo"] = "unrelated-owner"
+            request["external_incarnation"] = packet
+            assert list(self.request_validator.iter_errors(request)), (
+                field,
+                expected_owner,
+            )
+
+        stable_contract_fields = (
+            "obligation_ref",
+            "actor_mandate_ref",
+            "task_local_dag_ref",
+            "incarnation_binding_ref",
+            "sdk_summon_request_ref",
+            "sdk_summon_decision_ref",
+            "runtime_launch_ref",
+            "return_event_schema_ref",
+        )
+        for field in stable_contract_fields:
+            request = base_request("external_cli")
+            packet = external_incarnation()
+            packet[field]["schema_version"] = "unrelated-contract-v1"
+            request["external_incarnation"] = packet
+            assert list(self.request_validator.iter_errors(request)), field
+
     def test_external_result_requires_canonical_actor_runtime_handles(self) -> None:
         result = base_external_result()
+        del result["runtime_state"]["child_handle"]
         assert list(self.result_validator.iter_errors(result)) == []
         broken = copy.deepcopy(result)
         del broken["runtime_state"]["session_handle"]

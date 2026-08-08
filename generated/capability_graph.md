@@ -2,7 +2,7 @@
 
 Derived from `capabilities/families/*.yaml`. This file is a read model, not capability authority.
 
-Source content hash: `038b62eae14ad2525bf5268aaed1b136b4c89572d00dc90bbe18cd52d168e17b`
+Source content hash: `bf5a0f4c6e930de856dcee5bdbbe1f26ae5c682200487170866596e0e57747f4`
 
 ## Semantic tree
 
@@ -10,19 +10,19 @@ Source content hash: `038b62eae14ad2525bf5268aaed1b136b4c89572d00dc90bbe18cd52d1
   - `aoa-agents-skills` (capability, internal, healthy)
     - `agents.progression` (capability, internal, healthy)
       - `skill.aoa-session-progression-lift` (skill, advertised, challenger)
-    - `mode.agents.bind-incarnation` (mode, internal, challenger)
-    - `mode.agents.detect-obligation` (mode, internal, challenger)
-    - `mode.agents.form-actor` (mode, internal, challenger)
-    - `mode.agents.receive-return` (mode, internal, challenger)
-    - `mode.agents.transfer-responsibility` (mode, internal, challenger)
     - `skill.aoa-agents-skills` (skill, advertised, challenger)
       - `agents.lifecycle.incarnation` (capability, internal, healthy)
         - `agents.lifecycle.execution` (capability, internal, healthy)
           - `mode.aoa-summon.decide` (mode, internal, challenger)
           - `mode.aoa-summon.execute` (mode, internal, challenger)
           - `skill.aoa-summon` (skill, advertised, challenger)
+        - `mode.agents.bind-incarnation` (mode, internal, challenger)
       - `agents.lifecycle.pressure` (capability, internal, healthy)
+        - `mode.agents.detect-obligation` (mode, internal, challenger)
+        - `mode.agents.form-actor` (mode, internal, challenger)
       - `agents.lifecycle.relationship` (capability, internal, healthy)
+        - `mode.agents.receive-return` (mode, internal, challenger)
+        - `mode.agents.transfer-responsibility` (mode, internal, challenger)
 
 ## Typed relations
 
@@ -38,11 +38,11 @@ Source content hash: `038b62eae14ad2525bf5268aaed1b136b4c89572d00dc90bbe18cd52d1
 | primary-parent | `agents.lifecycle.relationship` | `skill.aoa-agents-skills` | - |
 | primary-parent | `agents.progression` | `aoa-agents-skills` | - |
 | primary-parent | `aoa-agents-skills` | `aoa-agents` | - |
-| primary-parent | `mode.agents.bind-incarnation` | `aoa-agents-skills` | - |
-| primary-parent | `mode.agents.detect-obligation` | `aoa-agents-skills` | - |
-| primary-parent | `mode.agents.form-actor` | `aoa-agents-skills` | - |
-| primary-parent | `mode.agents.receive-return` | `aoa-agents-skills` | - |
-| primary-parent | `mode.agents.transfer-responsibility` | `aoa-agents-skills` | - |
+| primary-parent | `mode.agents.bind-incarnation` | `agents.lifecycle.incarnation` | - |
+| primary-parent | `mode.agents.detect-obligation` | `agents.lifecycle.pressure` | - |
+| primary-parent | `mode.agents.form-actor` | `agents.lifecycle.pressure` | - |
+| primary-parent | `mode.agents.receive-return` | `agents.lifecycle.relationship` | - |
+| primary-parent | `mode.agents.transfer-responsibility` | `agents.lifecycle.relationship` | - |
 | primary-parent | `mode.aoa-summon.decide` | `agents.lifecycle.execution` | - |
 | primary-parent | `mode.aoa-summon.execute` | `agents.lifecycle.execution` | - |
 | primary-parent | `skill.aoa-agents-skills` | `aoa-agents-skills` | - |

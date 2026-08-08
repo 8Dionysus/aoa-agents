@@ -430,6 +430,13 @@
     {
       "if": {
         "properties": {
+          "lane": {
+            "enum": [
+              "codex_local_leaf",
+              "codex_local_reviewed",
+              "remote_reviewed"
+            ]
+          },
           "runtime_state": {
             "properties": {
               "state": {
@@ -439,7 +446,7 @@
             "required": ["state"]
           }
         },
-        "required": ["runtime_state"]
+        "required": ["lane", "runtime_state"]
       },
       "then": {
         "properties": {
@@ -459,9 +466,7 @@
           },
           "actual_effects": {
             "minItems": 1,
-            "contains": {
-              "enum": ["child-agent-runtime", "external-actor-runtime"]
-            }
+            "contains": {"const": "child-agent-runtime"}
           }
         }
       }
@@ -524,6 +529,14 @@
       },
       "then": {
         "properties": {
+          "binding": {
+            "properties": {
+              "interface": {"type": "string", "minLength": 1},
+              "inspected": {"const": true},
+              "available": {"const": true}
+            },
+            "required": ["interface", "inspected", "available"]
+          },
           "runtime_state": {
             "required": [
               "actor_handle",
@@ -706,7 +719,7 @@
     "runtime_state": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["state", "child_handle"],
+      "required": ["state"],
       "properties": {
         "state": {
           "type": "string",

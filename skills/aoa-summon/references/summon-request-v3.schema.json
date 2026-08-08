@@ -196,13 +196,13 @@
         "usage_metering"
       ],
       "properties": {
-        "obligation_ref": {"$ref": "#/$defs/contentRef"},
-        "actor_mandate_ref": {"$ref": "#/$defs/contentRef"},
-        "task_local_dag_ref": {"$ref": "#/$defs/contentRef"},
-        "incarnation_binding_ref": {"$ref": "#/$defs/contentRef"},
-        "sdk_summon_request_ref": {"$ref": "#/$defs/contentRef"},
-        "sdk_summon_decision_ref": {"$ref": "#/$defs/contentRef"},
-        "runtime_launch_ref": {"$ref": "#/$defs/contentRef"},
+        "obligation_ref": {"$ref": "#/$defs/agentObligationRef"},
+        "actor_mandate_ref": {"$ref": "#/$defs/actorMandateRef"},
+        "task_local_dag_ref": {"$ref": "#/$defs/taskLocalDagRef"},
+        "incarnation_binding_ref": {"$ref": "#/$defs/incarnationBindingRef"},
+        "sdk_summon_request_ref": {"$ref": "#/$defs/sdkSummonRequestRef"},
+        "sdk_summon_decision_ref": {"$ref": "#/$defs/sdkSummonDecisionRef"},
+        "runtime_launch_ref": {"$ref": "#/$defs/runtimeLaunchRef"},
         "runtime_interface": {"type": "string", "minLength": 1},
         "responsibility_from": {"type": "string", "minLength": 1},
         "responsibility_to": {"type": "string", "minLength": 1},
@@ -211,8 +211,8 @@
           "minItems": 1,
           "items": {"$ref": "#/$defs/contentRef"}
         },
-        "continuity_ref": {"$ref": "#/$defs/contentRef"},
-        "return_event_schema_ref": {"$ref": "#/$defs/contentRef"},
+        "continuity_ref": {"$ref": "#/$defs/sdkContinuityRef"},
+        "return_event_schema_ref": {"$ref": "#/$defs/runtimeEventRef"},
         "launches_separate_os_process": {"type": "boolean"},
         "uses_builtin_codex_subagents": {"type": "boolean"},
         "separate_cli_session": {"type": "boolean"},
@@ -241,6 +241,60 @@
         "schema_version": {"type": "string", "minLength": 1},
         "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
       }
+    },
+    "agentObligationRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-agents"}, "schema_version": {"const": "agent-obligation-v1"}}}
+      ]
+    },
+    "actorMandateRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-agents"}, "schema_version": {"const": "actor-mandate-v1"}}}
+      ]
+    },
+    "taskLocalDagRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-skills"}, "schema_version": {"const": "aoa-task-local-dag-v2"}}}
+      ]
+    },
+    "incarnationBindingRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "aoa_agent_incarnation_binding_v1"}}}
+      ]
+    },
+    "sdkSummonRequestRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-request:v4"}}}
+      ]
+    },
+    "sdkSummonDecisionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-result:v4"}}}
+      ]
+    },
+    "runtimeLaunchRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_launch_v1"}}}
+      ]
+    },
+    "sdkContinuityRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}}}
+      ]
+    },
+    "runtimeEventRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_event_v1"}}}
+      ]
     }
   }
 }
