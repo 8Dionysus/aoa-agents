@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9969949,
+  "allowed_tracked_bytes": 14249993,
+  "approved_by": "repository-owner",
+  "base_ref": "92dd79e6c79fef60faedf6b97f2c65ff89477d06",
+  "changed_generated_bytes": 9969949,
+  "changed_generated_files": 293,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "5951bbf5a80f1c0adf483a6c8c5ea864c1c5de4002c7b221b6f2468cd1c856ad",
+  "reason": "Regenerate the portable family after scoping compatibility-child and external-CLI runtime evidence by lane; tracked size remains within the standing cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14249993,
+  "tracked_bytes_max": 16777216
+}
