@@ -2,12 +2,12 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.2.17
-  health: candidate
-purpose: Decide or execute one anchored child-agent route and return it to parent closeout.
+  version: 0.3.0
+  health: challenger
+purpose: Decide or execute one anchored actor route through a compatibility child lane or exact external CLI incarnation and return responsibility to closeout.
 applicability:
-  positive: explicit delegation intent or summon-law question with an anchored parent route
-  negative: incomplete request ABI, implicit background work, unresolved fork, unnamed output, unsplit d3+, or gate bypass
+  positive: explicit delegation intent, summon-law question, or complete aoa-agents-skills external execution leaf with an anchored goal route
+  negative: incomplete request ABI, generic implicit background work, unresolved fork, unnamed output, unsplit d3+, or obligation, mandate, incarnation, approval, owner, or proof gate bypass
 input_abi:
   type: summon-request-v3
   schema: summon-request-v3.schema.json
@@ -19,6 +19,7 @@ input_abi:
     - child_inputs
     - request_ref
     - request_digest
+    - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
 output_abi:
   type: summon-result-v3
   schema: summon-result-v3.schema.json
@@ -36,12 +37,14 @@ output_abi:
 modes:
   decide:
     effects: [none]
+    reference: lane-and-return.md
   execute:
-    effects: [child-agent-runtime]
+    effects: [child-agent-runtime, external-actor-runtime]
+    reference: lane-and-return.md
 freedom_level: bounded-judgment
 tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
-  - A callable host child-agent delegation and return interface for execute mode.
+  - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
 execution_states:
   - decided
   - blocked
@@ -51,13 +54,13 @@ execution_states:
   - accepted
   - failed
 termination:
-  success: decision-only result or one child return validated and handed to parent closeout
-  blocked: request ABI, anchor, literal inputs, outputs, gates, explicit intent, or host binding is unavailable
+  success: decision-only result or one actor return validated and handed to responsibility closeout
+  blocked: request ABI, anchor, literal inputs, outputs, gates, execution authority, or host binding is unavailable
 relations:
-  - {kind: requires, target: guard.operations.approval, condition: child effects require approval}
+  - {kind: requires, target: guard.operations.approval, condition: actor effects require approval}
   - {kind: consumes, target: progression-delta-candidate, condition: only after aoa-agents owner review when progression is required}
-  - {kind: hands-off-to, target: aoa-checkpoint-closeout-bridge, condition: child return changes parent checkpoint or closeout posture}
-  - {kind: hands-off-to, target: aoa-memo-writeback, condition: reviewed child return contains one bounded memory-worthy lesson}
+  - {kind: hands-off-to, target: aoa-checkpoint-closeout-bridge, condition: actor return changes goal checkpoint or closeout posture}
+  - {kind: hands-off-to, target: aoa-memo-writeback, condition: reviewed actor return contains one bounded memory-worthy lesson}
 trust:
   posture: owner-authored-procedure
   runtime_authority: host-only
@@ -86,3 +89,8 @@ failure_modes:
   - retired result expected-output list reappears beside the canonical map
   - child scope widened or gate bypassed
   - raw trace promoted to proof or memory truth
+  - external actor route executed without obligation, mandate, task-local DAG, incarnation, responsibility, domain procedure, continuation, or return-event refs
+  - owner-local summon receipt presented as a replacement for the aoa-sdk A2A decision or abyss-stack runtime return
+  - accepted external return lacks exact SDK summon request/decision or runtime result/A2A-return/usage refs
+  - built-in Codex child lane reported as a separate external CLI incarnation
+  - external usage observations converted into a pre-emptive budget gate

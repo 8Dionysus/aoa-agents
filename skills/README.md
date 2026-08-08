@@ -5,13 +5,18 @@ owned specifically by the AoA agent layer.
 
 | Bundle | Function | Global exposure | Admission |
 |---|---|---|---|
+| `aoa-agents-skills` | detect independent obligation pressure and route stable role, replaceable incarnation, responsibility transfer, return, and wake | `os-user-default` | `AOA-AG-D-0061` (challenger router only) |
 | `aoa-session-progression-lift` | reviewed evidence to bounded progression delta candidate | `os-user-default` | `AOA-AG-D-0059` |
-| `aoa-summon` | decide or execute one anchored child route and close its return | `os-user-default` | `AOA-AG-D-0059` |
+| `aoa-summon` | execute one explicit compatibility child route or complete external actor incarnation and close its responsibility return | `os-user-default` | `AOA-AG-D-0059`, evolved by `AOA-AG-D-0061` |
 
 Full owner procedure packages live here. The semantic graph and KAG index are
 derived consumers. The single Codex projection lives in the OS user catalog;
 this repository does not duplicate the bundles under `.agents/skills`.
 
 Manual evidence established progression attribution and refusal boundaries,
-summon `d3+` split behavior, and truthful binding failure. Admission does not
-claim cross-model equivalence or make a plan, schema, or graph node execution.
+summon `d3+` split behavior, truthful binding failure, and a real installed
+workspace-write external CLI chain with independent review and exact A2A
+return. `aoa-agents-skills` admission applies only to the challenger router;
+the Luna/landing realization remains shadow evidence and admission does not
+claim model fit, cross-model equivalence, net benefit, or automatic effect
+authority.

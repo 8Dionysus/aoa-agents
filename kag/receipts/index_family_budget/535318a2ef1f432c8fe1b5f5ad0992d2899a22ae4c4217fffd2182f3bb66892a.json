@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9999580,
+  "allowed_tracked_bytes": 14230781,
+  "approved_by": "repository-owner",
+  "base_ref": "92dd79e6c79fef60faedf6b97f2c65ff89477d06",
+  "changed_generated_bytes": 9999580,
+  "changed_generated_files": 292,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "535318a2ef1f432c8fe1b5f5ad0992d2899a22ae4c4217fffd2182f3bb66892a",
+  "reason": "Regenerate the portable family after correcting external decision-only validation and publishing the DAG-authorized summon trigger; tracked size remains within the standing cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14230781,
+  "tracked_bytes_max": 16777216
+}

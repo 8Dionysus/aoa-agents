@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9996781,
+  "allowed_tracked_bytes": 14227982,
+  "approved_by": "repository-owner",
+  "base_ref": "92dd79e6c79fef60faedf6b97f2c65ff89477d06",
+  "changed_generated_bytes": 9996781,
+  "changed_generated_files": 292,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "73f4f4d4cc8121377c3580fe07820cb7cdaa0d4d40a9ece355c05a1294d458a7",
+  "reason": "Regenerate the portable family for the obligation-driven actor skill tree; content-address changes exceed the default delta while tracked size remains below its standing limit.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14227982,
+  "tracked_bytes_max": 16777216
+}

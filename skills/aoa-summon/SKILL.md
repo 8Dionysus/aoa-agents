@@ -1,15 +1,18 @@
 ---
 name: aoa-summon
-description: Delegate one bounded child-agent route from an anchored parent task, including host launch, named outputs, return validation, and parent closeout. Use only when the user explicitly asks to delegate or summon a narrower helper. An incomplete summon request must block, not receive an allowed decision. Do not use without a parent anchor, with unresolved branching or unnamed outputs, for unsplit deep work, or to bypass approval, owner, or proof boundaries.
+description: Execute one bounded actor route from an anchored goal, including compatibility child lanes or an independently bound external CLI incarnation, named outputs, return validation, and responsibility closeout. Use when the user explicitly delegates or when aoa-agents-skills selects this leaf from a complete task-local actor DAG. An incomplete request must block. Do not use for generic implicit spawning, unresolved branching, unnamed outputs, unsplit deep work, or to bypass obligation, mandate, incarnation, approval, owner, or proof boundaries.
 ---
 
 # aoa-summon
 
 ## Intent
 
-Preserve the existing summon function as an executable owner skill: a child is
-not "summoned" merely because a plan names one. Execution requires a real host
-binding, a runtime child handle, a bounded return, and parent-side closeout.
+Preserve summon as the execution leaf, not the source of actor meaning. A route
+is not executed merely because a plan names a child, actor, model, or launcher.
+Execution requires a real inspected host binding, runtime handle, bounded
+return, and responsibility closeout. `child` remains compatibility vocabulary
+for the existing Codex-local lanes; the external lane uses an actor identity
+and separate CLI process/session.
 
 ## Owner-source return
 
@@ -23,7 +26,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.2.17`, an existing absolute
+   name, owner `aoa-agents`, version `0.3.0`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -69,21 +72,36 @@ as the owner summon boundary; do not search for substitutes.
 
 ## Trigger boundary
 
-Use when the user explicitly requests delegation/summoning and the parent route
-has one settled branch, real anchor, quest passport, named outputs, and return
-owner. Use decision-only mode when the user asks whether delegation is lawful.
+Use through either of two exact authorities:
 
-Do not use for implicit background agents, broad orchestration, unresolved
-route forks, unanchored work, unnamed outputs, or a child used to widen
-authority or evade a gate.
+- the user explicitly requests delegation/summoning and the anchored route has
+  one settled branch, quest passport, named outputs, and return owner; or
+- `aoa-agents-skills` has produced one complete task-local execution-leaf
+  packet with obligation, actor mandate, incarnation binding, an owner-qualified
+  admitted responsibility-transfer ref with distinct previous/current holders,
+  domain procedures, separate CLI runtime launch, outputs, return, continuation,
+  and stop refs.
+
+Use decision-only mode when the caller asks whether either route is lawful.
+
+Do not use for generic implicit background agents, keyword autospawn, broad
+orchestration, unresolved route forks, unanchored work, unnamed outputs, or an
+actor used to widen authority or evade a gate. A source-authorized task-local
+leaf is not permission to infer any missing field.
 
 ## Inputs and outputs
 
-- input: `summon-request-v3` plus explicit intent `decide` or `execute`; see
+- input: `summon-request-v3` plus intent `decide` or `execute`; the
+  `external_cli` transport additionally requires the complete
+  `external_incarnation` extension; see
   `references/summon-request-v3.schema.json` and `references/contract.yaml`
-- output: `summon-result-v3` with decision, binding and runtime state, child
-  handle when launched, immutable request identity and intent, one validation
-  record per named output, closeout handoff, effects, and stop
+- output: `summon-result-v3` with decision, binding and runtime state, canonical
+  actor/process/session/continuation handles for the external lane,
+  compatibility child handle where material, exact SDK summon request and
+  decision refs, runtime-owned terminal/result/usage refs, immutable request
+  identity and intent, one validation record per named output, closeout
+  handoff, effects, and stop. This owner-local receipt does not replace or
+  rename the `aoa-sdk` A2A schemas or the `abyss-stack` runtime return.
 
 ## Procedure
 
@@ -104,25 +122,39 @@ authority or evade a gate.
    binding was not actually inspected, return `binding.inspected: false` and
    `binding.available: null`; an allowed lane is not a claim that launch is
    currently available.
-4. In `execute`, require explicit user delegation intent and a callable host
-   binding; launch exactly one bounded child, record its runtime handle, await
-   or retrieve its terminal result, validate named outputs, and close the
-   parent handoff. If the binding is absent, return `blocked_binding_unavailable`.
-   Copy the request ref, digest, and intent into the result; execute intent may
-   never terminate as a decision-only `decided` state.
+4. In `execute`, require either explicit user delegation or a complete
+   source-authorized `aoa-agents-skills` external-incarnation packet, plus a
+   callable inspected host binding. Launch exactly one bounded runtime, record
+   its canonical handles, await or retrieve its terminal result, validate named
+   outputs, and close the responsibility handoff. If the binding is absent,
+   return `blocked_binding_unavailable`. Copy the request ref, digest, and
+   intent into the result; execute intent may never terminate as a
+   decision-only `decided` state.
+5. For `external_cli_reviewed`, require the host binding to consume the exact
+   `aoa-sdk` incarnation, summon request, summon decision, and `abyss-stack`
+   launch refs, launch a separate OS process and separate persistent CLI
+   session, disable built-in Codex subagents, expose resume and event handles,
+   and return observe-only usage receipts. On terminal reviewed return,
+   preserve the runtime-owned result and A2A-return refs and validate the
+   requested outputs from those exact bytes. Do not ask `abyss-stack` to emit
+   `summon-result-v3`: that receipt belongs to this leaf and references the
+   stronger SDK/runtime artifacts. Do not substitute `codex_local_*` or
+   `remote_reviewed` when the external contract is unavailable.
 
 ## Contracts
 
-- local host delegation is the default; remote transport needs a real separate
-  execution surface, not prestige
-- child scope, tools, effects, authority, and stop line cannot exceed passport
-- failed, blocked, or narrowed child results still return explicitly
-- child traces are session aids, never proof, memory canon, or owner truth
+- existing local child delegation remains the compatibility default only for
+  explicit child requests; external actor execution selects
+  `external_cli_reviewed` and a real separate execution surface
+- scope, tools, effects, authority, and stop line cannot exceed the passport,
+  actor mandate, incarnation binding, or responsibility transfer
+- failed, blocked, or narrowed actor results still return explicitly
+- runtime traces are session aids, never proof, memory canon, or owner truth
 - technique lineage is optional provenance, not a runtime dependency
 
 ## Verification
 
-- confirm parent anchor, named outputs, selected lane, all required gates, and
+- confirm goal/parent anchor, named outputs, selected lane, all required gates, and
   exact host binding before launch
 - never report binding availability from configuration, catalog presence, or
   assumption; only a real host-interface inspection may set
@@ -132,9 +164,11 @@ authority or evade a gate.
   explicit empty `child_inputs` array
 - distinguish decided, launched, running, returned, accepted, blocked, and
   failed; a JSON plan is not runtime execution
-- require failed child execution to preserve the inspected binding, child
-  handle, and `child-agent-runtime` effect just like every other post-launch
-  state; reject the retired result-side `expected_outputs` field
+- require failed execution to preserve the inspected binding and canonical
+  runtime handles just like every other post-launch state; external execution
+  preserves `external-actor-runtime`, while compatibility child execution
+  preserves `child-agent-runtime`; reject the retired result-side
+  `expected_outputs` field
 - validate returned artifacts against the request and preserve residual risk,
   checkpoint/memo candidates, and owner closeout without promoting them
 - build `return_validation.output_checks` as an object keyed by every request
@@ -147,6 +181,8 @@ authority or evade a gate.
 - keep gate decisions and lanes bidirectionally aligned; aggregate acceptance
   is true only in the accepted runtime state, and every allowed route requires
   parent closeout
-- preserve immutable request identity, request intent, concrete parent owner,
-  and next route in every allowed result; executable child states must carry
-  the actual host execution effect
+- preserve immutable request identity, request intent, concrete responsibility
+  return owner, and next route in every allowed result; executable states must
+  carry the actual host execution effect
+- preserve the SDK summon request/decision and runtime result/A2A-return as
+  exact owner-qualified refs; never copy their fields into a competing A2A ABI

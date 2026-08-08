@@ -1,0 +1,26 @@
+{
+  "schema_version": "aoa_capability_home_port_v1",
+  "contract_ref": "aoa-skills:schemas/capability-home-port.schema.json",
+  "owner_repo": "aoa-agents",
+  "owner_ref": "capabilities/AGENTS.md",
+  "admission_ref": "docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md",
+  "source": {
+    "family_root": "capabilities/families",
+    "root_id": "aoa-agents"
+  },
+  "federation": {
+    "parent_owner": "aoa-skills",
+    "parent_node": "operations",
+    "relation": "specializes"
+  },
+  "skill_home_ref": "skills/port.manifest.json",
+  "eval_port_ref": "evals/PORT.yaml",
+  "projection": {
+    "authority": false,
+    "graph_json": "generated/capability_graph.json",
+    "graph_markdown": "generated/capability_graph.md",
+    "router_markdown": "skills/aoa-agents-skills/references/capability-router.md",
+    "generated_by": "aoa-skills:scripts/build_capability_home_projection.py"
+  }
+}
+
