@@ -65,8 +65,10 @@ Decision-only output does not need a host probe. If no probe occurred, set
 `binding.inspected: false` and `binding.available: null`. A concrete
 `available` value requires an actual interface inspection; launched, running,
 returned, or accepted runtime state additionally requires
-`binding.available: true`, a non-empty binding interface, and a non-empty child
-handle. An `accepted` state additionally requires successful return validation,
+`binding.available: true` and a non-empty binding interface. Compatibility
+child lanes additionally require a non-empty child handle; the external lane
+requires its canonical actor, process, session, and continuation handles. An
+`accepted` state additionally requires successful return validation,
 at least one output check, and concrete parent-owner and next-route closeout
 fields. Every accepted output check is received, artifact-linked, and accepted.
 A `decided` state is reserved for `decide` intent, has no child handle or
@@ -76,17 +78,20 @@ output checks, accepted return, or actual effects and is never allowed. An
 inspected unavailable binding carries a non-empty reason; an inspected available
 binding carries no failure reason.
 An allowed `execute` result must be launched, running, returned, accepted, or
-failed; it cannot stop as a plan. A failed post-launch result retains the
-inspected binding, child handle, and `child-agent-runtime` effect. The retired
-result-side `expected_outputs` field is invalid; output identity exists only in
-the immutable request and the keyed validation map.
+failed; it cannot stop as a plan. A failed compatibility-child result retains
+the inspected binding, child handle, and `child-agent-runtime` effect. A failed
+external result instead retains its canonical external handles, runtime result
+and usage refs, and `external-actor-runtime` effect. The retired result-side
+`expected_outputs` field is invalid; output identity exists only in the
+immutable request and the keyed validation map.
 Aggregate return acceptance implies the `accepted` runtime state. An available
 inspected binding names its concrete interface. `split_required` and
 `human_gate` decisions use only their matching lanes in both directions, and
 every allowed decision preserves the named outputs plus a concrete parent owner
 and next route. Gate lanes carry no executable target. Launched and running
-states carry no return checks yet, while every launched, running, returned, or
-accepted state records the `child-agent-runtime` effect.
+states carry no return checks yet. Every launched, running, returned, or
+accepted compatibility-child state records `child-agent-runtime`; external
+states record `external-actor-runtime` as specified below.
 
 ## Required result additions
 
