@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9972815,
+  "allowed_tracked_bytes": 14253912,
+  "approved_by": "repository-owner",
+  "base_ref": "92dd79e6c79fef60faedf6b97f2c65ff89477d06",
+  "changed_generated_bytes": 9972815,
+  "changed_generated_files": 293,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "5a3f4686a16ba2339d820b168aa2cbb53e6c7c3e34ec66da5a0a002fc6fe1228",
+  "reason": "Refresh the complete PR portable family from its merge base after the admitted responsibility-transfer repair; this receipt admits only the measured generated index delta and is not an actor execution budget.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14253912,
+  "tracked_bytes_max": 16777216
+}
