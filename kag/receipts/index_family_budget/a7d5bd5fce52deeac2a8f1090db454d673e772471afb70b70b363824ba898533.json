@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9970308,
+  "allowed_tracked_bytes": 14251405,
+  "approved_by": "repository-owner",
+  "base_ref": "92dd79e6c79fef60faedf6b97f2c65ff89477d06",
+  "changed_generated_bytes": 9970308,
+  "changed_generated_files": 293,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "a7d5bd5fce52deeac2a8f1090db454d673e772471afb70b70b363824ba898533",
+  "reason": "Regenerate the portable family after binding the external CLI result runtime owner to abyss-stack; tracked size remains within the standing cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14251405,
+  "tracked_bytes_max": 16777216
+}
