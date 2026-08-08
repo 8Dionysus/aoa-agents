@@ -161,6 +161,24 @@ class TestAoAAgentsSkillTreeContracts:
         del broken["runtime_state"]["session_handle"]
         assert list(self.result_validator.iter_errors(broken))
 
+    def test_external_decision_does_not_claim_runtime_effects_or_handles(self) -> None:
+        result = base_external_result()
+        result["request_intent"] = "decide"
+        result["runtime_state"] = {"state": "decided", "child_handle": None}
+        result["actual_effects"] = []
+        result["return_validation"] = {
+            "output_checks": {
+                output: {
+                    "received": False,
+                    "artifact_ref": None,
+                    "accepted": False,
+                }
+                for output in ("workspace-diff", "handoff")
+            },
+            "accepted": False,
+        }
+        assert list(self.result_validator.iter_errors(result)) == []
+
     def test_external_result_rejects_builtin_subagent_binding(self) -> None:
         result = base_external_result()
         result["binding"]["uses_builtin_codex_subagents"] = True

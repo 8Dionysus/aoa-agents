@@ -257,7 +257,9 @@ nodes:
       evidence_state: evaluated
       health: challenger
     applicability:
-      use_when: [The user explicitly requests one bounded anchored child route with named outputs and a return owner.]
+      use_when:
+        - The user explicitly requests one bounded anchored child route with named outputs and a return owner.
+        - aoa-agents-skills selects this execution leaf from a complete task-local actor DAG with an admitted transfer and return owner.
       do_not_use_when: [The request is incomplete, implicit, unsplit deep work, or intended to widen authority.]
       ambiguous_when: [A separate external CLI surface is required but the request lacks exact SDK incarnation/summon refs or an inspected runtime binding.]
     abi:

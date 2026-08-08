@@ -502,7 +502,29 @@
               "runtime_result_ref": {"$ref": "#/$defs/contentRef"},
               "runtime_a2a_return_ref": {"$ref": "#/$defs/contentRef"},
               "usage_observation_ref": {"$ref": "#/$defs/contentRef"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lane": {"const": "external_cli_reviewed"},
+          "runtime_state": {
+            "properties": {
+              "state": {
+                "enum": ["launched", "running", "returned", "accepted", "failed"]
+              }
             },
+            "required": ["state"]
+          }
+        },
+        "required": ["lane", "runtime_state"]
+      },
+      "then": {
+        "properties": {
+          "runtime_state": {
             "required": [
               "actor_handle",
               "process_handle",
