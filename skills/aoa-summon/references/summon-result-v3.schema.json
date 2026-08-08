@@ -482,10 +482,10 @@
             "properties": {
               "binding_kind": {"const": "external_cli_incarnation"},
               "runtime_owner": {"type": "string", "minLength": 1},
-              "incarnation_binding_ref": {"$ref": "#/$defs/contentRef"},
-              "sdk_summon_request_ref": {"$ref": "#/$defs/contentRef"},
-              "sdk_summon_decision_ref": {"$ref": "#/$defs/contentRef"},
-              "runtime_profile_ref": {"$ref": "#/$defs/contentRef"},
+              "incarnation_binding_ref": {"$ref": "#/$defs/incarnationBindingRef"},
+              "sdk_summon_request_ref": {"$ref": "#/$defs/sdkSummonRequestRef"},
+              "sdk_summon_decision_ref": {"$ref": "#/$defs/sdkSummonDecisionRef"},
+              "runtime_profile_ref": {"$ref": "#/$defs/runtimeProfileRef"},
               "uses_builtin_codex_subagents": {"const": false}
             },
             "required": [
@@ -504,9 +504,9 @@
               "process_handle": {"type": "string", "minLength": 1},
               "session_handle": {"type": "string", "minLength": 1},
               "continuation_handle": {"type": "string", "minLength": 1},
-              "runtime_result_ref": {"$ref": "#/$defs/contentRef"},
-              "runtime_a2a_return_ref": {"$ref": "#/$defs/contentRef"},
-              "usage_observation_ref": {"$ref": "#/$defs/contentRef"}
+              "runtime_result_ref": {"$ref": "#/$defs/runtimeResultRef"},
+              "runtime_a2a_return_ref": {"$ref": "#/$defs/runtimeA2AReturnRef"},
+              "usage_observation_ref": {"$ref": "#/$defs/usageObservationRef"}
             }
           }
         }
@@ -858,6 +858,48 @@
         "schema_version": {"type": "string", "minLength": 1},
         "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
       }
+    },
+    "incarnationBindingRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "aoa_agent_incarnation_binding_v1"}}}
+      ]
+    },
+    "sdkSummonRequestRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-request:v4"}}}
+      ]
+    },
+    "sdkSummonDecisionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-result:v4"}}}
+      ]
+    },
+    "runtimeProfileRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_runtime_profile_v1"}}}
+      ]
+    },
+    "runtimeResultRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_result_v1"}}}
+      ]
+    },
+    "runtimeA2AReturnRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_a2a_return_v1"}}}
+      ]
+    },
+    "usageObservationRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_usage_observation_v1"}}}
+      ]
     }
   }
 }

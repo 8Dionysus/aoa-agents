@@ -228,3 +228,37 @@ class TestAoAAgentsSkillTreeContracts:
         result = base_external_result()
         del result["runtime_state"]["runtime_a2a_return_ref"]
         assert list(self.result_validator.iter_errors(result))
+
+    def test_external_result_rejects_binding_ref_owner_or_contract_drift(self) -> None:
+        fields = {
+            "incarnation_binding_ref": "aoa-sdk",
+            "sdk_summon_request_ref": "aoa-sdk",
+            "sdk_summon_decision_ref": "aoa-sdk",
+            "runtime_profile_ref": "abyss-stack",
+        }
+        for field, expected_owner in fields.items():
+            result = base_external_result()
+            result["binding"][field]["owner_repo"] = "unrelated-owner"
+            assert list(self.result_validator.iter_errors(result)), (
+                field,
+                expected_owner,
+            )
+
+            result = base_external_result()
+            result["binding"][field]["schema_version"] = "unrelated-contract-v1"
+            assert list(self.result_validator.iter_errors(result)), field
+
+    def test_external_result_rejects_runtime_ref_owner_or_contract_drift(self) -> None:
+        fields = (
+            "runtime_result_ref",
+            "runtime_a2a_return_ref",
+            "usage_observation_ref",
+        )
+        for field in fields:
+            result = base_external_result()
+            result["runtime_state"][field]["owner_repo"] = "unrelated-owner"
+            assert list(self.result_validator.iter_errors(result)), field
+
+            result = base_external_result()
+            result["runtime_state"][field]["schema_version"] = "unrelated-contract-v1"
+            assert list(self.result_validator.iter_errors(result)), field
