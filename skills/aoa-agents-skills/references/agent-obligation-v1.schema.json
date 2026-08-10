@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/agent-obligation-v1.schema.json",
+  "title": "Task-local independent agent obligation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "obligation_id",
+    "goal_ref",
+    "phase",
+    "duty",
+    "domain_owner",
+    "current_holder",
+    "responsibility_boundary",
+    "missed_consequence",
+    "independence_findings",
+    "trigger",
+    "expected_outcomes",
+    "return_owner",
+    "lifecycle_posture",
+    "stop_line",
+    "evidence_refs",
+    "uncertainty",
+    "next_route",
+    "obligation_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "agent-obligation-v1"},
+    "obligation_id": {"type": "string", "pattern": "^obligation:[a-z0-9][a-z0-9._:-]*$"},
+    "goal_ref": {"$ref": "#/$defs/contentRef"},
+    "phase": {"enum": ["planning", "execution", "closeout"]},
+    "duty": {"type": "string", "minLength": 3},
+    "domain_owner": {"type": "string", "minLength": 1},
+    "current_holder": {"$ref": "#/$defs/contentRef"},
+    "responsibility_boundary": {"type": "string", "minLength": 3},
+    "missed_consequence": {"type": "string", "minLength": 3},
+    "independence_findings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_signals", "negative_signals", "rejected_ordinary_step"],
+      "properties": {
+        "positive_signals": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "negative_signals": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "rejected_ordinary_step": {"type": "string", "minLength": 3}
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strength", "authority_ref"],
+      "properties": {
+        "strength": {"enum": ["notice", "required_branch", "master_decision", "preauthorized_reflex"]},
+        "authority_ref": {"$ref": "#/$defs/contentRef"}
+      }
+    },
+    "expected_outcomes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "return_owner": {"$ref": "#/$defs/contentRef"},
+    "lifecycle_posture": {"enum": ["task-instance", "role-continuity", "persistent-office"]},
+    "stop_line": {"type": "string", "minLength": 3},
+    "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/contentRef"}},
+    "uncertainty": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "next_route": {"enum": ["hold", "plan_branch", "master_decision", "existing_role_wake_review", "form_actor"]},
+    "obligation_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

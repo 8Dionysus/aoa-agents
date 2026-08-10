@@ -7,7 +7,7 @@ substituted.
 ## Input
 
 Require one complete `actor-mandate-v1`, current `aoa-models` fit evidence,
-an `aoa-sdk` incarnation-binding contract, and an `abyss-stack` external CLI
+an `aoa-sdk` incarnation-binding-v2 contract, and an `abyss-stack` external CLI
 runtime profile compatible with the mandate's environment and permissions.
 
 ## Procedure
@@ -18,7 +18,8 @@ runtime profile compatible with the mandate's environment and permissions.
 2. Require a current fit response identifying one model realization and mode,
    evidence refs, known failure modes, expiry/recheck conditions, and viable
    alternatives. A catalog entry is not fit evidence.
-3. Give the exact mandate, realization ref, runtime profile, workspace,
+3. Give the exact obligation, mandate, role resolution, model-fit query and
+   selected fit projection, realization ref, runtime profile, workspace,
    permissions, usage-metering, continuation, and wake policy to the
    `aoa-sdk` incarnation binding.
 4. Require `abyss-stack` to support a separate OS process, separate CLI
@@ -31,7 +32,8 @@ runtime profile compatible with the mandate's environment and permissions.
 
 ## Output
 
-Return `agent-incarnation-binding-ref-v1` with mandate, model realization,
+Return `agent-incarnation-binding-ref-v2` with obligation, mandate, role
+resolution, model-fit query and selected projection, model realization,
 mode, fit evidence, specialized environment, runtime profile, workspace,
 permission/effect envelope, state and continuation posture, usage metering,
 wake policy, content digest, recheck conditions, alternatives, uncertainty,

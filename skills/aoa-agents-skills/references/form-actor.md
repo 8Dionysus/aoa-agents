@@ -8,11 +8,25 @@ stable meaning separately from its replaceable model and process body.
 Require one `agent-obligation-v1` plus exact owner refs for candidate base
 roles, specializations, tiers, capability packs, and domain procedures. Missing
 domain procedure truth is a handoff, not permission for `aoa-agents` to invent
-it.
+it. After selecting an existing role chain by meaning, use the bundled passive
+resolver to prove the selected base role, specialization, tier, and implied
+capability pack form one clean content-addressed owner chain:
+
+```bash
+python <bundle_dir>/scripts/resolve_role_binding.py \
+  --root <owner_root> \
+  --role-id <base-role-id> \
+  --specialization-id <optional-specialization-id> \
+  --tier-id <tier-id>
+```
+
+The resolver does not choose or rank roles. Its `aoa_role_resolution_v1`
+output is exact source evidence for the choice already made by this mode.
 
 ## Procedure
 
-1. Resolve the smallest existing base role that can bear the obligation.
+1. Resolve the smallest existing base role that can bear the obligation. Make
+   this semantic choice before invoking the passive exact-ref resolver.
 2. Add an existing specialization and capability pack when they narrow the
    mandate. Create neither merely to name the current task.
 3. State required executor properties behaviorally: procedure discipline,
@@ -27,7 +41,24 @@ it.
    - `role-continuity`: role identity and accumulated context may survive;
    - `persistent-office`: stable duty and relationships survive while process
      and model instances may disappear and later be restored.
-7. Return an `actor-mandate-v1`. Do not bind a model or start a process.
+7. Name the broader `aoa-models` task family that should receive the mandate's
+   behavioral requirements and explain its relation to the exact duty. This is
+   an explicit semantic relation authorized by the current obligation holder,
+   not a string-equality heuristic and not a model choice.
+8. Bind the mandate to the exact obligation and `aoa_role_resolution_v1`
+   digests with the bundled compiler. Return an `actor-mandate-v1`. Do not bind
+   a model or start a process.
+
+```bash
+python <bundle_dir>/scripts/compile_actor_contract.py mandate \
+  --obligation <agent-obligation-v1.json> \
+  --role-resolution <aoa-role-resolution-v1.json> \
+  --input <semantic-mandate.json>
+```
+
+The compiler verifies exact input digests, lifecycle and stop-line
+preservation, unique property/output identities, and current-holder authority
+for the duty-to-fit-family relation. It makes none of those semantic choices.
 
 ## Output
 
@@ -35,7 +66,8 @@ The mandate records obligation and goal refs, actor identity posture, base role,
 specialization, tier, capability packs, domain procedure refs, required
 executor properties, authority/effects, specialized-environment requirements,
 continuity and state roots, named outputs, return owner, review/refusal/wake
-rules, expiry/review posture, uncertainty, and stop line.
+rules, expiry/review posture, uncertainty, stop line, and an explicit
+duty-to-model-fit-family relation.
 
 For the first landing proof, existing `coder.repo-refactor` with
 `repo-refactor.workspace-write` may bear bounded repo-local preparation, while

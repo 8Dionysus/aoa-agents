@@ -18,7 +18,7 @@ its digest, and require exact key-set equality between request
 |---|---|
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
 | bounded `d2_slice`, low risk, narrowing reviewer/evaluator/verifier | `codex_local_reviewed` |
-| complete `aoa-agents-skills` actor packet with an admitted distinct-holder responsibility transfer, exact SDK incarnation, and separate CLI runtime launch | `external_cli_reviewed` |
+| complete `aoa-agents-skills` actor packet with an admitted distinct-holder responsibility transfer, exact role resolution, model-fit query and selected projection, SDK incarnation v2, and separate CLI runtime launch | `external_cli_reviewed` |
 | separate endpoint or execution surface is truly required | `remote_reviewed` |
 | `d3+` still unsplit | `split_required` |
 | required progression/self-agent/approval evidence missing | `human_gate` |
@@ -41,7 +41,8 @@ host binding. An allowed decision is not execution evidence.
    outputs, allowed tools/effects, evidence inputs, stop line, and return owner.
 2. Resolve the host binding before claiming execution. Record interface name,
    availability, binding kind, runtime owner, and any runtime constraints. The
-   external lane additionally resolves exact incarnation, canonical SDK summon
+   external lane additionally resolves exact role resolution, model-fit query,
+   selected fit projection, incarnation v2, canonical SDK summon
    request/decision, admitted `aoa-agents` responsibility-transfer ref and its
    ordered distinct holder pair, and runtime-profile refs, and confirms
    built-in Codex subagents are disabled.
@@ -110,11 +111,16 @@ request ABI passes, select one concrete lane from the table.
 For `external_cli_reviewed`, every post-launch state carries
 `external-actor-runtime`, an `external_cli_incarnation` binding, the exact
 `aoa-sdk` incarnation, summon request, summon decision, and runtime-profile
-refs, runtime owner, and all four canonical handles. Returned or accepted
+refs plus the exact role-resolution, model-fit query, and selected fit
+projection refs, runtime owner, and all four canonical handles. Returned or accepted
 states also carry exact runtime result, reviewed A2A-return, and usage refs; a
 failed terminal state carries the exact runtime result and usage refs without
 inventing a reviewed return. Usage remains observe-only counting and never
 becomes a caller-authored execution budget.
+
+`summon-request-v3` and `summon-result-v3` remain frozen historical read
+contracts. New decisions and executions use v4; a v3 receipt may be inspected
+for compatibility but cannot authorize a fresh launch.
 
 Blocked, failed, and narrowed actors return through the same responsibility
 surface.

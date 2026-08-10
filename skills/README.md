@@ -5,9 +5,9 @@ owned specifically by the AoA agent layer.
 
 | Bundle | Function | Global exposure | Admission |
 |---|---|---|---|
-| `aoa-agents-skills` | detect independent obligation pressure and route stable role, replaceable incarnation, responsibility transfer, return, and wake | `os-user-default` | `AOA-AG-D-0061` (challenger router only) |
+| `aoa-agents-skills` | detect independent obligation pressure and route stable role, replaceable incarnation, responsibility transfer, return, and wake; content-address admitted obligation, role, and mandate evidence without choosing compute | `os-user-default` | `AOA-AG-D-0061`, evolved by `AOA-AG-D-0062` and `AOA-AG-D-0064` (challenger router only) |
 | `aoa-session-progression-lift` | reviewed evidence to bounded progression delta candidate | `os-user-default` | `AOA-AG-D-0059` |
-| `aoa-summon` | execute one explicit compatibility child route or complete external actor incarnation and close its responsibility return | `os-user-default` | `AOA-AG-D-0059`, evolved by `AOA-AG-D-0061` |
+| `aoa-summon` | execute one explicit compatibility child route or evidence-complete external actor incarnation and close its responsibility return | `os-user-default` | `AOA-AG-D-0059`, evolved by `AOA-AG-D-0061` and `AOA-AG-D-0063` |
 
 Full owner procedure packages live here. The semantic graph and KAG index are
 derived consumers. The single Codex projection lives in the OS user catalog;

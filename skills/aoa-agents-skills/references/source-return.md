@@ -15,7 +15,7 @@ installed parity, model fit, or execution.
      `aoa_skill_source_receipt_v2`;
    - bundle and source name `aoa-agents-skills`;
    - owner `aoa-agents`;
-   - version `0.1.0`;
+   - version `0.3.0`;
    - an existing absolute `owner_root` and safe relative `source_path`;
    - `<owner_root>/<source_path>/SKILL.md`;
    - for v2, non-empty `digest`, `source_fingerprint`,
@@ -27,7 +27,7 @@ installed parity, model fit, or execution.
    `git -C <bundle_dir> rev-parse --show-toplevel` once and use that root.
 6. In the next isolated tool turn, read only
    `<owner_root>/skills/port.manifest.json`. Require owner `aoa-agents`, bundle
-   `aoa-agents-skills`, version `0.1.0`, and the exact bundle path. A manifest
+   `aoa-agents-skills`, version `0.3.0`, and the exact bundle path. A manifest
    read batched with an owner document terminates
    `blocked_owner_source_gate_not_observed`.
 7. Only after manifest success may a later tool turn read the exact owner
@@ -57,4 +57,3 @@ archaeology. Return the missing input and the stronger owner route.
 Report the source route, owner root, source handle identity or git action,
 manifest action, first owner-source action, selected mode, stronger-owner roots
 resolved separately, and skipped checks.
-

@@ -88,6 +88,13 @@ bundle's external-incarnation path.
 
 - Preserve the chain from goal pressure through obligation, mandate, required
   properties, model-fit evidence, runtime binding, handoff, and return.
+- Resolve an already selected role chain through the bundled passive resolver;
+  never guess owner-relative role paths or treat the resolver as role-selection
+  authority.
+- Compile an admitted obligation and mandate through the bundled passive
+  compiler so exact digests, lifecycle, stop line, output identities, and the
+  current-holder-authorized duty-to-fit-family relation survive downstream;
+  the compiler does not detect duties or select roles, models, or runtimes.
 - Keep model name and reasoning mode out of the stable role and obligation.
 - Count usage from runtime receipts; never convert usage counting into a
   pre-emptive budget gate.
@@ -99,4 +106,3 @@ bundle's external-incarnation path.
   holder.
 - Keep raw trials, live process state, and task-local DAG instances outside
   the owner skill source.
-

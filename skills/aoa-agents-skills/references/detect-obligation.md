@@ -30,8 +30,19 @@ Require a `goal-pressure-v1` packet containing:
 5. For `preauthorized_reflex`, require the exact persistent-role identity,
    reviewed trigger contract, authority envelope, rollback, and current
    runtime admissibility. Otherwise narrow to `master_decision`.
-6. Return either `not_independent` or one `agent-obligation-v1`; do not select
-   a model, process, transport, or domain procedure implementation.
+6. Return either `not_independent` or one semantic obligation packet. After
+   the independence and trigger decisions are complete, use the bundled
+   compiler to validate and content-address the admitted packet as
+   `agent-obligation-v1`; do not select a model, process, transport, or domain
+   procedure implementation.
+
+```bash
+python <bundle_dir>/scripts/compile_actor_contract.py obligation \
+  --input <semantic-obligation.json>
+```
+
+The compiler performs no obligation detection and accepts no model, runtime,
+or budget fields.
 
 ## Output
 
