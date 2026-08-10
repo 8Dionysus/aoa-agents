@@ -297,6 +297,33 @@ class TestAoAAgentsSkillTreeContracts:
             == module.build_result_v4()
         )
 
+    def test_external_request_compiler_is_passive_and_digest_exact(self) -> None:
+        import importlib.util
+
+        path = SUMMON_SCRIPT_ROOT / "compile_external_execution_request.py"
+        source = path.read_text(encoding="utf-8")
+        assert "import subprocess" not in source
+        assert "codex exec" not in source
+        spec = importlib.util.spec_from_file_location(
+            "external_execution_request_compiler", path
+        )
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            spec.loader.exec_module(module)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        request = base_request("external_cli")
+        request["external_incarnation"] = external_incarnation_v4()
+        first = module.semantic_request_digest(request)
+        request["request_digest"] = first
+        assert module.semantic_request_digest(request) == first
+        request["return_owner"] = "actor://another-owner"
+        assert module.semantic_request_digest(request) != first
+
     def test_compatibility_child_request_does_not_require_external_packet(self) -> None:
         assert (
             list(self.request_validator.iter_errors(base_request("codex_local"))) == []

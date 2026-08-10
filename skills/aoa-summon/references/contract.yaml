@@ -47,6 +47,7 @@ freedom_level: bounded-judgment
 tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
   - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
+  - The passive external request compiler consumes only complete exact owner files and never inspects or starts a host binding.
 execution_states:
   - decided
   - blocked

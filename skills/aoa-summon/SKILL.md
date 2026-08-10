@@ -141,6 +141,16 @@ leaf is not permission to infer any missing field.
    stronger SDK/runtime artifacts. Do not substitute `codex_local_*` or
    `remote_reviewed` when the external contract is unavailable.
 
+For the external lane,
+`scripts/compile_external_execution_request.py` may compile the final
+`summon-request-v4` from already complete obligation, mandate, exact role
+resolution, model-fit query and projection, SDK binding/request/decision/plan,
+task-local DAG, runtime task/launch/event schema, responsibility transfer, and
+domain procedure files. It performs no semantic selection, host inspection,
+launch, or effect. The SDK request retains `a2a_remote` or `either`; the
+compiler translates only that transport field to the physical
+`external_cli` leaf and removes the SDK's duplicate nested output list.
+
 ## Contracts
 
 - existing local child delegation remains the compatibility default only for
