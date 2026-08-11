@@ -14,6 +14,9 @@
 - [AOA-AG-D-0051 2026-05-26: agents source home topology](../AOA-AG-D-0051-agents-source-home-topology.md) (`docs/decisions/AOA-AG-D-0051-agents-source-home-topology.md`)
 - [AOA-AG-D-0052 2026-05-26: Agents Convex Source Tree](../AOA-AG-D-0052-agents-convex-source-tree.md) (`docs/decisions/AOA-AG-D-0052-agents-convex-source-tree.md`)
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
 
 ## role specialization
 
@@ -177,6 +180,9 @@
 ## incarnation
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
 
 ## memo posture
 
@@ -193,7 +199,16 @@
 ## responsibility posture
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
+
+## responsibility return
+
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
 
 ## root clarity
 
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+
+## specialization
+
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)

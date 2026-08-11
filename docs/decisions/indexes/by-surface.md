@@ -187,18 +187,39 @@
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
+## execution request
+
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+
 ## federation consumer seam
 
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
+## obligation contract
+
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
 
 ## owner skill home
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
+
+## role mandate
+
+- [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
+
+## role source
+
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
 
 ## runtime consumer seam
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+- [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
+- [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
 
 ## sibling-owner boundary
 

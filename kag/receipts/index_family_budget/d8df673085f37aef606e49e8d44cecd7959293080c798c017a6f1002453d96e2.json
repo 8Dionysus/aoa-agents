@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10515648,
+  "allowed_tracked_bytes": 14563485,
+  "approved_by": "repository-owner",
+  "base_ref": "4b4dcbf22c166e18db6e3e2eb05c2eb4661941b0",
+  "changed_generated_bytes": 10515648,
+  "changed_generated_files": 297,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d8df673085f37aef606e49e8d44cecd7959293080c798c017a6f1002453d96e2",
+  "reason": "Refresh the external-actor owner family after making the new obligation and role-resolution tests portable under the repository unittest release lane; this receipt admits the exact generated shard delta without changing the standing limits.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14563485,
+  "tracked_bytes_max": 16777216
+}

@@ -3,12 +3,14 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+import sys
 
 from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SUMMON_ROOT = REPO_ROOT / "skills" / "aoa-summon" / "references"
+SUMMON_SCRIPT_ROOT = REPO_ROOT / "skills" / "aoa-summon" / "scripts"
 SHA256 = "sha256:" + "0" * 64
 
 
@@ -54,13 +56,33 @@ def base_request(transport: str) -> dict[str, object]:
 
 def external_incarnation() -> dict[str, object]:
     return {
-        "obligation_ref": content_ref("aoa-agents", "obligation:landing", "agent-obligation-v1"),
-        "actor_mandate_ref": content_ref("aoa-agents", "mandate:landing-writer", "actor-mandate-v1"),
-        "task_local_dag_ref": content_ref("aoa-skills", "dag:landing-proof", "aoa-task-local-dag-v2"),
-        "incarnation_binding_ref": content_ref("aoa-sdk", "incarnation:landing-writer", "aoa_agent_incarnation_binding_v1"),
-        "sdk_summon_request_ref": content_ref("aoa-sdk", "summon-request:landing-writer", "urn:aoa-sdk:a2a:summon-request:v4"),
-        "sdk_summon_decision_ref": content_ref("aoa-sdk", "summon-decision:landing-writer", "urn:aoa-sdk:a2a:summon-result:v4"),
-        "runtime_launch_ref": content_ref("abyss-stack", "launch:landing-writer", "abyss_stack_external_codex_launch_v1"),
+        "obligation_ref": content_ref(
+            "aoa-agents", "obligation:landing", "agent-obligation-v1"
+        ),
+        "actor_mandate_ref": content_ref(
+            "aoa-agents", "mandate:landing-writer", "actor-mandate-v1"
+        ),
+        "task_local_dag_ref": content_ref(
+            "aoa-skills", "dag:landing-proof", "aoa-task-local-dag-v2"
+        ),
+        "incarnation_binding_ref": content_ref(
+            "aoa-sdk", "incarnation:landing-writer", "aoa_agent_incarnation_binding_v1"
+        ),
+        "sdk_summon_request_ref": content_ref(
+            "aoa-sdk",
+            "summon-request:landing-writer",
+            "urn:aoa-sdk:a2a:summon-request:v4",
+        ),
+        "sdk_summon_decision_ref": content_ref(
+            "aoa-sdk",
+            "summon-decision:landing-writer",
+            "urn:aoa-sdk:a2a:summon-result:v4",
+        ),
+        "runtime_launch_ref": content_ref(
+            "abyss-stack",
+            "launch:landing-writer",
+            "abyss_stack_external_codex_launch_v1",
+        ),
         "runtime_interface": "abyss_stack_external_codex_agent_v1",
         "responsibility_transfer_ref": {
             **content_ref(
@@ -72,15 +94,52 @@ def external_incarnation() -> dict[str, object]:
             "holder_ids": ["actor://goal-owner", "actor://landing-writer"],
         },
         "domain_procedure_refs": [
-            content_ref("target-owner", "procedure:landing-preparation", "owner-procedure-v1")
+            content_ref(
+                "target-owner", "procedure:landing-preparation", "owner-procedure-v1"
+            )
         ],
-        "continuity_ref": content_ref("aoa-sdk", "continuation:landing-writer", "continuation-obligation-v1"),
-        "return_event_schema_ref": content_ref("abyss-stack", "schema:external-codex-event", "abyss_stack_external_codex_event_v1"),
+        "continuity_ref": content_ref(
+            "aoa-sdk", "continuation:landing-writer", "continuation-obligation-v1"
+        ),
+        "return_event_schema_ref": content_ref(
+            "abyss-stack",
+            "schema:external-codex-event",
+            "abyss_stack_external_codex_event_v1",
+        ),
         "launches_separate_os_process": True,
         "uses_builtin_codex_subagents": False,
         "separate_cli_session": True,
         "usage_metering": "observe_only_no_budget",
     }
+
+
+def external_incarnation_v4() -> dict[str, object]:
+    packet = external_incarnation()
+    packet.update(
+        {
+            "role_resolution_ref": content_ref(
+                "aoa-agents",
+                "role-resolution:coder:repo-refactor:executor",
+                "aoa_role_resolution_v1",
+            ),
+            "model_fit_query_result_ref": content_ref(
+                "aoa-models",
+                "model-fit-query-result:landing-writer",
+                "aoa_model_fit_query_result_v2",
+            ),
+            "model_fit_projection_ref": content_ref(
+                "aoa-models",
+                "model-fit-projection:luna-max-workspace-write",
+                "aoa_model_fit_projection_v1",
+            ),
+            "incarnation_binding_ref": content_ref(
+                "aoa-sdk",
+                "incarnation:landing-writer",
+                "aoa_agent_incarnation_binding_v2",
+            ),
+        }
+    )
+    return packet
 
 
 def base_external_result() -> dict[str, object]:
@@ -98,10 +157,26 @@ def base_external_result() -> dict[str, object]:
             "reason": None,
             "binding_kind": "external_cli_incarnation",
             "runtime_owner": "abyss-stack",
-            "incarnation_binding_ref": content_ref("aoa-sdk", "incarnation:landing-writer", "aoa_agent_incarnation_binding_v1"),
-            "sdk_summon_request_ref": content_ref("aoa-sdk", "summon-request:landing-writer", "urn:aoa-sdk:a2a:summon-request:v4"),
-            "sdk_summon_decision_ref": content_ref("aoa-sdk", "summon-decision:landing-writer", "urn:aoa-sdk:a2a:summon-result:v4"),
-            "runtime_profile_ref": content_ref("abyss-stack", "runtime-profile:external-codex", "abyss_stack_external_codex_runtime_profile_v1"),
+            "incarnation_binding_ref": content_ref(
+                "aoa-sdk",
+                "incarnation:landing-writer",
+                "aoa_agent_incarnation_binding_v1",
+            ),
+            "sdk_summon_request_ref": content_ref(
+                "aoa-sdk",
+                "summon-request:landing-writer",
+                "urn:aoa-sdk:a2a:summon-request:v4",
+            ),
+            "sdk_summon_decision_ref": content_ref(
+                "aoa-sdk",
+                "summon-decision:landing-writer",
+                "urn:aoa-sdk:a2a:summon-result:v4",
+            ),
+            "runtime_profile_ref": content_ref(
+                "abyss-stack",
+                "runtime-profile:external-codex",
+                "abyss_stack_external_codex_runtime_profile_v1",
+            ),
             "uses_builtin_codex_subagents": False,
         },
         "runtime_state": {
@@ -111,14 +186,34 @@ def base_external_result() -> dict[str, object]:
             "process_handle": "process://external-codex/1001",
             "session_handle": "session://external-codex/landing-writer",
             "continuation_handle": "continuation://landing-writer/1",
-            "runtime_result_ref": content_ref("abyss-stack", "result:landing-writer", "abyss_stack_external_codex_result_v1"),
-            "runtime_a2a_return_ref": content_ref("abyss-stack", "a2a-return:landing-writer", "abyss_stack_external_codex_a2a_return_v1"),
-            "usage_observation_ref": content_ref("abyss-stack", "usage:landing-writer", "abyss_stack_external_codex_usage_observation_v1"),
+            "runtime_result_ref": content_ref(
+                "abyss-stack",
+                "result:landing-writer",
+                "abyss_stack_external_codex_result_v1",
+            ),
+            "runtime_a2a_return_ref": content_ref(
+                "abyss-stack",
+                "a2a-return:landing-writer",
+                "abyss_stack_external_codex_a2a_return_v1",
+            ),
+            "usage_observation_ref": content_ref(
+                "abyss-stack",
+                "usage:landing-writer",
+                "abyss_stack_external_codex_usage_observation_v1",
+            ),
         },
         "return_validation": {
             "output_checks": {
-                "workspace-diff": {"received": True, "artifact_ref": "artifact://workspace-diff", "accepted": True},
-                "handoff": {"received": True, "artifact_ref": "artifact://handoff", "accepted": True},
+                "workspace-diff": {
+                    "received": True,
+                    "artifact_ref": "artifact://workspace-diff",
+                    "accepted": True,
+                },
+                "handoff": {
+                    "received": True,
+                    "artifact_ref": "artifact://handoff",
+                    "accepted": True,
+                },
             },
             "accepted": True,
         },
@@ -135,6 +230,35 @@ def base_external_result() -> dict[str, object]:
     }
 
 
+def base_external_result_v4() -> dict[str, object]:
+    result = copy.deepcopy(base_external_result())
+    result["binding"].update(
+        {
+            "role_resolution_ref": content_ref(
+                "aoa-agents",
+                "role-resolution:coder:repo-refactor:executor",
+                "aoa_role_resolution_v1",
+            ),
+            "model_fit_query_result_ref": content_ref(
+                "aoa-models",
+                "model-fit-query-result:landing-writer",
+                "aoa_model_fit_query_result_v2",
+            ),
+            "model_fit_projection_ref": content_ref(
+                "aoa-models",
+                "model-fit-projection:luna-max-workspace-write",
+                "aoa_model_fit_projection_v1",
+            ),
+            "incarnation_binding_ref": content_ref(
+                "aoa-sdk",
+                "incarnation:landing-writer",
+                "aoa_agent_incarnation_binding_v2",
+            ),
+        }
+    )
+    return result
+
+
 class TestAoAAgentsSkillTreeContracts:
     @classmethod
     def setup_class(cls) -> None:
@@ -144,15 +268,99 @@ class TestAoAAgentsSkillTreeContracts:
         cls.result_validator = Draft202012Validator(
             json.loads((SUMMON_ROOT / "summon-result-v3.schema.json").read_text())
         )
+        cls.request_v4_validator = Draft202012Validator(
+            json.loads((SUMMON_ROOT / "summon-request-v4.schema.json").read_text())
+        )
+        cls.result_v4_validator = Draft202012Validator(
+            json.loads((SUMMON_ROOT / "summon-result-v4.schema.json").read_text())
+        )
+
+    def test_v4_schemas_are_current_from_byte_stable_v3_compatibility(self) -> None:
+        import importlib.util
+
+        path = SUMMON_SCRIPT_ROOT / "build_summon_v4_schemas.py"
+        spec = importlib.util.spec_from_file_location("summon_v4_builder", path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            spec.loader.exec_module(module)
+        finally:
+            sys.dont_write_bytecode = previous
+        assert (
+            json.loads((SUMMON_ROOT / "summon-request-v4.schema.json").read_text())
+            == module.build_request_v4()
+        )
+        assert (
+            json.loads((SUMMON_ROOT / "summon-result-v4.schema.json").read_text())
+            == module.build_result_v4()
+        )
+
+    def test_external_request_compiler_is_passive_and_digest_exact(self) -> None:
+        import importlib.util
+
+        path = SUMMON_SCRIPT_ROOT / "compile_external_execution_request.py"
+        source = path.read_text(encoding="utf-8")
+        assert "import subprocess" not in source
+        assert "codex exec" not in source
+        spec = importlib.util.spec_from_file_location(
+            "external_execution_request_compiler", path
+        )
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            spec.loader.exec_module(module)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        request = base_request("external_cli")
+        request["external_incarnation"] = external_incarnation_v4()
+        first = module.semantic_request_digest(request)
+        request["request_digest"] = first
+        assert module.semantic_request_digest(request) == first
+        request["return_owner"] = "actor://another-owner"
+        assert module.semantic_request_digest(request) != first
 
     def test_compatibility_child_request_does_not_require_external_packet(self) -> None:
-        assert list(self.request_validator.iter_errors(base_request("codex_local"))) == []
+        assert (
+            list(self.request_validator.iter_errors(base_request("codex_local"))) == []
+        )
 
     def test_external_cli_request_requires_complete_incarnation_packet(self) -> None:
         request = base_request("external_cli")
         assert list(self.request_validator.iter_errors(request))
         request["external_incarnation"] = external_incarnation()
         assert list(self.request_validator.iter_errors(request)) == []
+
+    def test_v4_external_request_requires_evidence_complete_sdk_binding(self) -> None:
+        request = base_request("external_cli")
+        request["external_incarnation"] = external_incarnation_v4()
+        assert list(self.request_v4_validator.iter_errors(request)) == []
+
+        for field in (
+            "role_resolution_ref",
+            "model_fit_query_result_ref",
+            "model_fit_projection_ref",
+        ):
+            incomplete = copy.deepcopy(request)
+            del incomplete["external_incarnation"][field]
+            assert list(self.request_v4_validator.iter_errors(incomplete)), field
+
+        legacy = copy.deepcopy(request)
+        legacy["external_incarnation"]["incarnation_binding_ref"]["schema_version"] = (
+            "aoa_agent_incarnation_binding_v1"
+        )
+        assert list(self.request_v4_validator.iter_errors(legacy))
+
+    def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
+        request = base_request("external_cli")
+        request["external_incarnation"] = external_incarnation()
+
+        assert list(self.request_validator.iter_errors(request)) == []
+        assert list(self.request_v4_validator.iter_errors(request))
 
     def test_external_cli_request_rejects_builtin_subagent_binding(self) -> None:
         request = base_request("external_cli")
@@ -225,6 +433,25 @@ class TestAoAAgentsSkillTreeContracts:
         broken = copy.deepcopy(result)
         del broken["runtime_state"]["session_handle"]
         assert list(self.result_validator.iter_errors(broken))
+
+    def test_v4_external_result_preserves_role_and_fit_refs(self) -> None:
+        result = base_external_result_v4()
+        assert list(self.result_v4_validator.iter_errors(result)) == []
+
+        for field in (
+            "role_resolution_ref",
+            "model_fit_query_result_ref",
+            "model_fit_projection_ref",
+        ):
+            incomplete = copy.deepcopy(result)
+            del incomplete["binding"][field]
+            assert list(self.result_v4_validator.iter_errors(incomplete)), field
+
+        legacy = copy.deepcopy(result)
+        legacy["binding"]["incarnation_binding_ref"]["schema_version"] = (
+            "aoa_agent_incarnation_binding_v1"
+        )
+        assert list(self.result_v4_validator.iter_errors(legacy))
 
     def test_external_decision_does_not_claim_runtime_effects_or_handles(self) -> None:
         result = base_external_result()

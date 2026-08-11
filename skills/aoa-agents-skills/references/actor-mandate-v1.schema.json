@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/actor-mandate-v1.schema.json",
+  "title": "Role-first actor mandate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mandate_id",
+    "obligation_ref",
+    "goal_ref",
+    "role_resolution_ref",
+    "role_binding",
+    "identity_posture",
+    "domain_owner",
+    "domain_procedure_refs",
+    "required_executor_properties",
+    "model_fit_relation",
+    "authority",
+    "environment",
+    "continuity",
+    "named_outputs",
+    "return_owner",
+    "review_policy",
+    "refusal_policy",
+    "wake_policy",
+    "review_after",
+    "uncertainty",
+    "compiler_authority",
+    "mandate_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "actor-mandate-v1"},
+    "mandate_id": {"type": "string", "pattern": "^mandate:[a-z0-9][a-z0-9._:-]*$"},
+    "obligation_ref": {"$ref": "#/$defs/aoaAgentsContentRef"},
+    "goal_ref": {"$ref": "#/$defs/contentRef"},
+    "role_resolution_ref": {"$ref": "#/$defs/roleResolutionRef"},
+    "role_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_id", "specialization_id", "tier_id", "base_role_ref", "specialization_ref", "tier_ref", "capability_pack_refs"],
+      "properties": {
+        "role_id": {"type": "string", "minLength": 1},
+        "specialization_id": {"type": ["string", "null"], "minLength": 1},
+        "tier_id": {"type": "string", "minLength": 1},
+        "base_role_ref": {"$ref": "#/$defs/provenanceRef"},
+        "specialization_ref": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/provenanceRef"}]},
+        "tier_ref": {"$ref": "#/$defs/provenanceRef"},
+        "capability_pack_refs": {"type": "array", "maxItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/provenanceRef"}}
+      }
+    },
+    "identity_posture": {"enum": ["task-instance", "role-continuity", "persistent-office"]},
+    "domain_owner": {"type": "string", "minLength": 1},
+    "domain_procedure_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/contentRef"}},
+    "required_executor_properties": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["property_id", "requirement", "verification_route"],
+        "properties": {
+          "property_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+          "requirement": {"type": "string", "minLength": 3},
+          "verification_route": {"type": "string", "minLength": 3}
+        }
+      }
+    },
+    "model_fit_relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_family", "relation_to_duty", "relation_authority_ref"],
+      "properties": {
+        "task_family": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "relation_to_duty": {"type": "string", "minLength": 3},
+        "relation_authority_ref": {"$ref": "#/$defs/contentRef"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["permissions", "allowed_effects", "prohibited_effects", "stop_line"],
+      "properties": {
+        "permissions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "allowed_effects": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "prohibited_effects": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "stop_line": {"type": "string", "minLength": 3}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sandbox_mode", "workspace_requirement", "required_tools", "required_mcp_servers", "state_root_posture"],
+      "properties": {
+        "sandbox_mode": {"enum": ["read-only", "workspace-write", "danger-full-access"]},
+        "workspace_requirement": {"type": "string", "minLength": 3},
+        "required_tools": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "required_mcp_servers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "state_root_posture": {"type": "string", "minLength": 3}
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["posture", "identity_key", "state_ref"],
+      "properties": {
+        "posture": {"enum": ["task-instance", "role-continuity", "persistent-office"]},
+        "identity_key": {"type": "string", "minLength": 1},
+        "state_ref": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/contentRef"}]}
+      }
+    },
+    "named_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "acceptance_route"],
+        "properties": {
+          "name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+          "description": {"type": "string", "minLength": 3},
+          "acceptance_route": {"type": "string", "minLength": 3}
+        }
+      }
+    },
+    "return_owner": {"$ref": "#/$defs/contentRef"},
+    "review_policy": {"type": "string", "minLength": 3},
+    "refusal_policy": {"type": "string", "minLength": 3},
+    "wake_policy": {"type": "string", "minLength": 3},
+    "review_after": {"type": "string", "minLength": 3},
+    "uncertainty": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "compiler_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["obligation_detection_performed", "role_selection_performed", "model_selection_performed", "runtime_activation_performed"],
+      "properties": {
+        "obligation_detection_performed": {"const": false},
+        "role_selection_performed": {"const": false},
+        "model_selection_performed": {"const": false},
+        "runtime_activation_performed": {"const": false}
+      }
+    },
+    "mandate_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "allOf": [
+    {"properties": {"obligation_ref": {"properties": {"schema_version": {"const": "agent-obligation-v1"}}}}}
+  ],
+  "$defs": {
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "aoaAgentsContentRef": {
+      "allOf": [
+        {"$ref": "#/$defs/contentRef"},
+        {"properties": {"owner_repo": {"const": "aoa-agents"}}}
+      ]
+    },
+    "roleResolutionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/aoaAgentsContentRef"},
+        {"properties": {"schema_version": {"const": "aoa_role_resolution_v1"}}}
+      ]
+    },
+    "provenanceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner_repo", "artifact_ref", "source_ref", "artifact_digest", "schema_ref", "schema_version"],
+      "properties": {
+        "owner_repo": {"const": "aoa-agents"},
+        "artifact_ref": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "artifact_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "schema_ref": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

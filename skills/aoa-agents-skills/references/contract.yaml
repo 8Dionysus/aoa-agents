@@ -4,7 +4,7 @@ identity:
   name: aoa-agents-skills
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
-  version: 0.1.0
+  version: 0.3.0
   lifecycle: admitted
   health: challenger
 
@@ -42,16 +42,23 @@ modes:
   detect-obligation:
     input_abi: goal-pressure-v1
     output_abi: agent-obligation-v1
+    output_schema: agent-obligation-v1.schema.json
+    exact_packet_compiler: scripts/compile_actor_contract.py obligation
     effects: [none, task-local-dag-branch-candidate]
     reference: detect-obligation.md
   form-actor:
     input_abi: agent-obligation-v1
     output_abi: actor-mandate-v1
+    output_schema: actor-mandate-v1.schema.json
     effects: [none, task-local-role-identity]
     reference: form-actor.md
+    exact_role_resolution_abi: aoa_role_resolution_v1
+    exact_role_resolver: scripts/resolve_role_binding.py
+    exact_packet_compiler: scripts/compile_actor_contract.py mandate
+    model_fit_relation: explicit task family relation authorized by the current obligation holder
   bind-incarnation:
     input_abi: actor-mandate-v1
-    output_abi: agent-incarnation-binding-ref-v1
+    output_abi: agent-incarnation-binding-ref-v2
     effects: [none, owner-external-binding]
     reference: bind-incarnation.md
   transfer-responsibility:
@@ -80,7 +87,7 @@ relations:
   primary-capability-parent: aoa-agents actor lifecycle
   composes-with:
     - aoa-models model-fit projection
-    - aoa-sdk agent-incarnation-binding-v1
+    - aoa-sdk agent-incarnation-binding-v2
     - abyss-stack external CLI runtime
     - aoa-task-local-dag-v2
   hands-off-to:

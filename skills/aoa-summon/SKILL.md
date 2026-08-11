@@ -26,7 +26,7 @@ Resolve the canonical `aoa-agents` root before any owner-relative read:
    `<bundle_dir>/.aoa-skill-source.json`. Await its result. If it is a regular
    file, set `<source_route>` to `source-handle` and require schema
    `aoa_skill_source_receipt_v1` or `aoa_skill_source_receipt_v2`, this bundle
-   name, owner `aoa-agents`, version `0.3.0`, an existing absolute
+   name, owner `aoa-agents`, version `0.4.0`, an existing absolute
    `owner_root`, a safe relative `source_path`, and
    `<owner_root>/<source_path>/SKILL.md`. For v2 also require non-empty
    `digest`, `source_fingerprint`, `source_fingerprint_scope`, and
@@ -91,11 +91,11 @@ leaf is not permission to infer any missing field.
 
 ## Inputs and outputs
 
-- input: `summon-request-v3` plus intent `decide` or `execute`; the
+- input: `summon-request-v4` plus intent `decide` or `execute`; the
   `external_cli` transport additionally requires the complete
   `external_incarnation` extension; see
-  `references/summon-request-v3.schema.json` and `references/contract.yaml`
-- output: `summon-result-v3` with decision, binding and runtime state, canonical
+  `references/summon-request-v4.schema.json` and `references/contract.yaml`
+- output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
   decision refs, runtime-owned terminal/result/usage refs, immutable request
@@ -106,7 +106,7 @@ leaf is not permission to infer any missing field.
 ## Procedure
 
 1. Read `references/contract.yaml` and `references/lane-and-return.md` to EOF.
-2. Validate the literal supplied request against `summon-request-v3` and the
+2. Validate the literal supplied request against `summon-request-v4` and the
    additions in `references/contract.yaml` before deciding a lane. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
@@ -137,9 +137,19 @@ leaf is not permission to infer any missing field.
    and return observe-only usage receipts. On terminal reviewed return,
    preserve the runtime-owned result and A2A-return refs and validate the
    requested outputs from those exact bytes. Do not ask `abyss-stack` to emit
-   `summon-result-v3`: that receipt belongs to this leaf and references the
+   `summon-result-v4`: that receipt belongs to this leaf and references the
    stronger SDK/runtime artifacts. Do not substitute `codex_local_*` or
    `remote_reviewed` when the external contract is unavailable.
+
+For the external lane,
+`scripts/compile_external_execution_request.py` may compile the final
+`summon-request-v4` from already complete obligation, mandate, exact role
+resolution, model-fit query and projection, SDK binding/request/decision/plan,
+task-local DAG, runtime task/launch/event schema, responsibility transfer, and
+domain procedure files. It performs no semantic selection, host inspection,
+launch, or effect. The SDK request retains `a2a_remote` or `either`; the
+compiler translates only that transport field to the physical
+`external_cli` leaf and removes the SDK's duplicate nested output list.
 
 ## Contracts
 
@@ -186,3 +196,9 @@ leaf is not permission to infer any missing field.
   carry the actual host execution effect
 - preserve the SDK summon request/decision and runtime result/A2A-return as
   exact owner-qualified refs; never copy their fields into a competing A2A ABI
+- preserve the exact role-resolution, model-fit query, selected fit projection,
+  and incarnation-binding-v2 refs through request, runtime binding, and return;
+  a model name or runtime profile cannot substitute for this evidence chain
+- treat `summon-request-v3` and `summon-result-v3` as frozen historical read
+  contracts only; they may be validated to inspect old receipts, but no new
+  execution may launch from v3 or emit a new v3 result

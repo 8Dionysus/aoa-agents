@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/role-resolution-v1.schema.json",
+  "title": "Exact aoa-agents role source resolution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resolution_id",
+    "owner_repo",
+    "owner_source_ref",
+    "role_id",
+    "base_role_ref",
+    "specialization_id",
+    "specialization_ref",
+    "tier_id",
+    "tier_ref",
+    "capability_pack_refs",
+    "selection_authority",
+    "resolution_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "aoa_role_resolution_v1"},
+    "resolution_id": {
+      "type": "string",
+      "pattern": "^role-resolution:[a-z0-9][a-z0-9._-]*(?::[a-z0-9][a-z0-9._-]*){0,2}$"
+    },
+    "owner_repo": {"const": "aoa-agents"},
+    "owner_source_ref": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "role_id": {"type": "string", "minLength": 3},
+    "base_role_ref": {"$ref": "#/$defs/provenanceRef"},
+    "specialization_id": {"type": ["string", "null"], "minLength": 5},
+    "specialization_ref": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/provenanceRef"}
+      ]
+    },
+    "tier_id": {"type": "string", "minLength": 2},
+    "tier_ref": {"$ref": "#/$defs/provenanceRef"},
+    "capability_pack_refs": {
+      "type": "array",
+      "maxItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/provenanceRef"}
+    },
+    "selection_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_selection_performed",
+        "model_selection_performed",
+        "runtime_activation_performed"
+      ],
+      "properties": {
+        "semantic_selection_performed": {"const": false},
+        "model_selection_performed": {"const": false},
+        "runtime_activation_performed": {"const": false}
+      }
+    },
+    "resolution_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"specialization_id": {"type": "null"}},
+        "required": ["specialization_id"]
+      },
+      "then": {
+        "properties": {
+          "specialization_ref": {"type": "null"},
+          "capability_pack_refs": {"maxItems": 0}
+        }
+      },
+      "else": {
+        "properties": {
+          "specialization_ref": {"$ref": "#/$defs/provenanceRef"},
+          "capability_pack_refs": {"minItems": 1, "maxItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "provenanceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "artifact_ref",
+        "source_ref",
+        "artifact_digest",
+        "schema_ref",
+        "schema_version"
+      ],
+      "properties": {
+        "owner_repo": {"const": "aoa-agents"},
+        "artifact_ref": {
+          "type": "string",
+          "pattern": "^(agents/roles|agents/operating-model)/[A-Za-z0-9._/-]+\\.json$"
+        },
+        "source_ref": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "artifact_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "schema_ref": {"type": "string", "pattern": "^schemas/[A-Za-z0-9._/-]+\\.json$"},
+        "schema_version": {
+          "enum": [
+            "aoa_agent_profile_v1",
+            "aoa_role_specialization_v1",
+            "aoa_model_tier_v1",
+            "aoa_capability_pack_v1"
+          ]
+        }
+      }
+    }
+  }
+}
