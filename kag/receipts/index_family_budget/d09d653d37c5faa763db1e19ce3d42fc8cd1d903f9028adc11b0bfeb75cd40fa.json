@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 391920,
+  "allowed_tracked_bytes": 14565014,
+  "approved_by": "repository-owner",
+  "base_ref": "1458393baa90178aae63f1841e3bd58139c13232",
+  "changed_generated_bytes": 391920,
+  "changed_generated_files": 7,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d09d653d37c5faa763db1e19ce3d42fc8cd1d903f9028adc11b0bfeb75cd40fa",
+  "reason": "refresh landed external actor capability projections",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14565014,
+  "tracked_bytes_max": 16777216
+}
