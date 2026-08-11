@@ -6,8 +6,8 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-
-import pytest
+import tempfile
+import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,105 +48,121 @@ def _owner_fixture(tmp_path: Path) -> Path:
     return root
 
 
-def test_resolves_exact_coder_specialization_chain_without_selecting_compute() -> None:
-    result = RESOLVER.resolve_role_binding(
-        ROOT,
-        role_id="coder",
-        specialization_id="coder.repo-refactor",
-        tier_id="executor",
-    )
-
-    assert result["role_id"] == "coder"
-    assert result["specialization_id"] == "coder.repo-refactor"
-    assert result["base_role_ref"]["artifact_ref"] == "agents/roles/coder/profile.json"
-    assert result["specialization_ref"]["artifact_ref"].endswith(
-        "/coder/specializations/repo-refactor/specialization.json"
-    )
-    assert result["tier_ref"]["artifact_ref"].endswith("/executor.tier.json")
-    assert result["capability_pack_refs"][0]["artifact_ref"].endswith(
-        "/repo-refactor.workspace-write.capability.json"
-    )
-    assert result["selection_authority"] == {
-        "semantic_selection_performed": False,
-        "model_selection_performed": False,
-        "runtime_activation_performed": False,
-    }
-    assert "luna" not in json.dumps(result).lower()
-    assert "budget" not in json.dumps(result).lower()
-    RESOLVER.assert_resolution_digest(result)
-
-
-def test_base_role_resolution_has_no_invented_capability_pack() -> None:
-    result = RESOLVER.resolve_role_binding(
-        ROOT,
-        role_id="memory-keeper",
-        tier_id="archivist",
-    )
-
-    assert result["specialization_id"] is None
-    assert result["specialization_ref"] is None
-    assert result["capability_pack_refs"] == []
-
-
-def test_rejects_specialization_from_another_role(tmp_path: Path) -> None:
-    root = _owner_fixture(tmp_path)
-    path = root / "agents/roles/coder/specializations/repo-refactor/specialization.json"
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    payload["role_id"] = "evaluator"
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    _git(root, "add", str(path.relative_to(root)))
-    _git(root, "commit", "-m", "mismatched specialization")
-
-    with pytest.raises(
-        RESOLVER.RoleResolutionError,
-        match="does not belong to role coder",
-    ):
-        RESOLVER.resolve_role_binding(
-            root,
-            role_id="coder",
-            specialization_id="coder.repo-refactor",
-            tier_id="executor",
-        )
-
-
-def test_rejects_dirty_selected_owner_source(tmp_path: Path) -> None:
-    root = _owner_fixture(tmp_path)
-    profile = root / "agents/roles/coder/profile.json"
-    profile.write_text(profile.read_text(encoding="utf-8") + "\n", encoding="utf-8")
-
-    with pytest.raises(
-        RESOLVER.RoleResolutionError,
-        match="selected aoa-agents role sources are dirty",
-    ):
-        RESOLVER.resolve_role_binding(
-            root,
-            role_id="coder",
-            specialization_id="coder.repo-refactor",
-            tier_id="executor",
-        )
-
-
-def test_rejects_tier_not_declared_by_selected_role() -> None:
-    with pytest.raises(
-        RESOLVER.RoleResolutionError,
-        match="tier archivist is not declared by base role coder",
-    ):
-        RESOLVER.resolve_role_binding(
+class RoleResolverTests(unittest.TestCase):
+    def test_resolves_exact_coder_specialization_chain_without_selecting_compute(
+        self,
+    ) -> None:
+        result = RESOLVER.resolve_role_binding(
             ROOT,
             role_id="coder",
             specialization_id="coder.repo-refactor",
+            tier_id="executor",
+        )
+
+        self.assertEqual(result["role_id"], "coder")
+        self.assertEqual(result["specialization_id"], "coder.repo-refactor")
+        self.assertEqual(
+            result["base_role_ref"]["artifact_ref"], "agents/roles/coder/profile.json"
+        )
+        self.assertTrue(
+            result["specialization_ref"]["artifact_ref"].endswith(
+                "/coder/specializations/repo-refactor/specialization.json"
+            )
+        )
+        self.assertTrue(
+            result["tier_ref"]["artifact_ref"].endswith("/executor.tier.json")
+        )
+        self.assertTrue(
+            result["capability_pack_refs"][0]["artifact_ref"].endswith(
+                "/repo-refactor.workspace-write.capability.json"
+            )
+        )
+        self.assertEqual(
+            result["selection_authority"],
+            {
+                "semantic_selection_performed": False,
+                "model_selection_performed": False,
+                "runtime_activation_performed": False,
+            },
+        )
+        self.assertNotIn("luna", json.dumps(result).lower())
+        self.assertNotIn("budget", json.dumps(result).lower())
+        RESOLVER.assert_resolution_digest(result)
+
+    def test_base_role_resolution_has_no_invented_capability_pack(self) -> None:
+        result = RESOLVER.resolve_role_binding(
+            ROOT,
+            role_id="memory-keeper",
             tier_id="archivist",
         )
 
+        self.assertIsNone(result["specialization_id"])
+        self.assertIsNone(result["specialization_ref"])
+        self.assertEqual(result["capability_pack_refs"], [])
 
-def test_digest_tampering_fails_closed() -> None:
-    result = RESOLVER.resolve_role_binding(
-        ROOT,
-        role_id="evaluator",
-        specialization_id="evaluator.release-readiness",
-        tier_id="deep",
-    )
-    result["role_id"] = "coder"
+    def test_rejects_specialization_from_another_role(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_root:
+            root = _owner_fixture(Path(temp_root))
+            path = (
+                root
+                / "agents/roles/coder/specializations/repo-refactor/specialization.json"
+            )
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload["role_id"] = "evaluator"
+            path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            _git(root, "add", str(path.relative_to(root)))
+            _git(root, "commit", "-m", "mismatched specialization")
 
-    with pytest.raises(RESOLVER.RoleResolutionError, match="digest mismatch"):
-        RESOLVER.assert_resolution_digest(result)
+            with self.assertRaisesRegex(
+                RESOLVER.RoleResolutionError,
+                "does not belong to role coder",
+            ):
+                RESOLVER.resolve_role_binding(
+                    root,
+                    role_id="coder",
+                    specialization_id="coder.repo-refactor",
+                    tier_id="executor",
+                )
+
+    def test_rejects_dirty_selected_owner_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_root:
+            root = _owner_fixture(Path(temp_root))
+            profile = root / "agents/roles/coder/profile.json"
+            profile.write_text(
+                profile.read_text(encoding="utf-8") + "\n", encoding="utf-8"
+            )
+
+            with self.assertRaisesRegex(
+                RESOLVER.RoleResolutionError,
+                "selected aoa-agents role sources are dirty",
+            ):
+                RESOLVER.resolve_role_binding(
+                    root,
+                    role_id="coder",
+                    specialization_id="coder.repo-refactor",
+                    tier_id="executor",
+                )
+
+    def test_rejects_tier_not_declared_by_selected_role(self) -> None:
+        with self.assertRaisesRegex(
+            RESOLVER.RoleResolutionError,
+            "tier archivist is not declared by base role coder",
+        ):
+            RESOLVER.resolve_role_binding(
+                ROOT,
+                role_id="coder",
+                specialization_id="coder.repo-refactor",
+                tier_id="archivist",
+            )
+
+    def test_digest_tampering_fails_closed(self) -> None:
+        result = RESOLVER.resolve_role_binding(
+            ROOT,
+            role_id="evaluator",
+            specialization_id="evaluator.release-readiness",
+            tier_id="deep",
+        )
+        result["role_id"] = "coder"
+
+        with self.assertRaisesRegex(RESOLVER.RoleResolutionError, "digest mismatch"):
+            RESOLVER.assert_resolution_digest(result)

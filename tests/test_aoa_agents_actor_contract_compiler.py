@@ -4,8 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import sys
-
-import pytest
+import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -146,68 +145,80 @@ def _compiled_inputs():  # type: ignore[no-untyped-def]
     return obligation, resolution, semantic
 
 
-def test_compiles_explicit_duty_to_fit_family_without_selecting_compute() -> None:
-    obligation, resolution, semantic = _compiled_inputs()
-    mandate = COMPILER.compile_mandate(obligation, resolution, semantic)
+class ActorContractCompilerTests(unittest.TestCase):
+    def test_compiles_explicit_duty_to_fit_family_without_selecting_compute(
+        self,
+    ) -> None:
+        obligation, resolution, semantic = _compiled_inputs()
+        mandate = COMPILER.compile_mandate(obligation, resolution, semantic)
 
-    assert mandate["obligation_ref"]["digest"] == obligation["obligation_digest"]
-    assert mandate["role_resolution_ref"]["digest"] == resolution["resolution_digest"]
-    assert mandate["role_binding"]["specialization_id"] == "coder.repo-refactor"
-    assert mandate["model_fit_relation"]["task_family"] == "landing"
-    assert mandate["environment"]["sandbox_mode"] == "workspace-write"
-    assert mandate["compiler_authority"] == {
-        "obligation_detection_performed": False,
-        "role_selection_performed": False,
-        "model_selection_performed": False,
-        "runtime_activation_performed": False,
-    }
-    encoded = json.dumps(mandate).lower()
-    assert "luna" not in encoded
-    assert "token_budget" not in encoded
-    COMPILER._assert_digest(mandate, "mandate_digest", label="actor mandate")
+        self.assertEqual(
+            mandate["obligation_ref"]["digest"], obligation["obligation_digest"]
+        )
+        self.assertEqual(
+            mandate["role_resolution_ref"]["digest"], resolution["resolution_digest"]
+        )
+        self.assertEqual(
+            mandate["role_binding"]["specialization_id"], "coder.repo-refactor"
+        )
+        self.assertEqual(mandate["model_fit_relation"]["task_family"], "landing")
+        self.assertEqual(mandate["environment"]["sandbox_mode"], "workspace-write")
+        self.assertEqual(
+            mandate["compiler_authority"],
+            {
+                "obligation_detection_performed": False,
+                "role_selection_performed": False,
+                "model_selection_performed": False,
+                "runtime_activation_performed": False,
+            },
+        )
+        encoded = json.dumps(mandate).lower()
+        self.assertNotIn("luna", encoded)
+        self.assertNotIn("token_budget", encoded)
+        COMPILER._assert_digest(mandate, "mandate_digest", label="actor mandate")
 
-
-def test_rejects_implicit_fit_relation_authority() -> None:
-    obligation, resolution, semantic = _compiled_inputs()
-    semantic["model_fit_relation"]["relation_authority_ref"] = _ref(  # type: ignore[index]
-        "aoa-agents", "holder:other", "actor-holder-v1"
-    )
-
-    with pytest.raises(COMPILER.ActorContractError, match="current obligation holder"):
-        COMPILER.compile_mandate(obligation, resolution, semantic)
-
-
-def test_rejects_lifecycle_or_stop_line_widening() -> None:
-    obligation, resolution, semantic = _compiled_inputs()
-    semantic["identity_posture"] = "persistent-office"
-    with pytest.raises(COMPILER.ActorContractError, match="lifecycle posture"):
-        COMPILER.compile_mandate(obligation, resolution, semantic)
-
-    semantic = _mandate_semantic(obligation["current_holder"])
-    semantic["authority"]["stop_line"] = "Do anything needed"  # type: ignore[index]
-    with pytest.raises(COMPILER.ActorContractError, match="stop line"):
-        COMPILER.compile_mandate(obligation, resolution, semantic)
-
-
-def test_rejects_duplicate_output_identity_and_digest_tampering() -> None:
-    obligation, resolution, semantic = _compiled_inputs()
-    semantic["named_outputs"][1]["name"] = "landing-candidate"  # type: ignore[index]
-    with pytest.raises(COMPILER.ActorContractError, match="identities must be unique"):
-        COMPILER.compile_mandate(obligation, resolution, semantic)
-
-    obligation["duty"] = "Tampered duty"
-    with pytest.raises(COMPILER.ActorContractError, match="digest mismatch"):
-        COMPILER.compile_mandate(
-            obligation,
-            resolution,
-            _mandate_semantic(obligation["current_holder"]),
+    def test_rejects_implicit_fit_relation_authority(self) -> None:
+        obligation, resolution, semantic = _compiled_inputs()
+        semantic["model_fit_relation"]["relation_authority_ref"] = _ref(  # type: ignore[index]
+            "aoa-agents", "holder:other", "actor-holder-v1"
         )
 
+        with self.assertRaisesRegex(
+            COMPILER.ActorContractError, "current obligation holder"
+        ):
+            COMPILER.compile_mandate(obligation, resolution, semantic)
 
-def test_semantic_inputs_cannot_smuggle_model_or_budget_fields() -> None:
-    obligation, resolution, semantic = _compiled_inputs()
-    semantic["model_slug"] = "gpt-5.6-luna"
-    semantic["token_budget"] = 1000
+    def test_rejects_lifecycle_or_stop_line_widening(self) -> None:
+        obligation, resolution, semantic = _compiled_inputs()
+        semantic["identity_posture"] = "persistent-office"
+        with self.assertRaisesRegex(COMPILER.ActorContractError, "lifecycle posture"):
+            COMPILER.compile_mandate(obligation, resolution, semantic)
 
-    with pytest.raises(COMPILER.ActorContractError, match="extra=.*model_slug"):
-        COMPILER.compile_mandate(obligation, resolution, semantic)
+        semantic = _mandate_semantic(obligation["current_holder"])
+        semantic["authority"]["stop_line"] = "Do anything needed"  # type: ignore[index]
+        with self.assertRaisesRegex(COMPILER.ActorContractError, "stop line"):
+            COMPILER.compile_mandate(obligation, resolution, semantic)
+
+    def test_rejects_duplicate_output_identity_and_digest_tampering(self) -> None:
+        obligation, resolution, semantic = _compiled_inputs()
+        semantic["named_outputs"][1]["name"] = "landing-candidate"  # type: ignore[index]
+        with self.assertRaisesRegex(
+            COMPILER.ActorContractError, "identities must be unique"
+        ):
+            COMPILER.compile_mandate(obligation, resolution, semantic)
+
+        obligation["duty"] = "Tampered duty"
+        with self.assertRaisesRegex(COMPILER.ActorContractError, "digest mismatch"):
+            COMPILER.compile_mandate(
+                obligation,
+                resolution,
+                _mandate_semantic(obligation["current_holder"]),
+            )
+
+    def test_semantic_inputs_cannot_smuggle_model_or_budget_fields(self) -> None:
+        obligation, resolution, semantic = _compiled_inputs()
+        semantic["model_slug"] = "gpt-5.6-luna"
+        semantic["token_budget"] = 1000
+
+        with self.assertRaisesRegex(COMPILER.ActorContractError, "extra=.*model_slug"):
+            COMPILER.compile_mandate(obligation, resolution, semantic)
