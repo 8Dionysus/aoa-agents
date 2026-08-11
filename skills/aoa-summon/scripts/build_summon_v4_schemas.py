@@ -101,6 +101,9 @@ def build_result_v4() -> dict[str, Any]:
     schema = copy.deepcopy(_load(RESULT_V3))
     schema["$id"] = "https://example.invalid/aoa-summon/result-v4.schema.json"
     schema["title"] = "aoa-summon result v4"
+    schema["$defs"]["runtimeProfileRef"] = _owner_content_ref(
+        "abyss-stack", "abyss_stack_external_codex_runtime_profile_v2"
+    )
     schema["$defs"]["incarnationBindingRef"] = _owner_content_ref(
         "aoa-sdk", "aoa_agent_incarnation_binding_v2"
     )

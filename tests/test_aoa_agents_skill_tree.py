@@ -254,6 +254,11 @@ def base_external_result_v4() -> dict[str, object]:
                 "incarnation:landing-writer",
                 "aoa_agent_incarnation_binding_v2",
             ),
+            "runtime_profile_ref": content_ref(
+                "abyss-stack",
+                "runtime-profile:external-codex",
+                "abyss_stack_external_codex_runtime_profile_v2",
+            ),
         }
     )
     return result
@@ -452,6 +457,20 @@ class TestAoAAgentsSkillTreeContracts:
             "aoa_agent_incarnation_binding_v1"
         )
         assert list(self.result_v4_validator.iter_errors(legacy))
+
+        legacy_runtime = copy.deepcopy(result)
+        legacy_runtime["binding"]["runtime_profile_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_runtime_profile_v1"
+        )
+        assert list(self.result_v4_validator.iter_errors(legacy_runtime))
+
+    def test_v3_result_keeps_historical_runtime_profile_v1_contract(self) -> None:
+        legacy = base_external_result()
+        assert list(self.result_validator.iter_errors(legacy)) == []
+        legacy["binding"]["runtime_profile_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_runtime_profile_v2"
+        )
+        assert list(self.result_validator.iter_errors(legacy))
 
     def test_external_decision_does_not_claim_runtime_effects_or_handles(self) -> None:
         result = base_external_result()
