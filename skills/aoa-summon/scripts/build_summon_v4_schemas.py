@@ -104,6 +104,9 @@ def build_result_v4() -> dict[str, Any]:
     schema["$defs"]["runtimeProfileRef"] = _owner_content_ref(
         "abyss-stack", "abyss_stack_external_codex_runtime_profile_v2"
     )
+    schema["$defs"]["runtimeResultRef"] = _owner_content_ref(
+        "abyss-stack", "abyss_stack_external_codex_result_v2"
+    )
     schema["$defs"]["incarnationBindingRef"] = _owner_content_ref(
         "aoa-sdk", "aoa_agent_incarnation_binding_v2"
     )

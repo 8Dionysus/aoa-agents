@@ -141,7 +141,7 @@
               "const": "abyss-stack"
             },
             "schema_version": {
-              "const": "abyss_stack_external_codex_result_v1"
+              "const": "abyss_stack_external_codex_result_v2"
             }
           }
         }

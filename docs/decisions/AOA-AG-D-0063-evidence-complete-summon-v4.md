@@ -36,16 +36,17 @@ shared request, lane, runtime, and closeout rules cannot drift through manual
 copying. V3 remains byte-stable for reading historical receipts, but cannot
 authorize a fresh launch or be emitted as a new result.
 
-### 2026-08-11 - Keep the returned runtime profile aligned with v4 execution
+### 2026-08-11 - Keep returned runtime refs aligned with v4 execution
 
 The first real v4 landing return exposed a generator defect: the result schema
-correctly required incarnation-binding-v2 but inherited
-`abyss_stack_external_codex_runtime_profile_v1` from the frozen v3 result.
-That made a truthful receipt for the signed runtime-profile-v2 incarnation
-invalid. The v4 result generator now overrides only this owner-qualified ref to
-runtime-profile-v2. The historical v3 schema remains byte-stable and continues
-to accept only runtime-profile-v1; no role, model, runtime, or effect authority
-is broadened by this correction.
+correctly required incarnation-binding-v2 but inherited both
+`abyss_stack_external_codex_runtime_profile_v1` and
+`abyss_stack_external_codex_result_v1` from the frozen v3 result. That made a
+truthful receipt for the signed runtime-profile-v2 incarnation and its actual
+runtime-result-v2 invalid. The v4 result generator now overrides only these
+owner-qualified refs to their v2 contracts. The historical v3 schema remains
+byte-stable and continues to accept only the corresponding v1 refs; no role,
+model, runtime, or effect authority is broadened by this correction.
 
 ## Consequences
 

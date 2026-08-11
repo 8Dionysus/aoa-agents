@@ -261,6 +261,11 @@ def base_external_result_v4() -> dict[str, object]:
             ),
         }
     )
+    result["runtime_state"]["runtime_result_ref"] = content_ref(
+        "abyss-stack",
+        "result:landing-writer",
+        "abyss_stack_external_codex_result_v2",
+    )
     return result
 
 
@@ -464,11 +469,23 @@ class TestAoAAgentsSkillTreeContracts:
         )
         assert list(self.result_v4_validator.iter_errors(legacy_runtime))
 
+        legacy_result = copy.deepcopy(result)
+        legacy_result["runtime_state"]["runtime_result_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_result_v1"
+        )
+        assert list(self.result_v4_validator.iter_errors(legacy_result))
+
     def test_v3_result_keeps_historical_runtime_profile_v1_contract(self) -> None:
         legacy = base_external_result()
         assert list(self.result_validator.iter_errors(legacy)) == []
         legacy["binding"]["runtime_profile_ref"]["schema_version"] = (
             "abyss_stack_external_codex_runtime_profile_v2"
+        )
+        assert list(self.result_validator.iter_errors(legacy))
+
+        legacy = base_external_result()
+        legacy["runtime_state"]["runtime_result_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_result_v2"
         )
         assert list(self.result_validator.iter_errors(legacy))
 
