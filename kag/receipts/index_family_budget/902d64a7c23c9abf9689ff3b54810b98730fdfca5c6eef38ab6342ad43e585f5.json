@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9455564,
+  "allowed_tracked_bytes": 14681847,
+  "approved_by": "repository-owner",
+  "base_ref": "cc8102ce400446aab98e4a6a8f53da7b860695f9",
+  "changed_generated_bytes": 9455564,
+  "changed_generated_files": 253,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "902d64a7c23c9abf9689ff3b54810b98730fdfca5c6eef38ab6342ad43e585f5",
+  "reason": "Refresh the committed dependency-free role-first preparer proof against the owner base history",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14681847,
+  "tracked_bytes_max": 16777216
+}
