@@ -151,6 +151,19 @@ launch, or effect. The SDK request retains `a2a_remote` or `either`; the
 compiler translates only that transport field to the physical
 `external_cli` leaf and removes the SDK's duplicate nested output list.
 
+When the obligation, role choice, mandate, model-fit selection, domain
+procedure, permission posture, task-local source graph, and exact owner roots
+are already settled, `scripts/prepare_external_actor.py` may compile the whole
+non-starting route packet. It resolves the selected role and model projection
+through their owners, asks `aoa-sdk` for transport admission and incarnation
+binding, asks the installed `abyss-stack` binder for a launch artifact, and
+then emits the final `summon-request-v4`. It does not detect an obligation,
+choose a role or model, launch a process, accept a result, or own the domain
+procedure. `independent_review` packets must carry the exact reviewed artifact
+and every immutable evidence object referenced transitively by writer report
+or output anchors; their task-local DAG terminates at that reviewer rather than
+inventing review-of-review.
+
 ## Contracts
 
 - existing local child delegation remains the compatibility default only for
@@ -199,6 +212,9 @@ compiler translates only that transport field to the physical
 - preserve the exact role-resolution, model-fit query, selected fit projection,
   and incarnation-binding-v2 refs through request, runtime binding, and return;
   a model name or runtime profile cannot substitute for this evidence chain
+- bind a successful independent-review completion to the runtime's canonical
+  `result.validated` event and keep repair returns on `result.review_required`;
+  a structurally valid report with an unbound wake event must fail closed
 - treat `summon-request-v3` and `summon-result-v3` as frozen historical read
   contracts only; they may be validated to inspect old receipts, but no new
   execution may launch from v3 or emit a new v3 result
