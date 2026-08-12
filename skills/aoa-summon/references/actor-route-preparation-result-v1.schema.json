@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.aoa.local/agents/actor-route-preparation-result-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "route_id", "lane", "started", "selection_authority_ref", "artifacts", "next_route"],
+  "properties": {
+    "schema_version": {"const": "actor-route-preparation-result-v1"},
+    "route_id": {"type": "string", "minLength": 1},
+    "lane": {"const": "external_cli_reviewed"},
+    "started": {"const": false},
+    "selection_authority_ref": {"type": "object"},
+    "artifacts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "digest"],
+        "properties": {
+          "path": {"type": "string", "pattern": "^/"},
+          "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "next_route": {"const": "abyss-stack:external-codex-agent/start"}
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.aoa.local/agents/actor-route-preparation-v1.schema.json",
+  "title": "AoA obligation-derived external actor preparation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "route_id",
+    "owner_roots",
+    "obligation",
+    "role_selection",
+    "mandate",
+    "model_fit",
+    "domain_procedure_paths",
+    "task_local_dag_source_graph",
+    "execution"
+  ],
+  "properties": {
+    "schema_version": {"const": "actor-route-preparation-v1"},
+    "route_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[.:_-][a-z0-9]+)*$", "minLength": 3, "maxLength": 160},
+    "owner_roots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aoa_agents", "aoa_models", "aoa_sdk", "abyss_stack_release"],
+      "properties": {
+        "aoa_agents": {"$ref": "#/$defs/absolutePath"},
+        "aoa_models": {"$ref": "#/$defs/absolutePath"},
+        "aoa_sdk": {"$ref": "#/$defs/absolutePath"},
+        "abyss_stack_release": {"$ref": "#/$defs/absolutePath"}
+      }
+    },
+    "obligation": {"type": "object"},
+    "role_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_id", "tier_id"],
+      "properties": {
+        "role_id": {"type": "string", "minLength": 1},
+        "tier_id": {"type": "string", "minLength": 1},
+        "specialization_id": {"type": ["string", "null"], "minLength": 1}
+      }
+    },
+    "mandate": {"type": "object"},
+    "model_fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime_version", "reasoning_effort", "sandbox_mode", "required_tools", "required_mcp_servers", "selected_projection_ref", "selection_authority_ref"],
+      "properties": {
+        "runtime_product": {"type": "string", "default": "codex-cli"},
+        "runtime_version": {"type": "string", "minLength": 1},
+        "reasoning_effort": {"enum": ["low", "medium", "high", "xhigh", "max"]},
+        "sandbox_mode": {"enum": ["read-only", "workspace-write", "danger-full-access"]},
+        "required_tools": {"$ref": "#/$defs/nonEmptyStrings"},
+        "required_mcp_servers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "selected_projection_ref": {"type": "string", "minLength": 1},
+        "selection_authority_ref": {"$ref": "#/$defs/contentRef"}
+      }
+    },
+    "domain_procedure_paths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/absolutePath"}},
+    "evidence_inputs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["input_id", "path", "owner_repo", "source_ref", "artifact_ref", "schema_ref", "schema_version"],
+        "properties": {
+          "input_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 96},
+          "path": {"$ref": "#/$defs/absolutePath"},
+          "owner_repo": {"type": "string", "minLength": 1},
+          "source_ref": {"type": "string", "minLength": 1},
+          "artifact_ref": {"type": "string", "minLength": 1},
+          "schema_ref": {"type": "string", "minLength": 1},
+          "schema_version": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "task_local_dag_source_graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "content_hash"],
+      "properties": {
+        "path": {"$ref": "#/$defs/absolutePath"},
+        "content_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_family", "difficulty", "parent_task_id", "session_ref", "effect_class", "sandbox_mode",
+        "workspace_path", "workspace_initial_posture", "workspace_manifest_input_id", "allowed_paths",
+        "source_evidence_paths", "transition", "runtime_bind_executable", "runtime_interface", "request_ref",
+        "return_event_object_id", "return_owner_input_id", "codex_executable", "codex_home"
+      ],
+      "properties": {
+        "task_family": {"type": "string", "minLength": 1},
+        "execution_posture": {"enum": ["bounded_execution", "independent_review"]},
+        "review_required": {"type": "boolean"},
+        "reviewed_artifact_input_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 96},
+        "difficulty": {"enum": ["d0_probe", "d1_patch", "d2_slice"]},
+        "risk": {"enum": ["r0_read_only", "r1_repo_local", "r2_contract", "r3_side_effect"]},
+        "parent_task_id": {"type": "string", "minLength": 1},
+        "session_ref": {"type": "string", "minLength": 1},
+        "effect_class": {"enum": ["read_only", "repo_mutation"]},
+        "sandbox_mode": {"enum": ["read_only", "workspace_write"]},
+        "workspace_path": {"$ref": "#/$defs/absolutePath"},
+        "workspace_initial_posture": {"enum": ["clean_required", "exact_baseline"]},
+        "workspace_manifest_input_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 96},
+        "allowed_paths": {"$ref": "#/$defs/nonEmptyStrings"},
+        "source_evidence_paths": {"$ref": "#/$defs/nonEmptyStrings"},
+        "validation_commands": {"type": "array", "items": {"type": "object"}},
+        "forbidden_effects": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "transition": {"type": "object"},
+        "runtime_bind_executable": {"$ref": "#/$defs/absolutePath"},
+        "runtime_interface": {"type": "string", "minLength": 1},
+        "request_ref": {"type": "string", "minLength": 1},
+        "return_event_object_id": {"type": "string", "minLength": 1},
+        "return_owner_input_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 96},
+        "codex_executable": {"$ref": "#/$defs/absolutePath"},
+        "codex_home": {"$ref": "#/$defs/absolutePath"},
+        "environment_allowlist": {"$ref": "#/$defs/nonEmptyStrings"}
+      }
+    }
+  },
+  "$defs": {
+    "absolutePath": {"type": "string", "pattern": "^/", "minLength": 2},
+    "nonEmptyStrings": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

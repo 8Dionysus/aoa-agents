@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9480821,
+  "allowed_tracked_bytes": 14678414,
+  "approved_by": "repository-owner",
+  "base_ref": "cc8102ce400446aab98e4a6a8f53da7b860695f9",
+  "changed_generated_bytes": 9480821,
+  "changed_generated_files": 254,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ec0a918b60d1ab3404ac8a792a3cbfbb86e420edb16fe3577d63ac2256ea0d0d",
+  "reason": "Keep role-first preparer proof compatible with the owner unittest-only release environment",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14678414,
+  "tracked_bytes_max": 16777216
+}
