@@ -66,6 +66,27 @@ meaning, stats admission, proof, role selection, and model fit remain outside
 the receipt compiler. V3 remains frozen and is not read as a source for new
 results.
 
+### 2026-08-13 - Close the reviewed-return validation gaps
+
+The passive compiler now validates the supplied owner request against the
+generated `summon-request-v4` schema before applying its external-lane
+checks. A reviewed A2A return must carry the runtime-owned
+`abyss_stack_external_codex_a2a_return_v1` provenance, bind its
+`evidence_digests.writer_result` to the exact terminal runtime-result digest,
+and name an artifact path present in the reviewed remote task. A proceed
+closeout is admitted only for a completed runtime whose canonical
+`wake_evaluation` is `result.validated` under `validated-completion`; a
+`result.review_required` repair return cannot be widened into acceptance.
+
+Embedded usage evidence is limited to the canonical
+`/usage_observation` locator and the runtime-owned observation shape. Returned
+artifacts are checked as a duplicate-free exact set of requested symbolic
+output identities; unknown paths and basename aliases are not inferred or
+silently ignored. These checks strengthen fail-closed evidence admission only;
+they do not mint or reinterpret SDK, runtime, A2A, stats, proof, model-fit, or
+owner-acceptance authority, and the original authority-blocked writer return
+remains preserved evidence.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

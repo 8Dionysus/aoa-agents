@@ -20,10 +20,14 @@ from jsonschema import Draft202012Validator
 
 
 SUMMON_ROOT = Path(__file__).resolve().parents[1]
+REQUEST_SCHEMA = SUMMON_ROOT / "references" / "summon-request-v4.schema.json"
 RESULT_SCHEMA = SUMMON_ROOT / "references" / "summon-result-v4.schema.json"
 ZERO_DIGEST = "sha256:" + "0" * 64
 TERMINAL_RUNTIME_STATUSES = {"completed", "failed", "review_required", "authority_blocked"}
 SUCCESS_REVIEW_OUTCOMES = {"proceed"}
+A2A_RETURN_SCHEMA_VERSION = "abyss_stack_external_codex_a2a_return_v1"
+VALIDATED_EVENT_KIND = "result.validated"
+VALIDATED_CONDITION_ID = "validated-completion"
 
 
 class ExternalExecutionResultError(ValueError):
@@ -86,7 +90,11 @@ def _json_pointer(value: Any, pointer: str) -> Any:
     return current
 
 
-def _load(path: Path, *, label: str) -> tuple[bytes, dict[str, Any], str]:
+def _load_with_metadata(
+    path: Path,
+    *,
+    label: str,
+) -> tuple[bytes, dict[str, Any], str, dict[str, Any]]:
     """Load a raw JSON artifact or an immutable actor input envelope.
 
     Envelopes carry the original owner digest in ``source_artifact_digest``;
@@ -117,27 +125,59 @@ def _load(path: Path, *, label: str) -> tuple[bytes, dict[str, Any], str]:
             raise ExternalExecutionResultError(
                 f"{label} actor envelope has no source artifact digest"
             )
-        return raw, payload, artifact_digest
-    return raw, loaded, digest_bytes(raw)
+        return raw, payload, artifact_digest, {
+            "source_schema_ref": loaded.get("source_schema_ref"),
+            "source_schema_version": loaded.get("source_schema_version"),
+        }
+    return raw, loaded, digest_bytes(raw), {
+        "source_schema_ref": loaded.get("$schema"),
+        "source_schema_version": loaded.get("schema_version"),
+    }
 
 
-def _validate_result(result: Mapping[str, Any]) -> None:
+def _load(path: Path, *, label: str) -> tuple[bytes, dict[str, Any], str]:
+    raw, payload, artifact_digest, _metadata = _load_with_metadata(path, label=label)
+    return raw, payload, artifact_digest
+
+
+def _validate_document(
+    document: Mapping[str, Any],
+    *,
+    schema_path: Path,
+    label: str,
+) -> None:
     try:
-        schema = json.loads(RESULT_SCHEMA.read_bytes())
+        schema = json.loads(schema_path.read_bytes())
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise ExternalExecutionResultError(
-            f"summon-result-v4 schema is unavailable: {RESULT_SCHEMA}"
+            f"{label} schema is unavailable: {schema_path}"
         ) from exc
     errors = sorted(
-        Draft202012Validator(schema).iter_errors(result),
+        Draft202012Validator(schema).iter_errors(document),
         key=lambda item: tuple(str(part) for part in item.absolute_path),
     )
     if errors:
         path = ".".join(str(part) for part in errors[0].absolute_path)
         where = f" at {path}" if path else ""
         raise ExternalExecutionResultError(
-            f"compiled summon-result-v4 is invalid{where}: {errors[0].message}"
+            f"{label} schema validation failed{where}: {errors[0].message}"
         )
+
+
+def _validate_request_schema(request: Mapping[str, Any]) -> None:
+    _validate_document(
+        request,
+        schema_path=REQUEST_SCHEMA,
+        label="summon-request-v4",
+    )
+
+
+def _validate_result(result: Mapping[str, Any]) -> None:
+    _validate_document(
+        result,
+        schema_path=RESULT_SCHEMA,
+        label="compiled summon-result-v4",
+    )
 
 
 def _require(condition: bool, message: str) -> None:
@@ -261,7 +301,12 @@ def _usage_ref(
             schema_version="abyss_stack_external_codex_usage_observation_v1",
             object_keys=("usage_observation_id", "observation_id", "id", "object_id"),
         )
+    _require(
+        usage_pointer == "/usage_observation",
+        "usage pointer must be the canonical /usage_observation locator",
+    )
     usage_value = _json_pointer(runtime, usage_pointer)
+    _validate_usage_observation(usage_value, label="embedded usage observation")
     return {
         "object_id": f"{runtime_ref['object_id']}#{usage_pointer}",
         "owner_repo": "abyss-stack",
@@ -270,7 +315,36 @@ def _usage_ref(
     }
 
 
+def _validate_usage_observation(value: Any, *, label: str) -> None:
+    _require(isinstance(value, Mapping), f"{label} shape is invalid")
+    _require(set(value) == {"status", "gap_reasons"}, f"{label} shape is invalid")
+    _require(
+        value.get("status") in {"complete", "partial"},
+        f"{label} status is invalid",
+    )
+    gaps = value.get("gap_reasons")
+    _require(isinstance(gaps, list), f"{label} gaps are invalid")
+    for gap in gaps:
+        _require(isinstance(gap, Mapping), f"{label} gap shape is invalid")
+        _require(
+            set(gap) == {"attempt_id", "reason", "event_sequence"},
+            f"{label} gap shape is invalid",
+        )
+        _require_string(gap.get("attempt_id"), f"{label} gap attempt id")
+        _require(
+            gap.get("reason") == "controlled_interruption_before_turn_usage",
+            f"{label} gap reason is invalid",
+        )
+        _require(
+            isinstance(gap.get("event_sequence"), int)
+            and not isinstance(gap.get("event_sequence"), bool)
+            and gap["event_sequence"] >= 0,
+            f"{label} gap event sequence is invalid",
+        )
+
+
 def _validate_external_request(request: Mapping[str, Any]) -> dict[str, Any]:
+    _validate_request_schema(request)
     _require(request.get("intent") == "execute", "request intent must be execute")
     _require(request.get("request_ref"), "request ref is absent")
     expected_digest = semantic_request_digest(request)
@@ -429,9 +503,7 @@ def _validate_runtime(
     _require_string(runtime.get("session_id"), "runtime session id")
     _require_string(runtime.get("thread_id"), "runtime continuation id")
     usage = runtime.get("usage_observation")
-    _require(isinstance(usage, Mapping), "runtime usage observation is absent")
-    _require(usage.get("status") in {"complete", "partial"}, "runtime usage observation status is invalid")
-    _require(isinstance(usage.get("gap_reasons"), list), "runtime usage gaps are invalid")
+    _validate_usage_observation(usage, label="runtime usage observation")
     invocations = runtime.get("codex_invocations")
     _require(isinstance(invocations, list) and bool(invocations), "runtime invocation evidence is absent")
     for invocation in invocations:
@@ -477,9 +549,22 @@ def _validate_reviewed_return(
     reviewed_return: Mapping[str, Any],
     request: Mapping[str, Any],
     runtime: Mapping[str, Any],
+    runtime_ref: Mapping[str, Any],
     *,
     reviewed_return_digest: str,
+    reviewed_return_metadata: Mapping[str, Any],
 ) -> dict[str, str]:
+    _require(
+        reviewed_return_metadata.get("source_schema_version")
+        == A2A_RETURN_SCHEMA_VERSION,
+        "A2A return schema/version is invalid",
+    )
+    source_schema_ref = reviewed_return_metadata.get("source_schema_ref")
+    if source_schema_ref is not None:
+        _require(
+            source_schema_ref == "runtime/schemas/external-codex-a2a-return.schema.json",
+            "A2A return schema ref is invalid",
+        )
     _require(reviewed_return.get("reviewed") is True, "A2A return is not reviewed")
     _require(reviewed_return.get("review_status") == "reviewed", "A2A review status is not reviewed")
     _require(reviewed_return.get("reviewer_status") == "completed", "A2A reviewer is not terminal")
@@ -489,6 +574,49 @@ def _validate_reviewed_return(
     _require(isinstance(remote_task, Mapping), "A2A remote task is absent")
     _require(remote_task.get("state") == "completed", "A2A remote task is nonterminal")
     _require_string(remote_task.get("task_id"), "A2A remote task id")
+    _require_string(remote_task.get("agent_id"), "A2A remote task agent id")
+    _require_string(remote_task.get("context_id"), "A2A remote task context id")
+    _require(
+        remote_task.get("parent_task_id")
+        == request.get("summon_request", {}).get("parent_task_id"),
+        "A2A remote task parent identity differs from the summon request",
+    )
+    artifact_refs = remote_task.get("artifact_refs")
+    _require(
+        isinstance(artifact_refs, list)
+        and all(isinstance(item, str) and item for item in artifact_refs),
+        "A2A remote task artifact refs are absent",
+    )
+    reviewed_artifact_path = reviewed_return.get("reviewed_artifact_path")
+    _require_string(reviewed_artifact_path, "reviewed A2A artifact path")
+    _require(
+        reviewed_artifact_path in artifact_refs,
+        "reviewed A2A artifact path is not bound to the remote task",
+    )
+    evidence_digests = reviewed_return.get("evidence_digests")
+    _require(isinstance(evidence_digests, Mapping), "A2A evidence digests are absent")
+    _require(
+        evidence_digests.get("writer_result") == runtime_ref["digest"],
+        "A2A reviewed writer result differs from the terminal runtime result",
+    )
+    _require(
+        runtime.get("status") == "completed",
+        "reviewed A2A return requires a completed terminal runtime result",
+    )
+    wake = runtime.get("wake_evaluation")
+    _require(isinstance(wake, Mapping), "runtime validation event is absent")
+    _require(
+        wake.get("event_kind") == VALIDATED_EVENT_KIND,
+        "runtime validation event is not result.validated",
+    )
+    _require(
+        wake.get("condition_id") == VALIDATED_CONDITION_ID,
+        "runtime validation condition is not validated-completion",
+    )
+    _require(
+        wake.get("wake_parent") is True,
+        "runtime validation event does not wake the parent",
+    )
     original_ref = reviewed_return.get("summon_request_ref")
     expected_ref = request["external_incarnation"]["sdk_summon_request_ref"]
     original_ref = _require_ref(
@@ -521,6 +649,25 @@ def _output_checks(
     runtime_ref: Mapping[str, Any],
     explicit_artifact_refs: Mapping[str, str] | None,
 ) -> dict[str, dict[str, Any]]:
+    def returned_output_names(value: Any) -> dict[str, str]:
+        _require(isinstance(value, list), "A2A returned artifacts are absent")
+        artifacts_by_name: dict[str, str] = {}
+        for artifact in value:
+            if not isinstance(artifact, str) or not artifact:
+                raise ExternalExecutionResultError("A2A returned artifact identity is invalid")
+            if artifact not in expected_outputs:
+                raise ExternalExecutionResultError(
+                    f"A2A returned artifact is outside the requested output keys/closure: {artifact}"
+                )
+            if artifact in artifacts_by_name:
+                raise ExternalExecutionResultError(f"A2A returned duplicate output: {artifact}")
+            artifacts_by_name[artifact] = artifact
+        _require(
+            set(artifacts_by_name) == set(expected_outputs),
+            "A2A returned output keys do not match the request",
+        )
+        return artifacts_by_name
+
     if explicit_artifact_refs is not None:
         _require(
             set(explicit_artifact_refs) == set(expected_outputs),
@@ -528,8 +675,8 @@ def _output_checks(
         )
         artifacts = dict(explicit_artifact_refs)
         returned = reviewed_return["remote_task"].get("returned_artifacts")
-        _require(isinstance(returned, list), "A2A returned artifacts are absent")
-        allowed = {item for item in returned if isinstance(item, str)}
+        returned_output_names(returned)
+        allowed = set(returned)
         allowed.add(str(runtime_ref["object_id"]))
         _require(
             all(value in allowed for value in artifacts.values()),
@@ -538,22 +685,7 @@ def _output_checks(
     else:
         remote_task = reviewed_return["remote_task"]
         returned = remote_task.get("returned_artifacts")
-        _require(isinstance(returned, list), "A2A returned artifacts are absent")
-        artifacts_by_name: dict[str, str] = {}
-        for artifact in returned:
-            if not isinstance(artifact, str) or not artifact:
-                raise ExternalExecutionResultError("A2A returned artifact identity is invalid")
-            name = Path(artifact).name
-            candidates = {artifact, name}
-            for output in expected_outputs:
-                if output in candidates or artifact.endswith("/" + output):
-                    if output in artifacts_by_name and artifacts_by_name[output] != artifact:
-                        raise ExternalExecutionResultError(f"A2A returned duplicate output: {output}")
-                    artifacts_by_name[output] = artifact
-        artifacts = dict(artifacts_by_name)
-        if "external_codex_agent_result" in expected_outputs and "external_codex_agent_result" not in artifacts:
-            artifacts["external_codex_agent_result"] = str(runtime_ref["object_id"])
-    _require(set(artifacts) == set(expected_outputs), "A2A returned output keys do not match the request")
+        artifacts = returned_output_names(returned)
     return {
         output: {
             "received": True,
@@ -590,7 +722,7 @@ def compile_external_execution_result(
     _runtime_raw, runtime, runtime_artifact_digest = _load(
         runtime_result_path, label="runtime result"
     )
-    _a2a_raw, reviewed_return, reviewed_return_digest = _load(
+    _a2a_raw, reviewed_return, reviewed_return_digest, reviewed_return_metadata = _load_with_metadata(
         reviewed_a2a_return_path, label="reviewed A2A return"
     )
     incarnation = _validate_external_request(request)
@@ -615,7 +747,9 @@ def compile_external_execution_result(
         reviewed_return,
         request,
         runtime,
+        runtime_ref,
         reviewed_return_digest=reviewed_return_digest,
+        reviewed_return_metadata=reviewed_return_metadata,
     )
     profile_ref = _runtime_profile_ref(
         runtime_profile_ref=runtime_profile_ref,

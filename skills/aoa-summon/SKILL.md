@@ -155,12 +155,18 @@ After a runtime has already returned, `scripts/compile_external_execution_result
 may compile one `summon-result-v4` from the exact owner request, SDK request and
 decision, terminal `abyss-stack` result, runtime-profile ref, and reviewed A2A
 return. It is a passive closeout adapter: it verifies the immutable request
-digest and output-key set, preserves role, fit, incarnation, runtime, A2A, and
-usage evidence as refs, and derives the four external handles from the supplied
-runtime evidence. An embedded usage observation is represented as a JSON-pointer
-locator whose digest covers the canonical referenced subtree. The compiler does
-not launch, review, select, repair, or mint an SDK, runtime, A2A, stats, proof,
-or owner-acceptance artifact.
+digest and schema, preserves role, fit, incarnation, runtime, A2A, and usage
+evidence as refs, and derives the four external handles from the supplied
+runtime evidence. A reviewed return must carry runtime-owned A2A schema
+provenance, bind its reviewed writer-result digest to the exact terminal
+runtime result, and be paired with the canonical
+`result.validated`/`validated-completion` wake event. An embedded usage
+observation is accepted only at the exact `/usage_observation` JSON pointer
+and must retain the runtime-owned observation shape. Returned artifacts are an
+exact, duplicate-free closure over the request's named outputs; path basenames
+are not inferred as output identities. The compiler does not launch, review,
+select, repair, or mint an SDK, runtime, A2A, stats, proof, or owner-acceptance
+artifact.
 
 When the obligation, role choice, mandate, model-fit selection, domain
 procedure, permission posture, task-local source graph, and exact owner roots

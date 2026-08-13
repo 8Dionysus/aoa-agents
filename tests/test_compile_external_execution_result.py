@@ -129,6 +129,13 @@ def fixture(temp: Path) -> dict[str, object]:
         "session_id": "session:landing",
         "thread_id": "thread:landing",
         "usage_observation": {"status": "complete", "gap_reasons": []},
+        "wake_evaluation": {
+            "event_kind": "result.validated",
+            "condition_id": "validated-completion",
+            "action": "wake_parent",
+            "wake_parent": True,
+            "reason": "validated terminal runtime result",
+        },
         "codex_invocations": [
             {
                 "argv": ["codex", "--disable", "multi_agent"],
@@ -139,19 +146,26 @@ def fixture(temp: Path) -> dict[str, object]:
         ],
     }
     runtime_path = temp / "runtime-result.json"
-    write_json(runtime_path, runtime)
+    runtime_digest = write_json(runtime_path, runtime)
 
     a2a = {
+        "schema_version": "abyss_stack_external_codex_a2a_return_v1",
         "reviewed": True,
         "review_status": "reviewed",
         "reviewer_status": "completed",
         "reviewer_decision": "proceed",
         "review_outcome": "proceed",
+        "evidence_digests": {"writer_result": runtime_digest},
+        "reviewed_artifact_path": "runtime-result.json",
         "summon_request_ref": incarnation["sdk_summon_request_ref"],
         "review_summon_request_ref": ref("aoa-sdk", "review-request:landing", "urn:aoa-sdk:a2a:summon-request:v4"),
         "remote_task": {
+            "agent_id": "incarnation:landing-review",
+            "context_id": "session:landing-review",
+            "parent_task_id": "goal:landing",
             "task_id": "actor-task-landing-review",
             "state": "completed",
+            "artifact_refs": ["runtime-result.json"],
             "returned_artifacts": outputs,
         },
     }
@@ -216,6 +230,16 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             request["request_digest"] = ZERO
             write_json(data["request_path"], request)
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "request digest mismatch"):
+                self.compile(data)
+
+    def test_request_schema_mismatch_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["untrusted_extra"] = True
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "summon-request-v4 schema"):
                 self.compile(data)
 
     def test_sdk_decision_request_identity_mismatch_fails_closed(self) -> None:
@@ -293,6 +317,36 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "not reviewed"):
                 self.compile(data)
 
+    def test_reviewed_a2a_schema_version_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["schema_version"] = "abyss_stack_external_codex_a2a_return_v0"
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "schema/version"):
+                self.compile(data)
+
+    def test_reviewed_a2a_requires_runtime_validated_event(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["wake_evaluation"]["event_kind"] = "result.review_required"
+            runtime_digest = write_json(data["runtime_path"], runtime)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["evidence_digests"]["writer_result"] = runtime_digest
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "result.validated"):
+                self.compile(data)
+
+    def test_reviewed_a2a_writer_result_must_bind_terminal_runtime(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["evidence_digests"]["writer_result"] = ZERO
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "terminal runtime result"):
+                self.compile(data)
+
     def test_review_disposition_cannot_be_widened(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -310,6 +364,32 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             write_json(data["a2a_path"], a2a)
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "output keys"):
                 self.compile(data)
+
+    def test_extra_returned_artifact_fails_closed_when_requested_outputs_exist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["remote_task"]["returned_artifacts"] = [
+                *data["request"]["expected_outputs"],
+                "unexpected-output",
+            ]
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "outside.*closure"):
+                self.compile(data)
+
+    def test_resolving_noncanonical_usage_pointer_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "canonical /usage_observation"):
+                COMPILER.compile_external_execution_result(
+                    request_path=data["request_path"],
+                    sdk_summon_request_path=data["sdk_request_path"],
+                    sdk_summon_decision_path=data["sdk_decision_path"],
+                    runtime_result_path=data["runtime_path"],
+                    reviewed_a2a_return_path=data["a2a_path"],
+                    runtime_profile_ref=data["runtime_profile_ref"],
+                    usage_pointer="/usage_observation/status",
+                )
 
     def test_effect_ceiling_drift_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
