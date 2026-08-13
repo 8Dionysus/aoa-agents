@@ -338,6 +338,56 @@ def _validate_tool_profile(
         )
 
 
+def _validate_obligation_mandate_chain(
+    obligation: Mapping[str, Any],
+    mandate: Mapping[str, Any],
+    sdk_request: Mapping[str, Any],
+) -> None:
+    """Keep the formed obligation's goal and lifecycle exact before launch."""
+
+    obligation_goal = obligation.get("goal_ref")
+    mandate_goal = mandate.get("goal_ref")
+    if not isinstance(obligation_goal, Mapping) or not isinstance(
+        mandate_goal, Mapping
+    ):
+        raise ExternalExecutionRequestError(
+            "obligation or mandate goal ref is absent"
+        )
+    _require_equal(
+        mandate_goal,
+        obligation_goal,
+        label="mandate goal and originating obligation goal",
+    )
+
+    quest_passport = sdk_request.get("quest_passport")
+    if not isinstance(quest_passport, Mapping):
+        raise ExternalExecutionRequestError("SDK request quest passport is absent")
+    _require_equal(
+        quest_passport.get("route_anchor"),
+        obligation_goal.get("object_id"),
+        label="SDK route anchor and originating obligation goal",
+    )
+
+    lifecycle_posture = obligation.get("lifecycle_posture")
+    if not isinstance(lifecycle_posture, str) or not lifecycle_posture:
+        raise ExternalExecutionRequestError(
+            "originating obligation lifecycle posture is absent"
+        )
+    _require_equal(
+        mandate.get("identity_posture"),
+        lifecycle_posture,
+        label="mandate identity and obligation lifecycle posture",
+    )
+    continuity = mandate.get("continuity")
+    if not isinstance(continuity, Mapping):
+        raise ExternalExecutionRequestError("actor mandate continuity is absent")
+    _require_equal(
+        continuity.get("posture"),
+        lifecycle_posture,
+        label="mandate continuity and obligation lifecycle posture",
+    )
+
+
 def compile_external_execution_request(
     *,
     request_ref: str,
@@ -540,6 +590,7 @@ def compile_external_execution_request(
         raise ExternalExecutionRequestError(
             "SDK request must authorize an external A2A transport"
         )
+    _validate_obligation_mandate_chain(obligation, mandate, sdk_request)
 
     run_plan_ref = binding.get("run_plan_ref")
     if (

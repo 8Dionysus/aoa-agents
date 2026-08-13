@@ -250,6 +250,14 @@ the same provenance object. A wider host profile therefore cannot run merely
 because later closeout would reject its return. This authenticates the already
 selected environment and does not grant tool or runtime authority.
 
+A later exact-head review found that goal and lifecycle preservation had been
+enforced only after return. The request compiler now requires the mandate goal
+and SDK passport route anchor to retain the originating obligation goal, and
+requires mandate identity plus continuity posture to retain the obligation
+lifecycle before it emits an executable request. This prevents a formed
+task-instance duty from being redirected or upgraded into a persistent office
+before the closeout compiler ever has a chance to reject its return.
+
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that
 authorized the independent review. Closeout now requires that exact artifact

@@ -156,6 +156,9 @@ cross-field invariants, and requires the effect ceiling to equal both the
 runtime task and actor mandate. It also requires the selected binding tool and
 MCP ceilings to equal the actor-mandate environment, forbids inherited user
 configuration, and binds the tool profile to the same runtime-profile ref.
+It also preserves the originating obligation goal in the mandate and SDK
+route anchor, and preserves the obligation lifecycle in mandate identity and
+continuity posture.
 Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 

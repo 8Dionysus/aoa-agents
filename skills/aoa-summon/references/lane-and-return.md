@@ -135,7 +135,10 @@ external-effect, read-only-sandbox, and secret-approval cross-field
 invariants. The exact allowed effect classes must also equal both the runtime
 task effect and actor-mandate ceiling. The binding's exact tool and MCP sets
 must equal the actor-mandate environment, its tool profile must name the same
-runtime profile, and it cannot inherit user configuration. A contradiction stops before launch;
+runtime profile, and it cannot inherit user configuration. The mandate goal
+and SDK quest-passport route anchor must retain the originating obligation
+goal, while mandate identity and continuity posture must retain the obligation
+lifecycle. A contradiction stops before launch;
 the compiler does not select a narrower posture or rewrite owner authority.
 
 ## Passive result compilation

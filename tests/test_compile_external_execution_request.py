@@ -55,7 +55,81 @@ def valid_tool_chain() -> tuple[dict[str, object], dict[str, object]]:
     return binding, mandate
 
 
+def valid_obligation_mandate_chain() -> tuple[
+    dict[str, object], dict[str, object], dict[str, object]
+]:
+    goal_ref = {
+        "object_id": "goal:exact",
+        "owner_repo": "codex-goal",
+        "schema_version": "goal-anchor-v1",
+        "digest": "sha256:" + "1" * 64,
+    }
+    obligation = {
+        "goal_ref": copy.deepcopy(goal_ref),
+        "lifecycle_posture": "task-instance",
+    }
+    mandate = {
+        "goal_ref": copy.deepcopy(goal_ref),
+        "identity_posture": "task-instance",
+        "continuity": {"posture": "task-instance"},
+    }
+    sdk_request = {"quest_passport": {"route_anchor": "goal:exact"}}
+    return obligation, mandate, sdk_request
+
+
 class CompileExternalExecutionRequestTests(unittest.TestCase):
+    def test_valid_obligation_goal_and_lifecycle_are_preserved_before_launch(
+        self,
+    ) -> None:
+        COMPILER._validate_obligation_mandate_chain(
+            *valid_obligation_mandate_chain()
+        )
+
+    def test_obligation_goal_and_lifecycle_substitutions_fail_before_launch(
+        self,
+    ) -> None:
+        cases = (
+            (
+                "mandate goal",
+                lambda obligation, mandate, sdk_request: mandate[
+                    "goal_ref"
+                ].update({"object_id": "goal:other"}),
+                "mandate goal and originating obligation goal differs",
+            ),
+            (
+                "request route anchor",
+                lambda obligation, mandate, sdk_request: sdk_request[
+                    "quest_passport"
+                ].update({"route_anchor": "goal:other"}),
+                "SDK route anchor and originating obligation goal differs",
+            ),
+            (
+                "mandate identity posture",
+                lambda obligation, mandate, sdk_request: mandate.update(
+                    {"identity_posture": "persistent-office"}
+                ),
+                "mandate identity and obligation lifecycle posture differs",
+            ),
+            (
+                "mandate continuity posture",
+                lambda obligation, mandate, sdk_request: mandate[
+                    "continuity"
+                ].update({"posture": "persistent-office"}),
+                "mandate continuity and obligation lifecycle posture differs",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name):
+                obligation, mandate, sdk_request = valid_obligation_mandate_chain()
+                mutate(obligation, mandate, sdk_request)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionRequestError,
+                    message,
+                ):
+                    COMPILER._validate_obligation_mandate_chain(
+                        obligation, mandate, sdk_request
+                    )
+
     def test_valid_permission_posture_binds_both_owner_effect_ceilings(self) -> None:
         COMPILER._validate_permission_posture(*valid_chain())
 
