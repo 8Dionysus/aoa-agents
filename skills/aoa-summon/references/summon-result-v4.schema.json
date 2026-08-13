@@ -79,6 +79,23 @@
         }
       ]
     },
+    "modelRealizationRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-models"
+            },
+            "schema_version": {
+              "const": "aoa_model_realization_v1"
+            }
+          }
+        }
+      ]
+    },
     "roleResolutionRef": {
       "allOf": [
         {
@@ -91,6 +108,23 @@
             },
             "schema_version": {
               "const": "aoa_role_resolution_v1"
+            }
+          }
+        }
+      ]
+    },
+    "runPlanRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-sdk"
+            },
+            "schema_version": {
+              "const": "aoa_control_plane_v1"
             }
           }
         }
@@ -124,7 +158,7 @@
               "const": "abyss-stack"
             },
             "schema_version": {
-              "const": "abyss_stack_external_codex_runtime_profile_v1"
+              "const": "abyss_stack_external_codex_runtime_profile_v2"
             }
           }
         }
@@ -141,7 +175,7 @@
               "const": "abyss-stack"
             },
             "schema_version": {
-              "const": "abyss_stack_external_codex_result_v1"
+              "const": "abyss_stack_external_codex_result_v2"
             }
           }
         }
@@ -1029,8 +1063,14 @@
               "model_fit_query_result_ref": {
                 "$ref": "#/$defs/modelFitQueryResultRef"
               },
+              "model_realization_ref": {
+                "$ref": "#/$defs/modelRealizationRef"
+              },
               "role_resolution_ref": {
                 "$ref": "#/$defs/roleResolutionRef"
+              },
+              "run_plan_ref": {
+                "$ref": "#/$defs/runPlanRef"
               },
               "runtime_owner": {
                 "const": "abyss-stack"
@@ -1054,6 +1094,8 @@
               "role_resolution_ref",
               "model_fit_query_result_ref",
               "model_fit_projection_ref",
+              "model_realization_ref",
+              "run_plan_ref",
               "incarnation_binding_ref",
               "sdk_summon_request_ref",
               "sdk_summon_decision_ref",

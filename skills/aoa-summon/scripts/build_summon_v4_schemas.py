@@ -49,6 +49,8 @@ def build_request_v4() -> dict[str, Any]:
         "role_resolution_ref",
         "model_fit_query_result_ref",
         "model_fit_projection_ref",
+        "model_realization_ref",
+        "run_plan_ref",
     )
     required = external["required"]
     insertion = required.index("task_local_dag_ref")
@@ -59,6 +61,8 @@ def build_request_v4() -> dict[str, Any]:
             "role_resolution_ref": {"$ref": "#/$defs/roleResolutionRef"},
             "model_fit_query_result_ref": {"$ref": "#/$defs/modelFitQueryResultRef"},
             "model_fit_projection_ref": {"$ref": "#/$defs/modelFitProjectionRef"},
+            "model_realization_ref": {"$ref": "#/$defs/modelRealizationRef"},
+            "run_plan_ref": {"$ref": "#/$defs/runPlanRef"},
         }
     )
     schema["$defs"]["incarnationBindingRef"] = _owner_content_ref(
@@ -75,6 +79,10 @@ def build_request_v4() -> dict[str, Any]:
             "modelFitProjectionRef": _owner_content_ref(
                 "aoa-models", "aoa_model_fit_projection_v1"
             ),
+            "modelRealizationRef": _owner_content_ref(
+                "aoa-models", "aoa_model_realization_v1"
+            ),
+            "runPlanRef": _owner_content_ref("aoa-sdk", "aoa_control_plane_v1"),
         }
     )
     return schema
@@ -101,6 +109,12 @@ def build_result_v4() -> dict[str, Any]:
     schema = copy.deepcopy(_load(RESULT_V3))
     schema["$id"] = "https://example.invalid/aoa-summon/result-v4.schema.json"
     schema["title"] = "aoa-summon result v4"
+    schema["$defs"]["runtimeProfileRef"] = _owner_content_ref(
+        "abyss-stack", "abyss_stack_external_codex_runtime_profile_v2"
+    )
+    schema["$defs"]["runtimeResultRef"] = _owner_content_ref(
+        "abyss-stack", "abyss_stack_external_codex_result_v2"
+    )
     schema["$defs"]["incarnationBindingRef"] = _owner_content_ref(
         "aoa-sdk", "aoa_agent_incarnation_binding_v2"
     )
@@ -115,6 +129,10 @@ def build_result_v4() -> dict[str, Any]:
             "modelFitProjectionRef": _owner_content_ref(
                 "aoa-models", "aoa_model_fit_projection_v1"
             ),
+            "modelRealizationRef": _owner_content_ref(
+                "aoa-models", "aoa_model_realization_v1"
+            ),
+            "runPlanRef": _owner_content_ref("aoa-sdk", "aoa_control_plane_v1"),
         }
     )
     binding = _external_result_rule(schema)["then"]["properties"]["binding"]
@@ -123,6 +141,8 @@ def build_result_v4() -> dict[str, Any]:
             "role_resolution_ref": {"$ref": "#/$defs/roleResolutionRef"},
             "model_fit_query_result_ref": {"$ref": "#/$defs/modelFitQueryResultRef"},
             "model_fit_projection_ref": {"$ref": "#/$defs/modelFitProjectionRef"},
+            "model_realization_ref": {"$ref": "#/$defs/modelRealizationRef"},
+            "run_plan_ref": {"$ref": "#/$defs/runPlanRef"},
         }
     )
     insertion = binding["required"].index("incarnation_binding_ref")
@@ -131,6 +151,8 @@ def build_result_v4() -> dict[str, Any]:
             "role_resolution_ref",
             "model_fit_query_result_ref",
             "model_fit_projection_ref",
+            "model_realization_ref",
+            "run_plan_ref",
         )
     ):
         binding["required"].insert(insertion, field)

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6575091,
+  "allowed_tracked_bytes": 15031772,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 6575091,
+  "changed_generated_files": 169,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "6c73ab7d126da79a0f2eaa38e4d2c81c97d866f502355389c24b69451df03d43",
+  "reason": "Project the exact tool, MCP, effect, sandbox, and return-owner chain repair across the existing PR family; total tracked bytes remain below the owner cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15031772,
+  "tracked_bytes_max": 16777216
+}

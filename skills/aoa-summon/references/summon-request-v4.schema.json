@@ -113,6 +113,23 @@
         }
       ]
     },
+    "modelRealizationRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-models"
+            },
+            "schema_version": {
+              "const": "aoa_model_realization_v1"
+            }
+          }
+        }
+      ]
+    },
     "responsibilityTransferAdmissionRef": {
       "additionalProperties": false,
       "properties": {
@@ -177,6 +194,23 @@
             },
             "schema_version": {
               "const": "aoa_role_resolution_v1"
+            }
+          }
+        }
+      ]
+    },
+    "runPlanRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-sdk"
+            },
+            "schema_version": {
+              "const": "aoa_control_plane_v1"
             }
           }
         }
@@ -502,6 +536,9 @@
         "model_fit_query_result_ref": {
           "$ref": "#/$defs/modelFitQueryResultRef"
         },
+        "model_realization_ref": {
+          "$ref": "#/$defs/modelRealizationRef"
+        },
         "obligation_ref": {
           "$ref": "#/$defs/agentObligationRef"
         },
@@ -513,6 +550,9 @@
         },
         "role_resolution_ref": {
           "$ref": "#/$defs/roleResolutionRef"
+        },
+        "run_plan_ref": {
+          "$ref": "#/$defs/runPlanRef"
         },
         "runtime_interface": {
           "minLength": 1,
@@ -549,6 +589,8 @@
         "role_resolution_ref",
         "model_fit_query_result_ref",
         "model_fit_projection_ref",
+        "model_realization_ref",
+        "run_plan_ref",
         "task_local_dag_ref",
         "incarnation_binding_ref",
         "sdk_summon_request_ref",

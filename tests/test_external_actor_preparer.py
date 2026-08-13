@@ -19,6 +19,30 @@ def _input(input_id: str, path: Path) -> tuple[dict[str, str], Path]:
 
 
 class ExternalActorPreparerTests(unittest.TestCase):
+    def test_continuation_return_owner_projects_the_exact_holder(self) -> None:
+        projected = PREPARER._concrete_return_owner_provenance(
+            {
+                "object_id": "holder:goal",
+                "owner_repo": "codex-goal",
+                "schema_version": "holder-v1",
+                "digest": "sha256:" + "1" * 64,
+            },
+            {
+                "owner_repo": "codex-goal",
+                "artifact_ref": "goal-anchor.json",
+                "source_ref": "goal:root",
+                "artifact_digest": "sha256:" + "2" * 64,
+                "schema_ref": "goal-anchor-v1",
+                "schema_version": "goal-anchor-v1",
+            },
+        )
+
+        self.assertEqual(projected["artifact_ref"], "holder:goal")
+        self.assertEqual(projected["artifact_digest"], "sha256:" + "1" * 64)
+        self.assertEqual(projected["owner_repo"], "codex-goal")
+        self.assertEqual(projected["source_ref"], "goal:root")
+        self.assertEqual(projected["schema_version"], "holder-v1")
+
     def test_review_evidence_closure_accepts_supplied_transitive_input(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)

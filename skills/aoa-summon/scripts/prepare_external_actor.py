@@ -85,6 +85,22 @@ def _data_digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(raw).hexdigest()
 
 
+def _concrete_return_owner_provenance(
+    holder: Mapping[str, Any],
+    owner_evidence: Mapping[str, Any],
+) -> dict[str, str]:
+    """Project the exact semantic holder into the SDK provenance shape."""
+
+    return {
+        "owner_repo": str(holder["owner_repo"]),
+        "artifact_ref": str(holder["object_id"]),
+        "source_ref": str(owner_evidence["source_ref"]),
+        "artifact_digest": str(holder["digest"]),
+        "schema_ref": "task-local/responsibility-holder-v1",
+        "schema_version": str(holder["schema_version"]),
+    }
+
+
 def _git(root: Path, *args: str) -> str:
     try:
         return subprocess.run(
@@ -667,9 +683,18 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     ]
     if len(return_owner_matches) != 1:
         raise PreparationError("return owner input must resolve exactly once")
-    return_owner_ref = return_owner_matches[0]
-    if return_owner_ref.owner_repo != mandate["return_owner"]["owner_repo"]:
+    return_owner_evidence_ref = return_owner_matches[0]
+    if (
+        return_owner_evidence_ref.owner_repo
+        != mandate["return_owner"]["owner_repo"]
+    ):
         raise PreparationError("return owner provenance differs from actor mandate")
+    return_owner_ref = cp.ProvenanceRef.model_validate(
+        _concrete_return_owner_provenance(
+            mandate["return_owner"],
+            return_owner_evidence_ref.model_dump(mode="json"),
+        )
+    )
     workspace_ref = cp.ProvenanceRef(owner_repo=f"task-local-workspace:{route_id}", artifact_ref=str(workspace), source_ref=workspace_source_ref, artifact_digest=_data_digest({"path": str(workspace), "head": workspace_source_ref}), schema_ref="task-local/git-workspace-v1", schema_version="task-local-git-workspace-v1")
     request_ref = _provenance(cp, sdk_request_path, owner="aoa-sdk", artifact_ref=f"task-local/{route_id}/sdk-summon-request.json", source_ref=sdk_source_ref, schema_ref="mechanics/checkpoint/parts/child-task-reentry/schemas/summon-request-v4.schema.json", schema_version="urn:aoa-sdk:a2a:summon-request:v4")
     sdk_summon_schema_path = sdk_root / request_ref.schema_ref
@@ -822,6 +847,8 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         checkpoint_owner=dag_ref, rollback_owner=workspace_ref, closeout_owner=compiler_ref, provenance=compiler_ref,
         capability_refs=(summon_capability_ref,),
     )
+    run_plan_schema_path = output_dir / "sdk-run-plan.schema.json"
+    _write(run_plan_schema_path, cp.RunPlan.model_json_schema())
     run_plan_path = output_dir / "run-plan.json"
     _write(run_plan_path, plan.model_dump(mode="json"))
     wake_conditions = (
@@ -885,7 +912,9 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         request_ref=execution["request_ref"], runtime_interface=execution["runtime_interface"], return_event_object_id=execution["return_event_object_id"],
         obligation_path=obligation_path, mandate_path=mandate_path, role_resolution_path=role_path, model_fit_query_result_path=fit_path,
         model_fit_projection_path=projection_path, task_local_dag_path=dag_path, incarnation_binding_path=binding_path,
+        incarnation_binding_schema_path=sdk_root / "mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json",
         sdk_summon_request_path=sdk_request_path, sdk_summon_decision_path=sdk_decision_path, run_plan_path=run_plan_path,
+        run_plan_schema_path=run_plan_schema_path,
         runtime_launch_path=runtime_launch_path, runtime_task_path=task_path, responsibility_transfer_path=transfer_path,
         domain_procedure_paths=domain_paths, return_event_schema_path=release_root / "runtime/schemas/external-codex-event.schema.json",
     )
@@ -897,6 +926,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
             ("obligation", obligation_path), ("role_resolution", role_path), ("mandate", mandate_path), ("model_fit_query_result", fit_path),
             ("task_local_dag", dag_path), ("responsibility_transfer", transfer_path), ("sdk_summon_request", sdk_request_path),
             ("sdk_summon_decision", sdk_decision_path), ("runtime_task", task_path), ("run_plan", run_plan_path),
+            ("run_plan_schema", run_plan_schema_path),
             ("incarnation_binding", binding_path), ("launch_manifest", launch_manifest_path), ("runtime_launch", runtime_launch_path),
             ("summon_request", final_request_path),
         )},

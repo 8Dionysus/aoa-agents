@@ -125,3 +125,118 @@ for compatibility but cannot authorize a fresh launch.
 Blocked, failed, and narrowed actors return through the same responsibility
 surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.
+
+## Passive request compilation
+
+`compile_external_execution_request.py` is the pre-launch adapter for an
+already selected `external_cli_reviewed` incarnation. Before emitting a
+request it validates the SDK-owned permission-posture shape and its
+external-effect, read-only-sandbox, and secret-approval cross-field
+invariants. The exact allowed effect classes must also equal both the runtime
+task effect and actor-mandate ceiling. The binding's exact tool and MCP sets
+must equal the actor-mandate environment, its tool profile must name the same
+runtime profile, and it cannot inherit user configuration. The mandate goal
+and SDK quest-passport route anchor must retain the originating obligation
+goal, while mandate identity and continuity posture must retain the obligation
+lifecycle. The mandate also retains the obligation domain owner, the
+continuation retains its exact duty, the mandate stop line retains the
+obligation stop line, its model-fit relation is authorized by the current
+obligation holder, and the SDK decision must explicitly
+select `a2a_remote`. The supplied incarnation binding must pass the complete
+aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
+subset relation is considered. The schema bytes are pinned to the reviewed
+aoa-sdk owner artifact rather than trusted by `$id` or caller path. The run
+plan also passes the complete generated SDK `RunPlan` schema pinned by
+canonical content, and retains fresh SDK-canonical snapshot and plan digests
+before any snapshot input is consulted. A contradiction stops before launch;
+the compiler does not select a narrower posture or rewrite owner authority.
+
+## Passive result compilation
+
+`compile_external_execution_result.py` is the closeout adapter for a returned
+`external_cli_reviewed` lane. It accepts only a terminal
+`abyss_stack_external_codex_result_v2`, the exact SDK request and transport
+decision named by the summon request, the exact agent-obligation-v1,
+actor-mandate-v1, aoa-role-resolution-v1, and incarnation-binding-v2
+artifacts, an exact
+runtime-profile-v2 ref, and a reviewed
+`abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`,
+plus the exact review summon request named by that return. It
+first admits the owner request against the generated
+`summon-request-v4` schema, then verifies the semantic digest, the SDK request
+digest recorded by the SDK decision, the complete owner summon body and
+passport under the one documented transport-only translation, distinct
+responsibility holders, one admitted `read_only` or `repo_mutation` effect,
+disabled built-in subagents, and exact output
+keys. Closeout also loads the exact agent-obligation-v1 and
+actor-mandate-v1 artifacts: the request authority limit and stop line must
+equal their owner ceilings, the mandate goal and quest-passport route anchor
+must equal the obligation goal, mandate identity and continuity posture must
+preserve the obligation lifecycle, and the mandate domain owner plus delegated
+continuation duty must equal the exact obligation. The mandate stop line must
+equal the obligation stop line and its model-fit relation authority must equal
+the current obligation holder. Its complete role binding must equal the
+independently loaded exact role-resolution artifact. The transfer holders must
+equal the return owner and mandate continuity identity, the SDK continuation must retain that same
+concrete return-holder identity and digest rather than merely its repository,
+and the incarnation permission posture must
+satisfy the aoa-sdk cross-field invariants. The terminal runtime
+owner-admission ref must address the exact owner
+request bytes, which binds that result to the selected runtime launch and
+continuity chain. The incarnation artifact digest and its incarnation,
+continuation, effect, and tool-profile fields must match the request, runtime,
+and supplied runtime-profile ref exactly. The reviewed return must carry its
+runtime-owned schema provenance,
+agree with that provenance in its unwrapped payload schema, bind the complete
+original SDK summon-request ref,
+reference the exact terminal runtime-result digest, bind
+`remote_task.task_id` and `remote_task.agent_id` exactly to the terminal
+runtime `task_id` and `incarnation_id`, and agree with the runtime's canonical
+`result.validated`/`validated-completion` wake event.
+The review request digest, runtime-result source ref, writer path, writer task,
+route anchor, verifier identity, read-only risk, audit closure, and review
+output closure must all describe this exact execution. Its quest passport
+must authorize that same exact review output closure rather than carrying a
+parallel artifact list. The admitted SDK
+decision must provide its own nonempty cohort pattern; this adapter does not
+default missing SDK topology to `solo`.
+Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence fails
+closed.
+
+The compiler preserves authenticated stronger-owner objects as
+content-addressed refs. An actor-safe immutable-input envelope is instead
+addressed by its exact derivative bytes: its embedded source digest is
+provenance, not stronger-owner authentication. Every envelope must retain a
+nonempty source schema ref, and its provenance schema version must equal the
+payload schema version or, for an intentionally schema-less payload, the
+explicit expected owner schema version. It
+does not copy their protocol fields into the owner receipt. The runtime result
+ref and reviewed A2A ref use their terminal identities and source digests; the
+usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
+the runtime-owned observation-shaped JSON subtree at that pointer. An optional
+usage content ref is accepted only when it exactly asserts that canonical
+object identity and subtree digest; it cannot replace the runtime observation.
+The observation passes the canonical status/gap law: `complete` means no gaps
+and `partial` means one or more canonical gaps. Returned artifacts must be
+the exact unique requested output identities; path basename inference and
+unrequested extras are rejected. Actor, session, continuation, and process
+handles are derived only from the runtime's incarnation/session/thread/process-identity
+evidence. The logical continuation remains bound by the exact owner request and
+incarnation artifact; the physical continuation handle is accepted only when
+the terminal `thread_id` equals every runtime invocation's `thread_id`. The
+runtime owner-admission ref likewise names the exact owner request identity and
+bytes. The exact actor mandate passes its owner schema and semantic self-digest;
+the request selects that semantic identity while the incarnation binding also
+binds its exact artifact bytes. The incarnation binding likewise names the
+exact obligation, role resolution, model-fit query and projection, SDK task
+request, continuation inputs without stale same-identity refs, and child
+identity carried by the owner request. It must retain the complete strict
+owner-v2 shape and semantic digest, including run-plan and model-realization
+refs, and the realization must share the fit projection's aoa-models source.
+The owner request carries both exact refs and must match the binding, rather
+than relying on the binding's recomputable digest alone.
+The exact mandate separately binds the same obligation, role resolution,
+selected role, and ordered domain-procedure set. The CLI may load an exact assertion
+through `--usage-observation-ref` and refuses to replace an existing output.
+The emitted receipt is a summon responsibility-closeout record, not
+stats admission, runtime success proof, model-fit proof, or owner acceptance.

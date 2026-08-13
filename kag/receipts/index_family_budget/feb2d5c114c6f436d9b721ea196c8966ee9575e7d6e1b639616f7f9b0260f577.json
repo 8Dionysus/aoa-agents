@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 5717786,
+  "allowed_tracked_bytes": 14917845,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 5717786,
+  "changed_generated_files": 148,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "feb2d5c114c6f436d9b721ea196c8966ee9575e7d6e1b639616f7f9b0260f577",
+  "reason": "Exact return closeout now binds owner admission identity and bytes, binds the physical Codex thread to every runtime invocation while preserving the distinct logical continuation obligation, and rejects contradictory complete/partial usage observations; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14917845,
+  "tracked_bytes_max": 16777216
+}

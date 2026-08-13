@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 5845845,
+  "allowed_tracked_bytes": 14940934,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 5845845,
+  "changed_generated_files": 151,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "aedac58c4b35ca2d6f637e845e169c4d7dc12dd29b0c5aabed30d14657ededdf",
+  "reason": "The reviewed return compiler now binds the complete obligation, mandate, role, model-fit, SDK, continuation, DAG, responsibility-transfer, and domain-procedure chain to one exact incarnation, and an optional usage ref can only assert the exact runtime-owned observation rather than replace it; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14940934,
+  "tracked_bytes_max": 16777216
+}

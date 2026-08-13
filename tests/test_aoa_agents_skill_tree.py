@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 
 from jsonschema import Draft202012Validator
+import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -132,6 +133,16 @@ def external_incarnation_v4() -> dict[str, object]:
                 "model-fit-projection:luna-max-workspace-write",
                 "aoa_model_fit_projection_v1",
             ),
+            "model_realization_ref": content_ref(
+                "aoa-models",
+                "model-realization:luna-max-workspace-write",
+                "aoa_model_realization_v1",
+            ),
+            "run_plan_ref": content_ref(
+                "aoa-sdk",
+                "run-plan:landing-writer",
+                "aoa_control_plane_v1",
+            ),
             "incarnation_binding_ref": content_ref(
                 "aoa-sdk",
                 "incarnation:landing-writer",
@@ -249,12 +260,32 @@ def base_external_result_v4() -> dict[str, object]:
                 "model-fit-projection:luna-max-workspace-write",
                 "aoa_model_fit_projection_v1",
             ),
+            "model_realization_ref": content_ref(
+                "aoa-models",
+                "model-realization:luna-max-workspace-write",
+                "aoa_model_realization_v1",
+            ),
+            "run_plan_ref": content_ref(
+                "aoa-sdk",
+                "run-plan:landing-writer",
+                "aoa_control_plane_v1",
+            ),
             "incarnation_binding_ref": content_ref(
                 "aoa-sdk",
                 "incarnation:landing-writer",
                 "aoa_agent_incarnation_binding_v2",
             ),
+            "runtime_profile_ref": content_ref(
+                "abyss-stack",
+                "runtime-profile:external-codex",
+                "abyss_stack_external_codex_runtime_profile_v2",
+            ),
         }
+    )
+    result["runtime_state"]["runtime_result_ref"] = content_ref(
+        "abyss-stack",
+        "result:landing-writer",
+        "abyss_stack_external_codex_result_v2",
     )
     return result
 
@@ -344,6 +375,8 @@ class TestAoAAgentsSkillTreeContracts:
             "role_resolution_ref",
             "model_fit_query_result_ref",
             "model_fit_projection_ref",
+            "model_realization_ref",
+            "run_plan_ref",
         ):
             incomplete = copy.deepcopy(request)
             del incomplete["external_incarnation"][field]
@@ -442,6 +475,8 @@ class TestAoAAgentsSkillTreeContracts:
             "role_resolution_ref",
             "model_fit_query_result_ref",
             "model_fit_projection_ref",
+            "model_realization_ref",
+            "run_plan_ref",
         ):
             incomplete = copy.deepcopy(result)
             del incomplete["binding"][field]
@@ -452,6 +487,32 @@ class TestAoAAgentsSkillTreeContracts:
             "aoa_agent_incarnation_binding_v1"
         )
         assert list(self.result_v4_validator.iter_errors(legacy))
+
+        legacy_runtime = copy.deepcopy(result)
+        legacy_runtime["binding"]["runtime_profile_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_runtime_profile_v1"
+        )
+        assert list(self.result_v4_validator.iter_errors(legacy_runtime))
+
+        legacy_result = copy.deepcopy(result)
+        legacy_result["runtime_state"]["runtime_result_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_result_v1"
+        )
+        assert list(self.result_v4_validator.iter_errors(legacy_result))
+
+    def test_v3_result_keeps_historical_runtime_profile_v1_contract(self) -> None:
+        legacy = base_external_result()
+        assert list(self.result_validator.iter_errors(legacy)) == []
+        legacy["binding"]["runtime_profile_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_runtime_profile_v2"
+        )
+        assert list(self.result_validator.iter_errors(legacy))
+
+        legacy = base_external_result()
+        legacy["runtime_state"]["runtime_result_ref"]["schema_version"] = (
+            "abyss_stack_external_codex_result_v2"
+        )
+        assert list(self.result_validator.iter_errors(legacy))
 
     def test_external_decision_does_not_claim_runtime_effects_or_handles(self) -> None:
         result = base_external_result()
@@ -519,3 +580,13 @@ class TestAoAAgentsSkillTreeContracts:
             result = base_external_result()
             result["runtime_state"][field]["schema_version"] = "unrelated-contract-v1"
             assert list(self.result_validator.iter_errors(result)), field
+
+    def test_result_compiler_contract_names_exact_role_resolution_input(self) -> None:
+        contract = yaml.safe_load(
+            (SUMMON_ROOT / "contract.yaml").read_text(encoding="utf-8")
+        )
+        input_chain = contract["result_compiler"]["input_chain"]
+        assert (
+            "exact aoa-agents aoa-role-resolution-v1 artifact selected by both "
+            "the mandate and request"
+        ) in input_chain
