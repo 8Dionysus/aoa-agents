@@ -156,7 +156,9 @@ responsibility holders, one admitted `read_only` or `repo_mutation` effect,
 disabled built-in subagents, and exact output
 keys. Closeout also loads the exact agent-obligation-v1 and
 actor-mandate-v1 artifacts: the request authority limit and stop line must
-equal their owner ceilings, the transfer holders must equal the return owner
+equal their owner ceilings, the mandate goal and quest-passport route anchor
+must equal the obligation goal, mandate identity and continuity posture must
+preserve the obligation lifecycle, the transfer holders must equal the return owner
 and mandate continuity identity, the SDK continuation must retain that same
 concrete return-holder identity and digest rather than merely its repository,
 and the incarnation permission posture must

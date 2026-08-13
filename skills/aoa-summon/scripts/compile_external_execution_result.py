@@ -1283,6 +1283,44 @@ def _validate_mandate_chain(
         obligation_ref == mandate_obligation_ref == request_obligation_ref,
         "actor mandate obligation differs from the request incarnation",
     )
+    obligation_goal_ref = _untyped_ref(
+        obligation.get("goal_ref"),
+        label="agent obligation goal ref",
+    )
+    mandate_goal_ref = _untyped_ref(
+        mandate.get("goal_ref"),
+        label="actor mandate goal ref",
+    )
+    request_passport = request.get("quest_passport")
+    _require(
+        isinstance(request_passport, Mapping),
+        "request quest passport is absent",
+    )
+    _require(
+        mandate_goal_ref == obligation_goal_ref
+        and request_passport.get("route_anchor")
+        == obligation_goal_ref["object_id"],
+        "actor mandate goal or request route anchor differs from the exact obligation",
+    )
+    obligation_lifecycle = _require_string(
+        obligation.get("lifecycle_posture"),
+        "agent obligation lifecycle posture",
+    )
+    mandate_identity_posture = _require_string(
+        mandate.get("identity_posture"),
+        "actor mandate identity posture",
+    )
+    mandate_continuity_posture = mandate.get("continuity")
+    _require(
+        isinstance(mandate_continuity_posture, Mapping),
+        "actor mandate continuity is absent",
+    )
+    _require(
+        mandate_identity_posture == obligation_lifecycle
+        and mandate_continuity_posture.get("posture")
+        == mandate_identity_posture,
+        "actor mandate lifecycle posture differs from the exact obligation",
+    )
     mandate_role_resolution_ref = _require_ref(
         mandate.get("role_resolution_ref"),
         label="actor mandate role resolution ref",

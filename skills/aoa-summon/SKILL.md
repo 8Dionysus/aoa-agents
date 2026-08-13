@@ -172,8 +172,10 @@ the SDK request with only the documented `a2a_remote` or `either` to
 `external_cli` transport translation, and preserves
 role, fit, incarnation, runtime, A2A, and usage
 evidence as refs, and derives the four external handles from the supplied
-runtime evidence. The request authority limit and stop line must equal the
-exact obligation boundary and mandate stop line, both responsibility holders
+runtime evidence. The mandate goal and request route anchor must equal the
+exact obligation goal, and mandate identity plus continuity posture must
+preserve its lifecycle. The request authority limit and stop line must equal
+the exact obligation boundary and mandate stop line. Both responsibility holders
 must equal the selected return owner and mandate continuity identity, and the
 SDK continuation must retain the same concrete return-holder identity,
 digest, owner, and schema. The binding permission posture must satisfy the

@@ -1251,6 +1251,23 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 ),
                 "mandate return owner differs",
             ),
+            (
+                "goal",
+                lambda mandate: mandate["goal_ref"].update(
+                    {"object_id": "goal:other"}
+                ),
+                "mandate goal or request route anchor differs",
+            ),
+            (
+                "lifecycle posture",
+                lambda mandate: (
+                    mandate.update({"identity_posture": "persistent-office"}),
+                    mandate["continuity"].update(
+                        {"posture": "persistent-office"}
+                    ),
+                ),
+                "mandate lifecycle posture differs",
+            ),
         )
         for name, mutate, message in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
@@ -1263,6 +1280,24 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     message,
                 ):
                     self.compile(data)
+
+    def test_request_route_anchor_must_retain_the_exact_obligation_goal(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["quest_passport"]["route_anchor"] = "goal:other"
+
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "mandate goal or request route anchor differs",
+            ):
+                COMPILER._validate_mandate_chain(
+                    data["obligation"],
+                    data["mandate"],
+                    binding=data["incarnation_binding"],
+                    request=request,
+                    incarnation=request["external_incarnation"],
+                )
 
     def test_request_tool_scope_must_equal_the_incarnation_ceiling(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

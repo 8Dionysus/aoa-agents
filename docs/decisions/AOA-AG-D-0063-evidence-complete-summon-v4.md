@@ -136,6 +136,10 @@ nonempty, duplicate-free closure before closeout can accept the review.
 Likewise, the continuation return owner is the exact concrete holder from the
 obligation and mandate, including identity and digest; retaining only its
 repository would permit responsibility to return to another holder.
+The exact mandate also remains inside the obligation that formed it: its goal
+and the request passport route anchor equal the obligation goal, while its
+identity and continuity postures preserve the obligation lifecycle rather
+than upgrading a task-instance duty into a persistent office.
 
 Independent external review then exposed three remaining substitutions. The
 SDK input must still say `a2a_remote` or `either`; accepting an already
