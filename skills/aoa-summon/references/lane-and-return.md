@@ -139,7 +139,9 @@ runtime profile, and it cannot inherit user configuration. The mandate goal
 and SDK quest-passport route anchor must retain the originating obligation
 goal, while mandate identity and continuity posture must retain the obligation
 lifecycle. The mandate also retains the obligation domain owner, the
-continuation retains its exact duty, and the SDK decision must explicitly
+continuation retains its exact duty, the mandate stop line retains the
+obligation stop line, its model-fit relation is authorized by the current
+obligation holder, and the SDK decision must explicitly
 select `a2a_remote`. The supplied incarnation binding must pass the complete
 aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
 subset relation is considered. The schema bytes are pinned to the reviewed
@@ -167,7 +169,9 @@ actor-mandate-v1 artifacts: the request authority limit and stop line must
 equal their owner ceilings, the mandate goal and quest-passport route anchor
 must equal the obligation goal, mandate identity and continuity posture must
 preserve the obligation lifecycle, and the mandate domain owner plus delegated
-continuation duty must equal the exact obligation. The transfer holders must
+continuation duty must equal the exact obligation. The mandate stop line must
+equal the obligation stop line and its model-fit relation authority must equal
+the current obligation holder. The transfer holders must
 equal the return owner and mandate continuity identity, the SDK continuation must retain that same
 concrete return-holder identity and digest rather than merely its repository,
 and the incarnation permission posture must

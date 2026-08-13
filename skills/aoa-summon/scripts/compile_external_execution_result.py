@@ -1336,6 +1336,16 @@ def _validate_mandate_chain(
         == obligation.get("duty"),
         "incarnation delegated obligation differs from the exact obligation duty",
     )
+    _require(
+        mandate.get("authority", {}).get("stop_line")
+        == obligation.get("stop_line"),
+        "actor mandate stop line differs from the exact obligation",
+    )
+    _require(
+        mandate.get("model_fit_relation", {}).get("relation_authority_ref")
+        == obligation.get("current_holder"),
+        "actor mandate model-fit authority differs from the current obligation holder",
+    )
     mandate_role_resolution_ref = _require_ref(
         mandate.get("role_resolution_ref"),
         label="actor mandate role resolution ref",

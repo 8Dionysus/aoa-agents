@@ -71,12 +71,18 @@ def valid_obligation_mandate_chain() -> tuple[
         "lifecycle_posture": "task-instance",
         "domain_owner": "aoa-agents",
         "duty": "Perform the exact bounded obligation.",
+        "stop_line": "Stop at exact ambiguity.",
+        "current_holder": {"object_id": "holder:exact"},
     }
     mandate = {
         "goal_ref": copy.deepcopy(goal_ref),
         "identity_posture": "task-instance",
         "continuity": {"posture": "task-instance"},
         "domain_owner": "aoa-agents",
+        "authority": {"stop_line": "Stop at exact ambiguity."},
+        "model_fit_relation": {
+            "relation_authority_ref": {"object_id": "holder:exact"}
+        },
     }
     sdk_request = {"quest_passport": {"route_anchor": "goal:exact"}}
     binding = {
@@ -233,6 +239,22 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
                     "continuation"
                 ].update({"delegated_obligation": "Perform another duty."}),
                 "delegated and originating obligation duty differs",
+            ),
+            (
+                "stop line",
+                lambda obligation, mandate, sdk_request, binding: mandate[
+                    "authority"
+                ].update({"stop_line": "Continue through ambiguity."}),
+                "mandate and obligation stop line differs",
+            ),
+            (
+                "model-fit authority",
+                lambda obligation, mandate, sdk_request, binding: mandate[
+                    "model_fit_relation"
+                ].update(
+                    {"relation_authority_ref": {"object_id": "holder:other"}}
+                ),
+                "model-fit relation authority and current obligation holder differs",
             ),
         )
         for name, mutate, message in cases:

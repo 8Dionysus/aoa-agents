@@ -159,7 +159,8 @@ configuration, and binds the tool profile to the same runtime-profile ref.
 It also preserves the originating obligation goal in the mandate and SDK
 route anchor, and preserves the obligation lifecycle in mandate identity and
 continuity posture. It preserves the obligation domain owner and exact duty in
-the mandate/continuation chain, and requires the SDK decision to select
+the mandate/continuation chain, binds the mandate stop line to the obligation
+stop line and model-fit authority to its current holder, and requires the SDK decision to select
 `a2a_remote` explicitly. The complete incarnation binding must pass the exact
 aoa-sdk v2 owner schema and semantic self-digest before field-level relations
 are admitted; the schema content digest is pinned and a caller-supplied `$id`
@@ -184,7 +185,8 @@ runtime evidence. The mandate goal and request route anchor must equal the
 exact obligation goal, and mandate identity plus continuity posture must
 preserve its lifecycle. The mandate domain owner and delegated continuation
 duty must remain equal to the exact obligation, and the SDK decision must
-select `a2a_remote`. The request authority limit and stop line must equal the
+select `a2a_remote`. The mandate stop line and model-fit authority must remain
+bound to the exact obligation stop line and current holder. The request authority limit and stop line must equal the
 exact obligation boundary and mandate stop line. Both responsibility holders
 must equal the selected return owner and mandate continuity identity, and the
 SDK continuation must retain the same concrete return-holder identity,

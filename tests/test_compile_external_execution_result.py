@@ -202,7 +202,7 @@ def fixture(temp: Path) -> dict[str, object]:
             "task_family": "landing",
             "relation_to_duty": "Fit the bounded landing duty.",
             "relation_authority_ref": ref(
-                "codex-goal", "authority:landing", "authority-v1"
+                "codex-goal", "holder:goal", "holder-v1"
             ),
         },
         "authority": {
@@ -1304,6 +1304,20 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 "domain owner",
                 lambda mandate: mandate.update({"domain_owner": "aoa-models"}),
                 "mandate domain owner differs",
+            ),
+            (
+                "stop line",
+                lambda mandate: mandate["authority"].update(
+                    {"stop_line": "Continue through owner ambiguity."}
+                ),
+                "mandate stop line differs from the exact obligation",
+            ),
+            (
+                "model-fit authority",
+                lambda mandate: mandate["model_fit_relation"][
+                    "relation_authority_ref"
+                ].update({"object_id": "holder:other"}),
+                "mandate model-fit authority differs",
             ),
         )
         for name, mutate, message in cases:

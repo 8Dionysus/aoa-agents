@@ -417,6 +417,24 @@ def _validate_obligation_mandate_chain(
         obligation.get("duty"),
         label="delegated and originating obligation duty",
     )
+    mandate_authority = mandate.get("authority")
+    if not isinstance(mandate_authority, Mapping):
+        raise ExternalExecutionRequestError("actor mandate authority is absent")
+    _require_equal(
+        mandate_authority.get("stop_line"),
+        obligation.get("stop_line"),
+        label="mandate and obligation stop line",
+    )
+    model_fit_relation = mandate.get("model_fit_relation")
+    if not isinstance(model_fit_relation, Mapping):
+        raise ExternalExecutionRequestError(
+            "actor mandate model-fit relation is absent"
+        )
+    _require_equal(
+        model_fit_relation.get("relation_authority_ref"),
+        obligation.get("current_holder"),
+        label="model-fit relation authority and current obligation holder",
+    )
 
 
 def _validate_sdk_decision(

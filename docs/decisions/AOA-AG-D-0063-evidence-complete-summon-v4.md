@@ -271,6 +271,10 @@ reject it.
 The schema is pinned by exact content digest to the reviewed aoa-sdk owner
 artifact (`d364da5c76cdd54e88f68c03ca49964fd3f86313`), not merely by path or
 `$id`; a direct CLI caller therefore cannot replace it with a permissive schema.
+The next review completed the canonical mandate relation set on both passive
+paths: mandate stop line equals the obligation stop line, and the duty-to-fit
+relation authority equals the obligation current holder. Neither can now drift
+before launch or be normalized into an accepted closeout.
 
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that
