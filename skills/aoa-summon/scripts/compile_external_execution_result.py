@@ -26,6 +26,8 @@ ZERO_DIGEST = "sha256:" + "0" * 64
 TERMINAL_RUNTIME_STATUSES = {"completed", "failed", "review_required", "authority_blocked"}
 SUCCESS_REVIEW_OUTCOMES = {"proceed"}
 A2A_RETURN_SCHEMA_VERSION = "abyss_stack_external_codex_a2a_return_v1"
+RUNTIME_PROFILE_SCHEMA_VERSION = "abyss_stack_external_codex_runtime_profile_v2"
+USAGE_OBSERVATION_SCHEMA_VERSION = "abyss_stack_external_codex_usage_observation_v1"
 VALIDATED_EVENT_KIND = "result.validated"
 VALIDATED_CONDITION_ID = "validated-completion"
 
@@ -255,17 +257,21 @@ def _runtime_profile_ref(
             runtime_profile_ref,
             label="runtime profile ref",
             owner_repo="abyss-stack",
-            schema_version="abyss_stack_external_codex_runtime_profile_v2",
+            schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
         )
     assert runtime_profile_path is not None
     raw, payload, artifact_digest = _load(runtime_profile_path, label="runtime profile")
     del raw
+    _require(
+        payload.get("schema_version") == RUNTIME_PROFILE_SCHEMA_VERSION,
+        "runtime profile artifact schema is invalid",
+    )
     return _content_ref_from_artifact(
         artifact_digest,
         payload,
         label="runtime profile",
         owner_repo="abyss-stack",
-        schema_version="abyss_stack_external_codex_runtime_profile_v2",
+        schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
         object_keys=("profile_id", "runtime_profile_id", "id"),
     )
 
@@ -287,19 +293,44 @@ def _usage_ref(
             usage_observation_ref,
             label="usage observation ref",
             owner_repo="abyss-stack",
-            schema_version="abyss_stack_external_codex_usage_observation_v1",
+            schema_version=USAGE_OBSERVATION_SCHEMA_VERSION,
         )
     if usage_observation_path is not None:
         _raw, payload, artifact_digest = _load(
             usage_observation_path, label="usage observation artifact"
+        )
+        _require(
+            set(payload)
+            == {
+                "schema_version",
+                "usage_observation_id",
+                "status",
+                "gap_reasons",
+            },
+            "usage observation artifact envelope shape is invalid",
+        )
+        _require(
+            payload.get("schema_version") == USAGE_OBSERVATION_SCHEMA_VERSION,
+            "usage observation artifact schema is invalid",
+        )
+        _require_string(
+            payload.get("usage_observation_id"),
+            "usage observation artifact identity",
+        )
+        _validate_usage_observation(
+            {
+                "status": payload["status"],
+                "gap_reasons": payload["gap_reasons"],
+            },
+            label="usage observation artifact",
         )
         return _content_ref_from_artifact(
             artifact_digest,
             payload,
             label="usage observation artifact",
             owner_repo="abyss-stack",
-            schema_version="abyss_stack_external_codex_usage_observation_v1",
-            object_keys=("usage_observation_id", "observation_id", "id", "object_id"),
+            schema_version=USAGE_OBSERVATION_SCHEMA_VERSION,
+            object_keys=("usage_observation_id",),
         )
     _require(
         usage_pointer == "/usage_observation",
@@ -310,7 +341,7 @@ def _usage_ref(
     return {
         "object_id": f"{runtime_ref['object_id']}#{usage_pointer}",
         "owner_repo": "abyss-stack",
-        "schema_version": "abyss_stack_external_codex_usage_observation_v1",
+        "schema_version": USAGE_OBSERVATION_SCHEMA_VERSION,
         "digest": digest_bytes(canonical_bytes(usage_value)),
     }
 

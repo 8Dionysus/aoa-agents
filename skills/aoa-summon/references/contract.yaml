@@ -79,7 +79,7 @@ result_compiler:
     - abyss-stack runtime-profile-v2 ref
     - abyss-stack reviewed A2A return-v1
   output_posture: owner-local summon-result-v4 closeout receipt
-  usage_posture: exact JSON-pointer locator into the terminal result unless a stronger standalone usage artifact is supplied
+  usage_posture: exact JSON-pointer locator into the terminal result unless a standalone abyss_stack_external_codex_usage_observation_v1 artifact with the explicit identity envelope and canonical status/gap shape is supplied
   prohibited_authority:
     - runtime launch or control
     - role or model selection

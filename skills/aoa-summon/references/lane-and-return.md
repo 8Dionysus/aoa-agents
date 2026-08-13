@@ -150,7 +150,10 @@ does not copy their protocol fields into the owner receipt. The runtime result
 ref and reviewed A2A ref use their terminal identities and source digests; the
 usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
 the runtime-owned observation-shaped JSON subtree at that pointer unless a
-standalone usage artifact is explicitly supplied. Returned artifacts must be
+standalone usage artifact is explicitly supplied. A standalone artifact must
+declare `abyss_stack_external_codex_usage_observation_v1`, contain exactly its
+usage-observation identity plus `status` and `gap_reasons`, and pass the same
+canonical status/gap validation as the embedded observation. Returned artifacts must be
 the exact unique requested output identities; path basename inference and
 unrequested extras are rejected. Actor, session, continuation, and process
 handles are derived only from the runtime's incarnation/session/thread/process-identity

@@ -89,6 +89,20 @@ they do not mint or reinterpret SDK, runtime, A2A, stats, proof, model-fit, or
 owner-acceptance authority, and the original authority-blocked writer return
 remains preserved evidence.
 
+### 2026-08-13 - Admit only path-loaded owner artifacts
+
+Path-loaded runtime profiles are admitted as
+`abyss_stack_external_codex_runtime_profile_v2` only when the loaded payload
+itself declares that exact schema version before a content ref is emitted. A
+standalone usage artifact is admitted only through one explicit
+`abyss_stack_external_codex_usage_observation_v1` envelope with a
+`usage_observation_id`, `status`, and `gap_reasons`; the latter two fields use
+the same canonical shape and gap law as embedded `/usage_observation` evidence.
+Missing, relabeled, malformed, or extra-field payloads fail closed. Ref-only
+usage and runtime-profile branches, and the embedded canonical locator branch,
+retain their existing exact semantics. This narrows artifact admission only;
+it does not mint runtime, usage, stats, proof, or owner-acceptance authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

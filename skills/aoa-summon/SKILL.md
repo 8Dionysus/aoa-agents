@@ -163,7 +163,10 @@ runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly
 to the terminal runtime `task_id` and `incarnation_id`, and be paired with the canonical
 `result.validated`/`validated-completion` wake event. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer
-and must retain the runtime-owned observation shape. Returned artifacts are an
+and must retain the runtime-owned observation shape. A standalone usage
+artifact must carry the explicit owner v1 schema and identity envelope while
+its `status` and `gap_reasons` retain that same canonical observation shape.
+Returned artifacts are an
 exact, duplicate-free closure over the request's named outputs; path basenames
 are not inferred as output identities. The compiler does not launch, review,
 select, repair, or mint an SDK, runtime, A2A, stats, proof, or owner-acceptance

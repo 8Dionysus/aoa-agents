@@ -289,6 +289,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             write_json(
                 usage_path,
                 {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
                     "usage_observation_id": "usage:landing",
                     "status": "complete",
                     "gap_reasons": [],
@@ -306,6 +307,158 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(
                 result["runtime_state"]["usage_observation_ref"]["object_id"],
                 "usage:landing",
+            )
+
+    def test_standalone_partial_usage_artifact_preserves_canonical_gap_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            usage_path = Path(directory) / "usage-observation.json"
+            write_json(
+                usage_path,
+                {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
+                    "usage_observation_id": "usage:partial",
+                    "status": "partial",
+                    "gap_reasons": [
+                        {
+                            "attempt_id": "attempt:landing",
+                            "reason": "controlled_interruption_before_turn_usage",
+                            "event_sequence": 4,
+                        }
+                    ],
+                },
+            )
+            result = COMPILER.compile_external_execution_result(
+                request_path=data["request_path"],
+                sdk_summon_request_path=data["sdk_request_path"],
+                sdk_summon_decision_path=data["sdk_decision_path"],
+                runtime_result_path=data["runtime_path"],
+                reviewed_a2a_return_path=data["a2a_path"],
+                runtime_profile_ref=data["runtime_profile_ref"],
+                usage_observation_path=usage_path,
+            )
+            self.assertEqual(
+                result["runtime_state"]["usage_observation_ref"]["object_id"],
+                "usage:partial",
+            )
+
+    def test_standalone_usage_artifact_requires_v1_schema_and_identity_envelope(self) -> None:
+        cases = (
+            (
+                "wrong schema",
+                {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v0",
+                    "usage_observation_id": "usage:wrong-schema",
+                    "status": "complete",
+                    "gap_reasons": [],
+                },
+                "schema is invalid",
+            ),
+            (
+                "missing schema",
+                {
+                    "usage_observation_id": "usage:missing-schema",
+                    "status": "complete",
+                    "gap_reasons": [],
+                },
+                "envelope shape is invalid",
+            ),
+            (
+                "missing identity",
+                {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
+                    "status": "complete",
+                    "gap_reasons": [],
+                },
+                "envelope shape is invalid",
+            ),
+            (
+                "extra field",
+                {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
+                    "usage_observation_id": "usage:extra",
+                    "status": "complete",
+                    "gap_reasons": [],
+                    "object_id": "usage:extra",
+                },
+                "envelope shape is invalid",
+            ),
+            (
+                "malformed canonical shape",
+                {
+                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
+                    "usage_observation_id": "usage:malformed",
+                    "status": "complete",
+                    "gap_reasons": [{"reason": "not-canonical"}],
+                },
+                "gap shape is invalid",
+            ),
+        )
+        for name, payload, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                usage_path = Path(directory) / "usage-observation.json"
+                write_json(usage_path, payload)
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
+                    COMPILER.compile_external_execution_result(
+                        request_path=data["request_path"],
+                        sdk_summon_request_path=data["sdk_request_path"],
+                        sdk_summon_decision_path=data["sdk_decision_path"],
+                        runtime_result_path=data["runtime_path"],
+                        reviewed_a2a_return_path=data["a2a_path"],
+                        runtime_profile_ref=data["runtime_profile_ref"],
+                        usage_observation_path=usage_path,
+                    )
+
+    def test_path_loaded_runtime_profile_requires_v2_schema(self) -> None:
+        for name, schema_version in (
+            ("wrong schema", "abyss_stack_external_codex_runtime_profile_v1"),
+            ("missing schema", None),
+        ):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                profile_path = Path(directory) / "runtime-profile.json"
+                profile = {"profile_id": "runtime-profile:landing"}
+                if schema_version is not None:
+                    profile["schema_version"] = schema_version
+                write_json(profile_path, profile)
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime profile artifact schema"):
+                    COMPILER.compile_external_execution_result(
+                        request_path=data["request_path"],
+                        sdk_summon_request_path=data["sdk_request_path"],
+                        sdk_summon_decision_path=data["sdk_decision_path"],
+                        runtime_result_path=data["runtime_path"],
+                        reviewed_a2a_return_path=data["a2a_path"],
+                        runtime_profile_path=profile_path,
+                    )
+
+    def test_path_loaded_runtime_profile_v2_emits_v2_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            profile_path = Path(directory) / "runtime-profile.json"
+            write_json(
+                profile_path,
+                {
+                    "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
+                    "profile_id": "runtime-profile:landing-path",
+                },
+            )
+            result = COMPILER.compile_external_execution_result(
+                request_path=data["request_path"],
+                sdk_summon_request_path=data["sdk_request_path"],
+                sdk_summon_decision_path=data["sdk_decision_path"],
+                runtime_result_path=data["runtime_path"],
+                reviewed_a2a_return_path=data["a2a_path"],
+                runtime_profile_path=profile_path,
+            )
+            self.assertEqual(
+                result["binding"]["runtime_profile_ref"],
+                {
+                    "object_id": "runtime-profile:landing-path",
+                    "owner_repo": "abyss-stack",
+                    "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
+                    "digest": COMPILER.digest_bytes(profile_path.read_bytes()),
+                },
             )
 
     def test_unreviewed_a2a_return_fails_closed(self) -> None:
