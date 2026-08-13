@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6688952,
+  "allowed_tracked_bytes": 15070800,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 6688952,
+  "changed_generated_files": 171,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3d91560f601567854ee5682e9912d0a1794d14b52d2e700143ebba5492516a44",
+  "reason": "Project the Luna-discovered prelaunch permission-posture repair across the existing PR family; total tracked bytes remain below the owner cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15070800,
+  "tracked_bytes_max": 16777216
+}
