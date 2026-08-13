@@ -910,6 +910,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         request_ref=execution["request_ref"], runtime_interface=execution["runtime_interface"], return_event_object_id=execution["return_event_object_id"],
         obligation_path=obligation_path, mandate_path=mandate_path, role_resolution_path=role_path, model_fit_query_result_path=fit_path,
         model_fit_projection_path=projection_path, task_local_dag_path=dag_path, incarnation_binding_path=binding_path,
+        incarnation_binding_schema_path=sdk_root / "mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json",
         sdk_summon_request_path=sdk_request_path, sdk_summon_decision_path=sdk_decision_path, run_plan_path=run_plan_path,
         runtime_launch_path=runtime_launch_path, runtime_task_path=task_path, responsibility_transfer_path=transfer_path,
         domain_procedure_paths=domain_paths, return_event_schema_path=release_root / "runtime/schemas/external-codex-event.schema.json",

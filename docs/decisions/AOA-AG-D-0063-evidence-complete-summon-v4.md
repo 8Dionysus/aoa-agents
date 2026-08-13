@@ -262,6 +262,12 @@ continuation delegated duty now equal the exact obligation on both passive
 request and closeout paths, while the SDK decision must explicitly select
 `a2a_remote`. An `either` request alone no longer proves that the SDK chose the
 remote surface for this incarnation.
+The following review found that pre-launch checks still treated the v2
+incarnation binding as a label plus selected fields. Request compilation now
+requires the complete exact aoa-sdk v2 schema and its SDK-canonical semantic
+self-digest before checking any field-level relation. Stale or extra binding
+state therefore cannot reach the external runtime and wait for closeout to
+reject it.
 
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that

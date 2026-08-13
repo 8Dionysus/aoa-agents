@@ -50,6 +50,20 @@ def semantic_self_digest(value: Mapping[str, Any], field: str) -> str:
     return digest_bytes(canonical_bytes(dict(value) | {field: ZERO_DIGEST}))
 
 
+def sdk_semantic_excluding_digest(value: Mapping[str, Any], field: str) -> str:
+    """Match aoa-sdk canonical_digest(..., exclude={field}) exactly."""
+
+    candidate = dict(value)
+    candidate.pop(field, None)
+    encoded = json.dumps(
+        candidate,
+        ensure_ascii=True,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return digest_bytes(encoded)
+
+
 def _load(path: Path, *, label: str) -> tuple[bytes, dict[str, Any]]:
     location = path.resolve()
     if path.is_symlink() or not location.is_file():
@@ -428,6 +442,43 @@ def _validate_sdk_decision(
         )
 
 
+def _validate_incarnation_binding_artifact(
+    binding: dict[str, Any],
+    *,
+    schema_path: Path,
+) -> None:
+    """Admit the complete SDK v2 artifact and its semantic self-digest."""
+
+    try:
+        schema = json.loads(schema_path.resolve(strict=True).read_bytes())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ExternalExecutionRequestError(
+            f"incarnation binding schema is unavailable: {schema_path}"
+        ) from exc
+    if schema.get("$id") != "urn:aoa-sdk:agent-incarnation-binding:v2":
+        raise ExternalExecutionRequestError(
+            "incarnation binding schema is not the SDK v2 owner contract"
+        )
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(binding),
+        key=lambda item: tuple(str(part) for part in item.absolute_path),
+    )
+    if errors:
+        path = ".".join(str(part) for part in errors[0].absolute_path)
+        where = f" at {path}" if path else ""
+        raise ExternalExecutionRequestError(
+            f"incarnation binding violates SDK v2 owner contract{where}: "
+            f"{errors[0].message}"
+        )
+    if binding.get("binding_digest") != sdk_semantic_excluding_digest(
+        binding,
+        "binding_digest",
+    ):
+        raise ExternalExecutionRequestError(
+            "incarnation binding semantic digest mismatch"
+        )
+
+
 def compile_external_execution_request(
     *,
     request_ref: str,
@@ -440,6 +491,7 @@ def compile_external_execution_request(
     model_fit_projection_path: Path,
     task_local_dag_path: Path,
     incarnation_binding_path: Path,
+    incarnation_binding_schema_path: Path,
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
     run_plan_path: Path,
@@ -499,6 +551,10 @@ def compile_external_execution_request(
         role_resolution,
         AGENT_REFERENCES / "role-resolution-v1.schema.json",
         label="role resolution",
+    )
+    _validate_incarnation_binding_artifact(
+        binding,
+        schema_path=incarnation_binding_schema_path,
     )
 
     obligation_ref = _semantic_ref(
@@ -901,6 +957,7 @@ def parser() -> argparse.ArgumentParser:
         "model-fit-projection",
         "task-local-dag",
         "incarnation-binding",
+        "incarnation-binding-schema",
         "sdk-summon-request",
         "sdk-summon-decision",
         "run-plan",
@@ -929,6 +986,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             model_fit_projection_path=args.model_fit_projection,
             task_local_dag_path=args.task_local_dag,
             incarnation_binding_path=args.incarnation_binding,
+            incarnation_binding_schema_path=args.incarnation_binding_schema,
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,
             run_plan_path=args.run_plan,

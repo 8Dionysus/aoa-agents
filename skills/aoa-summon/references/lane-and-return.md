@@ -140,7 +140,9 @@ and SDK quest-passport route anchor must retain the originating obligation
 goal, while mandate identity and continuity posture must retain the obligation
 lifecycle. The mandate also retains the obligation domain owner, the
 continuation retains its exact duty, and the SDK decision must explicitly
-select `a2a_remote`. A contradiction stops before launch;
+select `a2a_remote`. The supplied incarnation binding must pass the complete
+aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
+subset relation is considered. A contradiction stops before launch;
 the compiler does not select a narrower posture or rewrite owner authority.
 
 ## Passive result compilation

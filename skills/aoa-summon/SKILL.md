@@ -160,7 +160,9 @@ It also preserves the originating obligation goal in the mandate and SDK
 route anchor, and preserves the obligation lifecycle in mandate identity and
 continuity posture. It preserves the obligation domain owner and exact duty in
 the mandate/continuation chain, and requires the SDK decision to select
-`a2a_remote` explicitly.
+`a2a_remote` explicitly. The complete incarnation binding must pass the exact
+aoa-sdk v2 owner schema and semantic self-digest before field-level relations
+are admitted.
 Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 

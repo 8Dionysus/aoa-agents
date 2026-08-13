@@ -88,7 +88,13 @@ def semantic_self_digest(value: Mapping[str, Any], field: str) -> str:
 def semantic_excluding_digest(value: Mapping[str, Any], field: str) -> str:
     candidate = dict(value)
     candidate.pop(field, None)
-    return digest_bytes(canonical_bytes(candidate))
+    encoded = json.dumps(
+        candidate,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return digest_bytes(encoded)
 
 
 def _json_pointer(value: Any, pointer: str) -> Any:

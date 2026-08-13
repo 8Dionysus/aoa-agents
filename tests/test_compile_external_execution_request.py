@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import copy
 import importlib.util
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 
@@ -101,6 +103,75 @@ def valid_sdk_decision() -> tuple[dict[str, object], str]:
 
 
 class CompileExternalExecutionRequestTests(unittest.TestCase):
+    def test_incarnation_binding_requires_full_sdk_shape_and_fresh_digest(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schema_path = Path(directory) / "binding-v2.schema.json"
+            schema_path.write_text(
+                json.dumps(
+                    {
+                        "$schema": "https://json-schema.org/draft/2020-12/schema",
+                        "$id": "urn:aoa-sdk:agent-incarnation-binding:v2",
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "schema_version": {
+                                "const": "aoa_agent_incarnation_binding_v2"
+                            },
+                            "binding_digest": {"type": "string"},
+                            "wake_policy": {"type": "object"},
+                            "stop_conditions": {
+                                "type": "array",
+                                "minItems": 1,
+                            },
+                        },
+                        "required": [
+                            "schema_version",
+                            "binding_digest",
+                            "wake_policy",
+                            "stop_conditions",
+                        ],
+                    }
+                )
+            )
+            binding = {
+                "schema_version": "aoa_agent_incarnation_binding_v2",
+                "binding_digest": "",
+                "wake_policy": {},
+                "stop_conditions": ["stop"],
+            }
+            binding["binding_digest"] = COMPILER.sdk_semantic_excluding_digest(
+                binding,
+                "binding_digest",
+            )
+            COMPILER._validate_incarnation_binding_artifact(
+                binding,
+                schema_path=schema_path,
+            )
+
+            stale = copy.deepcopy(binding)
+            stale["wake_policy"]["default_action"] = "wake"
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionRequestError,
+                "semantic digest mismatch",
+            ):
+                COMPILER._validate_incarnation_binding_artifact(
+                    stale,
+                    schema_path=schema_path,
+                )
+
+            incomplete = copy.deepcopy(binding)
+            incomplete.pop("stop_conditions")
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionRequestError,
+                "violates SDK v2 owner contract",
+            ):
+                COMPILER._validate_incarnation_binding_artifact(
+                    incomplete,
+                    schema_path=schema_path,
+                )
+
     def test_valid_obligation_goal_and_lifecycle_are_preserved_before_launch(
         self,
     ) -> None:
