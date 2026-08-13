@@ -173,6 +173,14 @@ route and matches the compiler's canonical embedded observation plus optional
 exact-ref assertion. These repairs narrow evidence admission; they do not add
 role, model, runtime, review, or owner-acceptance authority.
 
+Exact-head GitHub review then found that a derivative could retain a matching
+schema version while omitting `source_schema_ref`. The shared envelope loader
+now requires every actor-safe input envelope to retain both a nonempty source
+schema ref and source schema version before any payload-specific validation.
+The reviewed A2A path still narrows that ref to its canonical runtime schema.
+This authenticates the derivative's schema identity without promoting its
+unattested source-artifact digest.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

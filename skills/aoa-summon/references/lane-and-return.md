@@ -158,9 +158,10 @@ closed.
 The compiler preserves authenticated stronger-owner objects as
 content-addressed refs. An actor-safe immutable-input envelope is instead
 addressed by its exact derivative bytes: its embedded source digest is
-provenance, not stronger-owner authentication. Its provenance schema version
-must equal the payload schema version or, for an intentionally schema-less
-payload, the explicit expected owner schema version. It
+provenance, not stronger-owner authentication. Every envelope must retain a
+nonempty source schema ref, and its provenance schema version must equal the
+payload schema version or, for an intentionally schema-less payload, the
+explicit expected owner schema version. It
 does not copy their protocol fields into the owner receipt. The runtime result
 ref and reviewed A2A ref use their terminal identities and source digests; the
 usage ref is exactly `runtime-result-id#/usage_observation` with the digest of

@@ -1003,6 +1003,26 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(observed, envelope_digest)
             self.assertNotEqual(observed, envelope["source_artifact_digest"])
 
+    def test_actor_envelope_requires_a_source_schema_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            envelope = {
+                "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                "input_id": "reviewed-a2a-return",
+                "payload_kind": "json",
+                "source_artifact_digest": ZERO,
+                "source_schema_ref": None,
+                "source_schema_version": "abyss_stack_external_codex_a2a_return_v1",
+                "payload": data["a2a"],
+            }
+            write_json(data["a2a_path"], envelope)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "actor envelope has no source schema ref",
+            ):
+                self.compile(data)
+
     def test_actor_envelope_cannot_substitute_the_payload_schema(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))

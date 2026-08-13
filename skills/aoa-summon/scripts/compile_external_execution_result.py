@@ -168,6 +168,16 @@ def _load_with_metadata(
             raise ExternalExecutionResultError(
                 f"{label} actor envelope has no source artifact digest"
             )
+        _require(
+            isinstance(loaded.get("source_schema_ref"), str)
+            and bool(loaded["source_schema_ref"]),
+            f"{label} actor envelope has no source schema ref",
+        )
+        _require(
+            isinstance(loaded.get("source_schema_version"), str)
+            and bool(loaded["source_schema_version"]),
+            f"{label} actor envelope has no source schema version",
+        )
         payload_schema_version = payload.get("schema_version")
         if payload_schema_version is not None:
             _require(

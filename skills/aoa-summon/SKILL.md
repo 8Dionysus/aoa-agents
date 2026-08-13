@@ -176,7 +176,8 @@ cannot replace the embedded observation. There is no separately minted usage
 artifact on this owner-local surface. Actor-safe immutable input
 envelopes are addressed by their exact derivative bytes; their embedded source
 digest is not elevated to stronger-owner identity without a separate trusted
-attestation. The envelope provenance schema version must agree with the
+attestation. Every envelope must retain a nonempty source schema ref, and its
+provenance schema version must agree with the
 unwrapped payload schema version, or with the explicit expected owner schema
 version when that owner payload is intentionally schema-less. The reviewed A2A return binds the complete original SDK
 summon-request ref, not only its digest. The output path must be new and is
