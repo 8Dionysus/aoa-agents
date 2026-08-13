@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6389300,
+  "allowed_tracked_bytes": 14989316,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 6389300,
+  "changed_generated_files": 162,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "2e495972364b3a53011682a68740eebd77fb8450785ccd0afcb2cd9ee0733e9c",
+  "reason": "The final reviewed-return repair requires every actor-safe input envelope to retain a nonempty owner schema ref and version before payload admission; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14989316,
+  "tracked_bytes_max": 16777216
+}
