@@ -579,3 +579,13 @@ class TestAoAAgentsSkillTreeContracts:
             result = base_external_result()
             result["runtime_state"][field]["schema_version"] = "unrelated-contract-v1"
             assert list(self.result_validator.iter_errors(result)), field
+
+    def test_result_compiler_contract_names_exact_role_resolution_input(self) -> None:
+        contract = (SUMMON_ROOT / "contract.yaml").read_text(encoding="utf-8")
+        input_chain = contract.split("  input_chain:\n", 1)[1].split(
+            "  output_posture:", 1
+        )[0]
+        assert (
+            "exact aoa-agents aoa-role-resolution-v1 artifact selected by both "
+            "the mandate and request"
+        ) in input_chain

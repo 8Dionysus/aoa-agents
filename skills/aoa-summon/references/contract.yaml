@@ -75,6 +75,7 @@ result_compiler:
     - summon-request-v4
     - exact aoa-agents agent-obligation-v1 artifact selected by both the mandate and request
     - exact aoa-agents actor-mandate-v1 artifact selected by both the request and incarnation binding
+    - exact aoa-agents aoa-role-resolution-v1 artifact selected by both the mandate and request
     - aoa-sdk summon request and decision
     - exact aoa-sdk incarnation-binding-v2 artifact selected by the request
     - abyss-stack terminal external-codex result-v2
