@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 5672555,
+  "allowed_tracked_bytes": 14906392,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 5672555,
+  "changed_generated_files": 147,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3100846f92879d9ea8cd4534ea9b3010662072439911e2d9e41675c39facf4de",
+  "reason": "Exact return closeout now binds the terminal runtime to the selected owner request and launch, and binds the supplied runtime profile, continuation, and effect posture to the exact SDK incarnation artifact; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14906392,
+  "tracked_bytes_max": 16777216
+}
