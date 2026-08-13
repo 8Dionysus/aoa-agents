@@ -203,6 +203,25 @@ def _assert_review_evidence_closure(
     """Require writer evidence refs to survive into the reviewer namespace."""
 
     available_ids = {str(item["input_id"]) for item, _path in evidence_inputs}
+    for _item, path in evidence_inputs:
+        try:
+            nested = json.loads(path.read_bytes())
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if (
+            isinstance(nested, dict)
+            and nested.get("schema_version")
+            == "abyss_stack_external_codex_actor_input_envelope_v1"
+            and isinstance(nested.get("payload"), dict)
+            and isinstance(nested.get("input_id"), str)
+            and nested["input_id"]
+        ):
+            # The outer reviewer ID names the forwarded artifact while the
+            # envelope retains the producer-local immutable alias used by the
+            # writer report. Both names are addressable in the runtime-owned
+            # nested evidence namespace; requiring them to be identical would
+            # force duplicate reviewer task inputs such as domain-procedure-1.
+            available_ids.add(nested["input_id"])
     missing: dict[str, set[str]] = {}
     for item, path in evidence_inputs:
         input_id = str(item["input_id"])
