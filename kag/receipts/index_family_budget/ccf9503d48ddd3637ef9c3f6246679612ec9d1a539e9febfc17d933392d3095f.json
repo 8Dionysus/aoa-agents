@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 7661129,
+  "allowed_tracked_bytes": 15167455,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 7661129,
+  "changed_generated_files": 194,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ccf9503d48ddd3637ef9c3f6246679612ec9d1a539e9febfc17d933392d3095f",
+  "reason": "Project exact run-plan and resolved-role authentication for summon v4.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15167455,
+  "tracked_bytes_max": 16777216
+}
