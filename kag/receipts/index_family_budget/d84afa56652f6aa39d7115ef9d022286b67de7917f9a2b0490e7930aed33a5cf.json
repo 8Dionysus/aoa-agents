@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 7684640,
+  "allowed_tracked_bytes": 15169088,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 7684640,
+  "changed_generated_files": 195,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d84afa56652f6aa39d7115ef9d022286b67de7917f9a2b0490e7930aed33a5cf",
+  "reason": "Project the exact role-resolution closeout input in the public summon contract.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15169088,
+  "tracked_bytes_max": 16777216
+}
