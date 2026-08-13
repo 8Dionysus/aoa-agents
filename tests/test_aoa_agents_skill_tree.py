@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 
 from jsonschema import Draft202012Validator
+import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -581,10 +582,10 @@ class TestAoAAgentsSkillTreeContracts:
             assert list(self.result_validator.iter_errors(result)), field
 
     def test_result_compiler_contract_names_exact_role_resolution_input(self) -> None:
-        contract = (SUMMON_ROOT / "contract.yaml").read_text(encoding="utf-8")
-        input_chain = contract.split("  input_chain:\n", 1)[1].split(
-            "  output_posture:", 1
-        )[0]
+        contract = yaml.safe_load(
+            (SUMMON_ROOT / "contract.yaml").read_text(encoding="utf-8")
+        )
+        input_chain = contract["result_compiler"]["input_chain"]
         assert (
             "exact aoa-agents aoa-role-resolution-v1 artifact selected by both "
             "the mandate and request"
