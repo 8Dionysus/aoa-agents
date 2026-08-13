@@ -1192,6 +1192,22 @@ def _validate_incarnation_binding(
     )
     tool_profile = binding.get("tool_profile")
     _require(isinstance(tool_profile, Mapping), "incarnation tool profile is absent")
+    request_tools = _require_string_list(
+        request.get("child_scope", {}).get("allowed_tools"),
+        label="request child tool scope",
+        nonempty=True,
+        unique=True,
+    )
+    binding_tools = _require_string_list(
+        tool_profile.get("required_tool_ids"),
+        label="incarnation required tools",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        set(request_tools) == set(binding_tools),
+        "incarnation tool ceiling differs from the request",
+    )
     bound_runtime_profile_ref = _ref_from_provenance(
         binding.get("runtime_profile_ref"),
         label="incarnation runtime profile ref",
@@ -1276,6 +1292,114 @@ def _validate_mandate_chain(
     _require(
         mandate_procedure_refs == request_procedure_refs,
         "actor mandate domain procedures differ from the request incarnation",
+    )
+    environment = mandate.get("environment")
+    _require(isinstance(environment, Mapping), "actor mandate environment is absent")
+    tool_profile = binding.get("tool_profile")
+    _require(isinstance(tool_profile, Mapping), "incarnation tool profile is absent")
+    request_tools = _require_string_list(
+        request.get("child_scope", {}).get("allowed_tools"),
+        label="request child tool scope",
+        nonempty=True,
+        unique=True,
+    )
+    mandate_tools = _require_string_list(
+        environment.get("required_tools"),
+        label="actor mandate required tools",
+        nonempty=True,
+        unique=True,
+    )
+    binding_tools = _require_string_list(
+        tool_profile.get("required_tool_ids"),
+        label="incarnation required tools",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        set(mandate_tools) == set(binding_tools) == set(request_tools),
+        "actor mandate tool ceiling differs from the incarnation request",
+    )
+    mandate_mcp = _require_string_list(
+        environment.get("required_mcp_servers"),
+        label="actor mandate required MCP servers",
+        unique=True,
+    )
+    binding_mcp = _require_string_list(
+        tool_profile.get("required_mcp_server_ids"),
+        label="incarnation required MCP servers",
+        unique=True,
+    )
+    _require(
+        set(mandate_mcp) == set(binding_mcp),
+        "actor mandate MCP ceiling differs from the incarnation binding",
+    )
+    permission = binding.get("permission_posture")
+    _require(
+        isinstance(permission, Mapping), "incarnation permission posture is absent"
+    )
+    mandate_effects = _require_string_list(
+        mandate.get("authority", {}).get("allowed_effects"),
+        label="actor mandate allowed effects",
+        nonempty=True,
+        unique=True,
+    )
+    binding_effects = _require_string_list(
+        permission.get("allowed_effect_classes"),
+        label="incarnation allowed effects",
+        nonempty=True,
+        unique=True,
+    )
+    request_effects = _require_string_list(
+        request.get("child_scope", {}).get("allowed_effects"),
+        label="request child effect scope",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        set(mandate_effects) == set(binding_effects) == set(request_effects),
+        "actor mandate effect ceiling differs from the incarnation request",
+    )
+    mandate_sandbox = environment.get("sandbox_mode")
+    _require_string(mandate_sandbox, "actor mandate sandbox mode")
+    _require(
+        mandate_sandbox.replace("-", "_") == permission.get("sandbox_mode"),
+        "actor mandate sandbox differs from the incarnation binding",
+    )
+
+    mandate_return_owner = _untyped_ref(
+        mandate.get("return_owner"),
+        label="actor mandate return owner",
+    )
+    request_return_owner = request.get("return_owner")
+    _require_string(request_return_owner, "request return owner")
+    _require(
+        mandate_return_owner["object_id"] == request_return_owner,
+        "actor mandate return owner differs from the request",
+    )
+    transfer = incarnation.get("responsibility_transfer_ref")
+    _require(
+        isinstance(transfer, Mapping),
+        "request incarnation responsibility transfer ref is absent",
+    )
+    transfer_holders = _require_string_list(
+        transfer.get("holder_ids"),
+        label="responsibility transfer holders",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        len(transfer_holders) == 2 and transfer_holders[0] == request_return_owner,
+        "responsibility transfer does not return to the request owner",
+    )
+    continuation = binding.get("continuation")
+    _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
+    continuation_return_owner = _require_provenance(
+        continuation.get("return_owner"),
+        label="incarnation continuation return owner",
+    )
+    _require(
+        continuation_return_owner["owner_repo"] == mandate_return_owner["owner_repo"],
+        "incarnation continuation return owner differs from the mandate owner",
     )
 
 

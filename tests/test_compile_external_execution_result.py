@@ -195,7 +195,7 @@ def fixture(temp: Path) -> dict[str, object]:
                 "acceptance_route": "Owner review.",
             }
         ],
-        "return_owner": ref("codex-goal", "holder:landing", "holder-v1"),
+        "return_owner": ref("codex-goal", "holder:goal", "holder-v1"),
         "review_policy": "Owner review is required.",
         "refusal_policy": "Refuse at ambiguity.",
         "wake_policy": "Wake for validated completion.",
@@ -422,7 +422,7 @@ def fixture(temp: Path) -> dict[str, object]:
         "return_owner": "holder:goal",
         "child_scope": {
             "task": "Implement one bounded owner-local change.",
-            "allowed_tools": ["shell-read", "workspace-write"],
+            "allowed_tools": ["shell-read"],
             "allowed_effects": ["repo_mutation"],
             "authority_limit": "No commit, push, merge, publication, or owner acceptance.",
         },
@@ -1016,6 +1016,41 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 ),
                 "mandate domain procedures differ",
             ),
+            (
+                "tool ceiling",
+                lambda mandate: mandate["environment"]["required_tools"].append(
+                    "workspace-write"
+                ),
+                "mandate tool ceiling differs",
+            ),
+            (
+                "MCP ceiling",
+                lambda mandate: mandate["environment"]["required_mcp_servers"].append(
+                    "aoa_stats"
+                ),
+                "mandate MCP ceiling differs",
+            ),
+            (
+                "effect ceiling",
+                lambda mandate: mandate["authority"].update(
+                    {"allowed_effects": ["read_only"]}
+                ),
+                "mandate effect ceiling differs",
+            ),
+            (
+                "sandbox ceiling",
+                lambda mandate: mandate["environment"].update(
+                    {"sandbox_mode": "read-only"}
+                ),
+                "mandate sandbox differs",
+            ),
+            (
+                "return owner",
+                lambda mandate: mandate["return_owner"].update(
+                    {"object_id": "holder:other"}
+                ),
+                "mandate return owner differs",
+            ),
         )
         for name, mutate, message in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
@@ -1028,6 +1063,44 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     message,
                 ):
                     self.compile(data)
+
+    def test_request_tool_scope_must_equal_the_incarnation_ceiling(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["child_scope"]["allowed_tools"].append("workspace-write")
+            rewrite_bound_chain(data, request=request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "incarnation tool ceiling differs from the request",
+            ):
+                self.compile(data)
+
+    def test_transfer_prior_holder_must_equal_the_request_return_owner(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["external_incarnation"]["responsibility_transfer_ref"][
+                "holder_ids"
+            ][0] = "holder:other"
+            rewrite_bound_chain(data, request=request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "responsibility transfer does not return to the request owner",
+            ):
+                self.compile(data)
+
+    def test_continuation_return_owner_must_retain_the_mandate_owner(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["continuation"]["return_owner"]["owner_repo"] = "aoa-models"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "continuation return owner differs from the mandate owner",
+            ):
+                self.compile(data)
 
     def test_role_contract_must_bind_exact_mandate_artifact_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -1653,6 +1726,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 request=request,
                 incarnation_binding=binding,
             )
+            mandate = copy.deepcopy(data["mandate"])
+            mandate["authority"]["allowed_effects"] = ["read_only"]
+            rewrite_mandate_chain(data, mandate)
             result = self.compile(data)
             self.assertEqual(result["runtime_state"]["state"], "accepted")
 

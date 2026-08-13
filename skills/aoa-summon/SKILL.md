@@ -266,6 +266,12 @@ inventing review-of-review.
 - preserve the exact role-resolution, model-fit query, selected fit projection,
   and incarnation-binding-v2 refs through request, runtime binding, and return;
   a model name or runtime profile cannot substitute for this evidence chain
+- require the request tool scope to equal the binding tool ceiling, and require
+  the mandate environment, effect, MCP, and sandbox ceilings to agree with that
+  same binding rather than trusting a recomputed request digest
+- return responsibility only when the mandate and request name the same holder,
+  the transfer names that holder as its prior holder, and the SDK continuation
+  retains the same owner repository
 - bind a successful independent-review completion to the runtime's canonical
   `result.validated` event and keep repair returns on `result.review_required`;
   a structurally valid report with an unbound wake event must fail closed

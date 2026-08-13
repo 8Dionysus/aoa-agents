@@ -194,6 +194,17 @@ untrusted digests can therefore no longer substitute a truncated binding or a
 different mandate chain. These are relationship checks over selected evidence,
 not new model-selection or runtime authority.
 
+The next exact-head GitHub review found two further contradictions in the
+positive closeout fixture. The request could widen `child_scope.allowed_tools`
+beyond both the mandate environment and the incarnation tool profile, and its
+return owner could differ from the exact mandate, transfer prior holder, or
+continuation owner. Closeout now requires one tool, MCP, effect, sandbox, and
+return chain across those objects. Continuation retains its SDK provenance
+shape, so the comparable invariant is the mandate owner's repository while
+the concrete responsibility holder remains the mandate/request object ID and
+the transfer's prior holder. These checks direct responsibility back to the
+already selected owner; they do not create a new owner or authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without
