@@ -1333,17 +1333,26 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 ):
                     self.compile(data)
 
-    def test_continuation_return_owner_must_retain_the_mandate_owner(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            data = fixture(Path(directory))
-            binding = copy.deepcopy(data["incarnation_binding"])
-            binding["continuation"]["return_owner"]["owner_repo"] = "aoa-models"
-            rewrite_bound_chain(data, incarnation_binding=binding)
-            with self.assertRaisesRegex(
-                COMPILER.ExternalExecutionResultError,
-                "continuation return owner differs from the mandate owner",
-            ):
-                self.compile(data)
+    def test_continuation_return_owner_must_retain_the_exact_mandate_holder(
+        self,
+    ) -> None:
+        cases = (
+            ("owner", "owner_repo", "aoa-models"),
+            ("holder", "artifact_ref", "holder:other"),
+            ("digest", "artifact_digest", "sha256:" + "7" * 64),
+            ("schema", "schema_version", "other-holder-v1"),
+        )
+        for name, field, value in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding["continuation"]["return_owner"][field] = value
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "continuation return owner differs from the exact mandate return owner",
+                ):
+                    self.compile(data)
 
     def test_role_contract_must_bind_exact_mandate_artifact_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

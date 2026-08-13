@@ -1463,8 +1463,15 @@ def _validate_mandate_chain(
         label="incarnation continuation return owner",
     )
     _require(
-        continuation_return_owner["owner_repo"] == mandate_return_owner["owner_repo"],
-        "incarnation continuation return owner differs from the mandate owner",
+        continuation_return_owner["owner_repo"]
+        == mandate_return_owner["owner_repo"]
+        and continuation_return_owner["artifact_ref"]
+        == mandate_return_owner["object_id"]
+        and continuation_return_owner["artifact_digest"]
+        == mandate_return_owner["digest"]
+        and continuation_return_owner["schema_version"]
+        == mandate_return_owner["schema_version"],
+        "incarnation continuation return owner differs from the exact mandate return owner",
     )
 
 

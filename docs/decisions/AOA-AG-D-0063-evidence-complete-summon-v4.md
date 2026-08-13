@@ -133,6 +133,9 @@ The exact independent-review request is also one authority chain rather than
 three parallel output declarations. Its top-level expected outputs, nested
 summon outputs, and quest-passport expected artifacts must be the same exact,
 nonempty, duplicate-free closure before closeout can accept the review.
+Likewise, the continuation return owner is the exact concrete holder from the
+obligation and mandate, including identity and digest; retaining only its
+repository would permit responsibility to return to another holder.
 
 Independent external review then exposed three remaining substitutions. The
 SDK input must still say `a2a_remote` or `either`; accepting an already

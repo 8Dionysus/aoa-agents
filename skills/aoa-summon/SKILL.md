@@ -175,7 +175,9 @@ evidence as refs, and derives the four external handles from the supplied
 runtime evidence. The request authority limit and stop line must equal the
 exact obligation boundary and mandate stop line, both responsibility holders
 must equal the selected return owner and mandate continuity identity, and the
-binding permission posture must satisfy the aoa-sdk cross-field invariants. A
+SDK continuation must retain the same concrete return-holder identity,
+digest, owner, and schema. The binding permission posture must satisfy the
+aoa-sdk cross-field invariants. A
 reviewed return must carry runtime-owned A2A schema
 provenance, bind its reviewed writer-result digest to the exact terminal
 runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly

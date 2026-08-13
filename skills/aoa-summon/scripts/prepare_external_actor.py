@@ -85,6 +85,22 @@ def _data_digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(raw).hexdigest()
 
 
+def _concrete_return_owner_provenance(
+    holder: Mapping[str, Any],
+    owner_evidence: Mapping[str, Any],
+) -> dict[str, str]:
+    """Project the exact semantic holder into the SDK provenance shape."""
+
+    return {
+        "owner_repo": str(holder["owner_repo"]),
+        "artifact_ref": str(holder["object_id"]),
+        "source_ref": str(owner_evidence["source_ref"]),
+        "artifact_digest": str(holder["digest"]),
+        "schema_ref": "task-local/responsibility-holder-v1",
+        "schema_version": str(holder["schema_version"]),
+    }
+
+
 def _git(root: Path, *args: str) -> str:
     try:
         return subprocess.run(
@@ -667,9 +683,18 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     ]
     if len(return_owner_matches) != 1:
         raise PreparationError("return owner input must resolve exactly once")
-    return_owner_ref = return_owner_matches[0]
-    if return_owner_ref.owner_repo != mandate["return_owner"]["owner_repo"]:
+    return_owner_evidence_ref = return_owner_matches[0]
+    if (
+        return_owner_evidence_ref.owner_repo
+        != mandate["return_owner"]["owner_repo"]
+    ):
         raise PreparationError("return owner provenance differs from actor mandate")
+    return_owner_ref = cp.ProvenanceRef.model_validate(
+        _concrete_return_owner_provenance(
+            mandate["return_owner"],
+            return_owner_evidence_ref.model_dump(mode="json"),
+        )
+    )
     workspace_ref = cp.ProvenanceRef(owner_repo=f"task-local-workspace:{route_id}", artifact_ref=str(workspace), source_ref=workspace_source_ref, artifact_digest=_data_digest({"path": str(workspace), "head": workspace_source_ref}), schema_ref="task-local/git-workspace-v1", schema_version="task-local-git-workspace-v1")
     request_ref = _provenance(cp, sdk_request_path, owner="aoa-sdk", artifact_ref=f"task-local/{route_id}/sdk-summon-request.json", source_ref=sdk_source_ref, schema_ref="mechanics/checkpoint/parts/child-task-reentry/schemas/summon-request-v4.schema.json", schema_version="urn:aoa-sdk:a2a:summon-request:v4")
     sdk_summon_schema_path = sdk_root / request_ref.schema_ref

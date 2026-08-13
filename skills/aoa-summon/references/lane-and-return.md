@@ -157,7 +157,9 @@ disabled built-in subagents, and exact output
 keys. Closeout also loads the exact agent-obligation-v1 and
 actor-mandate-v1 artifacts: the request authority limit and stop line must
 equal their owner ceilings, the transfer holders must equal the return owner
-and mandate continuity identity, and the incarnation permission posture must
+and mandate continuity identity, the SDK continuation must retain that same
+concrete return-holder identity and digest rather than merely its repository,
+and the incarnation permission posture must
 satisfy the aoa-sdk cross-field invariants. The terminal runtime
 owner-admission ref must address the exact owner
 request bytes, which binds that result to the selected runtime launch and
