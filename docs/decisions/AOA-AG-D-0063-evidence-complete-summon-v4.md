@@ -89,19 +89,17 @@ they do not mint or reinterpret SDK, runtime, A2A, stats, proof, model-fit, or
 owner-acceptance authority, and the original authority-blocked writer return
 remains preserved evidence.
 
-### 2026-08-13 - Admit only path-loaded owner artifacts
+### 2026-08-13 - Admit only owner-defined path-loaded artifacts
 
 Path-loaded runtime profiles are admitted as
 `abyss_stack_external_codex_runtime_profile_v2` only when the loaded payload
-itself declares that exact schema version before a content ref is emitted. A
-standalone usage artifact is admitted only through one explicit
-`abyss_stack_external_codex_usage_observation_v1` envelope with a
-`usage_observation_id`, `status`, and `gap_reasons`; the latter two fields use
-the same canonical shape and gap law as embedded `/usage_observation` evidence.
-Missing, relabeled, malformed, or extra-field payloads fail closed. Ref-only
-usage and runtime-profile branches, and the embedded canonical locator branch,
-retain their existing exact semantics. This narrows artifact admission only;
-it does not mint runtime, usage, stats, proof, or owner-acceptance authority.
+itself declares that exact schema version before a content ref is emitted.
+Usage remains an owner-defined subtree of the exact terminal runtime result;
+there is no separate path-loaded usage artifact contract to mint here. An
+optional usage content ref may only assert the canonical JSON-pointer identity
+and subtree digest. Missing, relabeled, malformed, or unrelated assertions
+fail closed. This narrows artifact admission only; it does not mint runtime,
+usage, stats, proof, or owner-acceptance authority.
 
 ### 2026-08-13 - Bind the complete SDK request and derivative identity
 
@@ -114,9 +112,9 @@ output list is removed. Both admitted preparation effects, `read_only` and
 An actor-safe immutable-input envelope cannot by itself authenticate its
 embedded `source_artifact_digest`, so the closeout receipt addresses the exact
 envelope bytes instead of promoting that claim to stronger-owner identity.
-The CLI separates content-ref input (`--usage-observation-ref`) from standalone
-usage artifacts (`--usage-observation`) and refuses to replace an existing
-receipt. These changes close evidence substitution and destructive-rerun gaps
+The CLI accepts an optional exact usage assertion through
+`--usage-observation-ref` and refuses to replace an existing receipt. These
+changes close evidence substitution and destructive-rerun gaps
 without adding launch, selection, proof, or owner-acceptance authority.
 
 Independent external review then exposed three remaining substitutions. The
@@ -149,6 +147,18 @@ Finally, usage status is now semantic rather than decorative: `complete`
 requires an empty gap list and `partial` requires at least one fully canonical
 gap. These are evidence-link checks only; they grant no runtime or continuation
 authority.
+
+The next exact-head GitHub review found two remaining owner-chain gaps. The
+incarnation binding is now compared with the request across the exact
+obligation, mandate, role resolution, model-fit query and projection, SDK task
+request, role-contract identity, child identity, parent DAG, SDK decision,
+responsibility transfer, and domain-procedure inputs. A receipt therefore
+cannot report the request's actor chain while its exact binding names another
+one. Usage remains the canonical observation subtree of the exact terminal
+runtime result; `--usage-observation-ref` may only assert that same locator and
+digest and can no longer replace it with evidence from another attempt. No
+standalone usage artifact is minted because `abyss-stack` defines no such
+owner artifact on this surface.
 
 ## Consequences
 

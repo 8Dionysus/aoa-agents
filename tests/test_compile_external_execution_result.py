@@ -76,17 +76,55 @@ def fixture(temp: Path) -> dict[str, object]:
         "runtime-profile:landing",
         "abyss_stack_external_codex_runtime_profile_v2",
     )
+    obligation_ref = ref("aoa-agents", "obligation:landing", "agent-obligation-v1")
+    mandate_ref = ref("aoa-agents", "mandate:landing", "actor-mandate-v1")
+    role_resolution_ref = ref("aoa-agents", "role-resolution:coder:executor", "aoa_role_resolution_v1")
+    model_fit_query_ref = ref("aoa-models", "fit-query:landing", "aoa_model_fit_query_result_v2")
+    model_fit_projection_ref = ref("aoa-models", "fit-projection:landing", "aoa_model_fit_projection_v1")
+    sdk_request_ref = ref("aoa-sdk", "sdk-request:landing", "urn:aoa-sdk:a2a:summon-request:v4", sdk_request_digest)
+    sdk_decision_ref = ref("aoa-sdk", "sdk-decision:landing", "urn:aoa-sdk:a2a:summon-result:v4", sdk_decision_digest)
+    task_local_dag_ref = ref("aoa-skills", "dag:landing", "aoa-task-local-dag-v2")
+    responsibility_transfer_ref = ref("aoa-agents", "transfer:landing", "responsibility-transfer-v1")
+    domain_procedure_ref = ref("aoa-agents", "procedure:landing", "owner-procedure-v1")
+
+    def provenance(value: dict[str, str]) -> dict[str, str]:
+        return {
+            "artifact_ref": value["object_id"],
+            "owner_repo": value["owner_repo"],
+            "schema_version": value["schema_version"],
+            "artifact_digest": value["digest"],
+        }
+
     incarnation_binding = {
         "schema_version": "aoa_agent_incarnation_binding_v2",
         "binding_id": "incarnation-binding:landing",
         "incarnation_id": "incarnation:landing",
+        "agent_obligation_ref": obligation_ref,
+        "actor_mandate_ref": mandate_ref,
+        "role_resolution_ref": role_resolution_ref,
+        "model_fit_query_result_ref": model_fit_query_ref,
+        "model_fit_projection_ref": provenance(model_fit_projection_ref),
+        "task_request_ref": provenance(sdk_request_ref),
+        "role_contract_ref": provenance(mandate_ref),
         "runtime_profile_ref": {
             "artifact_ref": runtime_profile_ref["object_id"],
             "owner_repo": runtime_profile_ref["owner_repo"],
             "schema_version": runtime_profile_ref["schema_version"],
             "artifact_digest": runtime_profile_ref["digest"],
         },
-        "continuation": {"continuation_id": "continuation:landing"},
+        "continuation": {
+            "continuation_id": "continuation:landing",
+            "exact_child_identity": "incarnation:landing",
+            "parent_objective_ref": provenance(task_local_dag_ref),
+            "established_decision_refs": [provenance(sdk_decision_ref)],
+            "immutable_input_refs": [
+                provenance(sdk_request_ref),
+                provenance(model_fit_projection_ref),
+                provenance(task_local_dag_ref),
+                provenance(responsibility_transfer_ref),
+                provenance(domain_procedure_ref),
+            ],
+        },
         "permission_posture": {"allowed_effect_classes": ["repo_mutation"]},
         "tool_profile": {
             "profile_ref": {
@@ -106,23 +144,23 @@ def fixture(temp: Path) -> dict[str, object]:
         incarnation_binding_path, incarnation_binding
     )
     incarnation = {
-        "obligation_ref": ref("aoa-agents", "obligation:landing", "agent-obligation-v1"),
-        "actor_mandate_ref": ref("aoa-agents", "mandate:landing", "actor-mandate-v1"),
-        "role_resolution_ref": ref("aoa-agents", "role-resolution:coder:executor", "aoa_role_resolution_v1"),
-        "model_fit_query_result_ref": ref("aoa-models", "fit-query:landing", "aoa_model_fit_query_result_v2"),
-        "model_fit_projection_ref": ref("aoa-models", "fit-projection:landing", "aoa_model_fit_projection_v1"),
-        "task_local_dag_ref": ref("aoa-skills", "dag:landing", "aoa-task-local-dag-v2"),
+        "obligation_ref": obligation_ref,
+        "actor_mandate_ref": mandate_ref,
+        "role_resolution_ref": role_resolution_ref,
+        "model_fit_query_result_ref": model_fit_query_ref,
+        "model_fit_projection_ref": model_fit_projection_ref,
+        "task_local_dag_ref": task_local_dag_ref,
         "incarnation_binding_ref": ref(
             "aoa-sdk",
             "incarnation-binding:landing",
             "aoa_agent_incarnation_binding_v2",
             incarnation_binding_digest,
         ),
-        "sdk_summon_request_ref": ref("aoa-sdk", "sdk-request:landing", "urn:aoa-sdk:a2a:summon-request:v4", sdk_request_digest),
-        "sdk_summon_decision_ref": ref("aoa-sdk", "sdk-decision:landing", "urn:aoa-sdk:a2a:summon-result:v4", sdk_decision_digest),
+        "sdk_summon_request_ref": sdk_request_ref,
+        "sdk_summon_decision_ref": sdk_decision_ref,
         "runtime_launch_ref": ref("abyss-stack", "launch:landing", "abyss_stack_external_codex_launch_v1"),
         "responsibility_transfer_ref": {
-            **ref("aoa-agents", "transfer:landing", "responsibility-transfer-v1"),
+            **responsibility_transfer_ref,
             "admitted_state": "accepted",
             "holder_ids": ["holder:goal", "actor:landing"],
         },
@@ -133,7 +171,7 @@ def fixture(temp: Path) -> dict[str, object]:
             incarnation_binding_digest,
         ),
         "return_event_schema_ref": ref("abyss-stack", "schema:external-event", "abyss_stack_external_codex_event_v1"),
-        "domain_procedure_refs": [ref("aoa-agents", "procedure:landing", "owner-procedure-v1")],
+        "domain_procedure_refs": [domain_procedure_ref],
         "runtime_interface": "abyss_stack_external_codex_agent_v1",
         "launches_separate_os_process": True,
         "separate_cli_session": True,
@@ -499,6 +537,69 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_incarnation_owner_refs_must_bind_the_exact_request(self) -> None:
+        cases = (
+            ("agent_obligation_ref", "object_id"),
+            ("actor_mandate_ref", "digest"),
+            ("role_resolution_ref", "object_id"),
+            ("model_fit_query_result_ref", "digest"),
+        )
+        for field, changed_key in cases:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding[field][changed_key] = "different:object" if changed_key == "object_id" else "sha256:" + "1" * 64
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, f"{field} differs from the request"):
+                    self.compile(data)
+
+    def test_incarnation_projection_and_task_refs_must_bind_the_exact_request(self) -> None:
+        cases = (
+            ("model_fit_projection_ref", "artifact_digest"),
+            ("task_request_ref", "artifact_ref"),
+        )
+        for field, changed_key in cases:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding[field][changed_key] = "different:artifact" if changed_key == "artifact_ref" else "sha256:" + "1" * 64
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, f"{field} differs from the request"):
+                    self.compile(data)
+
+    def test_incarnation_continuation_child_must_bind_the_exact_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["continuation"]["exact_child_identity"] = "incarnation:other"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "continuation child identity differs"):
+                self.compile(data)
+
+    def test_incarnation_role_contract_must_name_the_request_mandate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["role_contract_ref"]["artifact_ref"] = "mandate:other"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "role_contract_ref names another mandate"):
+                self.compile(data)
+
+    def test_incarnation_continuation_must_preserve_request_chain(self) -> None:
+        cases = (
+            ("parent DAG", lambda binding: binding["continuation"]["parent_objective_ref"].update({"artifact_digest": "sha256:" + "1" * 64}), "parent objective differs from the request DAG"),
+            ("SDK decision", lambda binding: binding["continuation"]["established_decision_refs"].clear(), "exact SDK summon decision"),
+            ("immutable SDK request", lambda binding: binding["continuation"]["immutable_input_refs"].pop(0), "exact SDK summon request"),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                mutate(binding)
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
+                    self.compile(data)
+
     def test_usage_locator_and_partial_pointer_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -514,18 +615,14 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     usage_pointer="/usage_observation/missing",
                 )
 
-    def test_standalone_usage_artifact_can_replace_pointer_locator(self) -> None:
+    def test_exact_usage_ref_can_assert_pointer_locator(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
-            usage_path = Path(directory) / "usage-observation.json"
-            write_json(
-                usage_path,
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
-                    "usage_observation_id": "usage:landing",
-                    "status": "complete",
-                    "gap_reasons": [],
-                },
+            usage_ref = ref(
+                "abyss-stack",
+                "actor-task-landing#/usage_observation",
+                "abyss_stack_external_codex_usage_observation_v1",
+                COMPILER.digest_bytes(COMPILER.canonical_bytes(data["runtime"]["usage_observation"])),
             )
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
@@ -535,12 +632,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 runtime_result_path=data["runtime_path"],
                 reviewed_a2a_return_path=data["a2a_path"],
                 runtime_profile_ref=data["runtime_profile_ref"],
-                usage_observation_path=usage_path,
+                usage_observation_ref=usage_ref,
             )
-            self.assertEqual(
-                result["runtime_state"]["usage_observation_ref"]["object_id"],
-                "usage:landing",
-            )
+            self.assertEqual(result["runtime_state"]["usage_observation_ref"], usage_ref)
 
     def test_cli_loads_usage_ref_as_a_ref_not_an_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -593,43 +687,33 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 compile_result.call_args.kwargs["incarnation_binding_path"],
                 root / "incarnation-binding.json",
             )
-            self.assertIsNone(
-                compile_result.call_args.kwargs["usage_observation_path"]
-            )
 
-    def test_standalone_partial_usage_artifact_preserves_canonical_gap_shape(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            data = fixture(Path(directory))
-            usage_path = Path(directory) / "usage-observation.json"
-            write_json(
-                usage_path,
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
-                    "usage_observation_id": "usage:partial",
-                    "status": "partial",
-                    "gap_reasons": [
-                        {
-                            "attempt_id": "attempt:landing",
-                            "reason": "controlled_interruption_before_turn_usage",
-                            "event_sequence": 4,
-                        }
-                    ],
-                },
-            )
-            result = COMPILER.compile_external_execution_result(
-                request_path=data["request_path"],
-                incarnation_binding_path=data["incarnation_binding_path"],
-                sdk_summon_request_path=data["sdk_request_path"],
-                sdk_summon_decision_path=data["sdk_decision_path"],
-                runtime_result_path=data["runtime_path"],
-                reviewed_a2a_return_path=data["a2a_path"],
-                runtime_profile_ref=data["runtime_profile_ref"],
-                usage_observation_path=usage_path,
-            )
-            self.assertEqual(
-                result["runtime_state"]["usage_observation_ref"]["object_id"],
-                "usage:partial",
-            )
+    def test_usage_ref_cannot_replace_the_exact_runtime_observation(self) -> None:
+        cases = (
+            ("object_id", "usage:unrelated"),
+            ("digest", "sha256:" + "1" * 64),
+        )
+        for field, value in cases:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                usage_ref = ref(
+                    "abyss-stack",
+                    "actor-task-landing#/usage_observation",
+                    "abyss_stack_external_codex_usage_observation_v1",
+                    COMPILER.digest_bytes(COMPILER.canonical_bytes(data["runtime"]["usage_observation"])),
+                )
+                usage_ref[field] = value
+                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "differs from the exact runtime observation"):
+                    COMPILER.compile_external_execution_result(
+                        request_path=data["request_path"],
+                        incarnation_binding_path=data["incarnation_binding_path"],
+                        sdk_summon_request_path=data["sdk_request_path"],
+                        sdk_summon_decision_path=data["sdk_decision_path"],
+                        runtime_result_path=data["runtime_path"],
+                        reviewed_a2a_return_path=data["a2a_path"],
+                        runtime_profile_ref=data["runtime_profile_ref"],
+                        usage_observation_ref=usage_ref,
+                    )
 
     def test_usage_status_must_agree_with_gap_presence(self) -> None:
         cases = (
@@ -663,75 +747,6 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     "status and gaps contradict",
                 ):
                     self.compile(data)
-
-    def test_standalone_usage_artifact_requires_v1_schema_and_identity_envelope(self) -> None:
-        cases = (
-            (
-                "wrong schema",
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v0",
-                    "usage_observation_id": "usage:wrong-schema",
-                    "status": "complete",
-                    "gap_reasons": [],
-                },
-                "schema is invalid",
-            ),
-            (
-                "missing schema",
-                {
-                    "usage_observation_id": "usage:missing-schema",
-                    "status": "complete",
-                    "gap_reasons": [],
-                },
-                "envelope shape is invalid",
-            ),
-            (
-                "missing identity",
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
-                    "status": "complete",
-                    "gap_reasons": [],
-                },
-                "envelope shape is invalid",
-            ),
-            (
-                "extra field",
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
-                    "usage_observation_id": "usage:extra",
-                    "status": "complete",
-                    "gap_reasons": [],
-                    "object_id": "usage:extra",
-                },
-                "envelope shape is invalid",
-            ),
-            (
-                "malformed canonical shape",
-                {
-                    "schema_version": "abyss_stack_external_codex_usage_observation_v1",
-                    "usage_observation_id": "usage:malformed",
-                    "status": "complete",
-                    "gap_reasons": [{"reason": "not-canonical"}],
-                },
-                "gap shape is invalid",
-            ),
-        )
-        for name, payload, message in cases:
-            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
-                data = fixture(Path(directory))
-                usage_path = Path(directory) / "usage-observation.json"
-                write_json(usage_path, payload)
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
-                    COMPILER.compile_external_execution_result(
-                        request_path=data["request_path"],
-                        incarnation_binding_path=data["incarnation_binding_path"],
-                        sdk_summon_request_path=data["sdk_request_path"],
-                        sdk_summon_decision_path=data["sdk_decision_path"],
-                        runtime_result_path=data["runtime_path"],
-                        reviewed_a2a_return_path=data["a2a_path"],
-                        runtime_profile_ref=data["runtime_profile_ref"],
-                        usage_observation_path=usage_path,
-                    )
 
     def test_path_loaded_runtime_profile_requires_v2_schema(self) -> None:
         for name, schema_version in (

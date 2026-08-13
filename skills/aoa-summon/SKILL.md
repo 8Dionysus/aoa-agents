@@ -168,11 +168,11 @@ to the terminal runtime `task_id` and `incarnation_id`, and be paired with the c
 `result.validated`/`validated-completion` wake event. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer
 and must retain the runtime-owned observation shape: `complete` has no gaps,
-while `partial` has at least one canonical gap. A standalone usage
-artifact must carry the explicit owner v1 schema and identity envelope while
-its `status` and `gap_reasons` retain that same canonical observation shape.
-Use `--usage-observation-ref` for a content-ref document and
-`--usage-observation` for that standalone artifact. Actor-safe immutable input
+while `partial` has at least one canonical gap. An optional
+`--usage-observation-ref` is only an assertion of that exact runtime-owned
+JSON-pointer ref; it must match its object identity and subtree digest and
+cannot replace the embedded observation. There is no separately minted usage
+artifact on this owner-local surface. Actor-safe immutable input
 envelopes are addressed by their exact derivative bytes; their embedded source
 digest is not elevated to stronger-owner identity without a separate trusted
 attestation. The envelope provenance schema and the unwrapped payload schema
@@ -180,10 +180,12 @@ must agree exactly. The reviewed A2A return binds the complete original SDK
 summon-request ref, not only its digest. The output path must be new and is
 never overwritten. The terminal runtime's owner-admission ref must bind both
 the exact owner-request identity and bytes, and therefore that request's exact
-runtime-launch, continuity, task, and effect chain. The supplied incarnation binding must match
-its request ref, incarnation and continuity identities, effect posture, and
-the exact runtime-profile ref; a syntactically valid unrelated profile cannot
-be substituted. The logical continuation identity remains in the exact
+runtime-launch, continuity, task, and effect chain. The supplied incarnation
+binding must match its request ref, incarnation and continuity identities,
+exact child identity, obligation, mandate, role resolution, model-fit query
+and projection, SDK task request, effect posture, and exact runtime-profile
+ref; a syntactically valid unrelated owner ref or profile cannot be
+substituted. The logical continuation identity remains in the exact
 request/binding chain; the physical Codex continuation handle is the runtime
 `thread_id` and must equal every admitted invocation's `thread_id`.
 Returned artifacts are an

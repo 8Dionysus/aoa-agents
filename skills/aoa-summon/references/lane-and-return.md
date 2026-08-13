@@ -162,12 +162,11 @@ provenance, not stronger-owner authentication. It
 does not copy their protocol fields into the owner receipt. The runtime result
 ref and reviewed A2A ref use their terminal identities and source digests; the
 usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
-the runtime-owned observation-shaped JSON subtree at that pointer unless a
-standalone usage artifact is explicitly supplied. A standalone artifact must
-declare `abyss_stack_external_codex_usage_observation_v1`, contain exactly its
-usage-observation identity plus `status` and `gap_reasons`, and pass the same
-canonical status/gap validation as the embedded observation: `complete` means
-no gaps and `partial` means one or more canonical gaps. Returned artifacts must be
+the runtime-owned observation-shaped JSON subtree at that pointer. An optional
+usage content ref is accepted only when it exactly asserts that canonical
+object identity and subtree digest; it cannot replace the runtime observation.
+The observation passes the canonical status/gap law: `complete` means no gaps
+and `partial` means one or more canonical gaps. Returned artifacts must be
 the exact unique requested output identities; path basename inference and
 unrequested extras are rejected. Actor, session, continuation, and process
 handles are derived only from the runtime's incarnation/session/thread/process-identity
@@ -175,7 +174,9 @@ evidence. The logical continuation remains bound by the exact owner request and
 incarnation artifact; the physical continuation handle is accepted only when
 the terminal `thread_id` equals every runtime invocation's `thread_id`. The
 runtime owner-admission ref likewise names the exact owner request identity and
-bytes. The CLI loads content refs through `--usage-observation-ref`, loads
-standalone artifacts through `--usage-observation`, and refuses to replace an
-existing output. The emitted receipt is a summon responsibility-closeout record, not
+bytes. The incarnation binding likewise names the exact obligation, mandate,
+role resolution, model-fit query and projection, SDK task request, and child
+identity carried by the owner request. The CLI may load an exact assertion
+through `--usage-observation-ref` and refuses to replace an existing output.
+The emitted receipt is a summon responsibility-closeout record, not
 stats admission, runtime success proof, model-fit proof, or owner acceptance.

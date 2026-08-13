@@ -302,8 +302,14 @@ def _runtime_profile_ref(
     )
 
 
-def _profile_ref_from_provenance(value: Any) -> dict[str, Any]:
-    _require(isinstance(value, Mapping), "incarnation runtime profile provenance is absent")
+def _ref_from_provenance(
+    value: Any,
+    *,
+    label: str,
+    owner_repo: str,
+    schema_version: str,
+) -> dict[str, Any]:
+    _require(isinstance(value, Mapping), f"{label} provenance is absent")
     return _require_ref(
         {
             "object_id": value.get("artifact_ref"),
@@ -311,9 +317,52 @@ def _profile_ref_from_provenance(value: Any) -> dict[str, Any]:
             "schema_version": value.get("schema_version"),
             "digest": value.get("artifact_digest"),
         },
-        label="incarnation runtime profile ref",
-        owner_repo="abyss-stack",
-        schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
+        label=label,
+        owner_repo=owner_repo,
+        schema_version=schema_version,
+    )
+
+
+def _untyped_ref(value: Any, *, label: str) -> dict[str, Any]:
+    _require(isinstance(value, Mapping), f"{label} is absent")
+    result = {
+        "object_id": value.get("object_id"),
+        "owner_repo": value.get("owner_repo"),
+        "schema_version": value.get("schema_version"),
+        "digest": value.get("digest"),
+    }
+    for field in ("object_id", "owner_repo", "schema_version"):
+        _require_string(result.get(field), f"{label}.{field}")
+    _require(
+        isinstance(result.get("digest"), str)
+        and re.fullmatch(r"sha256:[0-9a-f]{64}", result["digest"]) is not None,
+        f"{label} digest is invalid",
+    )
+    return result
+
+
+def _untyped_ref_from_provenance(value: Any, *, label: str) -> dict[str, Any]:
+    _require(isinstance(value, Mapping), f"{label} provenance is absent")
+    return _untyped_ref(
+        {
+            "object_id": value.get("artifact_ref"),
+            "owner_repo": value.get("owner_repo"),
+            "schema_version": value.get("schema_version"),
+            "digest": value.get("artifact_digest"),
+        },
+        label=label,
+    )
+
+
+def _require_one_ref(
+    refs: Sequence[Mapping[str, Any]],
+    expected: Mapping[str, Any],
+    *,
+    label: str,
+) -> None:
+    _require(
+        sum(candidate == expected for candidate in refs) == 1,
+        f"incarnation continuation does not preserve the exact {label}",
     )
 
 
@@ -347,6 +396,84 @@ def _validate_incarnation_binding(
         binding.get("incarnation_id") == expected_incarnation_id == runtime.get("incarnation_id"),
         "incarnation binding identity differs from request or runtime",
     )
+    for binding_field, incarnation_field, owner_repo, schema_version in (
+        ("agent_obligation_ref", "obligation_ref", "aoa-agents", "agent-obligation-v1"),
+        ("actor_mandate_ref", "actor_mandate_ref", "aoa-agents", "actor-mandate-v1"),
+        ("role_resolution_ref", "role_resolution_ref", "aoa-agents", "aoa_role_resolution_v1"),
+        (
+            "model_fit_query_result_ref",
+            "model_fit_query_result_ref",
+            "aoa-models",
+            "aoa_model_fit_query_result_v2",
+        ),
+    ):
+        bound_ref = _require_ref(
+            binding.get(binding_field),
+            label=f"incarnation binding {binding_field}",
+            owner_repo=owner_repo,
+            schema_version=schema_version,
+        )
+        request_ref = _require_ref(
+            incarnation.get(incarnation_field),
+            label=f"request incarnation {incarnation_field}",
+            owner_repo=owner_repo,
+            schema_version=schema_version,
+        )
+        _require(
+            bound_ref == request_ref,
+            f"incarnation binding {binding_field} differs from the request",
+        )
+    bound_projection_ref = _ref_from_provenance(
+        binding.get("model_fit_projection_ref"),
+        label="incarnation binding model-fit projection ref",
+        owner_repo="aoa-models",
+        schema_version="aoa_model_fit_projection_v1",
+    )
+    request_projection_ref = _require_ref(
+        incarnation.get("model_fit_projection_ref"),
+        label="request incarnation model-fit projection ref",
+        owner_repo="aoa-models",
+        schema_version="aoa_model_fit_projection_v1",
+    )
+    _require(
+        bound_projection_ref == request_projection_ref,
+        "incarnation binding model_fit_projection_ref differs from the request",
+    )
+    bound_task_request_ref = _ref_from_provenance(
+        binding.get("task_request_ref"),
+        label="incarnation binding task request ref",
+        owner_repo="aoa-sdk",
+        schema_version="urn:aoa-sdk:a2a:summon-request:v4",
+    )
+    request_task_ref = _require_ref(
+        incarnation.get("sdk_summon_request_ref"),
+        label="request incarnation SDK summon request ref",
+        owner_repo="aoa-sdk",
+        schema_version="urn:aoa-sdk:a2a:summon-request:v4",
+    )
+    _require(
+        bound_task_request_ref == request_task_ref,
+        "incarnation binding task_request_ref differs from the request",
+    )
+    role_contract_ref = _ref_from_provenance(
+        binding.get("role_contract_ref"),
+        label="incarnation binding role contract ref",
+        owner_repo="aoa-agents",
+        schema_version="actor-mandate-v1",
+    )
+    request_mandate_ref = _require_ref(
+        incarnation.get("actor_mandate_ref"),
+        label="request incarnation actor mandate ref",
+        owner_repo="aoa-agents",
+        schema_version="actor-mandate-v1",
+    )
+    _require(
+        all(
+            role_contract_ref[field] == request_mandate_ref[field]
+            for field in ("object_id", "owner_repo", "schema_version")
+        ),
+        "incarnation binding role_contract_ref names another mandate",
+    )
     continuation = binding.get("continuation")
     _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
     continuity_ref = incarnation["continuity_ref"]
@@ -355,6 +482,72 @@ def _validate_incarnation_binding(
         and continuation.get("continuation_id") == continuity_ref["object_id"],
         "incarnation continuation differs from the request ref",
     )
+    _require(
+        continuation.get("exact_child_identity") == expected_incarnation_id,
+        "incarnation continuation child identity differs from the request",
+    )
+    parent_objective_ref = _ref_from_provenance(
+        continuation.get("parent_objective_ref"),
+        label="incarnation continuation parent objective ref",
+        owner_repo="aoa-skills",
+        schema_version="aoa-task-local-dag-v2",
+    )
+    request_dag_ref = _require_ref(
+        incarnation.get("task_local_dag_ref"),
+        label="request incarnation task-local DAG ref",
+        owner_repo="aoa-skills",
+        schema_version="aoa-task-local-dag-v2",
+    )
+    _require(
+        parent_objective_ref == request_dag_ref,
+        "incarnation continuation parent objective differs from the request DAG",
+    )
+    established_values = continuation.get("established_decision_refs")
+    _require(isinstance(established_values, list), "incarnation continuation established decisions are absent")
+    established_refs = [
+        _untyped_ref_from_provenance(
+            value,
+            label=f"incarnation continuation established decision {index}",
+        )
+        for index, value in enumerate(established_values)
+    ]
+    request_decision_ref = _require_ref(
+        incarnation.get("sdk_summon_decision_ref"),
+        label="request incarnation SDK summon decision ref",
+        owner_repo="aoa-sdk",
+        schema_version="urn:aoa-sdk:a2a:summon-result:v4",
+    )
+    _require_one_ref(established_refs, request_decision_ref, label="SDK summon decision")
+    immutable_values = continuation.get("immutable_input_refs")
+    _require(isinstance(immutable_values, list), "incarnation continuation immutable inputs are absent")
+    immutable_refs = [
+        _untyped_ref_from_provenance(
+            value,
+            label=f"incarnation continuation immutable input {index}",
+        )
+        for index, value in enumerate(immutable_values)
+    ]
+    _require_one_ref(immutable_refs, request_task_ref, label="SDK summon request")
+    _require_one_ref(immutable_refs, request_projection_ref, label="model-fit projection")
+    _require_one_ref(immutable_refs, request_dag_ref, label="task-local DAG")
+    transfer_ref = _require_ref(
+        incarnation.get("responsibility_transfer_ref"),
+        label="request incarnation responsibility transfer ref",
+        owner_repo="aoa-agents",
+        schema_version="responsibility-transfer-v1",
+    )
+    _require_one_ref(immutable_refs, transfer_ref, label="responsibility transfer")
+    procedure_values = incarnation.get("domain_procedure_refs")
+    _require(
+        isinstance(procedure_values, list) and bool(procedure_values),
+        "request incarnation domain procedure refs are absent",
+    )
+    for index, value in enumerate(procedure_values):
+        procedure_ref = _untyped_ref(
+            value,
+            label=f"request incarnation domain procedure ref {index}",
+        )
+        _require_one_ref(immutable_refs, procedure_ref, label=f"domain procedure {index}")
     permission = binding.get("permission_posture")
     _require(isinstance(permission, Mapping), "incarnation permission posture is absent")
     _require(
@@ -364,10 +557,18 @@ def _validate_incarnation_binding(
     )
     tool_profile = binding.get("tool_profile")
     _require(isinstance(tool_profile, Mapping), "incarnation tool profile is absent")
-    bound_runtime_profile_ref = _profile_ref_from_provenance(
-        binding.get("runtime_profile_ref")
+    bound_runtime_profile_ref = _ref_from_provenance(
+        binding.get("runtime_profile_ref"),
+        label="incarnation runtime profile ref",
+        owner_repo="abyss-stack",
+        schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
     )
-    bound_profile_ref = _profile_ref_from_provenance(tool_profile.get("profile_ref"))
+    bound_profile_ref = _ref_from_provenance(
+        tool_profile.get("profile_ref"),
+        label="incarnation tool profile ref",
+        owner_repo="abyss-stack",
+        schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
+    )
     _require(
         bound_runtime_profile_ref == bound_profile_ref == runtime_profile_ref,
         "runtime profile differs from the incarnation binding",
@@ -380,68 +581,31 @@ def _usage_ref(
     *,
     usage_pointer: str,
     usage_observation_ref: Mapping[str, Any] | None,
-    usage_observation_path: Path | None,
 ) -> dict[str, Any]:
-    _require(
-        not (usage_observation_ref is not None and usage_observation_path is not None),
-        "provide one standalone usage ref or usage artifact, not both",
-    )
-    if usage_observation_ref is not None:
-        return _require_ref(
-            usage_observation_ref,
-            label="usage observation ref",
-            owner_repo="abyss-stack",
-            schema_version=USAGE_OBSERVATION_SCHEMA_VERSION,
-        )
-    if usage_observation_path is not None:
-        _raw, payload, artifact_digest = _load(
-            usage_observation_path, label="usage observation artifact"
-        )
-        _require(
-            set(payload)
-            == {
-                "schema_version",
-                "usage_observation_id",
-                "status",
-                "gap_reasons",
-            },
-            "usage observation artifact envelope shape is invalid",
-        )
-        _require(
-            payload.get("schema_version") == USAGE_OBSERVATION_SCHEMA_VERSION,
-            "usage observation artifact schema is invalid",
-        )
-        _require_string(
-            payload.get("usage_observation_id"),
-            "usage observation artifact identity",
-        )
-        _validate_usage_observation(
-            {
-                "status": payload["status"],
-                "gap_reasons": payload["gap_reasons"],
-            },
-            label="usage observation artifact",
-        )
-        return _content_ref_from_artifact(
-            artifact_digest,
-            payload,
-            label="usage observation artifact",
-            owner_repo="abyss-stack",
-            schema_version=USAGE_OBSERVATION_SCHEMA_VERSION,
-            object_keys=("usage_observation_id",),
-        )
     _require(
         usage_pointer == "/usage_observation",
         "usage pointer must be the canonical /usage_observation locator",
     )
     usage_value = _json_pointer(runtime, usage_pointer)
     _validate_usage_observation(usage_value, label="embedded usage observation")
-    return {
+    canonical_ref = {
         "object_id": f"{runtime_ref['object_id']}#{usage_pointer}",
         "owner_repo": "abyss-stack",
         "schema_version": USAGE_OBSERVATION_SCHEMA_VERSION,
         "digest": digest_bytes(canonical_bytes(usage_value)),
     }
+    if usage_observation_ref is not None:
+        asserted_ref = _require_ref(
+            usage_observation_ref,
+            label="usage observation ref",
+            owner_repo="abyss-stack",
+            schema_version=USAGE_OBSERVATION_SCHEMA_VERSION,
+        )
+        _require(
+            asserted_ref == canonical_ref,
+            "usage observation ref differs from the exact runtime observation",
+        )
+    return canonical_ref
 
 
 def _validate_usage_observation(value: Any, *, label: str) -> None:
@@ -884,7 +1048,6 @@ def compile_external_execution_result(
     runtime_profile_path: Path | None = None,
     usage_pointer: str = "/usage_observation",
     usage_observation_ref: Mapping[str, Any] | None = None,
-    usage_observation_path: Path | None = None,
     output_artifact_refs: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     """Compile one exact terminal, reviewed external execution chain."""
@@ -925,7 +1088,6 @@ def compile_external_execution_result(
         runtime_ref,
         usage_pointer=usage_pointer,
         usage_observation_ref=usage_observation_ref,
-        usage_observation_path=usage_observation_path,
     )
     a2a_ref = _validate_reviewed_return(
         reviewed_return,
@@ -1073,9 +1235,7 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--runtime-profile", dest="runtime_profile_path", type=Path)
     profile.add_argument("--runtime-profile-ref", dest="runtime_profile_ref_path", type=Path)
     result.add_argument("--usage-pointer", default="/usage_observation")
-    usage = result.add_mutually_exclusive_group()
-    usage.add_argument("--usage-observation-ref", type=Path)
-    usage.add_argument("--usage-observation", dest="usage_observation_path", type=Path)
+    result.add_argument("--usage-observation-ref", type=Path)
     result.add_argument("--output", type=Path, required=True)
     return result
 
@@ -1104,7 +1264,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             runtime_profile_path=args.runtime_profile_path,
             usage_pointer=args.usage_pointer,
             usage_observation_ref=usage_ref,
-            usage_observation_path=args.usage_observation_path,
         )
         _write(args.output, result)
     except (ExternalExecutionResultError, OSError, ValueError) as exc:
