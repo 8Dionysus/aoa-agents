@@ -167,7 +167,8 @@ runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly
 to the terminal runtime `task_id` and `incarnation_id`, and be paired with the canonical
 `result.validated`/`validated-completion` wake event. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer
-and must retain the runtime-owned observation shape. A standalone usage
+and must retain the runtime-owned observation shape: `complete` has no gaps,
+while `partial` has at least one canonical gap. A standalone usage
 artifact must carry the explicit owner v1 schema and identity envelope while
 its `status` and `gap_reasons` retain that same canonical observation shape.
 Use `--usage-observation-ref` for a content-ref document and
@@ -177,12 +178,14 @@ digest is not elevated to stronger-owner identity without a separate trusted
 attestation. The envelope provenance schema and the unwrapped payload schema
 must agree exactly. The reviewed A2A return binds the complete original SDK
 summon-request ref, not only its digest. The output path must be new and is
-never overwritten. The terminal runtime's owner-admission ref must bind the
-exact owner-request bytes, and therefore that request's exact runtime-launch,
-continuity, task, and effect chain. The supplied incarnation binding must match
+never overwritten. The terminal runtime's owner-admission ref must bind both
+the exact owner-request identity and bytes, and therefore that request's exact
+runtime-launch, continuity, task, and effect chain. The supplied incarnation binding must match
 its request ref, incarnation and continuity identities, effect posture, and
 the exact runtime-profile ref; a syntactically valid unrelated profile cannot
-be substituted.
+be substituted. The logical continuation identity remains in the exact
+request/binding chain; the physical Codex continuation handle is the runtime
+`thread_id` and must equal every admitted invocation's `thread_id`.
 Returned artifacts are an
 exact, duplicate-free closure over the request's named outputs; path basenames
 are not inferred as output identities. The compiler does not launch, review,

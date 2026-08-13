@@ -470,6 +470,11 @@ def _validate_usage_observation(value: Any, *, label: str) -> None:
             and gap["event_sequence"] >= 0,
             f"{label} gap event sequence is invalid",
         )
+    _require(
+        (value["status"] == "complete" and not gaps)
+        or (value["status"] == "partial" and bool(gaps)),
+        f"{label} status and gaps contradict each other",
+    )
 
 
 def _validate_external_request(request: Mapping[str, Any]) -> dict[str, Any]:
@@ -642,7 +647,9 @@ def _validate_runtime(
     _require_string(runtime.get("task_id"), "runtime task id")
     _require_string(runtime.get("incarnation_id"), "runtime incarnation id")
     _require_string(runtime.get("session_id"), "runtime session id")
-    _require_string(runtime.get("thread_id"), "runtime continuation id")
+    runtime_thread_id = _require_string(
+        runtime.get("thread_id"), "runtime continuation id"
+    )
     usage = runtime.get("usage_observation")
     _validate_usage_observation(usage, label="runtime usage observation")
     invocations = runtime.get("codex_invocations")
@@ -659,6 +666,10 @@ def _validate_runtime(
             any(argv[index:index + 2] == ["--disable", "multi_agent"] for index in range(max(0, len(argv) - 1))),
             "runtime invocation does not disable built-in subagents",
         )
+        _require(
+            invocation.get("thread_id") == runtime_thread_id,
+            "runtime continuation differs from physical invocation evidence",
+        )
     runtime_ref = _content_ref_from_artifact(
         runtime.get("artifact_digest", digest_bytes(canonical_bytes(runtime))),
         runtime,
@@ -670,7 +681,7 @@ def _validate_runtime(
     actor_handle = _require_string(runtime.get("incarnation_id"), "actor handle")
     process_handle = _process_handle(runtime)
     session_handle = _require_string(runtime.get("session_id"), "session handle")
-    continuation_handle = _require_string(runtime.get("thread_id"), "continuation handle")
+    continuation_handle = runtime_thread_id
     handles = {
         "actor_handle": actor_handle,
         "process_handle": process_handle,
@@ -690,7 +701,8 @@ def _validate_runtime(
         "runtime owner admission artifact ref",
     )
     _require(
-        owner_admission_ref.get("owner_repo") == "aoa-agents"
+        owner_admission_ref.get("artifact_ref") == request.get("request_ref")
+        and owner_admission_ref.get("owner_repo") == "aoa-agents"
         and owner_admission_ref.get("artifact_digest") == request_artifact_digest,
         "runtime result differs from the selected owner request and launch",
     )

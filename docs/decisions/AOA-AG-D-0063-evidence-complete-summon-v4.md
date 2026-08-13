@@ -129,8 +129,8 @@ alone. Closeout now fails closed on all three relations.
 
 Exact-head GitHub review exposed two additional cross-attempt substitutions.
 The terminal runtime result must bind its runtime-owned owner-admission ref to
-the exact supplied owner-request bytes; because that request contains the
-runtime-launch and continuity refs plus the task/effect posture, an earlier
+the exact supplied owner-request identity and bytes; because that request
+contains the runtime-launch and continuity refs plus the task/effect posture, an earlier
 launch result cannot close a later request that merely reuses the same child
 identity. Closeout also resolves the exact incarnation-binding-v2 artifact
 named by the request and requires its incarnation, continuation, effect
@@ -138,6 +138,17 @@ posture, and runtime-profile provenance to match the request, terminal runtime,
 and supplied profile ref. These checks add no new selection authority: they
 only prevent an unrelated launch or syntactically valid profile from being
 reported as the execution that actually returned.
+
+A subsequent exact-head external Luna review and GitHub review exposed three
+remaining contradictions. The logical continuation obligation is not a Codex
+thread UUID, so the compiler does not equate them. Instead, the exact admitted
+request and incarnation artifact bind the logical continuation, while every
+runtime invocation must name the terminal runtime's physical `thread_id`.
+Owner admission must match `request_ref` as well as the request-byte digest.
+Finally, usage status is now semantic rather than decorative: `complete`
+requires an empty gap list and `partial` requires at least one fully canonical
+gap. These are evidence-link checks only; they grant no runtime or continuation
+authority.
 
 ## Consequences
 

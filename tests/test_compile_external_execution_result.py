@@ -194,6 +194,7 @@ def fixture(temp: Path) -> dict[str, object]:
         "codex_invocations": [
             {
                 "argv": ["codex", "--disable", "multi_agent"],
+                "thread_id": "thread:landing",
                 "process_identity_ref": {
                     "artifact_ref": "process-identity:landing"
                 },
@@ -419,6 +420,61 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_runtime_owner_admission_must_name_the_exact_owner_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["owner_admission_ref"]["artifact_ref"] = (
+                "summon-request:other"
+            )
+            runtime_digest = write_json(data["runtime_path"], runtime)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["evidence_digests"]["writer_result"] = runtime_digest
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "selected owner request and launch",
+            ):
+                self.compile(data)
+
+    def test_runtime_thread_must_bind_physical_invocation_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["thread_id"] = "thread:other"
+            runtime_digest = write_json(data["runtime_path"], runtime)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["evidence_digests"]["writer_result"] = runtime_digest
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "physical invocation evidence",
+            ):
+                self.compile(data)
+
+    def test_each_runtime_invocation_must_bind_the_same_thread(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["codex_invocations"].append(
+                {
+                    "argv": ["codex", "--disable", "multi_agent"],
+                    "thread_id": None,
+                    "process_identity_ref": {
+                        "artifact_ref": "process-identity:landing-resume"
+                    },
+                }
+            )
+            runtime_digest = write_json(data["runtime_path"], runtime)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["evidence_digests"]["writer_result"] = runtime_digest
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "physical invocation evidence",
+            ):
+                self.compile(data)
+
     def test_incarnation_continuation_must_bind_the_request(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -574,6 +630,39 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 result["runtime_state"]["usage_observation_ref"]["object_id"],
                 "usage:partial",
             )
+
+    def test_usage_status_must_agree_with_gap_presence(self) -> None:
+        cases = (
+            (
+                "complete with gap",
+                "complete",
+                [
+                    {
+                        "attempt_id": "attempt:landing",
+                        "reason": "controlled_interruption_before_turn_usage",
+                        "event_sequence": 4,
+                    }
+                ],
+            ),
+            ("partial without gap", "partial", []),
+        )
+        for name, status, gaps in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                runtime = copy.deepcopy(data["runtime"])
+                runtime["usage_observation"] = {
+                    "status": status,
+                    "gap_reasons": gaps,
+                }
+                runtime_digest = write_json(data["runtime_path"], runtime)
+                a2a = copy.deepcopy(data["a2a"])
+                a2a["evidence_digests"]["writer_result"] = runtime_digest
+                write_json(data["a2a_path"], a2a)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "status and gaps contradict",
+                ):
+                    self.compile(data)
 
     def test_standalone_usage_artifact_requires_v1_schema_and_identity_envelope(self) -> None:
         cases = (
