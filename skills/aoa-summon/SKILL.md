@@ -155,7 +155,9 @@ After a runtime has already returned, `scripts/compile_external_execution_result
 may compile one `summon-result-v4` from the exact owner request, SDK request and
 decision, terminal `abyss-stack` result, runtime-profile ref, and reviewed A2A
 return. It is a passive closeout adapter: it verifies the immutable request
-digest and schema, preserves role, fit, incarnation, runtime, A2A, and usage
+digest and schema, requires the complete owner summon body and passport to be
+the SDK request with only the documented transport translation, and preserves
+role, fit, incarnation, runtime, A2A, and usage
 evidence as refs, and derives the four external handles from the supplied
 runtime evidence. A reviewed return must carry runtime-owned A2A schema
 provenance, bind its reviewed writer-result digest to the exact terminal
@@ -166,6 +168,11 @@ observation is accepted only at the exact `/usage_observation` JSON pointer
 and must retain the runtime-owned observation shape. A standalone usage
 artifact must carry the explicit owner v1 schema and identity envelope while
 its `status` and `gap_reasons` retain that same canonical observation shape.
+Use `--usage-observation-ref` for a content-ref document and
+`--usage-observation` for that standalone artifact. Actor-safe immutable input
+envelopes are addressed by their exact derivative bytes; their embedded source
+digest is not elevated to stronger-owner identity without a separate trusted
+attestation. The output path must be new and is never overwritten.
 Returned artifacts are an
 exact, duplicate-free closure over the request's named outputs; path basenames
 are not inferred as output identities. The compiler does not launch, review,

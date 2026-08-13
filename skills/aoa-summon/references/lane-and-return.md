@@ -135,8 +135,10 @@ decision named by the summon request, an exact runtime-profile-v2 ref, and a
 reviewed `abyss_stack_external_codex_a2a_return_v1` whose disposition is
 `proceed`. It first admits the owner request against the generated
 `summon-request-v4` schema, then verifies the semantic digest, the SDK request
-digest recorded by the SDK decision, distinct responsibility holders, the
-external-only effect ceiling, disabled built-in subagents, and exact output
+digest recorded by the SDK decision, the complete owner summon body and
+passport under the one documented transport-only translation, distinct
+responsibility holders, one admitted `read_only` or `repo_mutation` effect,
+disabled built-in subagents, and exact output
 keys. The reviewed return must carry its runtime-owned schema provenance,
 reference the exact terminal runtime-result digest, bind
 `remote_task.task_id` and `remote_task.agent_id` exactly to the terminal
@@ -145,7 +147,10 @@ runtime `task_id` and `incarnation_id`, and agree with the runtime's canonical
 Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence fails
 closed.
 
-The compiler preserves stronger-owner objects as content-addressed refs. It
+The compiler preserves authenticated stronger-owner objects as
+content-addressed refs. An actor-safe immutable-input envelope is instead
+addressed by its exact derivative bytes: its embedded source digest is
+provenance, not stronger-owner authentication. It
 does not copy their protocol fields into the owner receipt. The runtime result
 ref and reviewed A2A ref use their terminal identities and source digests; the
 usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
@@ -157,5 +162,7 @@ canonical status/gap validation as the embedded observation. Returned artifacts 
 the exact unique requested output identities; path basename inference and
 unrequested extras are rejected. Actor, session, continuation, and process
 handles are derived only from the runtime's incarnation/session/thread/process-identity
-evidence. The emitted receipt is a summon responsibility-closeout record, not
+evidence. The CLI loads content refs through `--usage-observation-ref`, loads
+standalone artifacts through `--usage-observation`, and refuses to replace an
+existing output. The emitted receipt is a summon responsibility-closeout record, not
 stats admission, runtime success proof, model-fit proof, or owner acceptance.

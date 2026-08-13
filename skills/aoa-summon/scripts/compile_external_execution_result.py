@@ -99,9 +99,11 @@ def _load_with_metadata(
 ) -> tuple[bytes, dict[str, Any], str, dict[str, Any]]:
     """Load a raw JSON artifact or an immutable actor input envelope.
 
-    Envelopes carry the original owner digest in ``source_artifact_digest``;
-    using it preserves the source artifact identity rather than addressing the
-    runtime's safe derivative wrapper.
+    An actor envelope is a runtime-created safe derivative.  Its embedded
+    ``source_artifact_digest`` is useful provenance, but the envelope alone
+    cannot authenticate that stronger-owner digest.  Address the exact
+    envelope bytes unless a separate trusted attestation is supplied by a
+    future contract.
     """
 
     location = path.resolve()
@@ -117,6 +119,29 @@ def _load_with_metadata(
     if not isinstance(loaded, dict):
         raise ExternalExecutionResultError(f"{label} must be a JSON object")
     if loaded.get("schema_version") == "abyss_stack_external_codex_actor_input_envelope_v1":
+        _require(
+            set(loaded)
+            == {
+                "$schema",
+                "schema_version",
+                "input_id",
+                "payload_kind",
+                "source_artifact_digest",
+                "source_schema_ref",
+                "source_schema_version",
+                "payload",
+            },
+            f"{label} actor envelope shape is invalid",
+        )
+        _require(
+            loaded.get("$schema")
+            == "schemas/external-codex-actor-input-envelope.schema.json",
+            f"{label} actor envelope schema ref is invalid",
+        )
+        _require(
+            loaded.get("payload_kind") == "json",
+            f"{label} actor envelope must contain a JSON payload",
+        )
         payload = loaded.get("payload")
         if not isinstance(payload, dict):
             raise ExternalExecutionResultError(
@@ -127,9 +152,10 @@ def _load_with_metadata(
             raise ExternalExecutionResultError(
                 f"{label} actor envelope has no source artifact digest"
             )
-        return raw, payload, artifact_digest, {
+        return raw, payload, digest_bytes(raw), {
             "source_schema_ref": loaded.get("source_schema_ref"),
             "source_schema_version": loaded.get("source_schema_version"),
+            "unattested_source_artifact_digest": artifact_digest,
         }
     return raw, loaded, digest_bytes(raw), {
         "source_schema_ref": loaded.get("$schema"),
@@ -397,8 +423,8 @@ def _validate_external_request(request: Mapping[str, Any]) -> dict[str, Any]:
     _require(
         isinstance(effects, list)
         and len(effects) == 1
-        and effects[0] == "repo_mutation",
-        "request effect ceiling is not the admitted repo mutation scope",
+        and effects[0] in {"read_only", "repo_mutation"},
+        "request effect ceiling is outside the admitted external effect classes",
     )
     summon_request = request.get("summon_request")
     _require(isinstance(summon_request, Mapping), "summon request body is absent")
@@ -483,11 +509,22 @@ def _validate_sdk_chain(
         sdk_summon.get("transport_preference") in {"a2a_remote", "either", "external_cli"},
         "SDK summon request does not authorize an external transport",
     )
+    expected_owner_summon = dict(sdk_summon)
+    expected_owner_summon.pop("expected_outputs", None)
+    expected_owner_summon["transport_preference"] = "external_cli"
+    _require(
+        request.get("summon_request") == expected_owner_summon,
+        "owner summon request differs from the SDK summon body",
+    )
+    _require(
+        request.get("quest_passport") == sdk_request.get("quest_passport"),
+        "owner quest passport differs from the SDK summon request",
+    )
     sdk_outputs = sdk_request.get("expected_outputs")
     requested_outputs = request.get("expected_outputs")
     _require(
         isinstance(sdk_outputs, list)
-        and set(sdk_outputs) == set(requested_outputs),
+        and sdk_outputs == requested_outputs,
         "SDK and owner request output keys differ",
     )
     _require(sdk_decision.get("schema_version") == "urn:aoa-sdk:a2a:summon-result:v4", "SDK summon decision schema is invalid")
@@ -900,10 +937,12 @@ def _write(path: Path, payload: Mapping[str, Any]) -> None:
     location = path.resolve()
     _require(not path.is_symlink(), "output must not be a symlink")
     _require(location.parent.is_dir(), "output parent directory is absent")
-    location.write_bytes(
-        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8")
-        + b"\n"
-    )
+    _require(not location.exists(), "output must be a new file")
+    with location.open("xb") as output:
+        output.write(
+            json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8")
+            + b"\n"
+        )
 
 
 def parser() -> argparse.ArgumentParser:
@@ -917,7 +956,9 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--runtime-profile", dest="runtime_profile_path", type=Path)
     profile.add_argument("--runtime-profile-ref", dest="runtime_profile_ref_path", type=Path)
     result.add_argument("--usage-pointer", default="/usage_observation")
-    result.add_argument("--usage-observation-ref", type=Path)
+    usage = result.add_mutually_exclusive_group()
+    usage.add_argument("--usage-observation-ref", type=Path)
+    usage.add_argument("--usage-observation", dest="usage_observation_path", type=Path)
     result.add_argument("--output", type=Path, required=True)
     return result
 
@@ -930,6 +971,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             _raw, profile_ref, _digest = _load(
                 args.runtime_profile_ref_path, label="runtime profile ref"
             )
+        usage_ref = None
+        if args.usage_observation_ref is not None:
+            _raw, usage_ref, _digest = _load(
+                args.usage_observation_ref, label="usage observation ref"
+            )
         result = compile_external_execution_result(
             request_path=args.request_path,
             sdk_summon_request_path=args.sdk_summon_request,
@@ -939,7 +985,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             runtime_profile_ref=profile_ref,
             runtime_profile_path=args.runtime_profile_path,
             usage_pointer=args.usage_pointer,
-            usage_observation_path=args.usage_observation_ref,
+            usage_observation_ref=usage_ref,
+            usage_observation_path=args.usage_observation_path,
         )
         _write(args.output, result)
     except (ExternalExecutionResultError, OSError, ValueError) as exc:

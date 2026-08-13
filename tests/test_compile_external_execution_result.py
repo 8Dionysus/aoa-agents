@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 from jsonschema import Draft202012Validator
 
@@ -39,10 +40,21 @@ def write_json(path: Path, payload: dict[str, object]) -> str:
 
 def fixture(temp: Path) -> dict[str, object]:
     outputs = ["external_codex_agent_result", "summon-result-compiler-implementation"]
+    passport = {
+        "difficulty": "d2_slice",
+        "risk": "r1_repo_local",
+        "control_mode": "codex_supervised",
+        "delegate_tier": "executor",
+        "route_anchor": "goal:landing",
+    }
     sdk_request = {
+        "quest_passport": passport,
         "summon_request": {
             "transport_preference": "a2a_remote",
+            "child_agent_id": "incarnation:landing",
             "parent_task_id": "goal:landing",
+            "desired_role": "coder",
+            "require_progression": False,
         },
         "expected_outputs": outputs,
     }
@@ -85,13 +97,7 @@ def fixture(temp: Path) -> dict[str, object]:
         "usage_metering": "observe_only_no_budget",
     }
     request = {
-        "quest_passport": {
-            "difficulty": "d2_slice",
-            "risk": "r1_repo_local",
-            "control_mode": "codex_supervised",
-            "delegate_tier": "executor",
-            "route_anchor": "goal:landing",
-        },
+        "quest_passport": passport,
         "summon_request": {
             "transport_preference": "external_cli",
             "child_agent_id": "incarnation:landing",
@@ -250,6 +256,32 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "SDK summon decision names"):
                 self.compile(data)
 
+    def test_owner_summon_body_must_be_the_sdk_transport_translation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["summon_request"]["child_agent_id"] = "incarnation:other"
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "owner summon request differs",
+            ):
+                self.compile(data)
+
+    def test_owner_passport_must_match_the_sdk_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["quest_passport"]["route_anchor"] = "goal:other"
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "quest passport differs",
+            ):
+                self.compile(data)
+
     def test_nonterminal_runtime_result_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -307,6 +339,56 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(
                 result["runtime_state"]["usage_observation_ref"]["object_id"],
                 "usage:landing",
+            )
+
+    def test_cli_loads_usage_ref_as_a_ref_not_an_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            usage_ref = ref(
+                "abyss-stack",
+                "usage:landing",
+                "abyss_stack_external_codex_usage_observation_v1",
+            )
+            usage_ref_path = root / "usage-ref.json"
+            write_json(usage_ref_path, usage_ref)
+            profile_ref_path = root / "profile-ref.json"
+            write_json(
+                profile_ref_path,
+                ref(
+                    "abyss-stack",
+                    "profile:landing",
+                    "abyss_stack_external_codex_runtime_profile_v2",
+                ),
+            )
+            output = root / "result.json"
+            compiled = {
+                "request_ref": "summon-request:landing",
+                "request_digest": ZERO,
+                "runtime_state": {"state": "accepted"},
+                "closeout_handoff": {"next_route": "aoa-agents:review"},
+            }
+            argv = [
+                "--request", str(root / "request.json"),
+                "--sdk-summon-request", str(root / "sdk-request.json"),
+                "--sdk-summon-decision", str(root / "sdk-decision.json"),
+                "--runtime-result", str(root / "runtime.json"),
+                "--reviewed-a2a-return", str(root / "a2a.json"),
+                "--runtime-profile-ref", str(profile_ref_path),
+                "--usage-observation-ref", str(usage_ref_path),
+                "--output", str(output),
+            ]
+            with mock.patch.object(
+                COMPILER,
+                "compile_external_execution_result",
+                return_value=compiled,
+            ) as compile_result, mock.patch.object(COMPILER, "_write"):
+                self.assertEqual(COMPILER.main(argv), 0)
+            self.assertEqual(
+                compile_result.call_args.kwargs["usage_observation_ref"],
+                usage_ref,
+            )
+            self.assertIsNone(
+                compile_result.call_args.kwargs["usage_observation_path"]
             )
 
     def test_standalone_partial_usage_artifact_preserves_canonical_gap_shape(self) -> None:
@@ -470,6 +552,25 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "not reviewed"):
                 self.compile(data)
 
+    def test_actor_envelope_is_addressed_as_the_exact_derivative(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            envelope = {
+                "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                "input_id": "reviewed-a2a-return",
+                "payload_kind": "json",
+                "source_artifact_digest": ZERO,
+                "source_schema_ref": "runtime/schemas/external-codex-a2a-return.schema.json",
+                "source_schema_version": "abyss_stack_external_codex_a2a_return_v1",
+                "payload": data["a2a"],
+            }
+            envelope_digest = write_json(data["a2a_path"], envelope)
+            result = self.compile(data)
+            observed = result["runtime_state"]["runtime_a2a_return_ref"]["digest"]
+            self.assertEqual(observed, envelope_digest)
+            self.assertNotEqual(observed, envelope["source_artifact_digest"])
+
     def test_reviewed_a2a_schema_version_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -571,6 +672,27 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             write_json(data["request_path"], request)
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "effect ceiling"):
                 self.compile(data)
+
+    def test_read_only_effect_ceiling_is_admitted(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["child_scope"]["allowed_effects"] = ["read_only"]
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+            result = self.compile(data)
+            self.assertEqual(result["runtime_state"]["state"], "accepted")
+
+    def test_write_refuses_to_replace_an_existing_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "result.json"
+            output.write_text("preserve me\n", encoding="utf-8")
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "output must be a new file",
+            ):
+                COMPILER._write(output, {"replacement": True})
+            self.assertEqual(output.read_text(encoding="utf-8"), "preserve me\n")
 
     def test_runtime_profile_owner_and_builtin_subagent_drift_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

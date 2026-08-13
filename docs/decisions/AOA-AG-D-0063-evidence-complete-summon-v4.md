@@ -103,6 +103,22 @@ usage and runtime-profile branches, and the embedded canonical locator branch,
 retain their existing exact semantics. This narrows artifact admission only;
 it does not mint runtime, usage, stats, proof, or owner-acceptance authority.
 
+### 2026-08-13 - Bind the complete SDK request and derivative identity
+
+Closeout now compares the complete owner summon body and passport with the SDK
+request using the request compiler's single documented translation:
+`a2a_remote` or `either` becomes `external_cli`, and the duplicate nested
+output list is removed. Both admitted preparation effects, `read_only` and
+`repo_mutation`, remain available; no other effect is accepted.
+
+An actor-safe immutable-input envelope cannot by itself authenticate its
+embedded `source_artifact_digest`, so the closeout receipt addresses the exact
+envelope bytes instead of promoting that claim to stronger-owner identity.
+The CLI separates content-ref input (`--usage-observation-ref`) from standalone
+usage artifacts (`--usage-observation`) and refuses to replace an existing
+receipt. These changes close evidence substitution and destructive-rerun gaps
+without adding launch, selection, proof, or owner-acceptance authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without
