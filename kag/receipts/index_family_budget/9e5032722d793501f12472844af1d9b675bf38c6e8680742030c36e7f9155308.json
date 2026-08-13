@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6383768,
+  "allowed_tracked_bytes": 14983784,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 6383768,
+  "changed_generated_files": 162,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "9e5032722d793501f12472844af1d9b675bf38c6e8680742030c36e7f9155308",
+  "reason": "The independently reviewed closeout repair now authenticates the exact actor mandate, rejects stale same-identity continuation refs, validates actor-envelope schema provenance, and removes the retired standalone usage-artifact route; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14983784,
+  "tracked_bytes_max": 16777216
+}
