@@ -56,7 +56,7 @@ def valid_tool_chain() -> tuple[dict[str, object], dict[str, object]]:
 
 
 def valid_obligation_mandate_chain() -> tuple[
-    dict[str, object], dict[str, object], dict[str, object]
+    dict[str, object], dict[str, object], dict[str, object], dict[str, object]
 ]:
     goal_ref = {
         "object_id": "goal:exact",
@@ -67,14 +67,37 @@ def valid_obligation_mandate_chain() -> tuple[
     obligation = {
         "goal_ref": copy.deepcopy(goal_ref),
         "lifecycle_posture": "task-instance",
+        "domain_owner": "aoa-agents",
+        "duty": "Perform the exact bounded obligation.",
     }
     mandate = {
         "goal_ref": copy.deepcopy(goal_ref),
         "identity_posture": "task-instance",
         "continuity": {"posture": "task-instance"},
+        "domain_owner": "aoa-agents",
     }
     sdk_request = {"quest_passport": {"route_anchor": "goal:exact"}}
-    return obligation, mandate, sdk_request
+    binding = {
+        "continuation": {
+            "delegated_obligation": "Perform the exact bounded obligation."
+        }
+    }
+    return obligation, mandate, sdk_request, binding
+
+
+def valid_sdk_decision() -> tuple[dict[str, object], str]:
+    request_digest = "sha256:" + "2" * 64
+    return (
+        {
+            "schema_version": "urn:aoa-sdk:a2a:summon-result:v4",
+            "allowed": True,
+            "capability_execution_claimed": False,
+            "request_artifact_digest": request_digest,
+            "execution_surface": "a2a_remote",
+            "cohort_pattern": "pair",
+        },
+        request_digest,
+    )
 
 
 class CompileExternalExecutionRequestTests(unittest.TestCase):
@@ -91,28 +114,28 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
         cases = (
             (
                 "mandate goal",
-                lambda obligation, mandate, sdk_request: mandate[
+                lambda obligation, mandate, sdk_request, binding: mandate[
                     "goal_ref"
                 ].update({"object_id": "goal:other"}),
                 "mandate goal and originating obligation goal differs",
             ),
             (
                 "request route anchor",
-                lambda obligation, mandate, sdk_request: sdk_request[
+                lambda obligation, mandate, sdk_request, binding: sdk_request[
                     "quest_passport"
                 ].update({"route_anchor": "goal:other"}),
                 "SDK route anchor and originating obligation goal differs",
             ),
             (
                 "mandate identity posture",
-                lambda obligation, mandate, sdk_request: mandate.update(
+                lambda obligation, mandate, sdk_request, binding: mandate.update(
                     {"identity_posture": "persistent-office"}
                 ),
                 "mandate identity and obligation lifecycle posture differs",
             ),
             (
                 "mandate continuity posture",
-                lambda obligation, mandate, sdk_request: mandate[
+                lambda obligation, mandate, sdk_request, binding: mandate[
                     "continuity"
                 ].update({"posture": "persistent-office"}),
                 "mandate continuity and obligation lifecycle posture differs",
@@ -120,14 +143,71 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
         )
         for name, mutate, message in cases:
             with self.subTest(name=name):
-                obligation, mandate, sdk_request = valid_obligation_mandate_chain()
-                mutate(obligation, mandate, sdk_request)
+                obligation, mandate, sdk_request, binding = (
+                    valid_obligation_mandate_chain()
+                )
+                mutate(obligation, mandate, sdk_request, binding)
                 with self.assertRaisesRegex(
                     COMPILER.ExternalExecutionRequestError,
                     message,
                 ):
                     COMPILER._validate_obligation_mandate_chain(
-                        obligation, mandate, sdk_request
+                        obligation, mandate, sdk_request, binding
+                    )
+
+    def test_domain_owner_and_delegated_duty_substitutions_fail_before_launch(
+        self,
+    ) -> None:
+        cases = (
+            (
+                "domain owner",
+                lambda obligation, mandate, sdk_request, binding: mandate.update(
+                    {"domain_owner": "aoa-models"}
+                ),
+                "mandate and obligation domain owner differs",
+            ),
+            (
+                "delegated duty",
+                lambda obligation, mandate, sdk_request, binding: binding[
+                    "continuation"
+                ].update({"delegated_obligation": "Perform another duty."}),
+                "delegated and originating obligation duty differs",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name):
+                obligation, mandate, sdk_request, binding = (
+                    valid_obligation_mandate_chain()
+                )
+                mutate(obligation, mandate, sdk_request, binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionRequestError,
+                    message,
+                ):
+                    COMPILER._validate_obligation_mandate_chain(
+                        obligation, mandate, sdk_request, binding
+                    )
+
+    def test_sdk_decision_must_select_remote_surface_before_launch(self) -> None:
+        decision, request_digest = valid_sdk_decision()
+        COMPILER._validate_sdk_decision(
+            decision,
+            sdk_request_digest=request_digest,
+        )
+        for value in (None, "codex_local"):
+            with self.subTest(value=value):
+                candidate = copy.deepcopy(decision)
+                if value is None:
+                    candidate.pop("execution_surface")
+                else:
+                    candidate["execution_surface"] = value
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionRequestError,
+                    "does not select the remote execution surface",
+                ):
+                    COMPILER._validate_sdk_decision(
+                        candidate,
+                        sdk_request_digest=request_digest,
                     )
 
     def test_valid_permission_posture_binds_both_owner_effect_ceilings(self) -> None:

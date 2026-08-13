@@ -138,7 +138,9 @@ must equal the actor-mandate environment, its tool profile must name the same
 runtime profile, and it cannot inherit user configuration. The mandate goal
 and SDK quest-passport route anchor must retain the originating obligation
 goal, while mandate identity and continuity posture must retain the obligation
-lifecycle. A contradiction stops before launch;
+lifecycle. The mandate also retains the obligation domain owner, the
+continuation retains its exact duty, and the SDK decision must explicitly
+select `a2a_remote`. A contradiction stops before launch;
 the compiler does not select a narrower posture or rewrite owner authority.
 
 ## Passive result compilation
@@ -161,8 +163,9 @@ keys. Closeout also loads the exact agent-obligation-v1 and
 actor-mandate-v1 artifacts: the request authority limit and stop line must
 equal their owner ceilings, the mandate goal and quest-passport route anchor
 must equal the obligation goal, mandate identity and continuity posture must
-preserve the obligation lifecycle, the transfer holders must equal the return owner
-and mandate continuity identity, the SDK continuation must retain that same
+preserve the obligation lifecycle, and the mandate domain owner plus delegated
+continuation duty must equal the exact obligation. The transfer holders must
+equal the return owner and mandate continuity identity, the SDK continuation must retain that same
 concrete return-holder identity and digest rather than merely its repository,
 and the incarnation permission posture must
 satisfy the aoa-sdk cross-field invariants. The terminal runtime

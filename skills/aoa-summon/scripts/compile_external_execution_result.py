@@ -1321,6 +1321,15 @@ def _validate_mandate_chain(
         == mandate_identity_posture,
         "actor mandate lifecycle posture differs from the exact obligation",
     )
+    _require(
+        mandate.get("domain_owner") == obligation.get("domain_owner"),
+        "actor mandate domain owner differs from the exact obligation",
+    )
+    _require(
+        binding.get("continuation", {}).get("delegated_obligation")
+        == obligation.get("duty"),
+        "incarnation delegated obligation differs from the exact obligation duty",
+    )
     mandate_role_resolution_ref = _require_ref(
         mandate.get("role_resolution_ref"),
         label="actor mandate role resolution ref",
@@ -1741,6 +1750,10 @@ def _validate_sdk_chain(
     _require(
         sdk_decision.get("request_artifact_digest") == sdk_request_digest,
         "SDK summon decision names another summon request",
+    )
+    _require(
+        sdk_decision.get("execution_surface") == "a2a_remote",
+        "SDK summon decision does not select the remote execution surface",
     )
     _require(
         incarnation["sdk_summon_request_ref"]["digest"] == sdk_request_digest,

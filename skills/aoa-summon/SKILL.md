@@ -158,7 +158,9 @@ MCP ceilings to equal the actor-mandate environment, forbids inherited user
 configuration, and binds the tool profile to the same runtime-profile ref.
 It also preserves the originating obligation goal in the mandate and SDK
 route anchor, and preserves the obligation lifecycle in mandate identity and
-continuity posture.
+continuity posture. It preserves the obligation domain owner and exact duty in
+the mandate/continuation chain, and requires the SDK decision to select
+`a2a_remote` explicitly.
 Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 
@@ -177,8 +179,10 @@ role, fit, incarnation, runtime, A2A, and usage
 evidence as refs, and derives the four external handles from the supplied
 runtime evidence. The mandate goal and request route anchor must equal the
 exact obligation goal, and mandate identity plus continuity posture must
-preserve its lifecycle. The request authority limit and stop line must equal
-the exact obligation boundary and mandate stop line. Both responsibility holders
+preserve its lifecycle. The mandate domain owner and delegated continuation
+duty must remain equal to the exact obligation, and the SDK decision must
+select `a2a_remote`. The request authority limit and stop line must equal the
+exact obligation boundary and mandate stop line. Both responsibility holders
 must equal the selected return owner and mandate continuity identity, and the
 SDK continuation must retain the same concrete return-holder identity,
 digest, owner, and schema. The binding permission posture must satisfy the

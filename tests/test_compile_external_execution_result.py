@@ -71,6 +71,7 @@ def fixture(temp: Path) -> dict[str, object]:
         "allowed": True,
         "capability_execution_claimed": False,
         "request_artifact_digest": sdk_request_digest,
+        "execution_surface": "a2a_remote",
         "cohort_pattern": "solo",
     }
     sdk_decision_path = temp / "sdk-decision.json"
@@ -288,7 +289,7 @@ def fixture(temp: Path) -> dict[str, object]:
             "exact_child_identity": "incarnation:landing",
             "parent_objective_ref": provenance(task_local_dag_ref),
             "established_decision_refs": [provenance(sdk_decision_ref)],
-            "delegated_obligation": "Perform the bounded landing obligation.",
+            "delegated_obligation": "Perform one bounded landing obligation.",
             "delegation_reason": "The goal assigned a separate landing holder.",
             "owner_scope": ["aoa-agents", "aoa-sdk", "abyss-stack"],
             "immutable_input_refs": [
@@ -775,6 +776,37 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 with self.assertRaisesRegex(
                     COMPILER.ExternalExecutionResultError,
                     "cohort pattern",
+                ):
+                    self.compile(data)
+
+    def test_sdk_decision_must_select_the_remote_execution_surface(self) -> None:
+        for name, value in (("missing", None), ("local", "codex_local")):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                decision = copy.deepcopy(
+                    json.loads(data["sdk_decision_path"].read_text())
+                )
+                if value is None:
+                    decision.pop("execution_surface")
+                else:
+                    decision["execution_surface"] = value
+                decision_digest = write_json(data["sdk_decision_path"], decision)
+                request = copy.deepcopy(data["request"])
+                request["external_incarnation"]["sdk_summon_decision_ref"][
+                    "digest"
+                ] = decision_digest
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding["continuation"]["established_decision_refs"][0][
+                    "artifact_digest"
+                ] = decision_digest
+                rewrite_bound_chain(
+                    data,
+                    request=request,
+                    incarnation_binding=binding,
+                )
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "does not select the remote execution surface",
                 ):
                     self.compile(data)
 
@@ -1268,6 +1300,11 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 ),
                 "mandate lifecycle posture differs",
             ),
+            (
+                "domain owner",
+                lambda mandate: mandate.update({"domain_owner": "aoa-models"}),
+                "mandate domain owner differs",
+            ),
         )
         for name, mutate, message in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
@@ -1280,6 +1317,20 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     message,
                 ):
                     self.compile(data)
+
+    def test_continuation_delegated_duty_must_equal_the_exact_obligation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["continuation"]["delegated_obligation"] = (
+                "Perform an unrelated obligation."
+            )
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "delegated obligation differs from the exact obligation duty",
+            ):
+                self.compile(data)
 
     def test_request_route_anchor_must_retain_the_exact_obligation_goal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

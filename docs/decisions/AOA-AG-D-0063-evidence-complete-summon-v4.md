@@ -257,6 +257,11 @@ requires mandate identity plus continuity posture to retain the obligation
 lifecycle before it emits an executable request. This prevents a formed
 task-instance duty from being redirected or upgraded into a persistent office
 before the closeout compiler ever has a chance to reject its return.
+The next review extended that same principle: mandate domain owner and
+continuation delegated duty now equal the exact obligation on both passive
+request and closeout paths, while the SDK decision must explicitly select
+`a2a_remote`. An `either` request alone no longer proves that the SDK chose the
+remote surface for this incarnation.
 
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that

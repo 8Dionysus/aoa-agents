@@ -342,6 +342,7 @@ def _validate_obligation_mandate_chain(
     obligation: Mapping[str, Any],
     mandate: Mapping[str, Any],
     sdk_request: Mapping[str, Any],
+    binding: Mapping[str, Any],
 ) -> None:
     """Keep the formed obligation's goal and lifecycle exact before launch."""
 
@@ -386,6 +387,45 @@ def _validate_obligation_mandate_chain(
         lifecycle_posture,
         label="mandate continuity and obligation lifecycle posture",
     )
+    _require_equal(
+        mandate.get("domain_owner"),
+        obligation.get("domain_owner"),
+        label="mandate and obligation domain owner",
+    )
+    binding_continuation = binding.get("continuation")
+    if not isinstance(binding_continuation, Mapping):
+        raise ExternalExecutionRequestError("incarnation continuation is absent")
+    _require_equal(
+        binding_continuation.get("delegated_obligation"),
+        obligation.get("duty"),
+        label="delegated and originating obligation duty",
+    )
+
+
+def _validate_sdk_decision(
+    sdk_decision: Mapping[str, Any],
+    *,
+    sdk_request_digest: str,
+) -> None:
+    """Require the SDK to select the exact remote execution surface."""
+
+    if (
+        sdk_decision.get("schema_version")
+        != "urn:aoa-sdk:a2a:summon-result:v4"
+        or sdk_decision.get("allowed") is not True
+        or sdk_decision.get("capability_execution_claimed") is not False
+        or sdk_decision.get("request_artifact_digest") != sdk_request_digest
+    ):
+        raise ExternalExecutionRequestError("SDK summon decision is not admitted")
+    if sdk_decision.get("execution_surface") != "a2a_remote":
+        raise ExternalExecutionRequestError(
+            "SDK summon decision does not select the remote execution surface"
+        )
+    cohort_pattern = sdk_decision.get("cohort_pattern")
+    if not isinstance(cohort_pattern, str) or not cohort_pattern:
+        raise ExternalExecutionRequestError(
+            "SDK summon decision cohort pattern is absent"
+        )
 
 
 def compile_external_execution_request(
@@ -590,7 +630,7 @@ def compile_external_execution_request(
         raise ExternalExecutionRequestError(
             "SDK request must authorize an external A2A transport"
         )
-    _validate_obligation_mandate_chain(obligation, mandate, sdk_request)
+    _validate_obligation_mandate_chain(obligation, mandate, sdk_request, binding)
 
     run_plan_ref = binding.get("run_plan_ref")
     if (
@@ -613,6 +653,10 @@ def compile_external_execution_request(
         raise ExternalExecutionRequestError(
             "SDK decision is not one exact run-plan snapshot input"
         )
+    _validate_sdk_decision(
+        sdk_decision,
+        sdk_request_digest=digest_bytes(sdk_request_raw),
+    )
     sdk_decision_ref = _content_from_provenance(decision_matches[0])
 
     if task_local_dag.get("schema_version") != "aoa-task-local-dag-v2" or (
