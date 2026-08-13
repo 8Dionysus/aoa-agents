@@ -504,6 +504,37 @@ def fixture(temp: Path) -> dict[str, object]:
     runtime_path = temp / "runtime-result.json"
     runtime_digest = write_json(runtime_path, runtime)
 
+    reviewed_artifact_path = str(runtime_path.resolve())
+    review_outputs = ["independent_execution_review"]
+    review_audit_ref = f"abyss-stack:{reviewed_artifact_path}@{runtime_digest}"
+    review_request = {
+        "audit_refs": [review_audit_ref],
+        "expected_outputs": review_outputs,
+        "quest_passport": {
+            "control_mode": "codex_supervised",
+            "delegate_tier": "verifier",
+            "difficulty": "d2_slice",
+            "expected_artifacts": review_outputs,
+            "risk": "r0_readonly",
+            "route_anchor": runtime_digest,
+        },
+        "reviewed_artifact_path": reviewed_artifact_path,
+        "summon_request": {
+            "audit_refs": [review_audit_ref],
+            "child_agent_id": "incarnation:landing:independent-reviewer",
+            "desired_role": "reviewer",
+            "expected_outputs": review_outputs,
+            "parent_task_id": "actor-task-landing",
+            "require_progression": False,
+            "review_required": False,
+            "reviewed_artifact_path": reviewed_artifact_path,
+            "session_ref": "session:landing:independent-reviewer",
+            "transport_preference": "codex_local",
+        },
+    }
+    review_request_path = temp / "review-summon-request.json"
+    review_request_digest = write_json(review_request_path, review_request)
+
     a2a = {
         "schema_version": "abyss_stack_external_codex_a2a_return_v1",
         "reviewed": True,
@@ -511,19 +542,28 @@ def fixture(temp: Path) -> dict[str, object]:
         "reviewer_status": "completed",
         "reviewer_decision": "proceed",
         "review_outcome": "proceed",
-        "evidence_digests": {"writer_result": runtime_digest},
-        "reviewed_artifact_path": "runtime-result.json",
-        "summon_request_ref": incarnation["sdk_summon_request_ref"],
-        "review_summon_request_ref": ref(
-            "aoa-sdk", "review-request:landing", "urn:aoa-sdk:a2a:summon-request:v4"
-        ),
+        "evidence_digests": {
+            "writer_result": runtime_digest,
+            "summon_request": sdk_request_digest,
+            "review_summon_request": review_request_digest,
+        },
+        "reviewed_artifact_path": reviewed_artifact_path,
+        "summon_request_ref": provenance(incarnation["sdk_summon_request_ref"]),
+        "review_summon_request_ref": {
+            "artifact_digest": review_request_digest,
+            "artifact_ref": "runtime-studies/landing/reviewer/summon-request.json",
+            "owner_repo": "abyss-stack",
+            "schema_ref": "mechanics/checkpoint/parts/child-task-reentry/schemas/summon-request-v4.schema.json",
+            "schema_version": "urn:aoa-sdk:a2a:summon-request:v4",
+            "source_ref": runtime_digest,
+        },
         "remote_task": {
             "agent_id": "incarnation:landing",
             "context_id": "session:landing-review",
             "parent_task_id": "goal:landing",
             "task_id": "actor-task-landing",
             "state": "completed",
-            "artifact_refs": ["runtime-result.json"],
+            "artifact_refs": [reviewed_artifact_path],
             "returned_artifacts": outputs,
         },
     }
@@ -544,6 +584,8 @@ def fixture(temp: Path) -> dict[str, object]:
         "sdk_decision_path": sdk_decision_path,
         "runtime": runtime,
         "runtime_path": runtime_path,
+        "review_request": review_request,
+        "review_request_path": review_request_path,
         "a2a": a2a,
         "a2a_path": a2a_path,
         "runtime_profile_ref": runtime_profile_ref,
@@ -575,11 +617,24 @@ def rewrite_bound_chain(
     runtime = copy.deepcopy(data["runtime"])
     runtime["owner_admission_ref"]["artifact_digest"] = request_artifact_digest
     runtime_digest = write_json(data["runtime_path"], runtime)
+    review_request = copy.deepcopy(data["review_request"])
+    reviewed_path = review_request["reviewed_artifact_path"]
+    review_audit_ref = f"abyss-stack:{reviewed_path}@{runtime_digest}"
+    review_request["quest_passport"]["route_anchor"] = runtime_digest
+    review_request["audit_refs"] = [review_audit_ref]
+    review_request["summon_request"]["audit_refs"] = [review_audit_ref]
+    review_request_digest = write_json(
+        data["review_request_path"], review_request
+    )
     a2a = copy.deepcopy(data["a2a"])
     a2a["evidence_digests"]["writer_result"] = runtime_digest
+    a2a["evidence_digests"]["review_summon_request"] = review_request_digest
+    a2a["review_summon_request_ref"]["artifact_digest"] = review_request_digest
+    a2a["review_summon_request_ref"]["source_ref"] = runtime_digest
     write_json(data["a2a_path"], a2a)
     data["request"] = request
     data["runtime"] = runtime
+    data["review_request"] = review_request
     data["a2a"] = a2a
 
 
@@ -618,6 +673,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             sdk_summon_decision_path=data["sdk_decision_path"],
             runtime_result_path=data["runtime_path"],
             reviewed_a2a_return_path=data["a2a_path"],
+            review_summon_request_path=data["review_request_path"],
             runtime_profile_ref=data["runtime_profile_ref"],
         )
 
@@ -688,6 +744,82 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             write_json(data["sdk_decision_path"], decision)
             with self.assertRaisesRegex(
                 COMPILER.ExternalExecutionResultError, "SDK summon decision names"
+            ):
+                self.compile(data)
+
+    def test_sdk_decision_requires_an_explicit_cohort_pattern(self) -> None:
+        for name, value in (("missing", None), ("empty", "")):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                decision = copy.deepcopy(
+                    json.loads(data["sdk_decision_path"].read_text())
+                )
+                if value is None:
+                    decision.pop("cohort_pattern")
+                else:
+                    decision["cohort_pattern"] = value
+                decision_digest = write_json(data["sdk_decision_path"], decision)
+                request = copy.deepcopy(data["request"])
+                request["external_incarnation"]["sdk_summon_decision_ref"][
+                    "digest"
+                ] = decision_digest
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding["continuation"]["established_decision_refs"][0][
+                    "artifact_digest"
+                ] = decision_digest
+                rewrite_bound_chain(
+                    data,
+                    request=request,
+                    incarnation_binding=binding,
+                )
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "cohort pattern",
+                ):
+                    self.compile(data)
+
+    def test_review_request_must_bind_the_exact_reviewed_execution(self) -> None:
+        cases = (
+            ("reviewed path", "reviewed_artifact_path", "/tmp/unrelated-result.json"),
+            ("writer task", "parent_task_id", "actor-task-unrelated"),
+            ("route anchor", "route_anchor", "sha256:" + "7" * 64),
+        )
+        for name, field, value in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                review_request = copy.deepcopy(data["review_request"])
+                if field == "reviewed_artifact_path":
+                    review_request[field] = value
+                    review_request["summon_request"][field] = value
+                    audit_ref = (
+                        f"abyss-stack:{value}@"
+                        f"{data['a2a']['evidence_digests']['writer_result']}"
+                    )
+                    review_request["audit_refs"] = [audit_ref]
+                    review_request["summon_request"]["audit_refs"] = [audit_ref]
+                elif field == "parent_task_id":
+                    review_request["summon_request"][field] = value
+                else:
+                    review_request["quest_passport"][field] = value
+                review_digest = write_json(
+                    data["review_request_path"], review_request
+                )
+                a2a = copy.deepcopy(data["a2a"])
+                a2a["review_summon_request_ref"]["artifact_digest"] = review_digest
+                a2a["evidence_digests"]["review_summon_request"] = review_digest
+                write_json(data["a2a_path"], a2a)
+                with self.assertRaises(COMPILER.ExternalExecutionResultError):
+                    self.compile(data)
+
+    def test_review_request_ref_must_match_the_supplied_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["review_summon_request_ref"]["artifact_digest"] = ZERO
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "review request digest differs",
             ):
                 self.compile(data)
 
@@ -1286,6 +1418,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
                     reviewed_a2a_return_path=data["a2a_path"],
+                    review_summon_request_path=data["review_request_path"],
                     runtime_profile_ref=data["runtime_profile_ref"],
                     usage_pointer="/usage_observation/missing",
                 )
@@ -1310,6 +1443,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
                 reviewed_a2a_return_path=data["a2a_path"],
+                review_summon_request_path=data["review_request_path"],
                 runtime_profile_ref=data["runtime_profile_ref"],
                 usage_observation_ref=usage_ref,
             )
@@ -1360,6 +1494,8 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 str(root / "runtime.json"),
                 "--reviewed-a2a-return",
                 str(root / "a2a.json"),
+                "--review-summon-request",
+                str(root / "review-summon-request.json"),
                 "--runtime-profile-ref",
                 str(profile_ref_path),
                 "--usage-observation-ref",
@@ -1387,6 +1523,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(
                 compile_result.call_args.kwargs["mandate_path"],
                 root / "mandate.json",
+            )
+            self.assertEqual(
+                compile_result.call_args.kwargs["review_summon_request_path"],
+                root / "review-summon-request.json",
             )
             self.assertEqual(
                 compile_result.call_args.kwargs["obligation_path"],
@@ -1423,6 +1563,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
                         reviewed_a2a_return_path=data["a2a_path"],
+                        review_summon_request_path=data["review_request_path"],
                         runtime_profile_ref=data["runtime_profile_ref"],
                         usage_observation_ref=usage_ref,
                     )
@@ -1485,6 +1626,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
                         reviewed_a2a_return_path=data["a2a_path"],
+                        review_summon_request_path=data["review_request_path"],
                         runtime_profile_path=profile_path,
                     )
 
@@ -1518,6 +1660,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
                 reviewed_a2a_return_path=data["a2a_path"],
+                review_summon_request_path=data["review_request_path"],
                 runtime_profile_path=profile_path,
             )
             self.assertEqual(
@@ -1663,7 +1806,8 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 sdk_decision_digest
             )
             a2a = copy.deepcopy(data["a2a"])
-            a2a["summon_request_ref"]["digest"] = sdk_request_digest
+            a2a["summon_request_ref"]["artifact_digest"] = sdk_request_digest
+            a2a["evidence_digests"]["summon_request"] = sdk_request_digest
             data["a2a"] = a2a
             rewrite_bound_chain(data, request=request, incarnation_binding=binding)
 
@@ -1707,7 +1851,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             a2a = copy.deepcopy(data["a2a"])
-            a2a["summon_request_ref"]["object_id"] = "sdk-request:other"
+            a2a["summon_request_ref"]["artifact_ref"] = "sdk-request:other"
             write_json(data["a2a_path"], a2a)
             with self.assertRaisesRegex(
                 COMPILER.ExternalExecutionResultError,
@@ -1820,6 +1964,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
                     reviewed_a2a_return_path=data["a2a_path"],
+                    review_summon_request_path=data["review_request_path"],
                     runtime_profile_ref=data["runtime_profile_ref"],
                     usage_pointer="/usage_observation/status",
                 )

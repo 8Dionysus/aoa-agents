@@ -1651,7 +1651,7 @@ def _validate_sdk_chain(
     sdk_request_digest: str,
     sdk_decision: Mapping[str, Any],
     sdk_decision_digest: str,
-) -> None:
+) -> str:
     _require(
         sdk_request.get("schema_version")
         in {
@@ -1704,6 +1704,170 @@ def _validate_sdk_chain(
     _require(
         incarnation["sdk_summon_decision_ref"]["digest"] == sdk_decision_digest,
         "SDK summon decision digest differs from the incarnation ref",
+    )
+    return _require_string(
+        sdk_decision.get("cohort_pattern"),
+        "SDK summon decision cohort pattern",
+    )
+
+
+def _validate_sdk_a2a_request_ref(
+    value: Any,
+    *,
+    expected_ref: Mapping[str, Any],
+    expected_digest: str,
+) -> None:
+    """Bind a runtime A2A provenance ref to the exact SDK request bytes.
+
+    Historical synthetic fixtures used the owner-local compact content-ref
+    shape.  The real abyss-stack A2A return carries an aoa-sdk provenance ref.
+    Both representations must name the same artifact, schema, and digest.
+    """
+
+    if isinstance(value, Mapping) and "artifact_ref" in value:
+        provenance = _require_provenance(value, label="reviewed A2A summon request ref")
+        _require(
+            provenance["owner_repo"] == "aoa-sdk",
+            "reviewed A2A summon request ref owner drift",
+        )
+        _require(
+            provenance["schema_version"] == SDK_SUMMON_REQUEST_SCHEMA_VERSION,
+            "reviewed A2A summon request ref schema drift",
+        )
+        _require(
+            provenance["artifact_ref"] == expected_ref.get("object_id"),
+            "reviewed A2A return names another summon request ref",
+        )
+        _require(
+            provenance["artifact_digest"] == expected_digest,
+            "reviewed A2A return names another summon request digest",
+        )
+        return
+    compact = _require_ref(
+        value,
+        label="reviewed A2A summon request ref",
+        owner_repo="aoa-sdk",
+        schema_version=SDK_SUMMON_REQUEST_SCHEMA_VERSION,
+    )
+    _require(
+        compact == expected_ref and compact["digest"] == expected_digest,
+        "reviewed A2A return names another summon request ref",
+    )
+
+
+def _validate_review_request(
+    review_request: Mapping[str, Any],
+    *,
+    review_request_digest: str,
+    reviewed_return: Mapping[str, Any],
+    runtime: Mapping[str, Any],
+    runtime_ref: Mapping[str, Any],
+) -> None:
+    """Authenticate the independent-review request and its writer relation."""
+
+    _require(
+        review_request.get("schema_version")
+        in {None, SDK_SUMMON_REQUEST_SCHEMA_VERSION, "summon-request-v4"},
+        "review summon request schema is invalid",
+    )
+    review_ref = _require_provenance(
+        reviewed_return.get("review_summon_request_ref"),
+        label="reviewed A2A review request ref",
+    )
+    _require(
+        review_ref["owner_repo"] == "abyss-stack",
+        "reviewed A2A review request ref owner drift",
+    )
+    _require(
+        review_ref["schema_version"] == SDK_SUMMON_REQUEST_SCHEMA_VERSION,
+        "reviewed A2A review request ref schema drift",
+    )
+    _require(
+        review_ref["artifact_digest"] == review_request_digest,
+        "reviewed A2A review request digest differs from the supplied artifact",
+    )
+    _require(
+        review_ref["source_ref"] == runtime_ref["digest"],
+        "reviewed A2A review request is not sourced from the terminal runtime result",
+    )
+    evidence_digests = reviewed_return.get("evidence_digests")
+    _require(isinstance(evidence_digests, Mapping), "A2A evidence digests are absent")
+    _require(
+        evidence_digests.get("review_summon_request") == review_request_digest,
+        "A2A evidence names another review summon request",
+    )
+
+    summon = review_request.get("summon_request")
+    _require(isinstance(summon, Mapping), "review summon request body is absent")
+    reviewed_path = _require_string(
+        reviewed_return.get("reviewed_artifact_path"),
+        "reviewed A2A artifact path",
+    )
+    _require(
+        review_request.get("reviewed_artifact_path") == reviewed_path
+        and summon.get("reviewed_artifact_path") == reviewed_path,
+        "review summon request names another reviewed artifact",
+    )
+    _require(
+        summon.get("parent_task_id") == runtime.get("task_id"),
+        "review summon request names another writer task",
+    )
+    _require(
+        summon.get("desired_role") == "reviewer",
+        "review summon request does not select a reviewer",
+    )
+    _require(
+        summon.get("transport_preference") == "codex_local",
+        "review summon request does not use the admitted review transport",
+    )
+    _require(
+        summon.get("review_required") is False,
+        "review summon request recursively requires another review",
+    )
+    reviewer_id = _require_string(
+        summon.get("child_agent_id"), "review summon request child agent"
+    )
+    _require(
+        reviewer_id != runtime.get("incarnation_id"),
+        "review summon request reuses the writer incarnation",
+    )
+    _require_string(summon.get("session_ref"), "review summon request session ref")
+
+    passport = review_request.get("quest_passport")
+    _require(isinstance(passport, Mapping), "review quest passport is absent")
+    _require(
+        passport.get("route_anchor") == runtime_ref["digest"],
+        "review summon request route anchor differs from the terminal runtime result",
+    )
+    _require(
+        passport.get("delegate_tier") == "verifier"
+        and passport.get("risk") == "r0_readonly",
+        "review summon request is not an independent read-only verifier route",
+    )
+    expected_outputs = _require_string_list(
+        review_request.get("expected_outputs"),
+        label="review summon request expected outputs",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        summon.get("expected_outputs") == expected_outputs,
+        "review summon request output closure is inconsistent",
+    )
+    audit_refs = _require_string_list(
+        review_request.get("audit_refs"),
+        label="review summon request audit refs",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        summon.get("audit_refs") == audit_refs,
+        "review summon request audit closure is inconsistent",
+    )
+    exact_writer_ref = f"abyss-stack:{reviewed_path}@{runtime_ref['digest']}"
+    _require(
+        exact_writer_ref in audit_refs,
+        "review summon request does not audit the exact terminal runtime result",
     )
 
 
@@ -1831,6 +1995,7 @@ def _validate_reviewed_return(
     runtime: Mapping[str, Any],
     runtime_ref: Mapping[str, Any],
     *,
+    sdk_request_digest: str,
     reviewed_return_digest: str,
     reviewed_return_metadata: Mapping[str, Any],
 ) -> dict[str, str]:
@@ -1922,23 +2087,15 @@ def _validate_reviewed_return(
         wake.get("wake_parent") is True,
         "runtime validation event does not wake the parent",
     )
-    original_ref = reviewed_return.get("summon_request_ref")
     expected_ref = request["external_incarnation"]["sdk_summon_request_ref"]
-    original_ref = _require_ref(
-        original_ref,
-        label="reviewed A2A summon request ref",
-        owner_repo="aoa-sdk",
-        schema_version="urn:aoa-sdk:a2a:summon-request:v4",
+    _validate_sdk_a2a_request_ref(
+        reviewed_return.get("summon_request_ref"),
+        expected_ref=expected_ref,
+        expected_digest=sdk_request_digest,
     )
     _require(
-        original_ref == expected_ref,
-        "reviewed A2A return names another summon request ref",
-    )
-    _require_ref(
-        reviewed_return.get("review_summon_request_ref"),
-        label="reviewed A2A review request ref",
-        owner_repo="aoa-sdk",
-        schema_version="urn:aoa-sdk:a2a:summon-request:v4",
+        evidence_digests.get("summon_request") == sdk_request_digest,
+        "A2A evidence names another SDK summon request",
     )
     return {
         "object_id": str(remote_task["task_id"]),
@@ -2017,6 +2174,7 @@ def compile_external_execution_result(
     sdk_summon_decision_path: Path,
     runtime_result_path: Path,
     reviewed_a2a_return_path: Path,
+    review_summon_request_path: Path,
     runtime_profile_ref: Mapping[str, Any] | None = None,
     runtime_profile_path: Path | None = None,
     usage_pointer: str = "/usage_observation",
@@ -2091,8 +2249,13 @@ def compile_external_execution_result(
     _a2a_raw, reviewed_return, reviewed_return_digest, reviewed_return_metadata = (
         _load_with_metadata(reviewed_a2a_return_path, label="reviewed A2A return")
     )
+    _review_request_raw, review_request, review_request_digest = _load(
+        review_summon_request_path,
+        label="review summon request",
+        expected_envelope_schema_version=SDK_SUMMON_REQUEST_SCHEMA_VERSION,
+    )
     incarnation = _validate_external_request(request)
-    _validate_sdk_chain(
+    cohort_pattern = _validate_sdk_chain(
         request,
         incarnation,
         sdk_request,
@@ -2117,8 +2280,16 @@ def compile_external_execution_result(
         request,
         runtime,
         runtime_ref,
+        sdk_request_digest=sdk_request_digest,
         reviewed_return_digest=reviewed_return_digest,
         reviewed_return_metadata=reviewed_return_metadata,
+    )
+    _validate_review_request(
+        review_request,
+        review_request_digest=review_request_digest,
+        reviewed_return=reviewed_return,
+        runtime=runtime,
+        runtime_ref=runtime_ref,
     )
     profile_ref = _runtime_profile_ref(
         runtime_profile_ref=runtime_profile_ref,
@@ -2151,7 +2322,7 @@ def compile_external_execution_result(
         "allowed": True,
         "lane": "external_cli_reviewed",
         "execution_surface": incarnation["runtime_interface"],
-        "cohort_pattern": sdk_decision.get("cohort_pattern") or "solo",
+        "cohort_pattern": cohort_pattern,
         "closeout_required": True,
         "decision_state": "allowed",
         "binding": {
@@ -2283,6 +2454,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--sdk-summon-decision", type=Path, required=True)
     result.add_argument("--runtime-result", type=Path, required=True)
     result.add_argument("--reviewed-a2a-return", type=Path, required=True)
+    result.add_argument("--review-summon-request", type=Path, required=True)
     profile = result.add_mutually_exclusive_group(required=True)
     profile.add_argument("--runtime-profile", dest="runtime_profile_path", type=Path)
     profile.add_argument(
@@ -2316,6 +2488,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             sdk_summon_decision_path=args.sdk_summon_decision,
             runtime_result_path=args.runtime_result,
             reviewed_a2a_return_path=args.reviewed_a2a_return,
+            review_summon_request_path=args.review_summon_request,
             runtime_profile_ref=profile_ref,
             runtime_profile_path=args.runtime_profile_path,
             usage_pointer=args.usage_pointer,

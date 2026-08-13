@@ -163,8 +163,9 @@ After a runtime has already returned, `scripts/compile_external_execution_result
 may compile one `summon-result-v4` from the exact owner request, SDK request and
 decision, exact agent-obligation-v1, actor-mandate-v1, and
 incarnation-binding-v2 artifacts, terminal
-`abyss-stack` result, runtime-profile ref, and reviewed A2A return. It is a
-passive closeout adapter:
+`abyss-stack` result, runtime-profile ref, reviewed A2A return, and the exact
+review summon-request artifact named by that return. It is a passive closeout
+adapter:
 it verifies the immutable request
 digest and schema, requires the complete owner summon body and passport to be
 the SDK request with only the documented `a2a_remote` or `either` to
@@ -179,7 +180,12 @@ reviewed return must carry runtime-owned A2A schema
 provenance, bind its reviewed writer-result digest to the exact terminal
 runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly
 to the terminal runtime `task_id` and `incarnation_id`, and be paired with the canonical
-`result.validated`/`validated-completion` wake event. An embedded usage
+`result.validated`/`validated-completion` wake event. Its independently loaded
+review request must have the exact returned digest, source itself from that
+terminal result, route a distinct read-only verifier over the same writer
+path/task/digest, and retain the same audit and output closures. The SDK
+decision must carry its actual nonempty cohort pattern; closeout never invents
+a local fallback. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer
 and must retain the runtime-owned observation shape: `complete` has no gaps,
 while `partial` has at least one canonical gap. An optional

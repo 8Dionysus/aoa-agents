@@ -238,6 +238,15 @@ the same provenance object. A wider host profile therefore cannot run merely
 because later closeout would reject its return. This authenticates the already
 selected environment and does not grant tool or runtime authority.
 
+The following exact-head review found that closeout accepted a merely
+well-shaped `review_summon_request_ref` without resolving the request that
+authorized the independent review. Closeout now requires that exact artifact
+and binds its raw digest, terminal-result source, writer path and task, route
+anchor, audit closure, distinct read-only verifier, and review outputs to the
+same execution. It also requires the allowed SDK decision to supply a nonempty
+`cohort_pattern`; the passive adapter preserves that topology and never invents
+a local `solo` fallback.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

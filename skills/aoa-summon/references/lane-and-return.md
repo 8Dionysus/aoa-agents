@@ -146,7 +146,8 @@ the compiler does not select a narrower posture or rewrite owner authority.
 decision named by the summon request, the exact agent-obligation-v1,
 actor-mandate-v1, and incarnation-binding-v2 artifacts, an exact
 runtime-profile-v2 ref, and a reviewed
-`abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`. It
+`abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`,
+plus the exact review summon request named by that return. It
 first admits the owner request against the generated
 `summon-request-v4` schema, then verifies the semantic digest, the SDK request
 digest recorded by the SDK decision, the complete owner summon body and
@@ -170,6 +171,11 @@ reference the exact terminal runtime-result digest, bind
 `remote_task.task_id` and `remote_task.agent_id` exactly to the terminal
 runtime `task_id` and `incarnation_id`, and agree with the runtime's canonical
 `result.validated`/`validated-completion` wake event.
+The review request digest, runtime-result source ref, writer path, writer task,
+route anchor, verifier identity, read-only risk, audit closure, and review
+output closure must all describe this exact execution. The admitted SDK
+decision must provide its own nonempty cohort pattern; this adapter does not
+default missing SDK topology to `solo`.
 Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence fails
 closed.
 
