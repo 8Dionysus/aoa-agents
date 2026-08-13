@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 5434289,
+  "allowed_tracked_bytes": 14881255,
+  "approved_by": "repository-owner",
+  "base_ref": "6eb9b27709fdab241423bf657dfe39fa85e4b159",
+  "changed_generated_bytes": 5434289,
+  "changed_generated_files": 141,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b2e31a560e2d427938446114b77810e8e7a61a2d913203438ebd7d665422346f",
+  "reason": "Independent external review repaired transport admission, A2A payload schema binding, and exact SDK request-ref binding; portable content-address rebinding deterministically expands the generated delta while total tracked KAG bytes remain below the repository cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 14881255,
+  "tracked_bytes_max": 16777216
+}
