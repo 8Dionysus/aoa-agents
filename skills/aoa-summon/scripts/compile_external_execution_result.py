@@ -506,8 +506,8 @@ def _validate_sdk_chain(
     sdk_summon = sdk_request.get("summon_request")
     _require(isinstance(sdk_summon, Mapping), "SDK summon request body is absent")
     _require(
-        sdk_summon.get("transport_preference") in {"a2a_remote", "either", "external_cli"},
-        "SDK summon request does not authorize an external transport",
+        sdk_summon.get("transport_preference") in {"a2a_remote", "either"},
+        "SDK summon request does not authorize the external A2A transport",
     )
     expected_owner_summon = dict(sdk_summon)
     expected_owner_summon.pop("expected_outputs", None)
@@ -623,6 +623,10 @@ def _validate_reviewed_return(
     reviewed_return_metadata: Mapping[str, Any],
 ) -> dict[str, str]:
     _require(
+        reviewed_return.get("schema_version") == A2A_RETURN_SCHEMA_VERSION,
+        "A2A return payload schema/version is invalid",
+    )
+    _require(
         reviewed_return_metadata.get("source_schema_version")
         == A2A_RETURN_SCHEMA_VERSION,
         "A2A return schema/version is invalid",
@@ -702,8 +706,8 @@ def _validate_reviewed_return(
         schema_version="urn:aoa-sdk:a2a:summon-request:v4",
     )
     _require(
-        original_ref["digest"] == expected_ref.get("digest"),
-        "reviewed A2A return names another summon request",
+        original_ref == expected_ref,
+        "reviewed A2A return names another summon request ref",
     )
     _require_ref(
         reviewed_return.get("review_summon_request_ref"),

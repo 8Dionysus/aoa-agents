@@ -119,6 +119,14 @@ usage artifacts (`--usage-observation`) and refuses to replace an existing
 receipt. These changes close evidence substitution and destructive-rerun gaps
 without adding launch, selection, proof, or owner-acceptance authority.
 
+Independent external review then exposed three remaining substitutions. The
+SDK input must still say `a2a_remote` or `either`; accepting an already
+translated `external_cli` value would bypass the single request-compiler
+translation. An actor envelope's declared source schema must agree with the
+unwrapped A2A payload's own schema version. Finally, the reviewed return must
+bind the complete original SDK summon-request ref rather than a matching digest
+alone. Closeout now fails closed on all three relations.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

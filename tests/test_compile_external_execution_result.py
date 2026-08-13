@@ -269,6 +269,29 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_sdk_request_cannot_arrive_pretranslated_to_external_cli(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            sdk_request = copy.deepcopy(data["sdk_request"])
+            sdk_request["summon_request"]["transport_preference"] = "external_cli"
+            sdk_digest = write_json(data["sdk_request_path"], sdk_request)
+
+            decision = json.loads(data["sdk_decision_path"].read_text())
+            decision["request_artifact_digest"] = sdk_digest
+            decision_digest = write_json(data["sdk_decision_path"], decision)
+
+            request = copy.deepcopy(data["request"])
+            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = sdk_digest
+            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = decision_digest
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "external A2A transport",
+            ):
+                self.compile(data)
+
     def test_owner_passport_must_match_the_sdk_request(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -571,6 +594,28 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(observed, envelope_digest)
             self.assertNotEqual(observed, envelope["source_artifact_digest"])
 
+    def test_actor_envelope_cannot_substitute_the_payload_schema(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            payload = copy.deepcopy(data["a2a"])
+            payload["schema_version"] = "abyss_stack_external_codex_a2a_return_v0"
+            envelope = {
+                "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                "input_id": "reviewed-a2a-return",
+                "payload_kind": "json",
+                "source_artifact_digest": ZERO,
+                "source_schema_ref": "runtime/schemas/external-codex-a2a-return.schema.json",
+                "source_schema_version": "abyss_stack_external_codex_a2a_return_v1",
+                "payload": payload,
+            }
+            write_json(data["a2a_path"], envelope)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "payload schema/version",
+            ):
+                self.compile(data)
+
     def test_reviewed_a2a_schema_version_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -578,6 +623,18 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a["schema_version"] = "abyss_stack_external_codex_a2a_return_v0"
             write_json(data["a2a_path"], a2a)
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "schema/version"):
+                self.compile(data)
+
+    def test_reviewed_a2a_summon_ref_requires_the_complete_reference(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["summon_request_ref"]["object_id"] = "sdk-request:other"
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "another summon request ref",
+            ):
                 self.compile(data)
 
     def test_reviewed_a2a_requires_runtime_validated_event(self) -> None:
