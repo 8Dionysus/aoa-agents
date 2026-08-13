@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -109,6 +110,85 @@ def valid_sdk_decision() -> tuple[dict[str, object], str]:
 
 
 class CompileExternalExecutionRequestTests(unittest.TestCase):
+    def test_run_plan_requires_pinned_full_schema_and_fresh_digests(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schema_path = Path(directory) / "run-plan.schema.json"
+            schema = {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": False,
+                "properties": {
+                    "schema_version": {"const": "aoa_control_plane_v1"},
+                    "plan_id": {"type": "string", "minLength": 1},
+                    "snapshot": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "source_refs": {"type": "array"},
+                            "snapshot_digest": {"type": "string"},
+                        },
+                        "required": ["source_refs", "snapshot_digest"],
+                    },
+                    "plan_digest": {"type": "string"},
+                },
+                "required": [
+                    "schema_version",
+                    "plan_id",
+                    "snapshot",
+                    "plan_digest",
+                ],
+            }
+            schema_path.write_text(json.dumps(schema), encoding="utf-8")
+            plan = {
+                "schema_version": "aoa_control_plane_v1",
+                "plan_id": "run-plan:exact",
+                "snapshot": {
+                    "source_refs": [{"owner_repo": "aoa-sdk"}],
+                    "snapshot_digest": "",
+                },
+                "plan_digest": "",
+            }
+            plan["snapshot"]["snapshot_digest"] = (
+                COMPILER.sdk_semantic_excluding_digest(
+                    plan["snapshot"], "snapshot_digest"
+                )
+            )
+            plan["plan_digest"] = COMPILER.sdk_semantic_excluding_digest(
+                plan, "plan_digest"
+            )
+
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionRequestError,
+                "differs from the pinned owner contract",
+            ):
+                COMPILER._validate_sdk_run_plan_artifact(
+                    plan,
+                    schema_path=schema_path,
+                )
+
+            pinned_digest = COMPILER.digest_bytes(COMPILER.canonical_bytes(schema))
+            with mock.patch.object(
+                COMPILER,
+                "SDK_RUN_PLAN_SCHEMA_DIGEST",
+                pinned_digest,
+            ):
+                COMPILER._validate_sdk_run_plan_artifact(
+                    plan,
+                    schema_path=schema_path,
+                )
+                stale = copy.deepcopy(plan)
+                stale["snapshot"]["source_refs"].append(
+                    {"owner_repo": "different-owner"}
+                )
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionRequestError,
+                    "snapshot semantic digest mismatch",
+                ):
+                    COMPILER._validate_sdk_run_plan_artifact(
+                        stale,
+                        schema_path=schema_path,
+                    )
+
     def test_incarnation_binding_requires_full_sdk_shape_and_fresh_digest(
         self,
     ) -> None:

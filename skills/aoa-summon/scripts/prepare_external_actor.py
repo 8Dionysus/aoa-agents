@@ -847,6 +847,8 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         checkpoint_owner=dag_ref, rollback_owner=workspace_ref, closeout_owner=compiler_ref, provenance=compiler_ref,
         capability_refs=(summon_capability_ref,),
     )
+    run_plan_schema_path = output_dir / "sdk-run-plan.schema.json"
+    _write(run_plan_schema_path, cp.RunPlan.model_json_schema())
     run_plan_path = output_dir / "run-plan.json"
     _write(run_plan_path, plan.model_dump(mode="json"))
     wake_conditions = (
@@ -912,6 +914,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         model_fit_projection_path=projection_path, task_local_dag_path=dag_path, incarnation_binding_path=binding_path,
         incarnation_binding_schema_path=sdk_root / "mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json",
         sdk_summon_request_path=sdk_request_path, sdk_summon_decision_path=sdk_decision_path, run_plan_path=run_plan_path,
+        run_plan_schema_path=run_plan_schema_path,
         runtime_launch_path=runtime_launch_path, runtime_task_path=task_path, responsibility_transfer_path=transfer_path,
         domain_procedure_paths=domain_paths, return_event_schema_path=release_root / "runtime/schemas/external-codex-event.schema.json",
     )
@@ -923,6 +926,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
             ("obligation", obligation_path), ("role_resolution", role_path), ("mandate", mandate_path), ("model_fit_query_result", fit_path),
             ("task_local_dag", dag_path), ("responsibility_transfer", transfer_path), ("sdk_summon_request", sdk_request_path),
             ("sdk_summon_decision", sdk_decision_path), ("runtime_task", task_path), ("run_plan", run_plan_path),
+            ("run_plan_schema", run_plan_schema_path),
             ("incarnation_binding", binding_path), ("launch_manifest", launch_manifest_path), ("runtime_launch", runtime_launch_path),
             ("summon_request", final_request_path),
         )},

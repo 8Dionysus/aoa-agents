@@ -145,7 +145,10 @@ obligation holder, and the SDK decision must explicitly
 select `a2a_remote`. The supplied incarnation binding must pass the complete
 aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
 subset relation is considered. The schema bytes are pinned to the reviewed
-aoa-sdk owner artifact rather than trusted by `$id` or caller path. A contradiction stops before launch;
+aoa-sdk owner artifact rather than trusted by `$id` or caller path. The run
+plan also passes the complete generated SDK `RunPlan` schema pinned by
+canonical content, and retains fresh SDK-canonical snapshot and plan digests
+before any snapshot input is consulted. A contradiction stops before launch;
 the compiler does not select a narrower posture or rewrite owner authority.
 
 ## Passive result compilation
@@ -154,7 +157,8 @@ the compiler does not select a narrower posture or rewrite owner authority.
 `external_cli_reviewed` lane. It accepts only a terminal
 `abyss_stack_external_codex_result_v2`, the exact SDK request and transport
 decision named by the summon request, the exact agent-obligation-v1,
-actor-mandate-v1, and incarnation-binding-v2 artifacts, an exact
+actor-mandate-v1, aoa-role-resolution-v1, and incarnation-binding-v2
+artifacts, an exact
 runtime-profile-v2 ref, and a reviewed
 `abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`,
 plus the exact review summon request named by that return. It
@@ -171,7 +175,8 @@ must equal the obligation goal, mandate identity and continuity posture must
 preserve the obligation lifecycle, and the mandate domain owner plus delegated
 continuation duty must equal the exact obligation. The mandate stop line must
 equal the obligation stop line and its model-fit relation authority must equal
-the current obligation holder. The transfer holders must
+the current obligation holder. Its complete role binding must equal the
+independently loaded exact role-resolution artifact. The transfer holders must
 equal the return owner and mandate continuity identity, the SDK continuation must retain that same
 concrete return-holder identity and digest rather than merely its repository,
 and the incarnation permission posture must

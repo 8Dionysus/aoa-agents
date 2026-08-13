@@ -24,6 +24,9 @@ ZERO_DIGEST = "sha256:" + "0" * 64
 SDK_BINDING_V2_SCHEMA_DIGEST = (
     "sha256:e62e4b27fcb8d76ad80e1f7b9e66b510d8e076de77c1714988daac4d98deb529"
 )
+SDK_RUN_PLAN_SCHEMA_DIGEST = (
+    "sha256:cb2f8f1aa82d23e4766ae58b67f7f8648569c5f9e5057e479ac172445b132eb5"
+)
 
 
 class ExternalExecutionRequestError(ValueError):
@@ -511,6 +514,48 @@ def _validate_incarnation_binding_semantic_digest(
         )
 
 
+def _validate_sdk_run_plan_artifact(
+    run_plan: dict[str, Any],
+    *,
+    schema_path: Path,
+) -> None:
+    """Admit the complete SDK plan contract and both canonical digests."""
+
+    try:
+        schema = json.loads(schema_path.resolve(strict=True).read_bytes())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ExternalExecutionRequestError(
+            f"SDK run plan schema is unavailable: {schema_path}"
+        ) from exc
+    if digest_bytes(canonical_bytes(schema)) != SDK_RUN_PLAN_SCHEMA_DIGEST:
+        raise ExternalExecutionRequestError(
+            "SDK run plan schema differs from the pinned owner contract"
+        )
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(run_plan),
+        key=lambda item: tuple(str(part) for part in item.absolute_path),
+    )
+    if errors:
+        path = ".".join(str(part) for part in errors[0].absolute_path)
+        where = f" at {path}" if path else ""
+        raise ExternalExecutionRequestError(
+            f"SDK run plan violates the pinned owner contract{where}: "
+            f"{errors[0].message}"
+        )
+    snapshot = run_plan.get("snapshot")
+    if not isinstance(snapshot, Mapping) or snapshot.get(
+        "snapshot_digest"
+    ) != sdk_semantic_excluding_digest(snapshot, "snapshot_digest"):
+        raise ExternalExecutionRequestError(
+            "SDK run plan snapshot semantic digest mismatch"
+        )
+    if run_plan.get("plan_digest") != sdk_semantic_excluding_digest(
+        run_plan,
+        "plan_digest",
+    ):
+        raise ExternalExecutionRequestError("SDK run plan semantic digest mismatch")
+
+
 def compile_external_execution_request(
     *,
     request_ref: str,
@@ -527,6 +572,7 @@ def compile_external_execution_request(
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
     run_plan_path: Path,
+    run_plan_schema_path: Path,
     runtime_launch_path: Path,
     runtime_task_path: Path,
     responsibility_transfer_path: Path,
@@ -588,6 +634,10 @@ def compile_external_execution_request(
         binding,
         schema_path=incarnation_binding_schema_path,
     )
+    _validate_sdk_run_plan_artifact(
+        run_plan,
+        schema_path=run_plan_schema_path,
+    )
 
     obligation_ref = _semantic_ref(
         obligation,
@@ -636,6 +686,8 @@ def compile_external_execution_request(
         label="mandate role identity",
     )
     for field in (
+        "specialization_id",
+        "tier_id",
         "base_role_ref",
         "specialization_ref",
         "tier_ref",
@@ -993,6 +1045,7 @@ def parser() -> argparse.ArgumentParser:
         "sdk-summon-request",
         "sdk-summon-decision",
         "run-plan",
+        "run-plan-schema",
         "runtime-launch",
         "runtime-task",
         "responsibility-transfer",
@@ -1022,6 +1075,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,
             run_plan_path=args.run_plan,
+            run_plan_schema_path=args.run_plan_schema,
             runtime_launch_path=args.runtime_launch,
             runtime_task_path=args.runtime_task,
             responsibility_transfer_path=args.responsibility_transfer,

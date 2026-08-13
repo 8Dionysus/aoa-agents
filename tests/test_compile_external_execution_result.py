@@ -137,8 +137,34 @@ def fixture(temp: Path) -> dict[str, object]:
         "source_ref": "0" * 40,
         "artifact_digest": ZERO,
         "schema_ref": "schemas/agent-profile.schema.json",
-        "schema_version": "agent_profile_v1",
+        "schema_version": "aoa_agent_profile_v1",
     }
+    role_resolution = {
+        "schema_version": "aoa_role_resolution_v1",
+        "resolution_id": "role-resolution:coder:executor",
+        "owner_repo": "aoa-agents",
+        "owner_source_ref": "0" * 40,
+        "role_id": "coder",
+        "base_role_ref": role_provenance,
+        "specialization_id": None,
+        "specialization_ref": None,
+        "tier_id": "executor",
+        "tier_ref": role_provenance,
+        "capability_pack_refs": [],
+        "selection_authority": {
+            "semantic_selection_performed": False,
+            "model_selection_performed": False,
+            "runtime_activation_performed": False,
+        },
+        "resolution_digest": ZERO,
+    }
+    role_resolution["resolution_digest"] = COMPILER.semantic_self_digest(
+        role_resolution,
+        "resolution_digest",
+    )
+    role_resolution_ref["digest"] = role_resolution["resolution_digest"]
+    role_resolution_path = temp / "role-resolution.json"
+    write_json(role_resolution_path, role_resolution)
     obligation = {
         "schema_version": "agent-obligation-v1",
         "obligation_id": "obligation:landing",
@@ -580,6 +606,8 @@ def fixture(temp: Path) -> dict[str, object]:
         "obligation_path": obligation_path,
         "mandate": mandate,
         "mandate_path": mandate_path,
+        "role_resolution": role_resolution,
+        "role_resolution_path": role_resolution_path,
         "sdk_request": sdk_request,
         "sdk_request_path": sdk_request_path,
         "sdk_decision_path": sdk_decision_path,
@@ -670,6 +698,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             incarnation_binding_path=data["incarnation_binding_path"],
             obligation_path=data["obligation_path"],
             mandate_path=data["mandate_path"],
+            role_resolution_path=data["role_resolution_path"],
             sdk_summon_request_path=data["sdk_request_path"],
             sdk_summon_decision_path=data["sdk_decision_path"],
             runtime_result_path=data["runtime_path"],
@@ -1220,6 +1249,22 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_recomputed_mandate_cannot_substitute_the_resolved_role(self) -> None:
+        for field, value in (
+            ("specialization_id", "landing-specialist"),
+            ("tier_id", "reviewer"),
+        ):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                mandate = copy.deepcopy(data["mandate"])
+                mandate["role_binding"][field] = value
+                rewrite_mandate_chain(data, mandate)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    f"role {field} differs from the exact role resolution",
+                ):
+                    self.compile(data)
+
     def test_actor_mandate_must_authorize_the_exact_incarnation_chain(self) -> None:
         cases = (
             (
@@ -1359,6 +1404,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 COMPILER._validate_mandate_chain(
                     data["obligation"],
                     data["mandate"],
+                    data["role_resolution"],
                     binding=data["incarnation_binding"],
                     request=request,
                     incarnation=request["external_incarnation"],
@@ -1524,6 +1570,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     incarnation_binding_path=data["incarnation_binding_path"],
                     obligation_path=data["obligation_path"],
                     mandate_path=data["mandate_path"],
+                    role_resolution_path=data["role_resolution_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
@@ -1549,6 +1596,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 incarnation_binding_path=data["incarnation_binding_path"],
                 obligation_path=data["obligation_path"],
                 mandate_path=data["mandate_path"],
+                role_resolution_path=data["role_resolution_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -1596,6 +1644,8 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 str(root / "obligation.json"),
                 "--mandate",
                 str(root / "mandate.json"),
+                "--role-resolution",
+                str(root / "role-resolution.json"),
                 "--sdk-summon-request",
                 str(root / "sdk-request.json"),
                 "--sdk-summon-decision",
@@ -1669,6 +1719,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                         incarnation_binding_path=data["incarnation_binding_path"],
                         obligation_path=data["obligation_path"],
                         mandate_path=data["mandate_path"],
+                        role_resolution_path=data["role_resolution_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -1732,6 +1783,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                         incarnation_binding_path=data["incarnation_binding_path"],
                         obligation_path=data["obligation_path"],
                         mandate_path=data["mandate_path"],
+                        role_resolution_path=data["role_resolution_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -1766,6 +1818,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 incarnation_binding_path=data["incarnation_binding_path"],
                 obligation_path=data["obligation_path"],
                 mandate_path=data["mandate_path"],
+                role_resolution_path=data["role_resolution_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -2070,6 +2123,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     incarnation_binding_path=data["incarnation_binding_path"],
                     obligation_path=data["obligation_path"],
                     mandate_path=data["mandate_path"],
+                    role_resolution_path=data["role_resolution_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],

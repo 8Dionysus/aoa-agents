@@ -34,11 +34,18 @@ OBLIGATION_SCHEMA = (
     / "references"
     / "agent-obligation-v1.schema.json"
 )
+ROLE_RESOLUTION_SCHEMA = (
+    SUMMON_ROOT.parent
+    / "aoa-agents-skills"
+    / "references"
+    / "role-resolution-v1.schema.json"
+)
 ZERO_DIGEST = "sha256:" + "0" * 64
 SUMMON_REQUEST_SCHEMA_VERSION = "summon-request-v4"
 INCARNATION_BINDING_SCHEMA_VERSION = "aoa_agent_incarnation_binding_v2"
 MANDATE_SCHEMA_VERSION = "actor-mandate-v1"
 OBLIGATION_SCHEMA_VERSION = "agent-obligation-v1"
+ROLE_RESOLUTION_SCHEMA_VERSION = "aoa_role_resolution_v1"
 SDK_SUMMON_REQUEST_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-request:v4"
 SDK_SUMMON_DECISION_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-result:v4"
 RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
@@ -1257,6 +1264,7 @@ def _validate_incarnation_binding(
 def _validate_mandate_chain(
     obligation: Mapping[str, Any],
     mandate: Mapping[str, Any],
+    role_resolution: Mapping[str, Any],
     *,
     binding: Mapping[str, Any],
     request: Mapping[str, Any],
@@ -1358,17 +1366,45 @@ def _validate_mandate_chain(
         owner_repo="aoa-agents",
         schema_version="aoa_role_resolution_v1",
     )
+    exact_role_resolution_ref = _require_ref(
+        {
+            "object_id": role_resolution.get("resolution_id"),
+            "owner_repo": "aoa-agents",
+            "schema_version": role_resolution.get("schema_version"),
+            "digest": role_resolution.get("resolution_digest"),
+        },
+        label="exact role resolution ref",
+        owner_repo="aoa-agents",
+        schema_version="aoa_role_resolution_v1",
+    )
     _require(
-        mandate_role_resolution_ref == request_role_resolution_ref,
+        mandate_role_resolution_ref
+        == request_role_resolution_ref
+        == exact_role_resolution_ref,
         "actor mandate role resolution differs from the request incarnation",
     )
     role_binding = mandate.get("role_binding")
     _require(isinstance(role_binding, Mapping), "actor mandate role binding is absent")
     selected_role = request.get("summon_request", {}).get("desired_role")
     _require(
-        role_binding.get("role_id") == binding.get("role_id") == selected_role,
+        role_binding.get("role_id")
+        == role_resolution.get("role_id")
+        == binding.get("role_id")
+        == selected_role,
         "actor mandate role binding differs from the selected incarnation role",
     )
+    for field in (
+        "specialization_id",
+        "tier_id",
+        "base_role_ref",
+        "specialization_ref",
+        "tier_ref",
+        "capability_pack_refs",
+    ):
+        _require(
+            role_binding.get(field) == role_resolution.get(field),
+            f"actor mandate role {field} differs from the exact role resolution",
+        )
     mandate_procedure_values = mandate.get("domain_procedure_refs")
     request_procedure_values = incarnation.get("domain_procedure_refs")
     _require(
@@ -2254,6 +2290,7 @@ def compile_external_execution_result(
     incarnation_binding_path: Path,
     obligation_path: Path,
     mandate_path: Path,
+    role_resolution_path: Path,
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
     runtime_result_path: Path,
@@ -2303,6 +2340,21 @@ def compile_external_execution_result(
         mandate.get("mandate_digest")
         == semantic_self_digest(mandate, "mandate_digest"),
         "actor mandate semantic digest mismatch",
+    )
+    _role_resolution_raw, role_resolution, _role_resolution_artifact_digest = _load(
+        role_resolution_path,
+        label="role resolution",
+        expected_envelope_schema_version=ROLE_RESOLUTION_SCHEMA_VERSION,
+    )
+    _validate_document(
+        role_resolution,
+        schema_path=ROLE_RESOLUTION_SCHEMA,
+        label="role resolution",
+    )
+    _require(
+        role_resolution.get("resolution_digest")
+        == semantic_self_digest(role_resolution, "resolution_digest"),
+        "role resolution semantic digest mismatch",
     )
     mandate_ref = _require_ref(
         {
@@ -2392,6 +2444,7 @@ def compile_external_execution_result(
     _validate_mandate_chain(
         obligation,
         mandate,
+        role_resolution,
         binding=incarnation_binding,
         request=request,
         incarnation=incarnation,
@@ -2534,6 +2587,7 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--incarnation-binding", type=Path, required=True)
     result.add_argument("--obligation", dest="obligation_path", type=Path, required=True)
     result.add_argument("--mandate", dest="mandate_path", type=Path, required=True)
+    result.add_argument("--role-resolution", type=Path, required=True)
     result.add_argument("--sdk-summon-request", type=Path, required=True)
     result.add_argument("--sdk-summon-decision", type=Path, required=True)
     result.add_argument("--runtime-result", type=Path, required=True)
@@ -2568,6 +2622,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             incarnation_binding_path=args.incarnation_binding,
             obligation_path=args.obligation_path,
             mandate_path=args.mandate_path,
+            role_resolution_path=args.role_resolution,
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,
             runtime_result_path=args.runtime_result,

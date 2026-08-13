@@ -164,13 +164,17 @@ stop line and model-fit authority to its current holder, and requires the SDK de
 `a2a_remote` explicitly. The complete incarnation binding must pass the exact
 aoa-sdk v2 owner schema and semantic self-digest before field-level relations
 are admitted; the schema content digest is pinned and a caller-supplied `$id`
-does not establish owner authority.
+does not establish owner authority. The SDK run plan likewise passes the
+complete generated `RunPlan` schema pinned by canonical content, and both its
+snapshot and plan semantic digests are recomputed before a decision snapshot
+can authorize launch.
 Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 
 After a runtime has already returned, `scripts/compile_external_execution_result.py`
 may compile one `summon-result-v4` from the exact owner request, SDK request and
-decision, exact agent-obligation-v1, actor-mandate-v1, and
+decision, exact agent-obligation-v1, actor-mandate-v1,
+aoa-role-resolution-v1, and
 incarnation-binding-v2 artifacts, terminal
 `abyss-stack` result, runtime-profile ref, reviewed A2A return, and the exact
 review summon-request artifact named by that return. It is a passive closeout
@@ -186,7 +190,9 @@ exact obligation goal, and mandate identity plus continuity posture must
 preserve its lifecycle. The mandate domain owner and delegated continuation
 duty must remain equal to the exact obligation, and the SDK decision must
 select `a2a_remote`. The mandate stop line and model-fit authority must remain
-bound to the exact obligation stop line and current holder. The request authority limit and stop line must equal the
+bound to the exact obligation stop line and current holder. Its complete role
+binding, including specialization, tier, and provenance refs, must equal the
+independently loaded exact role-resolution artifact. The request authority limit and stop line must equal the
 exact obligation boundary and mandate stop line. Both responsibility holders
 must equal the selected return owner and mandate continuity identity, and the
 SDK continuation must retain the same concrete return-holder identity,

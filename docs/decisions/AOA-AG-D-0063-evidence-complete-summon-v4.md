@@ -276,6 +276,17 @@ paths: mandate stop line equals the obligation stop line, and the duty-to-fit
 relation authority equals the obligation current holder. Neither can now drift
 before launch or be normalized into an accepted closeout.
 
+The next exact-head review found that a direct caller could alter the SDK plan
+snapshot while preserving its stated plan identity and digest, and that
+closeout compared only selected role fields without loading the resolved role.
+Request compilation now admits the complete generated SDK `RunPlan` schema by
+pinned canonical content and recomputes both the snapshot and plan semantic
+digests before consulting the decision snapshot. Closeout now requires the
+exact aoa-role-resolution-v1 artifact and compares its complete role binding,
+including specialization, tier, and every provenance ref, with the mandate.
+These checks authenticate existing owner decisions; they neither select a role
+nor broaden runtime authority.
+
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that
 authorized the independent review. Closeout now requires that exact artifact
