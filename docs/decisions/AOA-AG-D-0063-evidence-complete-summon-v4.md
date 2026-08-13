@@ -268,6 +268,9 @@ requires the complete exact aoa-sdk v2 schema and its SDK-canonical semantic
 self-digest before checking any field-level relation. Stale or extra binding
 state therefore cannot reach the external runtime and wait for closeout to
 reject it.
+The schema is pinned by exact content digest to the reviewed aoa-sdk owner
+artifact (`d364da5c76cdd54e88f68c03ca49964fd3f86313`), not merely by path or
+`$id`; a direct CLI caller therefore cannot replace it with a permissive schema.
 
 The following exact-head review found that closeout accepted a merely
 well-shaped `review_summon_request_ref` without resolving the request that

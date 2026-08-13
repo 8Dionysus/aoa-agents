@@ -21,6 +21,9 @@ SUMMON_ROOT = Path(__file__).resolve().parents[1]
 AGENT_REFERENCES = SUMMON_ROOT.parent / "aoa-agents-skills" / "references"
 REQUEST_SCHEMA = SUMMON_ROOT / "references" / "summon-request-v4.schema.json"
 ZERO_DIGEST = "sha256:" + "0" * 64
+SDK_BINDING_V2_SCHEMA_DIGEST = (
+    "sha256:e62e4b27fcb8d76ad80e1f7b9e66b510d8e076de77c1714988daac4d98deb529"
+)
 
 
 class ExternalExecutionRequestError(ValueError):
@@ -450,11 +453,16 @@ def _validate_incarnation_binding_artifact(
     """Admit the complete SDK v2 artifact and its semantic self-digest."""
 
     try:
-        schema = json.loads(schema_path.resolve(strict=True).read_bytes())
+        schema_raw = schema_path.resolve(strict=True).read_bytes()
+        schema = json.loads(schema_raw)
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise ExternalExecutionRequestError(
             f"incarnation binding schema is unavailable: {schema_path}"
         ) from exc
+    if digest_bytes(schema_raw) != SDK_BINDING_V2_SCHEMA_DIGEST:
+        raise ExternalExecutionRequestError(
+            "incarnation binding schema differs from the pinned SDK v2 owner contract"
+        )
     if schema.get("$id") != "urn:aoa-sdk:agent-incarnation-binding:v2":
         raise ExternalExecutionRequestError(
             "incarnation binding schema is not the SDK v2 owner contract"
@@ -470,6 +478,12 @@ def _validate_incarnation_binding_artifact(
             f"incarnation binding violates SDK v2 owner contract{where}: "
             f"{errors[0].message}"
         )
+    _validate_incarnation_binding_semantic_digest(binding)
+
+
+def _validate_incarnation_binding_semantic_digest(
+    binding: Mapping[str, Any],
+) -> None:
     if binding.get("binding_digest") != sdk_semantic_excluding_digest(
         binding,
         "binding_digest",

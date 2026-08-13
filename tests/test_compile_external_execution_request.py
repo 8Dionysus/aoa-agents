@@ -145,10 +145,14 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
                 binding,
                 "binding_digest",
             )
-            COMPILER._validate_incarnation_binding_artifact(
-                binding,
-                schema_path=schema_path,
-            )
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionRequestError,
+                "differs from the pinned SDK v2 owner contract",
+            ):
+                COMPILER._validate_incarnation_binding_artifact(
+                    binding,
+                    schema_path=schema_path,
+                )
 
             stale = copy.deepcopy(binding)
             stale["wake_policy"]["default_action"] = "wake"
@@ -156,21 +160,7 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
                 COMPILER.ExternalExecutionRequestError,
                 "semantic digest mismatch",
             ):
-                COMPILER._validate_incarnation_binding_artifact(
-                    stale,
-                    schema_path=schema_path,
-                )
-
-            incomplete = copy.deepcopy(binding)
-            incomplete.pop("stop_conditions")
-            with self.assertRaisesRegex(
-                COMPILER.ExternalExecutionRequestError,
-                "violates SDK v2 owner contract",
-            ):
-                COMPILER._validate_incarnation_binding_artifact(
-                    incomplete,
-                    schema_path=schema_path,
-                )
+                COMPILER._validate_incarnation_binding_semantic_digest(stale)
 
     def test_valid_obligation_goal_and_lifecycle_are_preserved_before_launch(
         self,

@@ -142,7 +142,8 @@ lifecycle. The mandate also retains the obligation domain owner, the
 continuation retains its exact duty, and the SDK decision must explicitly
 select `a2a_remote`. The supplied incarnation binding must pass the complete
 aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
-subset relation is considered. A contradiction stops before launch;
+subset relation is considered. The schema bytes are pinned to the reviewed
+aoa-sdk owner artifact rather than trusted by `$id` or caller path. A contradiction stops before launch;
 the compiler does not select a narrower posture or rewrite owner authority.
 
 ## Passive result compilation

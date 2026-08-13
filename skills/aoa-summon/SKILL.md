@@ -162,7 +162,8 @@ continuity posture. It preserves the obligation domain owner and exact duty in
 the mandate/continuation chain, and requires the SDK decision to select
 `a2a_remote` explicitly. The complete incarnation binding must pass the exact
 aoa-sdk v2 owner schema and semantic self-digest before field-level relations
-are admitted.
+are admitted; the schema content digest is pinned and a caller-supplied `$id`
+does not establish owner authority.
 Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 
