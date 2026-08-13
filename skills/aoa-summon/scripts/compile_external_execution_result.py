@@ -28,10 +28,17 @@ MANDATE_SCHEMA = (
     / "references"
     / "actor-mandate-v1.schema.json"
 )
+OBLIGATION_SCHEMA = (
+    SUMMON_ROOT.parent
+    / "aoa-agents-skills"
+    / "references"
+    / "agent-obligation-v1.schema.json"
+)
 ZERO_DIGEST = "sha256:" + "0" * 64
 SUMMON_REQUEST_SCHEMA_VERSION = "summon-request-v4"
 INCARNATION_BINDING_SCHEMA_VERSION = "aoa_agent_incarnation_binding_v2"
 MANDATE_SCHEMA_VERSION = "actor-mandate-v1"
+OBLIGATION_SCHEMA_VERSION = "agent-obligation-v1"
 SDK_SUMMON_REQUEST_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-request:v4"
 SDK_SUMMON_DECISION_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-result:v4"
 RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
@@ -702,6 +709,21 @@ def _validate_incarnation_binding(
                 isinstance(permission[field], bool),
                 f"incarnation binding {field} is invalid",
             )
+    external_effects = permission.get("external_effects", False)
+    secret_access = permission.get("secret_access", False)
+    _require(
+        external_effects is ("external" in effect_classes),
+        "incarnation binding external-effects flag differs from its effect ceiling",
+    )
+    _require(
+        permission.get("sandbox_mode") != "read_only"
+        or set(effect_classes) == {"read_only"},
+        "incarnation binding read-only sandbox admits non-read-only effects",
+    )
+    _require(
+        not secret_access or permission.get("approval_policy") != "never",
+        "incarnation binding secret access cannot use approval_policy=never",
+    )
     tool_profile = _require_shape(
         binding.get("tool_profile"),
         label="incarnation binding tool profile",
@@ -1227,12 +1249,24 @@ def _validate_incarnation_binding(
 
 
 def _validate_mandate_chain(
+    obligation: Mapping[str, Any],
     mandate: Mapping[str, Any],
     *,
     binding: Mapping[str, Any],
     request: Mapping[str, Any],
     incarnation: Mapping[str, Any],
 ) -> None:
+    obligation_ref = _require_ref(
+        {
+            "object_id": obligation.get("obligation_id"),
+            "owner_repo": "aoa-agents",
+            "schema_version": obligation.get("schema_version"),
+            "digest": obligation.get("obligation_digest"),
+        },
+        label="agent obligation ref",
+        owner_repo="aoa-agents",
+        schema_version="agent-obligation-v1",
+    )
     mandate_obligation_ref = _require_ref(
         mandate.get("obligation_ref"),
         label="actor mandate obligation ref",
@@ -1246,7 +1280,7 @@ def _validate_mandate_chain(
         schema_version="agent-obligation-v1",
     )
     _require(
-        mandate_obligation_ref == request_obligation_ref,
+        obligation_ref == mandate_obligation_ref == request_obligation_ref,
         "actor mandate obligation differs from the request incarnation",
     )
     mandate_role_resolution_ref = _require_ref(
@@ -1376,6 +1410,28 @@ def _validate_mandate_chain(
         mandate_return_owner["object_id"] == request_return_owner,
         "actor mandate return owner differs from the request",
     )
+    obligation_return_owner = _untyped_ref(
+        obligation.get("return_owner"),
+        label="agent obligation return owner",
+    )
+    obligation_current_holder = _untyped_ref(
+        obligation.get("current_holder"),
+        label="agent obligation current holder",
+    )
+    _require(
+        obligation_return_owner == mandate_return_owner
+        and obligation_current_holder == obligation_return_owner,
+        "agent obligation holder chain differs from the actor mandate return owner",
+    )
+    _require(
+        request.get("child_scope", {}).get("authority_limit")
+        == obligation.get("responsibility_boundary"),
+        "request authority limit differs from the exact agent obligation",
+    )
+    _require(
+        request.get("child_stop_line") == mandate.get("authority", {}).get("stop_line"),
+        "request stop line differs from the exact actor mandate",
+    )
     transfer = incarnation.get("responsibility_transfer_ref")
     _require(
         isinstance(transfer, Mapping),
@@ -1390,6 +1446,15 @@ def _validate_mandate_chain(
     _require(
         len(transfer_holders) == 2 and transfer_holders[0] == request_return_owner,
         "responsibility transfer does not return to the request owner",
+    )
+    mandate_continuity = mandate.get("continuity")
+    _require(
+        isinstance(mandate_continuity, Mapping),
+        "actor mandate continuity is absent",
+    )
+    _require(
+        transfer_holders[1] == mandate_continuity.get("identity_key"),
+        "responsibility transfer current holder differs from the actor mandate identity",
     )
     continuation = binding.get("continuation")
     _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
@@ -1946,6 +2011,7 @@ def compile_external_execution_result(
     *,
     request_path: Path,
     incarnation_binding_path: Path,
+    obligation_path: Path,
     mandate_path: Path,
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
@@ -1968,6 +2034,21 @@ def compile_external_execution_result(
         incarnation_binding_path,
         label="incarnation binding",
         expected_envelope_schema_version=INCARNATION_BINDING_SCHEMA_VERSION,
+    )
+    _obligation_raw, obligation, _obligation_artifact_digest = _load(
+        obligation_path,
+        label="agent obligation",
+        expected_envelope_schema_version=OBLIGATION_SCHEMA_VERSION,
+    )
+    _validate_document(
+        obligation,
+        schema_path=OBLIGATION_SCHEMA,
+        label="agent obligation",
+    )
+    _require(
+        obligation.get("obligation_digest")
+        == semantic_self_digest(obligation, "obligation_digest"),
+        "agent obligation semantic digest mismatch",
     )
     mandate_raw, mandate, mandate_artifact_digest = _load(
         mandate_path,
@@ -2054,6 +2135,7 @@ def compile_external_execution_result(
         mandate_artifact_digest=mandate_artifact_digest,
     )
     _validate_mandate_chain(
+        obligation,
         mandate,
         binding=incarnation_binding,
         request=request,
@@ -2195,6 +2277,7 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--request", dest="request_path", type=Path, required=True)
     result.add_argument("--incarnation-binding", type=Path, required=True)
+    result.add_argument("--obligation", dest="obligation_path", type=Path, required=True)
     result.add_argument("--mandate", dest="mandate_path", type=Path, required=True)
     result.add_argument("--sdk-summon-request", type=Path, required=True)
     result.add_argument("--sdk-summon-decision", type=Path, required=True)
@@ -2227,6 +2310,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         result = compile_external_execution_result(
             request_path=args.request_path,
             incarnation_binding_path=args.incarnation_binding,
+            obligation_path=args.obligation_path,
             mandate_path=args.mandate_path,
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,

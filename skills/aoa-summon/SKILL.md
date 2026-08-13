@@ -153,7 +153,8 @@ compiler translates only that transport field to the physical
 
 After a runtime has already returned, `scripts/compile_external_execution_result.py`
 may compile one `summon-result-v4` from the exact owner request, SDK request and
-decision, exact actor-mandate-v1 and incarnation-binding-v2 artifacts, terminal
+decision, exact agent-obligation-v1, actor-mandate-v1, and
+incarnation-binding-v2 artifacts, terminal
 `abyss-stack` result, runtime-profile ref, and reviewed A2A return. It is a
 passive closeout adapter:
 it verifies the immutable request
@@ -162,7 +163,11 @@ the SDK request with only the documented `a2a_remote` or `either` to
 `external_cli` transport translation, and preserves
 role, fit, incarnation, runtime, A2A, and usage
 evidence as refs, and derives the four external handles from the supplied
-runtime evidence. A reviewed return must carry runtime-owned A2A schema
+runtime evidence. The request authority limit and stop line must equal the
+exact obligation boundary and mandate stop line, both responsibility holders
+must equal the selected return owner and mandate continuity identity, and the
+binding permission posture must satisfy the aoa-sdk cross-field invariants. A
+reviewed return must carry runtime-owned A2A schema
 provenance, bind its reviewed writer-result digest to the exact terminal
 runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly
 to the terminal runtime `task_id` and `incarnation_id`, and be paired with the canonical

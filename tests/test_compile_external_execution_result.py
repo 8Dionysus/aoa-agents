@@ -138,6 +138,40 @@ def fixture(temp: Path) -> dict[str, object]:
         "schema_ref": "schemas/agent-profile.schema.json",
         "schema_version": "agent_profile_v1",
     }
+    obligation = {
+        "schema_version": "agent-obligation-v1",
+        "obligation_id": "obligation:landing",
+        "goal_ref": ref("codex-goal", "goal:landing", "goal-v1"),
+        "phase": "execution",
+        "duty": "Perform one bounded landing obligation.",
+        "domain_owner": "aoa-agents",
+        "current_holder": ref("codex-goal", "holder:goal", "holder-v1"),
+        "responsibility_boundary": "No commit, push, merge, publication, or owner acceptance.",
+        "missed_consequence": "The landing obligation remains unowned.",
+        "independence_findings": {
+            "positive_signals": ["A separate holder owns the bounded work."],
+            "negative_signals": [],
+            "rejected_ordinary_step": "The duty carries an independent return.",
+        },
+        "trigger": {
+            "strength": "required_branch",
+            "authority_ref": ref("codex-goal", "goal:landing", "goal-v1"),
+        },
+        "expected_outcomes": ["Return one reviewed external execution result."],
+        "return_owner": ref("codex-goal", "holder:goal", "holder-v1"),
+        "lifecycle_posture": "task-instance",
+        "stop_line": "Stop at owner ambiguity.",
+        "evidence_refs": [],
+        "uncertainty": [],
+        "next_route": "form_actor",
+        "obligation_digest": ZERO,
+    }
+    obligation["obligation_digest"] = COMPILER.semantic_self_digest(
+        obligation, "obligation_digest"
+    )
+    obligation_ref["digest"] = obligation["obligation_digest"]
+    obligation_path = temp / "obligation.json"
+    write_json(obligation_path, obligation)
     mandate = {
         "schema_version": "actor-mandate-v1",
         "mandate_id": "mandate:landing",
@@ -426,7 +460,7 @@ def fixture(temp: Path) -> dict[str, object]:
             "allowed_effects": ["repo_mutation"],
             "authority_limit": "No commit, push, merge, publication, or owner acceptance.",
         },
-        "child_stop_line": "Stop at owner ambiguity or external effect.",
+        "child_stop_line": "Stop at owner ambiguity.",
         "child_inputs": [{"kind": "contract", "ref": "procedure:landing"}],
         "request_ref": "summon-request:landing",
         "request_digest": ZERO,
@@ -501,6 +535,8 @@ def fixture(temp: Path) -> dict[str, object]:
         "request_path": request_path,
         "incarnation_binding": incarnation_binding,
         "incarnation_binding_path": incarnation_binding_path,
+        "obligation": obligation,
+        "obligation_path": obligation_path,
         "mandate": mandate,
         "mandate_path": mandate_path,
         "sdk_request": sdk_request,
@@ -576,6 +612,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
         return COMPILER.compile_external_execution_result(
             request_path=data["request_path"],
             incarnation_binding_path=data["incarnation_binding_path"],
+            obligation_path=data["obligation_path"],
             mandate_path=data["mandate_path"],
             sdk_summon_request_path=data["sdk_request_path"],
             sdk_summon_decision_path=data["sdk_decision_path"],
@@ -919,6 +956,36 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 ):
                     self.compile(data)
 
+    def test_incarnation_permission_cross_field_invariants_fail_closed(self) -> None:
+        cases = (
+            (
+                "external effect flag",
+                lambda posture: posture.update({"external_effects": True}),
+                "external-effects flag differs",
+            ),
+            (
+                "read-only sandbox",
+                lambda posture: posture.update({"sandbox_mode": "read_only"}),
+                "read-only sandbox admits non-read-only effects",
+            ),
+            (
+                "secret access without approval",
+                lambda posture: posture.update({"secret_access": True}),
+                "secret access cannot use approval_policy=never",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                mutate(binding["permission_posture"])
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    message,
+                ):
+                    self.compile(data)
+
     def test_incarnation_plan_and_realization_refs_bind_the_exact_request(self) -> None:
         cases = (
             ("run_plan_ref", "object_id", "run_plan_ref differs from the request"),
@@ -1090,6 +1157,49 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_transfer_current_holder_must_equal_the_mandate_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["external_incarnation"]["responsibility_transfer_ref"][
+                "holder_ids"
+            ][1] = "actor:other"
+            rewrite_bound_chain(data, request=request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "current holder differs from the actor mandate identity",
+            ):
+                self.compile(data)
+
+    def test_request_authority_and_stop_line_bind_exact_owner_sources(self) -> None:
+        cases = (
+            (
+                "authority limit",
+                lambda request: request["child_scope"].update(
+                    {"authority_limit": "Widened authority."}
+                ),
+                "authority limit differs from the exact agent obligation",
+            ),
+            (
+                "stop line",
+                lambda request: request.update(
+                    {"child_stop_line": "Continue through owner ambiguity."}
+                ),
+                "stop line differs from the exact actor mandate",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                request = copy.deepcopy(data["request"])
+                mutate(request)
+                rewrite_bound_chain(data, request=request)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    message,
+                ):
+                    self.compile(data)
+
     def test_continuation_return_owner_must_retain_the_mandate_owner(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -1170,6 +1280,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
+                    obligation_path=data["obligation_path"],
                     mandate_path=data["mandate_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
@@ -1193,6 +1304,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
                 incarnation_binding_path=data["incarnation_binding_path"],
+                obligation_path=data["obligation_path"],
                 mandate_path=data["mandate_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
@@ -1236,6 +1348,8 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 str(root / "request.json"),
                 "--incarnation-binding",
                 str(root / "incarnation-binding.json"),
+                "--obligation",
+                str(root / "obligation.json"),
                 "--mandate",
                 str(root / "mandate.json"),
                 "--sdk-summon-request",
@@ -1274,6 +1388,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 compile_result.call_args.kwargs["mandate_path"],
                 root / "mandate.json",
             )
+            self.assertEqual(
+                compile_result.call_args.kwargs["obligation_path"],
+                root / "obligation.json",
+            )
 
     def test_usage_ref_cannot_replace_the_exact_runtime_observation(self) -> None:
         cases = (
@@ -1299,6 +1417,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
+                        obligation_path=data["obligation_path"],
                         mandate_path=data["mandate_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
@@ -1360,6 +1479,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
+                        obligation_path=data["obligation_path"],
                         mandate_path=data["mandate_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
@@ -1392,6 +1512,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
                 incarnation_binding_path=data["incarnation_binding_path"],
+                obligation_path=data["obligation_path"],
                 mandate_path=data["mandate_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
@@ -1693,6 +1814,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
+                    obligation_path=data["obligation_path"],
                     mandate_path=data["mandate_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],

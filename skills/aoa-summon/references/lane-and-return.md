@@ -131,8 +131,9 @@ Raw traces may help review but never become proof, memory canon, or owner truth.
 `compile_external_execution_result.py` is the closeout adapter for a returned
 `external_cli_reviewed` lane. It accepts only a terminal
 `abyss_stack_external_codex_result_v2`, the exact SDK request and transport
-decision named by the summon request, the exact incarnation-binding-v2
-artifact, an exact runtime-profile-v2 ref, and a reviewed
+decision named by the summon request, the exact agent-obligation-v1,
+actor-mandate-v1, and incarnation-binding-v2 artifacts, an exact
+runtime-profile-v2 ref, and a reviewed
 `abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`. It
 first admits the owner request against the generated
 `summon-request-v4` schema, then verifies the semantic digest, the SDK request
@@ -140,7 +141,12 @@ digest recorded by the SDK decision, the complete owner summon body and
 passport under the one documented transport-only translation, distinct
 responsibility holders, one admitted `read_only` or `repo_mutation` effect,
 disabled built-in subagents, and exact output
-keys. The terminal runtime owner-admission ref must address the exact owner
+keys. Closeout also loads the exact agent-obligation-v1 and
+actor-mandate-v1 artifacts: the request authority limit and stop line must
+equal their owner ceilings, the transfer holders must equal the return owner
+and mandate continuity identity, and the incarnation permission posture must
+satisfy the aoa-sdk cross-field invariants. The terminal runtime
+owner-admission ref must address the exact owner
 request bytes, which binds that result to the selected runtime launch and
 continuity chain. The incarnation artifact digest and its incarnation,
 continuation, effect, and tool-profile fields must match the request, runtime,

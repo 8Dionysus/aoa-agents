@@ -420,6 +420,37 @@ def compile_external_execution_request(
         raise ExternalExecutionRequestError(
             "responsibility transfer holders are invalid"
         )
+    return_owner = mandate.get("return_owner")
+    current_holder = obligation.get("current_holder")
+    obligation_return_owner = obligation.get("return_owner")
+    continuity = mandate.get("continuity")
+    if not all(
+        isinstance(item, Mapping)
+        for item in (return_owner, current_holder, obligation_return_owner, continuity)
+    ):
+        raise ExternalExecutionRequestError(
+            "responsibility transfer owner chain is incomplete"
+        )
+    _require_equal(
+        current_holder,
+        obligation_return_owner,
+        label="obligation current and return holder",
+    )
+    _require_equal(
+        return_owner,
+        obligation_return_owner,
+        label="mandate and obligation return owner",
+    )
+    _require_equal(
+        holders[0],
+        return_owner.get("object_id"),
+        label="transfer prior holder",
+    )
+    _require_equal(
+        holders[1],
+        continuity.get("identity_key"),
+        label="transfer current holder",
+    )
     transfer_ref = {
         **_raw_ref(
             transfer_raw,

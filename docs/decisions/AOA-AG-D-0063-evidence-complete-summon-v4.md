@@ -205,6 +205,18 @@ the concrete responsibility holder remains the mandate/request object ID and
 the transfer's prior holder. These checks direct responsibility back to the
 already selected owner; they do not create a new owner or authority.
 
+The first real separately addressable Luna reviewer incarnation then found
+three adjacent authority substitutions that the fixed test suite did not
+cover. Closeout now loads the exact agent-obligation-v1 artifact and binds the
+request authority limit to its responsibility boundary and the request stop
+line to the exact mandate. It admits the incarnation permission posture only
+when the SDK-owned external-effect, read-only-sandbox, and secret-approval
+cross-field invariants hold. Finally, the responsibility transfer must name
+both the exact prior return holder and the mandate continuity identity as its
+current holder. These checks authenticate already selected owner ceilings and
+responsibility identities; they do not add role, model, runtime, or acceptance
+authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without
