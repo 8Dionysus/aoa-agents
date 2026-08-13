@@ -187,8 +187,16 @@ runtime-launch, continuity, task, and effect chain. The supplied incarnation
 binding must match its request ref, incarnation and continuity identities,
 exact child identity, obligation, mandate, role resolution, model-fit query
 and projection, SDK task request, effect posture, and exact runtime-profile
-ref; a syntactically valid unrelated owner ref or profile cannot be
-substituted. The logical continuation identity remains in the exact
+ref. It must also retain the complete strict owner-v2 shape and semantic
+binding digest, including its run-plan and model-realization refs; the model
+realization and fit projection must share one aoa-models source. The exact
+run-plan and model-realization content refs must also be carried by the owner
+request and match the binding, so recomputed local digests cannot substitute
+another plan or realization. The exact
+mandate must authorize the same obligation, role resolution, selected role,
+and domain-procedure sequence carried by the request and binding. A
+syntactically valid unrelated or truncated owner ref, mandate, or profile
+cannot be substituted. The logical continuation identity remains in the exact
 request/binding chain; the physical Codex continuation handle is the runtime
 `thread_id` and must equal every admitted invocation's `thread_id`.
 Returned artifacts are an

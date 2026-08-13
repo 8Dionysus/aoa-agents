@@ -181,6 +181,19 @@ The reviewed A2A path still narrows that ref to its canonical runtime schema.
 This authenticates the derivative's schema identity without promoting its
 unattested source-artifact digest.
 
+The following exact-head GitHub review exposed two deeper owner-chain gaps
+that an independent Luna pass did not report. The result compiler now admits
+only the complete strict incarnation-binding-v2 shape, verifies its semantic
+binding digest, requires its run-plan and model-realization refs, and preserves
+one aoa-models source across the realization and fit projection. Both exact
+content refs are now mandatory in the owner request and compiled receipt and
+must match the binding, rather than trusting a recomputable binding digest. It also
+compares the exact mandate's obligation, role resolution, selected role, and
+ordered domain procedures with the request and binding. Recomputing surrounding
+untrusted digests can therefore no longer substitute a truncated binding or a
+different mandate chain. These are relationship checks over selected evidence,
+not new model-selection or runtime authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

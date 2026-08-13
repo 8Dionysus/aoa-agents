@@ -182,7 +182,13 @@ the request selects that semantic identity while the incarnation binding also
 binds its exact artifact bytes. The incarnation binding likewise names the
 exact obligation, role resolution, model-fit query and projection, SDK task
 request, continuation inputs without stale same-identity refs, and child
-identity carried by the owner request. The CLI may load an exact assertion
+identity carried by the owner request. It must retain the complete strict
+owner-v2 shape and semantic digest, including run-plan and model-realization
+refs, and the realization must share the fit projection's aoa-models source.
+The owner request carries both exact refs and must match the binding, rather
+than relying on the binding's recomputable digest alone.
+The exact mandate separately binds the same obligation, role resolution,
+selected role, and ordered domain-procedure set. The CLI may load an exact assertion
 through `--usage-observation-ref` and refuses to replace an existing output.
 The emitted receipt is a summon responsibility-closeout record, not
 stats admission, runtime success proof, model-fit proof, or owner acceptance.

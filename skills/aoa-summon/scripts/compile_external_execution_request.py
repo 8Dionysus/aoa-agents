@@ -95,9 +95,7 @@ def _semantic_ref(
     label: str,
 ) -> dict[str, str]:
     if payload.get("schema_version") != schema_version:
-        raise ExternalExecutionRequestError(
-            f"{label} must use {schema_version}"
-        )
+        raise ExternalExecutionRequestError(f"{label} must use {schema_version}")
     expected = semantic_self_digest(payload, digest_field)
     if payload.get(digest_field) != expected:
         raise ExternalExecutionRequestError(f"{label} semantic digest mismatch")
@@ -122,9 +120,7 @@ def _raw_ref(
     label: str,
 ) -> dict[str, str]:
     if payload.get("schema_version") != schema_version:
-        raise ExternalExecutionRequestError(
-            f"{label} must use {schema_version}"
-        )
+        raise ExternalExecutionRequestError(f"{label} must use {schema_version}")
     object_id = payload.get(object_field)
     if not isinstance(object_id, str) or not object_id:
         raise ExternalExecutionRequestError(f"{label} object identity is absent")
@@ -147,7 +143,9 @@ def _content_from_provenance(value: Mapping[str, Any]) -> dict[str, str]:
 
 def _require_equal(actual: Any, expected: Any, *, label: str) -> None:
     if actual != expected:
-        raise ExternalExecutionRequestError(f"{label} differs from its exact owner binding")
+        raise ExternalExecutionRequestError(
+            f"{label} differs from its exact owner binding"
+        )
 
 
 def compile_external_execution_request(
@@ -182,9 +180,7 @@ def compile_external_execution_request(
 
     obligation_raw, obligation = _load(obligation_path, label="agent obligation")
     mandate_raw, mandate = _load(mandate_path, label="actor mandate")
-    role_raw, role_resolution = _load(
-        role_resolution_path, label="role resolution"
-    )
+    role_raw, role_resolution = _load(role_resolution_path, label="role resolution")
     query_raw, model_fit_query = _load(
         model_fit_query_result_path, label="model-fit query result"
     )
@@ -192,9 +188,7 @@ def compile_external_execution_request(
         model_fit_projection_path, label="model-fit projection"
     )
     dag_raw, task_local_dag = _load(task_local_dag_path, label="task-local DAG")
-    binding_raw, binding = _load(
-        incarnation_binding_path, label="incarnation binding"
-    )
+    binding_raw, binding = _load(incarnation_binding_path, label="incarnation binding")
     sdk_request_raw, sdk_request = _load(
         sdk_summon_request_path, label="SDK summon request"
     )
@@ -260,7 +254,9 @@ def compile_external_execution_request(
         label="model-fit query result",
     )
 
-    _require_equal(mandate["obligation_ref"], obligation_ref, label="mandate obligation")
+    _require_equal(
+        mandate["obligation_ref"], obligation_ref, label="mandate obligation"
+    )
     _require_equal(
         mandate["role_resolution_ref"],
         role_resolution_ref,
@@ -300,9 +296,20 @@ def compile_external_execution_request(
         raise ExternalExecutionRequestError("incarnation has no model-fit projection")
     projection_ref = _content_from_provenance(projection_provenance)
     if projection_ref["digest"] != digest_bytes(projection_raw):
-        raise ExternalExecutionRequestError("model-fit projection transport digest mismatch")
+        raise ExternalExecutionRequestError(
+            "model-fit projection transport digest mismatch"
+        )
     if projection_ref["schema_version"] != "aoa_model_fit_projection_v1":
         raise ExternalExecutionRequestError("model-fit projection schema is invalid")
+    realization_provenance = binding.get("model_realization_ref")
+    if not isinstance(realization_provenance, dict):
+        raise ExternalExecutionRequestError("incarnation has no model realization")
+    realization_ref = _content_from_provenance(realization_provenance)
+    if (
+        realization_ref["owner_repo"] != "aoa-models"
+        or realization_ref["schema_version"] != "aoa_model_realization_v1"
+    ):
+        raise ExternalExecutionRequestError("model realization provenance is invalid")
 
     fit_family = mandate["model_fit_relation"]["task_family"]
     candidates = [
@@ -314,8 +321,7 @@ def compile_external_execution_request(
     if (
         model_fit_query.get("query", {}).get("task_family") != fit_family
         or len(candidates) != 1
-        or model_fit_projection.get("schema_version")
-        != "aoa_model_fit_projection_v1"
+        or model_fit_projection.get("schema_version") != "aoa_model_fit_projection_v1"
         or model_fit_projection.get("subject_realization_ref")
         != candidates[0].get("realization_ref")
     ):
@@ -324,16 +330,19 @@ def compile_external_execution_request(
     if digest_bytes(mandate_raw) != binding.get("role_contract_ref", {}).get(
         "artifact_digest"
     ):
-        raise ExternalExecutionRequestError("mandate transport differs from role contract")
+        raise ExternalExecutionRequestError(
+            "mandate transport differs from role contract"
+        )
     task_request_ref = binding.get("task_request_ref")
     if (
         not isinstance(task_request_ref, dict)
         or task_request_ref.get("owner_repo") != "aoa-sdk"
-        or task_request_ref.get("schema_version")
-        != "urn:aoa-sdk:a2a:summon-request:v4"
+        or task_request_ref.get("schema_version") != "urn:aoa-sdk:a2a:summon-request:v4"
         or task_request_ref.get("artifact_digest") != digest_bytes(sdk_request_raw)
     ):
-        raise ExternalExecutionRequestError("SDK summon request differs from incarnation")
+        raise ExternalExecutionRequestError(
+            "SDK summon request differs from incarnation"
+        )
     sdk_summon = sdk_request.get("summon_request")
     if not isinstance(sdk_summon, dict) or sdk_summon.get(
         "transport_preference"
@@ -342,9 +351,13 @@ def compile_external_execution_request(
             "SDK request must authorize an external A2A transport"
         )
 
+    run_plan_ref = binding.get("run_plan_ref")
     if (
-        run_plan.get("plan_id") != binding.get("run_plan_ref", {}).get("object_id")
-        or run_plan.get("plan_digest") != binding.get("run_plan_ref", {}).get("digest")
+        not isinstance(run_plan_ref, dict)
+        or run_plan_ref.get("owner_repo") != "aoa-sdk"
+        or run_plan_ref.get("schema_version") != "aoa_control_plane_v1"
+        or run_plan.get("plan_id") != run_plan_ref.get("object_id")
+        or run_plan.get("plan_digest") != run_plan_ref.get("digest")
     ):
         raise ExternalExecutionRequestError("incarnation names another SDK run plan")
     decision_digest = digest_bytes(sdk_decision_raw)
@@ -404,7 +417,9 @@ def compile_external_execution_request(
     )
     holders = transfer.get("holder_ids")
     if not isinstance(holders, list) or len(holders) != 2 or len(set(holders)) != 2:
-        raise ExternalExecutionRequestError("responsibility transfer holders are invalid")
+        raise ExternalExecutionRequestError(
+            "responsibility transfer holders are invalid"
+        )
     transfer_ref = {
         **_raw_ref(
             transfer_raw,
@@ -424,8 +439,13 @@ def compile_external_execution_request(
         procedure_id = procedure.get("procedure_id")
         owner = procedure.get("owner")
         schema_version = procedure.get("schema_version")
-        if not all(isinstance(item, str) and item for item in (procedure_id, owner, schema_version)):
-            raise ExternalExecutionRequestError("domain procedure identity is incomplete")
+        if not all(
+            isinstance(item, str) and item
+            for item in (procedure_id, owner, schema_version)
+        ):
+            raise ExternalExecutionRequestError(
+                "domain procedure identity is incomplete"
+            )
         procedure_refs.append(
             {
                 "object_id": procedure_id,
@@ -449,7 +469,9 @@ def compile_external_execution_request(
         or runtime_task.get("continuation_id")
         != binding.get("continuation", {}).get("continuation_id")
     ):
-        raise ExternalExecutionRequestError("runtime task identity differs from actor binding")
+        raise ExternalExecutionRequestError(
+            "runtime task identity differs from actor binding"
+        )
 
     expected_outputs = sdk_request.get("expected_outputs")
     if not isinstance(expected_outputs, list) or not expected_outputs:
@@ -493,8 +515,7 @@ def compile_external_execution_request(
         },
         "child_stop_line": mandate["authority"]["stop_line"],
         "child_inputs": [
-            {"kind": "contract", "ref": item["object_id"]}
-            for item in procedure_refs
+            {"kind": "contract", "ref": item["object_id"]} for item in procedure_refs
         ],
         "external_incarnation": {
             "obligation_ref": obligation_ref,
@@ -502,6 +523,8 @@ def compile_external_execution_request(
             "role_resolution_ref": role_resolution_ref,
             "model_fit_query_result_ref": query_ref,
             "model_fit_projection_ref": projection_ref,
+            "model_realization_ref": realization_ref,
+            "run_plan_ref": dict(run_plan_ref),
             "task_local_dag_ref": dag_ref,
             "incarnation_binding_ref": binding_ref,
             "sdk_summon_request_ref": _content_from_provenance(task_request_ref),
@@ -540,7 +563,9 @@ def _write(path: Path, payload: Mapping[str, Any]) -> None:
             "output must be a new regular file under an existing directory"
         )
     location.write_bytes(
-        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8")
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode(
+            "utf-8"
+        )
         + b"\n"
     )
 

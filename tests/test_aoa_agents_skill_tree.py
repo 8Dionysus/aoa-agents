@@ -132,6 +132,16 @@ def external_incarnation_v4() -> dict[str, object]:
                 "model-fit-projection:luna-max-workspace-write",
                 "aoa_model_fit_projection_v1",
             ),
+            "model_realization_ref": content_ref(
+                "aoa-models",
+                "model-realization:luna-max-workspace-write",
+                "aoa_model_realization_v1",
+            ),
+            "run_plan_ref": content_ref(
+                "aoa-sdk",
+                "run-plan:landing-writer",
+                "aoa_control_plane_v1",
+            ),
             "incarnation_binding_ref": content_ref(
                 "aoa-sdk",
                 "incarnation:landing-writer",
@@ -249,6 +259,16 @@ def base_external_result_v4() -> dict[str, object]:
                 "model-fit-projection:luna-max-workspace-write",
                 "aoa_model_fit_projection_v1",
             ),
+            "model_realization_ref": content_ref(
+                "aoa-models",
+                "model-realization:luna-max-workspace-write",
+                "aoa_model_realization_v1",
+            ),
+            "run_plan_ref": content_ref(
+                "aoa-sdk",
+                "run-plan:landing-writer",
+                "aoa_control_plane_v1",
+            ),
             "incarnation_binding_ref": content_ref(
                 "aoa-sdk",
                 "incarnation:landing-writer",
@@ -354,6 +374,8 @@ class TestAoAAgentsSkillTreeContracts:
             "role_resolution_ref",
             "model_fit_query_result_ref",
             "model_fit_projection_ref",
+            "model_realization_ref",
+            "run_plan_ref",
         ):
             incomplete = copy.deepcopy(request)
             del incomplete["external_incarnation"][field]
@@ -452,6 +474,8 @@ class TestAoAAgentsSkillTreeContracts:
             "role_resolution_ref",
             "model_fit_query_result_ref",
             "model_fit_projection_ref",
+            "model_realization_ref",
+            "run_plan_ref",
         ):
             incomplete = copy.deepcopy(result)
             del incomplete["binding"][field]

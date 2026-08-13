@@ -23,7 +23,9 @@ SPEC.loader.exec_module(COMPILER)
 ZERO = "sha256:" + "0" * 64
 
 
-def ref(owner: str, object_id: str, schema_version: str, digest: str = ZERO) -> dict[str, str]:
+def ref(
+    owner: str, object_id: str, schema_version: str, digest: str = ZERO
+) -> dict[str, str]:
     return {
         "object_id": object_id,
         "owner_repo": owner,
@@ -33,7 +35,10 @@ def ref(owner: str, object_id: str, schema_version: str, digest: str = ZERO) -> 
 
 
 def write_json(path: Path, payload: dict[str, object]) -> str:
-    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode() + b"\n"
+    raw = (
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode()
+        + b"\n"
+    )
     path.write_bytes(raw)
     return COMPILER.digest_bytes(raw)
 
@@ -78,19 +83,49 @@ def fixture(temp: Path) -> dict[str, object]:
     )
     obligation_ref = ref("aoa-agents", "obligation:landing", "agent-obligation-v1")
     mandate_ref = ref("aoa-agents", "mandate:landing", "actor-mandate-v1")
-    role_resolution_ref = ref("aoa-agents", "role-resolution:coder:executor", "aoa_role_resolution_v1")
-    model_fit_query_ref = ref("aoa-models", "fit-query:landing", "aoa_model_fit_query_result_v2")
-    model_fit_projection_ref = ref("aoa-models", "fit-projection:landing", "aoa_model_fit_projection_v1")
-    sdk_request_ref = ref("aoa-sdk", "sdk-request:landing", "urn:aoa-sdk:a2a:summon-request:v4", sdk_request_digest)
-    sdk_decision_ref = ref("aoa-sdk", "sdk-decision:landing", "urn:aoa-sdk:a2a:summon-result:v4", sdk_decision_digest)
+    role_resolution_ref = ref(
+        "aoa-agents", "role-resolution:coder:executor", "aoa_role_resolution_v1"
+    )
+    model_fit_query_ref = ref(
+        "aoa-models", "fit-query:landing", "aoa_model_fit_query_result_v2"
+    )
+    model_fit_projection_ref = ref(
+        "aoa-models", "fit-projection:landing", "aoa_model_fit_projection_v1"
+    )
+    model_realization_ref = ref(
+        "aoa-models",
+        "model-realization:landing",
+        "aoa_model_realization_v1",
+    )
+    run_plan_ref = ref(
+        "aoa-sdk",
+        "run-plan:landing",
+        "aoa_control_plane_v1",
+    )
+    sdk_request_ref = ref(
+        "aoa-sdk",
+        "sdk-request:landing",
+        "urn:aoa-sdk:a2a:summon-request:v4",
+        sdk_request_digest,
+    )
+    sdk_decision_ref = ref(
+        "aoa-sdk",
+        "sdk-decision:landing",
+        "urn:aoa-sdk:a2a:summon-result:v4",
+        sdk_decision_digest,
+    )
     task_local_dag_ref = ref("aoa-skills", "dag:landing", "aoa-task-local-dag-v2")
-    responsibility_transfer_ref = ref("aoa-agents", "transfer:landing", "responsibility-transfer-v1")
+    responsibility_transfer_ref = ref(
+        "aoa-agents", "transfer:landing", "responsibility-transfer-v1"
+    )
     domain_procedure_ref = ref("aoa-agents", "procedure:landing", "owner-procedure-v1")
 
     def provenance(value: dict[str, str]) -> dict[str, str]:
         return {
             "artifact_ref": value["object_id"],
             "owner_repo": value["owner_repo"],
+            "source_ref": "0" * 40,
+            "schema_ref": f"schemas/{value['schema_version']}.schema.json",
             "schema_version": value["schema_version"],
             "artifact_digest": value["digest"],
         }
@@ -125,26 +160,28 @@ def fixture(temp: Path) -> dict[str, object]:
             {
                 "property_id": "bounded-work",
                 "requirement": "Perform bounded work.",
-                "verification_route": "Run the owner test."
+                "verification_route": "Run the owner test.",
             }
         ],
         "model_fit_relation": {
             "task_family": "landing",
             "relation_to_duty": "Fit the bounded landing duty.",
-            "relation_authority_ref": ref("codex-goal", "authority:landing", "authority-v1"),
+            "relation_authority_ref": ref(
+                "codex-goal", "authority:landing", "authority-v1"
+            ),
         },
         "authority": {
             "permissions": ["edit workspace"],
             "allowed_effects": ["repo_mutation"],
             "prohibited_effects": ["external effects"],
-            "stop_line": "Stop at owner ambiguity."
+            "stop_line": "Stop at owner ambiguity.",
         },
         "environment": {
             "sandbox_mode": "workspace-write",
             "workspace_requirement": "Use the exact workspace.",
             "required_tools": ["shell-read"],
             "required_mcp_servers": [],
-            "state_root_posture": "Use dedicated state."
+            "state_root_posture": "Use dedicated state.",
         },
         "continuity": {
             "posture": "task-instance",
@@ -155,7 +192,7 @@ def fixture(temp: Path) -> dict[str, object]:
             {
                 "name": "external_codex_agent_result",
                 "description": "Exact runtime result.",
-                "acceptance_route": "Owner review."
+                "acceptance_route": "Owner review.",
             }
         ],
         "return_owner": ref("codex-goal", "holder:landing", "holder-v1"),
@@ -181,27 +218,45 @@ def fixture(temp: Path) -> dict[str, object]:
         "schema_version": "aoa_agent_incarnation_binding_v2",
         "binding_id": "incarnation-binding:landing",
         "incarnation_id": "incarnation:landing",
+        "correlation_id": "correlation:landing",
+        "causation_id": "causation:landing",
+        "trace_id": "trace:landing",
+        "run_plan_ref": run_plan_ref,
         "agent_obligation_ref": obligation_ref,
         "actor_mandate_ref": mandate_ref,
         "role_resolution_ref": role_resolution_ref,
         "model_fit_query_result_ref": model_fit_query_ref,
-        "model_fit_projection_ref": provenance(model_fit_projection_ref),
+        "model_fit_projection_ref": {
+            **provenance(model_fit_projection_ref),
+            "schema_ref": "schemas/model-fit-projection.schema.json",
+        },
+        "model_realization_ref": {
+            **provenance(model_realization_ref),
+            "source_ref": provenance(model_fit_projection_ref)["source_ref"],
+            "schema_ref": "schemas/model-realization.schema.json",
+        },
         "task_request_ref": provenance(sdk_request_ref),
+        "role_id": "coder",
         "role_contract_ref": {
             **provenance(mandate_ref),
             "artifact_digest": mandate_artifact_digest,
         },
-        "runtime_profile_ref": {
-            "artifact_ref": runtime_profile_ref["object_id"],
-            "owner_repo": runtime_profile_ref["owner_repo"],
-            "schema_version": runtime_profile_ref["schema_version"],
-            "artifact_digest": runtime_profile_ref["digest"],
-        },
+        "runtime_profile_ref": provenance(runtime_profile_ref),
+        "workspace_source_ref": provenance(
+            ref(
+                "task-local-workspace:landing",
+                "workspace:landing",
+                "task-local-git-workspace-v1",
+            )
+        ),
         "continuation": {
             "continuation_id": "continuation:landing",
             "exact_child_identity": "incarnation:landing",
             "parent_objective_ref": provenance(task_local_dag_ref),
             "established_decision_refs": [provenance(sdk_decision_ref)],
+            "delegated_obligation": "Perform the bounded landing obligation.",
+            "delegation_reason": "The goal assigned a separate landing holder.",
+            "owner_scope": ["aoa-agents", "aoa-sdk", "abyss-stack"],
             "immutable_input_refs": [
                 provenance(sdk_request_ref),
                 provenance(model_fit_projection_ref),
@@ -209,21 +264,103 @@ def fixture(temp: Path) -> dict[str, object]:
                 provenance(responsibility_transfer_ref),
                 provenance(domain_procedure_ref),
             ],
+            "expected_output": "summon-result-compiler-implementation",
+            "validation_refs": [
+                provenance(
+                    ref(
+                        "abyss-stack",
+                        "schema:external-report",
+                        "abyss_stack_external_codex_report_v1",
+                    )
+                )
+            ],
+            "deferred_parent_decisions": ["Accept or reject the return."],
+            "invariants": ["Preserve the owner evidence chain."],
+            "stop_condition_ids": ["authority-boundary"],
+            "wake_condition_ids": ["validated-completion"],
+            "return_owner": provenance(ref("codex-goal", "holder:goal", "holder-v1")),
+            "rollback_reentry_anchor": provenance(
+                ref(
+                    "task-local-workspace:landing",
+                    "workspace:landing",
+                    "task-local-git-workspace-v1",
+                )
+            ),
         },
-        "permission_posture": {"allowed_effect_classes": ["repo_mutation"]},
+        "permission_posture": {
+            "sandbox_mode": "workspace_write",
+            "approval_policy": "never",
+            "allowed_effect_classes": ["repo_mutation"],
+            "network_access": "disabled",
+            "external_effects": False,
+            "secret_access": False,
+        },
         "tool_profile": {
+            "profile_id": "runtime-profile:landing",
             "profile_ref": {
-                "artifact_ref": runtime_profile_ref["object_id"],
-                "owner_repo": runtime_profile_ref["owner_repo"],
-                "schema_version": runtime_profile_ref["schema_version"],
-                "artifact_digest": runtime_profile_ref["digest"],
-            }
+                **provenance(runtime_profile_ref),
+            },
+            "required_tool_ids": ["shell-read"],
+            "required_mcp_server_ids": [],
+            "inherit_user_configuration": False,
         },
+        "usage_metering": {
+            "metering_regime": "chatgpt_quota",
+            "dimensions": [
+                "input_tokens",
+                "cached_input_tokens",
+                "output_tokens",
+                "active_wall_seconds",
+                "turn_count",
+                "output_bytes",
+                "executed_commands",
+            ],
+            "cost_interpretation": "measurement_owner",
+            "execution_limit_policy": "none",
+            "mode": "observe_only",
+        },
+        "stop_conditions": [
+            {
+                "condition_id": "authority-boundary",
+                "kind": "authority_boundary",
+                "description": "Stop at the authority boundary.",
+                "terminal": True,
+            }
+        ],
+        "expected_result_schema_ref": provenance(
+            ref(
+                "abyss-stack",
+                "schema:external-report",
+                "abyss_stack_external_codex_report_v1",
+            )
+        ),
+        "wake_policy": {
+            "mode": "event_filtered_reentry",
+            "default_action": "stop",
+            "conditions": [
+                {
+                    "condition_id": "validated-completion",
+                    "event_kind": "result.validated",
+                    "action": "wake_parent",
+                    "description": "Wake the parent for a validated result.",
+                }
+            ],
+            "escalation_conditions": ["authority-boundary"],
+        },
+        "binding_digest": ZERO,
         "provenance": {
             "artifact_ref": "incarnation-binding:landing",
             "owner_repo": "aoa-sdk",
+            "source_ref": "0" * 40,
+            "artifact_digest": ZERO,
+            "schema_ref": "schemas/agent-incarnation-binding-v2.schema.json",
+            "schema_version": "aoa_control_plane_v1",
         },
     }
+    incarnation_binding["binding_digest"] = COMPILER.semantic_excluding_digest(
+        incarnation_binding,
+        "binding_digest",
+    )
     incarnation_binding_path = temp / "incarnation-binding.json"
     incarnation_binding_digest = write_json(
         incarnation_binding_path, incarnation_binding
@@ -234,6 +371,8 @@ def fixture(temp: Path) -> dict[str, object]:
         "role_resolution_ref": role_resolution_ref,
         "model_fit_query_result_ref": model_fit_query_ref,
         "model_fit_projection_ref": model_fit_projection_ref,
+        "model_realization_ref": model_realization_ref,
+        "run_plan_ref": run_plan_ref,
         "task_local_dag_ref": task_local_dag_ref,
         "incarnation_binding_ref": ref(
             "aoa-sdk",
@@ -243,7 +382,9 @@ def fixture(temp: Path) -> dict[str, object]:
         ),
         "sdk_summon_request_ref": sdk_request_ref,
         "sdk_summon_decision_ref": sdk_decision_ref,
-        "runtime_launch_ref": ref("abyss-stack", "launch:landing", "abyss_stack_external_codex_launch_v1"),
+        "runtime_launch_ref": ref(
+            "abyss-stack", "launch:landing", "abyss_stack_external_codex_launch_v1"
+        ),
         "responsibility_transfer_ref": {
             **responsibility_transfer_ref,
             "admitted_state": "accepted",
@@ -255,7 +396,11 @@ def fixture(temp: Path) -> dict[str, object]:
             "continuation-obligation-v1",
             incarnation_binding_digest,
         ),
-        "return_event_schema_ref": ref("abyss-stack", "schema:external-event", "abyss_stack_external_codex_event_v1"),
+        "return_event_schema_ref": ref(
+            "abyss-stack",
+            "schema:external-event",
+            "abyss_stack_external_codex_event_v1",
+        ),
         "domain_procedure_refs": [domain_procedure_ref],
         "runtime_interface": "abyss_stack_external_codex_agent_v1",
         "launches_separate_os_process": True,
@@ -318,9 +463,7 @@ def fixture(temp: Path) -> dict[str, object]:
             {
                 "argv": ["codex", "--disable", "multi_agent"],
                 "thread_id": "thread:landing",
-                "process_identity_ref": {
-                    "artifact_ref": "process-identity:landing"
-                },
+                "process_identity_ref": {"artifact_ref": "process-identity:landing"},
             }
         ],
     }
@@ -337,7 +480,9 @@ def fixture(temp: Path) -> dict[str, object]:
         "evidence_digests": {"writer_result": runtime_digest},
         "reviewed_artifact_path": "runtime-result.json",
         "summon_request_ref": incarnation["sdk_summon_request_ref"],
-        "review_summon_request_ref": ref("aoa-sdk", "review-request:landing", "urn:aoa-sdk:a2a:summon-request:v4"),
+        "review_summon_request_ref": ref(
+            "aoa-sdk", "review-request:landing", "urn:aoa-sdk:a2a:summon-request:v4"
+        ),
         "remote_task": {
             "agent_id": "incarnation:landing",
             "context_id": "session:landing-review",
@@ -377,6 +522,10 @@ def rewrite_bound_chain(
 ) -> None:
     request = copy.deepcopy(request if request is not None else data["request"])
     if incarnation_binding is not None:
+        incarnation_binding["binding_digest"] = COMPILER.semantic_excluding_digest(
+            incarnation_binding,
+            "binding_digest",
+        )
         binding_digest = write_json(
             data["incarnation_binding_path"], incarnation_binding
         )
@@ -396,6 +545,30 @@ def rewrite_bound_chain(
     data["request"] = request
     data["runtime"] = runtime
     data["a2a"] = a2a
+
+
+def rewrite_mandate_chain(
+    data: dict[str, object],
+    mandate: dict[str, object],
+) -> None:
+    mandate["mandate_digest"] = COMPILER.semantic_self_digest(
+        mandate,
+        "mandate_digest",
+    )
+    mandate_artifact_digest = write_json(data["mandate_path"], mandate)
+    request = copy.deepcopy(data["request"])
+    binding = copy.deepcopy(data["incarnation_binding"])
+    request["external_incarnation"]["actor_mandate_ref"]["digest"] = mandate[
+        "mandate_digest"
+    ]
+    binding["actor_mandate_ref"]["digest"] = mandate["mandate_digest"]
+    binding["role_contract_ref"]["artifact_digest"] = mandate_artifact_digest
+    rewrite_bound_chain(
+        data,
+        request=request,
+        incarnation_binding=binding,
+    )
+    data["mandate"] = mandate
 
 
 class CompileExternalExecutionResultTests(unittest.TestCase):
@@ -423,7 +596,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 set(data["request"]["expected_outputs"]),
             )
             self.assertNotIn("expected_outputs", first)
-            errors = list(Draft202012Validator(json.loads(SCHEMA.read_text())).iter_errors(first))
+            errors = list(
+                Draft202012Validator(json.loads(SCHEMA.read_text())).iter_errors(first)
+            )
             self.assertEqual(errors, [])
 
     def test_usage_is_a_digest_bound_json_pointer(self) -> None:
@@ -431,10 +606,14 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             data = fixture(Path(directory))
             result = self.compile(data)
             usage_ref = result["runtime_state"]["usage_observation_ref"]
-            self.assertEqual(usage_ref["object_id"], "actor-task-landing#/usage_observation")
+            self.assertEqual(
+                usage_ref["object_id"], "actor-task-landing#/usage_observation"
+            )
             self.assertEqual(
                 usage_ref["digest"],
-                COMPILER.digest_bytes(COMPILER.canonical_bytes(data["runtime"]["usage_observation"])),
+                COMPILER.digest_bytes(
+                    COMPILER.canonical_bytes(data["runtime"]["usage_observation"])
+                ),
             )
 
     def test_request_digest_mismatch_fails_closed(self) -> None:
@@ -443,7 +622,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             request = copy.deepcopy(data["request"])
             request["request_digest"] = ZERO
             write_json(data["request_path"], request)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "request digest mismatch"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "request digest mismatch"
+            ):
                 self.compile(data)
 
     def test_request_schema_mismatch_fails_closed(self) -> None:
@@ -453,15 +634,24 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             request["untrusted_extra"] = True
             request["request_digest"] = COMPILER.semantic_request_digest(request)
             write_json(data["request_path"], request)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "summon-request-v4 schema"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "summon-request-v4 schema"
+            ):
                 self.compile(data)
 
     def test_sdk_decision_request_identity_mismatch_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
-            decision = {"schema_version": "urn:aoa-sdk:a2a:summon-result:v4", "allowed": True, "capability_execution_claimed": False, "request_artifact_digest": ZERO}
+            decision = {
+                "schema_version": "urn:aoa-sdk:a2a:summon-result:v4",
+                "allowed": True,
+                "capability_execution_claimed": False,
+                "request_artifact_digest": ZERO,
+            }
             write_json(data["sdk_decision_path"], decision)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "SDK summon decision names"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "SDK summon decision names"
+            ):
                 self.compile(data)
 
     def test_owner_summon_body_must_be_the_sdk_transport_translation(self) -> None:
@@ -489,8 +679,12 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             decision_digest = write_json(data["sdk_decision_path"], decision)
 
             request = copy.deepcopy(data["request"])
-            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = sdk_digest
-            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = decision_digest
+            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = (
+                sdk_digest
+            )
+            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = (
+                decision_digest
+            )
             request["request_digest"] = COMPILER.semantic_request_digest(request)
             write_json(data["request_path"], request)
 
@@ -519,7 +713,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             runtime = copy.deepcopy(data["runtime"])
             runtime["status"] = "paused"
             write_json(data["runtime_path"], runtime)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "nonterminal"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "nonterminal"
+            ):
                 self.compile(data)
 
     def test_runtime_result_v1_fails_closed(self) -> None:
@@ -528,7 +724,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             runtime = copy.deepcopy(data["runtime"])
             runtime["schema_version"] = "abyss_stack_external_codex_result_v1"
             write_json(data["runtime_path"], runtime)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime result schema"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "runtime result schema"
+            ):
                 self.compile(data)
 
     def test_runtime_result_must_bind_the_exact_owner_request_and_launch(self) -> None:
@@ -550,9 +748,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             runtime = copy.deepcopy(data["runtime"])
-            runtime["owner_admission_ref"]["artifact_ref"] = (
-                "summon-request:other"
-            )
+            runtime["owner_admission_ref"]["artifact_ref"] = "summon-request:other"
             runtime_digest = write_json(data["runtime_path"], runtime)
             a2a = copy.deepcopy(data["a2a"])
             a2a["evidence_digests"]["writer_result"] = runtime_digest
@@ -636,12 +832,21 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
                 data = fixture(Path(directory))
                 binding = copy.deepcopy(data["incarnation_binding"])
-                binding[field][changed_key] = "different:object" if changed_key == "object_id" else "sha256:" + "1" * 64
+                binding[field][changed_key] = (
+                    "different:object"
+                    if changed_key == "object_id"
+                    else "sha256:" + "1" * 64
+                )
                 rewrite_bound_chain(data, incarnation_binding=binding)
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, f"{field} differs from the request"):
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    f"{field} differs from the request",
+                ):
                     self.compile(data)
 
-    def test_incarnation_projection_and_task_refs_must_bind_the_exact_request(self) -> None:
+    def test_incarnation_projection_and_task_refs_must_bind_the_exact_request(
+        self,
+    ) -> None:
         cases = (
             ("model_fit_projection_ref", "artifact_digest"),
             ("task_request_ref", "artifact_ref"),
@@ -650,10 +855,102 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
                 data = fixture(Path(directory))
                 binding = copy.deepcopy(data["incarnation_binding"])
-                binding[field][changed_key] = "different:artifact" if changed_key == "artifact_ref" else "sha256:" + "1" * 64
+                binding[field][changed_key] = (
+                    "different:artifact"
+                    if changed_key == "artifact_ref"
+                    else "sha256:" + "1" * 64
+                )
                 rewrite_bound_chain(data, incarnation_binding=binding)
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, f"{field} differs from the request"):
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    f"{field} differs from the request",
+                ):
                     self.compile(data)
+
+    def test_incarnation_binding_requires_complete_owner_v2_shape(self) -> None:
+        for field in ("model_realization_ref", "run_plan_ref"):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding.pop(field)
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "incarnation binding required fields are absent",
+                ):
+                    self.compile(data)
+
+    def test_incarnation_binding_rejects_nested_owner_v2_shape_drift(self) -> None:
+        cases = (
+            (
+                "incomplete provenance",
+                lambda binding: binding["model_realization_ref"].pop("source_ref"),
+                "model realization ref required fields are absent",
+            ),
+            (
+                "invalid sandbox",
+                lambda binding: binding["permission_posture"].update(
+                    {"sandbox_mode": "workspace-write"}
+                ),
+                "sandbox mode is invalid",
+            ),
+            (
+                "incomplete metering",
+                lambda binding: binding["usage_metering"]["dimensions"].pop(),
+                "metering dimensions are incomplete",
+            ),
+            (
+                "invalid wake action",
+                lambda binding: binding["wake_policy"]["conditions"][0].update(
+                    {"action": "continue_unconditionally"}
+                ),
+                "wake condition 0.action is invalid",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                mutate(binding)
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    message,
+                ):
+                    self.compile(data)
+
+    def test_incarnation_plan_and_realization_refs_bind_the_exact_request(self) -> None:
+        cases = (
+            ("run_plan_ref", "object_id", "run_plan_ref differs from the request"),
+            (
+                "model_realization_ref",
+                "artifact_ref",
+                "model_realization_ref differs from the request",
+            ),
+        )
+        for field, identity_field, message in cases:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                binding = copy.deepcopy(data["incarnation_binding"])
+                binding[field][identity_field] = f"{field}:other"
+                rewrite_bound_chain(data, incarnation_binding=binding)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    message,
+                ):
+                    self.compile(data)
+
+    def test_model_realization_must_share_the_fit_projection_source(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["model_realization_ref"]["source_ref"] = "1" * 40
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "model realization differs from the fit projection source",
+            ):
+                self.compile(data)
 
     def test_incarnation_continuation_child_must_bind_the_exact_request(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -661,7 +958,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             binding = copy.deepcopy(data["incarnation_binding"])
             binding["continuation"]["exact_child_identity"] = "incarnation:other"
             rewrite_bound_chain(data, incarnation_binding=binding)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "continuation child identity differs"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "continuation child identity differs",
+            ):
                 self.compile(data)
 
     def test_incarnation_role_contract_must_name_the_request_mandate(self) -> None:
@@ -670,7 +970,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             binding = copy.deepcopy(data["incarnation_binding"])
             binding["role_contract_ref"]["artifact_ref"] = "mandate:other"
             rewrite_bound_chain(data, incarnation_binding=binding)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "role_contract_ref differs from the exact mandate artifact"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "role_contract_ref differs from the exact mandate artifact",
+            ):
                 self.compile(data)
 
     def test_actor_mandate_semantic_digest_is_verified(self) -> None:
@@ -684,6 +987,47 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 "actor mandate semantic digest mismatch",
             ):
                 self.compile(data)
+
+    def test_actor_mandate_must_authorize_the_exact_incarnation_chain(self) -> None:
+        cases = (
+            (
+                "obligation",
+                lambda mandate: mandate["obligation_ref"].update(
+                    {"object_id": "obligation:other"}
+                ),
+                "mandate obligation differs",
+            ),
+            (
+                "role resolution",
+                lambda mandate: mandate["role_resolution_ref"].update(
+                    {"object_id": "role-resolution:other"}
+                ),
+                "mandate role resolution differs",
+            ),
+            (
+                "role binding",
+                lambda mandate: mandate["role_binding"].update({"role_id": "reviewer"}),
+                "mandate role binding differs",
+            ),
+            (
+                "domain procedures",
+                lambda mandate: mandate["domain_procedure_refs"][0].update(
+                    {"object_id": "procedure:other"}
+                ),
+                "mandate domain procedures differ",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                data = fixture(Path(directory))
+                mandate = copy.deepcopy(data["mandate"])
+                mutate(mandate)
+                rewrite_mandate_chain(data, mandate)
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    message,
+                ):
+                    self.compile(data)
 
     def test_role_contract_must_bind_exact_mandate_artifact_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -699,9 +1043,25 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
 
     def test_incarnation_continuation_must_preserve_request_chain(self) -> None:
         cases = (
-            ("parent DAG", lambda binding: binding["continuation"]["parent_objective_ref"].update({"artifact_digest": "sha256:" + "1" * 64}), "parent objective differs from the request DAG"),
-            ("SDK decision", lambda binding: binding["continuation"]["established_decision_refs"].clear(), "exact SDK summon decision"),
-            ("immutable SDK request", lambda binding: binding["continuation"]["immutable_input_refs"].pop(0), "exact SDK summon request"),
+            (
+                "parent DAG",
+                lambda binding: binding["continuation"]["parent_objective_ref"].update(
+                    {"artifact_digest": "sha256:" + "1" * 64}
+                ),
+                "parent objective differs from the request DAG",
+            ),
+            (
+                "SDK decision",
+                lambda binding: binding["continuation"][
+                    "established_decision_refs"
+                ].clear(),
+                "exact SDK summon decision",
+            ),
+            (
+                "immutable SDK request",
+                lambda binding: binding["continuation"]["immutable_input_refs"].pop(0),
+                "exact SDK summon request",
+            ),
         )
         for name, mutate, message in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
@@ -709,7 +1069,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 binding = copy.deepcopy(data["incarnation_binding"])
                 mutate(binding)
                 rewrite_bound_chain(data, incarnation_binding=binding)
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError, message
+                ):
                     self.compile(data)
 
     def test_incarnation_continuation_rejects_stale_same_identity_ref(self) -> None:
@@ -729,7 +1091,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
     def test_usage_locator_and_partial_pointer_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "usage pointer"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "usage pointer"
+            ):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
@@ -749,7 +1113,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 "abyss-stack",
                 "actor-task-landing#/usage_observation",
                 "abyss_stack_external_codex_usage_observation_v1",
-                COMPILER.digest_bytes(COMPILER.canonical_bytes(data["runtime"]["usage_observation"])),
+                COMPILER.digest_bytes(
+                    COMPILER.canonical_bytes(data["runtime"]["usage_observation"])
+                ),
             )
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
@@ -762,7 +1128,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 runtime_profile_ref=data["runtime_profile_ref"],
                 usage_observation_ref=usage_ref,
             )
-            self.assertEqual(result["runtime_state"]["usage_observation_ref"], usage_ref)
+            self.assertEqual(
+                result["runtime_state"]["usage_observation_ref"], usage_ref
+            )
 
     def test_cli_loads_usage_ref_as_a_ref_not_an_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -791,22 +1159,35 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 "closeout_handoff": {"next_route": "aoa-agents:review"},
             }
             argv = [
-                "--request", str(root / "request.json"),
-                "--incarnation-binding", str(root / "incarnation-binding.json"),
-                "--mandate", str(root / "mandate.json"),
-                "--sdk-summon-request", str(root / "sdk-request.json"),
-                "--sdk-summon-decision", str(root / "sdk-decision.json"),
-                "--runtime-result", str(root / "runtime.json"),
-                "--reviewed-a2a-return", str(root / "a2a.json"),
-                "--runtime-profile-ref", str(profile_ref_path),
-                "--usage-observation-ref", str(usage_ref_path),
-                "--output", str(output),
+                "--request",
+                str(root / "request.json"),
+                "--incarnation-binding",
+                str(root / "incarnation-binding.json"),
+                "--mandate",
+                str(root / "mandate.json"),
+                "--sdk-summon-request",
+                str(root / "sdk-request.json"),
+                "--sdk-summon-decision",
+                str(root / "sdk-decision.json"),
+                "--runtime-result",
+                str(root / "runtime.json"),
+                "--reviewed-a2a-return",
+                str(root / "a2a.json"),
+                "--runtime-profile-ref",
+                str(profile_ref_path),
+                "--usage-observation-ref",
+                str(usage_ref_path),
+                "--output",
+                str(output),
             ]
-            with mock.patch.object(
-                COMPILER,
-                "compile_external_execution_result",
-                return_value=compiled,
-            ) as compile_result, mock.patch.object(COMPILER, "_write"):
+            with (
+                mock.patch.object(
+                    COMPILER,
+                    "compile_external_execution_result",
+                    return_value=compiled,
+                ) as compile_result,
+                mock.patch.object(COMPILER, "_write"),
+            ):
                 self.assertEqual(COMPILER.main(argv), 0)
             self.assertEqual(
                 compile_result.call_args.kwargs["usage_observation_ref"],
@@ -833,10 +1214,15 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     "abyss-stack",
                     "actor-task-landing#/usage_observation",
                     "abyss_stack_external_codex_usage_observation_v1",
-                    COMPILER.digest_bytes(COMPILER.canonical_bytes(data["runtime"]["usage_observation"])),
+                    COMPILER.digest_bytes(
+                        COMPILER.canonical_bytes(data["runtime"]["usage_observation"])
+                    ),
                 )
                 usage_ref[field] = value
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "differs from the exact runtime observation"):
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "differs from the exact runtime observation",
+                ):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
@@ -894,7 +1280,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 if schema_version is not None:
                     profile["schema_version"] = schema_version
                 write_json(profile_path, profile)
-                with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime profile artifact schema"):
+                with self.assertRaisesRegex(
+                    COMPILER.ExternalExecutionResultError,
+                    "runtime profile artifact schema",
+                ):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
@@ -919,9 +1308,8 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             )
             binding = copy.deepcopy(data["incarnation_binding"])
             binding["tool_profile"]["profile_ref"] = {
+                **binding["tool_profile"]["profile_ref"],
                 "artifact_ref": "runtime-profile:landing-path",
-                "owner_repo": "abyss-stack",
-                "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
                 "artifact_digest": profile_digest,
             }
             binding["runtime_profile_ref"] = copy.deepcopy(
@@ -981,7 +1369,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["reviewed"] = False
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "not reviewed"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "not reviewed"
+            ):
                 self.compile(data)
 
     def test_actor_envelope_is_addressed_as_the_exact_derivative(self) -> None:
@@ -1065,11 +1455,19 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
 
             binding = copy.deepcopy(data["incarnation_binding"])
             binding["task_request_ref"]["artifact_digest"] = sdk_request_digest
-            binding["continuation"]["immutable_input_refs"][0]["artifact_digest"] = sdk_request_digest
-            binding["continuation"]["established_decision_refs"][0]["artifact_digest"] = sdk_decision_digest
+            binding["continuation"]["immutable_input_refs"][0]["artifact_digest"] = (
+                sdk_request_digest
+            )
+            binding["continuation"]["established_decision_refs"][0][
+                "artifact_digest"
+            ] = sdk_decision_digest
             request = copy.deepcopy(data["request"])
-            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = sdk_request_digest
-            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = sdk_decision_digest
+            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = (
+                sdk_request_digest
+            )
+            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = (
+                sdk_decision_digest
+            )
             a2a = copy.deepcopy(data["a2a"])
             a2a["summon_request_ref"]["digest"] = sdk_request_digest
             data["a2a"] = a2a
@@ -1078,7 +1476,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             result = self.compile(data)
             self.assertEqual(result["runtime_state"]["state"], "accepted")
 
-    def test_schema_less_sdk_request_envelope_rejects_wrong_provenance_schema(self) -> None:
+    def test_schema_less_sdk_request_envelope_rejects_wrong_provenance_schema(
+        self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             envelope = {
@@ -1104,7 +1504,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["schema_version"] = "abyss_stack_external_codex_a2a_return_v0"
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "schema/version"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "schema/version"
+            ):
                 self.compile(data)
 
     def test_reviewed_a2a_summon_ref_requires_the_complete_reference(self) -> None:
@@ -1128,7 +1530,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["evidence_digests"]["writer_result"] = runtime_digest
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "result.validated"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "result.validated"
+            ):
                 self.compile(data)
 
     def test_reviewed_a2a_writer_result_must_bind_terminal_runtime(self) -> None:
@@ -1137,7 +1541,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["evidence_digests"]["writer_result"] = ZERO
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "terminal runtime result"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "terminal runtime result"
+            ):
                 self.compile(data)
 
     def test_reviewed_a2a_remote_task_id_must_bind_terminal_runtime(self) -> None:
@@ -1146,7 +1552,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["remote_task"]["task_id"] = "actor-task-unrelated"
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "remote task id.*terminal runtime task id"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "remote task id.*terminal runtime task id",
+            ):
                 self.compile(data)
 
     def test_reviewed_a2a_agent_id_must_bind_terminal_runtime(self) -> None:
@@ -1155,7 +1564,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["remote_task"]["agent_id"] = "incarnation:unrelated"
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "remote task agent id.*terminal runtime incarnation id"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "remote task agent id.*terminal runtime incarnation id",
+            ):
                 self.compile(data)
 
     def test_review_disposition_cannot_be_widened(self) -> None:
@@ -1164,19 +1576,28 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a = copy.deepcopy(data["a2a"])
             a2a["review_outcome"] = "return_for_repair"
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "not accepting"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "not accepting"
+            ):
                 self.compile(data)
 
     def test_output_key_mismatch_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             a2a = copy.deepcopy(data["a2a"])
-            a2a["remote_task"]["returned_artifacts"] = ["external_codex_agent_result", "unexpected-output"]
+            a2a["remote_task"]["returned_artifacts"] = [
+                "external_codex_agent_result",
+                "unexpected-output",
+            ]
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "output keys"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "output keys"
+            ):
                 self.compile(data)
 
-    def test_extra_returned_artifact_fails_closed_when_requested_outputs_exist(self) -> None:
+    def test_extra_returned_artifact_fails_closed_when_requested_outputs_exist(
+        self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             a2a = copy.deepcopy(data["a2a"])
@@ -1185,13 +1606,17 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 "unexpected-output",
             ]
             write_json(data["a2a_path"], a2a)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "outside.*closure"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "outside.*closure"
+            ):
                 self.compile(data)
 
     def test_resolving_noncanonical_usage_pointer_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "canonical /usage_observation"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "canonical /usage_observation"
+            ):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
@@ -1211,7 +1636,9 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             request["child_scope"]["allowed_effects"] = ["external_effect"]
             request["request_digest"] = COMPILER.semantic_request_digest(request)
             write_json(data["request_path"], request)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "effect ceiling"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "effect ceiling"
+            ):
                 self.compile(data)
 
     def test_read_only_effect_ceiling_is_admitted(self) -> None:
@@ -1257,15 +1684,23 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             data = fixture(Path(directory))
             bad_profile = copy.deepcopy(data["runtime_profile_ref"])
             bad_profile["owner_repo"] = "aoa-stats"
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime profile ref owner"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "runtime profile ref owner"
+            ):
                 data["runtime_profile_ref"] = bad_profile
                 self.compile(data)
 
             data = fixture(Path(directory))
             runtime = copy.deepcopy(data["runtime"])
-            runtime["codex_invocations"][0]["argv"] = ["codex", "--enable", "multi_agent"]
+            runtime["codex_invocations"][0]["argv"] = [
+                "codex",
+                "--enable",
+                "multi_agent",
+            ]
             write_json(data["runtime_path"], runtime)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "disable built-in"):
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "disable built-in"
+            ):
                 self.compile(data)
 
 

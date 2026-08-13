@@ -35,7 +35,12 @@ MANDATE_SCHEMA_VERSION = "actor-mandate-v1"
 SDK_SUMMON_REQUEST_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-request:v4"
 SDK_SUMMON_DECISION_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-result:v4"
 RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
-TERMINAL_RUNTIME_STATUSES = {"completed", "failed", "review_required", "authority_blocked"}
+TERMINAL_RUNTIME_STATUSES = {
+    "completed",
+    "failed",
+    "review_required",
+    "authority_blocked",
+}
 SUCCESS_REVIEW_OUTCOMES = {"proceed"}
 A2A_RETURN_SCHEMA_VERSION = "abyss_stack_external_codex_a2a_return_v1"
 RUNTIME_PROFILE_SCHEMA_VERSION = "abyss_stack_external_codex_runtime_profile_v2"
@@ -71,6 +76,12 @@ def semantic_request_digest(request: Mapping[str, Any]) -> str:
 
 def semantic_self_digest(value: Mapping[str, Any], field: str) -> str:
     return digest_bytes(canonical_bytes(dict(value) | {field: ZERO_DIGEST}))
+
+
+def semantic_excluding_digest(value: Mapping[str, Any], field: str) -> str:
+    candidate = dict(value)
+    candidate.pop(field, None)
+    return digest_bytes(canonical_bytes(candidate))
 
 
 def _json_pointer(value: Any, pointer: str) -> Any:
@@ -134,7 +145,10 @@ def _load_with_metadata(
         raise ExternalExecutionResultError(f"{label} is not valid JSON") from exc
     if not isinstance(loaded, dict):
         raise ExternalExecutionResultError(f"{label} must be a JSON object")
-    if loaded.get("schema_version") == "abyss_stack_external_codex_actor_input_envelope_v1":
+    if (
+        loaded.get("schema_version")
+        == "abyss_stack_external_codex_actor_input_envelope_v1"
+    ):
         _require(
             set(loaded)
             == {
@@ -164,7 +178,10 @@ def _load_with_metadata(
                 f"{label} actor envelope must contain a JSON payload"
             )
         artifact_digest = loaded.get("source_artifact_digest")
-        if not isinstance(artifact_digest, str) or re.fullmatch(r"sha256:[0-9a-f]{64}", artifact_digest) is None:
+        if (
+            not isinstance(artifact_digest, str)
+            or re.fullmatch(r"sha256:[0-9a-f]{64}", artifact_digest) is None
+        ):
             raise ExternalExecutionResultError(
                 f"{label} actor envelope has no source artifact digest"
             )
@@ -184,17 +201,27 @@ def _load_with_metadata(
                 loaded.get("source_schema_version") == payload_schema_version,
                 f"{label} actor envelope provenance schema differs from payload schema",
             )
-        return raw, payload, digest_bytes(raw), {
-            "actor_envelope": True,
-            "source_schema_ref": loaded.get("source_schema_ref"),
-            "source_schema_version": loaded.get("source_schema_version"),
-            "unattested_source_artifact_digest": artifact_digest,
-        }
-    return raw, loaded, digest_bytes(raw), {
-        "actor_envelope": False,
-        "source_schema_ref": loaded.get("$schema"),
-        "source_schema_version": loaded.get("schema_version"),
-    }
+        return (
+            raw,
+            payload,
+            digest_bytes(raw),
+            {
+                "actor_envelope": True,
+                "source_schema_ref": loaded.get("source_schema_ref"),
+                "source_schema_version": loaded.get("source_schema_version"),
+                "unattested_source_artifact_digest": artifact_digest,
+            },
+        )
+    return (
+        raw,
+        loaded,
+        digest_bytes(raw),
+        {
+            "actor_envelope": False,
+            "source_schema_ref": loaded.get("$schema"),
+            "source_schema_version": loaded.get("schema_version"),
+        },
+    )
 
 
 def _load(
@@ -266,6 +293,71 @@ def _require(condition: bool, message: str) -> None:
 
 def _require_string(value: Any, label: str) -> str:
     _require(isinstance(value, str) and bool(value), f"{label} is absent")
+    return value
+
+
+def _require_shape(
+    value: Any,
+    *,
+    label: str,
+    required: set[str],
+    allowed: set[str] | None = None,
+) -> Mapping[str, Any]:
+    _require(isinstance(value, Mapping), f"{label} is absent")
+    keys = set(value)
+    allowed_keys = required if allowed is None else allowed
+    _require(required <= keys, f"{label} required fields are absent")
+    _require(keys <= allowed_keys, f"{label} has unsupported fields")
+    return value
+
+
+def _require_provenance(value: Any, *, label: str) -> dict[str, Any]:
+    provenance = _require_shape(
+        value,
+        label=label,
+        required={
+            "owner_repo",
+            "artifact_ref",
+            "source_ref",
+            "artifact_digest",
+            "schema_ref",
+            "schema_version",
+        },
+    )
+    for field in (
+        "owner_repo",
+        "artifact_ref",
+        "source_ref",
+        "schema_ref",
+        "schema_version",
+    ):
+        _require_string(provenance.get(field), f"{label}.{field}")
+    digest = provenance.get("artifact_digest")
+    _require(
+        isinstance(digest, str)
+        and re.fullmatch(r"sha256:[0-9a-f]{64}", digest) is not None,
+        f"{label}.artifact_digest is invalid",
+    )
+    return dict(provenance)
+
+
+def _require_string_list(
+    value: Any,
+    *,
+    label: str,
+    nonempty: bool = False,
+    unique: bool = False,
+) -> list[str]:
+    _require(
+        isinstance(value, list) and (bool(value) or not nonempty),
+        f"{label} is invalid",
+    )
+    _require(
+        all(isinstance(item, str) and bool(item) for item in value),
+        f"{label} entries are invalid",
+    )
+    if unique:
+        _require(len(value) == len(set(value)), f"{label} entries are duplicated")
     return value
 
 
@@ -364,13 +456,13 @@ def _ref_from_provenance(
     owner_repo: str,
     schema_version: str,
 ) -> dict[str, Any]:
-    _require(isinstance(value, Mapping), f"{label} provenance is absent")
+    provenance = _require_provenance(value, label=label)
     return _require_ref(
         {
-            "object_id": value.get("artifact_ref"),
-            "owner_repo": value.get("owner_repo"),
-            "schema_version": value.get("schema_version"),
-            "digest": value.get("artifact_digest"),
+            "object_id": provenance.get("artifact_ref"),
+            "owner_repo": provenance.get("owner_repo"),
+            "schema_version": provenance.get("schema_version"),
+            "digest": provenance.get("artifact_digest"),
         },
         label=label,
         owner_repo=owner_repo,
@@ -397,13 +489,13 @@ def _untyped_ref(value: Any, *, label: str) -> dict[str, Any]:
 
 
 def _untyped_ref_from_provenance(value: Any, *, label: str) -> dict[str, Any]:
-    _require(isinstance(value, Mapping), f"{label} provenance is absent")
+    provenance = _require_provenance(value, label=label)
     return _untyped_ref(
         {
-            "object_id": value.get("artifact_ref"),
-            "owner_repo": value.get("owner_repo"),
-            "schema_version": value.get("schema_version"),
-            "digest": value.get("artifact_digest"),
+            "object_id": provenance.get("artifact_ref"),
+            "owner_repo": provenance.get("owner_repo"),
+            "schema_version": provenance.get("schema_version"),
+            "digest": provenance.get("artifact_digest"),
         },
         label=label,
     )
@@ -422,8 +514,7 @@ def _require_one_ref(
         candidate
         for candidate in refs
         if tuple(
-            candidate[field]
-            for field in ("object_id", "owner_repo", "schema_version")
+            candidate[field] for field in ("object_id", "owner_repo", "schema_version")
         )
         == identity
     ]
@@ -444,16 +535,368 @@ def _validate_incarnation_binding(
     mandate_ref: Mapping[str, Any],
     mandate_artifact_digest: str,
 ) -> None:
+    _require_shape(
+        binding,
+        label="incarnation binding",
+        required={
+            "schema_version",
+            "binding_id",
+            "incarnation_id",
+            "correlation_id",
+            "causation_id",
+            "trace_id",
+            "run_plan_ref",
+            "task_request_ref",
+            "role_id",
+            "role_contract_ref",
+            "model_realization_ref",
+            "runtime_profile_ref",
+            "workspace_source_ref",
+            "permission_posture",
+            "tool_profile",
+            "usage_metering",
+            "stop_conditions",
+            "expected_result_schema_ref",
+            "continuation",
+            "wake_policy",
+            "binding_digest",
+            "provenance",
+            "agent_obligation_ref",
+            "actor_mandate_ref",
+            "role_resolution_ref",
+            "model_fit_query_result_ref",
+            "model_fit_projection_ref",
+        },
+    )
     _require(
         binding.get("schema_version") == "aoa_agent_incarnation_binding_v2",
         "incarnation binding schema is invalid",
+    )
+    for field in (
+        "binding_id",
+        "incarnation_id",
+        "correlation_id",
+        "causation_id",
+        "trace_id",
+        "role_id",
+    ):
+        _require_string(binding.get(field), f"incarnation binding {field}")
+    _require(
+        binding.get("binding_digest")
+        == semantic_excluding_digest(binding, "binding_digest"),
+        "incarnation binding semantic digest mismatch",
+    )
+    for field in (
+        "run_plan_ref",
+        "agent_obligation_ref",
+        "actor_mandate_ref",
+        "role_resolution_ref",
+        "model_fit_query_result_ref",
+    ):
+        _require_shape(
+            binding.get(field),
+            label=f"incarnation binding {field}",
+            required={"object_id", "owner_repo", "schema_version", "digest"},
+        )
+    bound_run_plan_ref = _require_ref(
+        binding.get("run_plan_ref"),
+        label="incarnation binding run plan ref",
+        owner_repo="aoa-sdk",
+        schema_version="aoa_control_plane_v1",
+    )
+    model_realization = _require_provenance(
+        binding.get("model_realization_ref"),
+        label="incarnation binding model realization ref",
+    )
+    _require(
+        model_realization["owner_repo"] == "aoa-models"
+        and model_realization["schema_version"] == "aoa_model_realization_v1",
+        "incarnation binding model realization ownership is invalid",
+    )
+    _require(
+        model_realization["schema_ref"] == "schemas/model-realization.schema.json",
+        "incarnation binding model realization schema ref is invalid",
+    )
+    bound_model_realization_ref = _require_ref(
+        {
+            "object_id": model_realization["artifact_ref"],
+            "owner_repo": model_realization["owner_repo"],
+            "schema_version": model_realization["schema_version"],
+            "digest": model_realization["artifact_digest"],
+        },
+        label="incarnation binding model realization ref",
+        owner_repo="aoa-models",
+        schema_version="aoa_model_realization_v1",
+    )
+    for field in (
+        "task_request_ref",
+        "role_contract_ref",
+        "runtime_profile_ref",
+        "workspace_source_ref",
+        "expected_result_schema_ref",
+        "model_fit_projection_ref",
+        "provenance",
+    ):
+        _require_provenance(
+            binding.get(field),
+            label=f"incarnation binding {field}",
+        )
+    _require(
+        binding["model_fit_projection_ref"]["owner_repo"] == "aoa-models"
+        and binding["model_fit_projection_ref"]["schema_version"]
+        == "aoa_model_fit_projection_v1"
+        and binding["model_fit_projection_ref"]["schema_ref"]
+        == "schemas/model-fit-projection.schema.json",
+        "incarnation binding model-fit projection provenance is invalid",
+    )
+    _require(
+        binding["provenance"]["owner_repo"] == "aoa-sdk",
+        "incarnation binding provenance owner is invalid",
+    )
+    permission = _require_shape(
+        binding.get("permission_posture"),
+        label="incarnation binding permission posture",
+        required={
+            "sandbox_mode",
+            "approval_policy",
+            "allowed_effect_classes",
+            "network_access",
+        },
+        allowed={
+            "sandbox_mode",
+            "approval_policy",
+            "allowed_effect_classes",
+            "network_access",
+            "external_effects",
+            "secret_access",
+        },
+    )
+    _require(
+        permission.get("sandbox_mode")
+        in {"read_only", "workspace_write", "danger_full_access"},
+        "incarnation binding sandbox mode is invalid",
+    )
+    _require(
+        permission.get("approval_policy")
+        in {"never", "on_request", "on_failure", "untrusted"},
+        "incarnation binding approval policy is invalid",
+    )
+    _require(
+        permission.get("network_access") in {"disabled", "allowlisted", "enabled"},
+        "incarnation binding network access is invalid",
+    )
+    effect_classes = _require_string_list(
+        permission.get("allowed_effect_classes"),
+        label="incarnation binding allowed effect classes",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        set(effect_classes)
+        <= {"read_only", "repo_mutation", "runtime_mutation", "external"},
+        "incarnation binding effect class is invalid",
+    )
+    for field in ("external_effects", "secret_access"):
+        if field in permission:
+            _require(
+                isinstance(permission[field], bool),
+                f"incarnation binding {field} is invalid",
+            )
+    tool_profile = _require_shape(
+        binding.get("tool_profile"),
+        label="incarnation binding tool profile",
+        required={"profile_id", "profile_ref", "required_tool_ids"},
+        allowed={
+            "profile_id",
+            "profile_ref",
+            "required_tool_ids",
+            "required_mcp_server_ids",
+            "inherit_user_configuration",
+        },
+    )
+    _require_string(
+        tool_profile.get("profile_id"), "incarnation binding tool profile id"
+    )
+    _require_provenance(
+        tool_profile.get("profile_ref"),
+        label="incarnation binding tool profile ref",
+    )
+    _require_string_list(
+        tool_profile.get("required_tool_ids"),
+        label="incarnation binding required tool ids",
+        nonempty=True,
+        unique=True,
+    )
+    if "required_mcp_server_ids" in tool_profile:
+        _require_string_list(
+            tool_profile.get("required_mcp_server_ids"),
+            label="incarnation binding required MCP server ids",
+            unique=True,
+        )
+    if "inherit_user_configuration" in tool_profile:
+        _require(
+            tool_profile["inherit_user_configuration"] is False,
+            "incarnation binding cannot inherit user configuration",
+        )
+    metering = _require_shape(
+        binding.get("usage_metering"),
+        label="incarnation binding usage metering",
+        required={"metering_regime", "dimensions"},
+        allowed={
+            "metering_regime",
+            "dimensions",
+            "cost_interpretation",
+            "execution_limit_policy",
+            "mode",
+        },
+    )
+    _require_string(
+        metering.get("metering_regime"), "incarnation binding metering regime"
+    )
+    dimensions = _require_string_list(
+        metering.get("dimensions"),
+        label="incarnation binding metering dimensions",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        set(dimensions)
+        == {
+            "input_tokens",
+            "cached_input_tokens",
+            "output_tokens",
+            "active_wall_seconds",
+            "turn_count",
+            "output_bytes",
+            "executed_commands",
+        },
+        "incarnation binding metering dimensions are incomplete",
+    )
+    for field, expected in (
+        ("cost_interpretation", "measurement_owner"),
+        ("execution_limit_policy", "none"),
+        ("mode", "observe_only"),
+    ):
+        if field in metering:
+            _require(
+                metering[field] == expected,
+                f"incarnation binding usage {field} is invalid",
+            )
+    stop_conditions = binding.get("stop_conditions")
+    _require(
+        isinstance(stop_conditions, list) and bool(stop_conditions),
+        "incarnation binding stop conditions are absent",
+    )
+    stop_ids: list[str] = []
+    for index, value in enumerate(stop_conditions):
+        condition = _require_shape(
+            value,
+            label=f"incarnation binding stop condition {index}",
+            required={"condition_id", "kind", "description"},
+            allowed={"condition_id", "kind", "description", "terminal"},
+        )
+        stop_ids.append(
+            _require_string(
+                condition.get("condition_id"),
+                f"incarnation binding stop condition {index}.condition_id",
+            )
+        )
+        _require_string(
+            condition.get("kind"), f"incarnation binding stop condition {index}.kind"
+        )
+        _require(
+            condition.get("kind")
+            in {
+                "authority_boundary",
+                "scope_boundary",
+                "validation_failure",
+                "ambiguity",
+                "external_effect_required",
+                "runtime_failure",
+                "custom",
+            },
+            f"incarnation binding stop condition {index}.kind is invalid",
+        )
+        _require_string(
+            condition.get("description"),
+            f"incarnation binding stop condition {index}.description",
+        )
+        if "terminal" in condition:
+            _require(
+                isinstance(condition["terminal"], bool),
+                f"incarnation binding stop condition {index}.terminal is invalid",
+            )
+    _require(
+        len(stop_ids) == len(set(stop_ids)),
+        "incarnation binding stop condition ids are duplicated",
+    )
+    wake_policy = _require_shape(
+        binding.get("wake_policy"),
+        label="incarnation binding wake policy",
+        required={"default_action", "conditions", "escalation_conditions"},
+        allowed={"mode", "default_action", "conditions", "escalation_conditions"},
+    )
+    wake_actions = {
+        "continue_without_parent",
+        "activate_review_role",
+        "wake_parent",
+        "stop",
+    }
+    _require(
+        wake_policy.get("default_action") in wake_actions,
+        "incarnation binding wake default action is invalid",
+    )
+    if "mode" in wake_policy:
+        _require(
+            wake_policy["mode"] == "event_filtered_reentry",
+            "incarnation binding wake mode is invalid",
+        )
+    _require_string_list(
+        wake_policy.get("escalation_conditions"),
+        label="incarnation binding wake escalation conditions",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        isinstance(wake_policy.get("conditions"), list)
+        and bool(wake_policy["conditions"]),
+        "incarnation binding wake conditions are absent",
+    )
+    wake_ids: list[str] = []
+    for index, value in enumerate(wake_policy["conditions"]):
+        condition = _require_shape(
+            value,
+            label=f"incarnation binding wake condition {index}",
+            required={"condition_id", "event_kind", "action", "description"},
+        )
+        wake_ids.append(
+            _require_string(
+                condition.get("condition_id"),
+                f"incarnation binding wake condition {index}.condition_id",
+            )
+        )
+        for field in ("event_kind", "action", "description"):
+            _require_string(
+                condition.get(field),
+                f"incarnation binding wake condition {index}.{field}",
+            )
+        _require(
+            condition.get("action") in wake_actions,
+            f"incarnation binding wake condition {index}.action is invalid",
+        )
+    _require(
+        len(wake_ids) == len(set(wake_ids)),
+        "incarnation binding wake condition ids are duplicated",
     )
     _require(
         incarnation["incarnation_binding_ref"]["digest"] == binding_digest,
         "incarnation binding artifact differs from the request ref",
     )
     binding_provenance = binding.get("provenance")
-    _require(isinstance(binding_provenance, Mapping), "incarnation binding provenance is absent")
+    _require(
+        isinstance(binding_provenance, Mapping),
+        "incarnation binding provenance is absent",
+    )
     _require(
         binding_provenance.get("owner_repo") == "aoa-sdk"
         and binding_provenance.get("artifact_ref")
@@ -462,13 +905,40 @@ def _validate_incarnation_binding(
     )
     expected_incarnation_id = request.get("summon_request", {}).get("child_agent_id")
     _require(
-        binding.get("incarnation_id") == expected_incarnation_id == runtime.get("incarnation_id"),
+        binding.get("incarnation_id")
+        == expected_incarnation_id
+        == runtime.get("incarnation_id"),
         "incarnation binding identity differs from request or runtime",
+    )
+    request_run_plan_ref = _require_ref(
+        incarnation.get("run_plan_ref"),
+        label="request incarnation run plan ref",
+        owner_repo="aoa-sdk",
+        schema_version="aoa_control_plane_v1",
+    )
+    _require(
+        bound_run_plan_ref == request_run_plan_ref,
+        "incarnation binding run_plan_ref differs from the request",
+    )
+    request_model_realization_ref = _require_ref(
+        incarnation.get("model_realization_ref"),
+        label="request incarnation model realization ref",
+        owner_repo="aoa-models",
+        schema_version="aoa_model_realization_v1",
+    )
+    _require(
+        bound_model_realization_ref == request_model_realization_ref,
+        "incarnation binding model_realization_ref differs from the request",
     )
     for binding_field, incarnation_field, owner_repo, schema_version in (
         ("agent_obligation_ref", "obligation_ref", "aoa-agents", "agent-obligation-v1"),
         ("actor_mandate_ref", "actor_mandate_ref", "aoa-agents", "actor-mandate-v1"),
-        ("role_resolution_ref", "role_resolution_ref", "aoa-agents", "aoa_role_resolution_v1"),
+        (
+            "role_resolution_ref",
+            "role_resolution_ref",
+            "aoa-agents",
+            "aoa_role_resolution_v1",
+        ),
         (
             "model_fit_query_result_ref",
             "model_fit_query_result_ref",
@@ -508,6 +978,11 @@ def _validate_incarnation_binding(
         bound_projection_ref == request_projection_ref,
         "incarnation binding model_fit_projection_ref differs from the request",
     )
+    _require(
+        binding["model_fit_projection_ref"].get("source_ref")
+        == model_realization.get("source_ref"),
+        "incarnation binding model realization differs from the fit projection source",
+    )
     bound_task_request_ref = _ref_from_provenance(
         binding.get("task_request_ref"),
         label="incarnation binding task request ref",
@@ -545,7 +1020,83 @@ def _validate_incarnation_binding(
         "incarnation binding role_contract_ref differs from the exact mandate artifact",
     )
     continuation = binding.get("continuation")
-    _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
+    continuation = _require_shape(
+        continuation,
+        label="incarnation continuation",
+        required={
+            "continuation_id",
+            "parent_objective_ref",
+            "established_decision_refs",
+            "delegated_obligation",
+            "delegation_reason",
+            "exact_child_identity",
+            "owner_scope",
+            "immutable_input_refs",
+            "expected_output",
+            "validation_refs",
+            "deferred_parent_decisions",
+            "invariants",
+            "stop_condition_ids",
+            "wake_condition_ids",
+            "return_owner",
+            "rollback_reentry_anchor",
+        },
+    )
+    for field in (
+        "continuation_id",
+        "delegated_obligation",
+        "delegation_reason",
+        "exact_child_identity",
+        "expected_output",
+    ):
+        _require_string(continuation.get(field), f"incarnation continuation {field}")
+    for field in (
+        "owner_scope",
+        "invariants",
+        "stop_condition_ids",
+        "wake_condition_ids",
+    ):
+        _require_string_list(
+            continuation.get(field),
+            label=f"incarnation continuation {field}",
+            nonempty=True,
+            unique=True,
+        )
+    _require_string_list(
+        continuation.get("deferred_parent_decisions"),
+        label="incarnation continuation deferred parent decisions",
+        unique=True,
+    )
+    for field in ("immutable_input_refs", "validation_refs"):
+        _require(
+            isinstance(continuation.get(field), list) and bool(continuation[field]),
+            f"incarnation continuation {field} is absent",
+        )
+    _require(
+        set(continuation["stop_condition_ids"]) == set(stop_ids),
+        "incarnation continuation stop conditions differ from the binding",
+    )
+    _require(
+        set(continuation["wake_condition_ids"]) == set(wake_ids),
+        "incarnation continuation wake conditions differ from the binding",
+    )
+    for field in ("return_owner", "rollback_reentry_anchor"):
+        _require_provenance(
+            continuation.get(field),
+            label=f"incarnation continuation {field}",
+        )
+    validation_values = continuation.get("validation_refs")
+    assert isinstance(validation_values, list)
+    for index, value in enumerate(validation_values):
+        _require_provenance(
+            value,
+            label=f"incarnation continuation validation ref {index}",
+        )
+    parent_objective_value = continuation.get("parent_objective_ref")
+    _require_provenance(
+        parent_objective_value,
+        label="incarnation continuation parent objective ref",
+    )
     continuity_ref = incarnation["continuity_ref"]
     _require(
         continuity_ref["digest"] == binding_digest
@@ -573,7 +1124,10 @@ def _validate_incarnation_binding(
         "incarnation continuation parent objective differs from the request DAG",
     )
     established_values = continuation.get("established_decision_refs")
-    _require(isinstance(established_values, list), "incarnation continuation established decisions are absent")
+    _require(
+        isinstance(established_values, list),
+        "incarnation continuation established decisions are absent",
+    )
     established_refs = [
         _untyped_ref_from_provenance(
             value,
@@ -587,9 +1141,14 @@ def _validate_incarnation_binding(
         owner_repo="aoa-sdk",
         schema_version="urn:aoa-sdk:a2a:summon-result:v4",
     )
-    _require_one_ref(established_refs, request_decision_ref, label="SDK summon decision")
+    _require_one_ref(
+        established_refs, request_decision_ref, label="SDK summon decision"
+    )
     immutable_values = continuation.get("immutable_input_refs")
-    _require(isinstance(immutable_values, list), "incarnation continuation immutable inputs are absent")
+    _require(
+        isinstance(immutable_values, list),
+        "incarnation continuation immutable inputs are absent",
+    )
     immutable_refs = [
         _untyped_ref_from_provenance(
             value,
@@ -598,7 +1157,9 @@ def _validate_incarnation_binding(
         for index, value in enumerate(immutable_values)
     ]
     _require_one_ref(immutable_refs, request_task_ref, label="SDK summon request")
-    _require_one_ref(immutable_refs, request_projection_ref, label="model-fit projection")
+    _require_one_ref(
+        immutable_refs, request_projection_ref, label="model-fit projection"
+    )
     _require_one_ref(immutable_refs, request_dag_ref, label="task-local DAG")
     transfer_ref = _require_ref(
         incarnation.get("responsibility_transfer_ref"),
@@ -617,9 +1178,13 @@ def _validate_incarnation_binding(
             value,
             label=f"request incarnation domain procedure ref {index}",
         )
-        _require_one_ref(immutable_refs, procedure_ref, label=f"domain procedure {index}")
+        _require_one_ref(
+            immutable_refs, procedure_ref, label=f"domain procedure {index}"
+        )
     permission = binding.get("permission_posture")
-    _require(isinstance(permission, Mapping), "incarnation permission posture is absent")
+    _require(
+        isinstance(permission, Mapping), "incarnation permission posture is absent"
+    )
     _require(
         permission.get("allowed_effect_classes")
         == request.get("child_scope", {}).get("allowed_effects"),
@@ -642,6 +1207,75 @@ def _validate_incarnation_binding(
     _require(
         bound_runtime_profile_ref == bound_profile_ref == runtime_profile_ref,
         "runtime profile differs from the incarnation binding",
+    )
+
+
+def _validate_mandate_chain(
+    mandate: Mapping[str, Any],
+    *,
+    binding: Mapping[str, Any],
+    request: Mapping[str, Any],
+    incarnation: Mapping[str, Any],
+) -> None:
+    mandate_obligation_ref = _require_ref(
+        mandate.get("obligation_ref"),
+        label="actor mandate obligation ref",
+        owner_repo="aoa-agents",
+        schema_version="agent-obligation-v1",
+    )
+    request_obligation_ref = _require_ref(
+        incarnation.get("obligation_ref"),
+        label="request incarnation obligation ref",
+        owner_repo="aoa-agents",
+        schema_version="agent-obligation-v1",
+    )
+    _require(
+        mandate_obligation_ref == request_obligation_ref,
+        "actor mandate obligation differs from the request incarnation",
+    )
+    mandate_role_resolution_ref = _require_ref(
+        mandate.get("role_resolution_ref"),
+        label="actor mandate role resolution ref",
+        owner_repo="aoa-agents",
+        schema_version="aoa_role_resolution_v1",
+    )
+    request_role_resolution_ref = _require_ref(
+        incarnation.get("role_resolution_ref"),
+        label="request incarnation role resolution ref",
+        owner_repo="aoa-agents",
+        schema_version="aoa_role_resolution_v1",
+    )
+    _require(
+        mandate_role_resolution_ref == request_role_resolution_ref,
+        "actor mandate role resolution differs from the request incarnation",
+    )
+    role_binding = mandate.get("role_binding")
+    _require(isinstance(role_binding, Mapping), "actor mandate role binding is absent")
+    selected_role = request.get("summon_request", {}).get("desired_role")
+    _require(
+        role_binding.get("role_id") == binding.get("role_id") == selected_role,
+        "actor mandate role binding differs from the selected incarnation role",
+    )
+    mandate_procedure_values = mandate.get("domain_procedure_refs")
+    request_procedure_values = incarnation.get("domain_procedure_refs")
+    _require(
+        isinstance(mandate_procedure_values, list)
+        and bool(mandate_procedure_values)
+        and isinstance(request_procedure_values, list)
+        and bool(request_procedure_values),
+        "actor mandate domain procedure refs are absent",
+    )
+    mandate_procedure_refs = [
+        _untyped_ref(value, label=f"actor mandate domain procedure ref {index}")
+        for index, value in enumerate(mandate_procedure_values)
+    ]
+    request_procedure_refs = [
+        _untyped_ref(value, label=f"request incarnation domain procedure ref {index}")
+        for index, value in enumerate(request_procedure_values)
+    ]
+    _require(
+        mandate_procedure_refs == request_procedure_refs,
+        "actor mandate domain procedures differ from the request incarnation",
     )
 
 
@@ -759,7 +1393,11 @@ def _validate_external_request(request: Mapping[str, Any]) -> dict[str, Any]:
         ("runtime_launch_ref", "abyss-stack", "abyss_stack_external_codex_launch_v1"),
         ("responsibility_transfer_ref", "aoa-agents", "responsibility-transfer-v1"),
         ("continuity_ref", "aoa-sdk", "continuation-obligation-v1"),
-        ("return_event_schema_ref", "abyss-stack", "abyss_stack_external_codex_event_v1"),
+        (
+            "return_event_schema_ref",
+            "abyss-stack",
+            "abyss_stack_external_codex_event_v1",
+        ),
     ):
         _require_ref(
             incarnation.get(field),
@@ -775,26 +1413,45 @@ def _validate_external_request(request: Mapping[str, Any]) -> dict[str, Any]:
         "domain procedure refs are absent",
     )
     for index, procedure in enumerate(procedures, start=1):
-        _require_string(procedure.get("object_id"), f"domain procedure {index} object identity")
+        _require_string(
+            procedure.get("object_id"), f"domain procedure {index} object identity"
+        )
         _require_string(procedure.get("owner_repo"), f"domain procedure {index} owner")
-        _require_string(procedure.get("schema_version"), f"domain procedure {index} schema")
+        _require_string(
+            procedure.get("schema_version"), f"domain procedure {index} schema"
+        )
         _require(
             isinstance(procedure.get("digest"), str)
             and re.fullmatch(r"sha256:[0-9a-f]{64}", procedure["digest"]) is not None,
             f"domain procedure {index} digest is invalid",
         )
     _require(incarnation.get("runtime_interface"), "runtime interface is absent")
-    _require(incarnation.get("launches_separate_os_process") is True, "separate process was not bound")
-    _require(incarnation.get("separate_cli_session") is True, "separate CLI session was not bound")
-    _require(incarnation.get("uses_builtin_codex_subagents") is False, "built-in subagents are enabled")
+    _require(
+        incarnation.get("launches_separate_os_process") is True,
+        "separate process was not bound",
+    )
+    _require(
+        incarnation.get("separate_cli_session") is True,
+        "separate CLI session was not bound",
+    )
+    _require(
+        incarnation.get("uses_builtin_codex_subagents") is False,
+        "built-in subagents are enabled",
+    )
     _require(
         incarnation.get("usage_metering") == "observe_only_no_budget",
         "usage metering is not observe-only",
     )
     transfer = incarnation["responsibility_transfer_ref"]
-    _require(transfer.get("admitted_state") in {"accepted", "launched", "narrowed"}, "responsibility transfer is not admitted")
+    _require(
+        transfer.get("admitted_state") in {"accepted", "launched", "narrowed"},
+        "responsibility transfer is not admitted",
+    )
     holders = transfer.get("holder_ids")
-    _require(isinstance(holders, list) and len(holders) == 2 and len(set(holders)) == 2, "responsibility holders are not distinct")
+    _require(
+        isinstance(holders, list) and len(holders) == 2 and len(set(holders)) == 2,
+        "responsibility holders are not distinct",
+    )
     return dict(incarnation)
 
 
@@ -807,7 +1464,8 @@ def _validate_sdk_chain(
     sdk_decision_digest: str,
 ) -> None:
     _require(
-        sdk_request.get("schema_version") in {
+        sdk_request.get("schema_version")
+        in {
             None,
             "urn:aoa-sdk:a2a:summon-request:v4",
             "summon-request-v4",
@@ -834,13 +1492,18 @@ def _validate_sdk_chain(
     sdk_outputs = sdk_request.get("expected_outputs")
     requested_outputs = request.get("expected_outputs")
     _require(
-        isinstance(sdk_outputs, list)
-        and sdk_outputs == requested_outputs,
+        isinstance(sdk_outputs, list) and sdk_outputs == requested_outputs,
         "SDK and owner request output keys differ",
     )
-    _require(sdk_decision.get("schema_version") == "urn:aoa-sdk:a2a:summon-result:v4", "SDK summon decision schema is invalid")
+    _require(
+        sdk_decision.get("schema_version") == "urn:aoa-sdk:a2a:summon-result:v4",
+        "SDK summon decision schema is invalid",
+    )
     _require(sdk_decision.get("allowed") is True, "SDK summon decision is not allowed")
-    _require(sdk_decision.get("capability_execution_claimed") is False, "SDK decision claims runtime execution")
+    _require(
+        sdk_decision.get("capability_execution_claimed") is False,
+        "SDK decision claims runtime execution",
+    )
     _require(
         sdk_decision.get("request_artifact_digest") == sdk_request_digest,
         "SDK summon decision names another summon request",
@@ -857,7 +1520,10 @@ def _validate_sdk_chain(
 
 def _process_handle(runtime: Mapping[str, Any]) -> str:
     invocations = runtime.get("codex_invocations")
-    _require(isinstance(invocations, list) and bool(invocations), "runtime process evidence is absent")
+    _require(
+        isinstance(invocations, list) and bool(invocations),
+        "runtime process evidence is absent",
+    )
     invocation = invocations[-1]
     _require(isinstance(invocation, Mapping), "runtime process evidence is invalid")
     process_ref = invocation.get("process_identity_ref")
@@ -870,14 +1536,26 @@ def _validate_runtime(
     request: Mapping[str, Any],
     request_artifact_digest: str,
 ) -> tuple[dict[str, str], dict[str, str]]:
-    _require(runtime.get("schema_version") == "abyss_stack_external_codex_result_v2", "runtime result schema is invalid")
-    _require(runtime.get("status") in TERMINAL_RUNTIME_STATUSES, "runtime result is nonterminal")
+    _require(
+        runtime.get("schema_version") == "abyss_stack_external_codex_result_v2",
+        "runtime result schema is invalid",
+    )
+    _require(
+        runtime.get("status") in TERMINAL_RUNTIME_STATUSES,
+        "runtime result is nonterminal",
+    )
     _require(
         runtime.get("status") in {"completed", "review_required"},
         "runtime result cannot support an accepted closeout",
     )
-    _require(runtime.get("execution_posture") in {"bounded_execution", "closeout"}, "runtime execution posture exceeds the mandate")
-    _require(runtime.get("admission_class") == "owner_contour", "runtime admission class is not owner-contour")
+    _require(
+        runtime.get("execution_posture") in {"bounded_execution", "closeout"},
+        "runtime execution posture exceeds the mandate",
+    )
+    _require(
+        runtime.get("admission_class") == "owner_contour",
+        "runtime admission class is not owner-contour",
+    )
     _require_string(runtime.get("task_id"), "runtime task id")
     _require_string(runtime.get("incarnation_id"), "runtime incarnation id")
     _require_string(runtime.get("session_id"), "runtime session id")
@@ -887,9 +1565,14 @@ def _validate_runtime(
     usage = runtime.get("usage_observation")
     _validate_usage_observation(usage, label="runtime usage observation")
     invocations = runtime.get("codex_invocations")
-    _require(isinstance(invocations, list) and bool(invocations), "runtime invocation evidence is absent")
+    _require(
+        isinstance(invocations, list) and bool(invocations),
+        "runtime invocation evidence is absent",
+    )
     for invocation in invocations:
-        _require(isinstance(invocation, Mapping), "runtime invocation evidence is invalid")
+        _require(
+            isinstance(invocation, Mapping), "runtime invocation evidence is invalid"
+        )
         argv = invocation.get("argv")
         _require(isinstance(argv, list), "runtime invocation argv is absent")
         _require(
@@ -897,7 +1580,10 @@ def _validate_runtime(
             "runtime invocation claims built-in subagent use",
         )
         _require(
-            any(argv[index:index + 2] == ["--disable", "multi_agent"] for index in range(max(0, len(argv) - 1))),
+            any(
+                argv[index : index + 2] == ["--disable", "multi_agent"]
+                for index in range(max(0, len(argv) - 1))
+            ),
             "runtime invocation does not disable built-in subagents",
         )
         _require(
@@ -923,13 +1609,20 @@ def _validate_runtime(
         "continuation_handle": continuation_handle,
     }
     if runtime.get("exit_code") is not None and runtime.get("status") != "failed":
-        _require(runtime.get("exit_code") == 0, "successful runtime result has a nonzero exit code")
+        _require(
+            runtime.get("exit_code") == 0,
+            "successful runtime result has a nonzero exit code",
+        )
     _require(
-        runtime.get("incarnation_id") == request.get("summon_request", {}).get("child_agent_id"),
+        runtime.get("incarnation_id")
+        == request.get("summon_request", {}).get("child_agent_id"),
         "runtime incarnation differs from the summon request",
     )
     owner_admission_ref = runtime.get("owner_admission_ref")
-    _require(isinstance(owner_admission_ref, Mapping), "runtime owner admission ref is absent")
+    _require(
+        isinstance(owner_admission_ref, Mapping),
+        "runtime owner admission ref is absent",
+    )
     _require_string(
         owner_admission_ref.get("artifact_ref"),
         "runtime owner admission artifact ref",
@@ -964,14 +1657,27 @@ def _validate_reviewed_return(
     source_schema_ref = reviewed_return_metadata.get("source_schema_ref")
     if source_schema_ref is not None:
         _require(
-            source_schema_ref == "runtime/schemas/external-codex-a2a-return.schema.json",
+            source_schema_ref
+            == "runtime/schemas/external-codex-a2a-return.schema.json",
             "A2A return schema ref is invalid",
         )
     _require(reviewed_return.get("reviewed") is True, "A2A return is not reviewed")
-    _require(reviewed_return.get("review_status") == "reviewed", "A2A review status is not reviewed")
-    _require(reviewed_return.get("reviewer_status") == "completed", "A2A reviewer is not terminal")
-    _require(reviewed_return.get("reviewer_decision") in SUCCESS_REVIEW_OUTCOMES, "A2A reviewer disposition is not accepting")
-    _require(reviewed_return.get("review_outcome") in SUCCESS_REVIEW_OUTCOMES, "A2A review outcome is not accepting")
+    _require(
+        reviewed_return.get("review_status") == "reviewed",
+        "A2A review status is not reviewed",
+    )
+    _require(
+        reviewed_return.get("reviewer_status") == "completed",
+        "A2A reviewer is not terminal",
+    )
+    _require(
+        reviewed_return.get("reviewer_decision") in SUCCESS_REVIEW_OUTCOMES,
+        "A2A reviewer disposition is not accepting",
+    )
+    _require(
+        reviewed_return.get("review_outcome") in SUCCESS_REVIEW_OUTCOMES,
+        "A2A review outcome is not accepting",
+    )
     remote_task = reviewed_return.get("remote_task")
     _require(isinstance(remote_task, Mapping), "A2A remote task is absent")
     _require(remote_task.get("state") == "completed", "A2A remote task is nonterminal")
@@ -1064,13 +1770,17 @@ def _output_checks(
         artifacts_by_name: dict[str, str] = {}
         for artifact in value:
             if not isinstance(artifact, str) or not artifact:
-                raise ExternalExecutionResultError("A2A returned artifact identity is invalid")
+                raise ExternalExecutionResultError(
+                    "A2A returned artifact identity is invalid"
+                )
             if artifact not in expected_outputs:
                 raise ExternalExecutionResultError(
                     f"A2A returned artifact is outside the requested output keys/closure: {artifact}"
                 )
             if artifact in artifacts_by_name:
-                raise ExternalExecutionResultError(f"A2A returned duplicate output: {artifact}")
+                raise ExternalExecutionResultError(
+                    f"A2A returned duplicate output: {artifact}"
+                )
             artifacts_by_name[artifact] = artifact
         _require(
             set(artifacts_by_name) == set(expected_outputs),
@@ -1099,7 +1809,9 @@ def _output_checks(
     return {
         output: {
             "received": True,
-            "artifact_ref": _require_string(artifacts[output], f"output {output} artifact ref"),
+            "artifact_ref": _require_string(
+                artifacts[output], f"output {output} artifact ref"
+            ),
             "accepted": True,
         }
         for output in expected_outputs
@@ -1171,8 +1883,8 @@ def compile_external_execution_result(
         label="runtime result",
         expected_envelope_schema_version=RUNTIME_RESULT_SCHEMA_VERSION,
     )
-    _a2a_raw, reviewed_return, reviewed_return_digest, reviewed_return_metadata = _load_with_metadata(
-        reviewed_a2a_return_path, label="reviewed A2A return"
+    _a2a_raw, reviewed_return, reviewed_return_digest, reviewed_return_metadata = (
+        _load_with_metadata(reviewed_a2a_return_path, label="reviewed A2A return")
     )
     incarnation = _validate_external_request(request)
     _validate_sdk_chain(
@@ -1217,6 +1929,12 @@ def compile_external_execution_result(
         mandate_ref=mandate_ref,
         mandate_artifact_digest=mandate_artifact_digest,
     )
+    _validate_mandate_chain(
+        mandate,
+        binding=incarnation_binding,
+        request=request,
+        incarnation=incarnation,
+    )
     output_checks = _output_checks(
         request["expected_outputs"],
         reviewed_return,
@@ -1255,6 +1973,18 @@ def compile_external_execution_result(
                 owner_repo="aoa-models",
                 schema_version="aoa_model_fit_projection_v1",
             ),
+            "model_realization_ref": _require_ref(
+                incarnation["model_realization_ref"],
+                label="model realization ref",
+                owner_repo="aoa-models",
+                schema_version="aoa_model_realization_v1",
+            ),
+            "run_plan_ref": _require_ref(
+                incarnation["run_plan_ref"],
+                label="run plan ref",
+                owner_repo="aoa-sdk",
+                schema_version="aoa_control_plane_v1",
+            ),
             "incarnation_binding_ref": _require_ref(
                 incarnation["incarnation_binding_ref"],
                 label="incarnation binding ref",
@@ -1289,12 +2019,16 @@ def compile_external_execution_result(
             "accepted": True,
         },
         "closeout_handoff": {
-            "parent_owner": _require_string(request.get("return_owner"), "request return owner"),
+            "parent_owner": _require_string(
+                request.get("return_owner"), "request return owner"
+            ),
             "residual_risk": "Owner acceptance, publication, and stronger-owner artifact meaning remain outside aoa-summon.",
             "next_route": "aoa-agents:review-and-owner-acceptance",
         },
         "actual_effects": ["external-actor-runtime"],
-        "stop_line": _require_string(request.get("child_stop_line"), "request stop line"),
+        "stop_line": _require_string(
+            request.get("child_stop_line"), "request stop line"
+        ),
         "request_ref": request["request_ref"],
         "request_digest": request["request_digest"],
         "request_intent": request["intent"],
@@ -1326,7 +2060,9 @@ def _write(path: Path, payload: Mapping[str, Any]) -> None:
     _require(not location.exists(), "output must be a new file")
     with location.open("xb") as output:
         output.write(
-            json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8")
+            json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode(
+                "utf-8"
+            )
             + b"\n"
         )
 
@@ -1342,7 +2078,9 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--reviewed-a2a-return", type=Path, required=True)
     profile = result.add_mutually_exclusive_group(required=True)
     profile.add_argument("--runtime-profile", dest="runtime_profile_path", type=Path)
-    profile.add_argument("--runtime-profile-ref", dest="runtime_profile_ref_path", type=Path)
+    profile.add_argument(
+        "--runtime-profile-ref", dest="runtime_profile_ref_path", type=Path
+    )
     result.add_argument("--usage-pointer", default="/usage_observation")
     result.add_argument("--usage-observation-ref", type=Path)
     result.add_argument("--output", type=Path, required=True)
