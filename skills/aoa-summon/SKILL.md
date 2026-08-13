@@ -183,7 +183,8 @@ to the terminal runtime `task_id` and `incarnation_id`, and be paired with the c
 `result.validated`/`validated-completion` wake event. Its independently loaded
 review request must have the exact returned digest, source itself from that
 terminal result, route a distinct read-only verifier over the same writer
-path/task/digest, and retain the same audit and output closures. The SDK
+path/task/digest, retain the same audit and output closures, and authorize
+that exact output closure through its quest passport. The SDK
 decision must carry its actual nonempty cohort pattern; closeout never invents
 a local fallback. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer

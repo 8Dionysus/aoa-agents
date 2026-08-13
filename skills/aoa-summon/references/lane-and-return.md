@@ -173,7 +173,9 @@ runtime `task_id` and `incarnation_id`, and agree with the runtime's canonical
 `result.validated`/`validated-completion` wake event.
 The review request digest, runtime-result source ref, writer path, writer task,
 route anchor, verifier identity, read-only risk, audit closure, and review
-output closure must all describe this exact execution. The admitted SDK
+output closure must all describe this exact execution. Its quest passport
+must authorize that same exact review output closure rather than carrying a
+parallel artifact list. The admitted SDK
 decision must provide its own nonempty cohort pattern; this adapter does not
 default missing SDK topology to `solo`.
 Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence fails

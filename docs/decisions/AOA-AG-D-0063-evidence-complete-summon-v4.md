@@ -129,6 +129,11 @@ The CLI accepts an optional exact usage assertion through
 changes close evidence substitution and destructive-rerun gaps
 without adding launch, selection, proof, or owner-acceptance authority.
 
+The exact independent-review request is also one authority chain rather than
+three parallel output declarations. Its top-level expected outputs, nested
+summon outputs, and quest-passport expected artifacts must be the same exact,
+nonempty, duplicate-free closure before closeout can accept the review.
+
 Independent external review then exposed three remaining substitutions. The
 SDK input must still say `a2a_remote` or `either`; accepting an already
 translated `external_cli` value would bypass the single request-compiler

@@ -1850,6 +1850,16 @@ def _validate_review_request(
         nonempty=True,
         unique=True,
     )
+    passport_outputs = _require_string_list(
+        passport.get("expected_artifacts"),
+        label="review quest passport expected artifacts",
+        nonempty=True,
+        unique=True,
+    )
+    _require(
+        passport_outputs == expected_outputs,
+        "review quest passport output closure is inconsistent",
+    )
     _require(
         summon.get("expected_outputs") == expected_outputs,
         "review summon request output closure is inconsistent",

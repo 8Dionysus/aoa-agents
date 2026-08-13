@@ -783,6 +783,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ("reviewed path", "reviewed_artifact_path", "/tmp/unrelated-result.json"),
             ("writer task", "parent_task_id", "actor-task-unrelated"),
             ("route anchor", "route_anchor", "sha256:" + "7" * 64),
+            ("passport outputs", "expected_artifacts", ["unrelated-review"]),
         )
         for name, field, value in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
