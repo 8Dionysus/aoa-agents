@@ -48,6 +48,7 @@ tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
   - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
   - The passive external request compiler consumes only complete exact owner files and never inspects or starts a host binding.
+  - The passive external result compiler consumes only a terminal runtime result and reviewed A2A return and never launches, reviews, or mints a stronger-owner artifact.
 execution_states:
   - decided
   - blocked
@@ -68,6 +69,22 @@ trust:
   posture: owner-authored-procedure
   runtime_authority: host-only
   proof_authority: false
+result_compiler:
+  script: scripts/compile_external_execution_result.py
+  input_chain:
+    - summon-request-v4
+    - aoa-sdk summon request and decision
+    - aoa-sdk incarnation-binding-v2 refs selected by the request
+    - abyss-stack terminal external-codex result-v2
+    - abyss-stack runtime-profile-v2 ref
+    - abyss-stack reviewed A2A return-v1
+  output_posture: owner-local summon-result-v4 closeout receipt
+  usage_posture: exact JSON-pointer locator into the terminal result unless a stronger standalone usage artifact is supplied
+  prohibited_authority:
+    - runtime launch or control
+    - role or model selection
+    - SDK, runtime, A2A, stats, proof, or owner-acceptance artifact minting
+  acceptance_rule: accepted only when every requested output is returned and the supplied reviewed disposition is proceed
 provenance:
   source: skills/aoa-summon
   source_return: same-bundle install handle or matching aoa-agents owner-home manifest

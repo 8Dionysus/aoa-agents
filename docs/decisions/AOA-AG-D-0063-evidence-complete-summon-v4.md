@@ -48,6 +48,24 @@ owner-qualified refs to their v2 contracts. The historical v3 schema remains
 byte-stable and continues to accept only the corresponding v1 refs; no role,
 model, runtime, or effect authority is broadened by this correction.
 
+### 2026-08-13 - Compile reviewed returns without crossing owner boundaries
+
+The first v4 runtime returns also need a deterministic owner-local closeout
+adapter. `skills/aoa-summon/scripts/compile_external_execution_result.py`
+consumes the exact v4 request, SDK request and decision, terminal runtime
+result-v2, runtime-profile-v2 ref, and reviewed A2A return-v1. It verifies the
+request digest, SDK identity, terminality, review disposition, output-key set,
+usage locator, external handles, and authority ceiling before emitting one
+`summon-result-v4` receipt.
+
+The compiler preserves the stronger owner artifacts as exact refs and treats an
+embedded usage observation as a content-addressed JSON-pointer locator into the
+terminal result. It may accept outputs only when the supplied reviewed
+disposition is `proceed`; owner acceptance, publication, runtime/A2A/usage
+meaning, stats admission, proof, role selection, and model fit remain outside
+the receipt compiler. V3 remains frozen and is not read as a source for new
+results.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without
@@ -64,6 +82,8 @@ model, runtime, or effect authority is broadened by this correction.
 - `skills/aoa-summon/references/summon-result-v4.schema.json`
 - `skills/aoa-summon/references/contract.yaml`
 - `tests/test_aoa_agents_skill_tree.py`
+- `skills/aoa-summon/scripts/compile_external_execution_result.py`
+- `tests/test_compile_external_execution_result.py`
 
 ## Follow-Up Route
 

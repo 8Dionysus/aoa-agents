@@ -125,3 +125,26 @@ for compatibility but cannot authorize a fresh launch.
 Blocked, failed, and narrowed actors return through the same responsibility
 surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.
+
+## Passive result compilation
+
+`compile_external_execution_result.py` is the closeout adapter for a returned
+`external_cli_reviewed` lane. It accepts only a terminal
+`abyss_stack_external_codex_result_v2`, the exact SDK request and transport
+decision named by the summon request, an exact runtime-profile-v2 ref, and a
+reviewed `abyss_stack_external_codex_a2a_return_v1` whose disposition is
+`proceed`. It verifies the owner request's semantic digest, the SDK request
+digest recorded by the SDK decision, distinct responsibility holders, the
+external-only effect ceiling, disabled built-in subagents, and exact output
+keys. Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence
+fails closed.
+
+The compiler preserves stronger-owner objects as content-addressed refs. It
+does not copy their protocol fields into the owner receipt. The runtime result
+ref and reviewed A2A ref use their terminal identities and source digests; the
+usage ref is `runtime-result-id#/usage_observation` with the digest of the
+canonical JSON subtree at that pointer unless a standalone usage artifact is
+explicitly supplied. Actor, session, continuation, and process handles are
+derived only from the runtime's incarnation/session/thread/process-identity
+evidence. The emitted receipt is a summon responsibility-closeout record, not
+stats admission, runtime success proof, model-fit proof, or owner acceptance.

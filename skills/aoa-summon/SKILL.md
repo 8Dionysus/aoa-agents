@@ -151,6 +151,17 @@ launch, or effect. The SDK request retains `a2a_remote` or `either`; the
 compiler translates only that transport field to the physical
 `external_cli` leaf and removes the SDK's duplicate nested output list.
 
+After a runtime has already returned, `scripts/compile_external_execution_result.py`
+may compile one `summon-result-v4` from the exact owner request, SDK request and
+decision, terminal `abyss-stack` result, runtime-profile ref, and reviewed A2A
+return. It is a passive closeout adapter: it verifies the immutable request
+digest and output-key set, preserves role, fit, incarnation, runtime, A2A, and
+usage evidence as refs, and derives the four external handles from the supplied
+runtime evidence. An embedded usage observation is represented as a JSON-pointer
+locator whose digest covers the canonical referenced subtree. The compiler does
+not launch, review, select, repair, or mint an SDK, runtime, A2A, stats, proof,
+or owner-acceptance artifact.
+
 When the obligation, role choice, mandate, model-fit selection, domain
 procedure, permission posture, task-local source graph, and exact owner roots
 are already settled, `scripts/prepare_external_actor.py` may compile the whole
