@@ -159,7 +159,8 @@ digest and schema, preserves role, fit, incarnation, runtime, A2A, and usage
 evidence as refs, and derives the four external handles from the supplied
 runtime evidence. A reviewed return must carry runtime-owned A2A schema
 provenance, bind its reviewed writer-result digest to the exact terminal
-runtime result, and be paired with the canonical
+runtime result, bind `remote_task.task_id` and `remote_task.agent_id` exactly
+to the terminal runtime `task_id` and `incarnation_id`, and be paired with the canonical
 `result.validated`/`validated-completion` wake event. An embedded usage
 observation is accepted only at the exact `/usage_observation` JSON pointer
 and must retain the runtime-owned observation shape. Returned artifacts are an

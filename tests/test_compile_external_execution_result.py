@@ -160,10 +160,10 @@ def fixture(temp: Path) -> dict[str, object]:
         "summon_request_ref": incarnation["sdk_summon_request_ref"],
         "review_summon_request_ref": ref("aoa-sdk", "review-request:landing", "urn:aoa-sdk:a2a:summon-request:v4"),
         "remote_task": {
-            "agent_id": "incarnation:landing-review",
+            "agent_id": "incarnation:landing",
             "context_id": "session:landing-review",
             "parent_task_id": "goal:landing",
-            "task_id": "actor-task-landing-review",
+            "task_id": "actor-task-landing",
             "state": "completed",
             "artifact_refs": ["runtime-result.json"],
             "returned_artifacts": outputs,
@@ -345,6 +345,24 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             a2a["evidence_digests"]["writer_result"] = ZERO
             write_json(data["a2a_path"], a2a)
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "terminal runtime result"):
+                self.compile(data)
+
+    def test_reviewed_a2a_remote_task_id_must_bind_terminal_runtime(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["remote_task"]["task_id"] = "actor-task-unrelated"
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "remote task id.*terminal runtime task id"):
+                self.compile(data)
+
+    def test_reviewed_a2a_agent_id_must_bind_terminal_runtime(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["remote_task"]["agent_id"] = "incarnation:unrelated"
+            write_json(data["a2a_path"], a2a)
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "remote task agent id.*terminal runtime incarnation id"):
                 self.compile(data)
 
     def test_review_disposition_cannot_be_widened(self) -> None:

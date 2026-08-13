@@ -575,6 +575,14 @@ def _validate_reviewed_return(
     _require(remote_task.get("state") == "completed", "A2A remote task is nonterminal")
     _require_string(remote_task.get("task_id"), "A2A remote task id")
     _require_string(remote_task.get("agent_id"), "A2A remote task agent id")
+    _require(
+        remote_task.get("task_id") == runtime.get("task_id"),
+        "A2A remote task id differs from the terminal runtime task id",
+    )
+    _require(
+        remote_task.get("agent_id") == runtime.get("incarnation_id"),
+        "A2A remote task agent id differs from the terminal runtime incarnation id",
+    )
     _require_string(remote_task.get("context_id"), "A2A remote task context id")
     _require(
         remote_task.get("parent_task_id")

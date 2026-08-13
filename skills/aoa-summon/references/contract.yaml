@@ -84,7 +84,7 @@ result_compiler:
     - runtime launch or control
     - role or model selection
     - SDK, runtime, A2A, stats, proof, or owner-acceptance artifact minting
-  acceptance_rule: accepted only when the summon-request-v4 schema and digest pass, the terminal runtime is completed with its canonical result.validated event, the reviewed A2A return is schema-bound to the terminal runtime result and has proceed disposition, the canonical usage observation is present, and every requested output is returned exactly once with no extra artifact
+  acceptance_rule: accepted only when the summon-request-v4 schema and digest pass, the terminal runtime is completed with its canonical result.validated event, the reviewed A2A return is schema-bound to the terminal runtime result, its remote task task_id and agent_id exactly match the terminal runtime task_id and incarnation_id, and it has proceed disposition, the canonical usage observation is present, and every requested output is returned exactly once with no extra artifact
 provenance:
   source: skills/aoa-summon
   source_return: same-bundle install handle or matching aoa-agents owner-home manifest

@@ -138,8 +138,10 @@ reviewed `abyss_stack_external_codex_a2a_return_v1` whose disposition is
 digest recorded by the SDK decision, distinct responsibility holders, the
 external-only effect ceiling, disabled built-in subagents, and exact output
 keys. The reviewed return must carry its runtime-owned schema provenance,
-reference the exact terminal runtime-result digest, and agree with the
-runtime's canonical `result.validated`/`validated-completion` wake event.
+reference the exact terminal runtime-result digest, bind
+`remote_task.task_id` and `remote_task.agent_id` exactly to the terminal
+runtime `task_id` and `incarnation_id`, and agree with the runtime's canonical
+`result.validated`/`validated-completion` wake event.
 Missing, stale, mismatched, nonterminal, unreviewed, or wider evidence fails
 closed.
 

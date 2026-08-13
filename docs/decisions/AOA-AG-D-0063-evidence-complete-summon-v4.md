@@ -73,8 +73,10 @@ generated `summon-request-v4` schema before applying its external-lane
 checks. A reviewed A2A return must carry the runtime-owned
 `abyss_stack_external_codex_a2a_return_v1` provenance, bind its
 `evidence_digests.writer_result` to the exact terminal runtime-result digest,
-and name an artifact path present in the reviewed remote task. A proceed
-closeout is admitted only for a completed runtime whose canonical
+name an artifact path present in the reviewed remote task, and bind
+`remote_task.task_id` and `remote_task.agent_id` exactly to the terminal
+runtime `task_id` and `incarnation_id`. A proceed closeout is admitted only
+for a completed runtime whose canonical
 `wake_evaluation` is `result.validated` under `validated-completion`; a
 `result.review_required` repair return cannot be widened into acceptance.
 
