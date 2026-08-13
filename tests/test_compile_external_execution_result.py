@@ -95,6 +95,88 @@ def fixture(temp: Path) -> dict[str, object]:
             "artifact_digest": value["digest"],
         }
 
+    role_provenance = {
+        "owner_repo": "aoa-agents",
+        "artifact_ref": "agents/roles/coder/profile.json",
+        "source_ref": "0" * 40,
+        "artifact_digest": ZERO,
+        "schema_ref": "schemas/agent-profile.schema.json",
+        "schema_version": "agent_profile_v1",
+    }
+    mandate = {
+        "schema_version": "actor-mandate-v1",
+        "mandate_id": "mandate:landing",
+        "obligation_ref": obligation_ref,
+        "goal_ref": ref("codex-goal", "goal:landing", "goal-v1"),
+        "role_resolution_ref": role_resolution_ref,
+        "role_binding": {
+            "role_id": "coder",
+            "specialization_id": None,
+            "tier_id": "executor",
+            "base_role_ref": role_provenance,
+            "specialization_ref": None,
+            "tier_ref": role_provenance,
+            "capability_pack_refs": [],
+        },
+        "identity_posture": "task-instance",
+        "domain_owner": "aoa-agents",
+        "domain_procedure_refs": [domain_procedure_ref],
+        "required_executor_properties": [
+            {
+                "property_id": "bounded-work",
+                "requirement": "Perform bounded work.",
+                "verification_route": "Run the owner test."
+            }
+        ],
+        "model_fit_relation": {
+            "task_family": "landing",
+            "relation_to_duty": "Fit the bounded landing duty.",
+            "relation_authority_ref": ref("codex-goal", "authority:landing", "authority-v1"),
+        },
+        "authority": {
+            "permissions": ["edit workspace"],
+            "allowed_effects": ["repo_mutation"],
+            "prohibited_effects": ["external effects"],
+            "stop_line": "Stop at owner ambiguity."
+        },
+        "environment": {
+            "sandbox_mode": "workspace-write",
+            "workspace_requirement": "Use the exact workspace.",
+            "required_tools": ["shell-read"],
+            "required_mcp_servers": [],
+            "state_root_posture": "Use dedicated state."
+        },
+        "continuity": {
+            "posture": "task-instance",
+            "identity_key": "actor:landing",
+            "state_ref": None,
+        },
+        "named_outputs": [
+            {
+                "name": "external_codex_agent_result",
+                "description": "Exact runtime result.",
+                "acceptance_route": "Owner review."
+            }
+        ],
+        "return_owner": ref("codex-goal", "holder:landing", "holder-v1"),
+        "review_policy": "Owner review is required.",
+        "refusal_policy": "Refuse at ambiguity.",
+        "wake_policy": "Wake for validated completion.",
+        "review_after": "Review after return.",
+        "uncertainty": [],
+        "compiler_authority": {
+            "obligation_detection_performed": False,
+            "role_selection_performed": False,
+            "model_selection_performed": False,
+            "runtime_activation_performed": False,
+        },
+        "mandate_digest": ZERO,
+    }
+    mandate["mandate_digest"] = COMPILER.semantic_self_digest(mandate, "mandate_digest")
+    mandate_ref["digest"] = mandate["mandate_digest"]
+    mandate_path = temp / "mandate.json"
+    mandate_artifact_digest = write_json(mandate_path, mandate)
+
     incarnation_binding = {
         "schema_version": "aoa_agent_incarnation_binding_v2",
         "binding_id": "incarnation-binding:landing",
@@ -105,7 +187,10 @@ def fixture(temp: Path) -> dict[str, object]:
         "model_fit_query_result_ref": model_fit_query_ref,
         "model_fit_projection_ref": provenance(model_fit_projection_ref),
         "task_request_ref": provenance(sdk_request_ref),
-        "role_contract_ref": provenance(mandate_ref),
+        "role_contract_ref": {
+            **provenance(mandate_ref),
+            "artifact_digest": mandate_artifact_digest,
+        },
         "runtime_profile_ref": {
             "artifact_ref": runtime_profile_ref["object_id"],
             "owner_repo": runtime_profile_ref["owner_repo"],
@@ -271,6 +356,8 @@ def fixture(temp: Path) -> dict[str, object]:
         "request_path": request_path,
         "incarnation_binding": incarnation_binding,
         "incarnation_binding_path": incarnation_binding_path,
+        "mandate": mandate,
+        "mandate_path": mandate_path,
         "sdk_request": sdk_request,
         "sdk_request_path": sdk_request_path,
         "sdk_decision_path": sdk_decision_path,
@@ -316,6 +403,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
         return COMPILER.compile_external_execution_result(
             request_path=data["request_path"],
             incarnation_binding_path=data["incarnation_binding_path"],
+            mandate_path=data["mandate_path"],
             sdk_summon_request_path=data["sdk_request_path"],
             sdk_summon_decision_path=data["sdk_decision_path"],
             runtime_result_path=data["runtime_path"],
@@ -582,7 +670,31 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             binding = copy.deepcopy(data["incarnation_binding"])
             binding["role_contract_ref"]["artifact_ref"] = "mandate:other"
             rewrite_bound_chain(data, incarnation_binding=binding)
-            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "role_contract_ref names another mandate"):
+            with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "role_contract_ref differs from the exact mandate artifact"):
+                self.compile(data)
+
+    def test_actor_mandate_semantic_digest_is_verified(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            mandate = copy.deepcopy(data["mandate"])
+            mandate["review_policy"] = "A different unbound review policy."
+            write_json(data["mandate_path"], mandate)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "actor mandate semantic digest mismatch",
+            ):
+                self.compile(data)
+
+    def test_role_contract_must_bind_exact_mandate_artifact_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["role_contract_ref"]["artifact_digest"] = "sha256:" + "1" * 64
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "role_contract_ref differs from the exact mandate artifact",
+            ):
                 self.compile(data)
 
     def test_incarnation_continuation_must_preserve_request_chain(self) -> None:
@@ -600,6 +712,20 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
                     self.compile(data)
 
+    def test_incarnation_continuation_rejects_stale_same_identity_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            stale = copy.deepcopy(binding["continuation"]["immutable_input_refs"][0])
+            stale["artifact_digest"] = "sha256:" + "1" * 64
+            binding["continuation"]["immutable_input_refs"].append(stale)
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "exact SDK summon request",
+            ):
+                self.compile(data)
+
     def test_usage_locator_and_partial_pointer_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
@@ -607,6 +733,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
+                    mandate_path=data["mandate_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
@@ -627,6 +754,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
                 incarnation_binding_path=data["incarnation_binding_path"],
+                mandate_path=data["mandate_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -665,6 +793,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             argv = [
                 "--request", str(root / "request.json"),
                 "--incarnation-binding", str(root / "incarnation-binding.json"),
+                "--mandate", str(root / "mandate.json"),
                 "--sdk-summon-request", str(root / "sdk-request.json"),
                 "--sdk-summon-decision", str(root / "sdk-decision.json"),
                 "--runtime-result", str(root / "runtime.json"),
@@ -687,6 +816,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 compile_result.call_args.kwargs["incarnation_binding_path"],
                 root / "incarnation-binding.json",
             )
+            self.assertEqual(
+                compile_result.call_args.kwargs["mandate_path"],
+                root / "mandate.json",
+            )
 
     def test_usage_ref_cannot_replace_the_exact_runtime_observation(self) -> None:
         cases = (
@@ -707,6 +840,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
+                        mandate_path=data["mandate_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -764,6 +898,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
                         incarnation_binding_path=data["incarnation_binding_path"],
+                        mandate_path=data["mandate_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -796,6 +931,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
                 incarnation_binding_path=data["incarnation_binding_path"],
+                mandate_path=data["mandate_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -885,7 +1021,60 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             write_json(data["a2a_path"], envelope)
             with self.assertRaisesRegex(
                 COMPILER.ExternalExecutionResultError,
-                "payload schema/version",
+                "provenance schema differs from payload schema",
+            ):
+                self.compile(data)
+
+    def test_schema_less_sdk_request_envelope_uses_expected_owner_schema(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            envelope = {
+                "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                "input_id": "sdk-summon-request",
+                "payload_kind": "json",
+                "source_artifact_digest": ZERO,
+                "source_schema_ref": "mechanics/checkpoint/parts/child-task-reentry/schemas/summon-request-v4.schema.json",
+                "source_schema_version": "urn:aoa-sdk:a2a:summon-request:v4",
+                "payload": data["sdk_request"],
+            }
+            sdk_request_digest = write_json(data["sdk_request_path"], envelope)
+            sdk_decision = json.loads(data["sdk_decision_path"].read_text())
+            sdk_decision["request_artifact_digest"] = sdk_request_digest
+            sdk_decision_digest = write_json(data["sdk_decision_path"], sdk_decision)
+
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["task_request_ref"]["artifact_digest"] = sdk_request_digest
+            binding["continuation"]["immutable_input_refs"][0]["artifact_digest"] = sdk_request_digest
+            binding["continuation"]["established_decision_refs"][0]["artifact_digest"] = sdk_decision_digest
+            request = copy.deepcopy(data["request"])
+            request["external_incarnation"]["sdk_summon_request_ref"]["digest"] = sdk_request_digest
+            request["external_incarnation"]["sdk_summon_decision_ref"]["digest"] = sdk_decision_digest
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["summon_request_ref"]["digest"] = sdk_request_digest
+            data["a2a"] = a2a
+            rewrite_bound_chain(data, request=request, incarnation_binding=binding)
+
+            result = self.compile(data)
+            self.assertEqual(result["runtime_state"]["state"], "accepted")
+
+    def test_schema_less_sdk_request_envelope_rejects_wrong_provenance_schema(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            envelope = {
+                "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                "input_id": "sdk-summon-request",
+                "payload_kind": "json",
+                "source_artifact_digest": ZERO,
+                "source_schema_ref": "mechanics/checkpoint/parts/child-task-reentry/schemas/summon-request-v4.schema.json",
+                "source_schema_version": "urn:aoa-sdk:a2a:summon-request:v3",
+                "payload": data["sdk_request"],
+            }
+            write_json(data["sdk_request_path"], envelope)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "provenance schema differs from the expected owner schema",
             ):
                 self.compile(data)
 
@@ -986,6 +1175,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
                     incarnation_binding_path=data["incarnation_binding_path"],
+                    mandate_path=data["mandate_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],

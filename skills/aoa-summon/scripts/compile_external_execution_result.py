@@ -22,7 +22,19 @@ from jsonschema import Draft202012Validator
 SUMMON_ROOT = Path(__file__).resolve().parents[1]
 REQUEST_SCHEMA = SUMMON_ROOT / "references" / "summon-request-v4.schema.json"
 RESULT_SCHEMA = SUMMON_ROOT / "references" / "summon-result-v4.schema.json"
+MANDATE_SCHEMA = (
+    SUMMON_ROOT.parent
+    / "aoa-agents-skills"
+    / "references"
+    / "actor-mandate-v1.schema.json"
+)
 ZERO_DIGEST = "sha256:" + "0" * 64
+SUMMON_REQUEST_SCHEMA_VERSION = "summon-request-v4"
+INCARNATION_BINDING_SCHEMA_VERSION = "aoa_agent_incarnation_binding_v2"
+MANDATE_SCHEMA_VERSION = "actor-mandate-v1"
+SDK_SUMMON_REQUEST_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-request:v4"
+SDK_SUMMON_DECISION_SCHEMA_VERSION = "urn:aoa-sdk:a2a:summon-result:v4"
+RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
 TERMINAL_RUNTIME_STATUSES = {"completed", "failed", "review_required", "authority_blocked"}
 SUCCESS_REVIEW_OUTCOMES = {"proceed"}
 A2A_RETURN_SCHEMA_VERSION = "abyss_stack_external_codex_a2a_return_v1"
@@ -55,6 +67,10 @@ def semantic_request_digest(request: Mapping[str, Any]) -> str:
     candidate = dict(request)
     candidate.pop("request_digest", None)
     return digest_bytes(canonical_bytes(candidate))
+
+
+def semantic_self_digest(value: Mapping[str, Any], field: str) -> str:
+    return digest_bytes(canonical_bytes(dict(value) | {field: ZERO_DIGEST}))
 
 
 def _json_pointer(value: Any, pointer: str) -> Any:
@@ -152,19 +168,44 @@ def _load_with_metadata(
             raise ExternalExecutionResultError(
                 f"{label} actor envelope has no source artifact digest"
             )
+        payload_schema_version = payload.get("schema_version")
+        if payload_schema_version is not None:
+            _require(
+                loaded.get("source_schema_version") == payload_schema_version,
+                f"{label} actor envelope provenance schema differs from payload schema",
+            )
         return raw, payload, digest_bytes(raw), {
+            "actor_envelope": True,
             "source_schema_ref": loaded.get("source_schema_ref"),
             "source_schema_version": loaded.get("source_schema_version"),
             "unattested_source_artifact_digest": artifact_digest,
         }
     return raw, loaded, digest_bytes(raw), {
+        "actor_envelope": False,
         "source_schema_ref": loaded.get("$schema"),
         "source_schema_version": loaded.get("schema_version"),
     }
 
 
-def _load(path: Path, *, label: str) -> tuple[bytes, dict[str, Any], str]:
-    raw, payload, artifact_digest, _metadata = _load_with_metadata(path, label=label)
+def _load(
+    path: Path,
+    *,
+    label: str,
+    expected_envelope_schema_version: str | None = None,
+) -> tuple[bytes, dict[str, Any], str]:
+    raw, payload, artifact_digest, metadata = _load_with_metadata(path, label=label)
+    if metadata["actor_envelope"]:
+        expected_schema_version = (
+            payload.get("schema_version") or expected_envelope_schema_version
+        )
+        _require(
+            isinstance(expected_schema_version, str) and bool(expected_schema_version),
+            f"{label} actor envelope has no expected owner schema",
+        )
+        _require(
+            metadata.get("source_schema_version") == expected_schema_version,
+            f"{label} actor envelope provenance schema differs from the expected owner schema",
+        )
     return raw, payload, artifact_digest
 
 
@@ -286,7 +327,11 @@ def _runtime_profile_ref(
             schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
         )
     assert runtime_profile_path is not None
-    raw, payload, artifact_digest = _load(runtime_profile_path, label="runtime profile")
+    raw, payload, artifact_digest = _load(
+        runtime_profile_path,
+        label="runtime profile",
+        expected_envelope_schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
+    )
     del raw
     _require(
         payload.get("schema_version") == RUNTIME_PROFILE_SCHEMA_VERSION,
@@ -360,8 +405,20 @@ def _require_one_ref(
     *,
     label: str,
 ) -> None:
+    identity = tuple(
+        expected[field] for field in ("object_id", "owner_repo", "schema_version")
+    )
+    same_identity = [
+        candidate
+        for candidate in refs
+        if tuple(
+            candidate[field]
+            for field in ("object_id", "owner_repo", "schema_version")
+        )
+        == identity
+    ]
     _require(
-        sum(candidate == expected for candidate in refs) == 1,
+        same_identity == [expected],
         f"incarnation continuation does not preserve the exact {label}",
     )
 
@@ -374,6 +431,8 @@ def _validate_incarnation_binding(
     incarnation: Mapping[str, Any],
     runtime: Mapping[str, Any],
     runtime_profile_ref: Mapping[str, Any],
+    mandate_ref: Mapping[str, Any],
+    mandate_artifact_digest: str,
 ) -> None:
     _require(
         binding.get("schema_version") == "aoa_agent_incarnation_binding_v2",
@@ -468,11 +527,12 @@ def _validate_incarnation_binding(
         schema_version="actor-mandate-v1",
     )
     _require(
-        all(
-            role_contract_ref[field] == request_mandate_ref[field]
-            for field in ("object_id", "owner_repo", "schema_version")
-        ),
-        "incarnation binding role_contract_ref names another mandate",
+        request_mandate_ref == mandate_ref,
+        "actor mandate artifact differs from the request ref",
+    )
+    _require(
+        role_contract_ref == {**mandate_ref, "digest": mandate_artifact_digest},
+        "incarnation binding role_contract_ref differs from the exact mandate artifact",
     )
     continuation = binding.get("continuation")
     _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
@@ -1040,6 +1100,7 @@ def compile_external_execution_result(
     *,
     request_path: Path,
     incarnation_binding_path: Path,
+    mandate_path: Path,
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
     runtime_result_path: Path,
@@ -1052,18 +1113,53 @@ def compile_external_execution_result(
 ) -> dict[str, Any]:
     """Compile one exact terminal, reviewed external execution chain."""
 
-    _request_raw, request, request_artifact_digest = _load(request_path, label="summon request")
+    _request_raw, request, request_artifact_digest = _load(
+        request_path,
+        label="summon request",
+        expected_envelope_schema_version=SUMMON_REQUEST_SCHEMA_VERSION,
+    )
     _binding_raw, incarnation_binding, incarnation_binding_digest = _load(
-        incarnation_binding_path, label="incarnation binding"
+        incarnation_binding_path,
+        label="incarnation binding",
+        expected_envelope_schema_version=INCARNATION_BINDING_SCHEMA_VERSION,
+    )
+    mandate_raw, mandate, mandate_artifact_digest = _load(
+        mandate_path,
+        label="actor mandate",
+        expected_envelope_schema_version=MANDATE_SCHEMA_VERSION,
+    )
+    del mandate_raw
+    _validate_document(mandate, schema_path=MANDATE_SCHEMA, label="actor mandate")
+    _require(
+        mandate.get("mandate_digest")
+        == semantic_self_digest(mandate, "mandate_digest"),
+        "actor mandate semantic digest mismatch",
+    )
+    mandate_ref = _require_ref(
+        {
+            "object_id": mandate.get("mandate_id"),
+            "owner_repo": "aoa-agents",
+            "schema_version": mandate.get("schema_version"),
+            "digest": mandate.get("mandate_digest"),
+        },
+        label="actor mandate ref",
+        owner_repo="aoa-agents",
+        schema_version="actor-mandate-v1",
     )
     _sdk_request_raw, sdk_request, sdk_request_digest = _load(
-        sdk_summon_request_path, label="SDK summon request"
+        sdk_summon_request_path,
+        label="SDK summon request",
+        expected_envelope_schema_version=SDK_SUMMON_REQUEST_SCHEMA_VERSION,
     )
     _sdk_decision_raw, sdk_decision, sdk_decision_digest = _load(
-        sdk_summon_decision_path, label="SDK summon decision"
+        sdk_summon_decision_path,
+        label="SDK summon decision",
+        expected_envelope_schema_version=SDK_SUMMON_DECISION_SCHEMA_VERSION,
     )
     _runtime_raw, runtime, runtime_artifact_digest = _load(
-        runtime_result_path, label="runtime result"
+        runtime_result_path,
+        label="runtime result",
+        expected_envelope_schema_version=RUNTIME_RESULT_SCHEMA_VERSION,
     )
     _a2a_raw, reviewed_return, reviewed_return_digest, reviewed_return_metadata = _load_with_metadata(
         reviewed_a2a_return_path, label="reviewed A2A return"
@@ -1108,6 +1204,8 @@ def compile_external_execution_result(
         incarnation=incarnation,
         runtime=runtime,
         runtime_profile_ref=profile_ref,
+        mandate_ref=mandate_ref,
+        mandate_artifact_digest=mandate_artifact_digest,
     )
     output_checks = _output_checks(
         request["expected_outputs"],
@@ -1227,6 +1325,7 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--request", dest="request_path", type=Path, required=True)
     result.add_argument("--incarnation-binding", type=Path, required=True)
+    result.add_argument("--mandate", dest="mandate_path", type=Path, required=True)
     result.add_argument("--sdk-summon-request", type=Path, required=True)
     result.add_argument("--sdk-summon-decision", type=Path, required=True)
     result.add_argument("--runtime-result", type=Path, required=True)
@@ -1256,6 +1355,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         result = compile_external_execution_result(
             request_path=args.request_path,
             incarnation_binding_path=args.incarnation_binding,
+            mandate_path=args.mandate_path,
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,
             runtime_result_path=args.runtime_result,

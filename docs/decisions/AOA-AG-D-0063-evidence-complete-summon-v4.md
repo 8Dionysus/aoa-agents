@@ -160,6 +160,19 @@ digest and can no longer replace it with evidence from another attempt. No
 standalone usage artifact is minted because `abyss-stack` defines no such
 owner artifact on this surface.
 
+A fresh exact-head external Luna review found four final substitution and
+contract-drift paths. Closeout now loads the exact actor-mandate-v1 artifact,
+verifies its owner schema and semantic self-digest, and requires the request to
+select that semantic identity while the incarnation binding names its exact
+artifact bytes. Continuation lists reject any stale same-identity ref even when
+the current exact ref is also present. Every actor-safe input envelope must
+bind its provenance schema version to the payload schema version or, for an
+intentionally schema-less owner payload, to the explicit expected owner
+schema. The owner contract also removes the retired standalone usage-artifact
+route and matches the compiler's canonical embedded observation plus optional
+exact-ref assertion. These repairs narrow evidence admission; they do not add
+role, model, runtime, review, or owner-acceptance authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

@@ -153,8 +153,9 @@ compiler translates only that transport field to the physical
 
 After a runtime has already returned, `scripts/compile_external_execution_result.py`
 may compile one `summon-result-v4` from the exact owner request, SDK request and
-decision, exact incarnation-binding-v2 artifact, terminal `abyss-stack` result,
-runtime-profile ref, and reviewed A2A return. It is a passive closeout adapter:
+decision, exact actor-mandate-v1 and incarnation-binding-v2 artifacts, terminal
+`abyss-stack` result, runtime-profile ref, and reviewed A2A return. It is a
+passive closeout adapter:
 it verifies the immutable request
 digest and schema, requires the complete owner summon body and passport to be
 the SDK request with only the documented `a2a_remote` or `either` to
@@ -175,8 +176,9 @@ cannot replace the embedded observation. There is no separately minted usage
 artifact on this owner-local surface. Actor-safe immutable input
 envelopes are addressed by their exact derivative bytes; their embedded source
 digest is not elevated to stronger-owner identity without a separate trusted
-attestation. The envelope provenance schema and the unwrapped payload schema
-must agree exactly. The reviewed A2A return binds the complete original SDK
+attestation. The envelope provenance schema version must agree with the
+unwrapped payload schema version, or with the explicit expected owner schema
+version when that owner payload is intentionally schema-less. The reviewed A2A return binds the complete original SDK
 summon-request ref, not only its digest. The output path must be new and is
 never overwritten. The terminal runtime's owner-admission ref must bind both
 the exact owner-request identity and bytes, and therefore that request's exact

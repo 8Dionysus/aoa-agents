@@ -158,7 +158,9 @@ closed.
 The compiler preserves authenticated stronger-owner objects as
 content-addressed refs. An actor-safe immutable-input envelope is instead
 addressed by its exact derivative bytes: its embedded source digest is
-provenance, not stronger-owner authentication. It
+provenance, not stronger-owner authentication. Its provenance schema version
+must equal the payload schema version or, for an intentionally schema-less
+payload, the explicit expected owner schema version. It
 does not copy their protocol fields into the owner receipt. The runtime result
 ref and reviewed A2A ref use their terminal identities and source digests; the
 usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
@@ -174,8 +176,11 @@ evidence. The logical continuation remains bound by the exact owner request and
 incarnation artifact; the physical continuation handle is accepted only when
 the terminal `thread_id` equals every runtime invocation's `thread_id`. The
 runtime owner-admission ref likewise names the exact owner request identity and
-bytes. The incarnation binding likewise names the exact obligation, mandate,
-role resolution, model-fit query and projection, SDK task request, and child
+bytes. The exact actor mandate passes its owner schema and semantic self-digest;
+the request selects that semantic identity while the incarnation binding also
+binds its exact artifact bytes. The incarnation binding likewise names the
+exact obligation, role resolution, model-fit query and projection, SDK task
+request, continuation inputs without stale same-identity refs, and child
 identity carried by the owner request. The CLI may load an exact assertion
 through `--usage-observation-ref` and refuses to replace an existing output.
 The emitted receipt is a summon responsibility-closeout record, not
