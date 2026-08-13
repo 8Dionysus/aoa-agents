@@ -74,7 +74,7 @@ result_compiler:
   input_chain:
     - summon-request-v4
     - aoa-sdk summon request and decision
-    - aoa-sdk incarnation-binding-v2 refs selected by the request
+    - exact aoa-sdk incarnation-binding-v2 artifact selected by the request
     - abyss-stack terminal external-codex result-v2
     - abyss-stack runtime-profile-v2 ref
     - abyss-stack reviewed A2A return-v1
@@ -86,7 +86,7 @@ result_compiler:
     - runtime launch or control
     - role or model selection
     - SDK, runtime, A2A, stats, proof, or owner-acceptance artifact minting
-  acceptance_rule: accepted only when the summon-request-v4 schema and digest pass, its complete summon body and passport equal an a2a_remote or either SDK request under the one documented external_cli transport translation, its single effect is read_only or repo_mutation, the terminal runtime is completed with its canonical result.validated event, the reviewed A2A return payload agrees with its provenance schema and binds the complete original SDK request ref plus the terminal runtime result, its remote task task_id and agent_id exactly match the terminal runtime task_id and incarnation_id, and it has proceed disposition, the canonical usage observation is present, and every requested output is returned exactly once with no extra artifact
+  acceptance_rule: accepted only when the summon-request-v4 schema and digest pass, its complete summon body and passport equal an a2a_remote or either SDK request under the one documented external_cli transport translation, its single effect is read_only or repo_mutation, the terminal runtime owner-admission ref binds the exact owner request and launch chain, the exact incarnation-binding-v2 artifact binds the request incarnation, continuity, effect, and runtime-profile ref, the terminal runtime is completed with its canonical result.validated event, the reviewed A2A return payload agrees with its provenance schema and binds the complete original SDK request ref plus the terminal runtime result, its remote task task_id and agent_id exactly match the terminal runtime task_id and incarnation_id, and it has proceed disposition, the canonical usage observation is present, and every requested output is returned exactly once with no extra artifact
 provenance:
   source: skills/aoa-summon
   source_return: same-bundle install handle or matching aoa-agents owner-home manifest

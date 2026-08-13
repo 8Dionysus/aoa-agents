@@ -131,15 +131,21 @@ Raw traces may help review but never become proof, memory canon, or owner truth.
 `compile_external_execution_result.py` is the closeout adapter for a returned
 `external_cli_reviewed` lane. It accepts only a terminal
 `abyss_stack_external_codex_result_v2`, the exact SDK request and transport
-decision named by the summon request, an exact runtime-profile-v2 ref, and a
-reviewed `abyss_stack_external_codex_a2a_return_v1` whose disposition is
-`proceed`. It first admits the owner request against the generated
+decision named by the summon request, the exact incarnation-binding-v2
+artifact, an exact runtime-profile-v2 ref, and a reviewed
+`abyss_stack_external_codex_a2a_return_v1` whose disposition is `proceed`. It
+first admits the owner request against the generated
 `summon-request-v4` schema, then verifies the semantic digest, the SDK request
 digest recorded by the SDK decision, the complete owner summon body and
 passport under the one documented transport-only translation, distinct
 responsibility holders, one admitted `read_only` or `repo_mutation` effect,
 disabled built-in subagents, and exact output
-keys. The reviewed return must carry its runtime-owned schema provenance,
+keys. The terminal runtime owner-admission ref must address the exact owner
+request bytes, which binds that result to the selected runtime launch and
+continuity chain. The incarnation artifact digest and its incarnation,
+continuation, effect, and tool-profile fields must match the request, runtime,
+and supplied runtime-profile ref exactly. The reviewed return must carry its
+runtime-owned schema provenance,
 agree with that provenance in its unwrapped payload schema, bind the complete
 original SDK summon-request ref,
 reference the exact terminal runtime-result digest, bind

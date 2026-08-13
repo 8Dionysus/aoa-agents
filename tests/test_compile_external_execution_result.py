@@ -71,6 +71,40 @@ def fixture(temp: Path) -> dict[str, object]:
     sdk_decision_path = temp / "sdk-decision.json"
     sdk_decision_digest = write_json(sdk_decision_path, sdk_decision)
 
+    runtime_profile_ref = ref(
+        "abyss-stack",
+        "runtime-profile:landing",
+        "abyss_stack_external_codex_runtime_profile_v2",
+    )
+    incarnation_binding = {
+        "schema_version": "aoa_agent_incarnation_binding_v2",
+        "binding_id": "incarnation-binding:landing",
+        "incarnation_id": "incarnation:landing",
+        "runtime_profile_ref": {
+            "artifact_ref": runtime_profile_ref["object_id"],
+            "owner_repo": runtime_profile_ref["owner_repo"],
+            "schema_version": runtime_profile_ref["schema_version"],
+            "artifact_digest": runtime_profile_ref["digest"],
+        },
+        "continuation": {"continuation_id": "continuation:landing"},
+        "permission_posture": {"allowed_effect_classes": ["repo_mutation"]},
+        "tool_profile": {
+            "profile_ref": {
+                "artifact_ref": runtime_profile_ref["object_id"],
+                "owner_repo": runtime_profile_ref["owner_repo"],
+                "schema_version": runtime_profile_ref["schema_version"],
+                "artifact_digest": runtime_profile_ref["digest"],
+            }
+        },
+        "provenance": {
+            "artifact_ref": "incarnation-binding:landing",
+            "owner_repo": "aoa-sdk",
+        },
+    }
+    incarnation_binding_path = temp / "incarnation-binding.json"
+    incarnation_binding_digest = write_json(
+        incarnation_binding_path, incarnation_binding
+    )
     incarnation = {
         "obligation_ref": ref("aoa-agents", "obligation:landing", "agent-obligation-v1"),
         "actor_mandate_ref": ref("aoa-agents", "mandate:landing", "actor-mandate-v1"),
@@ -78,7 +112,12 @@ def fixture(temp: Path) -> dict[str, object]:
         "model_fit_query_result_ref": ref("aoa-models", "fit-query:landing", "aoa_model_fit_query_result_v2"),
         "model_fit_projection_ref": ref("aoa-models", "fit-projection:landing", "aoa_model_fit_projection_v1"),
         "task_local_dag_ref": ref("aoa-skills", "dag:landing", "aoa-task-local-dag-v2"),
-        "incarnation_binding_ref": ref("aoa-sdk", "incarnation-binding:landing", "aoa_agent_incarnation_binding_v2"),
+        "incarnation_binding_ref": ref(
+            "aoa-sdk",
+            "incarnation-binding:landing",
+            "aoa_agent_incarnation_binding_v2",
+            incarnation_binding_digest,
+        ),
         "sdk_summon_request_ref": ref("aoa-sdk", "sdk-request:landing", "urn:aoa-sdk:a2a:summon-request:v4", sdk_request_digest),
         "sdk_summon_decision_ref": ref("aoa-sdk", "sdk-decision:landing", "urn:aoa-sdk:a2a:summon-result:v4", sdk_decision_digest),
         "runtime_launch_ref": ref("abyss-stack", "launch:landing", "abyss_stack_external_codex_launch_v1"),
@@ -87,7 +126,12 @@ def fixture(temp: Path) -> dict[str, object]:
             "admitted_state": "accepted",
             "holder_ids": ["holder:goal", "actor:landing"],
         },
-        "continuity_ref": ref("aoa-sdk", "continuation:landing", "continuation-obligation-v1"),
+        "continuity_ref": ref(
+            "aoa-sdk",
+            "continuation:landing",
+            "continuation-obligation-v1",
+            incarnation_binding_digest,
+        ),
         "return_event_schema_ref": ref("abyss-stack", "schema:external-event", "abyss_stack_external_codex_event_v1"),
         "domain_procedure_refs": [ref("aoa-agents", "procedure:landing", "owner-procedure-v1")],
         "runtime_interface": "abyss_stack_external_codex_agent_v1",
@@ -122,7 +166,7 @@ def fixture(temp: Path) -> dict[str, object]:
     }
     request["request_digest"] = COMPILER.semantic_request_digest(request)
     request_path = temp / "request.json"
-    write_json(request_path, request)
+    request_artifact_digest = write_json(request_path, request)
 
     runtime = {
         "schema_version": "abyss_stack_external_codex_result_v2",
@@ -134,6 +178,11 @@ def fixture(temp: Path) -> dict[str, object]:
         "admission_class": "owner_contour",
         "session_id": "session:landing",
         "thread_id": "thread:landing",
+        "owner_admission_ref": {
+            "artifact_ref": "summon-request:landing",
+            "owner_repo": "aoa-agents",
+            "artifact_digest": request_artifact_digest,
+        },
         "usage_observation": {"status": "complete", "gap_reasons": []},
         "wake_evaluation": {
             "event_kind": "result.validated",
@@ -181,6 +230,8 @@ def fixture(temp: Path) -> dict[str, object]:
     return {
         "request": request,
         "request_path": request_path,
+        "incarnation_binding": incarnation_binding,
+        "incarnation_binding_path": incarnation_binding_path,
         "sdk_request": sdk_request,
         "sdk_request_path": sdk_request_path,
         "sdk_decision_path": sdk_decision_path,
@@ -188,14 +239,44 @@ def fixture(temp: Path) -> dict[str, object]:
         "runtime_path": runtime_path,
         "a2a": a2a,
         "a2a_path": a2a_path,
-        "runtime_profile_ref": ref("abyss-stack", "runtime-profile:landing", "abyss_stack_external_codex_runtime_profile_v2"),
+        "runtime_profile_ref": runtime_profile_ref,
     }
+
+
+def rewrite_bound_chain(
+    data: dict[str, object],
+    *,
+    request: dict[str, object] | None = None,
+    incarnation_binding: dict[str, object] | None = None,
+) -> None:
+    request = copy.deepcopy(request if request is not None else data["request"])
+    if incarnation_binding is not None:
+        binding_digest = write_json(
+            data["incarnation_binding_path"], incarnation_binding
+        )
+        request["external_incarnation"]["incarnation_binding_ref"]["digest"] = (
+            binding_digest
+        )
+        request["external_incarnation"]["continuity_ref"]["digest"] = binding_digest
+        data["incarnation_binding"] = incarnation_binding
+    request["request_digest"] = COMPILER.semantic_request_digest(request)
+    request_artifact_digest = write_json(data["request_path"], request)
+    runtime = copy.deepcopy(data["runtime"])
+    runtime["owner_admission_ref"]["artifact_digest"] = request_artifact_digest
+    runtime_digest = write_json(data["runtime_path"], runtime)
+    a2a = copy.deepcopy(data["a2a"])
+    a2a["evidence_digests"]["writer_result"] = runtime_digest
+    write_json(data["a2a_path"], a2a)
+    data["request"] = request
+    data["runtime"] = runtime
+    data["a2a"] = a2a
 
 
 class CompileExternalExecutionResultTests(unittest.TestCase):
     def compile(self, data: dict[str, object]) -> dict[str, object]:
         return COMPILER.compile_external_execution_result(
             request_path=data["request_path"],
+            incarnation_binding_path=data["incarnation_binding_path"],
             sdk_summon_request_path=data["sdk_request_path"],
             sdk_summon_decision_path=data["sdk_decision_path"],
             runtime_result_path=data["runtime_path"],
@@ -323,12 +404,52 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime result schema"):
                 self.compile(data)
 
+    def test_runtime_result_must_bind_the_exact_owner_request_and_launch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["external_incarnation"]["runtime_launch_ref"]["digest"] = (
+                "sha256:" + "1" * 64
+            )
+            request["request_digest"] = COMPILER.semantic_request_digest(request)
+            write_json(data["request_path"], request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "selected owner request and launch",
+            ):
+                self.compile(data)
+
+    def test_incarnation_continuation_must_bind_the_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["continuation"]["continuation_id"] = "continuation:other"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "continuation differs",
+            ):
+                self.compile(data)
+
+    def test_incarnation_binding_provenance_must_bind_the_request_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["provenance"]["artifact_ref"] = "incarnation-binding:other"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "binding provenance differs",
+            ):
+                self.compile(data)
+
     def test_usage_locator_and_partial_pointer_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "usage pointer"):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
+                    incarnation_binding_path=data["incarnation_binding_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
@@ -352,6 +473,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             )
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
+                incarnation_binding_path=data["incarnation_binding_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -392,6 +514,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             }
             argv = [
                 "--request", str(root / "request.json"),
+                "--incarnation-binding", str(root / "incarnation-binding.json"),
                 "--sdk-summon-request", str(root / "sdk-request.json"),
                 "--sdk-summon-decision", str(root / "sdk-decision.json"),
                 "--runtime-result", str(root / "runtime.json"),
@@ -409,6 +532,10 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             self.assertEqual(
                 compile_result.call_args.kwargs["usage_observation_ref"],
                 usage_ref,
+            )
+            self.assertEqual(
+                compile_result.call_args.kwargs["incarnation_binding_path"],
+                root / "incarnation-binding.json",
             )
             self.assertIsNone(
                 compile_result.call_args.kwargs["usage_observation_path"]
@@ -435,6 +562,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             )
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
+                incarnation_binding_path=data["incarnation_binding_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -507,6 +635,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, message):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
+                        incarnation_binding_path=data["incarnation_binding_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -530,6 +659,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                 with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "runtime profile artifact schema"):
                     COMPILER.compile_external_execution_result(
                         request_path=data["request_path"],
+                        incarnation_binding_path=data["incarnation_binding_path"],
                         sdk_summon_request_path=data["sdk_request_path"],
                         sdk_summon_decision_path=data["sdk_decision_path"],
                         runtime_result_path=data["runtime_path"],
@@ -541,15 +671,27 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
             profile_path = Path(directory) / "runtime-profile.json"
-            write_json(
+            profile_digest = write_json(
                 profile_path,
                 {
                     "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
                     "profile_id": "runtime-profile:landing-path",
                 },
             )
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["tool_profile"]["profile_ref"] = {
+                "artifact_ref": "runtime-profile:landing-path",
+                "owner_repo": "abyss-stack",
+                "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
+                "artifact_digest": profile_digest,
+            }
+            binding["runtime_profile_ref"] = copy.deepcopy(
+                binding["tool_profile"]["profile_ref"]
+            )
+            rewrite_bound_chain(data, incarnation_binding=binding)
             result = COMPILER.compile_external_execution_result(
                 request_path=data["request_path"],
+                incarnation_binding_path=data["incarnation_binding_path"],
                 sdk_summon_request_path=data["sdk_request_path"],
                 sdk_summon_decision_path=data["sdk_decision_path"],
                 runtime_result_path=data["runtime_path"],
@@ -565,6 +707,33 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
                     "digest": COMPILER.digest_bytes(profile_path.read_bytes()),
                 },
             )
+
+    def test_runtime_profile_must_match_the_incarnation_binding(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            data["runtime_profile_ref"] = ref(
+                "abyss-stack",
+                "runtime-profile:other",
+                "abyss_stack_external_codex_runtime_profile_v2",
+                "sha256:" + "2" * 64,
+            )
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "runtime profile differs from the incarnation binding",
+            ):
+                self.compile(data)
+
+    def test_runtime_profile_must_match_the_binding_top_level_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["runtime_profile_ref"]["artifact_ref"] = "runtime-profile:other"
+            rewrite_bound_chain(data, incarnation_binding=binding)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "runtime profile differs from the incarnation binding",
+            ):
+                self.compile(data)
 
     def test_unreviewed_a2a_return_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -712,6 +881,7 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ExternalExecutionResultError, "canonical /usage_observation"):
                 COMPILER.compile_external_execution_result(
                     request_path=data["request_path"],
+                    incarnation_binding_path=data["incarnation_binding_path"],
                     sdk_summon_request_path=data["sdk_request_path"],
                     sdk_summon_decision_path=data["sdk_decision_path"],
                     runtime_result_path=data["runtime_path"],
@@ -735,10 +905,27 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             data = fixture(Path(directory))
             request = copy.deepcopy(data["request"])
             request["child_scope"]["allowed_effects"] = ["read_only"]
-            request["request_digest"] = COMPILER.semantic_request_digest(request)
-            write_json(data["request_path"], request)
+            binding = copy.deepcopy(data["incarnation_binding"])
+            binding["permission_posture"]["allowed_effect_classes"] = ["read_only"]
+            rewrite_bound_chain(
+                data,
+                request=request,
+                incarnation_binding=binding,
+            )
             result = self.compile(data)
             self.assertEqual(result["runtime_state"]["state"], "accepted")
+
+    def test_request_effect_must_match_the_incarnation_binding(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            request = copy.deepcopy(data["request"])
+            request["child_scope"]["allowed_effects"] = ["read_only"]
+            rewrite_bound_chain(data, request=request)
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "effect posture differs",
+            ):
+                self.compile(data)
 
     def test_write_refuses_to_replace_an_existing_receipt(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -302,6 +302,78 @@ def _runtime_profile_ref(
     )
 
 
+def _profile_ref_from_provenance(value: Any) -> dict[str, Any]:
+    _require(isinstance(value, Mapping), "incarnation runtime profile provenance is absent")
+    return _require_ref(
+        {
+            "object_id": value.get("artifact_ref"),
+            "owner_repo": value.get("owner_repo"),
+            "schema_version": value.get("schema_version"),
+            "digest": value.get("artifact_digest"),
+        },
+        label="incarnation runtime profile ref",
+        owner_repo="abyss-stack",
+        schema_version=RUNTIME_PROFILE_SCHEMA_VERSION,
+    )
+
+
+def _validate_incarnation_binding(
+    binding: Mapping[str, Any],
+    *,
+    binding_digest: str,
+    request: Mapping[str, Any],
+    incarnation: Mapping[str, Any],
+    runtime: Mapping[str, Any],
+    runtime_profile_ref: Mapping[str, Any],
+) -> None:
+    _require(
+        binding.get("schema_version") == "aoa_agent_incarnation_binding_v2",
+        "incarnation binding schema is invalid",
+    )
+    _require(
+        incarnation["incarnation_binding_ref"]["digest"] == binding_digest,
+        "incarnation binding artifact differs from the request ref",
+    )
+    binding_provenance = binding.get("provenance")
+    _require(isinstance(binding_provenance, Mapping), "incarnation binding provenance is absent")
+    _require(
+        binding_provenance.get("owner_repo") == "aoa-sdk"
+        and binding_provenance.get("artifact_ref")
+        == incarnation["incarnation_binding_ref"]["object_id"],
+        "incarnation binding provenance differs from the request ref",
+    )
+    expected_incarnation_id = request.get("summon_request", {}).get("child_agent_id")
+    _require(
+        binding.get("incarnation_id") == expected_incarnation_id == runtime.get("incarnation_id"),
+        "incarnation binding identity differs from request or runtime",
+    )
+    continuation = binding.get("continuation")
+    _require(isinstance(continuation, Mapping), "incarnation continuation is absent")
+    continuity_ref = incarnation["continuity_ref"]
+    _require(
+        continuity_ref["digest"] == binding_digest
+        and continuation.get("continuation_id") == continuity_ref["object_id"],
+        "incarnation continuation differs from the request ref",
+    )
+    permission = binding.get("permission_posture")
+    _require(isinstance(permission, Mapping), "incarnation permission posture is absent")
+    _require(
+        permission.get("allowed_effect_classes")
+        == request.get("child_scope", {}).get("allowed_effects"),
+        "incarnation effect posture differs from the request",
+    )
+    tool_profile = binding.get("tool_profile")
+    _require(isinstance(tool_profile, Mapping), "incarnation tool profile is absent")
+    bound_runtime_profile_ref = _profile_ref_from_provenance(
+        binding.get("runtime_profile_ref")
+    )
+    bound_profile_ref = _profile_ref_from_provenance(tool_profile.get("profile_ref"))
+    _require(
+        bound_runtime_profile_ref == bound_profile_ref == runtime_profile_ref,
+        "runtime profile differs from the incarnation binding",
+    )
+
+
 def _usage_ref(
     runtime: Mapping[str, Any],
     runtime_ref: Mapping[str, Any],
@@ -557,6 +629,7 @@ def _process_handle(runtime: Mapping[str, Any]) -> str:
 def _validate_runtime(
     runtime: Mapping[str, Any],
     request: Mapping[str, Any],
+    request_artifact_digest: str,
 ) -> tuple[dict[str, str], dict[str, str]]:
     _require(runtime.get("schema_version") == "abyss_stack_external_codex_result_v2", "runtime result schema is invalid")
     _require(runtime.get("status") in TERMINAL_RUNTIME_STATUSES, "runtime result is nonterminal")
@@ -609,6 +682,17 @@ def _validate_runtime(
     _require(
         runtime.get("incarnation_id") == request.get("summon_request", {}).get("child_agent_id"),
         "runtime incarnation differs from the summon request",
+    )
+    owner_admission_ref = runtime.get("owner_admission_ref")
+    _require(isinstance(owner_admission_ref, Mapping), "runtime owner admission ref is absent")
+    _require_string(
+        owner_admission_ref.get("artifact_ref"),
+        "runtime owner admission artifact ref",
+    )
+    _require(
+        owner_admission_ref.get("owner_repo") == "aoa-agents"
+        and owner_admission_ref.get("artifact_digest") == request_artifact_digest,
+        "runtime result differs from the selected owner request and launch",
     )
     return runtime_ref, handles
 
@@ -779,6 +863,7 @@ def _output_checks(
 def compile_external_execution_result(
     *,
     request_path: Path,
+    incarnation_binding_path: Path,
     sdk_summon_request_path: Path,
     sdk_summon_decision_path: Path,
     runtime_result_path: Path,
@@ -792,7 +877,10 @@ def compile_external_execution_result(
 ) -> dict[str, Any]:
     """Compile one exact terminal, reviewed external execution chain."""
 
-    _request_raw, request, _request_digest = _load(request_path, label="summon request")
+    _request_raw, request, request_artifact_digest = _load(request_path, label="summon request")
+    _binding_raw, incarnation_binding, incarnation_binding_digest = _load(
+        incarnation_binding_path, label="incarnation binding"
+    )
     _sdk_request_raw, sdk_request, sdk_request_digest = _load(
         sdk_summon_request_path, label="SDK summon request"
     )
@@ -815,7 +903,11 @@ def compile_external_execution_result(
         sdk_decision_digest,
     )
     runtime["artifact_digest"] = runtime_artifact_digest
-    runtime_ref, handles = _validate_runtime(runtime, request)
+    runtime_ref, handles = _validate_runtime(
+        runtime,
+        request,
+        request_artifact_digest,
+    )
     usage_ref = _usage_ref(
         runtime,
         runtime_ref,
@@ -834,6 +926,14 @@ def compile_external_execution_result(
     profile_ref = _runtime_profile_ref(
         runtime_profile_ref=runtime_profile_ref,
         runtime_profile_path=runtime_profile_path,
+    )
+    _validate_incarnation_binding(
+        incarnation_binding,
+        binding_digest=incarnation_binding_digest,
+        request=request,
+        incarnation=incarnation,
+        runtime=runtime,
+        runtime_profile_ref=profile_ref,
     )
     output_checks = _output_checks(
         request["expected_outputs"],
@@ -952,6 +1052,7 @@ def _write(path: Path, payload: Mapping[str, Any]) -> None:
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--request", dest="request_path", type=Path, required=True)
+    result.add_argument("--incarnation-binding", type=Path, required=True)
     result.add_argument("--sdk-summon-request", type=Path, required=True)
     result.add_argument("--sdk-summon-decision", type=Path, required=True)
     result.add_argument("--runtime-result", type=Path, required=True)
@@ -982,6 +1083,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         result = compile_external_execution_result(
             request_path=args.request_path,
+            incarnation_binding_path=args.incarnation_binding,
             sdk_summon_request_path=args.sdk_summon_request,
             sdk_summon_decision_path=args.sdk_summon_decision,
             runtime_result_path=args.runtime_result,

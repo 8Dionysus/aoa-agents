@@ -127,6 +127,18 @@ unwrapped A2A payload's own schema version. Finally, the reviewed return must
 bind the complete original SDK summon-request ref rather than a matching digest
 alone. Closeout now fails closed on all three relations.
 
+Exact-head GitHub review exposed two additional cross-attempt substitutions.
+The terminal runtime result must bind its runtime-owned owner-admission ref to
+the exact supplied owner-request bytes; because that request contains the
+runtime-launch and continuity refs plus the task/effect posture, an earlier
+launch result cannot close a later request that merely reuses the same child
+identity. Closeout also resolves the exact incarnation-binding-v2 artifact
+named by the request and requires its incarnation, continuation, effect
+posture, and runtime-profile provenance to match the request, terminal runtime,
+and supplied profile ref. These checks add no new selection authority: they
+only prevent an unrelated launch or syntactically valid profile from being
+reported as the execution that actually returned.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without
