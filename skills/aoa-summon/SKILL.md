@@ -150,6 +150,11 @@ domain procedure files. It performs no semantic selection, host inspection,
 launch, or effect. The SDK request retains `a2a_remote` or `either`; the
 compiler translates only that transport field to the physical
 `external_cli` leaf and removes the SDK's duplicate nested output list.
+Before emitting that request, it also validates the complete SDK permission
+posture, enforces its external-effect, read-only-sandbox, and secret-approval
+cross-field invariants, and requires the effect ceiling to equal both the
+runtime task and actor mandate. Invalid authority therefore stops before
+responsibility reaches the runtime rather than waiting for closeout.
 
 After a runtime has already returned, `scripts/compile_external_execution_result.py`
 may compile one `summon-result-v4` from the exact owner request, SDK request and

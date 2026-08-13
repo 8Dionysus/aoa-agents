@@ -148,6 +148,106 @@ def _require_equal(actual: Any, expected: Any, *, label: str) -> None:
         )
 
 
+def _validate_permission_posture(
+    binding: Mapping[str, Any],
+    runtime_task: Mapping[str, Any],
+    mandate: Mapping[str, Any],
+) -> None:
+    """Validate the SDK posture and bind it to both owner effect ceilings."""
+
+    permission = binding.get("permission_posture")
+    if not isinstance(permission, Mapping):
+        raise ExternalExecutionRequestError(
+            "incarnation binding permission posture is absent"
+        )
+    required = {
+        "sandbox_mode",
+        "approval_policy",
+        "allowed_effect_classes",
+        "network_access",
+    }
+    allowed = required | {"external_effects", "secret_access"}
+    if required - set(permission) or set(permission) - allowed:
+        raise ExternalExecutionRequestError(
+            "incarnation binding permission posture shape is invalid"
+        )
+    if permission.get("sandbox_mode") not in {
+        "read_only",
+        "workspace_write",
+        "danger_full_access",
+    }:
+        raise ExternalExecutionRequestError(
+            "incarnation binding sandbox mode is invalid"
+        )
+    if permission.get("approval_policy") not in {
+        "never",
+        "on_request",
+        "on_failure",
+        "untrusted",
+    }:
+        raise ExternalExecutionRequestError(
+            "incarnation binding approval policy is invalid"
+        )
+    if permission.get("network_access") not in {
+        "disabled",
+        "allowlisted",
+        "enabled",
+    }:
+        raise ExternalExecutionRequestError(
+            "incarnation binding network access is invalid"
+        )
+
+    effects = permission.get("allowed_effect_classes")
+    if (
+        not isinstance(effects, list)
+        or not effects
+        or any(not isinstance(item, str) or not item for item in effects)
+        or len(effects) != len(set(effects))
+        or not set(effects)
+        <= {"read_only", "repo_mutation", "runtime_mutation", "external"}
+    ):
+        raise ExternalExecutionRequestError(
+            "incarnation binding allowed effect classes are invalid"
+        )
+    for field in ("external_effects", "secret_access"):
+        if field in permission and not isinstance(permission[field], bool):
+            raise ExternalExecutionRequestError(
+                f"incarnation binding {field} is invalid"
+            )
+
+    external_effects = permission.get("external_effects", False)
+    secret_access = permission.get("secret_access", False)
+    if external_effects != ("external" in effects):
+        raise ExternalExecutionRequestError(
+            "incarnation binding external-effects flag differs from its effect ceiling"
+        )
+    if permission.get("sandbox_mode") == "read_only" and set(effects) != {
+        "read_only"
+    }:
+        raise ExternalExecutionRequestError(
+            "incarnation binding read-only sandbox admits non-read-only effects"
+        )
+    if secret_access and permission.get("approval_policy") == "never":
+        raise ExternalExecutionRequestError(
+            "incarnation binding secret access cannot use approval_policy=never"
+        )
+
+    runtime_effect = runtime_task.get("allowed_effect_class")
+    mandate_effects = mandate.get("authority", {}).get("allowed_effects")
+    if (
+        runtime_effect not in {"read_only", "repo_mutation"}
+        or not isinstance(mandate_effects, list)
+        or not mandate_effects
+        or any(not isinstance(item, str) or not item for item in mandate_effects)
+        or len(mandate_effects) != len(set(mandate_effects))
+        or set(effects) != {runtime_effect}
+        or set(effects) != set(mandate_effects)
+    ):
+        raise ExternalExecutionRequestError(
+            "incarnation effect posture differs from runtime task or actor mandate"
+        )
+
+
 def compile_external_execution_request(
     *,
     request_ref: str,
@@ -493,6 +593,7 @@ def compile_external_execution_request(
 
     if runtime_task.get("schema_version") != "abyss_stack_external_codex_task_v1":
         raise ExternalExecutionRequestError("runtime task schema is invalid")
+    _validate_permission_posture(binding, runtime_task, mandate)
     if (
         runtime_task.get("parent_task_id") != sdk_summon.get("parent_task_id")
         or runtime_task.get("target_owner") != mandate["domain_owner"]

@@ -89,6 +89,18 @@ they do not mint or reinterpret SDK, runtime, A2A, stats, proof, model-fit, or
 owner-acceptance authority, and the original authority-blocked writer return
 remains preserved evidence.
 
+### 2026-08-13 - Reject invalid incarnation authority before launch
+
+Independent external Luna review found that closeout enforced the SDK
+permission-posture cross-field invariants while request compilation did not.
+The request compiler now rejects an external-effects flag that disagrees with
+the effect classes, a read-only sandbox carrying non-read-only effects, and
+secret access paired with `approval_policy=never`. It also requires the
+incarnation effect ceiling to equal the exact runtime task and actor mandate.
+This is an earlier fail-closed check on already owner-defined authority; it
+does not narrow valid `read_only` or `repo_mutation` work and does not create
+selection, launch, or acceptance authority.
+
 ### 2026-08-13 - Admit only owner-defined path-loaded artifacts
 
 Path-loaded runtime profiles are admitted as
@@ -229,10 +241,12 @@ authority.
 ## Source Surfaces
 
 - `skills/aoa-summon/scripts/build_summon_v4_schemas.py`
+- `skills/aoa-summon/scripts/compile_external_execution_request.py`
 - `skills/aoa-summon/references/summon-request-v4.schema.json`
 - `skills/aoa-summon/references/summon-result-v4.schema.json`
 - `skills/aoa-summon/references/contract.yaml`
 - `tests/test_aoa_agents_skill_tree.py`
+- `tests/test_compile_external_execution_request.py`
 - `skills/aoa-summon/scripts/compile_external_execution_result.py`
 - `tests/test_compile_external_execution_result.py`
 

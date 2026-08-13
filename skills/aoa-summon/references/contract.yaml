@@ -47,7 +47,7 @@ freedom_level: bounded-judgment
 tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
   - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
-  - The passive external request compiler consumes only complete exact owner files and never inspects or starts a host binding.
+  - The passive external request compiler consumes only complete exact owner files, rejects SDK permission-posture contradictions and effect disagreement with the runtime task or actor mandate, and never inspects or starts a host binding.
   - The passive external result compiler consumes only a terminal runtime result and reviewed A2A return and never launches, reviews, or mints a stronger-owner artifact.
 execution_states:
   - decided
@@ -118,5 +118,6 @@ failure_modes:
   - accepted external return lacks exact SDK summon request/decision or runtime result/A2A-return/usage refs
   - new execution launches from historical summon-request-v3 or emits summon-result-v3
   - external request, binding, and return disagree about role-resolution or model-fit evidence
+  - external request compilation admits a permission posture whose cross-field invariants fail or whose effect ceiling differs from the runtime task or actor mandate
   - built-in Codex child lane reported as a separate external CLI incarnation
   - external usage observations converted into a pre-emptive budget gate

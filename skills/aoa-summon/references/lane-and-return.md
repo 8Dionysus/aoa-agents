@@ -126,6 +126,16 @@ Blocked, failed, and narrowed actors return through the same responsibility
 surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.
 
+## Passive request compilation
+
+`compile_external_execution_request.py` is the pre-launch adapter for an
+already selected `external_cli_reviewed` incarnation. Before emitting a
+request it validates the SDK-owned permission-posture shape and its
+external-effect, read-only-sandbox, and secret-approval cross-field
+invariants. The exact allowed effect classes must also equal both the runtime
+task effect and actor-mandate ceiling. A contradiction stops before launch;
+the compiler does not select a narrower posture or rewrite owner authority.
+
 ## Passive result compilation
 
 `compile_external_execution_result.py` is the closeout adapter for a returned
