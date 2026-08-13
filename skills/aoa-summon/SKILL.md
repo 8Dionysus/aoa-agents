@@ -153,7 +153,10 @@ compiler translates only that transport field to the physical
 Before emitting that request, it also validates the complete SDK permission
 posture, enforces its external-effect, read-only-sandbox, and secret-approval
 cross-field invariants, and requires the effect ceiling to equal both the
-runtime task and actor mandate. Invalid authority therefore stops before
+runtime task and actor mandate. It also requires the selected binding tool and
+MCP ceilings to equal the actor-mandate environment, forbids inherited user
+configuration, and binds the tool profile to the same runtime-profile ref.
+Invalid authority therefore stops before
 responsibility reaches the runtime rather than waiting for closeout.
 
 After a runtime has already returned, `scripts/compile_external_execution_result.py`

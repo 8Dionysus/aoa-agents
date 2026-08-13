@@ -229,6 +229,15 @@ current holder. These checks authenticate already selected owner ceilings and
 responsibility identities; they do not add role, model, runtime, or acceptance
 authority.
 
+The next exact-head GitHub review found that the pre-launch compiler emitted
+the mandate's tool list without comparing it with the selected incarnation
+binding. The compiler now requires one exact tool and MCP ceiling across the
+binding and mandate before emission, forbids inherited user configuration,
+and requires the binding tool profile and top-level runtime-profile ref to be
+the same provenance object. A wider host profile therefore cannot run merely
+because later closeout would reject its return. This authenticates the already
+selected environment and does not grant tool or runtime authority.
+
 ## Consequences
 
 - The execution leaf receives evidence selected by upstream owners without

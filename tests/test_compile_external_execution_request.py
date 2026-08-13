@@ -30,6 +30,31 @@ def valid_chain() -> tuple[dict[str, object], dict[str, object], dict[str, objec
     return binding, runtime_task, mandate
 
 
+def valid_tool_chain() -> tuple[dict[str, object], dict[str, object]]:
+    profile_ref = {
+        "artifact_ref": "runtime-profile:review",
+        "owner_repo": "abyss-stack",
+        "schema_version": "abyss_stack_external_codex_runtime_profile_v2",
+    }
+    binding = {
+        "runtime_profile_ref": copy.deepcopy(profile_ref),
+        "tool_profile": {
+            "profile_id": "review-readonly-v2",
+            "profile_ref": profile_ref,
+            "required_tool_ids": ["shell-read"],
+            "required_mcp_server_ids": [],
+            "inherit_user_configuration": False,
+        },
+    }
+    mandate = {
+        "environment": {
+            "required_tools": ["shell-read"],
+            "required_mcp_servers": [],
+        }
+    }
+    return binding, mandate
+
+
 class CompileExternalExecutionRequestTests(unittest.TestCase):
     def test_valid_permission_posture_binds_both_owner_effect_ceilings(self) -> None:
         COMPILER._validate_permission_posture(*valid_chain())
@@ -83,6 +108,45 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
             "differs from runtime task or actor mandate",
         ):
             COMPILER._validate_permission_posture(binding, runtime_task, mandate)
+
+    def test_valid_tool_profile_binds_actor_mandate_before_launch(self) -> None:
+        COMPILER._validate_tool_profile(*valid_tool_chain())
+
+    def test_tool_profile_cannot_widen_actor_mandate(self) -> None:
+        binding, mandate = valid_tool_chain()
+        binding["tool_profile"]["required_tool_ids"].append("network")
+        with self.assertRaisesRegex(
+            COMPILER.ExternalExecutionRequestError,
+            "tool ceiling differs from actor mandate",
+        ):
+            COMPILER._validate_tool_profile(binding, mandate)
+
+    def test_mcp_profile_cannot_widen_actor_mandate(self) -> None:
+        binding, mandate = valid_tool_chain()
+        binding["tool_profile"]["required_mcp_server_ids"].append("github")
+        with self.assertRaisesRegex(
+            COMPILER.ExternalExecutionRequestError,
+            "MCP ceiling differs from actor mandate",
+        ):
+            COMPILER._validate_tool_profile(binding, mandate)
+
+    def test_tool_profile_must_name_the_bound_runtime_profile(self) -> None:
+        binding, mandate = valid_tool_chain()
+        binding["runtime_profile_ref"]["artifact_ref"] = "runtime-profile:other"
+        with self.assertRaisesRegex(
+            COMPILER.ExternalExecutionRequestError,
+            "tool profile ref differs from runtime profile ref",
+        ):
+            COMPILER._validate_tool_profile(binding, mandate)
+
+    def test_tool_profile_cannot_inherit_user_configuration(self) -> None:
+        binding, mandate = valid_tool_chain()
+        binding["tool_profile"]["inherit_user_configuration"] = True
+        with self.assertRaisesRegex(
+            COMPILER.ExternalExecutionRequestError,
+            "cannot inherit user configuration",
+        ):
+            COMPILER._validate_tool_profile(binding, mandate)
 
 
 if __name__ == "__main__":

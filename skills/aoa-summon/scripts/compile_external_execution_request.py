@@ -248,6 +248,96 @@ def _validate_permission_posture(
         )
 
 
+def _validate_tool_profile(
+    binding: Mapping[str, Any],
+    mandate: Mapping[str, Any],
+) -> None:
+    """Bind the SDK tool profile to the actor mandate before runtime launch."""
+
+    tool_profile = binding.get("tool_profile")
+    if not isinstance(tool_profile, Mapping):
+        raise ExternalExecutionRequestError(
+            "incarnation binding tool profile is absent"
+        )
+    required = {"profile_id", "profile_ref", "required_tool_ids"}
+    allowed = required | {
+        "required_mcp_server_ids",
+        "inherit_user_configuration",
+    }
+    if required - set(tool_profile) or set(tool_profile) - allowed:
+        raise ExternalExecutionRequestError(
+            "incarnation binding tool profile shape is invalid"
+        )
+    if not isinstance(tool_profile.get("profile_id"), str) or not tool_profile[
+        "profile_id"
+    ]:
+        raise ExternalExecutionRequestError(
+            "incarnation binding tool profile identity is invalid"
+        )
+    profile_ref = tool_profile.get("profile_ref")
+    runtime_profile_ref = binding.get("runtime_profile_ref")
+    if not isinstance(profile_ref, Mapping) or profile_ref != runtime_profile_ref:
+        raise ExternalExecutionRequestError(
+            "incarnation tool profile ref differs from runtime profile ref"
+        )
+    if (
+        "inherit_user_configuration" in tool_profile
+        and tool_profile["inherit_user_configuration"] is not False
+    ):
+        raise ExternalExecutionRequestError(
+            "incarnation binding cannot inherit user configuration"
+        )
+
+    environment = mandate.get("environment")
+    if not isinstance(environment, Mapping):
+        raise ExternalExecutionRequestError("actor mandate environment is absent")
+
+    def require_strings(
+        value: Any,
+        *,
+        label: str,
+        nonempty: bool,
+    ) -> list[str]:
+        if (
+            not isinstance(value, list)
+            or (nonempty and not value)
+            or any(not isinstance(item, str) or not item for item in value)
+            or len(value) != len(set(value))
+        ):
+            raise ExternalExecutionRequestError(f"{label} is invalid")
+        return value
+
+    binding_tools = require_strings(
+        tool_profile.get("required_tool_ids"),
+        label="incarnation binding required tool ids",
+        nonempty=True,
+    )
+    mandate_tools = require_strings(
+        environment.get("required_tools"),
+        label="actor mandate required tools",
+        nonempty=True,
+    )
+    if set(binding_tools) != set(mandate_tools):
+        raise ExternalExecutionRequestError(
+            "incarnation tool ceiling differs from actor mandate"
+        )
+
+    binding_mcp = require_strings(
+        tool_profile.get("required_mcp_server_ids", []),
+        label="incarnation binding required MCP server ids",
+        nonempty=False,
+    )
+    mandate_mcp = require_strings(
+        environment.get("required_mcp_servers"),
+        label="actor mandate required MCP servers",
+        nonempty=False,
+    )
+    if set(binding_mcp) != set(mandate_mcp):
+        raise ExternalExecutionRequestError(
+            "incarnation MCP ceiling differs from actor mandate"
+        )
+
+
 def compile_external_execution_request(
     *,
     request_ref: str,
@@ -594,6 +684,7 @@ def compile_external_execution_request(
     if runtime_task.get("schema_version") != "abyss_stack_external_codex_task_v1":
         raise ExternalExecutionRequestError("runtime task schema is invalid")
     _validate_permission_posture(binding, runtime_task, mandate)
+    _validate_tool_profile(binding, mandate)
     if (
         runtime_task.get("parent_task_id") != sdk_summon.get("parent_task_id")
         or runtime_task.get("target_owner") != mandate["domain_owner"]
