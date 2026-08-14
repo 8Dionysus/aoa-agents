@@ -1893,8 +1893,15 @@ def _validate_review_request(
         reviewed_return.get("review_summon_request_ref"),
         label="reviewed A2A review request ref",
     )
+    review_binding_mode = reviewed_return.get("review_binding_mode")
     _require(
-        review_ref["owner_repo"] == "abyss-stack",
+        review_binding_mode in {None, "owner_contour_immutable_evidence"},
+        "reviewed A2A review binding mode is unsupported",
+    )
+    role_first_review = review_binding_mode == "owner_contour_immutable_evidence"
+    expected_review_owner = "aoa-sdk" if role_first_review else "abyss-stack"
+    _require(
+        review_ref["owner_repo"] == expected_review_owner,
         "reviewed A2A review request ref owner drift",
     )
     _require(
@@ -1905,10 +1912,11 @@ def _validate_review_request(
         review_ref["artifact_digest"] == review_request_digest,
         "reviewed A2A review request digest differs from the supplied artifact",
     )
-    _require(
-        review_ref["source_ref"] == runtime_ref["digest"],
-        "reviewed A2A review request is not sourced from the terminal runtime result",
-    )
+    if not role_first_review:
+        _require(
+            review_ref["source_ref"] == runtime_ref["digest"],
+            "reviewed A2A review request is not sourced from the terminal runtime result",
+        )
     evidence_digests = reviewed_return.get("evidence_digests")
     _require(isinstance(evidence_digests, Mapping), "A2A evidence digests are absent")
     _require(
@@ -1935,8 +1943,11 @@ def _validate_review_request(
         summon.get("desired_role") == "reviewer",
         "review summon request does not select a reviewer",
     )
+    admitted_review_transports = (
+        {"a2a_remote", "either"} if role_first_review else {"codex_local"}
+    )
     _require(
-        summon.get("transport_preference") == "codex_local",
+        summon.get("transport_preference") in admitted_review_transports,
         "review summon request does not use the admitted review transport",
     )
     _require(
@@ -1954,15 +1965,25 @@ def _validate_review_request(
 
     passport = review_request.get("quest_passport")
     _require(isinstance(passport, Mapping), "review quest passport is absent")
-    _require(
-        passport.get("route_anchor") == runtime_ref["digest"],
-        "review summon request route anchor differs from the terminal runtime result",
+    expected_route_anchor = (
+        runtime.get("task_id") if role_first_review else runtime_ref["digest"]
     )
     _require(
-        passport.get("delegate_tier") == "verifier"
-        and passport.get("risk") == "r0_readonly",
-        "review summon request is not an independent read-only verifier route",
+        passport.get("route_anchor") == expected_route_anchor,
+        "review summon request route anchor differs from the admitted writer relation",
     )
+    if role_first_review:
+        _require(
+            passport.get("delegate_tier") in {"deep", "verifier"}
+            and passport.get("risk") in {"r0_read_only", "r0_readonly"},
+            "review summon request is not an independent read-only actor route",
+        )
+    else:
+        _require(
+            passport.get("delegate_tier") == "verifier"
+            and passport.get("risk") == "r0_readonly",
+            "review summon request is not an independent read-only verifier route",
+        )
     expected_outputs = _require_string_list(
         review_request.get("expected_outputs"),
         label="review summon request expected outputs",
@@ -1994,10 +2015,11 @@ def _validate_review_request(
         "review summon request audit closure is inconsistent",
     )
     exact_writer_ref = f"abyss-stack:{reviewed_path}@{runtime_ref['digest']}"
-    _require(
-        exact_writer_ref in audit_refs,
-        "review summon request does not audit the exact terminal runtime result",
-    )
+    if not role_first_review:
+        _require(
+            exact_writer_ref in audit_refs,
+            "review summon request does not audit the exact terminal runtime result",
+        )
 
 
 def _process_handle(runtime: Mapping[str, Any]) -> str:
@@ -2239,29 +2261,54 @@ def _validate_reviewed_return(
 
 def _output_checks(
     expected_outputs: Sequence[str],
+    review_expected_outputs: Sequence[str],
     reviewed_return: Mapping[str, Any],
     runtime_ref: Mapping[str, Any],
     explicit_artifact_refs: Mapping[str, str] | None,
 ) -> dict[str, dict[str, Any]]:
+    role_first_review = (
+        reviewed_return.get("review_binding_mode")
+        == "owner_contour_immutable_evidence"
+    )
+    required_returned_outputs = set(expected_outputs)
+    if role_first_review:
+        required_returned_outputs.update(review_expected_outputs)
+
+    def is_concrete_artifact_path(value: str) -> bool:
+        parts = value.split("/")
+        return (
+            role_first_review
+            and len(parts) > 1
+            and not value.startswith("/")
+            and "\\" not in value
+            and all(part not in {"", ".", ".."} for part in parts)
+        )
+
     def returned_output_names(value: Any) -> dict[str, str]:
         _require(isinstance(value, list), "A2A returned artifacts are absent")
         artifacts_by_name: dict[str, str] = {}
+        seen_artifacts: set[str] = set()
         for artifact in value:
             if not isinstance(artifact, str) or not artifact:
                 raise ExternalExecutionResultError(
                     "A2A returned artifact identity is invalid"
                 )
-            if artifact not in expected_outputs:
-                raise ExternalExecutionResultError(
-                    f"A2A returned artifact is outside the requested output keys/closure: {artifact}"
-                )
-            if artifact in artifacts_by_name:
+            if artifact in seen_artifacts:
                 raise ExternalExecutionResultError(
                     f"A2A returned duplicate output: {artifact}"
                 )
+            seen_artifacts.add(artifact)
+            if artifact not in expected_outputs:
+                if artifact in required_returned_outputs:
+                    continue
+                if is_concrete_artifact_path(artifact):
+                    continue
+                raise ExternalExecutionResultError(
+                    f"A2A returned artifact is outside the requested output keys/closure: {artifact}"
+                )
             artifacts_by_name[artifact] = artifact
         _require(
-            set(artifacts_by_name) == set(expected_outputs),
+            required_returned_outputs.issubset(seen_artifacts),
             "A2A returned output keys do not match the request",
         )
         return artifacts_by_name
@@ -2463,6 +2510,7 @@ def compile_external_execution_result(
     )
     output_checks = _output_checks(
         request["expected_outputs"],
+        review_request["expected_outputs"],
         reviewed_return,
         runtime_ref,
         output_artifact_refs,

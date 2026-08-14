@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3220425,
+  "allowed_tracked_bytes": 15195208,
+  "approved_by": "repository-owner",
+  "base_ref": "eae8834f2cd91b1d8bfc83f4df14743d55f881e0",
+  "changed_generated_bytes": 3220425,
+  "changed_generated_files": 76,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "8f6e1bdae5ab9c9b54bac20de60bb81615208071ec897ee1160bbdc7daf8d95e",
+  "reason": "Refresh portable family for role-first reviewed actor closeout",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15195208,
+  "tracked_bytes_max": 16777216
+}
