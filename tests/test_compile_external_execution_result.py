@@ -2036,6 +2036,44 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_reviewed_a2a_accepts_review_required_runtime_after_review(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["status"] = "review_required"
+            runtime["wake_evaluation"]["event_kind"] = "result.review_required"
+            runtime["wake_evaluation"]["condition_id"] = "validated-return"
+            runtime["wake_evaluation"]["reason"] = (
+                "validated runtime return requires independent review"
+            )
+            data["runtime"] = runtime
+            rewrite_bound_chain(data)
+
+            result = self.compile(data)
+
+            self.assertEqual(result["runtime_state"]["state"], "accepted")
+            self.assertEqual(
+                result["runtime_state"]["runtime_a2a_return_ref"]["digest"],
+                COMPILER.digest_bytes(data["a2a_path"].read_bytes()),
+            )
+
+    def test_reviewed_a2a_review_required_runtime_rejects_wrong_condition(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            runtime = copy.deepcopy(data["runtime"])
+            runtime["status"] = "review_required"
+            runtime["wake_evaluation"]["event_kind"] = "result.review_required"
+            runtime["wake_evaluation"]["condition_id"] = "validated-completion"
+            data["runtime"] = runtime
+            rewrite_bound_chain(data)
+
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError, "validated-return"
+            ):
+                self.compile(data)
+
     def test_reviewed_a2a_writer_result_must_bind_terminal_runtime(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
