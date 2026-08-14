@@ -45,6 +45,16 @@ DEFAULT_FORBIDDEN_EFFECTS = (
 IMMUTABLE_EVIDENCE_REF_RE = re.compile(
     r"immutable:(?P<input_id>[a-z0-9]+(?:-[a-z0-9]+)*)#L[1-9][0-9]*(?:-L[1-9][0-9]*)?"
 )
+ACTOR_INPUT_ENVELOPE_FIELDS = {
+    "$schema",
+    "schema_version",
+    "input_id",
+    "payload_kind",
+    "source_artifact_digest",
+    "source_schema_ref",
+    "source_schema_version",
+    "payload",
+}
 
 
 class PreparationError(ValueError):
@@ -208,13 +218,34 @@ def _assert_review_evidence_closure(
             nested = json.loads(path.read_bytes())
         except (OSError, UnicodeDecodeError, json.JSONDecodeError):
             continue
+        payload = nested.get("payload") if isinstance(nested, dict) else None
         if (
             isinstance(nested, dict)
+            and set(nested) == ACTOR_INPUT_ENVELOPE_FIELDS
+            and nested.get("$schema")
+            == "schemas/external-codex-actor-input-envelope.schema.json"
             and nested.get("schema_version")
             == "abyss_stack_external_codex_actor_input_envelope_v1"
-            and isinstance(nested.get("payload"), dict)
+            and nested.get("payload_kind") == "json"
+            and isinstance(payload, dict)
             and isinstance(nested.get("input_id"), str)
-            and nested["input_id"]
+            and IMMUTABLE_EVIDENCE_REF_RE.fullmatch(
+                f"immutable:{nested['input_id']}#L1"
+            )
+            is not None
+            and isinstance(nested.get("source_artifact_digest"), str)
+            and re.fullmatch(
+                r"sha256:[0-9a-f]{64}", nested["source_artifact_digest"]
+            )
+            is not None
+            and isinstance(nested.get("source_schema_ref"), str)
+            and bool(nested["source_schema_ref"])
+            and isinstance(nested.get("source_schema_version"), str)
+            and bool(nested["source_schema_version"])
+            and (
+                payload.get("schema_version") is None
+                or payload["schema_version"] == nested["source_schema_version"]
+            )
         ):
             # The outer reviewer ID names the forwarded artifact while the
             # envelope retains the producer-local immutable alias used by the

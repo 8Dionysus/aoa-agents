@@ -8,7 +8,7 @@
   "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
   "default_limit_bytes": 1048576,
   "head_family_digest": "44f13b9249380e22a899e5108defb3f276e3e1212b457c2d752c7200ac3736dc",
-  "reason": "Forwarded writer evidence alias support updates the preparer source and regression test; content-addressed portable shard propagation crosses the 1 MiB changed-bytes threshold.",
+  "reason": "Validated forwarded-envelope alias support and its spoof-rejection regression update the preparer and tests; portable shard propagation crosses the changed-bytes threshold.",
   "repo": "aoa-agents",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
   "scope": "generated_delta",
