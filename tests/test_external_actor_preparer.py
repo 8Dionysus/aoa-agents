@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -72,6 +73,69 @@ class ExternalActorPreparerTests(unittest.TestCase):
             ):
                 PREPARER._assert_review_evidence_closure(
                     (_input("writer-report", report),)
+                )
+
+    def test_review_evidence_closure_accepts_forwarded_producer_alias(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            report = temp_path / "writer-report.json"
+            report.write_text(
+                '{"evidence_refs":["immutable:domain-procedure-1#L1-L3"]}',
+                encoding="utf-8",
+            )
+            envelope = temp_path / "writer-domain-procedure.input"
+            envelope.write_text(
+                json.dumps(
+                    {
+                        "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+                        "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                        "input_id": "domain-procedure-1",
+                        "payload_kind": "json",
+                        "payload": {"schema_version": "owner-procedure-v1"},
+                        "source_artifact_digest": "sha256:" + "1" * 64,
+                        "source_schema_ref": "owner-procedure.schema.json",
+                        "source_schema_version": "owner-procedure-v1",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            PREPARER._assert_review_evidence_closure(
+                (
+                    _input("writer-report", report),
+                    _input("writer-domain-procedure", envelope),
+                )
+            )
+
+    def test_review_evidence_closure_rejects_spoofed_producer_alias(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            report = temp_path / "writer-report.json"
+            report.write_text(
+                '{"evidence_refs":["immutable:domain-procedure-1#L1-L3"]}',
+                encoding="utf-8",
+            )
+            spoofed = temp_path / "spoofed-envelope.input"
+            spoofed.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+                        "input_id": "domain-procedure-1",
+                        "payload": {"schema_version": "owner-procedure-v1"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(
+                PREPARER.PreparationError,
+                "writer-report -> domain-procedure-1",
+            ):
+                PREPARER._assert_review_evidence_closure(
+                    (
+                        _input("writer-report", report),
+                        _input("spoofed-writer-domain-procedure", spoofed),
+                    )
                 )
 
     def test_independent_review_dag_is_terminal_without_nested_reviewer(self) -> None:
