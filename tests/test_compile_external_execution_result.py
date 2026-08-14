@@ -885,6 +885,63 @@ class CompileExternalExecutionResultTests(unittest.TestCase):
             ):
                 self.compile(data)
 
+    def test_role_first_review_request_closes_through_sdk_owned_a2a(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            review_request = copy.deepcopy(data["review_request"])
+            review_request["summon_request"]["transport_preference"] = "a2a_remote"
+            review_request["quest_passport"]["route_anchor"] = (
+                data["runtime"]["task_id"]
+            )
+            review_request["quest_passport"]["delegate_tier"] = "deep"
+            review_request["quest_passport"]["risk"] = "r0_read_only"
+            review_request["audit_refs"] = ["model-fit-query:reviewer"]
+            review_request["summon_request"]["audit_refs"] = [
+                "model-fit-query:reviewer"
+            ]
+            review_digest = write_json(data["review_request_path"], review_request)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["review_binding_mode"] = "owner_contour_immutable_evidence"
+            a2a["review_summon_request_ref"]["owner_repo"] = "aoa-sdk"
+            a2a["review_summon_request_ref"]["source_ref"] = "d" * 40
+            a2a["review_summon_request_ref"]["artifact_digest"] = review_digest
+            a2a["evidence_digests"]["review_summon_request"] = review_digest
+            a2a["remote_task"]["returned_artifacts"].extend(
+                review_request["expected_outputs"]
+            )
+            a2a["remote_task"]["returned_artifacts"].append(
+                "actor-output/landing-review.json"
+            )
+            write_json(data["a2a_path"], a2a)
+
+            result = self.compile(data)
+
+            self.assertEqual(result["runtime_state"]["state"], "accepted")
+
+    def test_role_first_review_request_rejects_local_fixture_transport(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            data = fixture(Path(directory))
+            review_request = copy.deepcopy(data["review_request"])
+            review_request["quest_passport"]["route_anchor"] = (
+                data["runtime"]["task_id"]
+            )
+            review_request["quest_passport"]["delegate_tier"] = "deep"
+            review_request["quest_passport"]["risk"] = "r0_read_only"
+            review_digest = write_json(data["review_request_path"], review_request)
+            a2a = copy.deepcopy(data["a2a"])
+            a2a["review_binding_mode"] = "owner_contour_immutable_evidence"
+            a2a["review_summon_request_ref"]["owner_repo"] = "aoa-sdk"
+            a2a["review_summon_request_ref"]["source_ref"] = "d" * 40
+            a2a["review_summon_request_ref"]["artifact_digest"] = review_digest
+            a2a["evidence_digests"]["review_summon_request"] = review_digest
+            write_json(data["a2a_path"], a2a)
+
+            with self.assertRaisesRegex(
+                COMPILER.ExternalExecutionResultError,
+                "admitted review transport",
+            ):
+                self.compile(data)
+
     def test_owner_summon_body_must_be_the_sdk_transport_translation(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             data = fixture(Path(directory))
