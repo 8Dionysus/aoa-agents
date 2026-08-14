@@ -61,6 +61,15 @@ RUNTIME_PROFILE_SCHEMA_VERSION = "abyss_stack_external_codex_runtime_profile_v2"
 USAGE_OBSERVATION_SCHEMA_VERSION = "abyss_stack_external_codex_usage_observation_v1"
 VALIDATED_EVENT_KIND = "result.validated"
 VALIDATED_CONDITION_ID = "validated-completion"
+REVIEW_REQUIRED_EVENT_KIND = "result.review_required"
+REVIEW_REQUIRED_CONDITION_ID = "validated-return"
+ACCEPTED_RUNTIME_WAKE_PAIRS = {
+    "completed": (VALIDATED_EVENT_KIND, VALIDATED_CONDITION_ID),
+    "review_required": (
+        REVIEW_REQUIRED_EVENT_KIND,
+        REVIEW_REQUIRED_CONDITION_ID,
+    ),
+}
 
 
 class ExternalExecutionResultError(ValueError):
@@ -2189,19 +2198,22 @@ def _validate_reviewed_return(
         evidence_digests.get("writer_result") == runtime_ref["digest"],
         "A2A reviewed writer result differs from the terminal runtime result",
     )
+    runtime_status = runtime.get("status")
+    expected_wake_pair = ACCEPTED_RUNTIME_WAKE_PAIRS.get(runtime_status)
     _require(
-        runtime.get("status") == "completed",
-        "reviewed A2A return requires a completed terminal runtime result",
+        expected_wake_pair is not None,
+        "reviewed A2A return requires a completed or review-required terminal runtime result",
     )
     wake = runtime.get("wake_evaluation")
     _require(isinstance(wake, Mapping), "runtime validation event is absent")
+    expected_event_kind, expected_condition_id = expected_wake_pair
     _require(
-        wake.get("event_kind") == VALIDATED_EVENT_KIND,
-        "runtime validation event is not result.validated",
+        wake.get("event_kind") == expected_event_kind,
+        f"runtime validation event is not {expected_event_kind}",
     )
     _require(
-        wake.get("condition_id") == VALIDATED_CONDITION_ID,
-        "runtime validation condition is not validated-completion",
+        wake.get("condition_id") == expected_condition_id,
+        f"runtime validation condition is not {expected_condition_id}",
     )
     _require(
         wake.get("wake_parent") is True,
