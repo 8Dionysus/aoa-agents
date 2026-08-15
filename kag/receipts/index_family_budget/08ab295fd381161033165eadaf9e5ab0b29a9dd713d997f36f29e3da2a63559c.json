@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10605427,
+  "allowed_tracked_bytes": 15380048,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10605427,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "08ab295fd381161033165eadaf9e5ab0b29a9dd713d997f36f29e3da2a63559c",
+  "reason": "Publish the reviewed actor-responsibility receipt compiler and publisher with strict evidence binding, JSONL boundary preservation, and symlink guards; portable content-address rebinding remains below the tracked-family cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15380048,
+  "tracked_bytes_max": 16777216
+}

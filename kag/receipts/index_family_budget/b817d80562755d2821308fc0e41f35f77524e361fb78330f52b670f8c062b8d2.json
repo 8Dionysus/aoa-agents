@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10644448,
+  "allowed_tracked_bytes": 15422986,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10644448,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b817d80562755d2821308fc0e41f35f77524e361fb78330f52b670f8c062b8d2",
+  "reason": "Reject incomplete installed aoa-summon source handles and project only canonical closeout fields so publisher owner resolution and receipt schema boundaries remain fail-closed.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15422986,
+  "tracked_bytes_max": 16777216
+}

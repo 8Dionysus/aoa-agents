@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10633462,
+  "allowed_tracked_bytes": 15411740,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10633462,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "6506a4b9bc78c804eca50c9be79f4100998450e54d6ba6b648a6e8bf0ab8d1b8",
+  "reason": "Bind actor receipt provenance to an explicit result artifact, resolve the canonical owner root through source-handle or explicit owner-root routes, default to the live watcher path, and preserve optional result fields; portable content-address rebinding remains below the tracked-family cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15411740,
+  "tracked_bytes_max": 16777216
+}

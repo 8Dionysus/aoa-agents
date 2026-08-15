@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10634466,
+  "allowed_tracked_bytes": 15412744,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10634466,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "f18164e40adea90c040692e76f8ca0408f1834a513c61a120f844641bbce701d",
+  "reason": "Reject non-null runtime result, A2A-return, or usage refs on launched and running actor receipts so in-progress observations cannot claim terminal evidence; portable content-address rebinding remains below the tracked-family cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15412744,
+  "tracked_bytes_max": 16777216
+}

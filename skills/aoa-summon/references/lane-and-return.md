@@ -240,3 +240,46 @@ selected role, and ordered domain-procedure set. The CLI may load an exact asser
 through `--usage-observation-ref` and refuses to replace an existing output.
 The emitted receipt is a summon responsibility-closeout record, not
 stats admission, runtime success proof, model-fit proof, or owner acceptance.
+
+## Actor responsibility observation and publication
+
+The owner-local observation route is separate from external execution
+closeout. `scripts/compile_actor_responsibility_receipt.py` validates one
+exact external-lane `summon-result-v4` and explicit observation coordinates,
+then emits the admitted `actor_responsibility_execution_receipt` envelope.
+The caller must also provide the canonical artifact ref for those exact input
+bytes; the request ref is retained separately and is never reused as the
+source-result ref.
+The payload schema is owned by `aoa-agents`; it retains exact stronger-owner
+references and the result-byte digest without copying SDK, runtime, A2A, or
+stats authority into a competing protocol. Runtime refs follow the source
+state: returned and accepted preserve result, reviewed A2A-return, and usage;
+failed preserves result and usage without inventing an A2A return; launched and
+running preserve no return refs until the runtime supplies them.
+
+The event identity is deterministic over the exact result digest, canonical
+receipt payload projection, and explicit observation inputs (`observed_at`,
+`run_ref`, `session_ref`, `actor_ref`, and `object_ref`). A caller-supplied
+digest or event ID is an assertion, not an override, and mismatches fail
+closed.
+
+Publication is an explicit second action through
+`scripts/publish_actor_responsibility_receipts.py`. It validates every input
+and every existing JSONL line, skips already-seen event IDs, and refuses to
+append when the existing log is malformed. Its default path is
+`.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`; the owner
+root resolves through a complete same-bundle source handle or an explicit
+`--owner-root`; an installed v2 handle must include its bundle version and
+provenance identity dimensions, and a test-local path must be supplied for
+tests. The compiler projects only the canonical parent-owner, residual-risk,
+and next-route closeout fields; source-schema extensions do not widen the
+strict receipt. Nothing in summon execution or compilation
+automatically appends to a live feed. The publisher takes a POSIX advisory
+exclusive lock at `<log-path>.lock` before reading existing IDs and holds it
+through the append, so independent sessions sharing one path cannot race the
+event-ID deduplication. The lock file is owner-local coordination rather than
+receipt source data; unsupported lock hosts fail closed.
+
+The receipt records observation posture only. It must not be read as a claim
+of benefit, model fit, task success, proof, reviewer approval, or owner
+acceptance; those remain separate owner decisions and evidence.

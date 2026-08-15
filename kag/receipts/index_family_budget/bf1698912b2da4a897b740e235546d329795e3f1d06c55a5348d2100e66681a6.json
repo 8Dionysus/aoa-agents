@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10646927,
+  "allowed_tracked_bytes": 15425465,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10646927,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "bf1698912b2da4a897b740e235546d329795e3f1d06c55a5348d2100e66681a6",
+  "reason": "Bind actor receipt event identity to the canonical payload projection so schema-valid payload tampering cannot retain a prior event ID; preserve the owner-local generated family budget.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15425465,
+  "tracked_bytes_max": 16777216
+}

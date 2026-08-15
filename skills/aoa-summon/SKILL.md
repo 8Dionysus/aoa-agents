@@ -98,8 +98,10 @@ leaf is not permission to infer any missing field.
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
-  decision refs, runtime-owned terminal/result/usage refs, immutable request
-  identity and intent, one validation record per named output, closeout
+  decision refs, the runtime-owned refs required by the observed state (all
+  result/A2A/usage refs for returned or accepted, result/usage refs for failed,
+  and no return refs yet for launched or running), immutable request identity
+  and intent, one validation record per named output, closeout
   handoff, effects, and stop. This owner-local receipt does not replace or
   rename the `aoa-sdk` A2A schemas or the `abyss-stack` runtime return.
 
@@ -320,3 +322,34 @@ inventing review-of-review.
 - treat `summon-request-v3` and `summon-result-v3` as frozen historical read
   contracts only; they may be validated to inspect old receipts, but no new
   execution may launch from v3 or emit a new v3 result
+
+## Actor responsibility observation
+
+`scripts/compile_actor_responsibility_receipt.py` is a passive owner-local
+observation adapter. It accepts one exact schema-valid
+`urn:aoa-agents:aoa-summon:result:v4` artifact from the external lane plus
+explicit canonical `result_artifact_ref`, `observed_at`, `run_ref`,
+`session_ref`, `actor_ref`, and `object_ref` inputs. It retains the exact
+result-byte digest, selected role/model/SDK references, state-appropriate
+runtime/A2A/usage references, effects, review/output posture, closeout
+handoff, and stop line in the strict
+`aoa_actor_responsibility_execution_receipt_v1` payload. Its event ID is
+derived from the exact result digest and those observation inputs; supplied
+digest or event-ID assertions must match exactly.
+
+`scripts/publish_actor_responsibility_receipts.py` is a separate explicit
+publisher. It validates the complete envelope and owner payload before
+appending to `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`,
+resolving the owner root through the same-bundle source handle or explicit
+`--owner-root`. It skips duplicate event IDs and fails closed on malformed
+existing logs. Tests use a temporary `--log-path`; compilation never publishes
+automatically. The publisher takes a POSIX advisory exclusive lock at
+`<log-path>.lock` before reading existing IDs and holds it through the append,
+so independent sessions using the same log path serialize deduplication. The
+lock file is owner-local runtime coordination, not a receipt, source artifact,
+or automatic feed activation; hosts without advisory-lock support fail closed.
+
+This route consumes the admitted `aoa-stats` envelope and event-kind meaning
+without modifying or activating `aoa-stats`. Receipt presence is an
+observation only: it does not infer benefit, model fit, task success, proof,
+review approval, or owner acceptance.

@@ -1,0 +1,391 @@
+{
+  "$id": "https://aoa-agents/schemas/actor-responsibility-execution-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-agents actor responsibility execution receipt payload",
+  "description": "Owner-local observation payload for one validated aoa-summon-v4 result. It preserves stronger-owner references without inferring fit, benefit, success, proof, or acceptance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_result",
+    "execution",
+    "owner_evidence",
+    "authority_posture"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_actor_responsibility_execution_receipt_v1",
+      "type": "string"
+    },
+    "source_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "artifact_ref",
+        "artifact_digest",
+        "schema_version",
+        "request_ref",
+        "request_digest"
+      ],
+      "properties": {
+        "owner_repo": {
+          "const": "aoa-agents",
+          "type": "string"
+        },
+        "artifact_ref": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "artifact_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "schema_version": {
+          "const": "urn:aoa-agents:aoa-summon:result:v4",
+          "type": "string"
+        },
+        "request_ref": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "request_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "lane",
+        "execution_surface",
+        "cohort_pattern",
+        "decision_state",
+        "request_intent",
+        "runtime_state",
+        "actual_effects",
+        "blocked_actions",
+        "reason_codes",
+        "closeout_required",
+        "checkpoint_required",
+        "progression_required",
+        "requested_posture",
+        "owner_publication_plan",
+        "stop_line"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "lane": {
+          "const": "external_cli_reviewed",
+          "type": "string"
+        },
+        "execution_surface": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_pattern": {
+          "type": ["string", "null"]
+        },
+        "decision_state": {
+          "enum": ["allowed", "blocked", "split_required", "human_gate"],
+          "type": "string"
+        },
+        "request_intent": {
+          "enum": ["decide", "execute"],
+          "type": "string"
+        },
+        "runtime_state": {
+          "enum": ["decided", "not_run", "launched", "running", "returned", "accepted", "failed"],
+          "type": "string"
+        },
+        "actual_effects": {
+          "type": "array",
+          "items": {"minLength": 1, "type": "string"},
+          "uniqueItems": true
+        },
+        "blocked_actions": {
+          "type": "array",
+          "items": {"minLength": 1, "type": "string"},
+          "uniqueItems": true
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {"minLength": 1, "type": "string"},
+          "uniqueItems": true
+        },
+        "closeout_required": {
+          "type": "boolean"
+        },
+        "checkpoint_required": {
+          "type": "boolean"
+        },
+        "progression_required": {
+          "type": "boolean"
+        },
+        "requested_posture": {
+          "type": ["string", "null"]
+        },
+        "owner_publication_plan": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "stop_line": {
+          "minLength": 1,
+          "type": "string"
+        }
+      }
+    },
+    "owner_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding", "runtime_state", "return_validation", "closeout_handoff"],
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/binding"
+        },
+        "runtime_state": {
+          "$ref": "#/$defs/runtimeState"
+        },
+        "return_validation": {
+          "$ref": "#/$defs/returnValidation"
+        },
+        "closeout_handoff": {
+          "$ref": "#/$defs/closeoutHandoff"
+        }
+      }
+    },
+    "authority_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benefit",
+        "model_fit",
+        "task_success",
+        "proof",
+        "review_approval",
+        "owner_acceptance",
+        "publication"
+      ],
+      "properties": {
+        "benefit": {"const": "not_inferred", "type": "string"},
+        "model_fit": {"const": "not_inferred", "type": "string"},
+        "task_success": {"const": "not_inferred", "type": "string"},
+        "proof": {"const": "not_inferred", "type": "string"},
+        "review_approval": {"const": "not_inferred", "type": "string"},
+        "owner_acceptance": {"const": "not_claimed", "type": "string"},
+        "publication": {"const": "not_claimed", "type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"minLength": 1, "type": "string"},
+        "owner_repo": {"minLength": 1, "type": "string"},
+        "schema_version": {"minLength": 1, "type": "string"},
+        "digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "roleResolutionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-agents"}, "schema_version": {"const": "aoa_role_resolution_v1"}}}
+      ]
+    },
+    "modelFitQueryRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-models"}, "schema_version": {"const": "aoa_model_fit_query_result_v2"}}}
+      ]
+    },
+    "modelFitProjectionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-models"}, "schema_version": {"const": "aoa_model_fit_projection_v1"}}}
+      ]
+    },
+    "modelRealizationRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-models"}, "schema_version": {"const": "aoa_model_realization_v1"}}}
+      ]
+    },
+    "runPlanRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "aoa_control_plane_v1"}}}
+      ]
+    },
+    "incarnationBindingRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "aoa_agent_incarnation_binding_v2"}}}
+      ]
+    },
+    "sdkSummonRequestRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-request:v4"}}}
+      ]
+    },
+    "sdkSummonDecisionRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "aoa-sdk"}, "schema_version": {"const": "urn:aoa-sdk:a2a:summon-result:v4"}}}
+      ]
+    },
+    "runtimeProfileRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_runtime_profile_v2"}}}
+      ]
+    },
+    "runtimeResultRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_result_v2"}}}
+      ]
+    },
+    "runtimeA2AReturnRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_a2a_return_v1"}}}
+      ]
+    },
+    "usageObservationRef": {
+      "allOf": [
+        {"$ref": "#/$defs/ref"},
+        {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_usage_observation_v1"}}}
+      ]
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interface",
+        "inspected",
+        "available",
+        "reason",
+        "binding_kind",
+        "runtime_owner",
+        "role_resolution_ref",
+        "model_fit_query_result_ref",
+        "model_fit_projection_ref",
+        "incarnation_binding_ref",
+        "sdk_summon_request_ref",
+        "sdk_summon_decision_ref",
+        "runtime_profile_ref",
+        "uses_builtin_codex_subagents"
+      ],
+      "properties": {
+        "interface": {"minLength": 1, "type": "string"},
+        "inspected": {"const": true, "type": "boolean"},
+        "available": {"type": "boolean"},
+        "reason": {"type": ["string", "null"]},
+        "binding_kind": {"const": "external_cli_incarnation", "type": "string"},
+        "runtime_owner": {"const": "abyss-stack", "type": "string"},
+        "role_resolution_ref": {"$ref": "#/$defs/roleResolutionRef"},
+        "model_fit_query_result_ref": {"$ref": "#/$defs/modelFitQueryRef"},
+        "model_fit_projection_ref": {"$ref": "#/$defs/modelFitProjectionRef"},
+        "model_realization_ref": {"$ref": "#/$defs/modelRealizationRef"},
+        "run_plan_ref": {"$ref": "#/$defs/runPlanRef"},
+        "incarnation_binding_ref": {"$ref": "#/$defs/incarnationBindingRef"},
+        "sdk_summon_request_ref": {"$ref": "#/$defs/sdkSummonRequestRef"},
+        "sdk_summon_decision_ref": {"$ref": "#/$defs/sdkSummonDecisionRef"},
+        "runtime_profile_ref": {"$ref": "#/$defs/runtimeProfileRef"},
+        "uses_builtin_codex_subagents": {"const": false, "type": "boolean"}
+      }
+    },
+    "runtimeState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "actor_handle",
+        "process_handle",
+        "session_handle",
+        "continuation_handle"
+      ],
+      "properties": {
+        "state": {"enum": ["launched", "running", "returned", "accepted", "failed"], "type": "string"},
+        "actor_handle": {"minLength": 1, "type": "string"},
+        "process_handle": {"minLength": 1, "type": "string"},
+        "session_handle": {"minLength": 1, "type": "string"},
+        "continuation_handle": {"minLength": 1, "type": "string"},
+        "runtime_result_ref": {"$ref": "#/$defs/runtimeResultRef"},
+        "runtime_a2a_return_ref": {"$ref": "#/$defs/runtimeA2AReturnRef"},
+        "usage_observation_ref": {"$ref": "#/$defs/usageObservationRef"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {"enum": ["returned", "accepted"]}
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "required": [
+              "runtime_result_ref",
+              "runtime_a2a_return_ref",
+              "usage_observation_ref"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {"const": "failed"}
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "required": ["runtime_result_ref", "usage_observation_ref"]
+          }
+        }
+      ]
+    },
+    "returnValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["output_checks", "accepted"],
+      "properties": {
+        "output_checks": {
+          "type": "object",
+          "propertyNames": {"minLength": 1},
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["received", "artifact_ref", "accepted"],
+            "properties": {
+              "received": {"type": "boolean"},
+              "artifact_ref": {"type": ["string", "null"]},
+              "accepted": {"type": "boolean"}
+            }
+          }
+        },
+        "accepted": {"type": "boolean"}
+      }
+    },
+    "closeoutHandoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parent_owner", "residual_risk", "next_route"],
+      "properties": {
+        "parent_owner": {"type": ["string", "null"]},
+        "residual_risk": {"type": ["string", "null"]},
+        "next_route": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
