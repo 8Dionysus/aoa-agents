@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 1380464,
+  "allowed_tracked_bytes": 15684753,
+  "approved_by": "repository-owner",
+  "base_ref": "9b98dbc9f1e015aaf5ce1bafc464856828a34d28",
+  "changed_generated_bytes": 1380464,
+  "changed_generated_files": 35,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "068453bd66e9258b479202ee8c4a40d7517e4889abec2e8dd2e95d7027b6a4f6",
+  "reason": "Refresh the portable aoa-agents family for bounded role-first tier and exact capability-pack selection, resolver no-scan enforcement, and regenerated capability-home projections; the measured delta remains below the tracked family cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15684753,
+  "tracked_bytes_max": 16777216
+}
