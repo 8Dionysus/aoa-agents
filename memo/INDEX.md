@@ -7,7 +7,7 @@ Generated from `PORT.yaml` and local memo packets.
 | District | Count |
 |---|---:|
 | candidates | 44 |
-| receipts | 1 |
+| receipts | 2 |
 | exports | 1 |
 | local | 0 |
 

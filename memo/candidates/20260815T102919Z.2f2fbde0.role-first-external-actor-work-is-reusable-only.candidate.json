@@ -40,5 +40,6 @@
     "direct_durable_write": false,
     "instructions_treated_as_data": true,
     "requires_reviewed_intake": true
-  }
+  },
+  "notes": "Origin-owner correction for reviewed intake: this local pattern-shaped candidate is authorized for aoa-memo materialization as a bounded claim, not as recurring-pattern admission. aoa-memo has no two reviewed episode objects for pattern admission yet; future pattern promotion remains a separate gate."
 }

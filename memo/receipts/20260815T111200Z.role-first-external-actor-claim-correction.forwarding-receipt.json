@@ -1,0 +1,21 @@
+{
+  "schema": "aoa_local_memo_receipt_v2",
+  "id": "receipt:aoa-agents:20260815T111200Z:role-first-external-actor-claim-correction",
+  "repo": "aoa-agents",
+  "candidate_ref": "candidates/20260815T102919Z.2f2fbde0.role-first-external-actor-work-is-reusable-only.candidate.json",
+  "export_ref": "exports/20260815T103403Z.role-first-external-actor-work-is-reusable-only.aoa-memo-intake.json",
+  "result": "forwarded",
+  "route": "reviewed_intake",
+  "checks": [
+    "schema",
+    "candidate_refs",
+    "source_refs",
+    "evidence_refs",
+    "guardrails",
+    "origin_kind_authorization"
+  ],
+  "errors": [],
+  "created_at": "2026-08-15T11:12:00Z",
+  "checked_by": "aoa-memo-mcp",
+  "notes": "Correction receipt: the origin owner authorizes aoa-memo to materialize this pattern-shaped packet as a bounded claim. This central object-kind override must not be interpreted as recurring-pattern admission; two reviewed episode objects remain required for that future promotion."
+}

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 1103104,
+  "allowed_tracked_bytes": 15487197,
+  "approved_by": "repository-owner",
+  "base_ref": "eaecb25c43aadb4eb6f2d3be8c8e4f9334cc2b73",
+  "changed_generated_bytes": 1103104,
+  "changed_generated_files": 24,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "2c021a3a7272eac5ea79a956767f346ebbe9830b361b0da6146e75268d742f71",
+  "reason": "Refresh portable aoa-agents owner-family KAG after the origin-owner correction authorizing aoa-memo materialization as a bounded claim; generated family is a source/read-model consequence only and does not imply runtime, stats, owner acceptance, or pattern promotion.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15487197,
+  "tracked_bytes_max": 16777216
+}
