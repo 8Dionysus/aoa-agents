@@ -100,7 +100,7 @@ observation_receipt:
     - explicit observed_at with a UTC offset
     - explicit run_ref, session_ref, actor_ref, and object_ref
   output_posture: aoa-agents-owned actor_responsibility_execution_receipt stats envelope
-  identity_posture: event ID is derived from the exact input-byte digest and explicit observation inputs; supplied digest or event ID assertions must match
+  identity_posture: event ID is derived from the exact input-byte digest, canonical receipt payload projection, and explicit observation inputs; supplied digest or event ID assertions must match
   state_ref_posture: returned and accepted require runtime-result, reviewed A2A-return, and usage refs; failed requires runtime-result and usage refs without inventing an A2A return; launched and running preserve no return refs yet
   prohibited_authority:
     - runtime launch or control

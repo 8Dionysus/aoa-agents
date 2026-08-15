@@ -323,6 +323,7 @@ def _identity_digest(
     session_ref: str,
     actor_ref: str,
     object_ref: Mapping[str, str],
+    payload: Mapping[str, Any],
 ) -> str:
     identity = {
         "result_digest": result_digest,
@@ -331,6 +332,7 @@ def _identity_digest(
         "session_ref": session_ref,
         "actor_ref": actor_ref,
         "object_ref": dict(object_ref),
+        "payload_digest": digest_bytes(canonical_bytes(payload)),
     }
     return digest_bytes(canonical_bytes(identity))
 
@@ -391,18 +393,6 @@ def compile_actor_responsibility_receipt(
         _require_digest(expected_result_digest, "expected_result_digest")
         _require(expected_result_digest == result_digest, "summon result digest does not match expected_result_digest")
 
-    identity_digest = _identity_digest(
-        result_digest=result_digest,
-        observed_at=observed_at,
-        run_ref=run_ref,
-        session_ref=session_ref,
-        actor_ref=actor_ref,
-        object_ref=object_ref,
-    )
-    derived_event_id = EVENT_ID_PREFIX + identity_digest.removeprefix("sha256:")
-    if event_id is not None:
-        _require(event_id == derived_event_id, "event_id does not match deterministic owner evidence identity")
-
     execution = {
         field: result[field]
         for field in (
@@ -460,6 +450,18 @@ def compile_actor_responsibility_receipt(
         },
     }
     _validate_document(payload, PAYLOAD_SCHEMA, "actor responsibility receipt payload")
+    identity_digest = _identity_digest(
+        result_digest=result_digest,
+        observed_at=observed_at,
+        run_ref=run_ref,
+        session_ref=session_ref,
+        actor_ref=actor_ref,
+        object_ref=object_ref,
+        payload=payload,
+    )
+    derived_event_id = EVENT_ID_PREFIX + identity_digest.removeprefix("sha256:")
+    if event_id is not None:
+        _require(event_id == derived_event_id, "event_id does not match deterministic owner evidence identity")
     envelope = {
         "event_kind": EVENT_KIND,
         "event_id": derived_event_id,
@@ -525,6 +527,7 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
         session_ref=envelope["session_ref"],
         actor_ref=envelope["actor_ref"],
         object_ref=envelope["object_ref"],
+        payload=envelope["payload"],
     ).removeprefix("sha256:")
     _require(envelope["event_id"] == expected_event_id, "event_id does not match deterministic owner evidence identity")
 

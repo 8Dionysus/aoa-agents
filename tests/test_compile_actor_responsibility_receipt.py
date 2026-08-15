@@ -188,6 +188,15 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "evidence_refs"):
                 COMPILER.validate_receipt(receipt)
 
+    def test_payload_tampering_changes_event_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            write_result(result_path, summon_result())
+            receipt = self.compile(result_path)
+            receipt["payload"]["execution"]["actual_effects"].append("forged-effect")
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "event_id"):
+                COMPILER.validate_receipt(receipt)
+
     def test_request_ref_cannot_be_reused_as_source_result_ref(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_path = Path(directory) / "summon-result.json"

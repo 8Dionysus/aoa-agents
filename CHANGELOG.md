@@ -17,7 +17,8 @@ Tracking starts with the community-docs baseline for this repository.
   POSIX advisory lock and fail closed on hosts without lock support.
 - Bind each receipt's source-result evidence to an explicit result artifact ref,
   preserve runtime refs according to launched/running/failed/returned/accepted
-  state, and default publication to the canonical live watcher path.
+  state, bind event identity to the canonical payload projection, and default
+  publication to the canonical live watcher path.
 - Resolve the publisher's default owner root through the complete same-bundle
   source handle or an explicit owner-root argument; require the bundle version
   and v2 provenance dimensions before resolving it, and never infer it from

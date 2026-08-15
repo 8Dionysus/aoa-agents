@@ -257,10 +257,11 @@ state: returned and accepted preserve result, reviewed A2A-return, and usage;
 failed preserves result and usage without inventing an A2A return; launched and
 running preserve no return refs until the runtime supplies them.
 
-The event identity is deterministic over the exact result digest and explicit
-observation inputs (`observed_at`, `run_ref`, `session_ref`, `actor_ref`, and
-`object_ref`). A caller-supplied digest or event ID is an assertion, not an
-override, and mismatches fail closed.
+The event identity is deterministic over the exact result digest, canonical
+receipt payload projection, and explicit observation inputs (`observed_at`,
+`run_ref`, `session_ref`, `actor_ref`, and `object_ref`). A caller-supplied
+digest or event ID is an assertion, not an override, and mismatches fail
+closed.
 
 Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input

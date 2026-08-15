@@ -39,9 +39,10 @@ Add `actor-responsibility-execution-receipt.schema.json` and
 compiler accepts only a schema-valid external-lane `summon-result-v4`, keeps
 the exact result-byte digest and stronger-owner references, requires an
 explicit canonical ref for the exact result artifact plus observation
-coordinates, and derives a stable event ID from those exact inputs. The
-request ref remains a separate field. Digest and event-ID assertions fail
-closed.
+coordinates and the canonical receipt payload projection, and derives a
+stable event ID from those exact inputs. The request ref remains a separate
+field. Digest and event-ID assertions fail closed, so schema-valid payload
+edits cannot retain a prior event ID.
 
 Add `publish_actor_responsibility_receipts.py` as an explicit second action.
 It validates inputs and all existing log lines before append, skips duplicate
