@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -21,9 +22,16 @@ def _input(input_id: str, path: Path) -> tuple[dict[str, str], Path]:
 
 class ExternalActorPreparerTests(unittest.TestCase):
     def test_actor_runtime_session_id_is_derived_from_route(self) -> None:
-        self.assertEqual(
-            PREPARER._actor_runtime_session_id("role-first:workspace-proof-v2"),
-            "role-first-workspace-proof-v2",
+        route_id = "role-first:workspace-proof-v2"
+        session_id = PREPARER._actor_runtime_session_id(route_id)
+
+        self.assertTrue(session_id.startswith("actor-role-first-workspace-proof-v2-"))
+        self.assertTrue(session_id.endswith(hashlib.sha256(route_id.encode()).hexdigest()))
+
+    def test_actor_runtime_session_id_distinguishes_delimiter_collisions(self) -> None:
+        self.assertNotEqual(
+            PREPARER._actor_runtime_session_id("team:a-b"),
+            PREPARER._actor_runtime_session_id("team-a:b"),
         )
 
     def test_continuation_return_owner_projects_the_exact_holder(self) -> None:

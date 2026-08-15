@@ -89,7 +89,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "task_family", "difficulty", "parent_task_id", "session_ref", "effect_class", "sandbox_mode",
+        "task_family", "difficulty", "parent_task_id", "effect_class", "sandbox_mode",
         "workspace_path", "workspace_initial_posture", "workspace_manifest_input_id", "allowed_paths",
         "source_evidence_paths", "transition", "runtime_bind_executable", "runtime_interface", "request_ref",
         "return_event_object_id", "return_owner_input_id", "codex_executable", "codex_home"
@@ -102,7 +102,6 @@
         "difficulty": {"enum": ["d0_probe", "d1_patch", "d2_slice"]},
         "risk": {"enum": ["r0_read_only", "r1_repo_local", "r2_contract", "r3_side_effect"]},
         "parent_task_id": {"type": "string", "minLength": 1},
-        "session_ref": {"type": "string", "minLength": 1},
         "effect_class": {"enum": ["read_only", "repo_mutation"]},
         "sandbox_mode": {"enum": ["read_only", "workspace_write"]},
         "workspace_path": {"$ref": "#/$defs/absolutePath"},

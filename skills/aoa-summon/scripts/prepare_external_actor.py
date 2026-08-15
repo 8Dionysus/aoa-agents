@@ -62,9 +62,11 @@ class PreparationError(ValueError):
 
 
 def _actor_runtime_session_id(route_id: str) -> str:
-    """Derive one stable physical runtime session identity from the route."""
+    """Derive one stable, collision-resistant runtime session identity."""
 
-    return route_id.replace(":", "-")
+    route_slug = route_id.replace(":", "-")
+    route_digest = hashlib.sha256(route_id.encode("utf-8")).hexdigest()
+    return f"actor-{route_slug}-{route_digest}"
 
 
 def _load(path: Path, *, label: str) -> dict[str, Any]:

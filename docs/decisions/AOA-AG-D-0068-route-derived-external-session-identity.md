@@ -26,18 +26,22 @@ manifest named different sessions.
 ## Decision
 
 The passive preparer derives one actor runtime session identity from
-`route_id`, then uses that exact value for both the SDK summon request's
-`session_ref` and the abyss-stack launch manifest's `session_id`. The current
-holder remains represented by the obligation, return-owner, and responsibility
-transfer refs; it is not reused as the physical child session identity.
+`route_id`, including the full digest of the original route to distinguish
+routes whose human-readable slugs would otherwise collide. It uses that exact
+value for both the SDK summon request's `session_ref` and the abyss-stack
+launch manifest's `session_id`. The current holder remains represented by the
+obligation, return-owner, and responsibility transfer refs; it is not reused as
+the physical child session identity.
 
-This is an owner compiler invariant. Callers do not reconcile low-level
-session strings or patch generated request/launch JSON by hand.
+This is an owner compiler invariant. Callers do not supply a redundant
+`execution.session_ref`, reconcile low-level session strings, or patch
+generated request/launch JSON by hand.
 
 ## Consequences
 
 - Runtime admission sees one exact actor session identity across SDK and
   abyss-stack.
+- Distinct valid route IDs cannot alias through delimiter normalization.
 - Route identities remain model- and launcher-neutral.
 - Existing parent/return-holder refs retain their responsibility meaning.
 - The route packet still requires explicit apply and runtime admission; this
