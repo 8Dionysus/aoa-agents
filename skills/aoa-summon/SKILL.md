@@ -334,8 +334,12 @@ result-byte digest, selected role/model/SDK references, state-appropriate
 runtime/A2A/usage references, effects, review/output posture, closeout
 handoff, and stop line in the strict
 `aoa_actor_responsibility_execution_receipt_v1` payload. Its event ID is
-derived from the exact result digest and those observation inputs; supplied
-digest or event-ID assertions must match exactly.
+derived from the exact result digest, canonical payload projection, and those
+observation inputs; supplied digest or event-ID assertions must match exactly.
+The projected `execution.runtime_state` must equal
+`owner_evidence.runtime_state.state`, and source `blocked_actions` and
+`reason_codes` arrays are compacted by dropping empty strings and later
+duplicates while preserving first-seen order before strict payload validation.
 
 `scripts/publish_actor_responsibility_receipts.py` is a separate explicit
 publisher. It validates the complete envelope and owner payload before

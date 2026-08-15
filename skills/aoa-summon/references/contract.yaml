@@ -102,6 +102,7 @@ observation_receipt:
   output_posture: aoa-agents-owned actor_responsibility_execution_receipt stats envelope
   identity_posture: event ID is derived from the exact input-byte digest, canonical receipt payload projection, and explicit observation inputs; supplied digest or event ID assertions must match
   state_ref_posture: returned and accepted require runtime-result, reviewed A2A-return, and usage refs; failed requires runtime-result and usage refs without inventing an A2A return; launched and running preserve no return refs yet
+  cross_field_posture: execution.runtime_state must equal owner_evidence.runtime_state.state; blocked_actions and reason_codes project source arrays by dropping empty strings and later duplicates while preserving first-seen order before strict payload validation
   prohibited_authority:
     - runtime launch or control
     - stats event-registry or envelope mutation

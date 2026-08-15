@@ -263,6 +263,12 @@ receipt payload projection, and explicit observation inputs (`observed_at`,
 digest or event ID is an assertion, not an override, and mismatches fail
 closed.
 
+The receipt projection keeps `execution.runtime_state` equal to
+`owner_evidence.runtime_state.state`. The source `blocked_actions` and
+`reason_codes` arrays are compacted before strict payload validation by dropping
+empty strings and later duplicates while preserving first-seen order; the
+receipt schema still rejects an uncompact direct publisher input.
+
 Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input
 and every existing JSONL line, skips already-seen event IDs, and refuses to
