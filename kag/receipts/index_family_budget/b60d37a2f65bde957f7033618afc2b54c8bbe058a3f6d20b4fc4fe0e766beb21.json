@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11117931,
+  "allowed_tracked_bytes": 15621740,
+  "approved_by": "repository-owner",
+  "base_ref": "79020e93933f497f3280f2029dfb50ad70e52b8e",
+  "changed_generated_bytes": 11117931,
+  "changed_generated_files": 279,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b60d37a2f65bde957f7033618afc2b54c8bbe058a3f6d20b4fc4fe0e766beb21",
+  "reason": "Refresh the portable owner family for the role-first semantic entry after rebasing onto current aoa-agents main; this receipt admits only the measured derived-index delta and does not raise a standing budget or grant runtime authority.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15621740,
+  "tracked_bytes_max": 16777216
+}
