@@ -48,18 +48,31 @@ summon-request-v4, owner roots, digests, or a model-specific command.
    stop line. If the duty is not independent, stop with the typed disposition.
 3. Execute the bounded owner-source route for `role-first-entry` in
    references/source-return.md. Read the admitted `aoa-agents` orientation
-   surfaces first. Because the caller does not provide a role ID, perform the
-   one finite candidate-source read admitted by that route over the current
-   role-house profiles and role-local specialization files. Compare that
-   authored candidate set to the duty, retain the current holder's semantic
-   selection authority, and then inspect only the exact chosen role and
-   specialization sources. Resolve stronger owners through their own gates;
-   do not broaden a missing ref into a repository-wide search or use a
+   surfaces first. Because the caller does not provide role, specialization, or
+   tier IDs, perform the one finite candidate-source read admitted by that
+   route over the current role-house profiles, role-local specialization
+   files, and operating-model tier files. Compare the authored role and
+   specialization meaning to the duty, then compare only tiers named by the
+   selected base role's `preferred_tier_ids` to the duty's required behavior.
+   The current holder retains semantic selection authority; selection is not
+   first-match or list-order routing. After selecting the role, optional
+   specialization, and tier, inspect only those exact role,
+   specialization, and tier sources. If a specialization is selected, read
+   the exact capability-pack source at its authored `capability_pack_ref` and
+   require that ref to resolve; do not scan for, infer, or invent a pack. A
+   base-role route without a specialization carries no capability pack.
+   Preserve this bounded candidate set, rationale, selected chain, and exact
+   source refs in task-local selection evidence rather than asking the caller
+   to hand-build it. Resolve stronger owners through their own gates; do not
+   broaden a missing ref into a repository-wide search or use a
    generated reader as role authority.
 4. Form one bounded agent-obligation-v1, then choose an existing aoa-agents
-   role or specialization whose authored meaning bears that duty. Do not mint
-   a task-named role. Use the exact role resolver only after the semantic
-   choice and preserve the role's owner refs.
+   role or specialization and one compatible authored tier whose meaning bears
+   that duty. Do not mint a task-named role or choose a tier outside the base
+   role's declared preference set. Carry the selected specialization's exact
+   capability-pack ref into the role chain. Do not turn this choice into a
+   model or runtime choice. Use the exact passive role resolver only after the
+   semantic chain choice and preserve all selected owner refs.
 5. Form actor-mandate-v1 from the obligation, selected role chain, domain
    procedure, authority, continuity, named outputs, refusal, review, and wake
    posture. Keep model names, reasoning modes, process handles, and budgets
@@ -79,7 +92,8 @@ summon-request-v4, owner roots, digests, or a model-specific command.
    summon-request-v4 artifacts without starting a process. Keep these
    artifacts in the active task-local state root, not in owner skill source.
 9. Present a bounded preview to the current holder before any runtime
-   mutation. The preview includes the selected role and owner refs, fit
+   mutation. The preview includes the selected role, specialization, tier,
+   capability-pack source, and owner refs, fit
    projection and selection authority, SDK/runtime binding, permissions,
    expected effects, prohibited effects, stop line, named outputs, rollback,
    return owner, and the exact external execution lane. Do not launch while
@@ -130,6 +144,9 @@ stage, the semantic intent, goal-pressure disposition, obligation, mandate,
   model-brand requirement.
 - The role is an existing owner-authored role or specialization; model
   realization remains replaceable.
+- The selected tier is declared by the selected base role, and a selected
+  specialization's capability pack is the exact authored source ref rather
+  than a task-derived or generated name.
 - The selected model has current fit evidence and explicit current-holder
   selection authority.
 - The SDK and runtime bind the exact mandate and environment; configuration is

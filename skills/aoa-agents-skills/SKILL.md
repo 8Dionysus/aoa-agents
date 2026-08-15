@@ -107,9 +107,13 @@ bundle's external-incarnation path.
 - Resolve an already selected role chain through the bundled passive resolver;
   never guess owner-relative role paths or treat the resolver as role-selection
   authority.
-- For role-first-entry, make the semantic role and current-holder model-fit
-  decisions before invoking passive resolvers and compilers; preserve the
-  resulting selection authority instead of hiding it in a launcher.
+- For role-first-entry, make the semantic role, specialization, and tier
+  decisions from the bounded authored candidate route before invoking passive
+  resolvers and compilers. The tier must be one of the selected base role's
+  `preferred_tier_ids`; when a specialization is selected, read its exact
+  authored `capability_pack_ref` source and carry that chain into resolution.
+  Preserve the candidate set, rationale, exact refs, and current-holder
+  selection authority instead of hiding them in a launcher.
 - Compile an admitted obligation and mandate through the bundled passive
   compiler so exact digests, lifecycle, stop line, output identities, and the
   current-holder-authorized duty-to-fit-family relation survive downstream;
