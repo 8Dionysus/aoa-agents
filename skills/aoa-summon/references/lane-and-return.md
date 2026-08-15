@@ -282,7 +282,9 @@ subtree matches the accepted `usage_observation_ref`. The resulting
 timing, activity, outcome, and observe-only metering fields; missing or
 non-reported values remain null and are named in `unknown_fields`. A repaired
 snapshot may use `--supersedes` to append a new event without rewriting the
-older accepted receipt.
+older accepted receipt. Direct publication also requires the projection's
+runtime and usage refs to equal the retained owner-evidence refs, so the
+projection cannot be rebound to another execution after compilation.
 
 Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input

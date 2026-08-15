@@ -352,7 +352,9 @@ fit, benefit, success, proof, review approval, owner acceptance, budget, or
 limiting policy. `--supersedes` appends a repaired observation as a new event
 while preserving the earlier receipt. Absent runtime fields remain null and are
 listed in `unknown_fields`; the adapter never fills them from neighboring
-receipts or from policy.
+receipts or from policy. The projection's retained runtime and usage refs must
+continue to equal the owner evidence refs when a receipt is validated for
+publication.
 
 `scripts/publish_actor_responsibility_receipts.py` is a separate explicit
 publisher. It validates the complete envelope and owner payload before

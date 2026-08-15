@@ -378,6 +378,23 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
                 expected_runtime_result_digest=runtime_digest,
             ))
 
+    def test_runtime_projection_refs_cannot_be_rebound_at_publish(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result.json"
+            runtime_digest = write_runtime_result(runtime_path, result)
+            result_path = root / "summon-result.json"
+            write_result(result_path, result)
+            receipt = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )
+            receipt["payload"]["usage_observation"]["runtime_result_ref"]["object_id"] = "forged"
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_result_ref"):
+                COMPILER.validate_receipt(receipt)
+
     def test_missing_owner_evidence_and_inference_widening_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_path = Path(directory) / "summon-result.json"

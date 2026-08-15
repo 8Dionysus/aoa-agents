@@ -954,6 +954,17 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
             _require_string(evidence["role"], f"evidence_refs[{index}].role")
     _require(isinstance(envelope["payload"], Mapping), "receipt payload must be an object")
     _validate_document(envelope["payload"], PAYLOAD_SCHEMA, "actor responsibility receipt payload")
+    usage_projection = envelope["payload"].get("usage_observation")
+    if usage_projection is not None:
+        runtime_state = envelope["payload"]["owner_evidence"]["runtime_state"]
+        _require(
+            usage_projection["runtime_result_ref"] == runtime_state.get("runtime_result_ref"),
+            "usage_observation.runtime_result_ref does not match owner runtime_result_ref",
+        )
+        _require(
+            usage_projection["source_ref"] == runtime_state.get("usage_observation_ref"),
+            "usage_observation.source_ref does not match owner usage_observation_ref",
+        )
     _require(
         envelope["evidence_refs"] == _evidence_refs(envelope["payload"]),
         "evidence_refs do not match the owner evidence carried by the payload",
