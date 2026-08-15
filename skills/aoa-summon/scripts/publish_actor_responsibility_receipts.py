@@ -225,6 +225,11 @@ def load_existing_ids(path: Path) -> set[str]:
         except json.JSONDecodeError as exc:
             raise ActorResponsibilityReceiptPublishError(f"existing log line {line_number} is not valid JSON") from exc
         receipt = _validate(candidate, location=f"{path}:{line_number}")
+        supersedes = receipt.get("supersedes")
+        if supersedes is not None and supersedes not in event_ids:
+            raise ActorResponsibilityReceiptPublishError(
+                f"existing log line {line_number} supersedes unknown prior event {supersedes}"
+            )
         event_ids.add(receipt["event_id"])
     return event_ids
 

@@ -363,9 +363,10 @@ publication.
 publisher. It validates the complete envelope and owner payload before
 appending to `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`,
 resolving the owner root through the same-bundle source handle or explicit
-`--owner-root`. It skips duplicate event IDs, requires every `supersedes`
-target to be an existing or earlier event in the ordered feed, and fails closed
-on malformed existing logs. Tests use a temporary `--log-path`; compilation never publishes
+`--owner-root`. It skips duplicate event IDs, validates existing feed lines in
+order, requires every `supersedes` target to be an existing or earlier event in
+that order, and fails closed on malformed existing logs. Tests use a temporary
+`--log-path`; compilation never publishes
 automatically. The publisher takes a POSIX advisory exclusive lock at
 `<log-path>.lock` before reading existing IDs and holds it through the append,
 so independent sessions using the same log path serialize deduplication. The
