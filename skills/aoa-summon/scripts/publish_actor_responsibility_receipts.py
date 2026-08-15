@@ -282,15 +282,21 @@ def append_new_receipts(*, log_path: Path, receipts: list[dict[str, Any]]) -> tu
         _validate(receipt, location=f"input[{index}]")
     with _exclusive_log_lock(log_path):
         existing_ids = load_existing_ids(log_path)
+        known_ids = set(existing_ids)
         needs_separator = _needs_line_separator(log_path)
         appendable: list[dict[str, Any]] = []
         skipped = 0
         for receipt in receipts:
             event_id = receipt["event_id"]
-            if event_id in existing_ids:
+            if event_id in known_ids:
                 skipped += 1
                 continue
-            existing_ids.add(event_id)
+            supersedes = receipt.get("supersedes")
+            if supersedes is not None and supersedes not in known_ids:
+                raise ActorResponsibilityReceiptPublishError(
+                    f"input receipt {event_id} supersedes unknown prior event {supersedes}"
+                )
+            known_ids.add(event_id)
             appendable.append(receipt)
         if not appendable:
             return 0, skipped

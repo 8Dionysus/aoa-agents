@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3435735,
+  "allowed_tracked_bytes": 15636626,
+  "approved_by": "repository-owner",
+  "base_ref": "5dedbd8e5bf14ec207a98fc46f6102a727221778",
+  "changed_generated_bytes": 3435735,
+  "changed_generated_files": 82,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "328578d82915aa0016bd6d3eeaf071c9ad383449b400638f79569a3dd41773c3",
+  "reason": "Actor responsibility receipt usage-projection cross-field laws and supersedes publication hardening require the generated owner-family delta to remain content-addressed and reviewed.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15636626,
+  "tracked_bytes_max": 16777216
+}

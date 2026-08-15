@@ -29,28 +29,33 @@ sys.path.insert(0, str(Path(__file__).parent))
 from test_compile_actor_responsibility_receipt import summon_result, write_result  # noqa: E402
 
 
+PRIOR_EVENT_ID = "actor-responsibility-execution:" + "a" * 64
+
+
 def _publish_from_independent_process(log_path: str, receipt: dict[str, object]) -> tuple[int, int]:
     return PUBLISHER.append_new_receipts(log_path=Path(log_path), receipts=[receipt])
 
 
 class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
-    def receipt(self, directory: Path) -> dict[str, object]:
+    def receipt(self, directory: Path, **overrides: object) -> dict[str, object]:
         result_path = directory / "summon-result.json"
         write_result(result_path, summon_result())
-        return COMPILER.compile_actor_responsibility_receipt(
-            summon_result_path=result_path,
-            result_artifact_ref="summon-result:actor",
-            observed_at="2026-08-14T12:00:00Z",
-            run_ref="run:actor-receipt-test",
-            session_ref="session:actor-receipt-test",
-            actor_ref="incarnation:actor",
-            object_ref={
+        values: dict[str, object] = {
+            "summon_result_path": result_path,
+            "result_artifact_ref": "summon-result:actor",
+            "observed_at": "2026-08-14T12:00:00Z",
+            "run_ref": "run:actor-receipt-test",
+            "session_ref": "session:actor-receipt-test",
+            "actor_ref": "incarnation:actor",
+            "object_ref": {
                 "repo": "aoa-agents",
                 "kind": "actor-responsibility-execution",
                 "id": "summon-request:actor",
                 "version": "v1",
             },
-        )
+        }
+        values.update(overrides)
+        return COMPILER.compile_actor_responsibility_receipt(**values)
 
     def test_append_is_explicit_and_event_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -85,6 +90,40 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             receipt["event_id"] = "actor-responsibility-execution:forged"
             with self.assertRaises(PUBLISHER.ActorResponsibilityReceiptPublishError):
                 PUBLISHER.append_new_receipts(log_path=root / "actor.jsonl", receipts=[receipt])
+
+    def test_supersedes_requires_an_existing_prior_event(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            receipt = self.receipt(root, supersedes=PRIOR_EVENT_ID)
+            with self.assertRaisesRegex(
+                PUBLISHER.ActorResponsibilityReceiptPublishError,
+                "unknown prior event",
+            ):
+                PUBLISHER.append_new_receipts(log_path=root / "actor.jsonl", receipts=[receipt])
+
+    def test_supersedes_accepts_an_existing_prior_event(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = self.receipt(root)
+            repair = self.receipt(
+                root,
+                result_artifact_ref="summon-result:actor-2",
+                observed_at="2026-08-14T12:00:01Z",
+                run_ref="run:actor-receipt-test-2",
+                session_ref="session:actor-receipt-test-2",
+                actor_ref="incarnation:actor-2",
+                object_ref={
+                    "repo": "aoa-agents",
+                    "kind": "actor-responsibility-execution",
+                    "id": "summon-request:actor-2",
+                    "version": "v1",
+                },
+                supersedes=base["event_id"],
+            )
+            log_path = root / "actor.jsonl"
+            self.assertEqual(PUBLISHER.append_new_receipts(log_path=log_path, receipts=[base]), (1, 0))
+            self.assertEqual(PUBLISHER.append_new_receipts(log_path=log_path, receipts=[repair]), (1, 0))
+            self.assertEqual(len(log_path.read_text(encoding="utf-8").splitlines()), 2)
 
     def test_publisher_rejects_mismatched_runtime_state_before_append(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

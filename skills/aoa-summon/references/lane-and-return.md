@@ -220,7 +220,9 @@ and usage-subtree digests. That projection never replaces the stronger runtime
 refs, and it cannot make a model-fit, benefit, success, proof, review-approval,
 owner-acceptance, budget, or limiting claim.
 The observation passes the canonical status/gap law: `complete` means no gaps
-and `partial` means one or more canonical gaps. Returned artifacts must be
+and `partial` means one or more canonical gaps. The cost projection likewise
+keeps `cost_status=reported` bound to a numeric `cost_usd`; `not_reported` and
+`unknown` keep that value null. Returned artifacts must be
 the exact unique requested output identities; path basename inference and
 unrequested extras are rejected. Actor, session, continuation, and process
 handles are derived only from the runtime's incarnation/session/thread/process-identity
@@ -289,7 +291,9 @@ projection cannot be rebound to another execution after compilation.
 Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input
 and every existing JSONL line, skips already-seen event IDs, and refuses to
-append when the existing log is malformed. Its default path is
+append when the existing log is malformed. A receipt with `supersedes` must
+name an event already present in the feed or an earlier receipt in the same
+ordered batch; an arbitrary prefix is not a valid repair link. Its default path is
 `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`; the owner
 root resolves through a complete same-bundle source handle or an explicit
 `--owner-root`; an installed v2 handle must include its bundle version and

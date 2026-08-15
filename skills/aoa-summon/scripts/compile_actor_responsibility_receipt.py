@@ -33,6 +33,7 @@ EVENT_ID_PREFIX = "actor-responsibility-execution:"
 RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
 USAGE_PROJECTION_SCHEMA_VERSION = "aoa_actor_usage_observation_projection_v1"
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+EVENT_ID_RE = re.compile(r"^actor-responsibility-execution:[0-9a-f]{64}$")
 RFC3339_RE = re.compile(
     r"^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[Zz]|[+-]\d{2}:\d{2})$"
 )
@@ -103,6 +104,14 @@ def _require_string(value: Any, label: str) -> str:
 
 def _require_digest(value: Any, label: str) -> str:
     _require(isinstance(value, str) and DIGEST_RE.fullmatch(value) is not None, f"{label} is invalid")
+    return value
+
+
+def _require_event_id(value: Any, label: str) -> str:
+    _require(
+        isinstance(value, str) and EVENT_ID_RE.fullmatch(value) is not None,
+        f"{label} must be a deterministic actor responsibility execution event ID",
+    )
     return value
 
 
@@ -810,11 +819,7 @@ def compile_actor_responsibility_receipt(
     if expected_runtime_result_digest is not None:
         _require(runtime_result_path is not None, "expected_runtime_result_digest requires --runtime-result")
     if supersedes is not None:
-        _require_string(supersedes, "supersedes")
-        _require(
-            supersedes.startswith(EVENT_ID_PREFIX),
-            "supersedes must name an actor responsibility execution event",
-        )
+        _require_event_id(supersedes, "supersedes")
 
     execution = {
         field: result[field]
@@ -934,12 +939,8 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
     )
     _require(envelope["event_kind"] == EVENT_KIND, "receipt event_kind is not actor_responsibility_execution_receipt")
     if "supersedes" in envelope:
-        _require_string(envelope["supersedes"], "supersedes")
-        _require(
-            envelope["supersedes"].startswith(EVENT_ID_PREFIX),
-            "supersedes must name an actor responsibility execution event",
-        )
-    _require_string(envelope["event_id"], "event_id")
+        _require_event_id(envelope["supersedes"], "supersedes")
+    _require_event_id(envelope["event_id"], "event_id")
     _validate_observed_at(envelope["observed_at"])
     for field in ("run_ref", "session_ref", "actor_ref"):
         _require_string(envelope[field], field)
@@ -965,6 +966,23 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
             usage_projection["source_ref"] == runtime_state.get("usage_observation_ref"),
             "usage_observation.source_ref does not match owner usage_observation_ref",
         )
+        _require(
+            (usage_projection["observation_status"] == "complete" and not usage_projection["gap_reasons"])
+            or (usage_projection["observation_status"] == "partial" and bool(usage_projection["gap_reasons"])),
+            "usage_observation status/gap law is invalid",
+        )
+        cost_status = usage_projection["cost_status"]
+        cost_usd = usage_projection["cost_usd"]
+        if cost_status == "reported":
+            _require(
+                isinstance(cost_usd, (int, float)) and not isinstance(cost_usd, bool),
+                "usage_observation cost status/value law is invalid",
+            )
+        else:
+            _require(
+                cost_usd is None,
+                "usage_observation cost status/value law is invalid",
+            )
     _require(
         envelope["evidence_refs"] == _evidence_refs(envelope["payload"]),
         "evidence_refs do not match the owner evidence carried by the payload",
