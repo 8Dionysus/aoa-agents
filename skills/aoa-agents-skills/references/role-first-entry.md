@@ -46,34 +46,49 @@ summon-request-v4, owner roots, digests, or a model-specific command.
    detect-obligation. Require explicit positive and negative independence
    signals, a trigger strength, the missed consequence, a return owner, and a
    stop line. If the duty is not independent, stop with the typed disposition.
-3. Form one bounded agent-obligation-v1, then choose an existing aoa-agents
+3. Execute the bounded owner-source route for `role-first-entry` in
+   references/source-return.md. Read the admitted `aoa-agents` orientation
+   surfaces first, then inspect only the exact authored role and
+   specialization sources needed for the semantic choice. Resolve stronger
+   owners through their own gates; do not broaden a missing ref into a
+   repository-wide search.
+4. Form one bounded agent-obligation-v1, then choose an existing aoa-agents
    role or specialization whose authored meaning bears that duty. Do not mint
    a task-named role. Use the exact role resolver only after the semantic
    choice and preserve the role's owner refs.
-4. Form actor-mandate-v1 from the obligation, selected role chain, domain
+5. Form actor-mandate-v1 from the obligation, selected role chain, domain
    procedure, authority, continuity, named outputs, refusal, review, and wake
    posture. Keep model names, reasoning modes, process handles, and budgets
    out of the obligation, role, and mandate.
-5. Ask aoa-models for current fit candidates for the mandate's behavioral
+6. Ask aoa-models for current fit candidates for the mandate's behavioral
    properties. The current holder selects one candidate using its evidence and
    records the selection authority; the model owner does not route, launch, or
    grant permissions. If fit is absent or ambiguous, stop rather than silently
    choosing a brand or the first catalog entry.
-6. Ask aoa-sdk to compile the caller-selected RunPlan and
+7. Ask aoa-sdk to compile the caller-selected RunPlan and
    agent-incarnation-binding-v2, then resolve the specialized environment,
    permissions, continuation, and external runtime profile through
    abyss-stack. Usage is an observation only; this mode adds no budget gate.
-7. Materialize the internal actor-route-preparation-v1 spec and invoke the
+8. Materialize the internal actor-route-preparation-v1 spec and invoke the
    passive aoa-summon preparer. It must create the obligation, mandate, role,
    model-fit query, SDK binding, task-local DAG, transfer, and
    summon-request-v4 artifacts without starting a process. Keep these
    artifacts in the active task-local state root, not in owner skill source.
-8. Select aoa-summon only after the packet is complete and the inspected
+9. Present a bounded preview to the current holder before any runtime
+   mutation. The preview includes the selected role and owner refs, fit
+   projection and selection authority, SDK/runtime binding, permissions,
+   expected effects, prohibited effects, stop line, named outputs, rollback,
+   return owner, and the exact external execution lane. Do not launch while
+   the preview is awaiting review. Require a separate explicit apply
+   confirmation from the current holder; the initial semantic request is not
+   itself apply confirmation. Without that confirmation, return
+   `awaiting_apply` with the prepared handles and no process effect.
+10. Select aoa-summon only after the packet is complete and the inspected
    abyss-stack binding is available. Execute the external CLI lane through
    that runtime so the actor has a separate OS process, session, state root,
    continuation, and usage receipts. Do not use built-in Codex child agents or
    equate a transport handle with A2A responsibility.
-9. Record responsibility movement from the current holder to the actor and
+11. Record responsibility movement from the current holder to the actor and
    leave the parent Goal/DAG reference intact. On pause, resume, refusal,
    failure, or return, use the runtime event and receive-return procedure to
    filter named outputs, actual effects, review state, open uncertainty, and
@@ -97,12 +112,13 @@ generated graph into the source of responsibility.
 
 Return one typed lifecycle result that preserves, when the route reaches each
 stage, the semantic intent, goal-pressure disposition, obligation, mandate,
-exact role resolution, model-fit query and selected projection, SDK
-incarnation binding v2, runtime/environment binding, responsibility transfer,
-external process/session/continuation handles, summon request/result, named
-outputs, filtered return, next holder, usage observations, uncertainty, and
-stop line. A shorter result must name the exact missing owner input and next
-route.
+   exact role resolution, model-fit query and selected projection, SDK
+   incarnation binding v2, runtime/environment binding, responsibility
+   transfer, preview and explicit-apply evidence, external
+   process/session/continuation handles, summon request/result, named outputs,
+   filtered return, next holder, usage observations, uncertainty, and stop
+   line. A shorter result must name the exact missing owner input and next
+   route.
 
 ## Verification and stop
 
@@ -114,6 +130,8 @@ route.
   selection authority.
 - The SDK and runtime bind the exact mandate and environment; configuration is
   not reported as a launch.
+- The compiled route is previewed and explicit apply is recorded before any
+  runtime mutation; an awaiting-apply result has no process effect.
 - External execution has separate process/session evidence and does not use
   built-in Codex spawn.
 - Responsibility, actual effects, named outputs, review, return, and usage

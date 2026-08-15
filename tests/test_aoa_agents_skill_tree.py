@@ -623,3 +623,16 @@ class TestAoAAgentsSkillTreeContracts:
         assert "summon-request-v4" in procedure
         assert "built-in Codex child agents" in procedure
         assert "model-specific command" in procedure
+        assert "explicit apply" in procedure
+        assert "awaiting_apply" in procedure
+        assert "role-first-entry" in (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/source-return.md"
+        ).read_text(encoding="utf-8")
+
+        prompt_surface = yaml.safe_load(
+            (
+                REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        assert "separate apply confirmation" in prompt_surface["interface"]["default_prompt"]

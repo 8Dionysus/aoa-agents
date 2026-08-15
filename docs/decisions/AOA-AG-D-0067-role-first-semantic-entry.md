@@ -48,12 +48,21 @@ responsibility. aoa-models remains fit authority, aoa-sdk remains RunPlan and
 incarnation-v2 authority, abyss-stack remains process/session/state/event
 authority, and the named domain owner remains procedure authority.
 
+The route has an explicit preview/apply boundary. After owner compilation and
+runtime inspection, the current holder receives the selected role, fit,
+incarnation, permissions, effects, stop line, outputs, rollback, and return
+owner as a task-local preview. The semantic request alone cannot launch the
+external process; a separate current-holder apply confirmation is required.
+Without it, the route returns `awaiting_apply` with no runtime mutation.
+
 ## Consequences
 
 - A new Codex session can start from a plain semantic request without knowing
   summon JSON, digests, owner roots, or a model-specific command.
 - The route remains fail-closed at missing role, fit, runtime, authority,
   return, or review evidence.
+- A prepared route is inspectable before execution, and runtime mutation cannot
+  begin without explicit current-holder apply confirmation.
 - The semantic entry is not itself proof that an actor launched or returned;
   separate process, session, continuation, effect, usage, review, and filtered
   return evidence remain required.
