@@ -47,8 +47,10 @@ Add `publish_actor_responsibility_receipts.py` as an explicit second action.
 It validates inputs and all existing log lines before append, skips duplicate
 event IDs, supports a test-local path, and defaults to the owner-local
 `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl` path. The
-default owner root resolves through the same-bundle source handle or an
-explicit `--owner-root`; compilation does not publish. It acquires a POSIX
+default owner root resolves through the complete same-bundle source handle or
+an explicit `--owner-root`; v2 handles must carry the bundle version and all
+install-provenance identity dimensions before they can select an owner root.
+Compilation does not publish. It acquires a POSIX
 advisory exclusive lock at
 `<log-path>.lock` before reading existing IDs and holds that lock through the
 append, making the read/deduplicate/append sequence safe for independent
@@ -57,6 +59,11 @@ support fails closed. Envelope validation also binds the emitted
 `evidence_refs` to the payload's owner evidence, rejects symlink paths before
 resolution, and preserves a JSONL line boundary when appending to a valid
 unterminated file.
+
+The compiler projects only the canonical `parent_owner`, `residual_risk`, and
+`next_route` closeout fields into the strict receipt payload. Additional
+closeout fields allowed by the summon-result source contract remain source
+evidence and cannot widen the receipt schema.
 
 The producer also follows the canonical execution-state reference contract:
 returned and accepted results require runtime-result, reviewed A2A-return, and

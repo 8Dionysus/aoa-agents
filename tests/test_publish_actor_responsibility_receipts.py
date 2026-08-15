@@ -196,11 +196,60 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
                         "owner_repo": "aoa-agents",
                         "owner_root": str(ROOT.resolve()),
                         "source_path": "skills/aoa-summon",
+                        "version": "0.4.0",
+                        "digest": "bundle-digest",
+                        "source_fingerprint": "source-fingerprint",
+                        "source_fingerprint_scope": "authored-capability-package-v1-excludes-generated-projections",
+                        "prompt_description_sha256": "prompt-description-hash",
                     }
                 ),
                 encoding="utf-8",
             )
             self.assertEqual(PUBLISHER._resolve_owner_root(script_path=script_path), ROOT.resolve())
+
+    def test_installed_catalog_rejects_incomplete_or_mismatched_source_handle(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            bundle_dir = Path(directory) / "catalog" / "skills" / "aoa-summon"
+            bundle_dir.mkdir(parents=True)
+            script_path = bundle_dir / "scripts" / "publish_actor_responsibility_receipts.py"
+            handle = {
+                "schema_version": "aoa_skill_source_receipt_v2",
+                "name": "aoa-summon",
+                "owner_repo": "aoa-agents",
+                "owner_root": str(ROOT.resolve()),
+                "source_path": "skills/aoa-summon",
+                "version": "0.4.0",
+                "digest": "bundle-digest",
+                "source_fingerprint": "source-fingerprint",
+                "source_fingerprint_scope": "authored-capability-package-v1-excludes-generated-projections",
+                "prompt_description_sha256": "prompt-description-hash",
+            }
+            handle_path = bundle_dir / ".aoa-skill-source.json"
+            for field in (
+                "version",
+                "digest",
+                "source_fingerprint",
+                "source_fingerprint_scope",
+                "prompt_description_sha256",
+            ):
+                with self.subTest(field=field):
+                    invalid = dict(handle)
+                    invalid.pop(field)
+                    handle_path.write_text(json.dumps(invalid), encoding="utf-8")
+                    with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "source handle"):
+                        PUBLISHER._resolve_owner_root(script_path=script_path)
+
+            invalid = dict(handle)
+            invalid["version"] = "0.3.0"
+            handle_path.write_text(json.dumps(invalid), encoding="utf-8")
+            with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "source handle"):
+                PUBLISHER._resolve_owner_root(script_path=script_path)
+
+            invalid = dict(handle)
+            invalid["capability_graph_hash"] = None
+            handle_path.write_text(json.dumps(invalid), encoding="utf-8")
+            with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "capability_graph_hash"):
+                PUBLISHER._resolve_owner_root(script_path=script_path)
 
 
 if __name__ == "__main__":

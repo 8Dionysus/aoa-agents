@@ -18,9 +18,13 @@ Tracking starts with the community-docs baseline for this repository.
 - Bind each receipt's source-result evidence to an explicit result artifact ref,
   preserve runtime refs according to launched/running/failed/returned/accepted
   state, and default publication to the canonical live watcher path.
-- Resolve the publisher's default owner root through the installed skill's
-  source handle or an explicit owner-root argument; never infer it from the
-  managed skill catalog directory.
+- Resolve the publisher's default owner root through the complete same-bundle
+  source handle or an explicit owner-root argument; require the bundle version
+  and v2 provenance dimensions before resolving it, and never infer it from
+  the managed skill catalog directory.
+- Project only the canonical parent-owner, residual-risk, and next-route
+  fields from a summon closeout into the strict receipt payload; source-schema
+  closeout extensions remain outside the owner-local projection.
 - Compact the progression and summon descriptions while retaining reviewed
   evidence, explicit delegation, parent-anchor, and authority boundaries.
 - Make `aoa-summon` return `blocked_missing_request_input` when a

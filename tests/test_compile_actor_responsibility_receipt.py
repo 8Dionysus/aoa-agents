@@ -300,6 +300,22 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             self.assertIsNone(execution["requested_posture"])
             self.assertEqual(execution["owner_publication_plan"], [])
 
+    def test_closeout_extensions_are_not_projected_into_strict_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            result = summon_result()
+            result["closeout_handoff"]["reviewer_extension"] = {
+                "reviewed_at": "2026-08-14T12:00:00Z",
+                "note": "source-schema extension",
+            }
+            write_result(result_path, result)
+            closeout = self.compile(result_path)["payload"]["owner_evidence"]["closeout_handoff"]
+            self.assertEqual(
+                set(closeout),
+                {"parent_owner", "residual_risk", "next_route"},
+            )
+            self.assertEqual(closeout["next_route"], "aoa-agents:review")
+
     def test_cli_requires_and_preserves_explicit_result_artifact_ref(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

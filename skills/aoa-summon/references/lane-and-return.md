@@ -267,9 +267,12 @@ Publication is an explicit second action through
 and every existing JSONL line, skips already-seen event IDs, and refuses to
 append when the existing log is malformed. Its default path is
 `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`; the owner
-root resolves through the same-bundle source handle or an explicit
-`--owner-root`, and a test-local path must be supplied for tests. Nothing in
-summon execution or compilation
+root resolves through a complete same-bundle source handle or an explicit
+`--owner-root`; an installed v2 handle must include its bundle version and
+provenance identity dimensions, and a test-local path must be supplied for
+tests. The compiler projects only the canonical parent-owner, residual-risk,
+and next-route closeout fields; source-schema extensions do not widen the
+strict receipt. Nothing in summon execution or compilation
 automatically appends to a live feed. The publisher takes a POSIX advisory
 exclusive lock at `<log-path>.lock` before reading existing IDs and holds it
 through the append, so independent sessions sharing one path cannot race the

@@ -307,6 +307,14 @@ def _copy_runtime_state(result: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _copy_closeout_handoff(result: Mapping[str, Any]) -> dict[str, Any]:
+    source = result["closeout_handoff"]
+    return {
+        field: source[field]
+        for field in ("parent_owner", "residual_risk", "next_route")
+    }
+
+
 def _identity_digest(
     *,
     result_digest: str,
@@ -439,7 +447,7 @@ def compile_actor_responsibility_receipt(
             "binding": _copy_binding(result),
             "runtime_state": _copy_runtime_state(result),
             "return_validation": result["return_validation"],
-            "closeout_handoff": result["closeout_handoff"],
+            "closeout_handoff": _copy_closeout_handoff(result),
         },
         "authority_posture": {
             "benefit": "not_inferred",

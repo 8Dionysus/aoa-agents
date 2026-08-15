@@ -90,10 +90,12 @@ def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
     if not isinstance(handle, dict):
         raise ActorResponsibilityReceiptPublishError("same-bundle source handle must be an object")
     source_path = handle.get("source_path")
+    schema_version = handle.get("schema_version")
     if (
-        handle.get("schema_version") not in {"aoa_skill_source_receipt_v1", "aoa_skill_source_receipt_v2"}
+        schema_version not in {"aoa_skill_source_receipt_v1", "aoa_skill_source_receipt_v2"}
         or handle.get("name") != "aoa-summon"
         or handle.get("owner_repo") != "aoa-agents"
+        or handle.get("version") != "0.4.0"
         or not isinstance(handle.get("owner_root"), str)
         or not isinstance(source_path, str)
         or not source_path
@@ -102,6 +104,24 @@ def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
         or source_path != "skills/aoa-summon"
     ):
         raise ActorResponsibilityReceiptPublishError("same-bundle source handle is not an aoa-summon owner handle")
+    if schema_version == "aoa_skill_source_receipt_v2":
+        for field in (
+            "digest",
+            "source_fingerprint",
+            "source_fingerprint_scope",
+            "prompt_description_sha256",
+        ):
+            if not isinstance(handle.get(field), str) or not handle[field]:
+                raise ActorResponsibilityReceiptPublishError(
+                    f"same-bundle source handle v2 field {field} is missing"
+                )
+        if "capability_graph_hash" in handle and (
+            not isinstance(handle["capability_graph_hash"], str)
+            or not handle["capability_graph_hash"]
+        ):
+            raise ActorResponsibilityReceiptPublishError(
+                "same-bundle source handle v2 capability_graph_hash is invalid"
+            )
     return _validated_owner_root(Path(handle["owner_root"]), label="source-handle owner_root")
 
 
