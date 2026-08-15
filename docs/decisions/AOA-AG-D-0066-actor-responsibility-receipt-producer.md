@@ -72,6 +72,14 @@ usage refs; failed results require runtime-result and usage refs; launched and
 running results carry no return refs yet. Optional null refs are not promoted
 into the owner payload.
 
+The strict receipt projection also requires the execution summary's
+`runtime_state` to equal the copied owner-evidence runtime state's `state`.
+Source `blocked_actions` and `reason_codes` arrays are compacted by dropping
+empty strings and later duplicates while preserving first-seen order, so a
+schema-valid summon result is not lost merely because the stricter receipt
+schema requires unique non-empty items. Direct receipt or publisher input that
+does not satisfy the strict constraints remains rejected.
+
 ## Rationale
 
 This is the smallest coherent topology that makes one owner-qualified actor
@@ -89,6 +97,9 @@ the publisher does not turn a workspace or feed entry into owner acceptance.
   implementation task.
 - The `.lock` sibling is owner-local runtime coordination, not receipt source
   data; callers must use this publisher contract when sharing a feed path.
+- A receipt cannot present a terminal or live execution summary that disagrees
+  with its copied runtime evidence, and source-array noise cannot widen the
+  strict payload contract.
 
 ## Source Surfaces
 

@@ -104,6 +104,21 @@ def _require_digest(value: Any, label: str) -> str:
     return value
 
 
+def _compact_source_strings(value: Any, label: str) -> list[str]:
+    """Project source string arrays into the receipt's compact form."""
+
+    _require(isinstance(value, list), f"{label} must be an array")
+    compacted: list[str] = []
+    seen: set[str] = set()
+    for index, item in enumerate(value):
+        _require(isinstance(item, str), f"{label}[{index}] must be a string")
+        if not item or item in seen:
+            continue
+        seen.add(item)
+        compacted.append(item)
+    return compacted
+
+
 def _require_ref(
     value: Any,
     *,
@@ -418,8 +433,12 @@ def compile_actor_responsibility_receipt(
         {
             "runtime_state": result["runtime_state"]["state"],
             "actual_effects": result["actual_effects"],
-            "blocked_actions": result.get("blocked_actions", []),
-            "reason_codes": result.get("reason_codes", []),
+            "blocked_actions": _compact_source_strings(
+                result.get("blocked_actions", []), "blocked_actions"
+            ),
+            "reason_codes": _compact_source_strings(
+                result.get("reason_codes", []), "reason_codes"
+            ),
         }
     )
     payload: dict[str, Any] = {
@@ -514,6 +533,11 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
     _require(
         envelope["evidence_refs"] == _evidence_refs(envelope["payload"]),
         "evidence_refs do not match the owner evidence carried by the payload",
+    )
+    _require(
+        envelope["payload"]["execution"]["runtime_state"]
+        == envelope["payload"]["owner_evidence"]["runtime_state"]["state"],
+        "payload execution.runtime_state must match owner_evidence.runtime_state.state",
     )
     source_result = envelope["payload"]["source_result"]
     _require(

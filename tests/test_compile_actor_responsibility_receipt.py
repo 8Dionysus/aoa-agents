@@ -197,6 +197,47 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "event_id"):
                 COMPILER.validate_receipt(receipt)
 
+    def test_runtime_state_summary_must_match_owner_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            write_result(result_path, summon_result())
+            receipt = self.compile(result_path)
+            receipt["payload"]["execution"]["runtime_state"] = "failed"
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_state"):
+                COMPILER.validate_receipt(receipt)
+
+    def test_source_action_arrays_are_compacted_before_payload_validation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            result = summon_result()
+            result["blocked_actions"] = ["", "publication", "publication", "owner_acceptance", ""]
+            result["reason_codes"] = ["returned", "", "returned", "owner_acceptance_not_claimed"]
+            write_result(result_path, result)
+
+            execution = self.compile(result_path)["payload"]["execution"]
+            self.assertEqual(execution["blocked_actions"], ["publication", "owner_acceptance"])
+            self.assertEqual(
+                execution["reason_codes"],
+                ["returned", "owner_acceptance_not_claimed"],
+            )
+
+    def test_receipt_rejects_empty_or_duplicate_projected_action_arrays(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            write_result(result_path, summon_result())
+            for field, values in (
+                ("blocked_actions", ["publication", "publication"]),
+                ("reason_codes", ["", "returned"]),
+            ):
+                with self.subTest(field=field):
+                    receipt = self.compile(result_path)
+                    receipt["payload"]["execution"][field] = values
+                    with self.assertRaisesRegex(
+                        COMPILER.ActorResponsibilityReceiptError,
+                        f"execution\\.{field}",
+                    ):
+                        COMPILER.validate_receipt(receipt)
+
     def test_request_ref_cannot_be_reused_as_source_result_ref(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_path = Path(directory) / "summon-result.json"

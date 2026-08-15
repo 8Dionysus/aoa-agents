@@ -26,6 +26,9 @@ Tracking starts with the community-docs baseline for this repository.
 - Project only the canonical parent-owner, residual-risk, and next-route
   fields from a summon closeout into the strict receipt payload; source-schema
   closeout extensions remain outside the owner-local projection.
+- Require the receipt execution state to match its copied runtime evidence and
+  compact source blocked-action and reason-code arrays before strict payload
+  validation.
 - Compact the progression and summon descriptions while retaining reviewed
   evidence, explicit delegation, parent-anchor, and authority boundaries.
 - Make `aoa-summon` return `blocked_missing_request_input` when a

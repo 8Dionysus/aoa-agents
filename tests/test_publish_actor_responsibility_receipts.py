@@ -86,6 +86,19 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             with self.assertRaises(PUBLISHER.ActorResponsibilityReceiptPublishError):
                 PUBLISHER.append_new_receipts(log_path=root / "actor.jsonl", receipts=[receipt])
 
+    def test_publisher_rejects_mismatched_runtime_state_before_append(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            receipt = self.receipt(root)
+            receipt["payload"]["execution"]["runtime_state"] = "failed"
+            log_path = root / "actor.jsonl"
+            with self.assertRaisesRegex(
+                PUBLISHER.ActorResponsibilityReceiptPublishError,
+                "runtime_state",
+            ):
+                PUBLISHER.append_new_receipts(log_path=log_path, receipts=[receipt])
+            self.assertFalse(log_path.exists())
+
     def test_malformed_existing_log_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
