@@ -121,6 +121,32 @@ class RoleResolverTests(unittest.TestCase):
                 "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
             )
 
+    def test_selected_role_specialization_and_tier_do_not_scan_unselected_sources(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_root:
+            root = _owner_fixture(Path(temp_root))
+            for relative in (
+                "agents/roles/evaluator/profile.json",
+                "agents/roles/evaluator/specializations/release-readiness/specialization.json",
+                "agents/operating-model/tiers/deep.tier.json",
+            ):
+                (root / relative).write_text(
+                    "{ malformed unrelated selected-family source\n",
+                    encoding="utf-8",
+                )
+
+            result = RESOLVER.resolve_role_binding(
+                root,
+                role_id="coder",
+                specialization_id="coder.repo-refactor",
+                tier_id="executor",
+            )
+
+            self.assertEqual(result["role_id"], "coder")
+            self.assertEqual(result["specialization_id"], "coder.repo-refactor")
+            self.assertEqual(result["tier_id"], "executor")
+
     def test_rejects_specialization_from_another_role(self) -> None:
         with tempfile.TemporaryDirectory() as temp_root:
             root = _owner_fixture(Path(temp_root))
