@@ -249,7 +249,10 @@ exact external-lane `summon-result-v4` and explicit observation coordinates,
 then emits the admitted `actor_responsibility_execution_receipt` envelope.
 The payload schema is owned by `aoa-agents`; it retains exact stronger-owner
 references and the result-byte digest without copying SDK, runtime, A2A, or
-stats authority into a competing protocol.
+stats authority into a competing protocol. Runtime refs follow the source
+state: returned and accepted preserve result, reviewed A2A-return, and usage;
+failed preserves result and usage without inventing an A2A return; launched and
+running preserve no return refs until the runtime supplies them.
 
 The event identity is deterministic over the exact result digest and explicit
 observation inputs (`observed_at`, `run_ref`, `session_ref`, `actor_ref`, and

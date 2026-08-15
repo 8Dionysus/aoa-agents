@@ -98,8 +98,10 @@ leaf is not permission to infer any missing field.
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
-  decision refs, runtime-owned terminal/result/usage refs, immutable request
-  identity and intent, one validation record per named output, closeout
+  decision refs, the runtime-owned refs required by the observed state (all
+  result/A2A/usage refs for returned or accepted, result/usage refs for failed,
+  and no return refs yet for launched or running), immutable request identity
+  and intent, one validation record per named output, closeout
   handoff, effects, and stop. This owner-local receipt does not replace or
   rename the `aoa-sdk` A2A schemas or the `abyss-stack` runtime return.
 

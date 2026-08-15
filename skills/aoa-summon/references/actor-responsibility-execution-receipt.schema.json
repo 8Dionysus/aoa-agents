@@ -314,10 +314,7 @@
         "actor_handle",
         "process_handle",
         "session_handle",
-        "continuation_handle",
-        "runtime_result_ref",
-        "runtime_a2a_return_ref",
-        "usage_observation_ref"
+        "continuation_handle"
       ],
       "properties": {
         "state": {"enum": ["launched", "running", "returned", "accepted", "failed"], "type": "string"},
@@ -328,7 +325,35 @@
         "runtime_result_ref": {"$ref": "#/$defs/runtimeResultRef"},
         "runtime_a2a_return_ref": {"$ref": "#/$defs/runtimeA2AReturnRef"},
         "usage_observation_ref": {"$ref": "#/$defs/usageObservationRef"}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {"enum": ["returned", "accepted"]}
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "required": [
+              "runtime_result_ref",
+              "runtime_a2a_return_ref",
+              "usage_observation_ref"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {"const": "failed"}
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "required": ["runtime_result_ref", "usage_observation_ref"]
+          }
+        }
+      ]
     },
     "returnValidation": {
       "type": "object",

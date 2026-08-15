@@ -54,6 +54,12 @@ support fails closed. Envelope validation also binds the emitted
 resolution, and preserves a JSONL line boundary when appending to a valid
 unterminated file.
 
+The producer also follows the canonical execution-state reference contract:
+returned and accepted results require runtime-result, reviewed A2A-return, and
+usage refs; failed results require runtime-result and usage refs; launched and
+running results carry no return refs yet. Optional null refs are not promoted
+into the owner payload.
+
 ## Rationale
 
 This is the smallest coherent topology that makes one owner-qualified actor

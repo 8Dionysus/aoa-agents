@@ -238,11 +238,19 @@ def _validate_result(result: Mapping[str, Any]) -> None:
             continue
         _require_ref(result["binding"].get(field), label=f"binding.{field}", owner_repo=owner_repo, schema_version=schema_version)
     runtime_state = result["runtime_state"]
+    state = runtime_state["state"]
+    required_runtime_refs = {
+        "returned": {"runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"},
+        "accepted": {"runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"},
+        "failed": {"runtime_result_ref", "usage_observation_ref"},
+    }.get(state, set())
     for field in ("actor_handle", "process_handle", "session_handle", "continuation_handle"):
         _require_string(runtime_state.get(field), f"runtime_state.{field}")
     for field in ("runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"):
         owner_repo, schema_version = REF_SPECS[field]
-        _require_ref(runtime_state.get(field), label=f"runtime_state.{field}", owner_repo=owner_repo, schema_version=schema_version)
+        value = runtime_state.get(field)
+        if field in required_runtime_refs or value is not None:
+            _require_ref(value, label=f"runtime_state.{field}", owner_repo=owner_repo, schema_version=schema_version)
     _require_string(result["request_ref"], "request_ref")
     _require_digest(result["request_digest"], "request_digest")
     _require(isinstance(result["return_validation"], Mapping), "return_validation is invalid")
@@ -290,6 +298,7 @@ def _copy_runtime_state(result: Mapping[str, Any]) -> dict[str, Any]:
             "runtime_a2a_return_ref",
             "usage_observation_ref",
         )
+        if field in source and source[field] is not None
     }
 
 
@@ -337,7 +346,8 @@ def _evidence_refs(payload: Mapping[str, Any]) -> list[dict[str, str]]:
         ("runtime_a2a_return_ref", "runtime-a2a-return"),
         ("usage_observation_ref", "usage-observation"),
     ):
-        result.append({"kind": field, "ref": runtime_state[field]["object_id"], "role": role})
+        if field in runtime_state:
+            result.append({"kind": field, "ref": runtime_state[field]["object_id"], "role": role})
     return result
 
 

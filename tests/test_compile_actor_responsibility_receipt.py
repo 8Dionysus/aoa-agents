@@ -184,6 +184,73 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "evidence_refs"):
                 COMPILER.validate_receipt(receipt)
 
+    def test_runtime_state_controls_preserved_runtime_refs(self) -> None:
+        expected_refs = {
+            "returned": {"runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"},
+            "accepted": {"runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"},
+            "failed": {"runtime_result_ref", "usage_observation_ref"},
+            "launched": set(),
+            "running": set(),
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            for state, required_refs in expected_refs.items():
+                with self.subTest(state=state):
+                    result = summon_result()
+                    result["runtime_state"]["state"] = state
+                    if state in {"launched", "running"}:
+                        result["runtime_state"].pop("runtime_result_ref")
+                        result["runtime_state"].pop("runtime_a2a_return_ref")
+                        result["runtime_state"].pop("usage_observation_ref")
+                        result["return_validation"] = {
+                            "output_checks": {
+                                "writer-output": {
+                                    "received": False,
+                                    "artifact_ref": None,
+                                    "accepted": False,
+                                }
+                            },
+                            "accepted": False,
+                        }
+                    elif state == "failed":
+                        result["runtime_state"].pop("runtime_a2a_return_ref")
+                    elif state == "accepted":
+                        result["return_validation"] = {
+                            "output_checks": {
+                                "writer-output": {
+                                    "received": True,
+                                    "artifact_ref": "artifact://writer-output",
+                                    "accepted": True,
+                                }
+                            },
+                            "accepted": True,
+                        }
+                    write_result(result_path, result)
+
+                    receipt = self.compile(result_path)
+                    runtime_state = receipt["payload"]["owner_evidence"]["runtime_state"]
+                    self.assertEqual(
+                        {field for field in runtime_state if field.endswith("_ref")},
+                        required_refs,
+                    )
+
+    def test_runtime_state_rejects_missing_state_specific_refs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            returned = summon_result()
+            returned["runtime_state"].pop("runtime_a2a_return_ref")
+            write_result(result_path, returned)
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_a2a_return_ref"):
+                self.compile(result_path)
+
+            failed = summon_result()
+            failed["runtime_state"]["state"] = "failed"
+            failed["runtime_state"].pop("runtime_result_ref")
+            failed["runtime_state"].pop("runtime_a2a_return_ref")
+            write_result(result_path, failed)
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_result_ref"):
+                self.compile(result_path)
+
     def test_actor_safe_envelope_is_addressed_by_its_exact_envelope_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_path = Path(directory) / "summon-result-envelope.json"
