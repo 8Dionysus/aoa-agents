@@ -100,6 +100,27 @@ class RoleResolverTests(unittest.TestCase):
         self.assertIsNone(result["specialization_ref"])
         self.assertEqual(result["capability_pack_refs"], [])
 
+    def test_selected_capability_pack_does_not_scan_unselected_sources(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_root:
+            root = _owner_fixture(Path(temp_root))
+            unrelated = (
+                root
+                / "agents/operating-model/capabilities/packs/topology-readonly.capability.json"
+            )
+            unrelated.write_text("{ malformed unrelated capability pack\n", encoding="utf-8")
+
+            result = RESOLVER.resolve_role_binding(
+                root,
+                role_id="coder",
+                specialization_id="coder.repo-refactor",
+                tier_id="executor",
+            )
+
+            self.assertEqual(
+                result["capability_pack_refs"][0]["artifact_ref"],
+                "agents/operating-model/capabilities/packs/repo-refactor.workspace-write.capability.json",
+            )
+
     def test_rejects_specialization_from_another_role(self) -> None:
         with tempfile.TemporaryDirectory() as temp_root:
             root = _owner_fixture(Path(temp_root))

@@ -635,6 +635,13 @@ class TestAoAAgentsSkillTreeContracts:
         ).read_text(encoding="utf-8")
         assert "agents/roles/*/profile.json" in source_return
         assert "specializations/*/specialization.json" in source_return
+        assert "agents/operating-model/tiers/*.tier.json" in source_return
+        assert "preferred_tier_ids" in source_return
+        assert "exact capability-pack source" in source_return
+        assert "capability_pack_ref" in source_return
+        assert "After selecting the role, optional" in procedure
+        assert "specialization, and tier" in procedure
+        assert "do not scan for, infer, or invent a pack" in procedure
         assert "generated reader as role authority" in procedure
 
         prompt_surface = yaml.safe_load(

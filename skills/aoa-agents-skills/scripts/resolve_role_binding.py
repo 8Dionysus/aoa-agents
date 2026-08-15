@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import sys
@@ -65,6 +65,36 @@ def _validate_source(root: Path, path: Path, *, kind: str) -> dict[str, Any]:
             f"{kind} does not satisfy {schema_ref}: {errors[0].message}"
         )
     return payload
+
+
+def _exact_owner_relative_source(
+    root: Path,
+    reference: object,
+    *,
+    kind: str,
+) -> tuple[Path, dict[str, Any]]:
+    """Read one exact authored owner ref without enumerating its source family."""
+
+    if not isinstance(reference, str) or not reference:
+        raise RoleResolutionError(f"{kind} ref must be a non-empty relative path")
+    relative = PurePosixPath(reference)
+    if (
+        relative.is_absolute()
+        or relative.as_posix() != reference
+        or any(part in {".", ".."} for part in relative.parts)
+    ):
+        raise RoleResolutionError(f"{kind} ref is not a safe owner-relative path: {reference}")
+    path = root.joinpath(*relative.parts)
+    try:
+        resolved = path.resolve(strict=True)
+        resolved.relative_to(root)
+    except (OSError, ValueError) as exc:
+        raise RoleResolutionError(
+            f"{kind} ref is unavailable inside the aoa-agents owner root: {reference}"
+        ) from exc
+    if resolved != path:
+        raise RoleResolutionError(f"{kind} ref must not resolve through a symlink: {reference}")
+    return path, _validate_source(root, path, kind=kind)
 
 
 def _catalog(
@@ -189,13 +219,6 @@ def resolve_role_binding(
         kind="tier",
         identity_field="id",
     )
-    capability_packs = _catalog(
-        root,
-        "agents/operating-model/capabilities/packs/*.capability.json",
-        kind="capability_pack",
-        identity_field="id",
-    )
-
     try:
         role_path, role = roles[role_id]
     except KeyError as exc:
@@ -235,20 +258,11 @@ def resolve_role_binding(
             raise RoleResolutionError(
                 f"specialization {specialization_id} does not inherit exact base role source"
             )
-        capability_ref = specialization.get("capability_pack_ref")
-        capability_match = next(
-            (
-                item
-                for item in capability_packs.values()
-                if item[0].relative_to(root).as_posix() == capability_ref
-            ),
-            None,
+        capability_path, capability = _exact_owner_relative_source(
+            root,
+            specialization.get("capability_pack_ref"),
+            kind="capability_pack",
         )
-        if capability_match is None:
-            raise RoleResolutionError(
-                f"specialization {specialization_id} capability pack does not resolve"
-            )
-        capability_path, capability = capability_match
         if capability.get("status") not in {"active", "experimental"}:
             raise RoleResolutionError(
                 f"capability pack is not currently usable: {capability.get('id')}"

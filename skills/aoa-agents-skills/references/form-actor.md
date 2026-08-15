@@ -5,12 +5,16 @@ stable meaning separately from its replaceable model and process body.
 
 ## Input
 
-Require one `agent-obligation-v1` plus exact owner refs for candidate base
-roles, specializations, tiers, capability packs, and domain procedures. Missing
-domain procedure truth is a handoff, not permission for `aoa-agents` to invent
-it. After selecting an existing role chain by meaning, use the bundled passive
-resolver to prove the selected base role, specialization, tier, and implied
-capability pack form one clean content-addressed owner chain:
+Require one `agent-obligation-v1` plus exact owner refs for the selected base
+role, optional specialization, tier, capability pack, and domain procedures.
+For a role-first request those refs are produced internally by its bounded
+candidate-source phase: the tier must come from the selected base role's
+`preferred_tier_ids`, and a specialization's capability pack must be read from
+that source's exact authored `capability_pack_ref`. Missing domain procedure
+truth is a handoff, not permission for `aoa-agents` to invent it. After the
+semantic chain selection, use the bundled passive resolver to prove the
+selected base role, specialization, tier, and implied capability pack form one
+clean content-addressed owner chain:
 
 ```bash
 python <bundle_dir>/scripts/resolve_role_binding.py \
