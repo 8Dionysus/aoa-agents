@@ -101,6 +101,61 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             ):
                 PUBLISHER.append_new_receipts(log_path=root / "actor.jsonl", receipts=[receipt])
 
+    def test_existing_feed_rejects_a_dangling_supersedes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dangling = self.receipt(root, supersedes=PRIOR_EVENT_ID)
+            log_path = root / "actor.jsonl"
+            log_path.write_text(json.dumps(dangling, sort_keys=True) + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(
+                PUBLISHER.ActorResponsibilityReceiptPublishError,
+                "existing log line 1 supersedes unknown prior event",
+            ):
+                PUBLISHER.append_new_receipts(log_path=log_path, receipts=[self.receipt(root)])
+
+    def test_existing_feed_rejects_a_forward_supersedes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            future = self.receipt(
+                root,
+                result_artifact_ref="summon-result:future",
+                observed_at="2026-08-14T12:00:02Z",
+                run_ref="run:actor-receipt-test-future",
+                session_ref="session:actor-receipt-test-future",
+                actor_ref="incarnation:actor-future",
+                object_ref={
+                    "repo": "aoa-agents",
+                    "kind": "actor-responsibility-execution",
+                    "id": "summon-request:future",
+                    "version": "v1",
+                },
+            )
+            forward = self.receipt(
+                root,
+                result_artifact_ref="summon-result:forward",
+                observed_at="2026-08-14T12:00:01Z",
+                run_ref="run:actor-receipt-test-forward",
+                session_ref="session:actor-receipt-test-forward",
+                actor_ref="incarnation:actor-forward",
+                object_ref={
+                    "repo": "aoa-agents",
+                    "kind": "actor-responsibility-execution",
+                    "id": "summon-request:forward",
+                    "version": "v1",
+                },
+                supersedes=future["event_id"],
+            )
+            log_path = root / "actor.jsonl"
+            log_path.write_text(
+                json.dumps(forward, sort_keys=True) + "\n" + json.dumps(future, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                PUBLISHER.ActorResponsibilityReceiptPublishError,
+                "existing log line 1 supersedes unknown prior event",
+            ):
+                PUBLISHER.append_new_receipts(log_path=log_path, receipts=[self.receipt(root)])
+
     def test_supersedes_accepts_an_existing_prior_event(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

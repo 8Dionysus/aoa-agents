@@ -292,8 +292,9 @@ Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input
 and every existing JSONL line, skips already-seen event IDs, and refuses to
 append when the existing log is malformed. A receipt with `supersedes` must
-name an event already present in the feed or an earlier receipt in the same
-ordered batch; an arbitrary prefix is not a valid repair link. Its default path is
+name an event already present in the ordered feed or an earlier receipt in the
+same ordered batch; an arbitrary prefix or a forward/dangling link is not a
+valid repair link. Its default path is
 `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`; the owner
 root resolves through a complete same-bundle source handle or an explicit
 `--owner-root`; an installed v2 handle must include its bundle version and
