@@ -183,6 +183,10 @@
 - [AOA-AG-D-0049 2026-05-26: Provenance Bridge Operating Shape](../AOA-AG-D-0049-provenance-bridge-operating-shape.md) (`docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
 
+## SDK request
+
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
+
 ## capability route
 
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
@@ -210,6 +214,7 @@
 ## external actor preparation
 
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## federation consumer seam
 
@@ -247,6 +252,10 @@
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 - [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
 - [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+
+## runtime launch binding
+
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## sibling-owner boundary
 

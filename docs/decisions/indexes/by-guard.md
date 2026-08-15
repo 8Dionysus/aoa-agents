@@ -247,6 +247,7 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## owner succession
 
@@ -255,6 +256,10 @@
 ## return validation
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
+
+## runtime admission
+
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## runtime binding
 
@@ -266,6 +271,10 @@
 - [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
 - [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
 - [AOA-AG-D-0064 Compile Obligation And Mandate Without Selecting Compute](../AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md) (`docs/decisions/AOA-AG-D-0064-compile-obligation-and-mandate-without-selecting-compute.md`)
+
+## task identity
+
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## task-local DAG
 

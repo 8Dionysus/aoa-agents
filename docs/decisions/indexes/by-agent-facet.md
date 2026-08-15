@@ -189,6 +189,7 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## memo posture
 
@@ -218,10 +219,15 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## root clarity
 
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+
+## session identity
+
+- [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 
 ## specialization
 

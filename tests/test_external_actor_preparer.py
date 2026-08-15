@@ -20,6 +20,12 @@ def _input(input_id: str, path: Path) -> tuple[dict[str, str], Path]:
 
 
 class ExternalActorPreparerTests(unittest.TestCase):
+    def test_actor_runtime_session_id_is_derived_from_route(self) -> None:
+        self.assertEqual(
+            PREPARER._actor_runtime_session_id("role-first:workspace-proof-v2"),
+            "role-first-workspace-proof-v2",
+        )
+
     def test_continuation_return_owner_projects_the_exact_holder(self) -> None:
         projected = PREPARER._concrete_return_owner_provenance(
             {
