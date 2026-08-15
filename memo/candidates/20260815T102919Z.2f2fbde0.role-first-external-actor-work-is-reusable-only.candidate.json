@@ -1,0 +1,44 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-agents:20260815T102919Z:2f2fbde0-role-first-external-actor-work-i",
+  "repo": "aoa-agents",
+  "kind": "pattern",
+  "family": "agent-behavior",
+  "scope": "ecosystem",
+  "claim": "Role-first external actor work is reusable only when responsibility is carried as a typed handoff: bind one obligation to a role, model realization, and specialized incarnation; prove same-session stop/resume and a bounded workspace delta; return a review-required result; wake and re-enter the parent as transport evidence; then let the master separately filter claims and retain acceptance and rollback. Green source landing, runtime activation, receipt production, statistics admission, owner acceptance, and durable memo promotion remain distinct lifecycle gates.",
+  "source_refs": [
+    "repo:aoa-agents/commit/871ec883e9d685b19c57c7355a1c127d90a2a198",
+    "repo:abyss-stack/commit/e61449fad7f93f2e68452709e4f100d8161db804",
+    "repo:abyss-stack/commit/21652f9204af4db36b04604ae89fe4d97771eb41",
+    "https://github.com/8Dionysus/aoa-agents/pull/280",
+    "https://github.com/8Dionysus/aoa-agents/pull/281",
+    "https://github.com/8Dionysus/abyss-stack/pull/379",
+    "https://github.com/8Dionysus/abyss-stack/pull/386",
+    "repo:aoa-agents/skills/aoa-summon/references/contract.yaml#L94-L112",
+    "repo:aoa-agents/skills/aoa-summon/SKILL.md#L328-L342",
+    "repo:aoa-agents/docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md#L75-L102"
+  ],
+  "evidence_refs": [
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/external_actor_proof",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/parent_pause_resume",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/master_wake_state_separation",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/responsibility_return",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/pr379-luna-direct-handoff.json#/summary",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/actor-receipt-landing-repair-luna-handoff.json#/final_owner_source",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/clock-agent-003-handoff.json#/return_filter",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/wake-steward-luna-handoff.json#/wake_proof",
+    "operator:aoa:/srv/AbyssOS/.aoa/sessions/2026-08-15__019__you-are-one-external-codex-process-carrying-a/session.manifest.json#review_status",
+    "operator:aoa:/srv/AbyssOS/.aoa/sessions/2026-08-15__019__you-are-one-external-codex-process-carrying-a/segments/001__compaction-to-latest.md#event-000040"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-08-15T10:29:19Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

@@ -6,16 +6,16 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 43 |
-| receipts | 0 |
-| exports | 0 |
+| candidates | 44 |
+| receipts | 1 |
+| exports | 1 |
 | local | 0 |
 
 ## Routes
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 43 |
+| `reviewed_intake` | 44 |
 
 ## Open Items
 
@@ -64,6 +64,7 @@ Generated from `PORT.yaml` and local memo packets.
 | `candidate:aoa-agents:20260531T060204Z:b8be06cb-aoa-agents-now-keeps-codex-speci` | `candidate` | `reviewed_intake` | `candidates/20260531T060204Z.b8be06cb.aoa-agents-now-keeps-codex-specialization-projec.candidate.json` |
 | `candidate:aoa-agents:20260531T063230Z:46728307-aoa-agents-decisions-now-use-can` | `candidate` | `reviewed_intake` | `candidates/20260531T063230Z.46728307.aoa-agents-decisions-now-use-canonical-aoa-ag-d.candidate.json` |
 | `candidate:aoa-agents:20260531T064523Z:93125574-aoa-agents-root-documentation-no` | `candidate` | `reviewed_intake` | `candidates/20260531T064523Z.93125574.aoa-agents-root-documentation-now-uses-compact-r.candidate.json` |
+| `candidate:aoa-agents:20260815T102919Z:2f2fbde0-role-first-external-actor-work-i` | `candidate` | `reviewed_intake` | `candidates/20260815T102919Z.2f2fbde0.role-first-external-actor-work-is-reusable-only.candidate.json` |
 
 ## Agent Route
 
