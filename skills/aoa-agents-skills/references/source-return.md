@@ -43,7 +43,7 @@ are install provenance, not source authority or currentness proof.
 
 | Mode | First owner sources |
 | --- | --- |
-| `role-first-entry` | `AGENTS.md`, `CHARTER.md`, `agents/README.md`, and `agents/operating-model/README.md`; after obligation admission, the exact `agents/roles/README.md`, selected role/specialization sources, and each stronger-owner contract through its own gate |
+| `role-first-entry` | `AGENTS.md`, `CHARTER.md`, `agents/README.md`, and `agents/operating-model/README.md`; then the exact `agents/roles/README.md` and one bounded finite candidate-source read over `agents/roles/*/profile.json` plus `agents/roles/*/specializations/*/specialization.json`; after semantic selection, read only the exact role/specialization sources and each stronger-owner contract through its own gate |
 | `detect-obligation` | `AGENTS.md`, `CHARTER.md`, `agents/README.md`, and `agents/operating-model/README.md` |
 | `form-actor` | `agents/roles/README.md`, then only the exact supplied role, specialization, tier, and capability-pack refs |
 | `bind-incarnation` | exact supplied mandate refs, then the declared `aoa-models`, `aoa-sdk`, and `abyss-stack` contracts through their own owner gates |

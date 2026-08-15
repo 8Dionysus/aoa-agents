@@ -55,6 +55,13 @@ owner as a task-local preview. The semantic request alone cannot launch the
 external process; a separate current-holder apply confirmation is required.
 Without it, the route returns `awaiting_apply` with no runtime mutation.
 
+Because the semantic request intentionally omits a role ID, the source gate
+admits one finite candidate read over the current role-house profiles and
+role-local specialization files. The current holder compares those authored
+candidates to the duty, records the semantic selection, and only then reads
+the exact chosen sources. Generated readers remain navigation aids rather than
+role authority, and the candidate read cannot widen into repository search.
+
 ## Consequences
 
 - A new Codex session can start from a plain semantic request without knowing

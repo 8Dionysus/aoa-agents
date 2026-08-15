@@ -48,10 +48,14 @@ summon-request-v4, owner roots, digests, or a model-specific command.
    stop line. If the duty is not independent, stop with the typed disposition.
 3. Execute the bounded owner-source route for `role-first-entry` in
    references/source-return.md. Read the admitted `aoa-agents` orientation
-   surfaces first, then inspect only the exact authored role and
-   specialization sources needed for the semantic choice. Resolve stronger
-   owners through their own gates; do not broaden a missing ref into a
-   repository-wide search.
+   surfaces first. Because the caller does not provide a role ID, perform the
+   one finite candidate-source read admitted by that route over the current
+   role-house profiles and role-local specialization files. Compare that
+   authored candidate set to the duty, retain the current holder's semantic
+   selection authority, and then inspect only the exact chosen role and
+   specialization sources. Resolve stronger owners through their own gates;
+   do not broaden a missing ref into a repository-wide search or use a
+   generated reader as role authority.
 4. Form one bounded agent-obligation-v1, then choose an existing aoa-agents
    role or specialization whose authored meaning bears that duty. Do not mint
    a task-named role. Use the exact role resolver only after the semantic

@@ -629,6 +629,13 @@ class TestAoAAgentsSkillTreeContracts:
             REPO_ROOT
             / "skills/aoa-agents-skills/references/source-return.md"
         ).read_text(encoding="utf-8")
+        source_return = (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/source-return.md"
+        ).read_text(encoding="utf-8")
+        assert "agents/roles/*/profile.json" in source_return
+        assert "specializations/*/specialization.json" in source_return
+        assert "generated reader as role authority" in procedure
 
         prompt_surface = yaml.safe_load(
             (
