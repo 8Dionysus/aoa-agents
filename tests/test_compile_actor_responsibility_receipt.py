@@ -19,6 +19,7 @@ SPEC.loader.exec_module(COMPILER)
 
 
 ZERO = "sha256:" + "0" * 64
+PRIOR_EVENT_ID = "actor-responsibility-execution:" + "a" * 64
 
 
 def ref(owner: str, object_id: str, schema_version: str) -> dict[str, str]:
@@ -237,7 +238,7 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
                 expected_result_digest=summon_digest,
                 runtime_result_path=runtime_path,
                 expected_runtime_result_digest=runtime_digest,
-                supersedes="actor-responsibility-execution:older",
+                supersedes=PRIOR_EVENT_ID,
             )
             projection = receipt["payload"]["usage_observation"]
             self.assertEqual(projection["observation_status"], "complete")
@@ -274,8 +275,45 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             self.assertEqual(projection["runtime_status"], "review_required")
             self.assertEqual(projection["cost_status"], "not_reported")
             self.assertIsNone(projection["cost_usd"])
-            self.assertEqual(receipt["supersedes"], "actor-responsibility-execution:older")
+            self.assertEqual(receipt["supersedes"], PRIOR_EVENT_ID)
             COMPILER.validate_receipt(receipt)
+
+    def test_usage_projection_status_and_cost_laws_fail_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result_path = root / "summon-result.json"
+            result = summon_result()
+            runtime_path = root / "runtime-result.json"
+            runtime_digest = write_runtime_result(runtime_path, result)
+            write_result(result_path, result)
+            receipt = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )
+
+            receipt["payload"]["usage_observation"]["observation_status"] = "partial"
+            with self.assertRaises(COMPILER.ActorResponsibilityReceiptError):
+                COMPILER.validate_receipt(receipt)
+
+            receipt = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )
+            receipt["payload"]["usage_observation"]["cost_status"] = "reported"
+            with self.assertRaises(COMPILER.ActorResponsibilityReceiptError):
+                COMPILER.validate_receipt(receipt)
+
+    def test_supersedes_requires_a_deterministic_event_id(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            write_result(result_path, summon_result())
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "supersedes"):
+                self.compile(
+                    result_path,
+                    supersedes="actor-responsibility-execution:older",
+                )
 
     def test_runtime_projection_rejects_digest_and_pointer_drift(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

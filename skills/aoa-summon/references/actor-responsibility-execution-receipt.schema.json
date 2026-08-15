@@ -337,7 +337,19 @@
           "uniqueItems": true,
           "items": {"minLength": 1, "type": "string"}
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"observation_status": {"const": "complete"}}},
+          "then": {"properties": {"gap_reasons": {"maxItems": 0}}},
+          "else": {"properties": {"gap_reasons": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"cost_status": {"const": "reported"}}},
+          "then": {"properties": {"cost_usd": {"type": "number"}}},
+          "else": {"properties": {"cost_usd": {"type": "null"}}}
+        }
+      ]
     },
     "usageObservationGap": {
       "type": "object",

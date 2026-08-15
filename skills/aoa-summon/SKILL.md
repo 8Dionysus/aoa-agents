@@ -352,7 +352,10 @@ fit, benefit, success, proof, review approval, owner acceptance, budget, or
 limiting policy. `--supersedes` appends a repaired observation as a new event
 while preserving the earlier receipt. Absent runtime fields remain null and are
 listed in `unknown_fields`; the adapter never fills them from neighboring
-receipts or from policy. The projection's retained runtime and usage refs must
+receipts or from policy. The observation status/gap law is strict: `complete`
+requires no gaps and `partial` requires at least one canonical gap. Likewise,
+`cost_status=reported` requires numeric `cost_usd`, while non-reported statuses
+keep it null. The projection's retained runtime and usage refs must
 continue to equal the owner evidence refs when a receipt is validated for
 publication.
 
@@ -360,8 +363,9 @@ publication.
 publisher. It validates the complete envelope and owner payload before
 appending to `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`,
 resolving the owner root through the same-bundle source handle or explicit
-`--owner-root`. It skips duplicate event IDs and fails closed on malformed
-existing logs. Tests use a temporary `--log-path`; compilation never publishes
+`--owner-root`. It skips duplicate event IDs, requires every `supersedes`
+target to be an existing or earlier event in the ordered feed, and fails closed
+on malformed existing logs. Tests use a temporary `--log-path`; compilation never publishes
 automatically. The publisher takes a POSIX advisory exclusive lock at
 `<log-path>.lock` before reading existing IDs and holds it through the append,
 so independent sessions using the same log path serialize deduplication. The
