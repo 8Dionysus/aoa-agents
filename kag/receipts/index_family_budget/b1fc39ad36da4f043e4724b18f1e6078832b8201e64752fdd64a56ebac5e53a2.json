@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10611559,
+  "allowed_tracked_bytes": 15386773,
+  "approved_by": "repository-owner",
+  "base_ref": "c6fe4d4596b2ab8ca31a01a259f6201bae4f771c",
+  "changed_generated_bytes": 10611559,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b1fc39ad36da4f043e4724b18f1e6078832b8201e64752fdd64a56ebac5e53a2",
+  "reason": "Preserve canonical actor responsibility runtime-state coverage: returned and accepted keep all runtime refs, failed keeps result and usage, and launched or running remain observable without invented return refs; portable content-address rebinding remains below the tracked-family cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15386773,
+  "tracked_bytes_max": 16777216
+}
