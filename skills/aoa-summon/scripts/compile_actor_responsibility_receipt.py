@@ -249,7 +249,12 @@ def _validate_result(result: Mapping[str, Any]) -> None:
     for field in ("runtime_result_ref", "runtime_a2a_return_ref", "usage_observation_ref"):
         owner_repo, schema_version = REF_SPECS[field]
         value = runtime_state.get(field)
-        if field in required_runtime_refs or value is not None:
+        if state in {"launched", "running"}:
+            _require(
+                value is None,
+                f"runtime_state.{field} must be absent for {state} receipts",
+            )
+        elif field in required_runtime_refs or value is not None:
             _require_ref(value, label=f"runtime_state.{field}", owner_repo=owner_repo, schema_version=schema_version)
     _require_string(result["request_ref"], "request_ref")
     _require_digest(result["request_digest"], "request_digest")

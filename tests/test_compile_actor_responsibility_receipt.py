@@ -266,6 +266,22 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_result_ref"):
                 self.compile(result_path)
 
+            launched = summon_result()
+            launched["runtime_state"]["state"] = "launched"
+            launched["return_validation"] = {
+                "output_checks": {
+                    "writer-output": {
+                        "received": False,
+                        "artifact_ref": None,
+                        "accepted": False,
+                    }
+                },
+                "accepted": False,
+            }
+            write_result(result_path, launched)
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "must be absent"):
+                self.compile(result_path)
+
     def test_optional_result_fields_use_narrow_observation_defaults(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_path = Path(directory) / "summon-result.json"
