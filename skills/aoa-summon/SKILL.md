@@ -341,6 +341,21 @@ The projected `execution.runtime_state` must equal
 `reason_codes` arrays are compacted by dropping empty strings and later
 duplicates while preserving first-seen order before strict payload validation.
 
+For a live usage report, the same passive adapter may receive an exact
+`--runtime-result` plus `--expected-runtime-result-digest`. It verifies the
+terminal runtime-result bytes (including an exact actor-safe runtime envelope),
+the A2A task identity independently from an optional result identity, the usage
+pointer, and the canonical usage-observation digest before adding the bounded
+`aoa_actor_usage_observation_projection_v1` snapshot. This remains
+observe-only data: it does not replace stronger runtime refs or infer model
+fit, benefit, success, proof, review approval, owner acceptance, budget, or
+limiting policy. `--supersedes` appends a repaired observation as a new event
+while preserving the earlier receipt. Absent runtime fields remain null and are
+listed in `unknown_fields`; the adapter never fills them from neighboring
+receipts or from policy. The projection's retained runtime and usage refs must
+continue to equal the owner evidence refs when a receipt is validated for
+publication.
+
 `scripts/publish_actor_responsibility_receipts.py` is a separate explicit
 publisher. It validates the complete envelope and owner payload before
 appending to `.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`,

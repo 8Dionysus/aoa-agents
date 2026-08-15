@@ -178,6 +178,9 @@
         "owner_acceptance": {"const": "not_claimed", "type": "string"},
         "publication": {"const": "not_claimed", "type": "string"}
       }
+    },
+    "usage_observation": {
+      "$ref": "#/$defs/usageObservationProjection"
     }
   },
   "$defs": {
@@ -267,6 +270,84 @@
         {"$ref": "#/$defs/ref"},
         {"properties": {"owner_repo": {"const": "abyss-stack"}, "schema_version": {"const": "abyss_stack_external_codex_usage_observation_v1"}}}
       ]
+    },
+    "usageObservationProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "source_ref",
+        "runtime_result_ref",
+        "observation_status",
+        "gap_reasons",
+        "model_slug",
+        "reasoning_effort",
+        "input_tokens",
+        "cached_input_tokens",
+        "output_tokens",
+        "active_wall_seconds",
+        "duration_seconds",
+        "turn_count",
+        "executed_command_count",
+        "attempt_count",
+        "start_invocation_count",
+        "resume_invocation_count",
+        "runtime_status",
+        "exit_code",
+        "metering_mode",
+        "active_cost_regime",
+        "cost_usd",
+        "cost_status",
+        "unknown_fields"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "aoa_actor_usage_observation_projection_v1",
+          "type": "string"
+        },
+        "source_ref": {"$ref": "#/$defs/usageObservationRef"},
+        "runtime_result_ref": {"$ref": "#/$defs/runtimeResultRef"},
+        "observation_status": {"enum": ["complete", "partial"], "type": "string"},
+        "gap_reasons": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/usageObservationGap"}
+        },
+        "model_slug": {"type": ["string", "null"], "minLength": 1},
+        "reasoning_effort": {
+          "enum": ["low", "medium", "high", "xhigh", "max", null]
+        },
+        "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "cached_input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "active_wall_seconds": {"type": ["number", "null"], "minimum": 0},
+        "duration_seconds": {"type": ["number", "null"], "minimum": 0},
+        "turn_count": {"type": ["integer", "null"], "minimum": 0},
+        "executed_command_count": {"type": ["integer", "null"], "minimum": 0},
+        "attempt_count": {"type": ["integer", "null"], "minimum": 0},
+        "start_invocation_count": {"type": ["integer", "null"], "minimum": 0},
+        "resume_invocation_count": {"type": ["integer", "null"], "minimum": 0},
+        "runtime_status": {"type": ["string", "null"], "minLength": 1},
+        "exit_code": {"type": ["integer", "null"]},
+        "metering_mode": {"type": ["string", "null"], "enum": ["observe_only", null]},
+        "active_cost_regime": {"type": ["string", "null"], "minLength": 1},
+        "cost_usd": {"type": ["number", "null"], "minimum": 0},
+        "cost_status": {"enum": ["reported", "not_reported", "unknown"], "type": "string"},
+        "unknown_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"minLength": 1, "type": "string"}
+        }
+      }
+    },
+    "usageObservationGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempt_id", "reason", "event_sequence"],
+      "properties": {
+        "attempt_id": {"minLength": 1, "type": "string"},
+        "reason": {"const": "controlled_interruption_before_turn_usage", "type": "string"},
+        "event_sequence": {"type": "integer", "minimum": 0}
+      }
     },
     "binding": {
       "type": "object",

@@ -30,6 +30,8 @@ RESULT_SCHEMA_VERSION = "urn:aoa-agents:aoa-summon:result:v4"
 PAYLOAD_SCHEMA_VERSION = "aoa_actor_responsibility_execution_receipt_v1"
 EVENT_KIND = "actor_responsibility_execution_receipt"
 EVENT_ID_PREFIX = "actor-responsibility-execution:"
+RUNTIME_RESULT_SCHEMA_VERSION = "abyss_stack_external_codex_result_v2"
+USAGE_PROJECTION_SCHEMA_VERSION = "aoa_actor_usage_observation_projection_v1"
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 RFC3339_RE = re.compile(
     r"^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[Zz]|[+-]\d{2}:\d{2})$"
@@ -193,6 +195,398 @@ def _load_result(path: Path) -> tuple[bytes, dict[str, Any], str]:
     return raw, document, digest_bytes(raw)
 
 
+def _load_runtime_result(
+    path: Path,
+    *,
+    runtime_result_ref: Mapping[str, Any],
+    expected_digest: str | None,
+    expected_task_id: str | None = None,
+) -> dict[str, Any]:
+    """Load the exact runtime bytes named by the accepted owner receipt."""
+
+    location = path.resolve()
+    _require(
+        not path.is_symlink() and location.is_file(),
+        f"runtime result must be a regular file: {path}",
+    )
+    try:
+        raw = location.read_bytes()
+        document = json.loads(raw)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ActorResponsibilityReceiptError("runtime result is not valid JSON") from exc
+    _require(isinstance(document, dict), "runtime result must be a JSON object")
+    runtime_digest = digest_bytes(raw)
+    _require(
+        runtime_digest == runtime_result_ref["digest"],
+        "runtime result bytes do not match owner runtime_result_ref.digest",
+    )
+    if expected_digest is not None:
+        _require_digest(expected_digest, "expected_runtime_result_digest")
+        _require(
+            expected_digest == runtime_digest,
+            "runtime result digest does not match expected_runtime_result_digest",
+        )
+    if document.get("schema_version") == ACTOR_ENVELOPE_SCHEMA_VERSION:
+        _require(
+            set(document)
+            == {
+                "$schema",
+                "schema_version",
+                "input_id",
+                "payload_kind",
+                "source_artifact_digest",
+                "source_schema_ref",
+                "source_schema_version",
+                "payload",
+            },
+            "runtime actor input envelope shape is invalid",
+        )
+        _require(
+            document.get("$schema") == "schemas/external-codex-actor-input-envelope.schema.json",
+            "runtime actor input envelope schema ref is invalid",
+        )
+        _require(document.get("payload_kind") == "json", "runtime actor input envelope payload kind is invalid")
+        _require_string(document.get("input_id"), "runtime actor input envelope input_id")
+        _require_string(document.get("source_schema_ref"), "runtime actor input envelope source_schema_ref")
+        _require(
+            document.get("source_schema_version") == RUNTIME_RESULT_SCHEMA_VERSION,
+            "runtime actor input envelope source schema version is invalid",
+        )
+        _require_digest(
+            document.get("source_artifact_digest"),
+            "runtime actor input envelope source_artifact_digest",
+        )
+        payload = document.get("payload")
+        _require(isinstance(payload, dict), "runtime actor input envelope payload must be an object")
+        document = payload
+    _require(
+        document.get("schema_version") == RUNTIME_RESULT_SCHEMA_VERSION,
+        "runtime result schema version is not abyss_stack_external_codex_result_v2",
+    )
+    task_id = _require_string(document.get("task_id"), "runtime result task_id")
+    if expected_task_id is not None:
+        _require(
+            task_id == expected_task_id,
+            "runtime result task_id does not match owner runtime_a2a_return_ref.object_id",
+        )
+    result_id = document.get("result_id")
+    if result_id is not None:
+        _require_string(result_id, "runtime result result_id")
+        _require(
+            result_id == runtime_result_ref["object_id"],
+            "runtime result result_id does not match owner runtime_result_ref.object_id",
+        )
+    else:
+        _require(
+            task_id == runtime_result_ref["object_id"],
+            "runtime result task_id does not match owner runtime_result_ref.object_id",
+        )
+    return document
+
+
+def _require_nonnegative_int(value: Any, label: str) -> int:
+    _require(isinstance(value, int) and not isinstance(value, bool), f"{label} must be a non-negative integer")
+    _require(value >= 0, f"{label} must be a non-negative integer")
+    return value
+
+
+def _require_nonnegative_number(value: Any, label: str) -> int | float:
+    _require(
+        isinstance(value, (int, float)) and not isinstance(value, bool),
+        f"{label} must be a non-negative number",
+    )
+    _require(value >= 0, f"{label} must be a non-negative number")
+    return value
+
+
+def _observed_int(
+    value: Any,
+    *,
+    label: str,
+    unknown_field: str,
+    unknown_fields: list[str],
+) -> int | None:
+    if value is None:
+        unknown_fields.append(unknown_field)
+        return None
+    return _require_nonnegative_int(value, label)
+
+
+def _observed_number(
+    value: Any,
+    *,
+    label: str,
+    unknown_field: str,
+    unknown_fields: list[str],
+) -> int | float | None:
+    if value is None:
+        unknown_fields.append(unknown_field)
+        return None
+    return _require_nonnegative_number(value, label)
+
+
+def _validate_runtime_usage_observation(value: Any) -> dict[str, Any]:
+    _require(isinstance(value, Mapping), "runtime result usage_observation is absent")
+    _require(
+        set(value) == {"status", "gap_reasons"},
+        "runtime result usage_observation shape is invalid",
+    )
+    status = value.get("status")
+    _require(status in {"complete", "partial"}, "runtime result usage_observation.status is invalid")
+    gaps = value.get("gap_reasons")
+    _require(isinstance(gaps, list), "runtime result usage_observation.gap_reasons is invalid")
+    projected_gaps: list[dict[str, Any]] = []
+    for index, gap in enumerate(gaps):
+        _require(isinstance(gap, Mapping), f"usage_observation.gap_reasons[{index}] must be an object")
+        _require(
+            set(gap) == {"attempt_id", "reason", "event_sequence"},
+            f"usage_observation.gap_reasons[{index}] shape is invalid",
+        )
+        projected_gaps.append(
+            {
+                "attempt_id": _require_string(
+                    gap.get("attempt_id"),
+                    f"usage_observation.gap_reasons[{index}].attempt_id",
+                ),
+                "reason": _require_string(
+                    gap.get("reason"),
+                    f"usage_observation.gap_reasons[{index}].reason",
+                ),
+                "event_sequence": _require_nonnegative_int(
+                    gap.get("event_sequence"),
+                    f"usage_observation.gap_reasons[{index}].event_sequence",
+                ),
+            }
+        )
+        _require(
+            projected_gaps[-1]["reason"] == "controlled_interruption_before_turn_usage",
+            f"usage_observation.gap_reasons[{index}].reason is unsupported",
+        )
+    _require(
+        (status == "complete" and not projected_gaps)
+        or (status == "partial" and bool(projected_gaps)),
+        "runtime result usage_observation status/gap law is invalid",
+    )
+    return {"status": status, "gap_reasons": projected_gaps}
+
+
+def _project_runtime_usage(
+    result: Mapping[str, Any],
+    runtime_result_path: Path,
+    expected_runtime_result_digest: str | None,
+) -> dict[str, Any]:
+    runtime_state = result["runtime_state"]
+    runtime_result_ref = runtime_state.get("runtime_result_ref")
+    usage_ref = runtime_state.get("usage_observation_ref")
+    _require_ref(
+        runtime_result_ref,
+        label="runtime_state.runtime_result_ref",
+        owner_repo="abyss-stack",
+        schema_version="abyss_stack_external_codex_result_v2",
+    )
+    _require_ref(
+        usage_ref,
+        label="runtime_state.usage_observation_ref",
+        owner_repo="abyss-stack",
+        schema_version="abyss_stack_external_codex_usage_observation_v1",
+    )
+    runtime_a2a_return_ref = runtime_state.get("runtime_a2a_return_ref")
+    expected_task_id: str | None = None
+    if runtime_a2a_return_ref is not None:
+        _require_ref(
+            runtime_a2a_return_ref,
+            label="runtime_state.runtime_a2a_return_ref",
+            owner_repo="abyss-stack",
+            schema_version="abyss_stack_external_codex_a2a_return_v1",
+        )
+        expected_task_id = runtime_a2a_return_ref["object_id"]
+    runtime = _load_runtime_result(
+        runtime_result_path,
+        runtime_result_ref=runtime_result_ref,
+        expected_digest=expected_runtime_result_digest,
+        expected_task_id=expected_task_id,
+    )
+    usage_observation = _validate_runtime_usage_observation(runtime.get("usage_observation"))
+    _require(
+        usage_ref["object_id"] == f"{runtime_result_ref['object_id']}#/usage_observation",
+        "usage_observation_ref.object_id is not the runtime /usage_observation pointer",
+    )
+    _require(
+        digest_bytes(canonical_bytes(usage_observation)) == usage_ref["digest"],
+        "runtime usage_observation bytes do not match owner usage_observation_ref.digest",
+    )
+
+    unknown_fields: list[str] = []
+    model_value = runtime.get("model_slug")
+    model_slug = (
+        _require_string(model_value, "runtime result model_slug")
+        if model_value is not None
+        else None
+    )
+    reasoning_value = runtime.get("reasoning_effort")
+    reasoning_effort = (
+        _require_string(reasoning_value, "runtime result reasoning_effort")
+        if reasoning_value is not None
+        else None
+    )
+    if reasoning_effort is None:
+        unknown_fields.append("reasoning_effort")
+    else:
+        _require(
+            reasoning_effort in {"low", "medium", "high", "xhigh", "max"},
+            "runtime result reasoning_effort is invalid",
+        )
+    if model_slug is None:
+        unknown_fields.append("model_slug")
+    status_value = runtime.get("status")
+    runtime_status = (
+        _require_string(status_value, "runtime result status")
+        if status_value is not None
+        else None
+    )
+    if runtime_status is None:
+        unknown_fields.append("runtime_outcome.status")
+    duration_seconds = _observed_number(
+        runtime.get("duration_seconds"),
+        label="runtime result duration_seconds",
+        unknown_field="timing.duration_seconds",
+        unknown_fields=unknown_fields,
+    )
+    active_wall_seconds = _observed_number(
+        runtime.get("active_wall_seconds"),
+        label="runtime result active_wall_seconds",
+        unknown_field="timing.active_wall_seconds",
+        unknown_fields=unknown_fields,
+    )
+    attempt_count = _observed_int(
+        runtime.get("attempt_count"),
+        label="runtime result attempt_count",
+        unknown_field="activity.attempts",
+        unknown_fields=unknown_fields,
+    )
+    turn_count = _observed_int(
+        runtime.get("turn_count"),
+        label="runtime result turn_count",
+        unknown_field="activity.turns",
+        unknown_fields=unknown_fields,
+    )
+    exit_code = runtime.get("exit_code")
+    if exit_code is None:
+        unknown_fields.append("runtime_outcome.exit_code")
+    else:
+        _require(
+            isinstance(exit_code, int) and not isinstance(exit_code, bool),
+            "runtime result exit_code must be an integer or null",
+        )
+
+    usage = runtime.get("usage")
+    if usage is None:
+        usage = {}
+    _require(isinstance(usage, Mapping), "runtime result usage must be an object or null")
+    input_tokens = _observed_int(
+        usage.get("input_tokens"),
+        label="runtime result usage.input_tokens",
+        unknown_field="tokens.input",
+        unknown_fields=unknown_fields,
+    )
+    cached_input_tokens = _observed_int(
+        usage.get("cached_input_tokens"),
+        label="runtime result usage.cached_input_tokens",
+        unknown_field="tokens.cached_input",
+        unknown_fields=unknown_fields,
+    )
+    output_tokens = _observed_int(
+        usage.get("output_tokens"),
+        label="runtime result usage.output_tokens",
+        unknown_field="tokens.output",
+        unknown_fields=unknown_fields,
+    )
+    metering_mode = usage.get("metering_mode")
+    if metering_mode is None:
+        unknown_fields.append("cost.metering_mode")
+    else:
+        _require(metering_mode == "observe_only", "runtime result usage.metering_mode is not observe_only")
+    active_cost_regime = usage.get("active_cost_regime")
+    if active_cost_regime is None:
+        unknown_fields.append("cost.active_cost_regime")
+    else:
+        active_cost_regime = _require_string(
+            active_cost_regime, "runtime result usage.active_cost_regime"
+        )
+    if "cost_usd" not in usage:
+        cost_usd = None
+        cost_status = "unknown"
+        unknown_fields.append("cost.usd")
+    else:
+        cost_usd = usage.get("cost_usd")
+        _require(
+            cost_usd is None
+            or (
+                isinstance(cost_usd, (int, float))
+                and not isinstance(cost_usd, bool)
+                and cost_usd >= 0
+            ),
+            "runtime result usage.cost_usd must be a non-negative number or null",
+        )
+        cost_status = "not_reported" if cost_usd is None else "reported"
+
+    invocations = runtime.get("codex_invocations")
+    start_invocation_count: int | None = 0
+    resume_invocation_count: int | None = 0
+    if invocations is None:
+        start_invocation_count = None
+        resume_invocation_count = None
+        unknown_fields.extend(("activity.start_invocations", "activity.resume_invocations"))
+    else:
+        _require(isinstance(invocations, list), "runtime result codex_invocations must be an array or null")
+        for index, invocation in enumerate(invocations):
+            _require(isinstance(invocation, Mapping), f"codex_invocations[{index}] must be an object")
+            mode = invocation.get("mode")
+            if mode == "start":
+                start_invocation_count += 1
+            elif mode == "resume":
+                resume_invocation_count += 1
+            else:
+                start_invocation_count = None
+                resume_invocation_count = None
+                unknown_fields.extend(("activity.start_invocations", "activity.resume_invocations"))
+                break
+    commands = runtime.get("executed_commands")
+    if commands is None:
+        executed_command_count = None
+        unknown_fields.append("activity.commands")
+    else:
+        _require(isinstance(commands, list), "runtime result executed_commands must be an array or null")
+        executed_command_count = len(commands)
+
+    return {
+        "schema_version": USAGE_PROJECTION_SCHEMA_VERSION,
+        "source_ref": dict(usage_ref),
+        "runtime_result_ref": dict(runtime_result_ref),
+        "observation_status": usage_observation["status"],
+        "gap_reasons": usage_observation["gap_reasons"],
+        "model_slug": model_slug,
+        "reasoning_effort": reasoning_effort,
+        "input_tokens": input_tokens,
+        "cached_input_tokens": cached_input_tokens,
+        "output_tokens": output_tokens,
+        "active_wall_seconds": active_wall_seconds,
+        "duration_seconds": duration_seconds,
+        "turn_count": turn_count,
+        "executed_command_count": executed_command_count,
+        "attempt_count": attempt_count,
+        "start_invocation_count": start_invocation_count,
+        "resume_invocation_count": resume_invocation_count,
+        "runtime_status": runtime_status,
+        "exit_code": exit_code,
+        "metering_mode": metering_mode,
+        "active_cost_regime": active_cost_regime,
+        "cost_usd": cost_usd,
+        "cost_status": cost_status,
+        "unknown_fields": sorted(set(unknown_fields)),
+    }
+
+
 def _validate_observed_at(value: Any) -> str:
     observed_at = _require_string(value, "observed_at")
     _require(RFC3339_RE.fullmatch(observed_at) is not None, "observed_at must be RFC3339 with an explicit UTC offset")
@@ -339,6 +733,7 @@ def _identity_digest(
     actor_ref: str,
     object_ref: Mapping[str, str],
     payload: Mapping[str, Any],
+    supersedes: str | None = None,
 ) -> str:
     identity = {
         "result_digest": result_digest,
@@ -349,6 +744,8 @@ def _identity_digest(
         "object_ref": dict(object_ref),
         "payload_digest": digest_bytes(canonical_bytes(payload)),
     }
+    if supersedes is not None:
+        identity["supersedes"] = supersedes
     return digest_bytes(canonical_bytes(identity))
 
 
@@ -392,6 +789,9 @@ def compile_actor_responsibility_receipt(
     object_ref: Mapping[str, str],
     event_id: str | None = None,
     expected_result_digest: str | None = None,
+    runtime_result_path: Path | None = None,
+    expected_runtime_result_digest: str | None = None,
+    supersedes: str | None = None,
 ) -> dict[str, Any]:
     """Compile one deterministic actor responsibility receipt envelope."""
 
@@ -407,6 +807,14 @@ def compile_actor_responsibility_receipt(
     if expected_result_digest is not None:
         _require_digest(expected_result_digest, "expected_result_digest")
         _require(expected_result_digest == result_digest, "summon result digest does not match expected_result_digest")
+    if expected_runtime_result_digest is not None:
+        _require(runtime_result_path is not None, "expected_runtime_result_digest requires --runtime-result")
+    if supersedes is not None:
+        _require_string(supersedes, "supersedes")
+        _require(
+            supersedes.startswith(EVENT_ID_PREFIX),
+            "supersedes must name an actor responsibility execution event",
+        )
 
     execution = {
         field: result[field]
@@ -468,6 +876,12 @@ def compile_actor_responsibility_receipt(
             "publication": "not_claimed",
         },
     }
+    if runtime_result_path is not None:
+        payload["usage_observation"] = _project_runtime_usage(
+            result,
+            runtime_result_path,
+            expected_runtime_result_digest,
+        )
     _validate_document(payload, PAYLOAD_SCHEMA, "actor responsibility receipt payload")
     identity_digest = _identity_digest(
         result_digest=result_digest,
@@ -477,6 +891,7 @@ def compile_actor_responsibility_receipt(
         actor_ref=actor_ref,
         object_ref=object_ref,
         payload=payload,
+        supersedes=supersedes,
     )
     derived_event_id = EVENT_ID_PREFIX + identity_digest.removeprefix("sha256:")
     if event_id is not None:
@@ -492,6 +907,8 @@ def compile_actor_responsibility_receipt(
         "evidence_refs": _evidence_refs(payload),
         "payload": payload,
     }
+    if supersedes is not None:
+        envelope["supersedes"] = supersedes
     validate_receipt(envelope)
     return envelope
 
@@ -500,21 +917,28 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
     """Validate the local envelope shape and the owner payload contract."""
 
     _require(isinstance(envelope, Mapping), "receipt envelope must be an object")
+    required_envelope_fields = {
+        "event_kind",
+        "event_id",
+        "observed_at",
+        "run_ref",
+        "session_ref",
+        "actor_ref",
+        "object_ref",
+        "evidence_refs",
+        "payload",
+    }
     _require(
-        set(envelope) == {
-            "event_kind",
-            "event_id",
-            "observed_at",
-            "run_ref",
-            "session_ref",
-            "actor_ref",
-            "object_ref",
-            "evidence_refs",
-            "payload",
-        },
+        required_envelope_fields <= set(envelope) <= required_envelope_fields | {"supersedes"},
         "receipt envelope has unsupported or missing fields",
     )
     _require(envelope["event_kind"] == EVENT_KIND, "receipt event_kind is not actor_responsibility_execution_receipt")
+    if "supersedes" in envelope:
+        _require_string(envelope["supersedes"], "supersedes")
+        _require(
+            envelope["supersedes"].startswith(EVENT_ID_PREFIX),
+            "supersedes must name an actor responsibility execution event",
+        )
     _require_string(envelope["event_id"], "event_id")
     _validate_observed_at(envelope["observed_at"])
     for field in ("run_ref", "session_ref", "actor_ref"):
@@ -530,6 +954,17 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
             _require_string(evidence["role"], f"evidence_refs[{index}].role")
     _require(isinstance(envelope["payload"], Mapping), "receipt payload must be an object")
     _validate_document(envelope["payload"], PAYLOAD_SCHEMA, "actor responsibility receipt payload")
+    usage_projection = envelope["payload"].get("usage_observation")
+    if usage_projection is not None:
+        runtime_state = envelope["payload"]["owner_evidence"]["runtime_state"]
+        _require(
+            usage_projection["runtime_result_ref"] == runtime_state.get("runtime_result_ref"),
+            "usage_observation.runtime_result_ref does not match owner runtime_result_ref",
+        )
+        _require(
+            usage_projection["source_ref"] == runtime_state.get("usage_observation_ref"),
+            "usage_observation.source_ref does not match owner usage_observation_ref",
+        )
     _require(
         envelope["evidence_refs"] == _evidence_refs(envelope["payload"]),
         "evidence_refs do not match the owner evidence carried by the payload",
@@ -552,6 +987,7 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
         actor_ref=envelope["actor_ref"],
         object_ref=envelope["object_ref"],
         payload=envelope["payload"],
+        supersedes=envelope.get("supersedes"),
     ).removeprefix("sha256:")
     _require(envelope["event_id"] == expected_event_id, "event_id does not match deterministic owner evidence identity")
 
@@ -592,6 +1028,9 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--object-ref", required=True, help="JSON object or path containing the explicit stats object_ref")
     result.add_argument("--event-id")
     result.add_argument("--expected-result-digest", "--result-digest")
+    result.add_argument("--runtime-result", type=Path, help="Exact abyss-stack runtime-result-v2 bytes for an opt-in usage projection")
+    result.add_argument("--expected-runtime-result-digest", help="Expected digest for the exact runtime-result-v2 bytes")
+    result.add_argument("--supersedes", help="Prior actor responsibility event ID that this observation supersedes")
     result.add_argument("--output", type=Path, required=True)
     return result
 
@@ -609,6 +1048,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             object_ref=_parse_object_ref(args.object_ref),
             event_id=args.event_id,
             expected_result_digest=args.expected_result_digest,
+            runtime_result_path=args.runtime_result,
+            expected_runtime_result_digest=args.expected_runtime_result_digest,
+            supersedes=args.supersedes,
         )
         _write_new(args.output, receipt)
     except (ActorResponsibilityReceiptError, OSError, ValueError) as exc:

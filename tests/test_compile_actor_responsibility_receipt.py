@@ -56,7 +56,7 @@ def summon_result() -> dict[str, object]:
         "session_handle": "session:actor",
         "continuation_handle": "continuation:actor",
         "runtime_result_ref": ref("abyss-stack", "runtime-result:actor", "abyss_stack_external_codex_result_v2"),
-        "runtime_a2a_return_ref": ref("abyss-stack", "runtime-a2a:actor", "abyss_stack_external_codex_a2a_return_v1"),
+        "runtime_a2a_return_ref": ref("abyss-stack", "runtime-task:actor", "abyss_stack_external_codex_a2a_return_v1"),
         "usage_observation_ref": ref("abyss-stack", "runtime-result:actor#/usage_observation", "abyss_stack_external_codex_usage_observation_v1"),
     }
     return {
@@ -102,6 +102,66 @@ def write_result(path: Path, result: dict[str, object]) -> str:
     raw = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2).encode() + b"\n"
     path.write_bytes(raw)
     return "sha256:" + hashlib.sha256(raw).hexdigest()
+
+
+def write_runtime_result(
+    path: Path,
+    result: dict[str, object],
+    *,
+    actor_envelope: bool = False,
+    omit_fields: set[str] | None = None,
+) -> str:
+    runtime_state = result["runtime_state"]
+    assert isinstance(runtime_state, dict)
+    runtime_ref = runtime_state["runtime_result_ref"]
+    usage_ref = runtime_state["usage_observation_ref"]
+    assert isinstance(runtime_ref, dict)
+    assert isinstance(usage_ref, dict)
+    runtime = {
+        "schema_version": "abyss_stack_external_codex_result_v2",
+        "result_id": runtime_ref["object_id"],
+        "task_id": runtime_state["runtime_a2a_return_ref"]["object_id"],
+        "model_slug": "gpt-5.6-luna",
+        "reasoning_effort": "xhigh",
+        "status": "review_required",
+        "duration_seconds": 12.5,
+        "active_wall_seconds": 12.5,
+        "attempt_count": 2,
+        "turn_count": 3,
+        "exit_code": 0,
+        "usage": {
+            "input_tokens": 11,
+            "cached_input_tokens": 5,
+            "output_tokens": 7,
+            "metering_mode": "observe_only",
+            "active_cost_regime": "chatgpt_quota",
+            "cost_usd": None,
+        },
+        "usage_observation": {"status": "complete", "gap_reasons": []},
+        "codex_invocations": [{"mode": "start"}, {"mode": "resume"}],
+        "executed_commands": [{}, {}],
+    }
+    usage_ref["digest"] = COMPILER.digest_bytes(
+        COMPILER.canonical_bytes(runtime["usage_observation"])
+    )
+    for field in omit_fields or set():
+        runtime.pop(field, None)
+    document: dict[str, object] = runtime
+    if actor_envelope:
+        document = {
+            "$schema": "schemas/external-codex-actor-input-envelope.schema.json",
+            "input_id": "sample-runtime-result-v2",
+            "payload": runtime,
+            "payload_kind": "json",
+            "schema_version": "abyss_stack_external_codex_actor_input_envelope_v1",
+            "source_artifact_digest": ZERO,
+            "source_schema_ref": "schemas/external-codex-result.schema.json",
+            "source_schema_version": "abyss_stack_external_codex_result_v2",
+        }
+    raw = json.dumps(document, ensure_ascii=False, sort_keys=True, indent=2).encode() + b"\n"
+    path.write_bytes(raw)
+    runtime_ref["digest"] = "sha256:" + hashlib.sha256(raw).hexdigest()
+    return runtime_ref["digest"]
 
 
 class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
@@ -163,6 +223,177 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "event_id"):
                 self.compile(result_path, event_id="actor-responsibility-execution:forged")
             self.assertNotEqual(digest, ZERO)
+
+    def test_opt_in_runtime_usage_projection_is_exact_and_observe_only(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result.json"
+            runtime_digest = write_runtime_result(runtime_path, result)
+            result_path = root / "summon-result.json"
+            summon_digest = write_result(result_path, result)
+            receipt = self.compile(
+                result_path,
+                expected_result_digest=summon_digest,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+                supersedes="actor-responsibility-execution:older",
+            )
+            projection = receipt["payload"]["usage_observation"]
+            self.assertEqual(projection["observation_status"], "complete")
+            self.assertEqual(projection["model_slug"], "gpt-5.6-luna")
+            self.assertEqual(projection["reasoning_effort"], "xhigh")
+            self.assertEqual(
+                {
+                    field: projection[field]
+                    for field in ("input_tokens", "cached_input_tokens", "output_tokens")
+                },
+                {"input_tokens": 11, "cached_input_tokens": 5, "output_tokens": 7},
+            )
+            self.assertEqual(projection["active_wall_seconds"], 12.5)
+            self.assertEqual(projection["duration_seconds"], 12.5)
+            self.assertEqual(
+                {
+                    field: projection[field]
+                    for field in (
+                        "turn_count",
+                        "executed_command_count",
+                        "attempt_count",
+                        "start_invocation_count",
+                        "resume_invocation_count",
+                    )
+                },
+                {
+                    "turn_count": 3,
+                    "executed_command_count": 2,
+                    "attempt_count": 2,
+                    "start_invocation_count": 1,
+                    "resume_invocation_count": 1,
+                },
+            )
+            self.assertEqual(projection["runtime_status"], "review_required")
+            self.assertEqual(projection["cost_status"], "not_reported")
+            self.assertIsNone(projection["cost_usd"])
+            self.assertEqual(receipt["supersedes"], "actor-responsibility-execution:older")
+            COMPILER.validate_receipt(receipt)
+
+    def test_runtime_projection_rejects_digest_and_pointer_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result.json"
+            runtime_digest = write_runtime_result(runtime_path, result)
+            result_path = root / "summon-result.json"
+            result["runtime_state"]["usage_observation_ref"]["object_id"] = "forged#/usage_observation"
+            write_result(result_path, result)
+            with self.assertRaisesRegex(
+                COMPILER.ActorResponsibilityReceiptError,
+                "pointer",
+            ):
+                self.compile(result_path, runtime_result_path=runtime_path)
+            result = summon_result()
+            write_runtime_result(runtime_path, result)
+            write_result(result_path, result)
+            with self.assertRaisesRegex(
+                COMPILER.ActorResponsibilityReceiptError,
+                "expected_runtime_result_digest",
+            ):
+                self.compile(
+                    result_path,
+                    runtime_result_path=runtime_path,
+                    expected_runtime_result_digest=ZERO,
+                )
+            self.assertNotEqual(runtime_digest, ZERO)
+
+    def test_runtime_projection_accepts_actor_input_envelope(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result-envelope.json"
+            runtime_digest = write_runtime_result(runtime_path, result, actor_envelope=True)
+            result_path = root / "summon-result.json"
+            write_result(result_path, result)
+            receipt = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )
+            projection = receipt["payload"]["usage_observation"]
+            self.assertEqual(projection["model_slug"], "gpt-5.6-luna")
+            self.assertEqual(projection["runtime_result_ref"]["digest"], runtime_digest)
+
+    def test_runtime_projection_preserves_missing_measurements_as_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result-partial.json"
+            runtime_digest = write_runtime_result(
+                runtime_path,
+                result,
+                omit_fields={
+                    "model_slug",
+                    "reasoning_effort",
+                    "duration_seconds",
+                    "active_wall_seconds",
+                    "attempt_count",
+                    "turn_count",
+                    "exit_code",
+                    "usage",
+                    "codex_invocations",
+                    "executed_commands",
+                },
+            )
+            result_path = root / "summon-result.json"
+            write_result(result_path, result)
+            projection = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )["payload"]["usage_observation"]
+            for field in (
+                "model_slug",
+                "reasoning_effort",
+                "duration_seconds",
+                "active_wall_seconds",
+                "attempt_count",
+                "turn_count",
+                "exit_code",
+                "input_tokens",
+                "cached_input_tokens",
+                "output_tokens",
+                "metering_mode",
+                "active_cost_regime",
+                "executed_command_count",
+                "start_invocation_count",
+                "resume_invocation_count",
+            ):
+                self.assertIsNone(projection[field], field)
+            self.assertEqual(projection["cost_status"], "unknown")
+            self.assertIn("tokens.input", projection["unknown_fields"])
+            self.assertIn("activity.commands", projection["unknown_fields"])
+            self.assertIn("cost.usd", projection["unknown_fields"])
+            COMPILER.validate_receipt(self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            ))
+
+    def test_runtime_projection_refs_cannot_be_rebound_at_publish(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = summon_result()
+            runtime_path = root / "runtime-result.json"
+            runtime_digest = write_runtime_result(runtime_path, result)
+            result_path = root / "summon-result.json"
+            write_result(result_path, result)
+            receipt = self.compile(
+                result_path,
+                runtime_result_path=runtime_path,
+                expected_runtime_result_digest=runtime_digest,
+            )
+            receipt["payload"]["usage_observation"]["runtime_result_ref"]["object_id"] = "forged"
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_result_ref"):
+                COMPILER.validate_receipt(receipt)
 
     def test_missing_owner_evidence_and_inference_widening_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
