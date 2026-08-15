@@ -200,6 +200,7 @@ def _load_runtime_result(
     *,
     runtime_result_ref: Mapping[str, Any],
     expected_digest: str | None,
+    expected_task_id: str | None = None,
 ) -> dict[str, Any]:
     """Load the exact runtime bytes named by the accepted owner receipt."""
 
@@ -225,14 +226,61 @@ def _load_runtime_result(
             expected_digest == runtime_digest,
             "runtime result digest does not match expected_runtime_result_digest",
         )
+    if document.get("schema_version") == ACTOR_ENVELOPE_SCHEMA_VERSION:
+        _require(
+            set(document)
+            == {
+                "$schema",
+                "schema_version",
+                "input_id",
+                "payload_kind",
+                "source_artifact_digest",
+                "source_schema_ref",
+                "source_schema_version",
+                "payload",
+            },
+            "runtime actor input envelope shape is invalid",
+        )
+        _require(
+            document.get("$schema") == "schemas/external-codex-actor-input-envelope.schema.json",
+            "runtime actor input envelope schema ref is invalid",
+        )
+        _require(document.get("payload_kind") == "json", "runtime actor input envelope payload kind is invalid")
+        _require_string(document.get("input_id"), "runtime actor input envelope input_id")
+        _require_string(document.get("source_schema_ref"), "runtime actor input envelope source_schema_ref")
+        _require(
+            document.get("source_schema_version") == RUNTIME_RESULT_SCHEMA_VERSION,
+            "runtime actor input envelope source schema version is invalid",
+        )
+        _require_digest(
+            document.get("source_artifact_digest"),
+            "runtime actor input envelope source_artifact_digest",
+        )
+        payload = document.get("payload")
+        _require(isinstance(payload, dict), "runtime actor input envelope payload must be an object")
+        document = payload
     _require(
         document.get("schema_version") == RUNTIME_RESULT_SCHEMA_VERSION,
         "runtime result schema version is not abyss_stack_external_codex_result_v2",
     )
-    _require(
-        document.get("task_id") == runtime_result_ref["object_id"],
-        "runtime result task_id does not match owner runtime_result_ref.object_id",
-    )
+    task_id = _require_string(document.get("task_id"), "runtime result task_id")
+    if expected_task_id is not None:
+        _require(
+            task_id == expected_task_id,
+            "runtime result task_id does not match owner runtime_a2a_return_ref.object_id",
+        )
+    result_id = document.get("result_id")
+    if result_id is not None:
+        _require_string(result_id, "runtime result result_id")
+        _require(
+            result_id == runtime_result_ref["object_id"],
+            "runtime result result_id does not match owner runtime_result_ref.object_id",
+        )
+    else:
+        _require(
+            task_id == runtime_result_ref["object_id"],
+            "runtime result task_id does not match owner runtime_result_ref.object_id",
+        )
     return document
 
 
@@ -249,6 +297,32 @@ def _require_nonnegative_number(value: Any, label: str) -> int | float:
     )
     _require(value >= 0, f"{label} must be a non-negative number")
     return value
+
+
+def _observed_int(
+    value: Any,
+    *,
+    label: str,
+    unknown_field: str,
+    unknown_fields: list[str],
+) -> int | None:
+    if value is None:
+        unknown_fields.append(unknown_field)
+        return None
+    return _require_nonnegative_int(value, label)
+
+
+def _observed_number(
+    value: Any,
+    *,
+    label: str,
+    unknown_field: str,
+    unknown_fields: list[str],
+) -> int | float | None:
+    if value is None:
+        unknown_fields.append(unknown_field)
+        return None
+    return _require_nonnegative_number(value, label)
 
 
 def _validate_runtime_usage_observation(value: Any) -> dict[str, Any]:
@@ -316,10 +390,21 @@ def _project_runtime_usage(
         owner_repo="abyss-stack",
         schema_version="abyss_stack_external_codex_usage_observation_v1",
     )
+    runtime_a2a_return_ref = runtime_state.get("runtime_a2a_return_ref")
+    expected_task_id: str | None = None
+    if runtime_a2a_return_ref is not None:
+        _require_ref(
+            runtime_a2a_return_ref,
+            label="runtime_state.runtime_a2a_return_ref",
+            owner_repo="abyss-stack",
+            schema_version="abyss_stack_external_codex_a2a_return_v1",
+        )
+        expected_task_id = runtime_a2a_return_ref["object_id"]
     runtime = _load_runtime_result(
         runtime_result_path,
         runtime_result_ref=runtime_result_ref,
         expected_digest=expected_runtime_result_digest,
+        expected_task_id=expected_task_id,
     )
     usage_observation = _validate_runtime_usage_observation(runtime.get("usage_observation"))
     _require(
@@ -331,65 +416,148 @@ def _project_runtime_usage(
         "runtime usage_observation bytes do not match owner usage_observation_ref.digest",
     )
 
-    model_slug = _require_string(runtime.get("model_slug"), "runtime result model_slug")
-    reasoning_effort = _require_string(runtime.get("reasoning_effort"), "runtime result reasoning_effort")
-    _require(
-        reasoning_effort in {"low", "medium", "high", "xhigh", "max"},
-        "runtime result reasoning_effort is invalid",
+    unknown_fields: list[str] = []
+    model_value = runtime.get("model_slug")
+    model_slug = (
+        _require_string(model_value, "runtime result model_slug")
+        if model_value is not None
+        else None
     )
-    runtime_status = _require_string(runtime.get("status"), "runtime result status")
-    duration_seconds = _require_nonnegative_number(
-        runtime.get("duration_seconds"), "runtime result duration_seconds"
+    reasoning_value = runtime.get("reasoning_effort")
+    reasoning_effort = (
+        _require_string(reasoning_value, "runtime result reasoning_effort")
+        if reasoning_value is not None
+        else None
     )
-    active_wall_seconds = _require_nonnegative_number(
-        runtime.get("active_wall_seconds"), "runtime result active_wall_seconds"
+    if reasoning_effort is None:
+        unknown_fields.append("reasoning_effort")
+    else:
+        _require(
+            reasoning_effort in {"low", "medium", "high", "xhigh", "max"},
+            "runtime result reasoning_effort is invalid",
+        )
+    if model_slug is None:
+        unknown_fields.append("model_slug")
+    status_value = runtime.get("status")
+    runtime_status = (
+        _require_string(status_value, "runtime result status")
+        if status_value is not None
+        else None
     )
-    attempt_count = _require_nonnegative_int(runtime.get("attempt_count"), "runtime result attempt_count")
-    turn_count = _require_nonnegative_int(runtime.get("turn_count"), "runtime result turn_count")
+    if runtime_status is None:
+        unknown_fields.append("runtime_outcome.status")
+    duration_seconds = _observed_number(
+        runtime.get("duration_seconds"),
+        label="runtime result duration_seconds",
+        unknown_field="timing.duration_seconds",
+        unknown_fields=unknown_fields,
+    )
+    active_wall_seconds = _observed_number(
+        runtime.get("active_wall_seconds"),
+        label="runtime result active_wall_seconds",
+        unknown_field="timing.active_wall_seconds",
+        unknown_fields=unknown_fields,
+    )
+    attempt_count = _observed_int(
+        runtime.get("attempt_count"),
+        label="runtime result attempt_count",
+        unknown_field="activity.attempts",
+        unknown_fields=unknown_fields,
+    )
+    turn_count = _observed_int(
+        runtime.get("turn_count"),
+        label="runtime result turn_count",
+        unknown_field="activity.turns",
+        unknown_fields=unknown_fields,
+    )
     exit_code = runtime.get("exit_code")
-    _require(
-        exit_code is None or (isinstance(exit_code, int) and not isinstance(exit_code, bool)),
-        "runtime result exit_code must be an integer or null",
-    )
+    if exit_code is None:
+        unknown_fields.append("runtime_outcome.exit_code")
+    else:
+        _require(
+            isinstance(exit_code, int) and not isinstance(exit_code, bool),
+            "runtime result exit_code must be an integer or null",
+        )
 
     usage = runtime.get("usage")
-    _require(isinstance(usage, Mapping), "runtime result usage is absent")
-    input_tokens = _require_nonnegative_int(usage.get("input_tokens"), "runtime result usage.input_tokens")
-    cached_input_tokens = _require_nonnegative_int(
-        usage.get("cached_input_tokens"), "runtime result usage.cached_input_tokens"
+    if usage is None:
+        usage = {}
+    _require(isinstance(usage, Mapping), "runtime result usage must be an object or null")
+    input_tokens = _observed_int(
+        usage.get("input_tokens"),
+        label="runtime result usage.input_tokens",
+        unknown_field="tokens.input",
+        unknown_fields=unknown_fields,
     )
-    output_tokens = _require_nonnegative_int(usage.get("output_tokens"), "runtime result usage.output_tokens")
+    cached_input_tokens = _observed_int(
+        usage.get("cached_input_tokens"),
+        label="runtime result usage.cached_input_tokens",
+        unknown_field="tokens.cached_input",
+        unknown_fields=unknown_fields,
+    )
+    output_tokens = _observed_int(
+        usage.get("output_tokens"),
+        label="runtime result usage.output_tokens",
+        unknown_field="tokens.output",
+        unknown_fields=unknown_fields,
+    )
     metering_mode = usage.get("metering_mode")
-    _require(metering_mode == "observe_only", "runtime result usage.metering_mode is not observe_only")
-    active_cost_regime = _require_string(
-        usage.get("active_cost_regime"), "runtime result usage.active_cost_regime"
-    )
-    cost_usd = usage.get("cost_usd")
-    _require(
-        cost_usd is None
-        or (
-            isinstance(cost_usd, (int, float))
-            and not isinstance(cost_usd, bool)
-            and cost_usd >= 0
-        ),
-        "runtime result usage.cost_usd must be a non-negative number or null",
-    )
-    cost_status = "not_reported" if cost_usd is None else "reported"
+    if metering_mode is None:
+        unknown_fields.append("cost.metering_mode")
+    else:
+        _require(metering_mode == "observe_only", "runtime result usage.metering_mode is not observe_only")
+    active_cost_regime = usage.get("active_cost_regime")
+    if active_cost_regime is None:
+        unknown_fields.append("cost.active_cost_regime")
+    else:
+        active_cost_regime = _require_string(
+            active_cost_regime, "runtime result usage.active_cost_regime"
+        )
+    if "cost_usd" not in usage:
+        cost_usd = None
+        cost_status = "unknown"
+        unknown_fields.append("cost.usd")
+    else:
+        cost_usd = usage.get("cost_usd")
+        _require(
+            cost_usd is None
+            or (
+                isinstance(cost_usd, (int, float))
+                and not isinstance(cost_usd, bool)
+                and cost_usd >= 0
+            ),
+            "runtime result usage.cost_usd must be a non-negative number or null",
+        )
+        cost_status = "not_reported" if cost_usd is None else "reported"
 
     invocations = runtime.get("codex_invocations")
-    _require(isinstance(invocations, list), "runtime result codex_invocations is absent")
-    start_invocation_count = 0
-    resume_invocation_count = 0
-    for index, invocation in enumerate(invocations):
-        _require(isinstance(invocation, Mapping), f"codex_invocations[{index}] must be an object")
-        mode = invocation.get("mode")
-        _require(mode in {"start", "resume"}, f"codex_invocations[{index}].mode is invalid")
-        if mode == "start":
-            start_invocation_count += 1
-        else:
-            resume_invocation_count += 1
+    start_invocation_count: int | None = 0
+    resume_invocation_count: int | None = 0
+    if invocations is None:
+        start_invocation_count = None
+        resume_invocation_count = None
+        unknown_fields.extend(("activity.start_invocations", "activity.resume_invocations"))
+    else:
+        _require(isinstance(invocations, list), "runtime result codex_invocations must be an array or null")
+        for index, invocation in enumerate(invocations):
+            _require(isinstance(invocation, Mapping), f"codex_invocations[{index}] must be an object")
+            mode = invocation.get("mode")
+            if mode == "start":
+                start_invocation_count += 1
+            elif mode == "resume":
+                resume_invocation_count += 1
+            else:
+                start_invocation_count = None
+                resume_invocation_count = None
+                unknown_fields.extend(("activity.start_invocations", "activity.resume_invocations"))
+                break
     commands = runtime.get("executed_commands")
-    _require(isinstance(commands, list), "runtime result executed_commands is absent")
+    if commands is None:
+        executed_command_count = None
+        unknown_fields.append("activity.commands")
+    else:
+        _require(isinstance(commands, list), "runtime result executed_commands must be an array or null")
+        executed_command_count = len(commands)
 
     return {
         "schema_version": USAGE_PROJECTION_SCHEMA_VERSION,
@@ -405,7 +573,7 @@ def _project_runtime_usage(
         "active_wall_seconds": active_wall_seconds,
         "duration_seconds": duration_seconds,
         "turn_count": turn_count,
-        "executed_command_count": len(commands),
+        "executed_command_count": executed_command_count,
         "attempt_count": attempt_count,
         "start_invocation_count": start_invocation_count,
         "resume_invocation_count": resume_invocation_count,
@@ -415,7 +583,7 @@ def _project_runtime_usage(
         "active_cost_regime": active_cost_regime,
         "cost_usd": cost_usd,
         "cost_status": cost_status,
-        "unknown_fields": [],
+        "unknown_fields": sorted(set(unknown_fields)),
     }
 
 

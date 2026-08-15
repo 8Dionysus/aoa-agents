@@ -274,11 +274,13 @@ receipt schema still rejects an uncompact direct publisher input.
 
 When a live usage report is required, the compiler accepts `--runtime-result`
 and `--expected-runtime-result-digest`. The runtime path must be a regular
-file whose bytes match the terminal `runtime_result_ref` and whose
-`/usage_observation` subtree matches the accepted `usage_observation_ref`.
-The resulting `usage_observation` payload is a bounded snapshot of model,
-reasoning, token, timing, activity, outcome, and observe-only metering fields;
-missing or non-reported values remain null or explicitly unknown. A repaired
+file whose bytes match the terminal `runtime_result_ref` (or an exact actor-safe
+runtime envelope whose payload does), whose A2A task identity is checked
+independently from an optional result identity, and whose `/usage_observation`
+subtree matches the accepted `usage_observation_ref`. The resulting
+`usage_observation` payload is a bounded snapshot of model, reasoning, token,
+timing, activity, outcome, and observe-only metering fields; missing or
+non-reported values remain null and are named in `unknown_fields`. A repaired
 snapshot may use `--supersedes` to append a new event without rewriting the
 older accepted receipt.
 
