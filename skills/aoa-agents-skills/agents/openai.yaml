@@ -1,8 +1,7 @@
 interface:
   display_name: "AoA Agents"
   short_description: "Grow independent responsibility-bearing actors"
-  default_prompt: "Use $aoa-agents-skills to detect an independent obligation and route only the actor-lifecycle stages it genuinely requires."
+  default_prompt: "Use $aoa-agents-skills. When the Goal names an independent duty, authority, and expected result, use its role-first entry to form and embody an appropriate actor through the owner lifecycle."
 
 policy:
   allow_implicit_invocation: true
-

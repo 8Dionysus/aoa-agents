@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Detect when a goal creates or predicts an independently owned obligation, form a bounded role mandate for it, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
+description: Detect when a goal creates or predicts an independently owned obligation, or when an explicit role-first request asks to form and embody an appropriate actor; form a bounded role mandate, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -27,6 +27,21 @@ Return `not_applicable` when the work is only a local step, a faster model is
 available, a generic helper could shorten the task, or no responsibility needs
 to move. Do not create an actor to justify available compute.
 
+## Role-first entry
+
+When the current holder explicitly says:
+
+> In this Goal an independent obligation has appeared; form and embody the
+> appropriate actor.
+
+and supplies the Goal, independent duty, authority envelope, and expected
+result, select the role-first-entry mode. Read
+references/role-first-entry.md and normalize only the semantic
+role-first-intent-v1 fields. The mode is the one public semantic entry for
+the full lifecycle; it composes the existing internal modes and aoa-summon
+leaf, and stops closed when any stronger-owner input is missing. The caller
+must not hand-build summon packets or choose a model by brand.
+
 ## Start
 
 1. Record `<bundle_dir>` as the absolute directory containing this loaded
@@ -37,6 +52,7 @@ to move. Do not create an actor to justify available compute.
 
    | Mode | Use when | Read |
    | --- | --- | --- |
+   | role-first-entry | An explicit semantic request asks this Goal to form and embody one appropriate actor. | references/role-first-entry.md |
    | `detect-obligation` | Pressure must be tested and assigned a trigger strength. | `references/detect-obligation.md` |
    | `form-actor` | An admitted obligation needs a stable role, mandate, required executor properties, and continuity posture. | `references/form-actor.md` |
    | `bind-incarnation` | A complete mandate needs a current model realization, specialized environment, permissions, and resumable runtime binding. | `references/bind-incarnation.md` |
@@ -91,6 +107,9 @@ bundle's external-incarnation path.
 - Resolve an already selected role chain through the bundled passive resolver;
   never guess owner-relative role paths or treat the resolver as role-selection
   authority.
+- For role-first-entry, make the semantic role and current-holder model-fit
+  decisions before invoking passive resolvers and compilers; preserve the
+  resulting selection authority instead of hiding it in a launcher.
 - Compile an admitted obligation and mandate through the bundled passive
   compiler so exact digests, lifecycle, stop line, output identities, and the
   current-holder-authorized duty-to-fit-family relation survive downstream;

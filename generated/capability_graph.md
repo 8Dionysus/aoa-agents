@@ -2,7 +2,7 @@
 
 Derived from `capabilities/families/*.yaml`. This file is a read model, not capability authority.
 
-Source content hash: `417cb74c3a264aaf0e0998f4ffe70581aacc5d715d0ea384831c62b5cc459845`
+Source content hash: `4ccfd180de6bad8caa8865a32d81581452949304f60ea5a36b071ad445dd8a70`
 
 ## Semantic tree
 
@@ -23,6 +23,7 @@ Source content hash: `417cb74c3a264aaf0e0998f4ffe70581aacc5d715d0ea384831c62b5cc
       - `agents.lifecycle.relationship` (capability, internal, healthy)
         - `mode.agents.receive-return` (mode, internal, challenger)
         - `mode.agents.transfer-responsibility` (mode, internal, challenger)
+      - `mode.agents.role-first-entry` (mode, internal, challenger)
 
 ## Typed relations
 
@@ -42,6 +43,7 @@ Source content hash: `417cb74c3a264aaf0e0998f4ffe70581aacc5d715d0ea384831c62b5cc
 | primary-parent | `mode.agents.detect-obligation` | `agents.lifecycle.pressure` | - |
 | primary-parent | `mode.agents.form-actor` | `agents.lifecycle.pressure` | - |
 | primary-parent | `mode.agents.receive-return` | `agents.lifecycle.relationship` | - |
+| primary-parent | `mode.agents.role-first-entry` | `skill.aoa-agents-skills` | - |
 | primary-parent | `mode.agents.transfer-responsibility` | `agents.lifecycle.relationship` | - |
 | primary-parent | `mode.aoa-summon.decide` | `agents.lifecycle.execution` | - |
 | primary-parent | `mode.aoa-summon.execute` | `agents.lifecycle.execution` | - |
@@ -50,4 +52,5 @@ Source content hash: `417cb74c3a264aaf0e0998f4ffe70581aacc5d715d0ea384831c62b5cc
 | primary-parent | `skill.aoa-summon` | `agents.lifecycle.execution` | - |
 | produces | `mode.agents.detect-obligation` | `mode.agents.form-actor` | One independent obligation is admitted and actor formation is required. |
 | produces | `mode.agents.form-actor` | `mode.agents.bind-incarnation` | The stable mandate is complete and a physical realization is required. |
+| produces | `mode.agents.role-first-entry` | `mode.agents.detect-obligation` | The explicit semantic intent is normalized into goal-pressure-v1 before obligation detection. |
 | requires | `mode.agents.transfer-responsibility` | `mode.agents.bind-incarnation` | External transfer requires the exact admitted incarnation binding. |

@@ -4,7 +4,7 @@ identity:
   name: aoa-agents-skills
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
-  version: 0.3.0
+  version: 0.4.0
   lifecycle: admitted
   health: challenger
 
@@ -39,6 +39,13 @@ trigger_strengths:
     activation_authority: prior explicit role-specific authorization
 
 modes:
+  role-first-entry:
+    input_abi: role-first-intent-v1
+    input_schema: role-first-intent-v1.schema.json
+    output_abi: agent-lifecycle-result-v1
+    effects: [none, task-local-dag-branch-candidate, external-actor-runtime]
+    reference: role-first-entry.md
+    activation: Explicit current-holder semantic request with Goal, independent duty, authority, and expected result.
   detect-obligation:
     input_abi: goal-pressure-v1
     output_abi: agent-obligation-v1

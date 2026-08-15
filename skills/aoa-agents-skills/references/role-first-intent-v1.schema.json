@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/role-first-intent-v1.schema.json",
+  "title": "Role-first semantic actor intent",
+  "description": "The small semantic request from which the current holder may form and embody one independent obligation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "goal",
+    "independent_duty",
+    "authority",
+    "expected_result"
+  ],
+  "properties": {
+    "schema_version": {"const": "role-first-intent-v1"},
+    "goal": {"type": "string", "minLength": 3},
+    "independent_duty": {"type": "string", "minLength": 3},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "permissions",
+        "allowed_effects",
+        "prohibited_effects",
+        "stop_line"
+      ],
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "allowed_effects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "prohibited_effects": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "stop_line": {"type": "string", "minLength": 3}
+      }
+    },
+    "expected_result": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

@@ -97,3 +97,7 @@
 ## 2026-08-14
 
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
+
+## 2026-08-15
+
+- [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
