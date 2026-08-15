@@ -209,13 +209,16 @@ addressed by its exact derivative bytes: its embedded source digest is
 provenance, not stronger-owner authentication. Every envelope must retain a
 nonempty source schema ref, and its provenance schema version must equal the
 payload schema version or, for an intentionally schema-less payload, the
-explicit expected owner schema version. It
-does not copy their protocol fields into the owner receipt. The runtime result
-ref and reviewed A2A ref use their terminal identities and source digests; the
-usage ref is exactly `runtime-result-id#/usage_observation` with the digest of
-the runtime-owned observation-shaped JSON subtree at that pointer. An optional
-usage content ref is accepted only when it exactly asserts that canonical
-object identity and subtree digest; it cannot replace the runtime observation.
+explicit expected owner schema version. It does not copy their protocol fields
+into the owner receipt by default. The runtime result ref and reviewed A2A ref
+use their terminal identities and source digests; the usage ref is exactly
+`runtime-result-id#/usage_observation` with the digest of the runtime-owned
+observation-shaped JSON subtree at that pointer. An opt-in compiler projection
+may additionally copy a bounded, observe-only snapshot from the exact
+runtime-result-v2 bytes after checking the runtime-result, task, usage-pointer,
+and usage-subtree digests. That projection never replaces the stronger runtime
+refs, and it cannot make a model-fit, benefit, success, proof, review-approval,
+owner-acceptance, budget, or limiting claim.
 The observation passes the canonical status/gap law: `complete` means no gaps
 and `partial` means one or more canonical gaps. Returned artifacts must be
 the exact unique requested output identities; path basename inference and
@@ -268,6 +271,16 @@ The receipt projection keeps `execution.runtime_state` equal to
 `reason_codes` arrays are compacted before strict payload validation by dropping
 empty strings and later duplicates while preserving first-seen order; the
 receipt schema still rejects an uncompact direct publisher input.
+
+When a live usage report is required, the compiler accepts `--runtime-result`
+and `--expected-runtime-result-digest`. The runtime path must be a regular
+file whose bytes match the terminal `runtime_result_ref` and whose
+`/usage_observation` subtree matches the accepted `usage_observation_ref`.
+The resulting `usage_observation` payload is a bounded snapshot of model,
+reasoning, token, timing, activity, outcome, and observe-only metering fields;
+missing or non-reported values remain null or explicitly unknown. A repaired
+snapshot may use `--supersedes` to append a new event without rewriting the
+older accepted receipt.
 
 Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input
