@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9164790,
+  "allowed_tracked_bytes": 15673824,
+  "approved_by": "repository-owner",
+  "base_ref": "3bd6a0fd6f5b0cb85c0543d95c935ba958c75a9e",
+  "changed_generated_bytes": 9164790,
+  "changed_generated_files": 223,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "4e28b68e146570d33da743d10567e0c3851e32d1ccfc26eb473bc1b9301051cf",
+  "reason": "Refresh the portable aoa-agents owner family after the route-derived external session compiler fix; this receipt admits only the measured generated-index delta, preserves the standing tracked-byte cap, and grants no runtime authority.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15673824,
+  "tracked_bytes_max": 16777216
+}

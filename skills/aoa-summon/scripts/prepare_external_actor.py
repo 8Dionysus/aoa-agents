@@ -61,6 +61,14 @@ class PreparationError(ValueError):
     """One selected owner input or exact preparation relation is invalid."""
 
 
+def _actor_runtime_session_id(route_id: str) -> str:
+    """Derive one stable, collision-resistant runtime session identity."""
+
+    route_slug = route_id.replace(":", "-")
+    route_digest = hashlib.sha256(route_id.encode("utf-8")).hexdigest()
+    return f"actor-{route_slug}-{route_digest}"
+
+
 def _load(path: Path, *, label: str) -> dict[str, Any]:
     location = path.resolve()
     if path.is_symlink() or not location.is_file():
@@ -587,6 +595,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     incarnation_id = f"incarnation:{route_id}"
     continuation_id = f"continuation:{route_id}"
     correlation_id = f"actor-route:{route_id}"
+    actor_session_id = _actor_runtime_session_id(route_id)
     request = a2a.build_summon_request_payload(
         a2a.QuestPassport(
             difficulty=execution["difficulty"],
@@ -603,7 +612,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
             capability_refs=["aoa-summon:external-cli-incarnation"],
             expected_outputs=sdk_outputs,
             parent_task_id=execution["parent_task_id"],
-            session_ref=execution["session_ref"],
+            session_ref=actor_session_id,
             reviewed_artifact_path=str(reviewed_artifact_path),
             audit_refs=[str(fit_path)],
             review_required=review_required,
@@ -937,7 +946,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     _write(binding_path, binding.model_dump(mode="json"))
 
     launch_manifest = {
-        "schema_version": "abyss_stack_external_actor_launch_manifest_v1", "launch_id": f"launch:{route_id}", "session_id": route_id.replace(":", "-"),
+        "schema_version": "abyss_stack_external_actor_launch_manifest_v1", "launch_id": f"launch:{route_id}", "session_id": actor_session_id,
         "artifacts": {"plan": str(run_plan_path), "incarnation_binding": str(binding_path), "model_realization": str(realization_path), "task": str(task_path), "runtime_profile": str(runtime_descriptor_path), "role_contract": str(mandate_path), "result_schema": str(result_schema_path)},
         "owner_contract_paths": {"owner_execution_request_schema": str(release_root / "owners/aoa-agents/skills/aoa-summon/references/summon-request-v4.schema.json"), "task_local_dag_schema": str(dag_schema_path)},
         "workspace_path": str(workspace), "workspace_initial_posture": execution["workspace_initial_posture"], "workspace_manifest_input_id": execution["workspace_manifest_input_id"],
