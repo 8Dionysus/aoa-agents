@@ -97,23 +97,30 @@ def _exact_owner_relative_source(
     return path, _validate_source(root, path, kind=kind)
 
 
-def _catalog(
-    root: Path,
-    pattern: str,
-    *,
-    kind: str,
-    identity_field: str,
-) -> dict[str, tuple[Path, dict[str, Any]]]:
-    records: dict[str, tuple[Path, dict[str, Any]]] = {}
-    for path in sorted(root.glob(pattern)):
-        payload = _validate_source(root, path, kind=kind)
-        identity = payload.get(identity_field)
-        if not isinstance(identity, str) or not identity:
-            raise RoleResolutionError(f"{kind} has no stable {identity_field}: {path}")
-        if identity in records:
-            raise RoleResolutionError(f"duplicate {kind} identity: {identity}")
-        records[identity] = (path, payload)
-    return records
+def _owner_source_component(value: object, *, kind: str) -> str:
+    """Accept one selected identifier as one safe authored path component."""
+
+    if not isinstance(value, str) or not value:
+        raise RoleResolutionError(f"{kind} id must be a non-empty path component")
+    component = PurePosixPath(value)
+    if (
+        component.as_posix() != value
+        or len(component.parts) != 1
+        or component.parts[0] in {".", ".."}
+        or "\\" in value
+    ):
+        raise RoleResolutionError(f"{kind} id is not a safe owner source component: {value}")
+    return value
+
+
+def _specialization_slug(role_id: str, specialization_id: str) -> str:
+    prefix = f"{role_id}."
+    if not specialization_id.startswith(prefix):
+        raise RoleResolutionError(
+            f"specialization {specialization_id} does not belong to role {role_id}"
+        )
+    slug = specialization_id.removeprefix(prefix)
+    return _owner_source_component(slug, kind="specialization")
 
 
 def _git(root: Path, *args: str) -> str:
@@ -201,50 +208,55 @@ def resolve_role_binding(
     """Resolve caller-selected IDs without choosing or ranking them."""
 
     root = root.resolve(strict=True)
-    roles = _catalog(
+    role_id = _owner_source_component(role_id, kind="base_role")
+    role_path, role = _exact_owner_relative_source(
         root,
-        "agents/roles/*/profile.json",
         kind="base_role",
-        identity_field="name",
+        reference=f"agents/roles/{role_id}/profile.json",
     )
-    specializations = _catalog(
-        root,
-        "agents/roles/*/specializations/*/specialization.json",
-        kind="specialization",
-        identity_field="id",
-    )
-    tiers = _catalog(
-        root,
-        "agents/operating-model/tiers/*.tier.json",
-        kind="tier",
-        identity_field="id",
-    )
-    try:
-        role_path, role = roles[role_id]
-    except KeyError as exc:
-        raise RoleResolutionError(f"unknown aoa-agents base role: {role_id}") from exc
+    if role.get("name") != role_id:
+        raise RoleResolutionError(
+            f"base role source identity does not match selected role: {role_id}"
+        )
     if role.get("status") not in {"active", "experimental"}:
         raise RoleResolutionError(f"base role is not currently usable: {role_id}")
+    tier_id = _owner_source_component(tier_id, kind="tier")
     if tier_id not in role.get("preferred_tier_ids", []):
         raise RoleResolutionError(
             f"tier {tier_id} is not declared by base role {role_id}"
         )
-    try:
-        tier_path, tier = tiers[tier_id]
-    except KeyError as exc:
-        raise RoleResolutionError(f"unknown aoa-agents tier: {tier_id}") from exc
+    tier_path, tier = _exact_owner_relative_source(
+        root,
+        kind="tier",
+        reference=f"agents/operating-model/tiers/{tier_id}.tier.json",
+    )
+    if tier.get("id") != tier_id:
+        raise RoleResolutionError(
+            f"tier source identity does not match selected tier: {tier_id}"
+        )
     if tier.get("status") not in {"active", "experimental"}:
         raise RoleResolutionError(f"tier is not currently usable: {tier_id}")
 
     specialization_path: Path | None = None
     capability_path: Path | None = None
     if specialization_id is not None:
-        try:
-            specialization_path, specialization = specializations[specialization_id]
-        except KeyError as exc:
+        specialization_id = _owner_source_component(
+            specialization_id,
+            kind="specialization",
+        )
+        slug = _specialization_slug(role_id, specialization_id)
+        specialization_path, specialization = _exact_owner_relative_source(
+            root,
+            kind="specialization",
+            reference=(
+                f"agents/roles/{role_id}/specializations/{slug}/specialization.json"
+            ),
+        )
+        if specialization.get("id") != specialization_id:
             raise RoleResolutionError(
-                f"unknown aoa-agents specialization: {specialization_id}"
-            ) from exc
+                "specialization source identity does not match selected "
+                f"specialization: {specialization_id}"
+            )
         if specialization.get("status") not in {"active", "experimental"}:
             raise RoleResolutionError(
                 f"specialization is not currently usable: {specialization_id}"
