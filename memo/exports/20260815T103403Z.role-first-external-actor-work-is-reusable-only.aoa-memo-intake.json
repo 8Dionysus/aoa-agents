@@ -8,7 +8,7 @@
     "candidates/20260815T102919Z.2f2fbde0.role-first-external-actor-work-is-reusable-only.candidate.json"
   ],
   "receipt_refs": [
-    "receipts/20260815T103412Z.export-aoa-agents-20260815t103403z-role-first-ex.forwarding-receipt.json"
+    "receipts/20260815T111200Z.role-first-external-actor-claim-correction.forwarding-receipt.json"
   ],
   "source_refs": [
     "https://github.com/8Dionysus/abyss-stack/pull/379",
@@ -36,5 +36,5 @@
   ],
   "allowed_result": "reviewed_write",
   "created_at": "2026-08-15T10:34:03Z",
-  "notes": "Origin-owner reviewed under the current memory-keeper obligation against the exact landed source refs, task-local handoffs, and bounded .aoa provenance refs. Accepted for aoa-memo reviewed intake as a pattern only; transport, runtime activation, live stats admission, owner acceptance, and full parent-goal completion remain explicitly unclaimed. The forwarding receipt is a route check, not owner acceptance; aoa-memo landing remains a separate source change."
+  "notes": "Origin-owner correction after review: this pattern-shaped local candidate is explicitly authorized for aoa-memo materialization as a bounded claim, not recurring-pattern admission, because no two reviewed episode objects satisfy pattern admission yet. This is a central object-kind override, not approval of a stronger pattern. The typed responsibility contour and lifecycle-gate separation remain bounded; transport, runtime activation, live stats admission, owner acceptance, and full parent-goal completion remain explicitly unclaimed. The forwarding receipt is a route check, not owner acceptance; aoa-memo landing remains a separate source change."
 }
