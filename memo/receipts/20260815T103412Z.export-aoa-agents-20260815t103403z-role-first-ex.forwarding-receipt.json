@@ -1,0 +1,20 @@
+{
+  "schema": "aoa_local_memo_receipt_v2",
+  "id": "receipt:aoa-agents:20260815T103412Z:export-aoa-agents-20260815t103403z-role-first-ex",
+  "repo": "aoa-agents",
+  "candidate_ref": "candidates/20260815T102919Z.2f2fbde0.role-first-external-actor-work-is-reusable-only.candidate.json",
+  "export_ref": "exports/20260815T103403Z.role-first-external-actor-work-is-reusable-only.aoa-memo-intake.json",
+  "result": "forwarded",
+  "route": "reviewed_intake",
+  "checks": [
+    "schema",
+    "candidate_refs",
+    "source_refs",
+    "evidence_refs",
+    "guardrails"
+  ],
+  "errors": [],
+  "created_at": "2026-08-15T10:34:12Z",
+  "checked_by": "aoa-memo-mcp",
+  "notes": "Forwarding check receipt only. Durable landing remains an aoa-memo source patch."
+}

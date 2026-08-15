@@ -1,0 +1,40 @@
+{
+  "schema": "aoa_local_memo_export_v1",
+  "id": "export:aoa-agents:20260815T103403Z:role-first-external-actor-work-is-reusable-only",
+  "repo": "aoa-agents",
+  "target_owner": "aoa-memo",
+  "target_route": "reviewed_intake",
+  "candidate_refs": [
+    "candidates/20260815T102919Z.2f2fbde0.role-first-external-actor-work-is-reusable-only.candidate.json"
+  ],
+  "receipt_refs": [
+    "receipts/20260815T103412Z.export-aoa-agents-20260815t103403z-role-first-ex.forwarding-receipt.json"
+  ],
+  "source_refs": [
+    "https://github.com/8Dionysus/abyss-stack/pull/379",
+    "https://github.com/8Dionysus/abyss-stack/pull/386",
+    "https://github.com/8Dionysus/aoa-agents/pull/280",
+    "https://github.com/8Dionysus/aoa-agents/pull/281",
+    "repo:abyss-stack/commit/21652f9204af4db36b04604ae89fe4d97771eb41",
+    "repo:abyss-stack/commit/e61449fad7f93f2e68452709e4f100d8161db804",
+    "repo:aoa-agents/commit/871ec883e9d685b19c57c7355a1c127d90a2a198",
+    "repo:aoa-agents/docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md#L75-L102",
+    "repo:aoa-agents/skills/aoa-summon/SKILL.md#L328-L342",
+    "repo:aoa-agents/skills/aoa-summon/references/contract.yaml#L94-L112"
+  ],
+  "evidence_refs": [
+    "operator:aoa:/srv/AbyssOS/.aoa/sessions/2026-08-15__019__you-are-one-external-codex-process-carrying-a/segments/001__compaction-to-latest.md#event-000040",
+    "operator:aoa:/srv/AbyssOS/.aoa/sessions/2026-08-15__019__you-are-one-external-codex-process-carrying-a/session.manifest.json#review_status",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/actor-receipt-landing-repair-luna-handoff.json#/final_owner_source",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/clock-agent-003-handoff.json#/return_filter",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/pr379-luna-direct-handoff.json#/summary",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/external_actor_proof",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/master_wake_state_separation",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/parent_pause_resume",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/runtime-update-luna-handoff.json#/responsibility_return",
+    "operator:evidence:/srv/abyss-machine/tmp/ai/aoa-external-actors-goal-20260808/live-proof-20260814/wake-steward-luna-handoff.json#/wake_proof"
+  ],
+  "allowed_result": "reviewed_write",
+  "created_at": "2026-08-15T10:34:03Z",
+  "notes": "Origin-owner reviewed under the current memory-keeper obligation against the exact landed source refs, task-local handoffs, and bounded .aoa provenance refs. Accepted for aoa-memo reviewed intake as a pattern only; transport, runtime activation, live stats admission, owner acceptance, and full parent-goal completion remain explicitly unclaimed. The forwarding receipt is a route check, not owner acceptance; aoa-memo landing remains a separate source change."
+}
