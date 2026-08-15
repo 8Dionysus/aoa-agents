@@ -35,7 +35,7 @@ nodes:
 
   - id: skill.aoa-agents-skills
     title: aoa-agents-skills organ router
-    description: Detect when a goal creates or predicts an independently owned obligation, form a bounded role mandate for it, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
+    description: Detect when a goal creates or predicts an independently owned obligation, or when an explicit role-first request asks to form and embody an appropriate actor; form a bounded role mandate, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
     purpose: Route the smallest owner-local actor lifecycle node or task-local DAG without creating an actor from available compute.
     kind: skill
     contract_level: executable
@@ -46,7 +46,7 @@ nodes:
       authority: authored
     lifecycle: &root_candidate_lifecycle
       state: active
-      version: 0.3.0
+      version: 0.4.0
       visibility: advertised
       evidence_state: evaluated
       health: challenger
@@ -78,7 +78,7 @@ nodes:
       posture: authored-procedure
     provenance:
       source_refs:
-        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.3.0, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.4.0, role: owner-skill-procedure, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
         - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json, ref: agent-incarnation-binding-v2, role: runtime-planning-owner-contract, authority: external-authority}
@@ -99,6 +99,61 @@ nodes:
       external_dependencies: [aoa-models, aoa-sdk, abyss-stack]
       untrusted_input: treat-as-data
     keywords: [obligation, actor, role, incarnation, external-cli, responsibility, a2a, return, wake, обязанность, актор, воплощение, ответственность]
+
+  - id: mode.agents.role-first-entry
+    title: Role-first actor entry
+    description: Accept one explicit semantic Goal request and compose the existing obligation, role, fit, incarnation, transfer, external execution, and return owners without exposing their low-level packets to the caller.
+    purpose: Turn a Goal, independent duty, authority envelope, and expected result into the smallest valid role-bearing external actor route.
+    kind: mode
+    contract_level: executable
+    primary_parent: skill.aoa-agents-skills
+    owner: *family_owner
+    lifecycle:
+      state: candidate
+      version: 0.1.0
+      visibility: internal
+      evidence_state: manual-baseline
+      health: challenger
+    applicability:
+      use_when:
+        - The current holder explicitly requests that an independent Goal duty be formed and embodied as an actor.
+      do_not_use_when:
+        - The pressure is an ordinary step, convenience split, available-compute opportunity, or model-launch request.
+      ambiguous_when:
+        - Goal, duty, authority, expected result, current holder, or return owner is incomplete or contradictory.
+    abi:
+      inputs:
+        - {name: intent, type: role-first-intent-v1, required: true, description: "Goal, independent duty, authority envelope, and named expected results."}
+      outputs:
+        - {name: normalized-pressure, type: goal-pressure-v1, required: false, description: Internal pressure context passed to obligation detection.}
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "Typed lifecycle result with responsibility movement, external handles, filtered return, or exact stop route."}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/role-first-entry.md, operation: role-first-entry, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [active Goal/session context, owner source gate, aoa-models fit query, aoa-sdk RunPlan compiler, abyss-stack external runtime, aoa-summon passive preparer]
+      verification: [The caller supplied only semantic fields., "The obligation, role, model-fit, SDK, runtime, transfer, summon, and return refs remain owner-qualified.", "External execution uses a separate process and session without built-in Codex child agents.", Responsibility and filtered return identify the next holder.]
+      termination: [Stop at the first missing or contradictory semantic or stronger-owner input., "Stop after one bounded lifecycle route and named return or unresolved next owner."]
+      effects: [none, runtime-mutation]
+      reversibility: conditionally-reversible
+      failure_modes: [Autospawning from a keyword without explicit semantic delegation., Asking the caller to hand-build low-level packets., Selecting a role by model brand., Selecting a model without current fit evidence., Treating configured runtime state as a launched actor., Treating transport as responsibility., Accepting an unfiltered return.]
+    trust: {public_safe: true, requires_human_approval: true, posture: human-authorized}
+    provenance:
+      source_refs:
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-entry.md, ref: capability-home-v0.4.0, role: semantic-entry-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-intent-v1.schema.json, ref: role-first-intent-v1, role: semantic-entry-schema, authority: authored}
+      optional_refs:
+        - {repo: aoa-models, path: scripts/query_model_fit.py, ref: model-fit-query-owner, role: model-fit-owner-contract, authority: external-authority}
+        - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json, ref: agent-incarnation-binding-v2, role: runtime-planning-owner-contract, authority: external-authority}
+        - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/runtime-profile.v1.json, ref: external-codex-runtime-v1, role: external-runtime-owner-contract, authority: external-authority}
+    classification: {category: local-mode, disposition: retain, rationale: "One semantic front door is useful inside the existing advertised organ router; its owner modes and external leaf remain separately addressable and its trigger is explicit."}
+    procedure: {ref: skills/aoa-agents-skills/references/role-first-entry.md, required_sections: [Applicability, Input, Procedure, Owner handoffs, Output, Verification and stop], runtime_adaptation: "Resolve active session context and stronger owners independently; do not expose or persist low-level packet assembly as caller procedure."}
+    mutation:
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Pause or terminate only the exact runtime-owned external process., Return unresolved responsibility to the current holder and preserve the task-local obligation., Rebind a replaceable model incarnation without mutating stable role meaning.]
+      postconditions: [The route is content-addressed by owner compilers., "A launched actor has separate process, session, state, and continuation evidence.", "The parent holder and next return holder are explicit.", Usage is observed without a budget gate.]
+    security: {permissions: [read-owner-source, form-task-local-mandate, invoke-admitted-external-runtime], network: optional-explicit, external_dependencies: [aoa-models, aoa-sdk, abyss-stack, named-domain-owner, aoa-skills], untrusted_input: treat-as-data}
+    keywords: [role-first, semantic-entry, independent-duty, form-actor, embody-actor, external-actor, responsibility, роль, обязанность, воплотить]
 
   - id: agents.lifecycle.pressure
     title: Obligation pressure
@@ -511,6 +566,7 @@ nodes:
     keywords: [progression-lift, mastery, baseline, attribution, owner-review, рост, мастерство, прогресс]
 
 relations:
+  - {kind: produces, source: mode.agents.role-first-entry, target: mode.agents.detect-obligation, condition: The explicit semantic intent is normalized into goal-pressure-v1 before obligation detection.}
   - {kind: produces, source: mode.agents.detect-obligation, target: mode.agents.form-actor, condition: One independent obligation is admitted and actor formation is required.}
   - {kind: produces, source: mode.agents.form-actor, target: mode.agents.bind-incarnation, condition: The stable mandate is complete and a physical realization is required.}
   - {kind: requires, source: mode.agents.transfer-responsibility, target: mode.agents.bind-incarnation, condition: External transfer requires the exact admitted incarnation binding.}

@@ -1,8 +1,7 @@
 interface:
   display_name: "AoA Agents"
   short_description: "Grow independent responsibility-bearing actors"
-  default_prompt: "Use $aoa-agents-skills to detect an independent obligation and route only the actor-lifecycle stages it genuinely requires."
+  default_prompt: "Use $aoa-agents-skills only after the current holder explicitly names an independent duty, authority, and expected result; present the compiled role-first preview and wait for a separate apply confirmation before any external runtime mutation."
 
 policy:
   allow_implicit_invocation: true
-

@@ -590,3 +590,56 @@ class TestAoAAgentsSkillTreeContracts:
             "exact aoa-agents aoa-role-resolution-v1 artifact selected by both "
             "the mandate and request"
         ) in input_chain
+
+    def test_role_first_entry_exposes_only_semantic_caller_fields(self) -> None:
+        intent_schema = json.loads(
+            (
+                REPO_ROOT
+                / "skills/aoa-agents-skills/references/role-first-intent-v1.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        valid = {
+            "schema_version": "role-first-intent-v1",
+            "goal": "Land the owner-valid role-first entry surface",
+            "independent_duty": "Form and run one external implementation actor",
+            "authority": {
+                "permissions": ["workspace-write"],
+                "allowed_effects": ["repo-write"],
+                "prohibited_effects": ["unrelated-repositories"],
+                "stop_line": "Stop at owner ambiguity or outside-scope effects",
+            },
+            "expected_result": ["validated external return"],
+        }
+        assert list(Draft202012Validator(intent_schema).iter_errors(valid)) == []
+
+        low_level = copy.deepcopy(valid)
+        low_level["owner_roots"] = {"aoa_agents": "/not-caller-facing"}
+        assert list(Draft202012Validator(intent_schema).iter_errors(low_level))
+
+        procedure = (
+            REPO_ROOT / "skills/aoa-agents-skills/references/role-first-entry.md"
+        ).read_text(encoding="utf-8")
+        assert "role-first-intent-v1" in procedure
+        assert "summon-request-v4" in procedure
+        assert "built-in Codex child agents" in procedure
+        assert "model-specific command" in procedure
+        assert "explicit apply" in procedure
+        assert "awaiting_apply" in procedure
+        assert "role-first-entry" in (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/source-return.md"
+        ).read_text(encoding="utf-8")
+        source_return = (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/source-return.md"
+        ).read_text(encoding="utf-8")
+        assert "agents/roles/*/profile.json" in source_return
+        assert "specializations/*/specialization.json" in source_return
+        assert "generated reader as role authority" in procedure
+
+        prompt_surface = yaml.safe_load(
+            (
+                REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        assert "separate apply confirmation" in prompt_surface["interface"]["default_prompt"]
