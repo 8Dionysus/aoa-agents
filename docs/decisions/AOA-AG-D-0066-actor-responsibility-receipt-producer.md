@@ -37,15 +37,19 @@ acceptance decisions.
 Add `actor-responsibility-execution-receipt.schema.json` and
 `compile_actor_responsibility_receipt.py` under `skills/aoa-summon`. The
 compiler accepts only a schema-valid external-lane `summon-result-v4`, keeps
-the exact result-byte digest and stronger-owner references, requires explicit
-observation coordinates, and derives a stable event ID from those exact
-inputs. Digest and event-ID assertions fail closed.
+the exact result-byte digest and stronger-owner references, requires an
+explicit canonical ref for the exact result artifact plus observation
+coordinates, and derives a stable event ID from those exact inputs. The
+request ref remains a separate field. Digest and event-ID assertions fail
+closed.
 
 Add `publish_actor_responsibility_receipts.py` as an explicit second action.
 It validates inputs and all existing log lines before append, skips duplicate
 event IDs, supports a test-local path, and defaults to the owner-local
-`.aoa/live_receipts/actor-responsibility-executions.jsonl` path. Compilation
-does not publish. It acquires a POSIX advisory exclusive lock at
+`.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl` path. The
+default owner root resolves through the same-bundle source handle or an
+explicit `--owner-root`; compilation does not publish. It acquires a POSIX
+advisory exclusive lock at
 `<log-path>.lock` before reading existing IDs and holds that lock through the
 append, making the read/deduplicate/append sequence safe for independent
 publisher processes that share the same path. A host without advisory-lock

@@ -247,6 +247,9 @@ The owner-local observation route is separate from external execution
 closeout. `scripts/compile_actor_responsibility_receipt.py` validates one
 exact external-lane `summon-result-v4` and explicit observation coordinates,
 then emits the admitted `actor_responsibility_execution_receipt` envelope.
+The caller must also provide the canonical artifact ref for those exact input
+bytes; the request ref is retained separately and is never reused as the
+source-result ref.
 The payload schema is owned by `aoa-agents`; it retains exact stronger-owner
 references and the result-byte digest without copying SDK, runtime, A2A, or
 stats authority into a competing protocol. Runtime refs follow the source
@@ -263,8 +266,10 @@ Publication is an explicit second action through
 `scripts/publish_actor_responsibility_receipts.py`. It validates every input
 and every existing JSONL line, skips already-seen event IDs, and refuses to
 append when the existing log is malformed. Its default path is
-`.aoa/live_receipts/actor-responsibility-executions.jsonl`; a test-local path
-must be supplied for tests. Nothing in summon execution or compilation
+`.aoa/live_receipts/actor-responsibility-execution-receipts.jsonl`; the owner
+root resolves through the same-bundle source handle or an explicit
+`--owner-root`, and a test-local path must be supplied for tests. Nothing in
+summon execution or compilation
 automatically appends to a live feed. The publisher takes a POSIX advisory
 exclusive lock at `<log-path>.lock` before reading existing IDs and holds it
 through the append, so independent sessions sharing one path cannot race the

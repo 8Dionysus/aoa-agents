@@ -39,6 +39,7 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
         write_result(result_path, summon_result())
         return COMPILER.compile_actor_responsibility_receipt(
             summon_result_path=result_path,
+            result_artifact_ref="summon-result:actor",
             observed_at="2026-08-14T12:00:00Z",
             run_ref="run:actor-receipt-test",
             session_ref="session:actor-receipt-test",
@@ -104,6 +105,7 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             result_path = root / "summon-result.json"
             appended_receipt = COMPILER.compile_actor_responsibility_receipt(
                 summon_result_path=result_path,
+                result_artifact_ref="summon-result:actor-2",
                 observed_at="2026-08-14T12:00:01Z",
                 run_ref="run:actor-receipt-test-2",
                 session_ref="session:actor-receipt-test-2",
@@ -174,6 +176,31 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             self.assertCountEqual(results, [(1, 0), (0, 1)])
             self.assertEqual(len(log_path.read_text(encoding="utf-8").splitlines()), 1)
             self.assertTrue(PUBLISHER.lock_path_for(log_path).is_file())
+
+    def test_default_owner_root_uses_source_tree_contract(self) -> None:
+        self.assertEqual(PUBLISHER._resolve_owner_root(), ROOT.resolve())
+
+    def test_installed_catalog_requires_source_handle_or_explicit_owner_root(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            bundle_dir = Path(directory) / "catalog" / "skills" / "aoa-summon"
+            script_path = bundle_dir / "scripts" / "publish_actor_responsibility_receipts.py"
+            with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "canonical owner root"):
+                PUBLISHER._resolve_owner_root(script_path=script_path)
+
+            bundle_dir.mkdir(parents=True)
+            (bundle_dir / ".aoa-skill-source.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": "aoa_skill_source_receipt_v2",
+                        "name": "aoa-summon",
+                        "owner_repo": "aoa-agents",
+                        "owner_root": str(ROOT.resolve()),
+                        "source_path": "skills/aoa-summon",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            self.assertEqual(PUBLISHER._resolve_owner_root(script_path=script_path), ROOT.resolve())
 
 
 if __name__ == "__main__":

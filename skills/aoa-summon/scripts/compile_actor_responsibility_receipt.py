@@ -354,6 +354,7 @@ def _evidence_refs(payload: Mapping[str, Any]) -> list[dict[str, str]]:
 def compile_actor_responsibility_receipt(
     *,
     summon_result_path: Path,
+    result_artifact_ref: str,
     observed_at: str,
     run_ref: str,
     session_ref: str,
@@ -366,6 +367,8 @@ def compile_actor_responsibility_receipt(
 
     _raw, result, result_digest = _load_result(summon_result_path)
     _validate_result(result)
+    result_artifact_ref = _require_string(result_artifact_ref, "result_artifact_ref")
+    _require(result_artifact_ref != result["request_ref"], "result_artifact_ref must not reuse request_ref")
     observed_at = _validate_observed_at(observed_at)
     run_ref = _require_string(run_ref, "run_ref")
     session_ref = _require_string(session_ref, "session_ref")
@@ -397,13 +400,17 @@ def compile_actor_responsibility_receipt(
             "decision_state",
             "request_intent",
             "closeout_required",
-            "checkpoint_required",
-            "progression_required",
-            "requested_posture",
-            "owner_publication_plan",
             "stop_line",
         )
     }
+    execution.update(
+        {
+            "checkpoint_required": result.get("checkpoint_required", False),
+            "progression_required": result.get("progression_required", False),
+            "requested_posture": result.get("requested_posture"),
+            "owner_publication_plan": result.get("owner_publication_plan", []),
+        }
+    )
     execution.update(
         {
             "runtime_state": result["runtime_state"]["state"],
@@ -416,7 +423,7 @@ def compile_actor_responsibility_receipt(
         "schema_version": PAYLOAD_SCHEMA_VERSION,
         "source_result": {
             "owner_repo": "aoa-agents",
-            "artifact_ref": result["request_ref"],
+            "artifact_ref": result_artifact_ref,
             "artifact_digest": result_digest,
             "schema_version": RESULT_SCHEMA_VERSION,
             "request_ref": result["request_ref"],
@@ -494,6 +501,10 @@ def validate_receipt(envelope: Mapping[str, Any]) -> None:
         "evidence_refs do not match the owner evidence carried by the payload",
     )
     source_result = envelope["payload"]["source_result"]
+    _require(
+        source_result["artifact_ref"] != source_result["request_ref"],
+        "source_result.artifact_ref must not reuse request_ref",
+    )
     expected_event_id = EVENT_ID_PREFIX + _identity_digest(
         result_digest=source_result["artifact_digest"],
         observed_at=envelope["observed_at"],
@@ -533,6 +544,7 @@ def _write_new(path: Path, payload: Mapping[str, Any]) -> None:
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--summon-result", "--result", "--input", dest="summon_result_path", type=Path, required=True)
+    result.add_argument("--result-artifact-ref", required=True, help="Canonical ref for the exact summon-result-v4 input artifact")
     result.add_argument("--observed-at", required=True)
     result.add_argument("--run-ref", required=True)
     result.add_argument("--session-ref", required=True)
@@ -549,6 +561,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         receipt = compile_actor_responsibility_receipt(
             summon_result_path=args.summon_result_path,
+            result_artifact_ref=args.result_artifact_ref,
             observed_at=args.observed_at,
             run_ref=args.run_ref,
             session_ref=args.session_ref,

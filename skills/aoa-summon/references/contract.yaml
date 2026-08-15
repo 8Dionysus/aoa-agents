@@ -96,6 +96,7 @@ observation_receipt:
   schema: actor-responsibility-execution-receipt.schema.json
   input_chain:
     - exact owner-valid summon-result-v4 bytes or actor-safe derivative envelope
+    - explicit canonical result_artifact_ref for those exact input bytes
     - explicit observed_at with a UTC offset
     - explicit run_ref, session_ref, actor_ref, and object_ref
   output_posture: aoa-agents-owned actor_responsibility_execution_receipt stats envelope
@@ -107,7 +108,7 @@ observation_receipt:
     - benefit, model-fit, task-success, proof, review-approval, or owner-acceptance inference
 publication:
   script: scripts/publish_actor_responsibility_receipts.py
-  default_path: .aoa/live_receipts/actor-responsibility-executions.jsonl
+  default_path: .aoa/live_receipts/actor-responsibility-execution-receipts.jsonl
   posture: explicit validated idempotent append only
   lock_path: <log-path>.lock
   concurrency: POSIX advisory exclusive lock acquired before existing-log read and held through append

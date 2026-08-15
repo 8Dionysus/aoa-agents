@@ -4,6 +4,8 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -106,6 +108,7 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
     def compile(self, result_path: Path, **overrides: object) -> dict[str, object]:
         values: dict[str, object] = {
             "summon_result_path": result_path,
+            "result_artifact_ref": "summon-result:actor",
             "observed_at": "2026-08-14T12:00:00Z",
             "run_ref": "run:actor-receipt-test",
             "session_ref": "session:actor-receipt-test",
@@ -130,6 +133,7 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             self.assertEqual(receipt["event_kind"], "actor_responsibility_execution_receipt")
             self.assertTrue(receipt["event_id"].startswith("actor-responsibility-execution:"))
             payload = receipt["payload"]
+            self.assertEqual(payload["source_result"]["artifact_ref"], "summon-result:actor")
             self.assertEqual(payload["source_result"]["artifact_digest"], digest)
             self.assertEqual(
                 payload["owner_evidence"]["binding"]["role_resolution_ref"],
@@ -182,6 +186,17 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             receipt = self.compile(result_path)
             receipt["evidence_refs"][0]["ref"] = "forged-ref"
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "evidence_refs"):
+                COMPILER.validate_receipt(receipt)
+
+    def test_request_ref_cannot_be_reused_as_source_result_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            write_result(result_path, summon_result())
+            receipt = self.compile(result_path)
+            source_result = receipt["payload"]["source_result"]
+            source_result["artifact_ref"] = source_result["request_ref"]
+            receipt["evidence_refs"][0]["ref"] = source_result["request_ref"]
+            with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "source_result.artifact_ref"):
                 COMPILER.validate_receipt(receipt)
 
     def test_runtime_state_controls_preserved_runtime_refs(self) -> None:
@@ -250,6 +265,67 @@ class ActorResponsibilityReceiptCompilerTests(unittest.TestCase):
             write_result(result_path, failed)
             with self.assertRaisesRegex(COMPILER.ActorResponsibilityReceiptError, "runtime_result_ref"):
                 self.compile(result_path)
+
+    def test_optional_result_fields_use_narrow_observation_defaults(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "summon-result.json"
+            result = summon_result()
+            for field in (
+                "checkpoint_required",
+                "progression_required",
+                "requested_posture",
+                "owner_publication_plan",
+            ):
+                result.pop(field)
+            write_result(result_path, result)
+            execution = self.compile(result_path)["payload"]["execution"]
+            self.assertFalse(execution["checkpoint_required"])
+            self.assertFalse(execution["progression_required"])
+            self.assertIsNone(execution["requested_posture"])
+            self.assertEqual(execution["owner_publication_plan"], [])
+
+    def test_cli_requires_and_preserves_explicit_result_artifact_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result_path = root / "summon-result.json"
+            output_path = root / "receipt.json"
+            write_result(result_path, summon_result())
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPT),
+                    "--summon-result",
+                    str(result_path),
+                    "--result-artifact-ref",
+                    "summon-result:cli",
+                    "--observed-at",
+                    "2026-08-14T12:00:00Z",
+                    "--run-ref",
+                    "run:actor-receipt-cli",
+                    "--session-ref",
+                    "session:actor-receipt-cli",
+                    "--actor-ref",
+                    "incarnation:actor-cli",
+                    "--object-ref",
+                    json.dumps(
+                        {
+                            "repo": "aoa-agents",
+                            "kind": "actor-responsibility-execution",
+                            "id": "summon-request:actor-cli",
+                        }
+                    ),
+                    "--output",
+                    str(output_path),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stdout)
+            self.assertEqual(
+                json.loads(output_path.read_text(encoding="utf-8"))["payload"]["source_result"]["artifact_ref"],
+                "summon-result:cli",
+            )
 
     def test_actor_safe_envelope_is_addressed_by_its_exact_envelope_bytes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

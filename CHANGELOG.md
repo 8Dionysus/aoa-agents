@@ -15,6 +15,12 @@ Tracking starts with the community-docs baseline for this repository.
   benefit, success, proof, review approval, or owner acceptance.
 - Protect the publisher's read/deduplicate/append sequence with an owner-local
   POSIX advisory lock and fail closed on hosts without lock support.
+- Bind each receipt's source-result evidence to an explicit result artifact ref,
+  preserve runtime refs according to launched/running/failed/returned/accepted
+  state, and default publication to the canonical live watcher path.
+- Resolve the publisher's default owner root through the installed skill's
+  source handle or an explicit owner-root argument; never infer it from the
+  managed skill catalog directory.
 - Compact the progression and summon descriptions while retaining reviewed
   evidence, explicit delegation, parent-anchor, and authority boundaries.
 - Make `aoa-summon` return `blocked_missing_request_input` when a

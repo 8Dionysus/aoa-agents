@@ -34,12 +34,98 @@ except ModuleNotFoundError:  # pragma: no cover - supports direct module loading
     )
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_LOG_PATH = REPO_ROOT / ".aoa" / "live_receipts" / "actor-responsibility-executions.jsonl"
+DEFAULT_LOG_RELATIVE_PATH = Path(
+    ".aoa/live_receipts/actor-responsibility-execution-receipts.jsonl"
+)
 
 
 class ActorResponsibilityReceiptPublishError(ValueError):
     """A receipt or existing log line is not safe to publish."""
+
+
+def _validated_owner_root(root: Path, *, label: str) -> Path:
+    candidate = root.expanduser()
+    if not candidate.is_absolute():
+        raise ActorResponsibilityReceiptPublishError(f"{label} must be an absolute path")
+    candidate = candidate.resolve()
+    if not candidate.is_dir():
+        raise ActorResponsibilityReceiptPublishError(f"{label} is not a directory: {candidate}")
+    manifest_path = candidate / "skills" / "port.manifest.json"
+    skill_path = candidate / "skills" / "aoa-summon" / "SKILL.md"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ActorResponsibilityReceiptPublishError(
+            f"{label} does not expose a valid aoa-agents skill-home manifest"
+        ) from exc
+    bundles = manifest.get("bundles") if isinstance(manifest, dict) else None
+    if not (
+        isinstance(manifest, dict)
+        and manifest.get("owner_repo") == "aoa-agents"
+        and isinstance(bundles, list)
+        and any(
+            isinstance(bundle, dict)
+            and bundle.get("name") == "aoa-summon"
+            and bundle.get("path") == "skills/aoa-summon"
+            for bundle in bundles
+        )
+        and skill_path.is_file()
+    ):
+        raise ActorResponsibilityReceiptPublishError(
+            f"{label} is not the canonical aoa-agents owner root: {candidate}"
+        )
+    return candidate
+
+
+def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
+    handle_path = bundle_dir / ".aoa-skill-source.json"
+    if not handle_path.exists():
+        return None
+    if handle_path.is_symlink() or not handle_path.is_file():
+        raise ActorResponsibilityReceiptPublishError("same-bundle source handle is not a regular file")
+    try:
+        handle = json.loads(handle_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ActorResponsibilityReceiptPublishError("same-bundle source handle is not valid JSON") from exc
+    if not isinstance(handle, dict):
+        raise ActorResponsibilityReceiptPublishError("same-bundle source handle must be an object")
+    source_path = handle.get("source_path")
+    if (
+        handle.get("schema_version") not in {"aoa_skill_source_receipt_v1", "aoa_skill_source_receipt_v2"}
+        or handle.get("name") != "aoa-summon"
+        or handle.get("owner_repo") != "aoa-agents"
+        or not isinstance(handle.get("owner_root"), str)
+        or not isinstance(source_path, str)
+        or not source_path
+        or Path(source_path).is_absolute()
+        or ".." in Path(source_path).parts
+        or source_path != "skills/aoa-summon"
+    ):
+        raise ActorResponsibilityReceiptPublishError("same-bundle source handle is not an aoa-summon owner handle")
+    return _validated_owner_root(Path(handle["owner_root"]), label="source-handle owner_root")
+
+
+def _resolve_owner_root(
+    explicit_root: str | Path | None = None,
+    *,
+    script_path: str | Path | None = None,
+) -> Path:
+    """Resolve the canonical owner root without trusting the install catalog path."""
+
+    if explicit_root is not None:
+        return _validated_owner_root(Path(explicit_root), label="--owner-root")
+    script = Path(script_path or __file__).resolve()
+    bundle_dir = script.parent.parent
+    handle_root = _owner_root_from_source_handle(bundle_dir)
+    if handle_root is not None:
+        return handle_root
+    source_root = bundle_dir.parent.parent
+    try:
+        return _validated_owner_root(source_root, label="source-tree owner root")
+    except ActorResponsibilityReceiptPublishError as exc:
+        raise ActorResponsibilityReceiptPublishError(
+            "canonical owner root is unavailable; use --owner-root or a valid same-bundle source handle"
+        ) from exc
 
 
 def _load_json(path: Path, *, label: str) -> Any:
@@ -204,16 +290,22 @@ def append_new_receipts(*, log_path: Path, receipts: list[dict[str, Any]]) -> tu
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--input", action="append", default=[], help="JSON or JSONL receipt input; may be repeated")
-    result.add_argument("--log-path", default=str(DEFAULT_LOG_PATH), help="Owner-local JSONL feed path")
+    result.add_argument("--owner-root", help="Explicit canonical aoa-agents owner root when no source handle is available")
+    result.add_argument("--log-path", help="Owner-local JSONL feed path")
     return result
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
+        owner_root = _resolve_owner_root(args.owner_root)
         receipts = load_receipts([Path(path).expanduser() for path in args.input])
         appended, skipped = append_new_receipts(
-            log_path=Path(args.log_path).expanduser(),
+            log_path=(
+                Path(args.log_path).expanduser()
+                if args.log_path
+                else owner_root / DEFAULT_LOG_RELATIVE_PATH
+            ),
             receipts=receipts,
         )
     except (ActorResponsibilityReceiptPublishError, OSError, ValueError) as exc:
