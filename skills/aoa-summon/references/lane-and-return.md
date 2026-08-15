@@ -240,3 +240,34 @@ selected role, and ordered domain-procedure set. The CLI may load an exact asser
 through `--usage-observation-ref` and refuses to replace an existing output.
 The emitted receipt is a summon responsibility-closeout record, not
 stats admission, runtime success proof, model-fit proof, or owner acceptance.
+
+## Actor responsibility observation and publication
+
+The owner-local observation route is separate from external execution
+closeout. `scripts/compile_actor_responsibility_receipt.py` validates one
+exact external-lane `summon-result-v4` and explicit observation coordinates,
+then emits the admitted `actor_responsibility_execution_receipt` envelope.
+The payload schema is owned by `aoa-agents`; it retains exact stronger-owner
+references and the result-byte digest without copying SDK, runtime, A2A, or
+stats authority into a competing protocol.
+
+The event identity is deterministic over the exact result digest and explicit
+observation inputs (`observed_at`, `run_ref`, `session_ref`, `actor_ref`, and
+`object_ref`). A caller-supplied digest or event ID is an assertion, not an
+override, and mismatches fail closed.
+
+Publication is an explicit second action through
+`scripts/publish_actor_responsibility_receipts.py`. It validates every input
+and every existing JSONL line, skips already-seen event IDs, and refuses to
+append when the existing log is malformed. Its default path is
+`.aoa/live_receipts/actor-responsibility-executions.jsonl`; a test-local path
+must be supplied for tests. Nothing in summon execution or compilation
+automatically appends to a live feed. The publisher takes a POSIX advisory
+exclusive lock at `<log-path>.lock` before reading existing IDs and holds it
+through the append, so independent sessions sharing one path cannot race the
+event-ID deduplication. The lock file is owner-local coordination rather than
+receipt source data; unsupported lock hosts fail closed.
+
+The receipt records observation posture only. It must not be read as a claim
+of benefit, model fit, task success, proof, reviewer approval, or owner
+acceptance; those remain separate owner decisions and evidence.

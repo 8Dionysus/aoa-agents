@@ -9,6 +9,12 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Add an owner-local actor responsibility receipt payload/compiler and a
+  separate idempotent publisher for the already admitted stats event kind;
+  publication remains explicit and receipt presence does not infer fit,
+  benefit, success, proof, review approval, or owner acceptance.
+- Protect the publisher's read/deduplicate/append sequence with an owner-local
+  POSIX advisory lock and fail closed on hosts without lock support.
 - Compact the progression and summon descriptions while retaining reviewed
   evidence, explicit delegation, parent-anchor, and authority boundaries.
 - Make `aoa-summon` return `blocked_missing_request_input` when a
