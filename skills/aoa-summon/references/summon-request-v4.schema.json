@@ -434,7 +434,10 @@
           "summon_request": {
             "properties": {
               "transport_preference": {
-                "const": "codex_local"
+                "enum": [
+                  "codex_local",
+                  "either"
+                ]
               }
             },
             "required": [

@@ -412,6 +412,13 @@ class TestAoAAgentsSkillTreeContracts:
         )
         assert list(self.request_v4_validator.iter_errors(wrong_ref))
 
+        either_request = base_request("either")
+        assert list(self.request_v4_validator.iter_errors(either_request))
+        either_request["responsibility_classification"] = copy.deepcopy(
+            request["responsibility_classification"]
+        )
+        assert list(self.request_v4_validator.iter_errors(either_request)) == []
+
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
         import importlib.util
 

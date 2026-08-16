@@ -62,7 +62,9 @@ def build_request_v4() -> dict[str, Any]:
                 "properties": {
                     "summon_request": {
                         "properties": {
-                            "transport_preference": {"const": "codex_local"}
+                            "transport_preference": {
+                                "enum": ["codex_local", "either"]
+                            }
                         },
                         "required": ["transport_preference"],
                     }
