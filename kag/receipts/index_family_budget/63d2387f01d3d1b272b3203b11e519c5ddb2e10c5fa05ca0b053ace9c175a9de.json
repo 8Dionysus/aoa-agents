@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 8879715,
+  "allowed_tracked_bytes": 15840845,
+  "approved_by": "repository-owner",
+  "base_ref": "07431ea60d8552c01ed01ee7e4c107b232d8b4a8",
+  "changed_generated_bytes": 8879715,
+  "changed_generated_files": 218,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "63d2387f01d3d1b272b3203b11e519c5ddb2e10c5fa05ca0b053ace9c175a9de",
+  "reason": "Bind local classifications to a fresh execution epoch and require an anchored local route passport.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15840845,
+  "tracked_bytes_max": 16777216
+}

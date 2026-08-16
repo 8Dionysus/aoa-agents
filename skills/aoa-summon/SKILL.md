@@ -125,13 +125,18 @@ leaf is not permission to infer any missing field.
    `responsibility_classification.disposition: not_independent`, its
    owner-qualified `result_ref` to `responsibility-classification-v1`, the
    exact `artifact_path`, the copied Goal/current-holder refs, and the
-   classification's `child_scope_digest` bound to this request's desired role,
-   intent, expected outputs, child scope, stop line, and child inputs. Run
+   classification's `execution_epoch` bound to `quest_passport.execution_epoch`
+   and `quest_passport.route_anchor` bound to the classification Goal, together
+   with its `child_scope_digest` bound to this request's desired role, intent,
+   expected outputs, child scope, stop line, and child inputs. Run
    `scripts/validate_summon_request.py` to resolve the artifact, validate its
    owner schema and semantic digest, and bind its Goal to `parent_task_id`,
    child duty to this request, and holder to `return_owner`; do not reconstruct
    the classification from prompt
-   history, compaction context, or a prose mention. A
+   history, compaction context, or a prose mention. Supply the owner-supplied current
+   execution epoch from the routing/runtime owner to the validator; a copied
+   epoch inside the request is only a packet binding, not one-time-consumption
+   proof. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and

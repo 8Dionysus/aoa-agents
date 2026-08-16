@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 8398907,
+  "allowed_tracked_bytes": 15835218,
+  "approved_by": "repository-owner",
+  "base_ref": "07431ea60d8552c01ed01ee7e4c107b232d8b4a8",
+  "changed_generated_bytes": 8398907,
+  "changed_generated_files": 202,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "7e791854d52a1d1af88f0dfb2de97f377d21c4ef86fa9d83f273f862b2049859",
+  "reason": "Close the aoa-agents classification execution contract ambiguity while preserving the typed codex_local compatibility route.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15835218,
+  "tracked_bytes_max": 16777216
+}

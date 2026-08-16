@@ -448,16 +448,36 @@
       },
       "then": {
         "properties": {
+          "quest_passport": {
+            "properties": {
+              "execution_epoch": {
+                "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$",
+                "type": "string"
+              },
+              "route_anchor": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "execution_epoch",
+              "route_anchor"
+            ]
+          },
           "responsibility_classification": {
             "properties": {
               "disposition": {
                 "const": "not_independent"
               }
-            }
+            },
+            "required": [
+              "execution_epoch"
+            ]
           }
         },
         "required": [
-          "responsibility_classification"
+          "responsibility_classification",
+          "quest_passport"
         ]
       }
     },
@@ -774,6 +794,10 @@
           "const": "not_independent",
           "type": "string"
         },
+        "execution_epoch": {
+          "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$",
+          "type": "string"
+        },
         "goal_ref": {
           "$ref": "#/$defs/contentRef"
         },
@@ -787,6 +811,7 @@
         "artifact_path",
         "goal_ref",
         "current_holder_ref",
+        "execution_epoch",
         "child_scope_digest"
       ],
       "type": "object"

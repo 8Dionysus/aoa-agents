@@ -118,7 +118,10 @@ def _classification_path(request_path: Path, value: str) -> Path:
 
 
 def _validate_local_classification(
-    request_path: Path, request: Mapping[str, Any]
+    request_path: Path,
+    request: Mapping[str, Any],
+    *,
+    current_execution_epoch: str | None,
 ) -> dict[str, Any]:
     envelope = request.get("responsibility_classification")
     if not isinstance(envelope, Mapping):
@@ -171,6 +174,32 @@ def _validate_local_classification(
     summon = request.get("summon_request")
     if not isinstance(summon, Mapping):
         raise SummonRequestError("summon_request is missing")
+    passport = request.get("quest_passport")
+    if not isinstance(passport, Mapping):
+        raise SummonRequestError("quest_passport is missing")
+    if passport.get("route_anchor") != classification["goal_ref"]["object_id"]:
+        raise SummonRequestError(
+            "responsibility classification goal is not bound to quest_passport.route_anchor"
+        )
+    execution_epoch = passport.get("execution_epoch")
+    if not isinstance(execution_epoch, str) or not execution_epoch:
+        raise SummonRequestError("quest_passport.execution_epoch is missing")
+    if not isinstance(current_execution_epoch, str) or not current_execution_epoch:
+        raise SummonRequestError(
+            "an owner-supplied current execution epoch is required for codex_local validation"
+        )
+    if current_execution_epoch != execution_epoch:
+        raise SummonRequestError(
+            "responsibility classification is stale for the owner-supplied current execution epoch"
+        )
+    if envelope.get("execution_epoch") != execution_epoch:
+        raise SummonRequestError(
+            "responsibility classification execution_epoch is not bound to the quest passport"
+        )
+    if classification.get("execution_epoch") != execution_epoch:
+        raise SummonRequestError(
+            "responsibility classification artifact is stale for the execution epoch"
+        )
     if summon.get("parent_task_id") != classification["goal_ref"]["object_id"]:
         raise SummonRequestError(
             "responsibility classification goal is not bound to parent_task_id"
@@ -192,7 +221,9 @@ def _validate_local_classification(
     }
 
 
-def validate_request(request_path: Path) -> dict[str, Any]:
+def validate_request(
+    request_path: Path, *, current_execution_epoch: str | None = None
+) -> dict[str, Any]:
     raw, request = _load_exact(request_path, label="summon request")
     _validate_schema(request, REQUEST_SCHEMA, label="summon request")
     expected_request_digest = request_digest(request)
@@ -200,7 +231,11 @@ def validate_request(request_path: Path) -> dict[str, Any]:
         raise SummonRequestError("summon request digest mismatch")
     transport = request["summon_request"]["transport_preference"]
     if transport == "codex_local":
-        classification = _validate_local_classification(request_path, request)
+        classification = _validate_local_classification(
+            request_path,
+            request,
+            current_execution_epoch=current_execution_epoch,
+        )
     elif transport == "external_cli":
         if "responsibility_classification" in request:
             raise SummonRequestError(
@@ -222,9 +257,15 @@ def validate_request(request_path: Path) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--request", type=Path, required=True)
+    parser.add_argument(
+        "--current-execution-epoch",
+        help="Owner-supplied current epoch for codex_local binding; this is not a consumption record.",
+    )
     args = parser.parse_args()
     try:
-        result = validate_request(args.request)
+        result = validate_request(
+            args.request, current_execution_epoch=args.current_execution_epoch
+        )
     except (OSError, SummonRequestError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

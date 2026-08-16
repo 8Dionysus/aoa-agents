@@ -211,7 +211,7 @@ nodes:
   - id: mode.agents.responsibility-classification
     title: Responsibility classification
     description: Emit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.
-    purpose: Preserve the owner-produced negative classification, its goal, holder, and child-duty digest anchors, and its bounded local next route across skill boundaries.
+    purpose: Preserve the owner-produced negative classification, its goal, holder, execution epoch, and child-duty digest anchors, and its bounded local next route across skill boundaries.
     kind: mode
     contract_level: executable
     primary_parent: skill.aoa-agents-skills
@@ -227,7 +227,22 @@ nodes:
       outputs:
         - {name: classification, type: responsibility-classification-v1, required: true, description: Content-addressed not_independent result with a child-duty digest permitting only the codex_local compatibility route.}
     binding: {kind: mode, ref: skills/aoa-agents-skills/references/responsibility-classification.md, operation: responsibility-classification, availability: available}
-    execution: *read_execution
+    execution: &classification_execution
+      freedom: bounded-judgment
+      tool_requirements: [goal and holder read access, passive classification packet compiler]
+      verification:
+        - The result is a typed responsibility-classification-v1 artifact with its semantic digest and fresh execution epoch.
+        - Goal, current holder, execution epoch, child-duty subject, and codex_local next route remain exact.
+        - The classifier selects no agent tool, model, runtime, or transport implementation; it only preserves the typed codex_local compatibility route.
+      termination:
+        - Stop after one responsibility classification and its owner return route.
+        - Stop if the goal, holder, child duty, or stop line is missing or contradictory.
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes:
+        - Reconstructing a classification from prompt prose instead of an owner artifact.
+        - Treating not_independent as permission to bypass the aoa-summon leaf.
+        - Treating an execution-epoch match as proof of one-time consumption; same-epoch replay control belongs to runtime or owner state.
     trust: *read_trust
     provenance:
       source_refs:

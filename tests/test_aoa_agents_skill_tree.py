@@ -35,6 +35,7 @@ def base_request(transport: str) -> dict[str, object]:
             "control_mode": "reviewed",
             "delegate_tier": "executor",
             "route_anchor": "goal:landing-proof",
+            "execution_epoch": "epoch:landing-proof-1",
         },
         "summon_request": {
             "desired_role": "coder.repo-refactor",
@@ -441,9 +442,14 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(request),
         }
         assert list(self.request_v4_validator.iter_errors(request)) == []
+
+        missing_route_anchor = copy.deepcopy(request)
+        del missing_route_anchor["quest_passport"]["route_anchor"]
+        assert list(self.request_v4_validator.iter_errors(missing_route_anchor))
 
         missing_ref = copy.deepcopy(request)
         del missing_ref["responsibility_classification"]["result_ref"]
@@ -489,6 +495,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer remains an ordinary local step.",
             "stop_line": "Stop if the local child gains independent authority.",
@@ -528,6 +535,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 "artifact_path": "classification.json",
                 "goal_ref": classification["goal_ref"],
                 "current_holder_ref": classification["current_holder_ref"],
+                "execution_epoch": classification["execution_epoch"],
                 "child_scope_digest": classification["child_scope_digest"],
             }
             request["responsibility_classification"]["result_ref"]["digest"] = (
@@ -539,11 +547,26 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(request, sort_keys=True), encoding="utf-8"
             )
 
-            proof = validator.validate_request(request_path)
+            proof = validator.validate_request(
+                request_path, current_execution_epoch="epoch:landing-proof-1"
+            )
             assert proof["transport_preference"] == "codex_local"
             assert proof["classification"]["classification_ref"]["digest"] == (
                 classification["classification_digest"]
             )
+
+            tampered_passport = copy.deepcopy(request)
+            tampered_passport["quest_passport"]["route_anchor"] = "goal:other"
+            tampered_passport["request_digest"] = validator.request_digest(
+                tampered_passport
+            )
+            request_path.write_text(
+                json.dumps(tampered_passport, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(validator.SummonRequestError, "route_anchor"):
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
 
             tampered = copy.deepcopy(request)
             tampered["responsibility_classification"]["goal_ref"] = content_ref(
@@ -554,7 +577,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(tampered, sort_keys=True), encoding="utf-8"
             )
             with self.assertRaisesRegex(validator.SummonRequestError, "goal_ref"):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
 
             tampered_scope = copy.deepcopy(request)
             tampered_scope["child_scope"]["task"] = "A different local duty."
@@ -565,7 +590,33 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             with self.assertRaisesRegex(
                 validator.SummonRequestError, "child_scope_digest"
             ):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
+
+            stale_epoch = copy.deepcopy(request)
+            stale_epoch["quest_passport"]["execution_epoch"] = "epoch:landing-proof-2"
+            stale_epoch["request_digest"] = validator.request_digest(stale_epoch)
+            request_path.write_text(
+                json.dumps(stale_epoch, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "execution epoch"
+            ):
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
+
+            replayed = copy.deepcopy(request)
+            request_path.write_text(
+                json.dumps(replayed, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "owner-supplied current execution epoch"
+            ):
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-2"
+                )
 
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
         import importlib.util
@@ -581,6 +632,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "holder:landing-proof", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer is an ordinary local decomposition step.",
             "stop_line": "Stop if the local child request gains independent authority.",
@@ -605,9 +657,45 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         assert list(Draft202012Validator(schema).iter_errors(result)) == []
         assert result["disposition"] == "not_independent"
         assert result["next_route"] == "codex_local"
+        assert result["execution_epoch"] == "epoch:landing-proof-1"
         invalid = copy.deepcopy(result)
         invalid["disposition"] = "independent"
         assert list(Draft202012Validator(schema).iter_errors(invalid))
+
+    def test_responsibility_classification_has_its_own_execution_contract(self) -> None:
+        graph = yaml.safe_load(
+            (
+                REPO_ROOT / "capabilities/families/agent-lifecycle.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        nodes = {node["id"]: node for node in graph["nodes"]}
+        detector = nodes["mode.agents.detect-obligation"]
+        classifier = nodes["mode.agents.responsibility-classification"]
+
+        assert classifier["execution"] != detector["execution"]
+        assert classifier["execution"]["effects"] == ["none"]
+        assert any(
+            "one responsibility classification" in item
+            for item in classifier["execution"]["termination"]
+        )
+        assert any(
+            "selects no agent tool" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
+            "transport implementation" in item
+            and "codex_local compatibility route" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
+            "execution epoch" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
+            "one-time consumption" in item
+            and "same-epoch replay" in item
+            for item in classifier["execution"]["failure_modes"]
+        )
 
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
         request = base_request("external_cli")

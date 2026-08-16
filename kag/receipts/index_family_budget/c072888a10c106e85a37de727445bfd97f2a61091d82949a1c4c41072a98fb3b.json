@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 8398621,
+  "allowed_tracked_bytes": 15834932,
+  "approved_by": "repository-owner",
+  "base_ref": "07431ea60d8552c01ed01ee7e4c107b232d8b4a8",
+  "changed_generated_bytes": 8398621,
+  "changed_generated_files": 202,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "c072888a10c106e85a37de727445bfd97f2a61091d82949a1c4c41072a98fb3b",
+  "reason": "Repair the landed aoa-agents responsibility route anchor and independent classification execution contract with the CI incremental owner family.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15834932,
+  "tracked_bytes_max": 16777216
+}
