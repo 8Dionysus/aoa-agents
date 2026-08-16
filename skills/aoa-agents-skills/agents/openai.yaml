@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Agents"
-  short_description: "Classify delegation before agent tool use"
-  default_prompt: "Use $aoa-agents-skills before any built-in Codex agent tool to classify responsibility, route independent duties to a separately addressable external CLI actor, and treat a complete explicit execution request as apply authority."
+  short_description: "Classify responsibility for delegation"
+  default_prompt: "Use $aoa-agents-skills when a routing or delegation decision presents an unresolved responsibility boundary; classify it before transport is selected, route independent duties to a separately addressable external CLI actor, and treat a complete explicit execution request as apply authority."
 
 policy:
   allow_implicit_invocation: true

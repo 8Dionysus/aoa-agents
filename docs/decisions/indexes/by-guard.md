@@ -248,7 +248,7 @@
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
-- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+- [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## owner succession
 
@@ -266,7 +266,7 @@
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
-- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+- [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## source identity
 
@@ -287,7 +287,7 @@
 
 ## trigger precedence
 
-- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+- [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## wake ABI
 

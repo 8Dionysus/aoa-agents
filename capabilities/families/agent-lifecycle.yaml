@@ -1,7 +1,7 @@
 schema_version: aoa-capability-family-v1
 family_id: agent-lifecycle
 title: aoa-agents skill tree
-description: Intercept agent-tool decisions, classify independent obligation pressure, and preserve role-bearing responsibility through replaceable incarnation, external execution, return, and wake.
+description: Classify responsibility for presented agent-tool decisions, preserve independent obligation pressure, and carry role-bearing responsibility through replaceable incarnation, external execution, return, and wake without owning runtime dispatch.
 owner: &family_owner
   repo: aoa-agents
   surface: capabilities/families/agent-lifecycle.yaml
@@ -25,7 +25,7 @@ nodes:
 
   - id: aoa-agents-skills
     title: aoa-agents-skills tree
-    description: Intercept delegation before agent-tool selection and navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves.
+    description: Classify presented delegation before transport selection and navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves without owning route policy.
     kind: capability
     contract_level: navigation
     primary_parent: aoa-agents
@@ -35,8 +35,8 @@ nodes:
 
   - id: skill.aoa-agents-skills
     title: aoa-agents-skills organ router
-    description: Classify responsibility before any built-in Codex agent, sub-agent, collaboration, or delegation tool such as spawn_agent is called. Use whenever a user request, plan, or emerging pressure proposes an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry before a new agent-tool decision. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
-    purpose: Intercept delegation and route the smallest owner-local actor lifecycle node or task-local DAG before transport is selected.
+    description: Classify responsibility for an agent, sub-agent, collaboration, or delegation decision when the owning routing control plane or current holder presents one. Use whenever that decision or an emerging goal pressure may involve an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry when a new decision is presented. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. This skill supplies role-layer classification, not universal tool dispatch or route policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+    purpose: Classify the presented delegation and route the smallest owner-local actor lifecycle node or task-local DAG before transport is selected.
     kind: skill
     contract_level: executable
     primary_parent: aoa-agents-skills
@@ -52,8 +52,8 @@ nodes:
       health: challenger
     applicability:
       use_when:
-        - Before any decision to call a built-in Codex agent, sub-agent, collaboration, or delegation tool.
-        - A request or plan proposes an agent, worker, reviewer, researcher, parallel lane, background role, or delegated duty whose responsibility boundary is not yet classified.
+        - The owning routing control plane or current holder presents an agent-tool decision whose responsibility boundary is not yet classified.
+        - A request or plan exposes an agent, worker, reviewer, researcher, parallel lane, background role, or delegated duty whose responsibility boundary is not yet classified.
         - Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.
         - An existing persistent role may need rebinding, return filtering, or controlled wake.
       do_not_use_when:
@@ -73,7 +73,7 @@ nodes:
       termination: [Stop after one bounded transition or smallest valid task-local chain., "Stop at the first missing owner, authority, fit, runtime, return, or wake input."]
       effects: [none, runtime-mutation]
       reversibility: reversible
-      failure_modes: [Calling a built-in agent tool before responsibility classification., Skipping classification after compaction or re-entry., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
+      failure_modes: [Selecting transport before responsibility classification., Treating this classifier as universal dispatch authority., Skipping classification after compaction or re-entry., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
     trust: &runtime_trust
       public_safe: true
       requires_human_approval: true
@@ -88,7 +88,7 @@ nodes:
     classification: {category: independent-callable, disposition: retain, rationale: "External workspace-write, independent return, controlled re-entry, filtering, and ambiguity evidence admit the obligation router as a challenger; model fit and effect routes remain separately unadmitted."}
     procedure: &root_procedure
       ref: skills/aoa-agents-skills/SKILL.md
-      required_sections: [Agent-tool interception, Applicability preflight, Start, Organ boundary, Execution leaf, Verification and stop]
+      required_sections: [Agent-tool responsibility classification, Applicability preflight, Start, Organ boundary, Execution leaf, Verification and stop]
       runtime_adaptation: Resolve logical owner, model-fit, SDK binding, and runtime roots independently before executing a selected leaf.
     mutation:
       preview_required: true
@@ -312,7 +312,7 @@ nodes:
 
   - id: skill.aoa-summon
     title: aoa-summon execution leaf
-    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or when the user explicitly requests a disposable Codex-local child and supplies a complete anchored local-child packet with named outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet names outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
     purpose: Preserve one anchored execution request, real host binding, runtime handle, named return validation, and parent closeout while the external incarnation ABI is evolved.
     kind: skill
     contract_level: executable

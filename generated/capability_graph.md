@@ -2,7 +2,7 @@
 
 Derived from `capabilities/families/*.yaml`. This file is a read model, not capability authority.
 
-Source content hash: `34017bac74d3d378751ff27d23164796e539c22afda54d662b6e48c824702533`
+Source content hash: `32da0fd32f39be5e30bc69149314f3593d28899e163fb53e5fe439249ac8ab8f`
 
 ## Semantic tree
 

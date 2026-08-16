@@ -6,7 +6,7 @@ identity:
   health: challenger
 purpose: Decide or execute one anchored actor route through a compatibility child lane or exact external CLI incarnation and return responsibility to closeout.
 applicability:
-  positive: explicit delegation intent, summon-law question, or complete aoa-agents-skills external execution leaf with an anchored goal route
+  positive: summon-law question, complete aoa-agents-skills external execution leaf with an anchored goal route, or an explicitly requested disposable Codex-local child after aoa-agents-skills returned not_independent
   negative: incomplete request ABI, generic implicit background work, unresolved fork, unnamed output, unsplit d3+, or obligation, mandate, incarnation, approval, owner, or proof gate bypass
 input_abi:
   type: summon-request-v4

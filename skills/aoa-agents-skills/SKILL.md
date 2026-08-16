@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Classify responsibility before any built-in Codex agent, sub-agent, collaboration, or delegation tool such as spawn_agent is called. Use whenever a user request, plan, or emerging pressure proposes an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry before a new agent-tool decision. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+description: Classify responsibility for an agent, sub-agent, collaboration, or delegation decision when the owning routing control plane or current holder presents one. Use whenever that decision or an emerging goal pressure may involve an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry when a new decision is presented. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. This skill supplies role-layer classification, not universal tool dispatch or route policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -9,13 +9,15 @@ Turn one real or anticipated obligation into an independently addressable
 role-bearing actor without making a model, process, transport, or domain skill
 the source of that actor's meaning.
 
-## Agent-tool interception
+## Agent-tool responsibility classification
 
-Run this semantic router before choosing or calling a built-in Codex agent,
-sub-agent, collaboration, or delegation tool, including `spawn_agent`, when a
-request or plan proposes another agent, worker, reviewer, researcher,
-parallel lane, background role, or delegated duty. The word `agent` does not
-select a transport. First decide whether responsibility itself moves.
+When the owning routing control plane or current holder presents a candidate
+Codex agent, sub-agent, collaboration, or delegation route, run this semantic
+classifier before transport is selected. It covers decisions involving another
+agent, worker, reviewer, researcher, parallel lane, background role, or
+delegated duty, including a possible `spawn_agent` call. The word `agent` does
+not select a transport. First decide whether responsibility itself moves; this
+skill does not own universal dispatch or choose the tool.
 
 - An independently owned duty routes toward role formation and a separately
   addressable external CLI incarnation.
@@ -24,9 +26,10 @@ select a transport. First decide whether responsibility itself moves.
 - An explicit request for a disposable Codex-local child still passes through
   this classification, then may select the compatibility lane.
 
-Repeat the interception after compaction, resume, re-entry, or a material plan
-change whenever a new agent-tool decision appears. Prior correction in the
-same session is context, not permission to skip responsibility classification.
+Repeat the classification after compaction, resume, re-entry, or a material
+plan change whenever the routing owner presents a new agent-tool decision.
+Prior correction in the same session is context, not permission to skip
+responsibility classification.
 
 ## Applicability preflight
 

@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or when the user explicitly requests a disposable Codex-local child and supplies a complete anchored local-child packet with named outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet names outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
 ---
 
 # aoa-summon

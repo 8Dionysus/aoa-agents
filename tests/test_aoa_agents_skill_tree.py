@@ -662,7 +662,9 @@ class TestAoAAgentsSkillTreeContracts:
             ).read_text(encoding="utf-8")
         )
         prompt = prompt_surface["interface"]["default_prompt"]
-        assert "before any built-in Codex agent tool" in prompt
+        assert "routing or delegation decision" in prompt
+        assert "before transport is selected" in prompt
+        assert "before any built-in Codex agent tool" not in prompt
         assert "external CLI actor" in prompt
         assert "explicit execution request as apply authority" in prompt
 
@@ -679,12 +681,33 @@ class TestAoAAgentsSkillTreeContracts:
             )
         )["interface"]["default_prompt"]
 
-        assert "## Agent-tool interception" in root_skill
-        assert "including `spawn_agent`" in root_skill
+        assert "## Agent-tool responsibility classification" in root_skill
+        assert "including a possible `spawn_agent` call" in root_skill
         assert "after compaction, resume, re-entry" in root_skill
         assert "typed `not_independent` disposition" in root_skill
+        assert "does not own universal dispatch" in root_skill
         assert "Generic requests for an agent" in summon_skill
         assert "before this skill or any built-in Codex tool" in summon_skill
         assert "after `aoa-agents-skills` returned `not_independent`" in summon_skill
+        assert "after it has returned a typed not_independent disposition" in summon_skill
         assert "only after $aoa-agents-skills supplies" in summon_prompt
         assert "after it returns not_independent" in summon_prompt
+
+        agents_prompt = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml").read_text(
+                encoding="utf-8"
+            )
+        )["interface"]["default_prompt"]
+        assert "routing or delegation decision" in agents_prompt
+        assert "before transport is selected" in agents_prompt
+        assert "before any built-in Codex agent tool" not in agents_prompt
+
+        summon_contract = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-summon/references/contract.yaml").read_text(
+                encoding="utf-8"
+            )
+        )
+        assert "explicit delegation intent" not in summon_contract["applicability"]["positive"]
+        assert "after aoa-agents-skills returned not_independent" in summon_contract[
+            "applicability"
+        ]["positive"]
