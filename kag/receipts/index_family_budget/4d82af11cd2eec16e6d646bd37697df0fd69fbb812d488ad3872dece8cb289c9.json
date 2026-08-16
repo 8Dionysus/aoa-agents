@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 8881445,
+  "allowed_tracked_bytes": 15842575,
+  "approved_by": "repository-owner",
+  "base_ref": "07431ea60d8552c01ed01ee7e4c107b232d8b4a8",
+  "changed_generated_bytes": 8881445,
+  "changed_generated_files": 218,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "4d82af11cd2eec16e6d646bd37697df0fd69fbb812d488ad3872dece8cb289c9",
+  "reason": "Require the trusted current execution epoch for local classification validation.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15842575,
+  "tracked_bytes_max": 16777216
+}
