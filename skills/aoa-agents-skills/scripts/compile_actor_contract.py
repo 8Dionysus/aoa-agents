@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile semantically selected obligation and mandate packets.
+"""Compile semantically selected classification, obligation, and mandate packets.
 
 The caller decides whether an obligation is independent, which role bears it,
 and which model-fit task family describes it.  This compiler only validates
@@ -39,6 +39,14 @@ OBLIGATION_SEMANTIC_FIELDS = {
     "evidence_refs",
     "uncertainty",
     "next_route",
+}
+CLASSIFICATION_SEMANTIC_FIELDS = {
+    "classification_id",
+    "goal_ref",
+    "current_holder_ref",
+    "reason",
+    "stop_line",
+    "evidence_refs",
 }
 MANDATE_SEMANTIC_FIELDS = {
     "mandate_id",
@@ -130,6 +138,35 @@ def _content_ref(
         "schema_version": schema_version,
         "digest": digest,
     }
+
+
+def compile_classification(semantic: dict[str, Any]) -> dict[str, Any]:
+    """Bind one already-admitted ordinary-local classification."""
+
+    _require_exact_fields(
+        semantic,
+        CLASSIFICATION_SEMANTIC_FIELDS,
+        label="classification semantic input",
+    )
+    payload = {
+        "schema_version": "responsibility-classification-v1",
+        **semantic,
+        "disposition": "not_independent",
+        "next_route": "codex_local",
+        "classification_digest": ZERO_DIGEST,
+    }
+    payload["classification_digest"] = _canonical_digest(payload)
+    _validate(
+        payload,
+        "responsibility-classification-v1.schema.json",
+        label="responsibility classification",
+    )
+    _assert_digest(
+        payload,
+        "classification_digest",
+        label="responsibility classification",
+    )
+    return payload
 
 
 def compile_obligation(semantic: dict[str, Any]) -> dict[str, Any]:
@@ -272,6 +309,8 @@ def main() -> int:
         description="Compile content-addressed aoa-agents obligation contracts."
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
+    classification_parser = subparsers.add_parser("classification")
+    classification_parser.add_argument("--input", type=Path, required=True)
     obligation_parser = subparsers.add_parser("obligation")
     obligation_parser.add_argument("--input", type=Path, required=True)
     mandate_parser = subparsers.add_parser("mandate")
@@ -282,7 +321,9 @@ def main() -> int:
 
     try:
         semantic = _load_json(args.input, label=f"{args.command} semantic input")
-        if args.command == "obligation":
+        if args.command == "classification":
+            result = compile_classification(semantic)
+        elif args.command == "obligation":
             result = compile_obligation(semantic)
         else:
             result = compile_mandate(

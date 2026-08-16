@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Classify responsibility for an agent, sub-agent, collaboration, or delegation decision when the owning routing control plane or current holder presents one. Use whenever that decision or an emerging goal pressure may involve an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry when a new decision is presented. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. This skill supplies role-layer classification, not universal tool dispatch or route policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+description: Classify a presented responsibility boundary for an agent-tool decision when the owning routing control plane or current holder invokes this role-layer contract. Use only for that presented classification decision or its explicit re-entry after compaction, resume, or re-entry; do not become universal dispatch policy. Route independent duties through role formation and a separately addressable external CLI actor; return a typed responsibility-classification-v1 not_independent result before ordinary Codex-local task decomposition. This skill supplies role-layer meaning, not tool selection or repository-wide navigation. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -21,8 +21,13 @@ skill does not own universal dispatch or choose the tool.
 
 - An independently owned duty routes toward role formation and a separately
   addressable external CLI incarnation.
-- An ordinary local split returns the typed `not_independent` disposition;
-  only then may a Codex-local child lane be considered.
+- An ordinary local split returns a typed
+  `responsibility-classification-v1` result with
+  `disposition: not_independent`; only then may a Codex-local child lane be
+  considered.
+- This result is the typed `not_independent` disposition and is the only
+  owner-produced evidence that can authorize the compatibility local-child
+  branch.
 - An explicit request for a disposable Codex-local child still passes through
   this classification, then may select the compatibility lane.
 
@@ -45,8 +50,9 @@ Positive pressure includes:
 - a result that must return through an explicit reviewer, filter, or wake rule;
 - a pre-authorized persistent role whose exact reflex condition may have fired.
 
-Return `not_independent` when an agent/delegation decision was presented but
-the work is only a local step and no responsibility needs to move. Return
+Return a `responsibility-classification-v1` result with
+`disposition: not_independent` when an agent/delegation decision was presented
+but the work is only a local step and no responsibility needs to move. Return
 `not_applicable` when no agent/delegation decision or independent-duty pressure
 exists. Do not create an actor to justify available compute.
 

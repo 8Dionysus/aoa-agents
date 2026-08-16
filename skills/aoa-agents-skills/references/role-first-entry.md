@@ -145,7 +145,10 @@ stage, the semantic intent, goal-pressure disposition, obligation, mandate,
    process/session/continuation handles, summon request/result, named outputs,
    filtered return, next holder, usage observations, uncertainty, and stop
    line. A shorter result must name the exact missing owner input and next
-   route.
+   route. When the goal-pressure disposition is `not_independent`, the result
+   includes the separately content-addressed
+   `responsibility-classification-v1` packet that authorizes only the
+   compatibility local-child route.
 
 ## Verification and stop
 

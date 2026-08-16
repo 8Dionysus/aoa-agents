@@ -46,6 +46,14 @@ modes:
     effects: [none, task-local-dag-branch-candidate, external-actor-runtime]
     reference: role-first-entry.md
     activation: Pre-tool responsibility classification or explicit current-holder semantic request with Goal, independent duty, authority, expected result, and optional prepare/execute intent.
+  responsibility-classification:
+    input_abi: goal-pressure-v1
+    output_abi: responsibility-classification-v1
+    output_schema: responsibility-classification-v1.schema.json
+    exact_packet_compiler: scripts/compile_actor_contract.py classification
+    effects: [none]
+    reference: responsibility-classification.md
+    activation: A presented agent-tool responsibility boundary is classified as an ordinary local step before a Codex-local child lane is considered.
   detect-obligation:
     input_abi: goal-pressure-v1
     output_abi: agent-obligation-v1
@@ -89,6 +97,7 @@ common_output_abi:
     - actual effects and evidence class
     - usage receipt refs when execution occurred
     - uncertainty, stop line, and next owner route
+    - a responsibility-classification-v1 result whenever the local disposition is not_independent
 
 relations:
   primary-capability-parent: aoa-agents actor lifecycle

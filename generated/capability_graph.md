@@ -2,7 +2,7 @@
 
 Derived from `capabilities/families/*.yaml`. This file is a read model, not capability authority.
 
-Source content hash: `f8c5f73ceaff12188688e8a6d6700d687757e2bae76a1e4a6f4fb7c4de0a1b5b`
+Source content hash: `0210ec77d18f201b03cd34ee3a3e1238a06f44646078fe1973ca85c335c1707f`
 
 ## Semantic tree
 
@@ -23,6 +23,7 @@ Source content hash: `f8c5f73ceaff12188688e8a6d6700d687757e2bae76a1e4a6f4fb7c4de
       - `agents.lifecycle.relationship` (capability, internal, healthy)
         - `mode.agents.receive-return` (mode, internal, challenger)
         - `mode.agents.transfer-responsibility` (mode, internal, challenger)
+      - `mode.agents.responsibility-classification` (mode, internal, challenger)
       - `mode.agents.role-first-entry` (mode, internal, challenger)
 
 ## Typed relations
@@ -43,6 +44,7 @@ Source content hash: `f8c5f73ceaff12188688e8a6d6700d687757e2bae76a1e4a6f4fb7c4de
 | primary-parent | `mode.agents.detect-obligation` | `agents.lifecycle.pressure` | - |
 | primary-parent | `mode.agents.form-actor` | `agents.lifecycle.pressure` | - |
 | primary-parent | `mode.agents.receive-return` | `agents.lifecycle.relationship` | - |
+| primary-parent | `mode.agents.responsibility-classification` | `skill.aoa-agents-skills` | - |
 | primary-parent | `mode.agents.role-first-entry` | `skill.aoa-agents-skills` | - |
 | primary-parent | `mode.agents.transfer-responsibility` | `agents.lifecycle.relationship` | - |
 | primary-parent | `mode.aoa-summon.decide` | `agents.lifecycle.execution` | - |

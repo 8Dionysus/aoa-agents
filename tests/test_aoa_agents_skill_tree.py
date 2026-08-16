@@ -397,7 +397,7 @@ class TestAoAAgentsSkillTreeContracts:
             "result_ref": content_ref(
                 "aoa-agents",
                 "classification:landing-proof",
-                "agent-lifecycle-result-v1",
+                "responsibility-classification-v1",
             ),
         }
         assert list(self.request_v4_validator.iter_errors(request)) == []
@@ -408,9 +408,50 @@ class TestAoAAgentsSkillTreeContracts:
 
         wrong_ref = copy.deepcopy(request)
         wrong_ref["responsibility_classification"]["result_ref"] = content_ref(
-            "aoa-sdk", "classification:landing-proof", "agent-lifecycle-result-v1"
+            "aoa-sdk", "classification:landing-proof", "responsibility-classification-v1"
         )
         assert list(self.request_v4_validator.iter_errors(wrong_ref))
+
+    def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
+        import importlib.util
+
+        schema_path = (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json"
+        )
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        semantic = {
+            "classification_id": "classification:landing-proof",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "holder:landing-proof", "holder-v1"
+            ),
+            "reason": "The requested reviewer is an ordinary local decomposition step.",
+            "stop_line": "Stop if the local child request gains independent authority.",
+            "evidence_refs": [
+                content_ref("aoa-agents", "evidence:landing-proof", "evidence-v1")
+            ],
+        }
+        compiler_path = (
+            REPO_ROOT / "skills/aoa-agents-skills/scripts/compile_actor_contract.py"
+        )
+        spec = importlib.util.spec_from_file_location("actor_contract_compiler", compiler_path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            spec.loader.exec_module(module)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        result = module.compile_classification(semantic)
+        assert list(Draft202012Validator(schema).iter_errors(result)) == []
+        assert result["disposition"] == "not_independent"
+        assert result["next_route"] == "codex_local"
+        invalid = copy.deepcopy(result)
+        invalid["disposition"] = "independent"
+        assert list(Draft202012Validator(schema).iter_errors(invalid))
 
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
         request = base_request("external_cli")
@@ -709,6 +750,7 @@ class TestAoAAgentsSkillTreeContracts:
         assert "including a possible `spawn_agent` call" in root_skill
         assert "after compaction, resume, re-entry" in root_skill
         assert "typed `not_independent` disposition" in root_skill
+        assert "responsibility-classification-v1" in root_skill
         assert "does not own universal dispatch" in root_skill
         assert "Generic requests for an agent" in summon_skill
         assert "before this skill or any built-in Codex tool" in summon_skill
@@ -741,4 +783,21 @@ class TestAoAAgentsSkillTreeContracts:
         assert any(
             "responsibility_classification" in item
             for item in summon_contract["input_abi"]["required_additions"]
+        )
+        classification_contract = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-agents-skills/references/contract.yaml").read_text(
+                encoding="utf-8"
+            )
+        )
+        assert (
+            classification_contract["modes"]["responsibility-classification"][
+                "output_abi"
+            ]
+            == "responsibility-classification-v1"
+        )
+        assert (
+            classification_contract["modes"]["responsibility-classification"][
+                "output_schema"
+            ]
+            == "responsibility-classification-v1.schema.json"
         )

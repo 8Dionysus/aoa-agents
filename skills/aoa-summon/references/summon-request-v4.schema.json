@@ -141,7 +141,7 @@
               "const": "aoa-agents"
             },
             "schema_version": {
-              "const": "agent-lifecycle-result-v1"
+              "const": "responsibility-classification-v1"
             }
           }
         }

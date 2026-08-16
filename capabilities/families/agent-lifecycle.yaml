@@ -35,7 +35,7 @@ nodes:
 
   - id: skill.aoa-agents-skills
     title: aoa-agents-skills organ router
-    description: Classify responsibility for an agent, sub-agent, collaboration, or delegation decision when the owning routing control plane or current holder presents one. Use whenever that decision or an emerging goal pressure may involve an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry when a new decision is presented. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. This skill supplies role-layer classification, not universal tool dispatch or route policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+    description: Classify a presented responsibility boundary for an agent-tool decision when the owning routing control plane or current holder invokes this role-layer contract. Use only for that presented classification decision or its explicit re-entry after compaction, resume, or re-entry; do not become universal dispatch policy. Route independent duties through role formation and a separately addressable external CLI actor; return a typed responsibility-classification-v1 not_independent result before ordinary Codex-local task decomposition. This skill supplies role-layer meaning, not tool selection or repository-wide navigation. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
     purpose: Classify the presented delegation and route the smallest owner-local actor lifecycle node or task-local DAG before transport is selected.
     kind: skill
     contract_level: executable
@@ -64,7 +64,7 @@ nodes:
       inputs:
         - {name: pressure, type: goal-pressure-v1, required: true, description: "Goal, phase, current holder, observed or anticipated duty, owner, independence signals, and uncertainty."}
       outputs:
-        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: One typed mode result or smallest task-local DAG with explicit responsibility movement and stop line.}
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: One typed mode result or smallest task-local DAG with explicit responsibility movement and stop line; the ordinary-local branch also emits responsibility-classification-v1.}
     binding: {kind: skill, ref: skills/aoa-agents-skills/SKILL.md, operation: route-lifecycle, availability: available}
     execution: &bounded_execution
       freedom: bounded-judgment
@@ -73,7 +73,7 @@ nodes:
       termination: [Stop after one bounded transition or smallest valid task-local chain., "Stop at the first missing owner, authority, fit, runtime, return, or wake input."]
       effects: [none, runtime-mutation]
       reversibility: reversible
-      failure_modes: [Selecting transport before responsibility classification., Treating this classifier as universal dispatch authority., Skipping classification after compaction or re-entry., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
+      failure_modes: [Selecting transport before responsibility classification., Treating this classifier as universal dispatch authority., Emitting an untyped not_independent disposition., Skipping classification after compaction or re-entry., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
     trust: &runtime_trust
       public_safe: true
       requires_human_approval: true
@@ -81,6 +81,7 @@ nodes:
     provenance:
       source_refs:
         - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.5.0, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json, ref: responsibility-classification-v1, role: local-classification-schema, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
         - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json, ref: agent-incarnation-binding-v2, role: runtime-planning-owner-contract, authority: external-authority}
@@ -129,7 +130,7 @@ nodes:
         - {name: intent, type: role-first-intent-v1, required: true, description: "Goal, independent duty, authority envelope, and named expected results."}
       outputs:
         - {name: normalized-pressure, type: goal-pressure-v1, required: false, description: Internal pressure context passed to obligation detection.}
-        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "Typed lifecycle result with responsibility movement, external handles, filtered return, or exact stop route."}
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "Typed lifecycle result with responsibility movement, external handles, filtered return, or exact stop route; a not_independent local branch includes responsibility-classification-v1."}
     binding: {kind: mode, ref: skills/aoa-agents-skills/references/role-first-entry.md, operation: role-first-entry, availability: available}
     execution:
       freedom: bounded-judgment
@@ -206,6 +207,37 @@ nodes:
     procedure: {ref: skills/aoa-agents-skills/references/detect-obligation.md, required_sections: ["Mode: detect-obligation", Input, Procedure, Output], runtime_adaptation: Use the current goal and owner sources; do not probe model or runtime surfaces.}
     security: &read_security {permissions: [read-owner-source], network: forbidden, external_dependencies: [], untrusted_input: treat-as-data}
     keywords: [detect, independent-duty, trigger-strength, future-obligation, обнаружить, самостоятельная-обязанность]
+
+  - id: mode.agents.responsibility-classification
+    title: Responsibility classification
+    description: Emit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.
+    purpose: Preserve the owner-produced negative classification, its goal and holder anchors, and its bounded local next route across skill boundaries.
+    kind: mode
+    contract_level: executable
+    primary_parent: skill.aoa-agents-skills
+    owner: *family_owner
+    lifecycle: *internal_lifecycle
+    applicability:
+      use_when: [A presented agent-tool responsibility boundary is an ordinary local step after the owner classifier evaluates independence.]
+      do_not_use_when: [An independent obligation exists, no agent-tool decision was presented, or the route is already an admitted external leaf.]
+      ambiguous_when: [The current holder has not supplied a goal, holder ref, reason, or stop line for the classification.]
+    abi:
+      inputs:
+        - {name: pressure, type: goal-pressure-v1, required: true, description: Anchored goal pressure and responsibility-holder evidence.}
+      outputs:
+        - {name: classification, type: responsibility-classification-v1, required: true, description: Content-addressed not_independent result permitting only the codex_local compatibility route.}
+    binding: {kind: mode, ref: skills/aoa-agents-skills/references/responsibility-classification.md, operation: responsibility-classification, availability: available}
+    execution: *read_execution
+    trust: *read_trust
+    provenance:
+      source_refs:
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/responsibility-classification.md, ref: responsibility-classification-procedure, role: local-classification-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json, ref: responsibility-classification-v1, role: local-classification-schema, authority: authored}
+      optional_refs: []
+    classification: *internal_classification
+    procedure: {ref: skills/aoa-agents-skills/references/responsibility-classification.md, required_sections: ["Mode: responsibility-classification", Input, Procedure, Output, Verification], runtime_adaptation: Preserve the exact typed result and do not select a tool or runtime.}
+    security: *read_security
+    keywords: [responsibility-classification, not-independent, codex-local, typed-result, responsibility, классификация-ответственности]
 
   - id: mode.agents.form-actor
     title: Form role-bearing actor

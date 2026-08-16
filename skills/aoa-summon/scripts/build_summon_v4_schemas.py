@@ -45,7 +45,7 @@ def build_request_v4() -> dict[str, Any]:
     schema["$id"] = "https://example.invalid/aoa-summon/request-v4.schema.json"
     schema["title"] = "aoa-summon request v4"
     schema["$defs"]["responsibilityClassificationRef"] = _owner_content_ref(
-        "aoa-agents", "agent-lifecycle-result-v1"
+        "aoa-agents", "responsibility-classification-v1"
     )
     schema["properties"]["responsibility_classification"] = {
         "additionalProperties": False,

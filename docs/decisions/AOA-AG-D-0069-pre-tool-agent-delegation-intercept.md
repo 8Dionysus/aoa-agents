@@ -55,7 +55,8 @@ session does not replace a fresh responsibility classification.
 complete leaf supplied by `aoa-agents-skills`, or an explicitly requested
 disposable Codex-local child whose complete anchored packet follows a
 `not_independent` disposition and carries the owner-qualified
-`responsibility_classification.result_ref` in the `summon-request-v4` ABI.
+`responsibility_classification.result_ref` to
+`responsibility-classification-v1` in the `summon-request-v4` ABI.
 
 `role-first-intent-v1` admits optional `prepare` or `execute` intent. A
 planning or inspection request prepares and returns `awaiting_apply`. A
@@ -94,6 +95,10 @@ meaning owner.
 - `skills/aoa-agents-skills/agents/openai.yaml`
 - `skills/aoa-agents-skills/references/role-first-entry.md`
 - `skills/aoa-agents-skills/references/role-first-intent-v1.schema.json`
+- `skills/aoa-agents-skills/references/detect-obligation.md`
+- `skills/aoa-agents-skills/references/responsibility-classification.md`
+- `skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json`
+- `skills/aoa-agents-skills/scripts/compile_actor_contract.py`
 - `skills/aoa-summon/SKILL.md`
 - `skills/aoa-summon/agents/openai.yaml`
 - `skills/aoa-summon/references/summon-request-v4.schema.json`

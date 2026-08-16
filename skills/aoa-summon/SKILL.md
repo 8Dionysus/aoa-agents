@@ -103,8 +103,8 @@ leaf is not permission to infer any missing field.
   `references/summon-request-v4.schema.json` and `references/contract.yaml`
 - a `codex_local` request must carry the exact owner-produced
   `responsibility_classification` with `disposition: not_independent` and its
-  typed `result_ref`; this result is part of the request ABI, not session-only
-  context
+  typed `result_ref` to `responsibility-classification-v1`; this result is part
+  of the request ABI, not session-only context
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
@@ -122,8 +122,9 @@ leaf is not permission to infer any missing field.
    additions in `references/contract.yaml` before deciding a lane. For a
    `codex_local` lane, require the carried typed
    `responsibility_classification.disposition: not_independent` and its
-   owner-qualified `result_ref`; do not reconstruct the classification from
-   prompt history, compaction context, or a prose mention. A
+   owner-qualified `result_ref` to `responsibility-classification-v1`; do not
+   reconstruct the classification from prompt history, compaction context, or
+   a prose mention. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and
