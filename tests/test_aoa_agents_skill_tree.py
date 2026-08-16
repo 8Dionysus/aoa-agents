@@ -687,3 +687,4 @@ class TestAoAAgentsSkillTreeContracts:
         assert "before this skill or any built-in Codex tool" in summon_skill
         assert "after `aoa-agents-skills` returned `not_independent`" in summon_skill
         assert "only after $aoa-agents-skills supplies" in summon_prompt
+        assert "after it returns not_independent" in summon_prompt
