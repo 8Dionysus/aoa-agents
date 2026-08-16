@@ -391,6 +391,23 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         request["external_incarnation"] = external_incarnation_v4()
         assert list(self.request_v4_validator.iter_errors(request)) == []
 
+        contradictory = copy.deepcopy(request)
+        contradictory["responsibility_classification"] = {
+            "disposition": "not_independent",
+            "result_ref": content_ref(
+                "aoa-agents",
+                "classification:landing-proof",
+                "responsibility-classification-v1",
+            ),
+            "artifact_path": "classification.json",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "actor://goal-owner", "holder-v1"
+            ),
+            "child_scope_digest": child_scope_digest(contradictory),
+        }
+        assert list(self.request_v4_validator.iter_errors(contradictory))
+
         for field in (
             "role_resolution_ref",
             "model_fit_query_result_ref",

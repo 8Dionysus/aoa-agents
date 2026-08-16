@@ -20,6 +20,7 @@ input_abi:
     - request_ref
     - request_digest
     - responsibility_classification with disposition not_independent, an owner-qualified responsibility-classification-v1 result_ref, exact artifact_path, copied goal_ref/current_holder_ref, and a child_scope_digest over the complete local-child duty subject when transport_preference is codex_local; scripts/validate_summon_request.py must resolve and bind the artifact before a local lane is admitted
+    - responsibility_classification is forbidden when transport_preference is external_cli; the external lane carries its independent actor packet instead
     - transport_preference must already be resolved to codex_local or external_cli; aoa-sdk a2a_remote/either values are not summon-request-v4 inputs
     - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
     - role_resolution_ref, model_fit_query_result_ref, model_fit_projection_ref, and aoa-sdk incarnation binding v2 for external_cli

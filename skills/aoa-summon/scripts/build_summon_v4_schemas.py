@@ -102,6 +102,24 @@ def build_request_v4() -> dict[str, Any]:
             },
         }
     )
+    schema["allOf"].append(
+        {
+            "if": {
+                "properties": {
+                    "summon_request": {
+                        "properties": {
+                            "transport_preference": {
+                                "const": "external_cli"
+                            }
+                        },
+                        "required": ["transport_preference"],
+                    }
+                },
+                "required": ["summon_request"],
+            },
+            "then": {"not": {"required": ["responsibility_classification"]}},
+        }
+    )
     external = schema["properties"]["external_incarnation"]
     evidence_fields = (
         "role_resolution_ref",

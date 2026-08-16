@@ -460,6 +460,32 @@
           "responsibility_classification"
         ]
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "summon_request": {
+            "properties": {
+              "transport_preference": {
+                "const": "external_cli"
+              }
+            },
+            "required": [
+              "transport_preference"
+            ]
+          }
+        },
+        "required": [
+          "summon_request"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "responsibility_classification"
+          ]
+        }
+      }
     }
   ],
   "properties": {

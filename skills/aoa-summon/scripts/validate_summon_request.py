@@ -202,6 +202,10 @@ def validate_request(request_path: Path) -> dict[str, Any]:
     if transport == "codex_local":
         classification = _validate_local_classification(request_path, request)
     elif transport == "external_cli":
+        if "responsibility_classification" in request:
+            raise SummonRequestError(
+                "external_cli request must not carry a local responsibility classification"
+            )
         classification = None
     else:  # The v4 schema should already reject this; keep the guard explicit.
         raise SummonRequestError(
