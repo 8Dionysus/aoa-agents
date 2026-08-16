@@ -641,6 +641,11 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             for item in classifier["execution"]["verification"]
         )
         assert any(
+            "transport implementation" in item
+            and "codex_local compatibility route" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
             "compaction" in item for item in classifier["execution"]["failure_modes"]
         )
 

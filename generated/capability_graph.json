@@ -955,7 +955,7 @@
         "verification": [
           "The result is a typed responsibility-classification-v1 artifact with its semantic digest.",
           "Goal, current holder, child-duty subject, and codex_local next route remain exact.",
-          "The classifier selects no agent tool, model, transport, or runtime."
+          "The classifier selects no agent tool, model, runtime, or transport implementation; it only preserves the typed codex_local compatibility route."
         ]
       },
       "id": "mode.agents.responsibility-classification",
@@ -13582,6 +13582,7 @@
         "holder",
         "hypothesis",
         "if",
+        "implementation",
         "independence",
         "independent",
         "input",
@@ -13627,6 +13628,7 @@
         "plan",
         "presented",
         "preserve",
+        "preserves",
         "pressure",
         "procedure",
         "produced",
@@ -13802,7 +13804,7 @@
         "классификация-ответственности",
         "ответственност"
       ],
-      "search_text": "Anchored goal pressure and responsibility-holder evidence.\npressure\ngoal-pressure-v1\nContent-addressed not_independent result with a child-duty digest permitting only the codex_local compatibility route.\nclassification\nresponsibility-classification-v1\nThe current holder has not supplied a goal\nholder ref\nreason\nor stop line for the classification.\nAn independent obligation exists\nno agent-tool decision was presented\nor the route is already an admitted external leaf.\nA presented agent-tool responsibility boundary is an ordinary local step after the owner classifier evaluates independence.\navailable\nmode\nresponsibility-classification\nskills/aoa-agents-skills/references/responsibility-classification.md\nlocal-mode\nretain\nInternal lifecycle stage composes through the organ root and has no independent prompt trigger evidence.\nexecutable\nEmit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.\nnone\nReconstructing a classification from prompt prose instead of an owner artifact.\nTreating not_independent as permission to bypass the aoa-summon leaf.\nReusing a classification after compaction, resume, re-entry, or material plan change.\nbounded-judgment\nnot-applicable\nStop after one responsibility classification and its owner return route.\nStop if the goal, holder, child duty, or stop line is missing or contradictory.\ngoal and holder read access\npassive classification packet compiler\nThe result is a typed responsibility-classification-v1 artifact with its semantic digest.\nGoal, current holder, child-duty subject, and codex_local next route remain exact.\nThe classifier selects no agent tool, model, transport, or runtime.\nmode.agents.responsibility-classification\nresponsibility-classification\nnot-independent\ncodex-local\ntyped-result\nresponsibility\nклассификация-ответственности\nmode\nhypothesis\nchallenger\ncandidate\n0.2.0\ninternal\nA presented agent-tool responsibility boundary is classified as an ordinary local step before a Codex-local child lane is considered.\nnone\nscripts/compile_actor_contract.py classification\ngoal-pressure-v1\nresponsibility-classification-v1\nresponsibility-classification-v1.schema.json\nresponsibility-classification.md\nauthored\naoa-agents\ncapabilities/families/agent-lifecycle.yaml\nskills/aoa-agents-skills/references/contract.yaml\n9e76004ee0eebcdf5ec827a0fa0ca4e00225ad7c33ac1813a5226ba9576fa5c2\nskill.aoa-agents-skills\nskills/aoa-agents-skills/references/responsibility-classification.md\nMode: responsibility-classification\nInput\nProcedure\nOutput\nVerification\nPreserve the exact typed result and do not select a tool or runtime.\nauthored\nskills/aoa-agents-skills/references/responsibility-classification.md\nresponsibility-classification-procedure\naoa-agents\nlocal-classification-procedure\nauthored\nskills/aoa-agents-skills/references/responsibility-classification-v1.schema.json\nresponsibility-classification-v1\naoa-agents\nlocal-classification-schema\nPreserve the owner-produced negative classification, its goal, holder, and child-duty digest anchors, and its bounded local next route across skill boundaries.\nforbidden\nread-owner-source\ntreat-as-data\nagent-lifecycle\ncapabilities/families/agent-lifecycle.yaml\nResponsibility classification\nauthored-procedure\n### Mode: responsibility-classification\n\nEmit one owner-produced negative responsibility result for a presented\nagent-tool decision that remains an ordinary local step. This mode does not\nselect a tool, model, runtime, or domain procedure.\n\n",
+      "search_text": "Anchored goal pressure and responsibility-holder evidence.\npressure\ngoal-pressure-v1\nContent-addressed not_independent result with a child-duty digest permitting only the codex_local compatibility route.\nclassification\nresponsibility-classification-v1\nThe current holder has not supplied a goal\nholder ref\nreason\nor stop line for the classification.\nAn independent obligation exists\nno agent-tool decision was presented\nor the route is already an admitted external leaf.\nA presented agent-tool responsibility boundary is an ordinary local step after the owner classifier evaluates independence.\navailable\nmode\nresponsibility-classification\nskills/aoa-agents-skills/references/responsibility-classification.md\nlocal-mode\nretain\nInternal lifecycle stage composes through the organ root and has no independent prompt trigger evidence.\nexecutable\nEmit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.\nnone\nReconstructing a classification from prompt prose instead of an owner artifact.\nTreating not_independent as permission to bypass the aoa-summon leaf.\nReusing a classification after compaction, resume, re-entry, or material plan change.\nbounded-judgment\nnot-applicable\nStop after one responsibility classification and its owner return route.\nStop if the goal, holder, child duty, or stop line is missing or contradictory.\ngoal and holder read access\npassive classification packet compiler\nThe result is a typed responsibility-classification-v1 artifact with its semantic digest.\nGoal, current holder, child-duty subject, and codex_local next route remain exact.\nThe classifier selects no agent tool, model, runtime, or transport implementation; it only preserves the typed codex_local compatibility route.\nmode.agents.responsibility-classification\nresponsibility-classification\nnot-independent\ncodex-local\ntyped-result\nresponsibility\nклассификация-ответственности\nmode\nhypothesis\nchallenger\ncandidate\n0.2.0\ninternal\nA presented agent-tool responsibility boundary is classified as an ordinary local step before a Codex-local child lane is considered.\nnone\nscripts/compile_actor_contract.py classification\ngoal-pressure-v1\nresponsibility-classification-v1\nresponsibility-classification-v1.schema.json\nresponsibility-classification.md\nauthored\naoa-agents\ncapabilities/families/agent-lifecycle.yaml\nskills/aoa-agents-skills/references/contract.yaml\n9e76004ee0eebcdf5ec827a0fa0ca4e00225ad7c33ac1813a5226ba9576fa5c2\nskill.aoa-agents-skills\nskills/aoa-agents-skills/references/responsibility-classification.md\nMode: responsibility-classification\nInput\nProcedure\nOutput\nVerification\nPreserve the exact typed result and do not select a tool or runtime.\nauthored\nskills/aoa-agents-skills/references/responsibility-classification.md\nresponsibility-classification-procedure\naoa-agents\nlocal-classification-procedure\nauthored\nskills/aoa-agents-skills/references/responsibility-classification-v1.schema.json\nresponsibility-classification-v1\naoa-agents\nlocal-classification-schema\nPreserve the owner-produced negative classification, its goal, holder, and child-duty digest anchors, and its bounded local next route across skill boundaries.\nforbidden\nread-owner-source\ntreat-as-data\nagent-lifecycle\ncapabilities/families/agent-lifecycle.yaml\nResponsibility classification\nauthored-procedure\n### Mode: responsibility-classification\n\nEmit one owner-produced negative responsibility result for a presented\nagent-tool decision that remains an ordinary local step. This mode does not\nselect a tool, model, runtime, or domain procedure.\n\n",
       "title": "Responsibility classification",
       "tokens": [
         "0.2.0",
@@ -13883,6 +13885,7 @@
         "holder",
         "hypothesis",
         "if",
+        "implementation",
         "independence",
         "independent",
         "input",
@@ -13928,6 +13931,7 @@
         "plan",
         "presented",
         "preserve",
+        "preserves",
         "pressure",
         "procedure",
         "produced",
@@ -24745,7 +24749,7 @@
   ],
   "schema_version": "aoa-capability-graph-v1",
   "source": {
-    "content_hash": "bc634b57e14a0b3f8d59828fb008f89264b0d80043fd7c30575eea0832641dca",
+    "content_hash": "9668246e6e20111b4656eb63f08790876cea1f312e3f2817995de83f5c4707e9",
     "contract": {
       "contract_files": [
         {
@@ -24798,7 +24802,7 @@
     "family_files": [
       {
         "path": "capabilities/families/agent-lifecycle.yaml",
-        "sha256": "07d80f6111c6d4a2fd92a66bbf91a3b2996f2dab9fd6f440e0b6dacb6ad497b8"
+        "sha256": "e6dd6a430e3c3085c129883591d3ca6bf178a537b52a933781883d5afca7114f"
       }
     ],
     "port_manifest": {
