@@ -30,11 +30,19 @@ Require a `goal-pressure-v1` packet containing:
 5. For `preauthorized_reflex`, require the exact persistent-role identity,
    reviewed trigger contract, authority envelope, rollback, and current
    runtime admissibility. Otherwise narrow to `master_decision`.
-6. Return either `not_independent` or one semantic obligation packet. After
-   the independence and trigger decisions are complete, use the bundled
+6. Return either a semantic
+   `responsibility-classification-v1` packet with
+   `disposition: not_independent`, or one semantic obligation packet. For the
+   negative branch, use the bundled compiler to validate and content-address
+   the classification result. For the independent branch, use the bundled
    compiler to validate and content-address the admitted packet as
    `agent-obligation-v1`; do not select a model, process, transport, or domain
    procedure implementation.
+
+```bash
+python <bundle_dir>/scripts/compile_actor_contract.py classification \
+  --input <semantic-classification.json>
+```
 
 ```bash
 python <bundle_dir>/scripts/compile_actor_contract.py obligation \
@@ -45,6 +53,15 @@ The compiler performs no obligation detection and accepts no model, runtime,
 or budget fields.
 
 ## Output
+
+`responsibility-classification-v1` records:
+
+- stable classification id, goal and current-holder refs, plus a digest of the
+  complete local-child duty subject (desired role, intent, expected outputs,
+  child scope, stop line, and child inputs);
+- the `not_independent` disposition and reason;
+- the permitted `codex_local` next route and stop line;
+- evidence refs and a semantic digest.
 
 `agent-obligation-v1` records:
 

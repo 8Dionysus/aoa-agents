@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Agents"
-  short_description: "Grow independent responsibility-bearing actors"
-  default_prompt: "Use $aoa-agents-skills only after the current holder explicitly names an independent duty, authority, and expected result; present the compiled role-first preview and wait for a separate apply confirmation before any external runtime mutation."
+  short_description: "Classify responsibility for delegation"
+  default_prompt: "Use $aoa-agents-skills when the aoa-sdk routing control plane or current holder explicitly presents an unresolved responsibility boundary to this owner-local classification stage; classify whether responsibility moves, return the typed result, route independent duties to a separately addressable external CLI actor, and leave transport/tool dispatch to aoa-sdk. Treat a complete explicit execution request as apply authority."
 
 policy:
   allow_implicit_invocation: true

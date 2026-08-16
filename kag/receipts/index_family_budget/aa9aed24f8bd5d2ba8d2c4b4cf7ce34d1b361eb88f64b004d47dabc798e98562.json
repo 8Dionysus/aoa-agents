@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11393401,
+  "allowed_tracked_bytes": 15811270,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11393401,
+  "changed_generated_files": 288,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "aa9aed24f8bd5d2ba8d2c4b4cf7ce34d1b361eb88f64b004d47dabc798e98562",
+  "reason": "Refresh the owner-local KAG family after making the summon contract tests executable by the repository's unittest release runner.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15811270,
+  "tracked_bytes_max": 16777216
+}

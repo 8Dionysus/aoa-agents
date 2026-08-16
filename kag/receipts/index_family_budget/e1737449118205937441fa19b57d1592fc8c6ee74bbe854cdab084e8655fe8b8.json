@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11206337,
+  "allowed_tracked_bytes": 15728694,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11206337,
+  "changed_generated_files": 280,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "e1737449118205937441fa19b57d1592fc8c6ee74bbe854cdab084e8655fe8b8",
+  "reason": "Regenerate the owner-local KAG family after narrowing agent delegation classification to the aoa-agents role boundary and requiring typed not_independent before local summon.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15728694,
+  "tracked_bytes_max": 16777216
+}

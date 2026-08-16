@@ -7,7 +7,7 @@
     {
       "name": "aoa-agents-skills",
       "path": "skills/aoa-agents-skills",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md"

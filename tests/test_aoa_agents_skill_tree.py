@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 import sys
+import tempfile
+import unittest
 
 from jsonschema import Draft202012Validator
 import yaml
@@ -31,12 +34,12 @@ def base_request(transport: str) -> dict[str, object]:
             "risk": "low",
             "control_mode": "reviewed",
             "delegate_tier": "executor",
-            "route_anchor": "goal://landing-proof",
+            "route_anchor": "goal:landing-proof",
         },
         "summon_request": {
             "desired_role": "coder.repo-refactor",
             "transport_preference": transport,
-            "parent_task_id": "goal://landing-proof",
+            "parent_task_id": "goal:landing-proof",
             "require_progression": False,
         },
         "expected_outputs": ["workspace-diff", "handoff"],
@@ -53,6 +56,23 @@ def base_request(transport: str) -> dict[str, object]:
         "request_ref": "task://landing-proof/summon-request",
         "request_digest": SHA256,
     }
+
+
+def child_scope_digest(request: dict[str, object]) -> str:
+    summon = request["summon_request"]
+    assert isinstance(summon, dict)
+    subject = {
+        "desired_role": summon["desired_role"],
+        "expected_outputs": request["expected_outputs"],
+        "intent": request["intent"],
+        "child_scope": request["child_scope"],
+        "child_stop_line": request["child_stop_line"],
+        "child_inputs": request["child_inputs"],
+    }
+    encoded = json.dumps(
+        subject, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def external_incarnation() -> dict[str, object]:
@@ -290,9 +310,9 @@ def base_external_result_v4() -> dict[str, object]:
     return result
 
 
-class TestAoAAgentsSkillTreeContracts:
+class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
     @classmethod
-    def setup_class(cls) -> None:
+    def setUpClass(cls) -> None:
         cls.request_validator = Draft202012Validator(
             json.loads((SUMMON_ROOT / "summon-request-v3.schema.json").read_text())
         )
@@ -371,6 +391,23 @@ class TestAoAAgentsSkillTreeContracts:
         request["external_incarnation"] = external_incarnation_v4()
         assert list(self.request_v4_validator.iter_errors(request)) == []
 
+        contradictory = copy.deepcopy(request)
+        contradictory["responsibility_classification"] = {
+            "disposition": "not_independent",
+            "result_ref": content_ref(
+                "aoa-agents",
+                "classification:landing-proof",
+                "responsibility-classification-v1",
+            ),
+            "artifact_path": "classification.json",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "actor://goal-owner", "holder-v1"
+            ),
+            "child_scope_digest": child_scope_digest(contradictory),
+        }
+        assert list(self.request_v4_validator.iter_errors(contradictory))
+
         for field in (
             "role_resolution_ref",
             "model_fit_query_result_ref",
@@ -387,6 +424,190 @@ class TestAoAAgentsSkillTreeContracts:
             "aoa_agent_incarnation_binding_v1"
         )
         assert list(self.request_v4_validator.iter_errors(legacy))
+
+    def test_v4_codex_local_request_carries_typed_not_independent_result(self) -> None:
+        request = base_request("codex_local")
+        assert list(self.request_v4_validator.iter_errors(request))
+
+        request["responsibility_classification"] = {
+            "disposition": "not_independent",
+            "result_ref": content_ref(
+                "aoa-agents",
+                "classification:landing-proof",
+                "responsibility-classification-v1",
+            ),
+            "artifact_path": "classification.json",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "actor://goal-owner", "holder-v1"
+            ),
+            "child_scope_digest": child_scope_digest(request),
+        }
+        assert list(self.request_v4_validator.iter_errors(request)) == []
+
+        missing_ref = copy.deepcopy(request)
+        del missing_ref["responsibility_classification"]["result_ref"]
+        assert list(self.request_v4_validator.iter_errors(missing_ref))
+
+        wrong_ref = copy.deepcopy(request)
+        wrong_ref["responsibility_classification"]["result_ref"] = content_ref(
+            "aoa-sdk", "classification:landing-proof", "responsibility-classification-v1"
+        )
+        assert list(self.request_v4_validator.iter_errors(wrong_ref))
+
+        either_request = base_request("either")
+        assert list(self.request_v4_validator.iter_errors(either_request))
+        either_request["responsibility_classification"] = copy.deepcopy(
+            request["responsibility_classification"]
+        )
+        assert list(self.request_v4_validator.iter_errors(either_request))
+
+        remote_request = base_request("a2a_remote")
+        assert list(self.request_v4_validator.iter_errors(remote_request))
+
+    def test_local_request_resolves_and_binds_exact_classification_artifact(self) -> None:
+        import importlib.util
+
+        compiler_path = (
+            REPO_ROOT / "skills/aoa-agents-skills/scripts/compile_actor_contract.py"
+        )
+        compiler_spec = importlib.util.spec_from_file_location(
+            "classification_compiler", compiler_path
+        )
+        assert compiler_spec is not None and compiler_spec.loader is not None
+        compiler = importlib.util.module_from_spec(compiler_spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            compiler_spec.loader.exec_module(compiler)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        semantic = {
+            "classification_id": "classification:landing-proof",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "actor://goal-owner", "holder-v1"
+            ),
+            "child_scope_digest": child_scope_digest(base_request("codex_local")),
+            "reason": "The requested reviewer remains an ordinary local step.",
+            "stop_line": "Stop if the local child gains independent authority.",
+            "evidence_refs": [
+                content_ref("aoa-agents", "evidence:landing-proof", "evidence-v1")
+            ],
+        }
+        classification = compiler.compile_classification(semantic)
+
+        validator_path = SUMMON_SCRIPT_ROOT / "validate_summon_request.py"
+        validator_spec = importlib.util.spec_from_file_location(
+            "summon_request_validator", validator_path
+        )
+        assert validator_spec is not None and validator_spec.loader is not None
+        validator = importlib.util.module_from_spec(validator_spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            validator_spec.loader.exec_module(validator)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            classification_path = root / "classification.json"
+            classification_path.write_text(
+                json.dumps(classification, sort_keys=True), encoding="utf-8"
+            )
+            request = base_request("codex_local")
+            request["responsibility_classification"] = {
+                "disposition": classification["disposition"],
+                "result_ref": content_ref(
+                    "aoa-agents",
+                    classification["classification_id"],
+                    "responsibility-classification-v1",
+                ),
+                "artifact_path": "classification.json",
+                "goal_ref": classification["goal_ref"],
+                "current_holder_ref": classification["current_holder_ref"],
+                "child_scope_digest": classification["child_scope_digest"],
+            }
+            request["responsibility_classification"]["result_ref"]["digest"] = (
+                classification["classification_digest"]
+            )
+            request["request_digest"] = validator.request_digest(request)
+            request_path = root / "request.json"
+            request_path.write_text(
+                json.dumps(request, sort_keys=True), encoding="utf-8"
+            )
+
+            proof = validator.validate_request(request_path)
+            assert proof["transport_preference"] == "codex_local"
+            assert proof["classification"]["classification_ref"]["digest"] == (
+                classification["classification_digest"]
+            )
+
+            tampered = copy.deepcopy(request)
+            tampered["responsibility_classification"]["goal_ref"] = content_ref(
+                "aoa-agents", "goal:other", "goal-v1"
+            )
+            tampered["request_digest"] = validator.request_digest(tampered)
+            request_path.write_text(
+                json.dumps(tampered, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(validator.SummonRequestError, "goal_ref"):
+                validator.validate_request(request_path)
+
+            tampered_scope = copy.deepcopy(request)
+            tampered_scope["child_scope"]["task"] = "A different local duty."
+            tampered_scope["request_digest"] = validator.request_digest(tampered_scope)
+            request_path.write_text(
+                json.dumps(tampered_scope, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "child_scope_digest"
+            ):
+                validator.validate_request(request_path)
+
+    def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
+        import importlib.util
+
+        schema_path = (
+            REPO_ROOT
+            / "skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json"
+        )
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        semantic = {
+            "classification_id": "classification:landing-proof",
+            "goal_ref": content_ref("aoa-agents", "goal:landing-proof", "goal-v1"),
+            "current_holder_ref": content_ref(
+                "aoa-agents", "holder:landing-proof", "holder-v1"
+            ),
+            "child_scope_digest": child_scope_digest(base_request("codex_local")),
+            "reason": "The requested reviewer is an ordinary local decomposition step.",
+            "stop_line": "Stop if the local child request gains independent authority.",
+            "evidence_refs": [
+                content_ref("aoa-agents", "evidence:landing-proof", "evidence-v1")
+            ],
+        }
+        compiler_path = (
+            REPO_ROOT / "skills/aoa-agents-skills/scripts/compile_actor_contract.py"
+        )
+        spec = importlib.util.spec_from_file_location("actor_contract_compiler", compiler_path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        previous = sys.dont_write_bytecode
+        sys.dont_write_bytecode = True
+        try:
+            spec.loader.exec_module(module)
+        finally:
+            sys.dont_write_bytecode = previous
+
+        result = module.compile_classification(semantic)
+        assert list(Draft202012Validator(schema).iter_errors(result)) == []
+        assert result["disposition"] == "not_independent"
+        assert result["next_route"] == "codex_local"
+        invalid = copy.deepcopy(result)
+        invalid["disposition"] = "independent"
+        assert list(Draft202012Validator(schema).iter_errors(invalid))
 
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
         request = base_request("external_cli")
@@ -600,6 +821,7 @@ class TestAoAAgentsSkillTreeContracts:
         )
         valid = {
             "schema_version": "role-first-intent-v1",
+            "execution_intent": "execute",
             "goal": "Land the owner-valid role-first entry surface",
             "independent_duty": "Form and run one external implementation actor",
             "authority": {
@@ -611,6 +833,14 @@ class TestAoAAgentsSkillTreeContracts:
             "expected_result": ["validated external return"],
         }
         assert list(Draft202012Validator(intent_schema).iter_errors(valid)) == []
+
+        prepare = copy.deepcopy(valid)
+        prepare["execution_intent"] = "prepare"
+        assert list(Draft202012Validator(intent_schema).iter_errors(prepare)) == []
+
+        invalid_intent = copy.deepcopy(valid)
+        invalid_intent["execution_intent"] = "autospawn"
+        assert list(Draft202012Validator(intent_schema).iter_errors(invalid_intent))
 
         low_level = copy.deepcopy(valid)
         low_level["owner_roots"] = {"aoa_agents": "/not-caller-facing"}
@@ -625,6 +855,9 @@ class TestAoAAgentsSkillTreeContracts:
         assert "model-specific command" in procedure
         assert "explicit apply" in procedure
         assert "awaiting_apply" in procedure
+        assert "complete direct imperative means" in procedure
+        assert "supplies apply authority in the same request" in procedure
+        assert "mere mention of an" in procedure
         assert "role-first-entry" in (
             REPO_ROOT
             / "skills/aoa-agents-skills/references/source-return.md"
@@ -649,4 +882,78 @@ class TestAoAAgentsSkillTreeContracts:
                 REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml"
             ).read_text(encoding="utf-8")
         )
-        assert "separate apply confirmation" in prompt_surface["interface"]["default_prompt"]
+        prompt = prompt_surface["interface"]["default_prompt"]
+        assert "routing control plane" in prompt
+        assert "owner-local classification stage" in prompt
+        assert "before any built-in Codex agent tool" not in prompt
+        assert "external CLI actor" in prompt
+        assert "explicit execution request as apply authority" in prompt
+
+    def test_agent_tool_selection_routes_through_responsibility_first(self) -> None:
+        root_skill = (
+            REPO_ROOT / "skills/aoa-agents-skills/SKILL.md"
+        ).read_text(encoding="utf-8")
+        summon_skill = (
+            REPO_ROOT / "skills/aoa-summon/SKILL.md"
+        ).read_text(encoding="utf-8")
+        summon_prompt = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-summon/agents/openai.yaml").read_text(
+                encoding="utf-8"
+            )
+        )["interface"]["default_prompt"]
+
+        assert "## Agent-tool responsibility classification" in root_skill
+        assert "aoa-sdk routing control plane or current holder explicitly presents" in root_skill
+        assert "after compaction, resume, re-entry" in root_skill
+        assert "typed `not_independent` disposition" in root_skill
+        assert "responsibility-classification-v1" in root_skill
+        assert "not a universal pre-tool hook" in root_skill
+        assert "Generic requests for an agent" in summon_skill
+        assert "before this skill or any built-in Codex tool" in summon_skill
+        assert "after `aoa-agents-skills` returned `not_independent`" in summon_skill
+        assert "after it has returned a typed not_independent disposition" in summon_skill
+        assert "responsibility_classification" in summon_skill
+        assert "typed `result_ref`" in summon_skill
+        assert "$aoa-agents-skills must supply" in summon_prompt
+        assert "return not_independent" in summon_prompt
+        assert "exact responsibility classification artifact" in summon_prompt
+
+        agents_prompt = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml").read_text(
+                encoding="utf-8"
+            )
+        )["interface"]["default_prompt"]
+        assert "routing control plane" in agents_prompt
+        assert "owner-local classification stage" in agents_prompt
+        assert "before any built-in Codex agent tool" not in agents_prompt
+
+        summon_contract = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-summon/references/contract.yaml").read_text(
+                encoding="utf-8"
+            )
+        )
+        assert "explicit delegation intent" not in summon_contract["applicability"]["positive"]
+        assert "after aoa-agents-skills returned not_independent" in summon_contract[
+            "applicability"
+        ]["positive"]
+        assert any(
+            "responsibility_classification" in item
+            for item in summon_contract["input_abi"]["required_additions"]
+        )
+        classification_contract = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-agents-skills/references/contract.yaml").read_text(
+                encoding="utf-8"
+            )
+        )
+        assert (
+            classification_contract["modes"]["responsibility-classification"][
+                "output_abi"
+            ]
+            == "responsibility-classification-v1"
+        )
+        assert (
+            classification_contract["modes"]["responsibility-classification"][
+                "output_schema"
+            ]
+            == "responsibility-classification-v1.schema.json"
+        )

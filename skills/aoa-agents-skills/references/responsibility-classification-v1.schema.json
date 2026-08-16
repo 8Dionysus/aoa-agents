@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents/schemas/responsibility-classification-v1.schema.json",
+  "title": "AoA responsibility classification",
+  "description": "A typed owner result that records why a presented delegation decision remains an ordinary local step.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "classification_id",
+    "goal_ref",
+    "current_holder_ref",
+    "child_scope_digest",
+    "disposition",
+    "reason",
+    "next_route",
+    "stop_line",
+    "evidence_refs",
+    "classification_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "responsibility-classification-v1"},
+    "classification_id": {
+      "type": "string",
+      "pattern": "^classification:[a-z0-9][a-z0-9._:-]*$"
+    },
+    "goal_ref": {"$ref": "#/$defs/contentRef"},
+    "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+    "child_scope_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "disposition": {"const": "not_independent"},
+    "reason": {"type": "string", "minLength": 3},
+    "next_route": {"const": "codex_local"},
+    "stop_line": {"type": "string", "minLength": 3},
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/contentRef"}
+    },
+    "classification_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "owner_repo", "schema_version", "digest"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "owner_repo": {"type": "string", "minLength": 1},
+        "schema_version": {"type": "string", "minLength": 1},
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Execute one bounded actor route from an anchored goal, including compatibility child lanes or an independently bound external CLI incarnation, named outputs, return validation, and responsibility closeout. Use when the user explicitly delegates or when aoa-agents-skills selects this leaf from a complete task-local actor DAG. An incomplete request must block. Do not use for generic implicit spawning, unresolved branching, unnamed outputs, unsplit deep work, or to bypass obligation, mandate, incarnation, approval, owner, or proof boundaries.
+description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete external execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the resolved classification artifact and child-duty digest, names outputs, and names a return owner. This leaf consumes only a resolved summon-request-v4 with transport_preference codex_local or external_cli; unresolved aoa-sdk a2a_remote/either requests and generic delegation must remain with their owning routing control plane. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
 ---
 
 # aoa-summon
@@ -74,13 +74,19 @@ as the owner summon boundary; do not search for substitutes.
 
 Use through either of two exact authorities:
 
-- the user explicitly requests delegation/summoning and the anchored route has
-  one settled branch, quest passport, named outputs, and return owner; or
 - `aoa-agents-skills` has produced one complete task-local execution-leaf
   packet with obligation, actor mandate, incarnation binding, an owner-qualified
   admitted responsibility-transfer ref with distinct previous/current holders,
   domain procedures, separate CLI runtime launch, outputs, return, continuation,
-  and stop refs.
+  and stop refs; or
+- the user explicitly requests a disposable Codex-local child and the anchored
+  route already has one settled local branch, quest passport, named outputs,
+  and return owner after `aoa-agents-skills` returned `not_independent`.
+
+A generic request to delegate to an agent, sub-agent, worker, reviewer,
+researcher, parallel lane, or background role is not direct authority for this
+leaf. Route it to `aoa-agents-skills` before this skill or any built-in Codex
+tool such as `spawn_agent`.
 
 Use decision-only mode when the caller asks whether either route is lawful.
 
@@ -95,6 +101,11 @@ leaf is not permission to infer any missing field.
   `external_cli` transport additionally requires the complete
   `external_incarnation` extension; see
   `references/summon-request-v4.schema.json` and `references/contract.yaml`
+- a `codex_local` request must carry the exact owner-produced
+  `responsibility_classification` with `disposition: not_independent`, its
+  typed `result_ref` to `responsibility-classification-v1`, and a digest of the
+  complete local-child duty subject; this result is part of the request ABI,
+  not session-only context
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
@@ -109,7 +120,18 @@ leaf is not permission to infer any missing field.
 
 1. Read `references/contract.yaml` and `references/lane-and-return.md` to EOF.
 2. Validate the literal supplied request against `summon-request-v4` and the
-   additions in `references/contract.yaml` before deciding a lane. A
+   additions in `references/contract.yaml` before deciding a lane. For a
+   `codex_local` lane, require the carried typed
+   `responsibility_classification.disposition: not_independent`, its
+   owner-qualified `result_ref` to `responsibility-classification-v1`, the
+   exact `artifact_path`, the copied Goal/current-holder refs, and the
+   classification's `child_scope_digest` bound to this request's desired role,
+   intent, expected outputs, child scope, stop line, and child inputs. Run
+   `scripts/validate_summon_request.py` to resolve the artifact, validate its
+   owner schema and semantic digest, and bind its Goal to `parent_task_id`,
+   child duty to this request, and holder to `return_owner`; do not reconstruct
+   the classification from prompt
+   history, compaction context, or a prose mention. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and
@@ -124,9 +146,12 @@ leaf is not permission to infer any missing field.
    binding was not actually inspected, return `binding.inspected: false` and
    `binding.available: null`; an allowed lane is not a claim that launch is
    currently available.
-4. In `execute`, require either explicit user delegation or a complete
-   source-authorized `aoa-agents-skills` external-incarnation packet, plus a
-   callable inspected host binding. Launch exactly one bounded runtime, record
+4. In `execute`, require either a complete source-authorized
+   `aoa-agents-skills` external-incarnation packet or an explicitly requested
+   disposable Codex-local child packet following a carried typed
+   `not_independent` disposition and the exact classification artifact
+   resolution above, plus a callable inspected host binding. Launch exactly
+   one bounded runtime, record
    its canonical handles, await or retrieve its terminal result, validate named
    outputs, and close the responsibility handoff. If the binding is absent,
    return `blocked_binding_unavailable`. Copy the request ref, digest, and
@@ -149,9 +174,11 @@ For the external lane,
 resolution, model-fit query and projection, SDK binding/request/decision/plan,
 task-local DAG, runtime task/launch/event schema, responsibility transfer, and
 domain procedure files. It performs no semantic selection, host inspection,
-launch, or effect. The SDK request retains `a2a_remote` or `either`; the
-compiler translates only that transport field to the physical
-`external_cli` leaf and removes the SDK's duplicate nested output list.
+launch, or effect. The SDK request may retain `a2a_remote` or `either` before
+this leaf is reached; the compiler translates that SDK-owned choice to the
+physical `external_cli` leaf and removes the SDK's duplicate nested output
+list. The emitted aoa-summon request is resolved and contains `external_cli`,
+never an unresolved SDK transport.
 Before emitting that request, it also validates the complete SDK permission
 posture, enforces its external-effect, read-only-sandbox, and secret-approval
 cross-field invariants, and requires the effect ceiling to equal both the

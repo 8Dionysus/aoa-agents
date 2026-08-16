@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11393403,
+  "allowed_tracked_bytes": 15811272,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11393403,
+  "changed_generated_files": 288,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "5336ed3ce68793e9e92403a18a913488a108e32b88fc25d265735e11ca32b28c",
+  "reason": "Refresh the owner-local KAG family after authenticating the resolved responsibility-classification artifact and rejecting unresolved SDK transports at the summon leaf.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15811272,
+  "tracked_bytes_max": 16777216
+}

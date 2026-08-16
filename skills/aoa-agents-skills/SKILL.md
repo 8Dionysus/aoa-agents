@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Detect when a goal creates or predicts an independently owned obligation, or when an explicit role-first request asks to form and embody an appropriate actor; form a bounded role mandate, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
+description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result with a child-duty digest or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -8,6 +8,33 @@ description: Detect when a goal creates or predicts an independently owned oblig
 Turn one real or anticipated obligation into an independently addressable
 role-bearing actor without making a model, process, transport, or domain skill
 the source of that actor's meaning.
+
+## Agent-tool responsibility classification
+
+When the aoa-sdk routing control plane or current holder explicitly presents an
+unresolved responsibility boundary to this owner-local stage, run this semantic
+classifier. The routing control plane decides whether this stage is invoked and
+which transport is available; this skill decides only whether responsibility
+itself moves and returns that meaning. It is not a universal pre-tool hook for
+every agent, collaboration, delegation, or built-in tool decision and never
+chooses the tool.
+
+- An independently owned duty routes toward role formation and a separately
+  addressable external CLI incarnation.
+- An ordinary local split returns a typed
+  `responsibility-classification-v1` result with
+  `disposition: not_independent` and a digest of the complete presented
+  child-duty subject; only then may a Codex-local child lane be considered.
+- This result is the typed `not_independent` disposition and is the only
+  owner-produced evidence that can authorize the compatibility local-child
+  branch.
+- An explicit request for a disposable Codex-local child still passes through
+  this classification, then may select the compatibility lane.
+
+Repeat the classification after compaction, resume, re-entry, or a material
+plan change whenever the routing owner presents a new agent-tool decision.
+Prior correction in the same session is context, not permission to skip
+responsibility classification.
 
 ## Applicability preflight
 
@@ -23,19 +50,23 @@ Positive pressure includes:
 - a result that must return through an explicit reviewer, filter, or wake rule;
 - a pre-authorized persistent role whose exact reflex condition may have fired.
 
-Return `not_applicable` when the work is only a local step, a faster model is
-available, a generic helper could shorten the task, or no responsibility needs
-to move. Do not create an actor to justify available compute.
+Return a `responsibility-classification-v1` result with
+`disposition: not_independent` when an agent/delegation decision was presented
+but the work is only a local step and no responsibility needs to move. Return
+`not_applicable` when no agent/delegation decision or independent-duty pressure
+exists. Do not create an actor to justify available compute.
 
 ## Role-first entry
 
-When the current holder explicitly says:
+When the current holder explicitly says, or clearly means:
 
 > In this Goal an independent obligation has appeared; form and embody the
 > appropriate actor.
 
 and supplies the Goal, independent duty, authority envelope, and expected
-result, select the role-first-entry mode. Read
+result, select the role-first-entry mode. A direct imperative to form, assign,
+launch, or delegate the actor normalizes to execution intent; a planning or
+exploratory request normalizes to preparation intent. Read
 references/role-first-entry.md and normalize only the semantic
 role-first-intent-v1 fields. The mode is the one public semantic entry for
 the full lifecycle; it composes the existing internal modes and aoa-summon

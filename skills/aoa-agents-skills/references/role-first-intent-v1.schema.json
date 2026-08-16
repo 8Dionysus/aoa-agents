@@ -14,6 +14,11 @@
   ],
   "properties": {
     "schema_version": {"const": "role-first-intent-v1"},
+    "execution_intent": {
+      "type": "string",
+      "enum": ["prepare", "execute"],
+      "description": "Whether the current holder asks only to prepare the route or explicitly authorizes execution after the same-request preview."
+    },
     "goal": {"type": "string", "minLength": 3},
     "independent_duty": {"type": "string", "minLength": 3},
     "authority": {

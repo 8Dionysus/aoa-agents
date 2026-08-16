@@ -6,8 +6,8 @@ identity:
   health: challenger
 purpose: Decide or execute one anchored actor route through a compatibility child lane or exact external CLI incarnation and return responsibility to closeout.
 applicability:
-  positive: explicit delegation intent, summon-law question, or complete aoa-agents-skills external execution leaf with an anchored goal route
-  negative: incomplete request ABI, generic implicit background work, unresolved fork, unnamed output, unsplit d3+, or obligation, mandate, incarnation, approval, owner, or proof gate bypass
+  positive: summon-law question, complete aoa-agents-skills external execution leaf with an anchored goal route, or an explicitly requested disposable Codex-local child after aoa-agents-skills returned not_independent and the exact classification artifact is resolved and bound
+  negative: incomplete request ABI, generic implicit or explicit delegation without the owner route, unresolved SDK transport, unresolved fork, unnamed output, unsplit d3+, or obligation, mandate, incarnation, approval, owner, or proof gate bypass
 input_abi:
   type: summon-request-v4
   schema: summon-request-v4.schema.json
@@ -19,6 +19,9 @@ input_abi:
     - child_inputs
     - request_ref
     - request_digest
+    - responsibility_classification with disposition not_independent, an owner-qualified responsibility-classification-v1 result_ref, exact artifact_path, copied goal_ref/current_holder_ref, and a child_scope_digest over the complete local-child duty subject when transport_preference is codex_local; scripts/validate_summon_request.py must resolve and bind the artifact before a local lane is admitted
+    - responsibility_classification is forbidden when transport_preference is external_cli; the external lane carries its independent actor packet instead
+    - transport_preference must already be resolved to codex_local or external_cli; aoa-sdk a2a_remote/either values are not summon-request-v4 inputs
     - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
     - role_resolution_ref, model_fit_query_result_ref, model_fit_projection_ref, and aoa-sdk incarnation binding v2 for external_cli
 output_abi:
@@ -47,6 +50,7 @@ freedom_level: bounded-judgment
 tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
   - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
+  - The passive summon request validator resolves the exact local classification artifact, checks its owner schema and semantic digest, and binds its Goal, complete child-duty subject, and current holder to the request; it never selects a lane or launches a runtime.
   - The passive external request compiler consumes only complete exact owner files, admits the incarnation binding against the content-digest-pinned exact aoa-sdk v2 owner schema and SDK-canonical semantic self-digest, rejects SDK permission-posture contradictions, effect disagreement with the runtime task or actor mandate, tool or MCP disagreement between the selected binding and actor mandate, obligation-to-mandate goal, lifecycle, domain-owner, delegated-duty, stop-line, or model-fit-authority drift, SDK route-anchor drift, and a decision that does not explicitly select a2a_remote, binds the tool profile to the same runtime profile, and never inspects or starts a host binding.
   - The passive external result compiler consumes only a terminal runtime result and reviewed A2A return and never launches, reviews, or mints a stronger-owner artifact.
 execution_states:

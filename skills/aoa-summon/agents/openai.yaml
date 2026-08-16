@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Summon"
   short_description: "Execute and return one bounded actor route"
-  default_prompt: "Use $aoa-summon only for a complete explicit delegation or an aoa-agents-skills external execution leaf, and preserve its exact runtime and responsibility return."
+  default_prompt: "Use $aoa-summon only for a resolved summon-request-v4: $aoa-agents-skills must supply a complete external execution leaf, or return not_independent for an explicitly requested disposable Codex-local child whose request carries and validates the exact responsibility classification artifact. Unresolved aoa-sdk a2a_remote/either transports and generic delegation are not summon authority."
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

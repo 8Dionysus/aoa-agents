@@ -130,6 +130,23 @@
         }
       ]
     },
+    "responsibilityClassificationRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-agents"
+            },
+            "schema_version": {
+              "const": "responsibility-classification-v1"
+            }
+          }
+        }
+      ]
+    },
     "responsibilityTransferAdmissionRef": {
       "additionalProperties": false,
       "properties": {
@@ -410,6 +427,65 @@
           "external_incarnation"
         ]
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "summon_request": {
+            "properties": {
+              "transport_preference": {
+                "const": "codex_local"
+              }
+            },
+            "required": [
+              "transport_preference"
+            ]
+          }
+        },
+        "required": [
+          "summon_request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "responsibility_classification": {
+            "properties": {
+              "disposition": {
+                "const": "not_independent"
+              }
+            }
+          }
+        },
+        "required": [
+          "responsibility_classification"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "summon_request": {
+            "properties": {
+              "transport_preference": {
+                "const": "external_cli"
+              }
+            },
+            "required": [
+              "transport_preference"
+            ]
+          }
+        },
+        "required": [
+          "summon_request"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "responsibility_classification"
+          ]
+        }
+      }
     }
   ],
   "properties": {
@@ -680,6 +756,41 @@
       "minLength": 1,
       "type": "string"
     },
+    "responsibility_classification": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "child_scope_digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "current_holder_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "disposition": {
+          "const": "not_independent",
+          "type": "string"
+        },
+        "goal_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "result_ref": {
+          "$ref": "#/$defs/responsibilityClassificationRef"
+        }
+      },
+      "required": [
+        "disposition",
+        "result_ref",
+        "artifact_path",
+        "goal_ref",
+        "current_holder_ref",
+        "child_scope_digest"
+      ],
+      "type": "object"
+    },
     "return_owner": {
       "minLength": 1,
       "type": "string"
@@ -746,9 +857,7 @@
         "transport_preference": {
           "enum": [
             "codex_local",
-            "a2a_remote",
-            "external_cli",
-            "either"
+            "external_cli"
           ],
           "type": "string"
         }

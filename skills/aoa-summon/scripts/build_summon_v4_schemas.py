@@ -44,6 +44,82 @@ def build_request_v4() -> dict[str, Any]:
     schema = copy.deepcopy(_load(REQUEST_V3))
     schema["$id"] = "https://example.invalid/aoa-summon/request-v4.schema.json"
     schema["title"] = "aoa-summon request v4"
+    # The aoa-sdk control plane may reason in terms of ``a2a_remote`` or
+    # ``either``.  This owner-local execution leaf consumes only a resolved
+    # physical lane; admitting those unresolved values here would let it
+    # choose a route that belongs to aoa-sdk.
+    schema["properties"]["summon_request"]["properties"][
+        "transport_preference"
+    ]["enum"] = ["codex_local", "external_cli"]
+    schema["$defs"]["responsibilityClassificationRef"] = _owner_content_ref(
+        "aoa-agents", "responsibility-classification-v1"
+    )
+    schema["properties"]["responsibility_classification"] = {
+        "additionalProperties": False,
+        "properties": {
+            "disposition": {"const": "not_independent", "type": "string"},
+            "result_ref": {"$ref": "#/$defs/responsibilityClassificationRef"},
+            "artifact_path": {"minLength": 1, "type": "string"},
+            "goal_ref": {"$ref": "#/$defs/contentRef"},
+            "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+            "child_scope_digest": {
+                "pattern": "^sha256:[0-9a-f]{64}$",
+                "type": "string",
+            },
+        },
+        "required": [
+            "disposition",
+            "result_ref",
+            "artifact_path",
+            "goal_ref",
+            "current_holder_ref",
+            "child_scope_digest",
+        ],
+        "type": "object",
+    }
+    schema["allOf"].append(
+        {
+            "if": {
+                "properties": {
+                    "summon_request": {
+                        "properties": {
+                            "transport_preference": {
+                                "const": "codex_local"
+                            }
+                        },
+                        "required": ["transport_preference"],
+                    }
+                },
+                "required": ["summon_request"],
+            },
+            "then": {
+                "properties": {
+                    "responsibility_classification": {
+                        "properties": {"disposition": {"const": "not_independent"}}
+                    }
+                },
+                "required": ["responsibility_classification"],
+            },
+        }
+    )
+    schema["allOf"].append(
+        {
+            "if": {
+                "properties": {
+                    "summon_request": {
+                        "properties": {
+                            "transport_preference": {
+                                "const": "external_cli"
+                            }
+                        },
+                        "required": ["transport_preference"],
+                    }
+                },
+                "required": ["summon_request"],
+            },
+            "then": {"not": {"required": ["responsibility_classification"]}},
+        }
+    )
     external = schema["properties"]["external_incarnation"]
     evidence_fields = (
         "role_resolution_ref",

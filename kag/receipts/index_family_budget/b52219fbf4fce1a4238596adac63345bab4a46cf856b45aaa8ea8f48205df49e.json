@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11400945,
+  "allowed_tracked_bytes": 15819650,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11400945,
+  "changed_generated_files": 288,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b52219fbf4fce1a4238596adac63345bab4a46cf856b45aaa8ea8f48205df49e",
+  "reason": "Refresh the owner-local KAG family after making resolved local and external summon lanes mutually exclusive.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15819650,
+  "tracked_bytes_max": 16777216
+}
