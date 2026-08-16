@@ -612,7 +612,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(replayed, sort_keys=True), encoding="utf-8"
             )
             with self.assertRaisesRegex(
-                validator.SummonRequestError, "trusted current execution epoch"
+                validator.SummonRequestError, "owner-supplied current execution epoch"
             ):
                 validator.validate_request(
                     request_path, current_execution_epoch="epoch:landing-proof-2"

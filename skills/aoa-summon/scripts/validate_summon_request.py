@@ -186,11 +186,11 @@ def _validate_local_classification(
         raise SummonRequestError("quest_passport.execution_epoch is missing")
     if not isinstance(current_execution_epoch, str) or not current_execution_epoch:
         raise SummonRequestError(
-            "a trusted current execution epoch is required for codex_local validation"
+            "an owner-supplied current execution epoch is required for codex_local validation"
         )
     if current_execution_epoch != execution_epoch:
         raise SummonRequestError(
-            "responsibility classification is stale for the trusted current execution epoch"
+            "responsibility classification is stale for the owner-supplied current execution epoch"
         )
     if envelope.get("execution_epoch") != execution_epoch:
         raise SummonRequestError(
@@ -259,7 +259,7 @@ def main() -> int:
     parser.add_argument("--request", type=Path, required=True)
     parser.add_argument(
         "--current-execution-epoch",
-        help="Trusted epoch supplied by the current routing/runtime owner for codex_local validation.",
+        help="Owner-supplied current epoch for codex_local binding; this is not a consumption record.",
     )
     args = parser.parse_args()
     try:

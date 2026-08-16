@@ -44,7 +44,9 @@ Goal, holder, execution epoch, and child-scope digest, `not_independent`
 disposition, reason, `codex_local` next route, stop line, evidence refs, and
 semantic digest. The routing owner or current holder must mint a new epoch for
 each initial, compaction/resume, re-entry, or material plan-change decision;
-the local request validator rejects a classification from another epoch.
+the local request validator rejects a classification from another epoch. This
+is not a one-time-consumption record and does not detect replay within the
+same epoch; that state belongs to the routing/runtime owner.
 
 ## Verification
 

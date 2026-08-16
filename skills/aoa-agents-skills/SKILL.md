@@ -35,7 +35,9 @@ chooses the tool.
 Repeat the classification after compaction, resume, re-entry, or a material
 plan change whenever the routing owner presents a new agent-tool decision, and
 mint a new execution epoch for that decision. A classification is valid only
-for the epoch carried by its matching request.
+for the epoch carried by its matching request. This epoch binding is a
+freshness/correlation check, not a one-time-consumption record; same-epoch
+replay control remains with runtime or owner state.
 Prior correction in the same session is context, not permission to skip
 responsibility classification.
 

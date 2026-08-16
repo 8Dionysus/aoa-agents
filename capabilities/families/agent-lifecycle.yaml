@@ -242,7 +242,7 @@ nodes:
       failure_modes:
         - Reconstructing a classification from prompt prose instead of an owner artifact.
         - Treating not_independent as permission to bypass the aoa-summon leaf.
-        - Reusing a classification after compaction, resume, re-entry, or material plan change without a newly minted execution epoch.
+        - Treating an execution-epoch match as proof of one-time consumption; same-epoch replay control belongs to runtime or owner state.
     trust: *read_trust
     provenance:
       source_refs:
