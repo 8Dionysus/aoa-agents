@@ -692,7 +692,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             for item in classifier["execution"]["verification"]
         )
         assert any(
-            "compaction" in item for item in classifier["execution"]["failure_modes"]
+            "one-time consumption" in item
+            and "same-epoch replay" in item
+            for item in classifier["execution"]["failure_modes"]
         )
 
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
