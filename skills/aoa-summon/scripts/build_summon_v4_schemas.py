@@ -104,9 +104,13 @@ def build_request_v4() -> dict[str, Any]:
                             "execution_epoch": {
                                 "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$",
                                 "type": "string",
-                            }
+                            },
+                            "route_anchor": {
+                                "minLength": 1,
+                                "type": "string",
+                            },
                         },
-                        "required": ["execution_epoch"],
+                        "required": ["execution_epoch", "route_anchor"],
                     },
                     "responsibility_classification": {
                         "properties": {

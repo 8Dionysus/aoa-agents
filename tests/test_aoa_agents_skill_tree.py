@@ -447,6 +447,10 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         }
         assert list(self.request_v4_validator.iter_errors(request)) == []
 
+        missing_route_anchor = copy.deepcopy(request)
+        del missing_route_anchor["quest_passport"]["route_anchor"]
+        assert list(self.request_v4_validator.iter_errors(missing_route_anchor))
+
         missing_ref = copy.deepcopy(request)
         del missing_ref["responsibility_classification"]["result_ref"]
         assert list(self.request_v4_validator.iter_errors(missing_ref))
