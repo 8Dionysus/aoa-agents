@@ -133,7 +133,9 @@ leaf is not permission to infer any missing field.
    owner schema and semantic digest, and bind its Goal to `parent_task_id`,
    child duty to this request, and holder to `return_owner`; do not reconstruct
    the classification from prompt
-   history, compaction context, or a prose mention. A
+   history, compaction context, or a prose mention. Supply the trusted current
+   execution epoch from the routing/runtime owner to the validator; a copied
+   epoch inside the request is not current-state proof. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and

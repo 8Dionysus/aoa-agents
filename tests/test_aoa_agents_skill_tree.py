@@ -547,7 +547,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(request, sort_keys=True), encoding="utf-8"
             )
 
-            proof = validator.validate_request(request_path)
+            proof = validator.validate_request(
+                request_path, current_execution_epoch="epoch:landing-proof-1"
+            )
             assert proof["transport_preference"] == "codex_local"
             assert proof["classification"]["classification_ref"]["digest"] == (
                 classification["classification_digest"]
@@ -562,7 +564,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(tampered_passport, sort_keys=True), encoding="utf-8"
             )
             with self.assertRaisesRegex(validator.SummonRequestError, "route_anchor"):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
 
             tampered = copy.deepcopy(request)
             tampered["responsibility_classification"]["goal_ref"] = content_ref(
@@ -573,7 +577,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(tampered, sort_keys=True), encoding="utf-8"
             )
             with self.assertRaisesRegex(validator.SummonRequestError, "goal_ref"):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
 
             tampered_scope = copy.deepcopy(request)
             tampered_scope["child_scope"]["task"] = "A different local duty."
@@ -584,7 +590,9 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             with self.assertRaisesRegex(
                 validator.SummonRequestError, "child_scope_digest"
             ):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
 
             stale_epoch = copy.deepcopy(request)
             stale_epoch["quest_passport"]["execution_epoch"] = "epoch:landing-proof-2"
@@ -593,9 +601,22 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 json.dumps(stale_epoch, sort_keys=True), encoding="utf-8"
             )
             with self.assertRaisesRegex(
-                validator.SummonRequestError, "execution_epoch"
+                validator.SummonRequestError, "execution epoch"
             ):
-                validator.validate_request(request_path)
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-1"
+                )
+
+            replayed = copy.deepcopy(request)
+            request_path.write_text(
+                json.dumps(replayed, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "trusted current execution epoch"
+            ):
+                validator.validate_request(
+                    request_path, current_execution_epoch="epoch:landing-proof-2"
+                )
 
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
         import importlib.util
