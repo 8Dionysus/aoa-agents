@@ -44,6 +44,41 @@ def build_request_v4() -> dict[str, Any]:
     schema = copy.deepcopy(_load(REQUEST_V3))
     schema["$id"] = "https://example.invalid/aoa-summon/request-v4.schema.json"
     schema["title"] = "aoa-summon request v4"
+    schema["$defs"]["responsibilityClassificationRef"] = _owner_content_ref(
+        "aoa-agents", "agent-lifecycle-result-v1"
+    )
+    schema["properties"]["responsibility_classification"] = {
+        "additionalProperties": False,
+        "properties": {
+            "disposition": {"const": "not_independent", "type": "string"},
+            "result_ref": {"$ref": "#/$defs/responsibilityClassificationRef"},
+        },
+        "required": ["disposition", "result_ref"],
+        "type": "object",
+    }
+    schema["allOf"].append(
+        {
+            "if": {
+                "properties": {
+                    "summon_request": {
+                        "properties": {
+                            "transport_preference": {"const": "codex_local"}
+                        },
+                        "required": ["transport_preference"],
+                    }
+                },
+                "required": ["summon_request"],
+            },
+            "then": {
+                "properties": {
+                    "responsibility_classification": {
+                        "properties": {"disposition": {"const": "not_independent"}}
+                    }
+                },
+                "required": ["responsibility_classification"],
+            },
+        }
+    )
     external = schema["properties"]["external_incarnation"]
     evidence_fields = (
         "role_resolution_ref",

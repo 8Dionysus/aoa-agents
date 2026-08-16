@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Summon"
   short_description: "Execute and return one bounded actor route"
-  default_prompt: "Use $aoa-summon only after $aoa-agents-skills supplies a complete execution leaf, or after it returns not_independent for an explicitly requested disposable Codex-local child with a complete anchored return contract."
+  default_prompt: "Use $aoa-summon only after $aoa-agents-skills supplies a complete execution leaf, or after it returns not_independent for an explicitly requested disposable Codex-local child with a complete anchored return contract carrying the typed responsibility_classification result ref."
 
 policy:
   allow_implicit_invocation: true

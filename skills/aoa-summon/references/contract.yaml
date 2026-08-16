@@ -19,6 +19,7 @@ input_abi:
     - child_inputs
     - request_ref
     - request_digest
+    - responsibility_classification with disposition not_independent and an owner-qualified result_ref when transport_preference is codex_local
     - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
     - role_resolution_ref, model_fit_query_result_ref, model_fit_projection_ref, and aoa-sdk incarnation binding v2 for external_cli
 output_abi:

@@ -312,7 +312,7 @@ nodes:
 
   - id: skill.aoa-summon
     title: aoa-summon execution leaf
-    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet names outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the owner-qualified classification result ref, names outputs, and names a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
     purpose: Preserve one anchored execution request, real host binding, runtime handle, named return validation, and parent closeout while the external incarnation ABI is evolved.
     kind: skill
     contract_level: executable
@@ -332,7 +332,7 @@ nodes:
       ambiguous_when: [A generic delegation request has not yet passed through aoa-agents-skills responsibility classification.]
     abi:
       inputs:
-        - {name: request, type: summon-request-v4, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, intent, and exact external-incarnation evidence where applicable."}
+        - {name: request, type: summon-request-v4, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, intent, carried not_independent classification result ref for codex_local, and exact external-incarnation evidence where applicable."}
       outputs:
         - {name: result, type: summon-result-v4, required: true, description: "Decision, inspected binding, exact incarnation evidence, runtime handle, output validation, and closeout handoff."}
     binding: {kind: skill, ref: skills/aoa-summon/SKILL.md, operation: decide-or-execute, availability: available}
@@ -343,7 +343,7 @@ nodes:
       termination: [Stop after one decision or one real return and parent closeout., "Block when request, gate, binding, output, or return owner is absent."]
       effects: [none, runtime-mutation]
       reversibility: reversible
-      failure_modes: [Triggering directly from a generic delegation request., Calling spawn_agent before aoa-agents-skills classification., Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
+      failure_modes: [Triggering directly from a generic delegation request., Calling spawn_agent before aoa-agents-skills classification., Dropping the typed classification result ref across the skill boundary., Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
     trust: *runtime_trust
     provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.4.0, role: owner-skill-procedure, authority: authored}], optional_refs: []}
     classification: {category: independent-callable, disposition: retain, rationale: Existing admitted leaf preserves execution and return evidence; external CLI compatibility remains an explicit evolution gate.}

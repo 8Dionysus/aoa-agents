@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet names outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the owner-qualified classification result ref, names outputs, and names a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
 ---
 
 # aoa-summon
@@ -101,6 +101,10 @@ leaf is not permission to infer any missing field.
   `external_cli` transport additionally requires the complete
   `external_incarnation` extension; see
   `references/summon-request-v4.schema.json` and `references/contract.yaml`
+- a `codex_local` request must carry the exact owner-produced
+  `responsibility_classification` with `disposition: not_independent` and its
+  typed `result_ref`; this result is part of the request ABI, not session-only
+  context
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
@@ -115,7 +119,11 @@ leaf is not permission to infer any missing field.
 
 1. Read `references/contract.yaml` and `references/lane-and-return.md` to EOF.
 2. Validate the literal supplied request against `summon-request-v4` and the
-   additions in `references/contract.yaml` before deciding a lane. A
+   additions in `references/contract.yaml` before deciding a lane. For a
+   `codex_local` lane, require the carried typed
+   `responsibility_classification.disposition: not_independent` and its
+   owner-qualified `result_ref`; do not reconstruct the classification from
+   prompt history, compaction context, or a prose mention. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return
    `blocked_missing_request_input` with `lane: null`, `allowed: false`, and
@@ -132,8 +140,9 @@ leaf is not permission to infer any missing field.
    currently available.
 4. In `execute`, require either a complete source-authorized
    `aoa-agents-skills` external-incarnation packet or an explicitly requested
-   disposable Codex-local child packet following a `not_independent`
-   disposition, plus a callable inspected host binding. Launch exactly one bounded runtime, record
+   disposable Codex-local child packet following a carried typed
+   `not_independent` disposition and result ref, plus a callable inspected host
+   binding. Launch exactly one bounded runtime, record
    its canonical handles, await or retrieve its terminal result, validate named
    outputs, and close the responsibility handoff. If the binding is absent,
    return `blocked_binding_unavailable`. Copy the request ref, digest, and

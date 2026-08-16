@@ -388,6 +388,30 @@ class TestAoAAgentsSkillTreeContracts:
         )
         assert list(self.request_v4_validator.iter_errors(legacy))
 
+    def test_v4_codex_local_request_carries_typed_not_independent_result(self) -> None:
+        request = base_request("codex_local")
+        assert list(self.request_v4_validator.iter_errors(request))
+
+        request["responsibility_classification"] = {
+            "disposition": "not_independent",
+            "result_ref": content_ref(
+                "aoa-agents",
+                "classification:landing-proof",
+                "agent-lifecycle-result-v1",
+            ),
+        }
+        assert list(self.request_v4_validator.iter_errors(request)) == []
+
+        missing_ref = copy.deepcopy(request)
+        del missing_ref["responsibility_classification"]["result_ref"]
+        assert list(self.request_v4_validator.iter_errors(missing_ref))
+
+        wrong_ref = copy.deepcopy(request)
+        wrong_ref["responsibility_classification"]["result_ref"] = content_ref(
+            "aoa-sdk", "classification:landing-proof", "agent-lifecycle-result-v1"
+        )
+        assert list(self.request_v4_validator.iter_errors(wrong_ref))
+
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
         request = base_request("external_cli")
         request["external_incarnation"] = external_incarnation()
@@ -690,8 +714,11 @@ class TestAoAAgentsSkillTreeContracts:
         assert "before this skill or any built-in Codex tool" in summon_skill
         assert "after `aoa-agents-skills` returned `not_independent`" in summon_skill
         assert "after it has returned a typed not_independent disposition" in summon_skill
+        assert "responsibility_classification" in summon_skill
+        assert "typed `result_ref`" in summon_skill
         assert "only after $aoa-agents-skills supplies" in summon_prompt
         assert "after it returns not_independent" in summon_prompt
+        assert "responsibility_classification result ref" in summon_prompt
 
         agents_prompt = yaml.safe_load(
             (REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml").read_text(
@@ -711,3 +738,7 @@ class TestAoAAgentsSkillTreeContracts:
         assert "after aoa-agents-skills returned not_independent" in summon_contract[
             "applicability"
         ]["positive"]
+        assert any(
+            "responsibility_classification" in item
+            for item in summon_contract["input_abi"]["required_additions"]
+        )

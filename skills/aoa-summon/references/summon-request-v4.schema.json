@@ -130,6 +130,23 @@
         }
       ]
     },
+    "responsibilityClassificationRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentRef"
+        },
+        {
+          "properties": {
+            "owner_repo": {
+              "const": "aoa-agents"
+            },
+            "schema_version": {
+              "const": "agent-lifecycle-result-v1"
+            }
+          }
+        }
+      ]
+    },
     "responsibilityTransferAdmissionRef": {
       "additionalProperties": false,
       "properties": {
@@ -410,6 +427,39 @@
           "external_incarnation"
         ]
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "summon_request": {
+            "properties": {
+              "transport_preference": {
+                "const": "codex_local"
+              }
+            },
+            "required": [
+              "transport_preference"
+            ]
+          }
+        },
+        "required": [
+          "summon_request"
+        ]
+      },
+      "then": {
+        "properties": {
+          "responsibility_classification": {
+            "properties": {
+              "disposition": {
+                "const": "not_independent"
+              }
+            }
+          }
+        },
+        "required": [
+          "responsibility_classification"
+        ]
+      }
     }
   ],
   "properties": {
@@ -679,6 +729,23 @@
     "request_ref": {
       "minLength": 1,
       "type": "string"
+    },
+    "responsibility_classification": {
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "const": "not_independent",
+          "type": "string"
+        },
+        "result_ref": {
+          "$ref": "#/$defs/responsibilityClassificationRef"
+        }
+      },
+      "required": [
+        "disposition",
+        "result_ref"
+      ],
+      "type": "object"
     },
     "return_owner": {
       "minLength": 1,
