@@ -190,6 +190,7 @@
 ## capability route
 
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## capability topology
 
@@ -210,6 +211,7 @@
 ## external actor lifecycle
 
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## external actor preparation
 
@@ -234,6 +236,7 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0069 Pre-Tool Agent Delegation Intercept](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
 ## receipt payload
 

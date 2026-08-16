@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Execute one bounded actor route from an anchored goal, including compatibility child lanes or an independently bound external CLI incarnation, named outputs, return validation, and responsibility closeout. Use when the user explicitly delegates or when aoa-agents-skills selects this leaf from a complete task-local actor DAG. An incomplete request must block. Do not use for generic implicit spawning, unresolved branching, unnamed outputs, unsplit deep work, or to bypass obligation, mandate, incarnation, approval, owner, or proof boundaries.
+description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or when the user explicitly requests a disposable Codex-local child and supplies a complete anchored local-child packet with named outputs and a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
 ---
 
 # aoa-summon
@@ -74,13 +74,19 @@ as the owner summon boundary; do not search for substitutes.
 
 Use through either of two exact authorities:
 
-- the user explicitly requests delegation/summoning and the anchored route has
-  one settled branch, quest passport, named outputs, and return owner; or
 - `aoa-agents-skills` has produced one complete task-local execution-leaf
   packet with obligation, actor mandate, incarnation binding, an owner-qualified
   admitted responsibility-transfer ref with distinct previous/current holders,
   domain procedures, separate CLI runtime launch, outputs, return, continuation,
-  and stop refs.
+  and stop refs; or
+- the user explicitly requests a disposable Codex-local child and the anchored
+  route already has one settled local branch, quest passport, named outputs,
+  and return owner after `aoa-agents-skills` returned `not_independent`.
+
+A generic request to delegate to an agent, sub-agent, worker, reviewer,
+researcher, parallel lane, or background role is not direct authority for this
+leaf. Route it to `aoa-agents-skills` before this skill or any built-in Codex
+tool such as `spawn_agent`.
 
 Use decision-only mode when the caller asks whether either route is lawful.
 
@@ -124,9 +130,10 @@ leaf is not permission to infer any missing field.
    binding was not actually inspected, return `binding.inspected: false` and
    `binding.available: null`; an allowed lane is not a claim that launch is
    currently available.
-4. In `execute`, require either explicit user delegation or a complete
-   source-authorized `aoa-agents-skills` external-incarnation packet, plus a
-   callable inspected host binding. Launch exactly one bounded runtime, record
+4. In `execute`, require either a complete source-authorized
+   `aoa-agents-skills` external-incarnation packet or an explicitly requested
+   disposable Codex-local child packet following a `not_independent`
+   disposition, plus a callable inspected host binding. Launch exactly one bounded runtime, record
    its canonical handles, await or retrieve its terminal result, validate named
    outputs, and close the responsibility handoff. If the binding is absent,
    return `blocked_binding_unavailable`. Copy the request ref, digest, and

@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Agents"
-  short_description: "Grow independent responsibility-bearing actors"
-  default_prompt: "Use $aoa-agents-skills only after the current holder explicitly names an independent duty, authority, and expected result; present the compiled role-first preview and wait for a separate apply confirmation before any external runtime mutation."
+  short_description: "Classify delegation before agent tool use"
+  default_prompt: "Use $aoa-agents-skills before any built-in Codex agent tool to classify responsibility, route independent duties to a separately addressable external CLI actor, and treat a complete explicit execution request as apply authority."
 
 policy:
   allow_implicit_invocation: true

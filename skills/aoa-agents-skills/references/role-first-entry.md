@@ -31,6 +31,10 @@ Normalize the request to role-first-intent-v1:
 - authority: permissions, allowed effects, prohibited effects, and the
   explicit stop line;
 - expected_result: one or more named semantic outcomes.
+- execution_intent: optional `prepare` or `execute`; a direct current-holder
+  imperative to form, assign, launch, or delegate the actor means `execute`,
+  while planning, exploration, or a request to inspect the route means
+  `prepare`.
 
 This is the only caller-facing packet. All current-holder, workspace, domain,
 return-owner, continuation, and runtime facts are resolved from the active
@@ -39,9 +43,12 @@ summon-request-v4, owner roots, digests, or a model-specific command.
 
 ## Procedure
 
-1. Preserve the four semantic fields and identify the current responsibility
-   holder from the active Goal/session. Reject an absent or contradictory
-   authority envelope before any route is formed.
+1. Preserve the semantic fields and identify the current responsibility holder
+   from the active Goal/session. When `execution_intent` is absent, infer it
+   only from the current holder's language: a complete direct imperative means
+   `execute`; planning or inspection means `prepare`. A mere mention of an
+   agent never implies execution. Reject an absent or contradictory authority
+   envelope before any route is formed.
 2. Convert the intent into the internal goal-pressure-v1 context and run
    detect-obligation. Require explicit positive and negative independence
    signals, a trigger strength, the missed consequence, a return owner, and a
@@ -96,11 +103,13 @@ summon-request-v4, owner roots, digests, or a model-specific command.
    capability-pack source, and owner refs, fit
    projection and selection authority, SDK/runtime binding, permissions,
    expected effects, prohibited effects, stop line, named outputs, rollback,
-   return owner, and the exact external execution lane. Do not launch while
-   the preview is awaiting review. Require a separate explicit apply
-   confirmation from the current holder; the initial semantic request is not
-   itself apply confirmation. Without that confirmation, return
-   `awaiting_apply` with the prepared handles and no process effect.
+   return owner, and the exact external execution lane. For `prepare`, return
+   `awaiting_apply` with the prepared handles and no process effect until the
+   current holder explicitly applies it. For `execute`, a complete direct
+   current-holder request is the explicit apply authority: review the preview
+   in the same turn and continue without demanding a redundant second
+   confirmation. Stop only when the compiled preview conflicts with or exceeds
+   that request's authority, effects, stop line, outputs, or return posture.
 10. Select aoa-summon only after the packet is complete and the inspected
    abyss-stack binding is available. Execute the external CLI lane through
    that runtime so the actor has a separate OS process, session, state root,
@@ -132,7 +141,7 @@ Return one typed lifecycle result that preserves, when the route reaches each
 stage, the semantic intent, goal-pressure disposition, obligation, mandate,
    exact role resolution, model-fit query and selected projection, SDK
    incarnation binding v2, runtime/environment binding, responsibility
-   transfer, preview and explicit-apply evidence, external
+   transfer, preview, execution intent, and explicit-apply evidence, external
    process/session/continuation handles, summon request/result, named outputs,
    filtered return, next holder, usage observations, uncertainty, and stop
    line. A shorter result must name the exact missing owner input and next
@@ -152,7 +161,9 @@ stage, the semantic intent, goal-pressure disposition, obligation, mandate,
 - The SDK and runtime bind the exact mandate and environment; configuration is
   not reported as a launch.
 - The compiled route is previewed and explicit apply is recorded before any
-  runtime mutation; an awaiting-apply result has no process effect.
+  runtime mutation. `prepare` awaits a later apply; a complete explicit
+  `execute` request supplies apply authority in the same request. An
+  awaiting-apply result has no process effect.
 - External execution has separate process/session evidence and does not use
   built-in Codex spawn.
 - Responsibility, actual effects, named outputs, review, return, and usage

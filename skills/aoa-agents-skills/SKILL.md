@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Detect when a goal creates or predicts an independently owned obligation, or when an explicit role-first request asks to form and embody an appropriate actor; form a bounded role mandate, bind a currently supported incarnation and specialized environment, transfer responsibility to a separately addressable actor, or receive and filter its return. Use when planning, execution, or closeout pressure may require an actor with its own identity, authority, continuity, and lifecycle. Do not use merely because a model or launcher is available, for ordinary task decomposition, to own a domain procedure, to select a model brand without fit evidence, or to equate CLI transport with A2A responsibility.
+description: Classify responsibility before any built-in Codex agent, sub-agent, collaboration, or delegation tool such as spawn_agent is called. Use whenever a user request, plan, or emerging pressure proposes an agent, worker, reviewer, researcher, parallel lane, background role, delegation, or independently owned duty, even when independence is not yet known; re-run after compaction or re-entry before a new agent-tool decision. Route independent duties through role formation and a separately addressable external CLI actor; return a typed not_independent disposition before ordinary Codex-local task decomposition. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -8,6 +8,25 @@ description: Detect when a goal creates or predicts an independently owned oblig
 Turn one real or anticipated obligation into an independently addressable
 role-bearing actor without making a model, process, transport, or domain skill
 the source of that actor's meaning.
+
+## Agent-tool interception
+
+Run this semantic router before choosing or calling a built-in Codex agent,
+sub-agent, collaboration, or delegation tool, including `spawn_agent`, when a
+request or plan proposes another agent, worker, reviewer, researcher,
+parallel lane, background role, or delegated duty. The word `agent` does not
+select a transport. First decide whether responsibility itself moves.
+
+- An independently owned duty routes toward role formation and a separately
+  addressable external CLI incarnation.
+- An ordinary local split returns the typed `not_independent` disposition;
+  only then may a Codex-local child lane be considered.
+- An explicit request for a disposable Codex-local child still passes through
+  this classification, then may select the compatibility lane.
+
+Repeat the interception after compaction, resume, re-entry, or a material plan
+change whenever a new agent-tool decision appears. Prior correction in the
+same session is context, not permission to skip responsibility classification.
 
 ## Applicability preflight
 
@@ -23,19 +42,22 @@ Positive pressure includes:
 - a result that must return through an explicit reviewer, filter, or wake rule;
 - a pre-authorized persistent role whose exact reflex condition may have fired.
 
-Return `not_applicable` when the work is only a local step, a faster model is
-available, a generic helper could shorten the task, or no responsibility needs
-to move. Do not create an actor to justify available compute.
+Return `not_independent` when an agent/delegation decision was presented but
+the work is only a local step and no responsibility needs to move. Return
+`not_applicable` when no agent/delegation decision or independent-duty pressure
+exists. Do not create an actor to justify available compute.
 
 ## Role-first entry
 
-When the current holder explicitly says:
+When the current holder explicitly says, or clearly means:
 
 > In this Goal an independent obligation has appeared; form and embody the
 > appropriate actor.
 
 and supplies the Goal, independent duty, authority envelope, and expected
-result, select the role-first-entry mode. Read
+result, select the role-first-entry mode. A direct imperative to form, assign,
+launch, or delegate the actor normalizes to execution intent; a planning or
+exploratory request normalizes to preparation intent. Read
 references/role-first-entry.md and normalize only the semantic
 role-first-intent-v1 fields. The mode is the one public semantic entry for
 the full lifecycle; it composes the existing internal modes and aoa-summon

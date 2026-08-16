@@ -4,7 +4,7 @@ identity:
   name: aoa-agents-skills
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
-  version: 0.4.0
+  version: 0.5.0
   lifecycle: admitted
   health: challenger
 
@@ -45,7 +45,7 @@ modes:
     output_abi: agent-lifecycle-result-v1
     effects: [none, task-local-dag-branch-candidate, external-actor-runtime]
     reference: role-first-entry.md
-    activation: Explicit current-holder semantic request with Goal, independent duty, authority, and expected result.
+    activation: Pre-tool responsibility classification or explicit current-holder semantic request with Goal, independent duty, authority, expected result, and optional prepare/execute intent.
   detect-obligation:
     input_abi: goal-pressure-v1
     output_abi: agent-obligation-v1
@@ -115,6 +115,8 @@ termination:
 
 health:
   recheck_after:
+    - compaction, resume, or re-entry before a new agent-tool decision
+    - material delegation or plan change
     - material model or reasoning-mode change
     - external runtime or continuation change
     - role, capability, or domain-procedure change

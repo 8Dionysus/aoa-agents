@@ -600,6 +600,7 @@ class TestAoAAgentsSkillTreeContracts:
         )
         valid = {
             "schema_version": "role-first-intent-v1",
+            "execution_intent": "execute",
             "goal": "Land the owner-valid role-first entry surface",
             "independent_duty": "Form and run one external implementation actor",
             "authority": {
@@ -611,6 +612,14 @@ class TestAoAAgentsSkillTreeContracts:
             "expected_result": ["validated external return"],
         }
         assert list(Draft202012Validator(intent_schema).iter_errors(valid)) == []
+
+        prepare = copy.deepcopy(valid)
+        prepare["execution_intent"] = "prepare"
+        assert list(Draft202012Validator(intent_schema).iter_errors(prepare)) == []
+
+        invalid_intent = copy.deepcopy(valid)
+        invalid_intent["execution_intent"] = "autospawn"
+        assert list(Draft202012Validator(intent_schema).iter_errors(invalid_intent))
 
         low_level = copy.deepcopy(valid)
         low_level["owner_roots"] = {"aoa_agents": "/not-caller-facing"}
@@ -625,6 +634,9 @@ class TestAoAAgentsSkillTreeContracts:
         assert "model-specific command" in procedure
         assert "explicit apply" in procedure
         assert "awaiting_apply" in procedure
+        assert "complete direct imperative means" in procedure
+        assert "supplies apply authority in the same request" in procedure
+        assert "mere mention of an" in procedure
         assert "role-first-entry" in (
             REPO_ROOT
             / "skills/aoa-agents-skills/references/source-return.md"
@@ -649,4 +661,29 @@ class TestAoAAgentsSkillTreeContracts:
                 REPO_ROOT / "skills/aoa-agents-skills/agents/openai.yaml"
             ).read_text(encoding="utf-8")
         )
-        assert "separate apply confirmation" in prompt_surface["interface"]["default_prompt"]
+        prompt = prompt_surface["interface"]["default_prompt"]
+        assert "before any built-in Codex agent tool" in prompt
+        assert "external CLI actor" in prompt
+        assert "explicit execution request as apply authority" in prompt
+
+    def test_agent_tool_selection_routes_through_responsibility_first(self) -> None:
+        root_skill = (
+            REPO_ROOT / "skills/aoa-agents-skills/SKILL.md"
+        ).read_text(encoding="utf-8")
+        summon_skill = (
+            REPO_ROOT / "skills/aoa-summon/SKILL.md"
+        ).read_text(encoding="utf-8")
+        summon_prompt = yaml.safe_load(
+            (REPO_ROOT / "skills/aoa-summon/agents/openai.yaml").read_text(
+                encoding="utf-8"
+            )
+        )["interface"]["default_prompt"]
+
+        assert "## Agent-tool interception" in root_skill
+        assert "including `spawn_agent`" in root_skill
+        assert "after compaction, resume, re-entry" in root_skill
+        assert "typed `not_independent` disposition" in root_skill
+        assert "Generic requests for an agent" in summon_skill
+        assert "before this skill or any built-in Codex tool" in summon_skill
+        assert "after `aoa-agents-skills` returned `not_independent`" in summon_skill
+        assert "only after $aoa-agents-skills supplies" in summon_prompt

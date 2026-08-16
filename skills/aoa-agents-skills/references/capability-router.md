@@ -2,13 +2,13 @@
 
 Generated from owner capability contracts. This card is a retrieval read model, not procedure or proof authority.
 
-Source graph hash: `b450a21724c01403ab95c5e38a1bad22f2587b8c4b54d9124bd9a8693c9a83db`
+Source graph hash: `d9e6c8ab880863b05d830a14a70d2e8ef2eb2c010f5c8cf1c54656d8037364ee`
 Federation: `aoa-agents` specializes `aoa-skills:operations`.
 
 | skill | visibility | use when | do not use when | version | fingerprint |
 |---|---|---|---|---|---|
-| `aoa-agents-skills` | advertised | Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.; An existing persistent role may need rebinding, return filtering, or controlled wake. | The pressure is ordinary task decomposition, available cheap compute, a generic helper, or a domain procedure with no independent responsibility boundary. | 0.4.0 | `1adbb9ee1ec82add` |
+| `aoa-agents-skills` | advertised | Before any decision to call a built-in Codex agent, sub-agent, collaboration, or delegation tool.; A request or plan proposes an agent, worker, reviewer, researcher, parallel lane, background role, or delegated duty whose responsibility boundary is not yet classified.; Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.; An existing persistent role may need rebinding, return filtering, or controlled wake. | No agent-tool decision, delegation pressure, or independent-duty pressure exists. | 0.5.0 | `095f6dcad25980db` |
 | `aoa-session-progression-lift` | advertised | Closed reviewed evidence shows attributable movement or regression for one agent with a baseline. | Evidence is live; no baseline exists; or the request would mutate a role; grant authority; or set routing policy. | 0.2.5 | `5b795c438a553cbb` |
-| `aoa-summon` | advertised | The user explicitly requests one bounded anchored child route with named outputs and a return owner.; aoa-agents-skills selects this execution leaf from a complete task-local actor DAG with an admitted transfer and return owner. | The request is incomplete; implicit; unsplit deep work; or intended to widen authority. | 0.4.0 | `1c6015c39b98bfb9` |
+| `aoa-summon` | advertised | aoa-agents-skills selects this execution leaf from a complete task-local actor DAG with an admitted transfer and return owner.; The user explicitly requests a disposable Codex-local child and aoa-agents-skills has classified it not_independent before a complete anchored local-child packet is supplied. | The request is incomplete; implicit; unsplit deep work; or intended to widen authority. | 0.4.0 | `f2e2f1437a37b5c4` |
 
 Load the named `SKILL.md` for procedure. Use the full generated graph for ABI, effects, failures, relations, and composition; do not infer invocation or benefit from selection alone.
