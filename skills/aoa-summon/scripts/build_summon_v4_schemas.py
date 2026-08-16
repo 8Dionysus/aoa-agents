@@ -62,6 +62,10 @@ def build_request_v4() -> dict[str, Any]:
             "artifact_path": {"minLength": 1, "type": "string"},
             "goal_ref": {"$ref": "#/$defs/contentRef"},
             "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+            "execution_epoch": {
+                "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$",
+                "type": "string",
+            },
             "child_scope_digest": {
                 "pattern": "^sha256:[0-9a-f]{64}$",
                 "type": "string",
@@ -73,6 +77,7 @@ def build_request_v4() -> dict[str, Any]:
             "artifact_path",
             "goal_ref",
             "current_holder_ref",
+            "execution_epoch",
             "child_scope_digest",
         ],
         "type": "object",
@@ -94,11 +99,23 @@ def build_request_v4() -> dict[str, Any]:
             },
             "then": {
                 "properties": {
+                    "quest_passport": {
+                        "properties": {
+                            "execution_epoch": {
+                                "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$",
+                                "type": "string",
+                            }
+                        },
+                        "required": ["execution_epoch"],
+                    },
                     "responsibility_classification": {
-                        "properties": {"disposition": {"const": "not_independent"}}
+                        "properties": {
+                            "disposition": {"const": "not_independent"},
+                        },
+                        "required": ["execution_epoch"],
                     }
                 },
-                "required": ["responsibility_classification"],
+                "required": ["responsibility_classification", "quest_passport"],
             },
         }
     )

@@ -211,7 +211,7 @@ nodes:
   - id: mode.agents.responsibility-classification
     title: Responsibility classification
     description: Emit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.
-    purpose: Preserve the owner-produced negative classification, its goal, holder, and child-duty digest anchors, and its bounded local next route across skill boundaries.
+    purpose: Preserve the owner-produced negative classification, its goal, holder, execution epoch, and child-duty digest anchors, and its bounded local next route across skill boundaries.
     kind: mode
     contract_level: executable
     primary_parent: skill.aoa-agents-skills
@@ -231,8 +231,8 @@ nodes:
       freedom: bounded-judgment
       tool_requirements: [goal and holder read access, passive classification packet compiler]
       verification:
-        - The result is a typed responsibility-classification-v1 artifact with its semantic digest.
-        - Goal, current holder, child-duty subject, and codex_local next route remain exact.
+        - The result is a typed responsibility-classification-v1 artifact with its semantic digest and fresh execution epoch.
+        - Goal, current holder, execution epoch, child-duty subject, and codex_local next route remain exact.
         - The classifier selects no agent tool, model, runtime, or transport implementation; it only preserves the typed codex_local compatibility route.
       termination:
         - Stop after one responsibility classification and its owner return route.
@@ -242,7 +242,7 @@ nodes:
       failure_modes:
         - Reconstructing a classification from prompt prose instead of an owner artifact.
         - Treating not_independent as permission to bypass the aoa-summon leaf.
-        - Reusing a classification after compaction, resume, re-entry, or material plan change.
+        - Reusing a classification after compaction, resume, re-entry, or material plan change without a newly minted execution epoch.
     trust: *read_trust
     provenance:
       source_refs:

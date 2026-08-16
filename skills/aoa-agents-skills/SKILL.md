@@ -23,8 +23,9 @@ chooses the tool.
   addressable external CLI incarnation.
 - An ordinary local split returns a typed
   `responsibility-classification-v1` result with
-  `disposition: not_independent` and a digest of the complete presented
-  child-duty subject; only then may a Codex-local child lane be considered.
+  `disposition: not_independent`, a fresh execution epoch, and a digest of the
+  complete presented child-duty subject; only then may a Codex-local child
+  lane be considered.
 - This result is the typed `not_independent` disposition and is the only
   owner-produced evidence that can authorize the compatibility local-child
   branch.
@@ -32,7 +33,9 @@ chooses the tool.
   this classification, then may select the compatibility lane.
 
 Repeat the classification after compaction, resume, re-entry, or a material
-plan change whenever the routing owner presents a new agent-tool decision.
+plan change whenever the routing owner presents a new agent-tool decision, and
+mint a new execution epoch for that decision. A classification is valid only
+for the epoch carried by its matching request.
 Prior correction in the same session is context, not permission to skip
 responsibility classification.
 

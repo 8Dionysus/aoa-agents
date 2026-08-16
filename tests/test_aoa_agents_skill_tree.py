@@ -35,6 +35,7 @@ def base_request(transport: str) -> dict[str, object]:
             "control_mode": "reviewed",
             "delegate_tier": "executor",
             "route_anchor": "goal:landing-proof",
+            "execution_epoch": "epoch:landing-proof-1",
         },
         "summon_request": {
             "desired_role": "coder.repo-refactor",
@@ -441,6 +442,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(request),
         }
         assert list(self.request_v4_validator.iter_errors(request)) == []
@@ -489,6 +491,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer remains an ordinary local step.",
             "stop_line": "Stop if the local child gains independent authority.",
@@ -528,6 +531,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 "artifact_path": "classification.json",
                 "goal_ref": classification["goal_ref"],
                 "current_holder_ref": classification["current_holder_ref"],
+                "execution_epoch": classification["execution_epoch"],
                 "child_scope_digest": classification["child_scope_digest"],
             }
             request["responsibility_classification"]["result_ref"]["digest"] = (
@@ -578,6 +582,17 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             ):
                 validator.validate_request(request_path)
 
+            stale_epoch = copy.deepcopy(request)
+            stale_epoch["quest_passport"]["execution_epoch"] = "epoch:landing-proof-2"
+            stale_epoch["request_digest"] = validator.request_digest(stale_epoch)
+            request_path.write_text(
+                json.dumps(stale_epoch, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "execution_epoch"
+            ):
+                validator.validate_request(request_path)
+
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
         import importlib.util
 
@@ -592,6 +607,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "holder:landing-proof", "holder-v1"
             ),
+            "execution_epoch": "epoch:landing-proof-1",
             "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer is an ordinary local decomposition step.",
             "stop_line": "Stop if the local child request gains independent authority.",
@@ -616,6 +632,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         assert list(Draft202012Validator(schema).iter_errors(result)) == []
         assert result["disposition"] == "not_independent"
         assert result["next_route"] == "codex_local"
+        assert result["execution_epoch"] == "epoch:landing-proof-1"
         invalid = copy.deepcopy(result)
         invalid["disposition"] = "independent"
         assert list(Draft202012Validator(schema).iter_errors(invalid))
@@ -643,6 +660,10 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         assert any(
             "transport implementation" in item
             and "codex_local compatibility route" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
+            "execution epoch" in item
             for item in classifier["execution"]["verification"]
         )
         assert any(

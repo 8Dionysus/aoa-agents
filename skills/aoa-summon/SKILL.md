@@ -125,8 +125,9 @@ leaf is not permission to infer any missing field.
    `responsibility_classification.disposition: not_independent`, its
    owner-qualified `result_ref` to `responsibility-classification-v1`, the
    exact `artifact_path`, the copied Goal/current-holder refs, and the
-   classification's `child_scope_digest` bound to this request's desired role,
-   intent, expected outputs, child scope, stop line, and child inputs. Run
+   classification's `execution_epoch` bound to `quest_passport.execution_epoch`
+   and its `child_scope_digest` bound to this request's desired role, intent,
+   expected outputs, child scope, stop line, and child inputs. Run
    `scripts/validate_summon_request.py` to resolve the artifact, validate its
    owner schema and semantic digest, and bind its Goal to `parent_task_id`,
    child duty to this request, and holder to `return_owner`; do not reconstruct

@@ -178,6 +178,17 @@ def _validate_local_classification(
         raise SummonRequestError(
             "responsibility classification goal is not bound to quest_passport.route_anchor"
         )
+    execution_epoch = passport.get("execution_epoch")
+    if not isinstance(execution_epoch, str) or not execution_epoch:
+        raise SummonRequestError("quest_passport.execution_epoch is missing")
+    if envelope.get("execution_epoch") != execution_epoch:
+        raise SummonRequestError(
+            "responsibility classification execution_epoch is not bound to the quest passport"
+        )
+    if classification.get("execution_epoch") != execution_epoch:
+        raise SummonRequestError(
+            "responsibility classification artifact is stale for the execution epoch"
+        )
     if summon.get("parent_task_id") != classification["goal_ref"]["object_id"]:
         raise SummonRequestError(
             "responsibility classification goal is not bound to parent_task_id"

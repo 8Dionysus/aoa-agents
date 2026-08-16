@@ -10,6 +10,7 @@
     "classification_id",
     "goal_ref",
     "current_holder_ref",
+    "execution_epoch",
     "child_scope_digest",
     "disposition",
     "reason",
@@ -26,6 +27,10 @@
     },
     "goal_ref": {"$ref": "#/$defs/contentRef"},
     "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+    "execution_epoch": {
+      "type": "string",
+      "pattern": "^epoch:[a-z0-9][a-z0-9._:-]*$"
+    },
     "child_scope_digest": {
       "type": "string",
       "pattern": "^sha256:[0-9a-f]{64}$"

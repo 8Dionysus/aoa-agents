@@ -9,6 +9,7 @@ select a tool, model, runtime, or domain procedure.
 Require the supplied `goal-pressure-v1` context with:
 
 - the anchored Goal and current responsibility-holder refs;
+- a freshly minted execution epoch from the routing owner or current holder;
 - the presented agent-tool or delegation decision;
 - the positive and negative independence findings;
 - the reason the work remains an ordinary local step;
@@ -22,7 +23,8 @@ Require the supplied `goal-pressure-v1` context with:
    no independent authority or continuity is required, and no external return
    owner is being created.
 3. Build the semantic classification packet with the exact Goal, current
-   holder, child-scope digest, reason, evidence, and stop line. Set only
+   holder, fresh execution epoch, child-scope digest, reason, evidence, and
+   stop line. Set only
    `disposition: not_independent` and `next_route: codex_local`.
 4. Validate and content-address it with the owner compiler:
 
@@ -38,8 +40,11 @@ python <bundle_dir>/scripts/compile_actor_contract.py classification \
 ## Output
 
 Return `responsibility-classification-v1` with its stable classification id,
-Goal, holder, and child-scope digest, `not_independent` disposition, reason,
-`codex_local` next route, stop line, evidence refs, and semantic digest.
+Goal, holder, execution epoch, and child-scope digest, `not_independent`
+disposition, reason, `codex_local` next route, stop line, evidence refs, and
+semantic digest. The routing owner or current holder must mint a new epoch for
+each initial, compaction/resume, re-entry, or material plan-change decision;
+the local request validator rejects a classification from another epoch.
 
 ## Verification
 
