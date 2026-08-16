@@ -5,9 +5,9 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import unittest
 
 from jsonschema import Draft202012Validator
-import pytest
 import yaml
 
 
@@ -292,9 +292,9 @@ def base_external_result_v4() -> dict[str, object]:
     return result
 
 
-class TestAoAAgentsSkillTreeContracts:
+class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
     @classmethod
-    def setup_class(cls) -> None:
+    def setUpClass(cls) -> None:
         cls.request_validator = Draft202012Validator(
             json.loads((SUMMON_ROOT / "summon-request-v3.schema.json").read_text())
         )
@@ -515,7 +515,7 @@ class TestAoAAgentsSkillTreeContracts:
             request_path.write_text(
                 json.dumps(tampered, sort_keys=True), encoding="utf-8"
             )
-            with pytest.raises(validator.SummonRequestError, match="goal_ref"):
+            with self.assertRaisesRegex(validator.SummonRequestError, "goal_ref"):
                 validator.validate_request(request_path)
 
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
