@@ -5,7 +5,7 @@ This is a passive owner-local admission check.  It does not select a lane,
 inspect a runtime, or launch a child.  A Codex-local request must carry the
 exact classification artifact that produced its content reference; the
 artifact is loaded, schema-checked, digest-checked, and bound to the request's
-goal and return holder before a local lane is considered.
+goal, child duty, and return holder before a local lane is considered.
 """
 
 from __future__ import annotations
@@ -56,6 +56,23 @@ def request_digest(payload: Mapping[str, Any]) -> str:
     candidate = dict(payload)
     candidate.pop("request_digest", None)
     return digest_bytes(canonical_bytes(candidate))
+
+
+def child_scope_digest(request: Mapping[str, Any]) -> str:
+    """Digest the complete local-child duty subject carried by the request."""
+
+    summon = request.get("summon_request")
+    if not isinstance(summon, Mapping):
+        raise SummonRequestError("summon_request is missing")
+    subject = {
+        "desired_role": summon.get("desired_role"),
+        "expected_outputs": request.get("expected_outputs"),
+        "intent": request.get("intent"),
+        "child_scope": request.get("child_scope"),
+        "child_stop_line": request.get("child_stop_line"),
+        "child_inputs": request.get("child_inputs"),
+    }
+    return digest_bytes(canonical_bytes(subject))
 
 
 def _load_exact(path: Path, *, label: str) -> tuple[bytes, dict[str, Any]]:
@@ -145,7 +162,7 @@ def _validate_local_classification(
         raise SummonRequestError(
             "responsibility classification disposition differs from the artifact"
         )
-    for field in ("goal_ref", "current_holder_ref"):
+    for field in ("goal_ref", "current_holder_ref", "child_scope_digest"):
         if envelope.get(field) != classification[field]:
             raise SummonRequestError(
                 f"responsibility classification {field} differs from the artifact"
@@ -162,10 +179,16 @@ def _validate_local_classification(
         raise SummonRequestError(
             "responsibility classification holder is not bound to return_owner"
         )
+    expected_child_scope_digest = child_scope_digest(request)
+    if classification["child_scope_digest"] != expected_child_scope_digest:
+        raise SummonRequestError(
+            "responsibility classification child_scope_digest is not bound to the request"
+        )
     return {
         "artifact_path": str(_classification_path(request_path, artifact_path).resolve()),
         "artifact_digest": digest_bytes(raw),
         "classification_ref": expected_ref,
+        "child_scope_digest": expected_child_scope_digest,
     }
 
 

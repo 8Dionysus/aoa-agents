@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete external execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the resolved classification artifact, names outputs, and names a return owner. This leaf consumes only a resolved summon-request-v4 with transport_preference codex_local or external_cli; unresolved aoa-sdk a2a_remote/either requests and generic delegation must remain with their owning routing control plane. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete external execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the resolved classification artifact and child-duty digest, names outputs, and names a return owner. This leaf consumes only a resolved summon-request-v4 with transport_preference codex_local or external_cli; unresolved aoa-sdk a2a_remote/either requests and generic delegation must remain with their owning routing control plane. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
 ---
 
 # aoa-summon
@@ -102,9 +102,10 @@ leaf is not permission to infer any missing field.
   `external_incarnation` extension; see
   `references/summon-request-v4.schema.json` and `references/contract.yaml`
 - a `codex_local` request must carry the exact owner-produced
-  `responsibility_classification` with `disposition: not_independent` and its
-  typed `result_ref` to `responsibility-classification-v1`; this result is part
-  of the request ABI, not session-only context
+  `responsibility_classification` with `disposition: not_independent`, its
+  typed `result_ref` to `responsibility-classification-v1`, and a digest of the
+  complete local-child duty subject; this result is part of the request ABI,
+  not session-only context
 - output: `summon-result-v4` with decision, binding and runtime state, canonical
   actor/process/session/continuation handles for the external lane,
   compatibility child handle where material, exact SDK summon request and
@@ -123,10 +124,13 @@ leaf is not permission to infer any missing field.
    `codex_local` lane, require the carried typed
    `responsibility_classification.disposition: not_independent`, its
    owner-qualified `result_ref` to `responsibility-classification-v1`, the
-   exact `artifact_path`, and the copied Goal/current-holder refs. Run
+   exact `artifact_path`, the copied Goal/current-holder refs, and the
+   classification's `child_scope_digest` bound to this request's desired role,
+   intent, expected outputs, child scope, stop line, and child inputs. Run
    `scripts/validate_summon_request.py` to resolve the artifact, validate its
-   owner schema and semantic digest, and bind its Goal to `parent_task_id` and
-   holder to `return_owner`; do not reconstruct the classification from prompt
+   owner schema and semantic digest, and bind its Goal to `parent_task_id`,
+   child duty to this request, and holder to `return_owner`; do not reconstruct
+   the classification from prompt
    history, compaction context, or a prose mention. A
    route-shaped description is not a request packet: if required objects,
    fields, input refs, or bounded task content are absent, return

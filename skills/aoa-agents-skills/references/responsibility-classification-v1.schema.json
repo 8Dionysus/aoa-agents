@@ -10,6 +10,7 @@
     "classification_id",
     "goal_ref",
     "current_holder_ref",
+    "child_scope_digest",
     "disposition",
     "reason",
     "next_route",
@@ -25,6 +26,10 @@
     },
     "goal_ref": {"$ref": "#/$defs/contentRef"},
     "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+    "child_scope_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
     "disposition": {"const": "not_independent"},
     "reason": {"type": "string", "minLength": 3},
     "next_route": {"const": "codex_local"},

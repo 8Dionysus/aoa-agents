@@ -737,6 +737,10 @@
           "minLength": 1,
           "type": "string"
         },
+        "child_scope_digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
         "current_holder_ref": {
           "$ref": "#/$defs/contentRef"
         },
@@ -756,7 +760,8 @@
         "result_ref",
         "artifact_path",
         "goal_ref",
-        "current_holder_ref"
+        "current_holder_ref",
+        "child_scope_digest"
       ],
       "type": "object"
     },

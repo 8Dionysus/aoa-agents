@@ -97,7 +97,7 @@ common_output_abi:
     - actual effects and evidence class
     - usage receipt refs when execution occurred
     - uncertainty, stop line, and next owner route
-    - a responsibility-classification-v1 result whenever the local disposition is not_independent
+    - a responsibility-classification-v1 result with a child-duty digest whenever the local disposition is not_independent
 
 relations:
   primary-capability-parent: aoa-agents actor lifecycle

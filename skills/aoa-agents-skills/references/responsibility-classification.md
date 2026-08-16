@@ -22,7 +22,7 @@ Require the supplied `goal-pressure-v1` context with:
    no independent authority or continuity is required, and no external return
    owner is being created.
 3. Build the semantic classification packet with the exact Goal, current
-   holder, reason, evidence, and stop line. Set only
+   holder, child-scope digest, reason, evidence, and stop line. Set only
    `disposition: not_independent` and `next_route: codex_local`.
 4. Validate and content-address it with the owner compiler:
 
@@ -38,8 +38,8 @@ python <bundle_dir>/scripts/compile_actor_contract.py classification \
 ## Output
 
 Return `responsibility-classification-v1` with its stable classification id,
-Goal and holder refs, `not_independent` disposition, reason, `codex_local` next
-route, stop line, evidence refs, and semantic digest.
+Goal, holder, and child-scope digest, `not_independent` disposition, reason,
+`codex_local` next route, stop line, evidence refs, and semantic digest.
 
 ## Verification
 

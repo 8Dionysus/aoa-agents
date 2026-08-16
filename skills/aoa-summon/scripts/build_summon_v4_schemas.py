@@ -62,6 +62,10 @@ def build_request_v4() -> dict[str, Any]:
             "artifact_path": {"minLength": 1, "type": "string"},
             "goal_ref": {"$ref": "#/$defs/contentRef"},
             "current_holder_ref": {"$ref": "#/$defs/contentRef"},
+            "child_scope_digest": {
+                "pattern": "^sha256:[0-9a-f]{64}$",
+                "type": "string",
+            },
         },
         "required": [
             "disposition",
@@ -69,6 +73,7 @@ def build_request_v4() -> dict[str, Any]:
             "artifact_path",
             "goal_ref",
             "current_holder_ref",
+            "child_scope_digest",
         ],
         "type": "object",
     }

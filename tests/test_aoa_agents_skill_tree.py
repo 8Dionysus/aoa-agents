@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -55,6 +56,23 @@ def base_request(transport: str) -> dict[str, object]:
         "request_ref": "task://landing-proof/summon-request",
         "request_digest": SHA256,
     }
+
+
+def child_scope_digest(request: dict[str, object]) -> str:
+    summon = request["summon_request"]
+    assert isinstance(summon, dict)
+    subject = {
+        "desired_role": summon["desired_role"],
+        "expected_outputs": request["expected_outputs"],
+        "intent": request["intent"],
+        "child_scope": request["child_scope"],
+        "child_stop_line": request["child_stop_line"],
+        "child_inputs": request["child_inputs"],
+    }
+    encoded = json.dumps(
+        subject, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def external_incarnation() -> dict[str, object]:
@@ -406,6 +424,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "child_scope_digest": child_scope_digest(request),
         }
         assert list(self.request_v4_validator.iter_errors(request)) == []
 
@@ -453,6 +472,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "actor://goal-owner", "holder-v1"
             ),
+            "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer remains an ordinary local step.",
             "stop_line": "Stop if the local child gains independent authority.",
             "evidence_refs": [
@@ -491,6 +511,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 "artifact_path": "classification.json",
                 "goal_ref": classification["goal_ref"],
                 "current_holder_ref": classification["current_holder_ref"],
+                "child_scope_digest": classification["child_scope_digest"],
             }
             request["responsibility_classification"]["result_ref"]["digest"] = (
                 classification["classification_digest"]
@@ -518,6 +539,17 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             with self.assertRaisesRegex(validator.SummonRequestError, "goal_ref"):
                 validator.validate_request(request_path)
 
+            tampered_scope = copy.deepcopy(request)
+            tampered_scope["child_scope"]["task"] = "A different local duty."
+            tampered_scope["request_digest"] = validator.request_digest(tampered_scope)
+            request_path.write_text(
+                json.dumps(tampered_scope, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                validator.SummonRequestError, "child_scope_digest"
+            ):
+                validator.validate_request(request_path)
+
     def test_not_independent_disposition_has_owner_schema_and_compiler(self) -> None:
         import importlib.util
 
@@ -532,6 +564,7 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
             "current_holder_ref": content_ref(
                 "aoa-agents", "holder:landing-proof", "holder-v1"
             ),
+            "child_scope_digest": child_scope_digest(base_request("codex_local")),
             "reason": "The requested reviewer is an ordinary local decomposition step.",
             "stop_line": "Stop if the local child request gains independent authority.",
             "evidence_refs": [

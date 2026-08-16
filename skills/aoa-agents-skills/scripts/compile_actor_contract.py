@@ -44,6 +44,7 @@ CLASSIFICATION_SEMANTIC_FIELDS = {
     "classification_id",
     "goal_ref",
     "current_holder_ref",
+    "child_scope_digest",
     "reason",
     "stop_line",
     "evidence_refs",

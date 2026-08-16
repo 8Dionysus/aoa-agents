@@ -56,7 +56,9 @@ or budget fields.
 
 `responsibility-classification-v1` records:
 
-- stable classification id, goal and current-holder refs;
+- stable classification id, goal and current-holder refs, plus a digest of the
+  complete local-child duty subject (desired role, intent, expected outputs,
+  child scope, stop line, and child inputs);
 - the `not_independent` disposition and reason;
 - the permitted `codex_local` next route and stop line;
 - evidence refs and a semantic digest.

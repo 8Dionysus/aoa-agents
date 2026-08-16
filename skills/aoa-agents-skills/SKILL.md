@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result with a child-duty digest or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -23,8 +23,8 @@ chooses the tool.
   addressable external CLI incarnation.
 - An ordinary local split returns a typed
   `responsibility-classification-v1` result with
-  `disposition: not_independent`; only then may a Codex-local child lane be
-  considered.
+  `disposition: not_independent` and a digest of the complete presented
+  child-duty subject; only then may a Codex-local child lane be considered.
 - This result is the typed `not_independent` disposition and is the only
   owner-produced evidence that can authorize the compatibility local-child
   branch.
