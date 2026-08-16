@@ -19,15 +19,18 @@ its digest, and require exact key-set equality between request
 | `d0_probe` or `d1_patch`, low risk, clear anchor and outputs | `codex_local_leaf` |
 | bounded `d2_slice`, low risk, narrowing reviewer/evaluator/verifier | `codex_local_reviewed` |
 | complete `aoa-agents-skills` actor packet with an admitted distinct-holder responsibility transfer, exact role resolution, model-fit query and selected projection, SDK incarnation v2, and separate CLI runtime launch | `external_cli_reviewed` |
-| separate endpoint or execution surface is truly required | `remote_reviewed` |
 | `d3+` still unsplit | `split_required` |
 | required progression/self-agent/approval evidence missing | `human_gate` |
 | stress says `stop_before_mutation` | non-mutating narrowing child or `human_gate` |
 
-Branch choice must already be settled. The local host child-agent interface is
-the compatibility default for explicit child requests only. A source-authorized
-external actor packet selects `external_cli_reviewed`; it may not fall back to
-a built-in child lane.
+Branch choice and physical transport must already be settled by the owning
+routing control plane. The v4 request accepted by this leaf contains only
+`codex_local` or `external_cli`; unresolved SDK `a2a_remote` and `either`
+values are rejected before lane selection. The local host child-agent
+interface is the compatibility default only after the exact
+`not_independent` classification artifact has been resolved and bound. A
+source-authorized external actor packet selects `external_cli_reviewed`; it
+may not fall back to a built-in child lane.
 
 ### Mode: decide
 

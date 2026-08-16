@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Owner-local role-layer classification for a responsibility boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this classification or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result or the independent-duty classification and hand the result back. This skill does not select transport, tools, or repository-wide navigation and must not become universal dispatch policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
 ---
 
 # aoa-agents-skills
@@ -11,13 +11,13 @@ the source of that actor's meaning.
 
 ## Agent-tool responsibility classification
 
-When the owning routing control plane or current holder presents a candidate
-Codex agent, sub-agent, collaboration, or delegation route, run this semantic
-classifier before transport is selected. It covers decisions involving another
-agent, worker, reviewer, researcher, parallel lane, background role, or
-delegated duty, including a possible `spawn_agent` call. The word `agent` does
-not select a transport. First decide whether responsibility itself moves; this
-skill does not own universal dispatch or choose the tool.
+When the aoa-sdk routing control plane or current holder explicitly presents an
+unresolved responsibility boundary to this owner-local stage, run this semantic
+classifier. The routing control plane decides whether this stage is invoked and
+which transport is available; this skill decides only whether responsibility
+itself moves and returns that meaning. It is not a universal pre-tool hook for
+every agent, collaboration, delegation, or built-in tool decision and never
+chooses the tool.
 
 - An independently owned duty routes toward role formation and a separately
   addressable external CLI incarnation.

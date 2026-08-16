@@ -32,18 +32,19 @@ competed with the intended route.
 
 - Rely on operator correction whenever a session chooses a built-in tool.
 - Disable Codex-local child tools globally.
-- Make `aoa-agents-skills` the pre-tool semantic intercept, keep local child
+- Make `aoa-agents-skills` the routing-invoked semantic classification stage, keep local child
   lanes available after classification, and narrow `aoa-summon` to an
   execution leaf.
 
 ## Decision
 
 `aoa-agents-skills` supplies role-layer responsibility classification when the
-`aoa-sdk` routing control plane or current holder presents a candidate built-in
-Codex agent, sub-agent, collaboration, or delegation route. It classifies
-whether responsibility moves before any transport is selected. Independent
-duties route to a separately addressable external CLI actor. Ordinary local
-splits return `not_independent` before a Codex-local compatibility lane may be
+`aoa-sdk` routing control plane or current holder explicitly presents an
+unresolved boundary to this owner-local stage. It classifies whether
+responsibility moves after the routing owner invokes the stage; it does not
+perform universal pre-tool dispatch or choose transport. Independent duties
+route to a separately addressable external CLI actor. Ordinary local splits
+return `not_independent` before a Codex-local compatibility lane may be
 considered. Universal pre-tool dispatch and route policy remain owned by
 `aoa-sdk`; this repository does not select or invoke the tool.
 
@@ -54,8 +55,8 @@ session does not replace a fresh responsibility classification.
 `aoa-summon` is not the generic delegation trigger. It executes only a
 complete leaf supplied by `aoa-agents-skills`, or an explicitly requested
 disposable Codex-local child whose complete anchored packet follows a
-`not_independent` disposition and carries the owner-qualified
-`responsibility_classification.result_ref` to
+`not_independent` disposition and carries the exact, resolved, owner-qualified
+classification artifact and `responsibility_classification.result_ref` to
 `responsibility-classification-v1` in the `summon-request-v4` ABI.
 
 `role-first-intent-v1` admits optional `prepare` or `execute` intent. A
@@ -68,13 +69,13 @@ owner, effect, stop-line, runtime, return, or proof gates.
 
 ## Rationale
 
-The routing owner must present responsibility classification before tool
-availability decides the route. This preserves the useful Codex-local child
-mechanism for actual local decomposition while making responsibility, not
-convenience or model availability, determine when an external actor is
-required. Same-request execute authority removes redundant ceremony without
-inventing permission, while the dispatch owner remains separate from the role
-meaning owner.
+The routing owner must present responsibility classification at its explicit
+owner-local stage before a local compatibility child is admitted. This
+preserves the useful Codex-local child mechanism for actual local decomposition
+while making responsibility, not convenience or model availability, determine
+when an external actor is required. Same-request execute authority removes
+redundant ceremony without inventing permission, while the dispatch owner
+remains separate from the role meaning owner.
 
 ## Consequences
 

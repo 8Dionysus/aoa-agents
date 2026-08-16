@@ -434,10 +434,7 @@
           "summon_request": {
             "properties": {
               "transport_preference": {
-                "enum": [
-                  "codex_local",
-                  "either"
-                ]
+                "const": "codex_local"
               }
             },
             "required": [
@@ -736,9 +733,19 @@
     "responsibility_classification": {
       "additionalProperties": false,
       "properties": {
+        "artifact_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "current_holder_ref": {
+          "$ref": "#/$defs/contentRef"
+        },
         "disposition": {
           "const": "not_independent",
           "type": "string"
+        },
+        "goal_ref": {
+          "$ref": "#/$defs/contentRef"
         },
         "result_ref": {
           "$ref": "#/$defs/responsibilityClassificationRef"
@@ -746,7 +753,10 @@
       },
       "required": [
         "disposition",
-        "result_ref"
+        "result_ref",
+        "artifact_path",
+        "goal_ref",
+        "current_holder_ref"
       ],
       "type": "object"
     },
@@ -816,9 +826,7 @@
         "transport_preference": {
           "enum": [
             "codex_local",
-            "a2a_remote",
-            "external_cli",
-            "either"
+            "external_cli"
           ],
           "type": "string"
         }

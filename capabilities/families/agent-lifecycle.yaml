@@ -25,7 +25,7 @@ nodes:
 
   - id: aoa-agents-skills
     title: aoa-agents-skills tree
-    description: Classify presented delegation before transport selection and navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves without owning route policy.
+    description: Classify a responsibility boundary explicitly presented to this owner-local stage and navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves without owning route policy or transport dispatch.
     kind: capability
     contract_level: navigation
     primary_parent: aoa-agents
@@ -35,8 +35,8 @@ nodes:
 
   - id: skill.aoa-agents-skills
     title: aoa-agents-skills organ router
-    description: Owner-local role-layer classification for a responsibility boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this classification or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result or the independent-duty classification and hand the result back. This skill does not select transport, tools, or repository-wide navigation and must not become universal dispatch policy. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
-    purpose: Classify the presented delegation and route the smallest owner-local actor lifecycle node or task-local DAG before transport is selected.
+    description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+    purpose: Classify the presented responsibility boundary and route the smallest owner-local actor lifecycle node or task-local DAG after the routing owner invokes this stage.
     kind: skill
     contract_level: executable
     primary_parent: aoa-agents-skills
@@ -53,7 +53,7 @@ nodes:
     applicability:
       use_when:
         - The owning routing control plane or current holder presents an agent-tool decision whose responsibility boundary is not yet classified.
-        - A request or plan exposes an agent, worker, reviewer, researcher, parallel lane, background role, or delegated duty whose responsibility boundary is not yet classified.
+        - The aoa-sdk routing control plane or current holder explicitly presents an agent-tool or delegation decision whose responsibility boundary is not yet classified.
         - Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.
         - An existing persistent role may need rebinding, return filtering, or controlled wake.
       do_not_use_when:
@@ -344,7 +344,7 @@ nodes:
 
   - id: skill.aoa-summon
     title: aoa-summon execution leaf
-    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the owner-qualified classification result ref, names outputs, and names a return owner. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
+    description: Execute one bounded actor route only after aoa-agents-skills has classified responsibility and supplied a complete external execution leaf, or after it has returned a typed not_independent disposition for an explicitly requested disposable Codex-local child whose complete anchored packet carries the resolved classification artifact, names outputs, and names a return owner. This leaf consumes only a resolved summon-request-v4 with transport_preference codex_local or external_cli; unresolved aoa-sdk a2a_remote/either requests and generic delegation must remain with their owning routing control plane. Generic requests for an agent, sub-agent, worker, reviewer, researcher, delegation, parallel work, or background work must route to aoa-agents-skills before this skill or any built-in Codex tool such as spawn_agent. Use the external CLI lane for an independently bound incarnation. An incomplete request must block.
     purpose: Preserve one anchored execution request, real host binding, runtime handle, named return validation, and parent closeout while the external incarnation ABI is evolved.
     kind: skill
     contract_level: executable
@@ -364,13 +364,13 @@ nodes:
       ambiguous_when: [A generic delegation request has not yet passed through aoa-agents-skills responsibility classification.]
     abi:
       inputs:
-        - {name: request, type: summon-request-v4, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, intent, carried not_independent classification result ref for codex_local, and exact external-incarnation evidence where applicable."}
+        - {name: request, type: summon-request-v4, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, resolved not_independent classification artifact for codex_local, and exact external-incarnation evidence where applicable."}
       outputs:
         - {name: result, type: summon-result-v4, required: true, description: "Decision, inspected binding, exact incarnation evidence, runtime handle, output validation, and closeout handoff."}
     binding: {kind: skill, ref: skills/aoa-summon/SKILL.md, operation: decide-or-execute, availability: available}
     execution:
       freedom: bounded-judgment
-      tool_requirements: [parent anchor and request packet, callable host delegation for execute mode]
+      tool_requirements: [parent anchor and request packet, exact local classification resolver, callable host delegation for execute mode]
       verification: [A plan is never reported as launch., Every named output and actual effect returns through the immutable request., Binding availability follows real interface inspection.]
       termination: [Stop after one decision or one real return and parent closeout., "Block when request, gate, binding, output, or return owner is absent."]
       effects: [none, runtime-mutation]
