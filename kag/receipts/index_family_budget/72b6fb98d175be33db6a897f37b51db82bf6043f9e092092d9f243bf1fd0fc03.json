@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 8881449,
+  "allowed_tracked_bytes": 15842579,
+  "approved_by": "repository-owner",
+  "base_ref": "07431ea60d8552c01ed01ee7e4c107b232d8b4a8",
+  "changed_generated_bytes": 8881449,
+  "changed_generated_files": 218,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "72b6fb98d175be33db6a897f37b51db82bf6043f9e092092d9f243bf1fd0fc03",
+  "reason": "Refresh generated family after correcting the explicit epoch-boundary regression assertion.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15842579,
+  "tracked_bytes_max": 16777216
+}
