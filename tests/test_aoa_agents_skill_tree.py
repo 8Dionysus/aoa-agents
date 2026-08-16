@@ -545,6 +545,17 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
                 classification["classification_digest"]
             )
 
+            tampered_passport = copy.deepcopy(request)
+            tampered_passport["quest_passport"]["route_anchor"] = "goal:other"
+            tampered_passport["request_digest"] = validator.request_digest(
+                tampered_passport
+            )
+            request_path.write_text(
+                json.dumps(tampered_passport, sort_keys=True), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(validator.SummonRequestError, "route_anchor"):
+                validator.validate_request(request_path)
+
             tampered = copy.deepcopy(request)
             tampered["responsibility_classification"]["goal_ref"] = content_ref(
                 "aoa-agents", "goal:other", "goal-v1"
@@ -608,6 +619,30 @@ class TestAoAAgentsSkillTreeContracts(unittest.TestCase):
         invalid = copy.deepcopy(result)
         invalid["disposition"] = "independent"
         assert list(Draft202012Validator(schema).iter_errors(invalid))
+
+    def test_responsibility_classification_has_its_own_execution_contract(self) -> None:
+        graph = yaml.safe_load(
+            (
+                REPO_ROOT / "capabilities/families/agent-lifecycle.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        nodes = {node["id"]: node for node in graph["nodes"]}
+        detector = nodes["mode.agents.detect-obligation"]
+        classifier = nodes["mode.agents.responsibility-classification"]
+
+        assert classifier["execution"] != detector["execution"]
+        assert classifier["execution"]["effects"] == ["none"]
+        assert any(
+            "one responsibility classification" in item
+            for item in classifier["execution"]["termination"]
+        )
+        assert any(
+            "selects no agent tool" in item
+            for item in classifier["execution"]["verification"]
+        )
+        assert any(
+            "compaction" in item for item in classifier["execution"]["failure_modes"]
+        )
 
     def test_v3_compatibility_request_remains_byte_contract_v1(self) -> None:
         request = base_request("external_cli")

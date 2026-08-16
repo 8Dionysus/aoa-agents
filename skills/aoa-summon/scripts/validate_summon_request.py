@@ -171,6 +171,13 @@ def _validate_local_classification(
     summon = request.get("summon_request")
     if not isinstance(summon, Mapping):
         raise SummonRequestError("summon_request is missing")
+    passport = request.get("quest_passport")
+    if not isinstance(passport, Mapping):
+        raise SummonRequestError("quest_passport is missing")
+    if passport.get("route_anchor") != classification["goal_ref"]["object_id"]:
+        raise SummonRequestError(
+            "responsibility classification goal is not bound to quest_passport.route_anchor"
+        )
     if summon.get("parent_task_id") != classification["goal_ref"]["object_id"]:
         raise SummonRequestError(
             "responsibility classification goal is not bound to parent_task_id"

@@ -227,7 +227,22 @@ nodes:
       outputs:
         - {name: classification, type: responsibility-classification-v1, required: true, description: Content-addressed not_independent result with a child-duty digest permitting only the codex_local compatibility route.}
     binding: {kind: mode, ref: skills/aoa-agents-skills/references/responsibility-classification.md, operation: responsibility-classification, availability: available}
-    execution: *read_execution
+    execution: &classification_execution
+      freedom: bounded-judgment
+      tool_requirements: [goal and holder read access, passive classification packet compiler]
+      verification:
+        - The result is a typed responsibility-classification-v1 artifact with its semantic digest.
+        - Goal, current holder, child-duty subject, and codex_local next route remain exact.
+        - The classifier selects no agent tool, model, transport, or runtime.
+      termination:
+        - Stop after one responsibility classification and its owner return route.
+        - Stop if the goal, holder, child duty, or stop line is missing or contradictory.
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes:
+        - Reconstructing a classification from prompt prose instead of an owner artifact.
+        - Treating not_independent as permission to bypass the aoa-summon leaf.
+        - Reusing a classification after compaction, resume, re-entry, or material plan change.
     trust: *read_trust
     provenance:
       source_refs:
