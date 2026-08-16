@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11191813,
+  "allowed_tracked_bytes": 15727681,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11191813,
+  "changed_generated_files": 279,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "742140c75a9a89b6241a0a1a2804426c99a994e0c5e351c919eb8fbc86486705",
+  "reason": "Review fix makes local-child not_independent classification model-visible and refreshes the same role-first capability family.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15727681,
+  "tracked_bytes_max": 16777216
+}
