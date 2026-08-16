@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11417726,
+  "allowed_tracked_bytes": 15780437,
+  "approved_by": "repository-owner",
+  "base_ref": "ee0db1551848cc2b93eb5e5eae4f570363c334cb",
+  "changed_generated_bytes": 11417726,
+  "changed_generated_files": 286,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "28847164d4587adf4118c5f84599ef79908c0aac16a4410e80c542e7c1241699",
+  "reason": "Refresh the owner-local KAG family after requiring responsibility classification for unresolved either requests that may resolve to Codex-local lanes.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15780437,
+  "tracked_bytes_max": 16777216
+}
