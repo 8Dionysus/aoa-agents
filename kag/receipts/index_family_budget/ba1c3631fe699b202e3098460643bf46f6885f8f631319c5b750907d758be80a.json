@@ -8,7 +8,7 @@
   "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
   "default_limit_bytes": 1048576,
   "head_family_digest": "ba1c3631fe699b202e3098460643bf46f6885f8f631319c5b750907d758be80a",
-  "reason": "Repair the landed aoa-agents responsibility route anchor and independent classification execution contract.",
+  "reason": "Repair the landed aoa-agents responsibility route anchor and independent classification execution contract with the CI incremental owner family.",
   "repo": "aoa-agents",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
   "scope": "generated_delta",
