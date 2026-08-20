@@ -37,6 +37,8 @@ def validate_namespace(
     namespace_suffix = payload["namespace_id"].removeprefix("namespace:")
     if not namespace_suffix.startswith(f"{role.get('name')}-"):
         raise ValueError("namespace_id must begin with the referenced role name")
+    if payload["rollback"]["target_generation"] >= payload["namespace_generation"]:
+        raise ValueError("rollback target_generation must precede namespace_generation")
 
 
 def main() -> int:

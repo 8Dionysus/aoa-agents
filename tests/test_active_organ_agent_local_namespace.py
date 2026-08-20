@@ -66,3 +66,10 @@ class ActiveOrganAgentLocalNamespaceTests(unittest.TestCase):
         validate(payload)
         with self.assertRaisesRegex(ValueError, "role profile id"):
             validate_namespace(payload, schema=load(SCHEMA_PATH), repo_root=ROOT)
+
+    def test_rollback_cannot_target_a_future_generation(self) -> None:
+        payload = load(EXAMPLE_PATH)
+        payload["rollback"]["target_generation"] = 4
+        validate(payload)
+        with self.assertRaisesRegex(ValueError, "target_generation"):
+            validate_namespace(payload, schema=load(SCHEMA_PATH), repo_root=ROOT)
