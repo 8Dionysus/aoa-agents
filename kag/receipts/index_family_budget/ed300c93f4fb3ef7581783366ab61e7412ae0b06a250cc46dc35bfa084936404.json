@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10832522,
+  "allowed_tracked_bytes": 15912100,
+  "approved_by": "repository-owner",
+  "base_ref": "4be21e25258128d36db80ce08b9f648495f22d0e",
+  "changed_generated_bytes": 10832522,
+  "changed_generated_files": 261,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ed300c93f4fb3ef7581783366ab61e7412ae0b06a250cc46dc35bfa084936404",
+  "reason": "Refresh the portable owner family after porting the isolated agent-local memory namespace contract onto current aoa-agents contracts and preserving current memo compatibility paths; this receipt admits only the measured derived-index delta and does not grant runtime or memory-promotion authority.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15912100,
+  "tracked_bytes_max": 16777216
+}
