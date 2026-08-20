@@ -131,7 +131,7 @@ def write_valid_current_evals_hook_root(root: Path) -> None:
 
 def write_valid_memo_root(root: Path) -> None:
     write_json(
-        root / "examples" / "checkpoint_to_memory_contract.example.json",
+        root / validate_agents.MEMO_CHECKPOINT_CONTRACT_CURRENT_PATH,
         {
             "artifact_refs": [
                 "repo:aoa-agents/mechanics/runtime-seam/parts/role-tier-bindings/docs/agent-runtime-seam.md",
@@ -688,6 +688,24 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
 
         self.assertIn("aoa-agents repo ref must stay inside this repository", str(ctx.exception))
 
+    def test_resolve_aoa_agents_repo_ref_supports_runtime_seam_legacy_ref(self) -> None:
+        expected = (
+            REPO_ROOT
+            / "mechanics"
+            / "runtime-seam"
+            / "parts"
+            / "role-tier-bindings"
+            / "docs"
+            / "agent-runtime-seam.md"
+        )
+
+        self.assertEqual(
+            validate_agents.resolve_aoa_agents_repo_ref(
+                "repo:aoa-agents/docs/AGENT_RUNTIME_SEAM.md"
+            ),
+            expected,
+        )
+
     def test_optional_consumer_smoke_checks_ignore_non_aoa_agents_eval_refs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             evals_root = Path(tmp_dir) / "aoa-evals"
@@ -989,6 +1007,24 @@ python /srv/AbyssOS/aoa-memo/scripts/memory/build_local_memo_port_index.py --pat
                 checked = validate_agents.validate_optional_consumer_smoke_checks({}, {})
 
         self.assertEqual(checked, ["aoa-memo"])
+
+    def test_memo_checkpoint_example_resolver_prefers_current_and_supports_legacy(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            memo_root = Path(tmp_dir) / "aoa-memo"
+            current_path = memo_root / validate_agents.MEMO_CHECKPOINT_CONTRACT_CURRENT_PATH
+            legacy_path = memo_root / validate_agents.MEMO_CHECKPOINT_CONTRACT_LEGACY_PATH
+            write_json(current_path, {"contract": "current"})
+            write_json(legacy_path, {"contract": "legacy"})
+
+            self.assertEqual(
+                validate_agents.resolve_aoa_memo_checkpoint_example_path(memo_root),
+                current_path,
+            )
+            current_path.unlink()
+            self.assertEqual(
+                validate_agents.resolve_aoa_memo_checkpoint_example_path(memo_root),
+                legacy_path,
+            )
 
     def test_optional_consumer_smoke_checks_reject_memo_missing_reviewed_candidate_lane(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:

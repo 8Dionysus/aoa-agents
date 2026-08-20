@@ -289,6 +289,16 @@ def resolve_aoa_evals_hook_example_path(evals_root: Path, filename: str) -> Path
     return legacy_path
 
 
+def resolve_aoa_memo_checkpoint_example_path(memo_root: Path) -> Path:
+    current_path = memo_root / MEMO_CHECKPOINT_CONTRACT_CURRENT_PATH
+    legacy_path = memo_root / MEMO_CHECKPOINT_CONTRACT_LEGACY_PATH
+    if current_path.exists():
+        return current_path
+    if legacy_path.exists():
+        return legacy_path
+    return current_path
+
+
 REGISTRY_PATH = REPO_ROOT / "generated" / "agent_registry.min.json"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-registry.schema.json"
 PROFILE_SCHEMA_PATH = REPO_ROOT / "schemas" / "agent-profile.schema.json"
@@ -388,10 +398,19 @@ RUNTIME_ARTIFACT_SCHEMA_PATHS = {
     "deep_synthesis_note": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.deep_synthesis_note.schema.json",
     "distillation_pack": RUNTIME_ARTIFACT_SCHEMA_DIR / "artifact.distillation_pack.schema.json",
 }
-RUNTIME_ARTIFACT_COMPATIBILITY_REFS = {
+AOA_AGENTS_REPO_REF_COMPATIBILITY_REFS = {
     (Path("schemas") / path.name).as_posix(): path
     for path in RUNTIME_ARTIFACT_SCHEMA_PATHS.values()
 }
+AOA_AGENTS_REPO_REF_COMPATIBILITY_REFS["docs/AGENT_RUNTIME_SEAM.md"] = (
+    REPO_ROOT
+    / "mechanics"
+    / "runtime-seam"
+    / "parts"
+    / "role-tier-bindings"
+    / "docs"
+    / "agent-runtime-seam.md"
+)
 
 ALLOWED_STATUS = {"active", "planned", "experimental", "deprecated"}
 ALLOWED_MEMORY_POSTURE = {"none", "light_recall", "bounded_recall", "deep_recall"}
@@ -761,6 +780,13 @@ MEMO_OBJECT_RECALL_CONTRACTS = (
     ("examples/recall/recall_contract.object.lineage.json", "lineage"),
 )
 
+MEMO_CHECKPOINT_CONTRACT_CURRENT_PATH = Path(
+    "mechanics/checkpoint/parts/checkpoint-to-memory-mapping/examples/"
+    "checkpoint_to_memory_contract.example.json"
+)
+MEMO_CHECKPOINT_CONTRACT_LEGACY_PATH = Path(
+    "examples/checkpoint_to_memory_contract.example.json"
+)
 MEMO_OBJECT_INSPECT_SURFACE = "generated/memory-objects/memory_object_catalog.min.json"
 MEMO_OBJECT_CAPSULE_SURFACE = "generated/memory-objects/memory_object_capsules.json"
 MEMO_OBJECT_EXPAND_SURFACE = "generated/memory-objects/memory_object_sections.full.json"
@@ -3868,7 +3894,7 @@ def resolve_aoa_agents_repo_ref(ref: str) -> Path:
     except ValueError:
         fail(f"aoa-agents repo ref must stay inside this repository: {ref}")
     if not target.exists():
-        compatibility_target = RUNTIME_ARTIFACT_COMPATIBILITY_REFS.get(relative_path)
+        compatibility_target = AOA_AGENTS_REPO_REF_COMPATIBILITY_REFS.get(relative_path)
         if compatibility_target is not None and compatibility_target.exists():
             return compatibility_target
         fail(f"aoa-agents repo ref does not resolve to an existing public surface: {ref}")
@@ -4326,7 +4352,10 @@ def validate_optional_consumer_smoke_checks(
 
     memo_root = env_repo_root("AOA_MEMO_ROOT")
     if memo_root is not None:
-        payload = read_json(memo_root / "examples" / "checkpoint_to_memory_contract.example.json", root=memo_root)
+        payload = read_json(
+            resolve_aoa_memo_checkpoint_example_path(memo_root),
+            root=memo_root,
+        )
         refs = sorted({value for value in iter_string_values(payload) if value.startswith("repo:aoa-agents/")})
         if not refs:
             fail("aoa-memo checkpoint_to_memory_contract example does not contain any aoa-agents refs to smoke-check")
