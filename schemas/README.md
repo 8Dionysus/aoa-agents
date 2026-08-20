@@ -37,6 +37,10 @@ not mechanic payloads.
 | `runtime-seam-binding.schema.json` | `agents/operating-model/runtime-seams/*.binding.json` |
 | `runtime-seam-bindings.schema.json` | `generated/runtime_seam_bindings.json` |
 | `agent-source-home.schema.json` | `agents/source_home.manifest.json` |
+| `active-organ-agent-local-namespace-v0.schema.json` | optional agent-local episodic/procedural namespace posture and reviewed-promotion boundary |
+
+The active-organ namespace contract and its cross-file role binding are
+validated through the executable route in `schemas/AGENTS.md`.
 
 ## Boundary
 

@@ -49,6 +49,25 @@ which roles are allowed to prepare, review, or hand off candidate memory, but it
 must not mint central memory objects, change lifecycle status, or treat role
 posture as proof.
 
+## Agent-local active-organ leaf
+
+An agent-local namespace is an optional leaf below the shared organ, not a
+second source of shared truth. Its owner contract is
+`schemas/active-organ-agent-local-namespace-v0.schema.json`.
+
+The namespace may retain bounded episodic and procedural cases for one exact
+agent and tenant, adapt local ranking from outcome-qualified evidence, expire
+or roll back its own generation, and nominate a reviewed promotion to
+`aoa-memo`. It may not read another agent or tenant namespace, publish directly
+to the shared ledger, use access count as utility, change role or permission
+authority, or let a local rollback mutate a reviewed shared object.
+
+Every local-to-shared handoff is `nominate_only`. Duplicate and conflict
+checks plus human review remain mandatory even when the role's ordinary memory
+posture permits wider lifecycle work. Disabling or isolating one namespace
+must leave shared reviewed recall available and must disable new promotions
+from the failed namespace.
+
 ## Shared recall scope classes
 
 `aoa-agents` names recall scope classes, not memo object identifiers.

@@ -85,6 +85,7 @@ Pair schema edits with examples, generated-surface rebuilds, and validation.
 Verify with:
 
 ```bash
+python scripts/validate_active_organ_agent_local_namespace.py
 python scripts/validate_agents.py
 python scripts/validate_semantic_agents.py
 ```

@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-agents/main/schemas/active-organ-agent-local-namespace-v0.schema.json",
+  "title": "Active Organ Agent-Local Namespace v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "namespace_id",
+    "namespace_generation",
+    "agent_id",
+    "role_profile_ref",
+    "tenant_id",
+    "owner",
+    "case_classes",
+    "isolation",
+    "ranking_adaptation",
+    "lifecycle",
+    "shared_promotion",
+    "rollback",
+    "degraded_mode",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "active_organ_agent_local_namespace_v0"
+    },
+    "namespace_id": {
+      "type": "string",
+      "pattern": "^namespace:[a-z0-9][a-z0-9._-]+$"
+    },
+    "namespace_generation": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "role_profile_ref": {
+      "type": "string",
+      "pattern": "^agents/roles/[a-z0-9-]+/profile\\.json$"
+    },
+    "tenant_id": {
+      "type": "string",
+      "pattern": "^tenant:[a-z0-9][a-z0-9._-]+$"
+    },
+    "owner": {
+      "const": "aoa-agents"
+    },
+    "case_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "episodic",
+          "procedural"
+        ]
+      }
+    },
+    "isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read_scope",
+        "write_scope",
+        "cross_agent_read",
+        "cross_tenant_read",
+        "private_to_shared_default"
+      ],
+      "properties": {
+        "read_scope": {
+          "const": "exact_agent_and_tenant"
+        },
+        "write_scope": {
+          "const": "exact_agent_and_tenant"
+        },
+        "cross_agent_read": {
+          "const": "forbidden"
+        },
+        "cross_tenant_read": {
+          "const": "forbidden"
+        },
+        "private_to_shared_default": {
+          "const": "forbidden"
+        }
+      }
+    },
+    "ranking_adaptation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "allowed_features",
+        "max_absolute_weight_delta",
+        "outcome_refs_required",
+        "access_count_as_utility",
+        "authority_features"
+      ],
+      "properties": {
+        "mode": {
+          "const": "bounded_local_only"
+        },
+        "allowed_features": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "task_similarity",
+              "outcome_qualification",
+              "freshness",
+              "contradiction_penalty",
+              "cost"
+            ]
+          }
+        },
+        "max_absolute_weight_delta": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.25
+        },
+        "outcome_refs_required": {
+          "const": true
+        },
+        "access_count_as_utility": {
+          "const": "forbidden"
+        },
+        "authority_features": {
+          "const": "forbidden"
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expiry_mode",
+        "max_ttl_seconds",
+        "namespace_local_expiry",
+        "shared_object_lifecycle_effect"
+      ],
+      "properties": {
+        "expiry_mode": {
+          "enum": [
+            "task_boundary",
+            "session_boundary",
+            "bounded_ttl"
+          ]
+        },
+        "max_ttl_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2592000
+        },
+        "namespace_local_expiry": {
+          "const": true
+        },
+        "shared_object_lifecycle_effect": {
+          "const": "none"
+        }
+      }
+    },
+    "shared_promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "right",
+        "target_owner",
+        "review_required",
+        "duplicate_check_required",
+        "conflict_check_required",
+        "direct_shared_write"
+      ],
+      "properties": {
+        "right": {
+          "const": "nominate_only"
+        },
+        "target_owner": {
+          "const": "aoa-memo"
+        },
+        "review_required": {
+          "const": true
+        },
+        "duplicate_check_required": {
+          "const": true
+        },
+        "conflict_check_required": {
+          "const": true
+        },
+        "direct_shared_write": {
+          "const": "forbidden"
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "target_generation",
+        "shared_ledger_effect",
+        "receipt_required"
+      ],
+      "properties": {
+        "scope": {
+          "const": "namespace_only"
+        },
+        "target_generation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shared_ledger_effect": {
+          "const": "none"
+        },
+        "receipt_required": {
+          "const": true
+        }
+      }
+    },
+    "degraded_mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "on_fault",
+        "shared_organ_available",
+        "promotion_enabled"
+      ],
+      "properties": {
+        "on_fault": {
+          "const": "isolate_namespace"
+        },
+        "shared_organ_available": {
+          "const": true
+        },
+        "promotion_enabled": {
+          "const": false
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_object_truth",
+        "role_or_permission_change",
+        "routing_policy",
+        "external_effects",
+        "training_use"
+      ],
+      "properties": {
+        "memory_object_truth": {
+          "const": "forbidden"
+        },
+        "role_or_permission_change": {
+          "const": "forbidden"
+        },
+        "routing_policy": {
+          "const": "forbidden"
+        },
+        "external_effects": {
+          "const": "forbidden"
+        },
+        "training_use": {
+          "const": "forbidden"
+        }
+      }
+    }
+  }
+}
