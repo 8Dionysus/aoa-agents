@@ -176,6 +176,7 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
+- [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
 
 ## external actor preparation
 

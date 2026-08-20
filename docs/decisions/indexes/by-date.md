@@ -80,6 +80,10 @@
 
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
+## 2026-07-29
+
+- [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
+
 ## 2026-08-02
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)

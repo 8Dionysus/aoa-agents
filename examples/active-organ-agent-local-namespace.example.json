@@ -1,0 +1,66 @@
+{
+  "schema_version": "active_organ_agent_local_namespace_v0",
+  "namespace_id": "namespace:coder-alpha",
+  "namespace_generation": 3,
+  "agent_id": "AOA-A-0002",
+  "role_profile_ref": "agents/roles/coder/profile.json",
+  "tenant_id": "tenant:operator",
+  "owner": "aoa-agents",
+  "case_classes": [
+    "episodic",
+    "procedural"
+  ],
+  "isolation": {
+    "read_scope": "exact_agent_and_tenant",
+    "write_scope": "exact_agent_and_tenant",
+    "cross_agent_read": "forbidden",
+    "cross_tenant_read": "forbidden",
+    "private_to_shared_default": "forbidden"
+  },
+  "ranking_adaptation": {
+    "mode": "bounded_local_only",
+    "allowed_features": [
+      "task_similarity",
+      "outcome_qualification",
+      "freshness",
+      "contradiction_penalty",
+      "cost"
+    ],
+    "max_absolute_weight_delta": 0.15,
+    "outcome_refs_required": true,
+    "access_count_as_utility": "forbidden",
+    "authority_features": "forbidden"
+  },
+  "lifecycle": {
+    "expiry_mode": "bounded_ttl",
+    "max_ttl_seconds": 604800,
+    "namespace_local_expiry": true,
+    "shared_object_lifecycle_effect": "none"
+  },
+  "shared_promotion": {
+    "right": "nominate_only",
+    "target_owner": "aoa-memo",
+    "review_required": true,
+    "duplicate_check_required": true,
+    "conflict_check_required": true,
+    "direct_shared_write": "forbidden"
+  },
+  "rollback": {
+    "scope": "namespace_only",
+    "target_generation": 2,
+    "shared_ledger_effect": "none",
+    "receipt_required": true
+  },
+  "degraded_mode": {
+    "on_fault": "isolate_namespace",
+    "shared_organ_available": true,
+    "promotion_enabled": false
+  },
+  "authority": {
+    "memory_object_truth": "forbidden",
+    "role_or_permission_change": "forbidden",
+    "routing_policy": "forbidden",
+    "external_effects": "forbidden",
+    "training_use": "forbidden"
+  }
+}

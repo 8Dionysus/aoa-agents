@@ -38,6 +38,10 @@ COMMANDS = [
     ),
     ("validate agents", [sys.executable, "scripts/validate_agents.py"]),
     (
+        "validate active-organ agent-local namespace",
+        [sys.executable, "scripts/validate_active_organ_agent_local_namespace.py"],
+    ),
+    (
         "validate agent source home",
         [sys.executable, "scripts/validate_agent_source_home.py"],
     ),
