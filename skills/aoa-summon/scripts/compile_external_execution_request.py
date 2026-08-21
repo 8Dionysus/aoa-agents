@@ -22,7 +22,7 @@ AGENT_REFERENCES = SUMMON_ROOT.parent / "aoa-agents-skills" / "references"
 REQUEST_SCHEMA = SUMMON_ROOT / "references" / "summon-request-v4.schema.json"
 ZERO_DIGEST = "sha256:" + "0" * 64
 SDK_BINDING_V2_SCHEMA_DIGEST = (
-    "sha256:e62e4b27fcb8d76ad80e1f7b9e66b510d8e076de77c1714988daac4d98deb529"
+    "sha256:e0399640b937e544664ef47a662645776c0539192e07916527eca7c7ebb82d65"
 )
 SDK_RUN_PLAN_SCHEMA_DIGEST = (
     "sha256:cb2f8f1aa82d23e4766ae58b67f7f8648569c5f9e5057e479ac172445b132eb5"
