@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 2340111,
+  "allowed_tracked_bytes": 15965661,
+  "approved_by": "repository-owner",
+  "base_ref": "5f3936e4bfd67ad33ea608a7d1d1b71a2092da79",
+  "changed_generated_bytes": 2340111,
+  "changed_generated_files": 56,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0c06163fc9ab53983350d480b540f52959d25716ea6ebfc73f2938d048d531e0",
+  "reason": "Admit the post-commit portable-family refresh required to publish this owner-side release-sentinel contract repair; tracked bytes remain within the owner cap.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15965661,
+  "tracked_bytes_max": 16777216
+}
