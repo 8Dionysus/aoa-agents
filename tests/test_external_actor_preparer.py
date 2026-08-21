@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +22,83 @@ def _input(input_id: str, path: Path) -> tuple[dict[str, str], Path]:
 
 
 class ExternalActorPreparerTests(unittest.TestCase):
+    def test_preparation_schema_requires_exact_runtime_subject(self) -> None:
+        schema = json.loads(
+            (
+                ROOT
+                / "skills/aoa-summon/references/actor-route-preparation-v1.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        self.assertIn(
+            "runtime_subject", schema["properties"]["model_fit"]["required"]
+        )
+        self.assertEqual(
+            schema["properties"]["model_fit"]["properties"]["runtime_subject"][
+                "required"
+            ],
+            ["kind", "source", "digest"],
+        )
+
+    def test_fit_query_forwards_exact_runtime_subject(self) -> None:
+        subject = {
+            "kind": "content_addressed_runtime_package",
+            "source": (
+                "codex-cli-standalone/"
+                "x86_64-unknown-linux-musl+codex-code-mode-host"
+            ),
+            "digest": "sha256:" + "3" * 64,
+        }
+        spec = {
+            "mandate": {
+                "model_fit_relation": {
+                    "task_family": "structured-owner-duty-currentness"
+                }
+            },
+            "model_fit": {
+                "runtime_version": "0.148.0",
+                "runtime_subject": subject,
+                "reasoning_effort": "max",
+                "sandbox_mode": "workspace-write",
+                "required_tools": ["shell-read", "workspace-write"],
+                "required_mcp_servers": [],
+            },
+        }
+        completed = mock.Mock(stdout='{"candidates": []}', stderr="")
+
+        with mock.patch.object(
+            PREPARER.subprocess, "run", return_value=completed
+        ) as run:
+            PREPARER._query_model_fit(spec, Path("/tmp/aoa-models"))
+
+        command = run.call_args.args[0]
+        for option, value in (
+            ("--runtime-subject-kind", subject["kind"]),
+            ("--runtime-subject-source", subject["source"]),
+            ("--runtime-subject-digest", subject["digest"]),
+        ):
+            self.assertEqual(command[command.index(option) + 1], value)
+
+    def test_selected_candidate_must_match_exact_runtime_subject(self) -> None:
+        with self.assertRaisesRegex(
+            PREPARER.PreparationError,
+            "runtime_subject differs from the exact requested package",
+        ):
+            PREPARER._assert_runtime_subject(
+                {
+                    "runtime_subject": {
+                        "kind": "content_addressed_runtime_package",
+                        "source": "codex-cli-standalone/other",
+                        "digest": "sha256:" + "4" * 64,
+                    }
+                },
+                {
+                    "kind": "content_addressed_runtime_package",
+                    "source": "codex-cli-standalone/current",
+                    "digest": "sha256:" + "3" * 64,
+                },
+            )
+
     def test_actor_runtime_session_id_is_derived_from_route(self) -> None:
         route_id = "role-first:workspace-proof-v2"
         session_id = PREPARER._actor_runtime_session_id(route_id)

@@ -110,6 +110,24 @@ def valid_sdk_decision() -> tuple[dict[str, object], str]:
 
 
 class CompileExternalExecutionRequestTests(unittest.TestCase):
+    def test_runtime_subject_chain_must_remain_exact(self) -> None:
+        subject = {
+            "kind": "content_addressed_runtime_package",
+            "source": "codex-cli-standalone/current-package",
+            "digest": "sha256:" + "3" * 64,
+        }
+        query = {"query": {"runtime_subject": copy.deepcopy(subject)}}
+        candidate = {"runtime_subject": copy.deepcopy(subject)}
+        binding = {"runtime_subject": copy.deepcopy(subject)}
+
+        COMPILER._validate_runtime_subject_chain(query, candidate, binding)
+        candidate["runtime_subject"]["digest"] = "sha256:" + "4" * 64
+        with self.assertRaisesRegex(
+            COMPILER.ExternalExecutionRequestError,
+            "runtime subject differs across",
+        ):
+            COMPILER._validate_runtime_subject_chain(query, candidate, binding)
+
     def test_run_plan_requires_pinned_full_schema_and_fresh_digests(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             schema_path = Path(directory) / "run-plan.schema.json"

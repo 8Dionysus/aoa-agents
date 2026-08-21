@@ -161,6 +161,24 @@ def _content_from_provenance(value: Mapping[str, Any]) -> dict[str, str]:
     }
 
 
+def _validate_runtime_subject_chain(
+    model_fit_query: Mapping[str, Any],
+    candidate: Mapping[str, Any],
+    binding: Mapping[str, Any],
+) -> None:
+    query_subject = model_fit_query.get("query", {}).get("runtime_subject")
+    candidate_subject = candidate.get("runtime_subject")
+    binding_subject = binding.get("runtime_subject")
+    if (
+        not isinstance(query_subject, Mapping)
+        or dict(query_subject) != candidate_subject
+        or candidate_subject != binding_subject
+    ):
+        raise ExternalExecutionRequestError(
+            "runtime subject differs across model-fit query, candidate, and incarnation binding"
+        )
+
+
 def _require_equal(actual: Any, expected: Any, *, label: str) -> None:
     if actual != expected:
         raise ExternalExecutionRequestError(
@@ -746,6 +764,7 @@ def compile_external_execution_request(
         != candidates[0].get("realization_ref")
     ):
         raise ExternalExecutionRequestError("model-fit evidence chain is inconsistent")
+    _validate_runtime_subject_chain(model_fit_query, candidates[0], binding)
 
     if digest_bytes(mandate_raw) != binding.get("role_contract_ref", {}).get(
         "artifact_digest"

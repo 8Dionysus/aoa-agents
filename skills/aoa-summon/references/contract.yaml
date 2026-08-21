@@ -23,7 +23,7 @@ input_abi:
     - responsibility_classification is forbidden when transport_preference is external_cli; the external lane carries its independent actor packet instead
     - transport_preference must already be resolved to codex_local or external_cli; aoa-sdk a2a_remote/either values are not summon-request-v4 inputs
     - external_incarnation with an admitted aoa-agents responsibility transfer when transport_preference is external_cli
-    - role_resolution_ref, model_fit_query_result_ref, model_fit_projection_ref, and aoa-sdk incarnation binding v2 for external_cli
+    - role_resolution_ref, model_fit_query_result_ref with exact runtime_subject, model_fit_projection_ref, and aoa-sdk incarnation binding v2 carrying that same runtime_subject for external_cli
 output_abi:
   type: summon-result-v4
   schema: summon-result-v4.schema.json
@@ -51,7 +51,7 @@ tool_requirements:
   - Read access to parent passport, anchor, gates, and relevant owner contracts.
   - A callable compatibility child interface or exact external CLI incarnation runtime and return interface for execute mode.
   - The passive summon request validator resolves the exact local classification artifact, checks its owner schema and semantic digest, and binds its Goal, complete child-duty subject, and current holder to the request; it never selects a lane or launches a runtime.
-  - The passive external request compiler consumes only complete exact owner files, admits the incarnation binding against the content-digest-pinned exact aoa-sdk v2 owner schema and SDK-canonical semantic self-digest, rejects SDK permission-posture contradictions, effect disagreement with the runtime task or actor mandate, tool or MCP disagreement between the selected binding and actor mandate, obligation-to-mandate goal, lifecycle, domain-owner, delegated-duty, stop-line, or model-fit-authority drift, SDK route-anchor drift, and a decision that does not explicitly select a2a_remote, binds the tool profile to the same runtime profile, and never inspects or starts a host binding.
+  - The passive external request compiler consumes only complete exact owner files, admits the incarnation binding against the content-digest-pinned exact aoa-sdk v2 owner schema and SDK-canonical semantic self-digest, requires one exact runtime_subject across the model-fit query, selected candidate, and incarnation binding, rejects SDK permission-posture contradictions, effect disagreement with the runtime task or actor mandate, tool or MCP disagreement between the selected binding and actor mandate, obligation-to-mandate goal, lifecycle, domain-owner, delegated-duty, stop-line, or model-fit-authority drift, SDK route-anchor drift, and a decision that does not explicitly select a2a_remote, binds the tool profile to the same runtime profile, and never inspects or starts a host binding.
   - The passive external result compiler consumes only a terminal runtime result and reviewed A2A return and never launches, reviews, or mints a stronger-owner artifact.
 execution_states:
   - decided

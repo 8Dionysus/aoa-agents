@@ -45,10 +45,20 @@
     "model_fit": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["runtime_version", "reasoning_effort", "sandbox_mode", "required_tools", "required_mcp_servers", "selected_projection_ref", "selection_authority_ref"],
+      "required": ["runtime_version", "runtime_subject", "reasoning_effort", "sandbox_mode", "required_tools", "required_mcp_servers", "selected_projection_ref", "selection_authority_ref"],
       "properties": {
         "runtime_product": {"type": "string", "default": "codex-cli"},
         "runtime_version": {"type": "string", "minLength": 1},
+        "runtime_subject": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "source", "digest"],
+          "properties": {
+            "kind": {"type": "string", "pattern": "^[a-z][a-z0-9._-]*$"},
+            "source": {"type": "string", "minLength": 1},
+            "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+          }
+        },
         "reasoning_effort": {"enum": ["low", "medium", "high", "xhigh", "max"]},
         "sandbox_mode": {"enum": ["read-only", "workspace-write", "danger-full-access"]},
         "required_tools": {"$ref": "#/$defs/nonEmptyStrings"},
