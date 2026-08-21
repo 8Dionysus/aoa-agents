@@ -22,7 +22,7 @@ AGENT_REFERENCES = SUMMON_ROOT.parent / "aoa-agents-skills" / "references"
 REQUEST_SCHEMA = SUMMON_ROOT / "references" / "summon-request-v4.schema.json"
 ZERO_DIGEST = "sha256:" + "0" * 64
 SDK_BINDING_V2_SCHEMA_DIGEST = (
-    "sha256:e62e4b27fcb8d76ad80e1f7b9e66b510d8e076de77c1714988daac4d98deb529"
+    "sha256:e0399640b937e544664ef47a662645776c0539192e07916527eca7c7ebb82d65"
 )
 SDK_RUN_PLAN_SCHEMA_DIGEST = (
     "sha256:cb2f8f1aa82d23e4766ae58b67f7f8648569c5f9e5057e479ac172445b132eb5"
@@ -159,6 +159,24 @@ def _content_from_provenance(value: Mapping[str, Any]) -> dict[str, str]:
         "schema_version": str(value["schema_version"]),
         "digest": str(value["artifact_digest"]),
     }
+
+
+def _validate_runtime_subject_chain(
+    model_fit_query: Mapping[str, Any],
+    candidate: Mapping[str, Any],
+    binding: Mapping[str, Any],
+) -> None:
+    query_subject = model_fit_query.get("query", {}).get("runtime_subject")
+    candidate_subject = candidate.get("runtime_subject")
+    binding_subject = binding.get("runtime_subject")
+    if (
+        not isinstance(query_subject, Mapping)
+        or dict(query_subject) != candidate_subject
+        or candidate_subject != binding_subject
+    ):
+        raise ExternalExecutionRequestError(
+            "runtime subject differs across model-fit query, candidate, and incarnation binding"
+        )
 
 
 def _require_equal(actual: Any, expected: Any, *, label: str) -> None:
@@ -746,6 +764,7 @@ def compile_external_execution_request(
         != candidates[0].get("realization_ref")
     ):
         raise ExternalExecutionRequestError("model-fit evidence chain is inconsistent")
+    _validate_runtime_subject_chain(model_fit_query, candidates[0], binding)
 
     if digest_bytes(mandate_raw) != binding.get("role_contract_ref", {}).get(
         "artifact_digest"

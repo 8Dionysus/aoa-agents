@@ -263,7 +263,9 @@ runtime-launch, continuity, task, and effect chain. The supplied incarnation
 binding must match its request ref, incarnation and continuity identities,
 exact child identity, obligation, mandate, role resolution, model-fit query
 and projection, SDK task request, effect posture, and exact runtime-profile
-ref. It must also retain the complete strict owner-v2 shape and semantic
+ref. Its exact runtime subject must agree across the fit query, selected
+candidate, and incarnation binding; an executable path or version string is
+not package identity. It must also retain the complete strict owner-v2 shape and semantic
 binding digest, including its run-plan and model-realization refs; the model
 realization and fit projection must share one aoa-models source. The exact
 run-plan and model-realization content refs must also be carried by the owner
@@ -285,7 +287,8 @@ When the obligation, role choice, mandate, model-fit selection, domain
 procedure, permission posture, task-local source graph, and exact owner roots
 are already settled, `scripts/prepare_external_actor.py` may compile the whole
 non-starting route packet. It resolves the selected role and model projection
-through their owners, asks `aoa-sdk` for transport admission and incarnation
+through their owners, requires the exact fit-query runtime subject, asks
+`aoa-sdk` for transport admission and incarnation
 binding, asks the installed `abyss-stack` binder for a launch artifact, and
 then emits the final `summon-request-v4`. It does not detect an obligation,
 choose a role or model, launch a process, accept a result, or own the domain

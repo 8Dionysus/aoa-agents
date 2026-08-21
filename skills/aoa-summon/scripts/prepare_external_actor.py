@@ -433,6 +433,7 @@ def _validate_spec(spec: dict[str, Any]) -> None:
 
 def _query_model_fit(spec: dict[str, Any], models_root: Path) -> dict[str, Any]:
     query = spec["model_fit"]
+    runtime_subject = query["runtime_subject"]
     command = [
         sys.executable,
         str(models_root / "scripts/query_model_fit.py"),
@@ -444,6 +445,12 @@ def _query_model_fit(spec: dict[str, Any], models_root: Path) -> dict[str, Any]:
         query.get("runtime_product", "codex-cli"),
         "--runtime-version",
         query["runtime_version"],
+        "--runtime-subject-kind",
+        runtime_subject["kind"],
+        "--runtime-subject-source",
+        runtime_subject["source"],
+        "--runtime-subject-digest",
+        runtime_subject["digest"],
         "--reasoning-effort",
         query["reasoning_effort"],
         "--sandbox-mode",
@@ -470,11 +477,22 @@ def _query_model_fit(spec: dict[str, Any], models_root: Path) -> dict[str, Any]:
     return payload
 
 
+def _assert_runtime_subject(
+    candidate: Mapping[str, Any], expected_subject: Mapping[str, Any]
+) -> None:
+    candidate_subject = candidate.get("runtime_subject")
+    if candidate_subject != dict(expected_subject):
+        raise PreparationError(
+            "selected fit candidate runtime_subject differs from the exact requested package"
+        )
+
+
 def _select_candidate(
     fit: Mapping[str, Any],
     models_root: Path,
     selected_ref: str,
     selection_authority: Mapping[str, Any],
+    expected_runtime_subject: Mapping[str, Any],
 ) -> tuple[dict[str, Any], Path, Path]:
     if not selection_authority.get("object_id"):
         raise PreparationError("selected model-fit projection has no explicit selection authority")
@@ -487,6 +505,7 @@ def _select_candidate(
     if len(matches) != 1:
         raise PreparationError("selected model-fit projection is absent or ambiguous in current query")
     candidate = matches[0]
+    _assert_runtime_subject(candidate, expected_runtime_subject)
     projection_path = (models_root / selected_ref).resolve(strict=True)
     realization_ref = candidate.get("realization_provenance", {}).get("artifact_ref")
     if not isinstance(realization_ref, str) or not realization_ref:
@@ -561,6 +580,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         models_root,
         spec["model_fit"]["selected_projection_ref"],
         spec["model_fit"]["selection_authority_ref"],
+        spec["model_fit"]["runtime_subject"],
     )
 
     sdk_src = str(sdk_root / "src")
@@ -940,7 +960,11 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         actor_mandate_ref=_content_ref(cp, mandate, object_field="mandate_id", digest_field="mandate_digest", owner="aoa-agents"),
         role_resolution_ref=_content_ref(cp, role_resolution, object_field="resolution_id", digest_field="resolution_digest", owner="aoa-agents"),
         model_fit_query_result_ref=_content_ref(cp, fit, object_field="result_id", digest_field="result_digest", owner="aoa-models"),
-        model_fit_projection_ref=projection_ref, provenance=compiler_ref,
+        model_fit_projection_ref=projection_ref,
+        runtime_subject=sdk.IncarnationRuntimeSubject.model_validate(
+            spec["model_fit"]["runtime_subject"]
+        ),
+        provenance=compiler_ref,
     )
     binding_path = output_dir / "incarnation-binding.json"
     _write(binding_path, binding.model_dump(mode="json"))

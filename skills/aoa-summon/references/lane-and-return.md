@@ -45,7 +45,7 @@ host binding. An allowed decision is not execution evidence.
 2. Resolve the host binding before claiming execution. Record interface name,
    availability, binding kind, runtime owner, and any runtime constraints. The
    external lane additionally resolves exact role resolution, model-fit query,
-   selected fit projection, incarnation v2, canonical SDK summon
+   selected fit projection, their exact runtime subject, incarnation v2, canonical SDK summon
    request/decision, admitted `aoa-agents` responsibility-transfer ref and its
    ordered distinct holder pair, and runtime-profile refs, and confirms
    built-in Codex subagents are disabled.
@@ -148,7 +148,9 @@ obligation holder, and the SDK decision must explicitly
 select `a2a_remote`. The supplied incarnation binding must pass the complete
 aoa-sdk v2 owner schema and its SDK-canonical semantic self-digest before any
 subset relation is considered. The schema bytes are pinned to the reviewed
-aoa-sdk owner artifact rather than trusted by `$id` or caller path. The run
+aoa-sdk owner artifact rather than trusted by `$id` or caller path. The fit
+query, its single selected candidate, and the binding must carry one exact
+runtime subject; path and version labels cannot replace its content digest. The run
 plan also passes the complete generated SDK `RunPlan` schema pinned by
 canonical content, and retains fresh SDK-canonical snapshot and plan digests
 before any snapshot input is consulted. A contradiction stops before launch;

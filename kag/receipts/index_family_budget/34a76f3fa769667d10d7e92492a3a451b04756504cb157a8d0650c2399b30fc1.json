@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 2618606,
+  "allowed_tracked_bytes": 15929230,
+  "approved_by": "repository-owner",
+  "base_ref": "9d1fc565f6c570724ddb2fff26a12f647482a815",
+  "changed_generated_bytes": 2618606,
+  "changed_generated_files": 62,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "34a76f3fa769667d10d7e92492a3a451b04756504cb157a8d0650c2399b30fc1",
+  "reason": "Refresh exact aoa-agents KAG family after preserving runtime_subject through the external request compiler and rebuilding the owner capability projection.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15929230,
+  "tracked_bytes_max": 16777216
+}
