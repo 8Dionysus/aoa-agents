@@ -102,7 +102,7 @@
         "task_family", "difficulty", "parent_task_id", "effect_class", "sandbox_mode",
         "workspace_path", "workspace_initial_posture", "workspace_manifest_input_id", "allowed_paths",
         "source_evidence_paths", "transition", "runtime_bind_executable", "runtime_interface", "request_ref",
-        "return_event_object_id", "return_owner_input_id", "codex_executable", "codex_home"
+        "return_event_object_id", "return_owner_input_id", "codex_executable", "runtime_package", "codex_home"
       ],
       "properties": {
         "task_family": {"type": "string", "minLength": 1},
@@ -128,6 +128,16 @@
         "return_event_object_id": {"type": "string", "minLength": 1},
         "return_owner_input_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 96},
         "codex_executable": {"$ref": "#/$defs/absolutePath"},
+        "runtime_package": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["package_root", "artifact_identity", "artifact_subjects"],
+          "properties": {
+            "package_root": {"$ref": "#/$defs/absolutePath"},
+            "artifact_identity": {"$ref": "#/$defs/absolutePath"},
+            "artifact_subjects": {"$ref": "#/$defs/absolutePath"}
+          }
+        },
         "codex_home": {"$ref": "#/$defs/absolutePath"},
         "environment_allowlist": {"$ref": "#/$defs/nonEmptyStrings"}
       }

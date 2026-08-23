@@ -40,6 +40,45 @@ class ExternalActorPreparerTests(unittest.TestCase):
             ["kind", "source", "digest"],
         )
 
+    def test_preparation_schema_requires_runtime_package_coordinates(self) -> None:
+        schema = json.loads(
+            (
+                ROOT
+                / "skills/aoa-summon/references/actor-route-preparation-v1.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        execution = schema["properties"]["execution"]
+        self.assertIn("runtime_package", execution["required"])
+        self.assertEqual(
+            execution["properties"]["runtime_package"]["required"],
+            ["package_root", "artifact_identity", "artifact_subjects"],
+        )
+
+    def test_runtime_package_manifest_forwards_resolved_coordinates(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            package_root = root / "package"
+            package_root.mkdir()
+            identity = root / "artifact.identity.json"
+            subjects = root / "artifact.subjects.json"
+            identity.write_text("{}", encoding="utf-8")
+            subjects.write_text("{}", encoding="utf-8")
+
+            manifest = PREPARER._runtime_package_manifest(
+                {
+                    "runtime_package": {
+                        "package_root": str(package_root),
+                        "artifact_identity": str(identity),
+                        "artifact_subjects": str(subjects),
+                    }
+                }
+            )
+
+        self.assertEqual(manifest["package_root"], str(package_root.resolve()))
+        self.assertEqual(manifest["artifact_identity"], str(identity.resolve()))
+        self.assertEqual(manifest["artifact_subjects"], str(subjects.resolve()))
+
     def test_fit_query_forwards_exact_runtime_subject(self) -> None:
         subject = {
             "kind": "content_addressed_runtime_package",
