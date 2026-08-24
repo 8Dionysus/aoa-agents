@@ -30,6 +30,7 @@ REFERENCES = SUMMON_ROOT / "references"
 ZERO_DIGEST = "sha256:" + "0" * 64
 COMPLETED_WAKE_EVENT_KIND = "result.validated"
 REVIEW_REQUIRED_WAKE_EVENT_KIND = "result.review_required"
+FAILED_WAKE_EVENT_KIND = "result.failed"
 DEFAULT_FORBIDDEN_EFFECTS = (
     "commit",
     "push",
@@ -545,6 +546,51 @@ def _select_candidate(
     return candidate, projection_path, realization_path
 
 
+def _wake_conditions(
+    sdk: Any,
+    *,
+    execution_posture: str,
+    wake_action: str,
+    wake_policy: str,
+) -> tuple[Any, ...]:
+    """Compile every terminal wake route, including unconditional failure return."""
+
+    conditions: list[Any] = [
+        sdk.WakeCondition(
+            condition_id="failed-return",
+            event_kind=FAILED_WAKE_EVENT_KIND,
+            action="wake_parent",
+            description="Return responsibility after a terminal result.failed event.",
+        )
+    ]
+    if execution_posture == "independent_review":
+        conditions.append(
+            sdk.WakeCondition(
+                condition_id="validated-completion",
+                event_kind=COMPLETED_WAKE_EVENT_KIND,
+                action=wake_action,
+                description=wake_policy,
+            )
+        )
+    conditions.extend(
+        (
+            sdk.WakeCondition(
+                condition_id="validated-return",
+                event_kind=REVIEW_REQUIRED_WAKE_EVENT_KIND,
+                action=wake_action,
+                description=wake_policy,
+            ),
+            sdk.WakeCondition(
+                condition_id="authority-needed",
+                event_kind="run.authority_required",
+                action="wake_parent",
+                description="Return responsibility when the mandate ceiling is insufficient.",
+            ),
+        )
+    )
+    return tuple(conditions)
+
+
 def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     spec = _load(spec_path, label="actor-route preparation spec")
     _validate_spec(spec)
@@ -957,21 +1003,11 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
     _write(run_plan_schema_path, cp.RunPlan.model_json_schema())
     run_plan_path = output_dir / "run-plan.json"
     _write(run_plan_path, plan.model_dump(mode="json"))
-    wake_conditions = (
-        *(
-            (
-                sdk.WakeCondition(
-                    condition_id="validated-completion",
-                    event_kind=COMPLETED_WAKE_EVENT_KIND,
-                    action=wake_action,
-                    description=mandate["wake_policy"],
-                ),
-            )
-            if execution_posture == "independent_review"
-            else ()
-        ),
-        sdk.WakeCondition(condition_id="validated-return", event_kind=REVIEW_REQUIRED_WAKE_EVENT_KIND, action=wake_action, description=mandate["wake_policy"]),
-        sdk.WakeCondition(condition_id="authority-needed", event_kind="run.authority_required", action="wake_parent", description="Return responsibility when the mandate ceiling is insufficient."),
+    wake_conditions = _wake_conditions(
+        sdk,
+        execution_posture=execution_posture,
+        wake_action=wake_action,
+        wake_policy=mandate["wake_policy"],
     )
     binding = sdk.build_agent_incarnation_binding_v2(
         plan, binding_id=f"incarnation-binding:{route_id}", incarnation_id=incarnation_id, causation_id=obligation["obligation_id"], trace_id=f"trace:{route_id}", task_request_ref=request_ref,
