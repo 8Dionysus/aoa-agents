@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 1697961,
+  "allowed_tracked_bytes": 15975412,
+  "approved_by": "repository-owner",
+  "base_ref": "cc4c2b55af22ada44874b6c8fa6668e7414ab7b6",
+  "changed_generated_bytes": 1697961,
+  "changed_generated_files": 36,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "bcc9df1ab7c1d7ddc17f9798455207da2adc48855f5c5a780c251380091f739c",
+  "reason": "Refresh exact aoa-agents KAG family after preserving admitted runtime package coordinates in the external actor route preparer.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15975412,
+  "tracked_bytes_max": 16777216
+}
