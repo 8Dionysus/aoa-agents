@@ -96,6 +96,33 @@ def _raw_digest(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _runtime_package_manifest(execution: Mapping[str, Any]) -> dict[str, str]:
+    """Resolve exact trust sidecars without weakening runtime admission."""
+
+    coordinates = execution["runtime_package"]
+    try:
+        package_root = Path(coordinates["package_root"]).resolve(strict=True)
+        artifact_identity = Path(coordinates["artifact_identity"]).resolve(strict=True)
+        artifact_subjects = Path(coordinates["artifact_subjects"]).resolve(strict=True)
+    except OSError as exc:
+        raise PreparationError(
+            "runtime package coordinates must resolve before launch binding"
+        ) from exc
+    if not package_root.is_dir():
+        raise PreparationError("runtime package root must be an exact directory")
+    for label, path in (
+        ("artifact identity", artifact_identity),
+        ("artifact subjects", artifact_subjects),
+    ):
+        if not path.is_file():
+            raise PreparationError(f"runtime package {label} must be an exact file")
+    return {
+        "package_root": str(package_root),
+        "artifact_identity": str(artifact_identity),
+        "artifact_subjects": str(artifact_subjects),
+    }
+
+
 def _data_digest(value: Any) -> str:
     raw = json.dumps(
         value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
@@ -974,7 +1001,7 @@ def compile_preparation(spec_path: Path, output_dir: Path) -> dict[str, Any]:
         "artifacts": {"plan": str(run_plan_path), "incarnation_binding": str(binding_path), "model_realization": str(realization_path), "task": str(task_path), "runtime_profile": str(runtime_descriptor_path), "role_contract": str(mandate_path), "result_schema": str(result_schema_path)},
         "owner_contract_paths": {"owner_execution_request_schema": str(release_root / "owners/aoa-agents/skills/aoa-summon/references/summon-request-v4.schema.json"), "task_local_dag_schema": str(dag_schema_path)},
         "workspace_path": str(workspace), "workspace_initial_posture": execution["workspace_initial_posture"], "workspace_manifest_input_id": execution["workspace_manifest_input_id"],
-        "codex_executable": str(Path(execution["codex_executable"]).resolve(strict=True)), "codex_home": str(Path(execution["codex_home"]).resolve(strict=True)),
+        "codex_executable": str(Path(execution["codex_executable"]).resolve(strict=True)), "runtime_package": _runtime_package_manifest(execution), "codex_home": str(Path(execution["codex_home"]).resolve(strict=True)),
         "environment_allowlist": execution.get("environment_allowlist", ["HOME", "LANG", "PATH", "SSL_CERT_DIR", "TERM"]),
     }
     manifest_schema_path = release_root / "runtime/schemas/external-actor-launch-manifest.schema.json"
