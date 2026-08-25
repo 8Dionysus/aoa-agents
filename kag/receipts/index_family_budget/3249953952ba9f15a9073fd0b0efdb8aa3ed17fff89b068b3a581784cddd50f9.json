@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 4183455,
+  "allowed_tracked_bytes": 15981630,
+  "approved_by": "repository-owner",
+  "base_ref": "2ed687c936843034ae25077d8faeab7d3909963c",
+  "changed_generated_bytes": 4183455,
+  "changed_generated_files": 98,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3249953952ba9f15a9073fd0b0efdb8aa3ed17fff89b068b3a581784cddd50f9",
+  "reason": "Refresh exact aoa-agents KAG family after routing terminal failure wake to parent in the external actor preparer.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 15981630,
+  "tracked_bytes_max": 16777216
+}
