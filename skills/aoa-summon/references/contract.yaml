@@ -64,6 +64,7 @@ execution_states:
 termination:
   success: decision-only result or one actor return validated and handed to responsibility closeout
   blocked: request ABI, anchor, literal inputs, outputs, gates, execution authority, or host binding is unavailable
+  failed: every terminal result.failed event binds the distinct failed-return wake condition with action wake_parent; validated, review-required, and authority wake conditions remain separate
 relations:
   - {kind: requires, target: guard.operations.approval, condition: actor effects require approval}
   - {kind: consumes, target: progression-delta-candidate, condition: only after aoa-agents owner review when progression is required}

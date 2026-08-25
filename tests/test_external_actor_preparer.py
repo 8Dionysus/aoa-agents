@@ -301,6 +301,33 @@ class ExternalActorPreparerTests(unittest.TestCase):
             PREPARER.REVIEW_REQUIRED_WAKE_EVENT_KIND,
             "result.review_required",
         )
+        self.assertEqual(PREPARER.FAILED_WAKE_EVENT_KIND, "result.failed")
+
+    def test_failed_terminal_wake_condition_is_compiled_unconditionally(self) -> None:
+        class FakeSDK:
+            @staticmethod
+            def WakeCondition(**kwargs: str) -> dict[str, str]:
+                return kwargs
+
+        conditions = PREPARER._wake_conditions(
+            FakeSDK,
+            execution_posture="independent_review",
+            wake_action="continue_without_parent",
+            wake_policy="Preserve the existing review behavior.",
+        )
+
+        self.assertEqual(
+            [
+                (item["condition_id"], item["event_kind"], item["action"])
+                for item in conditions
+            ],
+            [
+                ("failed-return", "result.failed", "wake_parent"),
+                ("validated-completion", "result.validated", "continue_without_parent"),
+                ("validated-return", "result.review_required", "continue_without_parent"),
+                ("authority-needed", "run.authority_required", "wake_parent"),
+            ],
+        )
 
 
 if __name__ == "__main__":
