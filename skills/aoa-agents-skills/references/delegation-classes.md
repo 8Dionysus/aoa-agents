@@ -32,10 +32,10 @@ The class keeps eval, closeout, and acceptance as separate lifecycle refs. A
 runtime process completing, a transport receipt, or a reviewed return does not
 by itself establish any of those claims. The first concrete adapter is the
 Codex CLI; a local/provider adapter consumes the same ABI and remains a
-replaceable runtime implementation. Before launch, the role, mandate, and
-responsibility-transfer refs are required; the reviewed-return ref is added
-only after a runtime event has been filtered. Built-in Codex child-agent lanes
-are not an external incarnation.
+replaceable runtime implementation. Before launch, the role, mandate,
+responsibility-transfer, and incarnation-binding refs are required; the
+reviewed-return ref is added only after a runtime event has been filtered.
+Built-in Codex child-agent lanes are not an external incarnation.
 
 Both classes are source contracts only while `d0-baseline:baseline-ready` is
 absent. Activation, pilot, promotion, and economy claims require the paired

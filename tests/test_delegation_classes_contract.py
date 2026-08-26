@@ -57,5 +57,6 @@ def test_owner_contract_and_procedure_keep_lifecycle_claims_separate() -> None:
         "local/provider adapter",
         "Built-in Codex child-agent lanes",
         "d0-baseline:baseline-ready",
+        "incarnation-binding refs",
     ):
         assert phrase in text
