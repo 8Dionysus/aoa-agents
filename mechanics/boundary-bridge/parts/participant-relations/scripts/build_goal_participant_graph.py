@@ -356,6 +356,12 @@ def _validate_dimension_ref_owners(
             allowed_owner_repos=allowed_owner_repos,
             label=f"{label}.value.assignment_ref",
         )
+        if value.get("task_ref") is not None:
+            _validate_ref_owner(
+                value["task_ref"],
+                allowed_owner_repos=allowed_owner_repos,
+                label=f"{label}.value.task_ref",
+            )
         for scope_field in SCOPE_FIELDS:
             _validate_ref_owner(
                 value[scope_field],
@@ -549,6 +555,11 @@ def _currentness_and_pagination_errors(source: dict[str, Any], label: str) -> li
         errors.append(f"{label}: has_more=true requires an exact next_cursor_ref")
     if not has_more and next_cursor is not None:
         errors.append(f"{label}: has_more=false cannot carry a next_cursor_ref")
+    if next_cursor is not None:
+        try:
+            _validate_ref_source_owner(next_cursor, label=f"{label}.pagination.next_cursor_ref")
+        except GoalParticipantGraphError as exc:
+            errors.append(str(exc))
     if has_more and currentness["state"] != "deferred":
         errors.append(f"{label}: a paginated continuation must remain currentness=deferred")
     if source["evidence_class"] == "empty_deferred":
@@ -817,6 +828,13 @@ def check_generated(root: Path, output: Path) -> None:
         raise GoalParticipantGraphError(f"generated reader is stale: {display_path}")
 
 
+def display_path(root: Path, path: Path) -> str:
+    try:
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build the aoa-agents Goal participant graph reader.")
     parser.add_argument("--root", type=Path, default=ROOT)
@@ -831,14 +849,14 @@ def main() -> int:
     try:
         if args.check:
             check_generated(root, output)
-            print(f"Goal participant graph is current: {output.relative_to(root).as_posix()}")
+            print(f"Goal participant graph is current: {display_path(root, output)}")
         else:
             payload = build_graph_payload(root)
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(compact_json(payload), encoding="utf-8")
             print(
                 "Wrote Goal participant graph: "
-                f"{output.relative_to(root).as_posix()} records={len(payload['records'])}"
+                f"{display_path(root, output)} records={len(payload['records'])}"
             )
     except GoalParticipantGraphError as exc:
         print(str(exc), file=sys.stderr)

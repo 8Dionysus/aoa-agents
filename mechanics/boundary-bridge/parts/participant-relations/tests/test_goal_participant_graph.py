@@ -29,6 +29,7 @@ from build_goal_participant_graph import (  # noqa: E402
     GoalParticipantGraphError,
     admission_receipt_id,
     build_graph_payload,
+    main as build_graph_main,
     compact_json,
     check_generated,
     publication_payload_digest,
@@ -180,6 +181,51 @@ class GoalParticipantGraphTests(unittest.TestCase):
         stale_empty["currentness"]["state"] = "stale"
         with self.assertRaises(GoalParticipantGraphError):
             validate_source_payload(ROOT, stale_empty)
+
+    def test_pagination_cursor_source_repository_must_match_owner(self) -> None:
+        source = copy.deepcopy(self.source)
+        source["pagination"]["has_more"] = True
+        source["pagination"]["next_cursor_ref"] = copy.deepcopy(self.example["scope"]["goal_ref"])
+        source["pagination"]["next_cursor_ref"]["source_ref"] = "repo:aoa-models/continuation-cursor"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_source_payload(ROOT, source)
+
+    def test_optional_task_ref_obeys_task_assignment_owner(self) -> None:
+        record = copy.deepcopy(self.example)
+        record["dimensions"]["task_assignment"]["value"]["task_ref"] = copy.deepcopy(
+            self.example["dimensions"]["model_realization"]["owner_ref"]
+        )
+        record["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(record))
+        ]
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(record, relation_schema=self.relation_schema, label="wrong-task-owner")
+
+    def test_builder_handles_external_output_paths(self) -> None:
+        original_argv = sys.argv
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / "goal-participant-graph.min.json"
+                sys.argv = [
+                    "build_goal_participant_graph.py",
+                    "--root",
+                    str(ROOT),
+                    "--out",
+                    str(output),
+                ]
+                self.assertEqual(build_graph_main(), 0)
+                self.assertTrue(output.is_file())
+                sys.argv = [
+                    "build_goal_participant_graph.py",
+                    "--root",
+                    str(ROOT),
+                    "--out",
+                    str(output),
+                    "--check",
+                ]
+                self.assertEqual(build_graph_main(), 0)
+        finally:
+            sys.argv = original_argv
 
     def _valid_publication(self) -> dict:
         record = copy.deepcopy(self.example)
