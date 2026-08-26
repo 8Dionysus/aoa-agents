@@ -139,10 +139,11 @@ delegation_classes:
     responsibility: transferred_and_reviewed_return
     role_formation: required
     durable_transfer: required
-    required_refs:
+    pre_launch_refs:
       - role_contract_ref
       - actor_mandate_ref
       - responsibility_transfer_ref
+    post_return_refs:
       - reviewed_return_ref
     stronger_owner_refs:
       model_realization: aoa-models
@@ -156,7 +157,7 @@ delegation_classes:
 delegation_class_rules:
   provider_neutral_abi: aoa_delegation_class_v1
   baseline_posture: Source contracts may be landed default-off before d0-baseline:baseline-ready; activation, pilot, promotion, and economy claims remain closed until the paired baseline is admitted.
-  builtin_codex_subagents: forbidden
+  builtin_codex_child_as_external_incarnation: forbidden
   lifecycle_separation: Eval, closeout, and acceptance are separate refs and claims; a runtime return is not any of them.
 
 termination:

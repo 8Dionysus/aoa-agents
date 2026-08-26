@@ -24,12 +24,12 @@ def test_owner_contract_keeps_the_two_delegation_classes_distinct() -> None:
     assert external["responsibility"] == "transferred_and_reviewed_return"
     assert external["role_formation"] == "required"
     assert external["durable_transfer"] == "required"
-    assert set(external["required_refs"]) == {
+    assert set(external["pre_launch_refs"]) == {
         "role_contract_ref",
         "actor_mandate_ref",
         "responsibility_transfer_ref",
-        "reviewed_return_ref",
     }
+    assert external["post_return_refs"] == ["reviewed_return_ref"]
     assert external["stronger_owner_refs"]["model_realization"] == "aoa-models"
     assert external["stronger_owner_refs"]["incarnation_binding"] == "aoa-sdk"
 
@@ -39,7 +39,9 @@ def test_owner_contract_and_procedure_keep_lifecycle_claims_separate() -> None:
     assert payload["delegation_class_rules"]["provider_neutral_abi"] == (
         "aoa_delegation_class_v1"
     )
-    assert payload["delegation_class_rules"]["builtin_codex_subagents"] == "forbidden"
+    assert payload["delegation_class_rules"][
+        "builtin_codex_child_as_external_incarnation"
+    ] == "forbidden"
     assert payload["delegation_class_rules"]["lifecycle_separation"].startswith(
         "Eval, closeout, and acceptance"
     )
