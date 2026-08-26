@@ -436,7 +436,8 @@ CLAIM_LIMIT_POSITIVE_VERBS = re.compile(
     r"show(?:s|ed)?|validat(?:e|es|ed)|verif(?:y|ies|ied))\b"
 )
 CLAIM_LIMIT_UNBOUNDED_TERMS = re.compile(
-    r"\b(?:live(?:ness)?|activation|wake|accept(?:s|ed|ance|ing)?|completion)\b|"
+    r"\b(?:live(?:ness)?|activation|wake|accept(?:s|ed|ance|ing)?|"
+    r"complet(?:e|es|ed|ing|ion))\b|"
     r"\b(?:runtime\s+(?:activation|health|presence)|owner\s+truth|"
     r"goal\s+completion|semantic\s+goal\s+acceptance|live\s+participant\s+presence)\b"
 )

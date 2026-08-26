@@ -399,6 +399,11 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, inflected_acceptance)
 
+        inflected_completion = self._valid_publication()
+        inflected_completion["claim_limit"] = "The Goal was completed."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, inflected_completion)
+
         receipt = build_admission_receipt(ROOT, self._valid_publication())
         receipt["claim_limit"] = "This proves Goal completion."
         receipt["receipt_id"] = admission_receipt_id(receipt)
