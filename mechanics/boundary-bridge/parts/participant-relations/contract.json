@@ -9,24 +9,51 @@
   "dimensions": {
     "identity": {
       "owner": "aoa-agents",
+      "allowed_owner_repos": [
+        "aoa-agents"
+      ],
       "meaning": "Exact actor identity reference; any human display reference is optional and separate."
     },
     "obligation_role": {
       "owner": "aoa-agents",
+      "allowed_owner_repos": [
+        "aoa-agents"
+      ],
       "meaning": "Exact role and obligation references; labels are descriptive and never join keys."
     },
     "task_assignment": {
       "owner": "codex-app-server-and-aoa-sdk",
+      "allowed_owner_repos": [
+        "aoa-sdk",
+        "codex-app-server"
+      ],
       "meaning": "Exact Goal, Goal-instance, master-thread, task, and assignment references supplied by their owners."
     },
     "model_realization": {
       "owner": "aoa-models",
+      "allowed_owner_repos": [
+        "aoa-models"
+      ],
       "meaning": "Exact model identity and realization/config references; a model name or version is insufficient."
     },
     "runtime_incarnation": {
       "owner": "abyss-stack",
+      "allowed_owner_repos": [
+        "abyss-stack"
+      ],
       "meaning": "Exact runtime binding and incarnation references; runtime evidence is not identity or liveness."
     }
+  },
+  "scope_owner_repos": {
+    "goal_ref": [
+      "codex-app-server"
+    ],
+    "goal_instance_ref": [
+      "aoa-session-memory"
+    ],
+    "master_thread_ref": [
+      "codex-app-server"
+    ]
   },
   "admission": {
     "publication_input_schema": "mechanics/boundary-bridge/parts/participant-relations/schemas/goal-participant-publication.schema.json",

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 import hashlib
 import json
 import re
@@ -11,7 +12,7 @@ import sys
 from pathlib import Path
 from typing import Any, Iterable
 
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 from referencing import Registry, Resource
 
@@ -73,6 +74,22 @@ DIMENSION_NAMES = (
     "model_realization",
     "runtime_incarnation",
 )
+SCOPE_FIELDS = ("goal_ref", "goal_instance_ref", "master_thread_ref")
+RFC3339_DATE_TIME = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+)
+FORMAT_CHECKER = FormatChecker()
+
+
+@FORMAT_CHECKER.checks("date-time")
+def _is_rfc3339_date_time(value: Any) -> bool:
+    if not isinstance(value, str) or not RFC3339_DATE_TIME.fullmatch(value):
+        return False
+    try:
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return True
 
 
 class GoalParticipantGraphError(RuntimeError):
@@ -159,7 +176,11 @@ def validate_instance(
         Draft202012Validator.check_schema(schema)
     except SchemaError as exc:
         raise GoalParticipantGraphError(f"{label}: invalid schema: {exc}") from exc
-    validator = Draft202012Validator(schema, registry=_schema_registry(root or ROOT))
+    validator = Draft202012Validator(
+        schema,
+        registry=_schema_registry(root or ROOT),
+        format_checker=FORMAT_CHECKER,
+    )
     errors = sorted(
         validator.iter_errors(payload),
         key=lambda error: (list(error.absolute_path), error.message),
@@ -250,6 +271,93 @@ def publication_payload_digest(records: list[dict[str, Any]]) -> str:
     return digest_value(records)
 
 
+def _declared_dimension_owner_repos(root: Path, dimension_name: str) -> frozenset[str]:
+    contract = read_json(root.resolve() / CONTRACT_PATH)
+    dimensions = contract.get("dimensions")
+    dimension = dimensions.get(dimension_name) if isinstance(dimensions, dict) else None
+    allowed = dimension.get("allowed_owner_repos") if isinstance(dimension, dict) else None
+    if (
+        not isinstance(allowed, list)
+        or not allowed
+        or any(not isinstance(owner_repo, str) or not owner_repo for owner_repo in allowed)
+    ):
+        raise GoalParticipantGraphError(
+            f"contract dimensions.{dimension_name}.allowed_owner_repos is missing or invalid"
+        )
+    return frozenset(allowed)
+
+
+def _declared_scope_owner_repos(root: Path, scope_field: str) -> frozenset[str]:
+    contract = read_json(root.resolve() / CONTRACT_PATH)
+    scope_owners = contract.get("scope_owner_repos")
+    allowed = scope_owners.get(scope_field) if isinstance(scope_owners, dict) else None
+    if (
+        not isinstance(allowed, list)
+        or not allowed
+        or any(not isinstance(owner_repo, str) or not owner_repo for owner_repo in allowed)
+    ):
+        raise GoalParticipantGraphError(
+            f"contract scope_owner_repos.{scope_field} is missing or invalid"
+        )
+    return frozenset(allowed)
+
+
+def _validate_ref_owner(
+    ref: dict[str, Any],
+    *,
+    allowed_owner_repos: frozenset[str],
+    label: str,
+) -> None:
+    if ref["owner_repo"] not in allowed_owner_repos:
+        expected = ", ".join(sorted(allowed_owner_repos))
+        raise GoalParticipantGraphError(
+            f"{label}: owner_repo {ref['owner_repo']!r} is not declared; expected one of {expected}"
+        )
+
+
+def _validate_dimension_ref_owners(
+    root: Path,
+    dimension_name: str,
+    dimension: dict[str, Any],
+    *,
+    label: str,
+) -> None:
+    allowed_owner_repos = _declared_dimension_owner_repos(root, dimension_name)
+    _validate_ref_owner(
+        dimension["owner_ref"],
+        allowed_owner_repos=allowed_owner_repos,
+        label=f"{label}.owner_ref",
+    )
+    for index, evidence_ref in enumerate(dimension.get("evidence_refs", [])):
+        _validate_ref_owner(
+            evidence_ref,
+            allowed_owner_repos=allowed_owner_repos,
+            label=f"{label}.evidence_refs[{index}]",
+        )
+
+    value = dimension["value"]
+    if dimension_name == "task_assignment":
+        _validate_ref_owner(
+            value["assignment_ref"],
+            allowed_owner_repos=allowed_owner_repos,
+            label=f"{label}.value.assignment_ref",
+        )
+        for scope_field in SCOPE_FIELDS:
+            _validate_ref_owner(
+                value[scope_field],
+                allowed_owner_repos=_declared_scope_owner_repos(root, scope_field),
+                label=f"{label}.value.{scope_field}",
+            )
+        return
+
+    for index, value_ref in enumerate(iter_refs(value)):
+        _validate_ref_owner(
+            value_ref,
+            allowed_owner_repos=allowed_owner_repos,
+            label=f"{label}.value.ref[{index}]",
+        )
+
+
 RECEIPT_IDENTITY_FIELDS = (
     "schema_version",
     "kind",
@@ -287,11 +395,13 @@ def validate_relation(
     *,
     relation_schema: dict[str, Any],
     label: str,
+    root: Path | None = None,
     publisher_ref: dict[str, Any] | None = None,
     require_key_digest: bool = False,
     expected_privacy_policy_ref: dict[str, Any] | None = None,
 ) -> None:
-    validate_instance(record, relation_schema, label)
+    repo_root = (root or ROOT).resolve()
+    validate_instance(record, relation_schema, label, root=repo_root)
     validate_privacy_omissions(
         record["privacy_omissions"],
         label=f"{label}.privacy_omissions",
@@ -319,10 +429,28 @@ def validate_relation(
             f"{label}: publisher endpoint references do not exactly cover the relation scope and present dimensions"
         )
 
+    scope_refs = [canonical_ref(record["scope"][scope_field]) for scope_field in SCOPE_FIELDS]
+    if len(set(scope_refs)) != len(scope_refs):
+        raise GoalParticipantGraphError(
+            f"{label}: goal, Goal-instance, and master-thread scope references must be distinct exact endpoints"
+        )
+    for scope_field in SCOPE_FIELDS:
+        _validate_ref_owner(
+            record["scope"][scope_field],
+            allowed_owner_repos=_declared_scope_owner_repos(repo_root, scope_field),
+            label=f"{label}.scope.{scope_field}",
+        )
+
     for dimension_name in DIMENSION_NAMES:
         dimension = record["dimensions"][dimension_name]
         if dimension["state"] != "present":
             continue
+        _validate_dimension_ref_owners(
+            repo_root,
+            dimension_name,
+            dimension,
+            label=f"{label}.dimensions.{dimension_name}",
+        )
         owner_ref = canonical_ref(dimension["owner_ref"])
         value_refs = {canonical_ref(ref) for ref in iter_refs(dimension["value"])}
         if owner_ref not in value_refs:
@@ -333,7 +461,7 @@ def validate_relation(
     assignment = record["dimensions"]["task_assignment"]
     if assignment["state"] == "present":
         assignment_value = assignment["value"]
-        for scope_field in ("goal_ref", "goal_instance_ref", "master_thread_ref"):
+        for scope_field in SCOPE_FIELDS:
             if assignment_value[scope_field] != record["scope"][scope_field]:
                 raise GoalParticipantGraphError(
                     f"{label}: task_assignment.{scope_field} must exactly match the relation scope"
@@ -350,6 +478,10 @@ def _currentness_and_pagination_errors(source: dict[str, Any], label: str) -> li
     currentness = source["currentness"]
     has_more = pagination["has_more"]
     next_cursor = pagination["next_cursor_ref"]
+    if pagination["page_index"] != 0:
+        errors.append(
+            f"{label}: only page_index=0 may be admitted as one complete publication"
+        )
     if has_more and next_cursor is None:
         errors.append(f"{label}: has_more=true requires an exact next_cursor_ref")
     if not has_more and next_cursor is not None:
@@ -384,6 +516,8 @@ def validate_admission_receipt(
         raise GoalParticipantGraphError("admission receipt currentness requires observed_at")
     if receipt["pagination"]["has_more"] or receipt["pagination"]["next_cursor_ref"] is not None:
         raise GoalParticipantGraphError("admission receipt cannot admit an incomplete paginated publication")
+    if receipt["pagination"]["page_index"] != 0:
+        raise GoalParticipantGraphError("admission receipt must represent the initial complete publication page")
     if set(receipt["privacy_omissions"]) != REQUIRED_PRIVACY_OMISSIONS:
         raise GoalParticipantGraphError("admission receipt privacy omissions drifted from the contract baseline")
     if publication is not None:
@@ -462,6 +596,7 @@ def validate_source_payload(root: Path, source: dict[str, Any]) -> None:
             relation_schema=relation_schema,
             label=label,
             publisher_ref=source["publisher_ref"],
+            root=root,
             require_key_digest=source["evidence_class"] == "owner_published",
             expected_privacy_policy_ref=expected_privacy_ref,
         )
@@ -563,6 +698,7 @@ def validate_graph_payload(root: Path, graph: dict[str, Any]) -> None:
             relation_schema=relation_schema,
             label=label,
             publisher_ref=expected_contract,
+            root=root,
             require_key_digest=record["evidence_class"] == "owner_published",
             expected_privacy_policy_ref=expected_privacy,
         )
@@ -577,7 +713,11 @@ def check_generated(root: Path, output: Path) -> None:
     except FileNotFoundError as exc:
         raise GoalParticipantGraphError(f"missing generated reader: {output}") from exc
     if actual != expected:
-        raise GoalParticipantGraphError(f"generated reader is stale: {output.relative_to(root).as_posix()}")
+        try:
+            display_path = output.relative_to(root).as_posix()
+        except ValueError:
+            display_path = output.as_posix()
+        raise GoalParticipantGraphError(f"generated reader is stale: {display_path}")
 
 
 def main() -> int:

@@ -35,7 +35,9 @@ from build_goal_participant_graph import (  # noqa: E402
     read_json,
     ref_for_file,
     relation_key_digest,
+    relation_endpoint_refs,
     validate_admission_receipt,
+    validate_graph_payload,
     validate_relation,
     validate_source_payload,
 )
@@ -78,6 +80,18 @@ class GoalParticipantGraphTests(unittest.TestCase):
         self.assertIn("goal:public-example-001", endpoint_ids)
         self.assertIn("realization:public-example-001", endpoint_ids)
         self.assertNotIn("public-example-001", endpoint_ids)
+
+    def test_dimension_owner_repositories_are_declared_and_enforced(self) -> None:
+        record = copy.deepcopy(self.example)
+        dimension = record["dimensions"]["model_realization"]
+        dimension["owner_ref"]["owner_repo"] = "codex-app-server"
+        for value_ref in dimension["value"].values():
+            value_ref["owner_repo"] = "codex-app-server"
+        record["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(record))
+        ]
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(record, relation_schema=self.relation_schema, label="wrong-model-owner")
 
     def test_nonpresent_dimension_has_no_value_or_fallback(self) -> None:
         record = copy.deepcopy(self.example)
@@ -238,6 +252,31 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, publication)
 
+        noninitial = self._valid_publication()
+        noninitial["pagination"]["page_index"] = 1
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, noninitial)
+
+    def test_publication_rejects_invalid_currentness_date_time(self) -> None:
+        publication = self._valid_publication()
+        publication["currentness"]["observed_at"] = "not-a-date"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
+    def test_publication_requires_distinct_scope_endpoints(self) -> None:
+        publication = self._valid_publication()
+        duplicate = copy.deepcopy(publication["scope"]["goal_ref"])
+        publication["scope"]["goal_instance_ref"] = duplicate
+        record = publication["records"][0]
+        record["dimensions"]["task_assignment"]["value"]["goal_instance_ref"] = copy.deepcopy(duplicate)
+        record["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(record))
+        ]
+        record["relation_key"]["content_digest"] = relation_key_digest(record["relation_key"])
+        publication["payload_digest"] = publication_payload_digest(publication["records"])
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
     def test_owner_published_source_requires_receipt(self) -> None:
         source = build_source_payload(ROOT, self._valid_publication())
         source["admission_receipt"] = None
@@ -298,6 +337,19 @@ class GoalParticipantGraphTests(unittest.TestCase):
                 (temp_root / GRAPH_PATH).write_text(compact_json(tampered), encoding="utf-8")
                 with self.assertRaises(GoalParticipantGraphError):
                     read_goal_participant_graph(temp_root)
+
+    def test_generated_read_rejects_self_consistent_tampered_records(self) -> None:
+        with self._temporary_nonempty_graph(self._valid_publication()) as (temp_root, graph):
+            tampered = copy.deepcopy(graph)
+            tampered["records"][0]["claim_limit"] = "A tampered graph is not source truth."
+            receipt = tampered["source"]["admission_receipt"]
+            receipt["payload_digest"] = publication_payload_digest(tampered["records"])
+            receipt["receipt_id"] = admission_receipt_id(receipt)
+            validate_graph_payload(temp_root, tampered)
+            graph_path = temp_root / GRAPH_PATH
+            graph_path.write_text(compact_json(tampered), encoding="utf-8")
+            with self.assertRaises(GoalParticipantGraphError):
+                read_goal_participant_graph(temp_root)
 
     def test_valid_publication_intake_and_generated_read_round_trip(self) -> None:
         with self._temporary_nonempty_graph(self._valid_publication()) as (temp_root, expected):

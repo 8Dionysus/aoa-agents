@@ -20,6 +20,9 @@ The typed publication is the only admitted upstream input shape.
   incarnation remain independent dimensions.
 - Each populated dimension requires an exact owner reference, schema version,
   and `sha256:` content digest.
+- The contract's `allowed_owner_repos` map is enforced for each dimension's
+  owner, evidence, and value references; task-assignment values may carry the
+  separately declared Goal/thread scope owners.
 - Consumers join only on the publisher-owned `relation_key`; they must not
   derive joins from names, labels, PIDs, working directories, versions, or a
   bare Goal identifier.
@@ -31,6 +34,8 @@ The typed publication is the only admitted upstream input shape.
   currentness, pagination, privacy omissions, a canonical payload digest, and
   relation records whose publisher-owned key digests are verifiable. The
   intake receipt is structural admission only; it does not create owner facts.
+- A complete admitted publication starts at `page_index=0`; later pages remain
+  inadmissible until an explicit complete publication is assembled.
 - Empty, absent, stale, deferred, unknown, and invalid evidence stays in that
   state. This part does not fabricate a participant graph or claim activation,
   liveness, wake, acceptance, or Goal completion.

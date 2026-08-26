@@ -8,14 +8,14 @@
     "object_id": "contract:goal-participant-relations",
     "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
     "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
-    "content_digest": "sha256:a866dd195dcc0de959da81b510df17f68200414448f298718de45f3463deaefc"
+    "content_digest": "sha256:01c564fb591a3334feb4f19a2b2decbc82b45d45982a7d7a25b7a18f9a876ae3"
   },
   "relation_contract_ref": {
     "owner_repo": "aoa-agents",
     "object_id": "contract:goal-participant-relations",
     "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
     "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
-    "content_digest": "sha256:a866dd195dcc0de959da81b510df17f68200414448f298718de45f3463deaefc"
+    "content_digest": "sha256:01c564fb591a3334feb4f19a2b2decbc82b45d45982a7d7a25b7a18f9a876ae3"
   },
   "currentness": {
     "state": "deferred",
@@ -32,7 +32,7 @@
     "object_id": "privacy:goal-participant-relations-v1",
     "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
     "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
-    "content_digest": "sha256:a866dd195dcc0de959da81b510df17f68200414448f298718de45f3463deaefc"
+    "content_digest": "sha256:01c564fb591a3334feb4f19a2b2decbc82b45d45982a7d7a25b7a18f9a876ae3"
   },
   "privacy_omissions": [
     "human_display_name",

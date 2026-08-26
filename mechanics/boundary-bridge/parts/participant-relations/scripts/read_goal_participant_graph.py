@@ -13,6 +13,7 @@ from build_goal_participant_graph import (
     GRAPH_PATH,
     ROOT,
     GoalParticipantGraphError,
+    check_generated,
     read_json,
     validate_graph_payload,
 )
@@ -26,6 +27,7 @@ def read_goal_participant_graph(
     graph_path = path if path is not None else root / GRAPH_PATH
     if not graph_path.is_absolute():
         graph_path = root / graph_path
+    check_generated(root, graph_path)
     graph = read_json(graph_path)
     validate_graph_payload(root, graph)
     return graph

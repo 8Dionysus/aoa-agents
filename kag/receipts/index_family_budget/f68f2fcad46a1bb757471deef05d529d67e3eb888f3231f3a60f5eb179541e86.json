@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11970856,
+  "allowed_tracked_bytes": 16357525,
+  "approved_by": "repository-owner",
+  "base_ref": "eb9a8e716317f545063833a00b24e1d2ef773fe6",
+  "changed_generated_bytes": 11970856,
+  "changed_generated_files": 292,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "f68f2fcad46a1bb757471deef05d529d67e3eb888f3231f3a60f5eb179541e86",
+  "reason": "Owner review hardening validates declared dimension and scope owners, strict RFC3339 currentness, distinct exact scope endpoints, initial complete pages, and source-bound generated reads; the pinned owner-family projection was regenerated for the accepted source.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16357525,
+  "tracked_bytes_max": 16777216
+}

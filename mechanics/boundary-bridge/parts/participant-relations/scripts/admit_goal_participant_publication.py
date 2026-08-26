@@ -35,6 +35,7 @@ from build_goal_participant_graph import (  # noqa: E402
     compact_json,
     current_contract_ref,
     current_privacy_policy_ref,
+    _currentness_and_pagination_errors,
     publication_payload_digest,
     read_json,
     validate_admission_receipt,
@@ -70,11 +71,13 @@ def validate_publication(root: Path, publication: dict[str, Any]) -> None:
         raise GoalParticipantPublicationError("only current owner publications can receive an admission receipt")
     if not publication["currentness"].get("observed_at"):
         raise GoalParticipantPublicationError("current publication requires currentness.observed_at")
+    pagination_errors = _currentness_and_pagination_errors(
+        publication,
+        "Goal participant publication",
+    )
+    if pagination_errors:
+        raise GoalParticipantPublicationError("; ".join(pagination_errors))
     pagination = publication["pagination"]
-    if pagination["has_more"] or pagination["next_cursor_ref"] is not None:
-        raise GoalParticipantPublicationError(
-            "an incomplete paginated publication remains deferred and cannot be admitted as current"
-        )
     if set(publication["privacy_omissions"]) != set(PRIVACY_OMISSION_FIELDS):
         raise GoalParticipantPublicationError("publication privacy omissions drifted from the contract baseline")
     if publication["payload_digest"] != publication_payload_digest(publication["records"]):
@@ -91,6 +94,7 @@ def validate_publication(root: Path, publication: dict[str, Any]) -> None:
             record,
             relation_schema=relation_schema,
             label=label,
+            root=root,
             publisher_ref=expected_contract_ref,
             require_key_digest=True,
             expected_privacy_policy_ref=expected_privacy_ref,
