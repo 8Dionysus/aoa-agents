@@ -323,11 +323,13 @@ def _validate_dimension_ref_owners(
     label: str,
 ) -> None:
     allowed_owner_repos = _declared_dimension_owner_repos(root, dimension_name)
-    _validate_ref_owner(
-        dimension["owner_ref"],
-        allowed_owner_repos=allowed_owner_repos,
-        label=f"{label}.owner_ref",
-    )
+    owner_ref = dimension.get("owner_ref")
+    if owner_ref is not None:
+        _validate_ref_owner(
+            owner_ref,
+            allowed_owner_repos=allowed_owner_repos,
+            label=f"{label}.owner_ref",
+        )
     for index, evidence_ref in enumerate(dimension.get("evidence_refs", [])):
         _validate_ref_owner(
             evidence_ref,
@@ -335,7 +337,9 @@ def _validate_dimension_ref_owners(
             label=f"{label}.evidence_refs[{index}]",
         )
 
-    value = dimension["value"]
+    value = dimension.get("value")
+    if value is None:
+        return
     if dimension_name == "task_assignment":
         _validate_ref_owner(
             value["assignment_ref"],
@@ -443,14 +447,14 @@ def validate_relation(
 
     for dimension_name in DIMENSION_NAMES:
         dimension = record["dimensions"][dimension_name]
-        if dimension["state"] != "present":
-            continue
         _validate_dimension_ref_owners(
             repo_root,
             dimension_name,
             dimension,
             label=f"{label}.dimensions.{dimension_name}",
         )
+        if dimension["state"] != "present":
+            continue
         owner_ref = canonical_ref(dimension["owner_ref"])
         value_refs = {canonical_ref(ref) for ref in iter_refs(dimension["value"])}
         if owner_ref not in value_refs:
@@ -520,6 +524,10 @@ def validate_admission_receipt(
         raise GoalParticipantGraphError("admission receipt must represent the initial complete publication page")
     if set(receipt["privacy_omissions"]) != REQUIRED_PRIVACY_OMISSIONS:
         raise GoalParticipantGraphError("admission receipt privacy omissions drifted from the contract baseline")
+    if receipt["producer_ref"] == receipt["publication_ref"]:
+        raise GoalParticipantGraphError("admission receipt producer_ref and publication_ref must remain distinct")
+    if receipt["producer_ref"]["owner_repo"] != receipt["publication_ref"]["owner_repo"]:
+        raise GoalParticipantGraphError("admission receipt producer_ref and publication_ref must name one producer owner")
     if publication is not None:
         expected_ids = [record["relation_id"] for record in publication["records"]]
         if receipt["producer_ref"] != publication["producer_ref"]:
@@ -589,6 +597,7 @@ def validate_source_payload(root: Path, source: dict[str, Any]) -> None:
             raise GoalParticipantGraphError("owner_published source cannot contain synthetic relation records")
         validate_admission_receipt(root, admission_receipt, source=source)
     relation_ids: set[str] = set()
+    relation_keys: set[str] = set()
     for index, record in enumerate(source["records"]):
         label = f"{SOURCE_PATH.as_posix()}.records[{index}]"
         validate_relation(
@@ -606,6 +615,11 @@ def validate_source_payload(root: Path, source: dict[str, Any]) -> None:
         if relation_id in relation_ids:
             raise GoalParticipantGraphError(f"{label}: duplicate relation_id {relation_id!r}")
         relation_ids.add(relation_id)
+        if source["evidence_class"] == "owner_published":
+            key_id = record["relation_key"]["key_id"]
+            if key_id in relation_keys:
+                raise GoalParticipantGraphError(f"{label}: duplicate publisher relation key")
+            relation_keys.add(key_id)
 
 
 def build_graph_payload(root: Path = ROOT) -> dict[str, Any]:
@@ -691,6 +705,8 @@ def validate_graph_payload(root: Path, graph: dict[str, Any]) -> None:
         if len(scopes) != 1 or canonical_json(receipt["scope"]) not in scopes:
             raise GoalParticipantGraphError("graph admission receipt scope does not cover exactly one graph scope")
 
+    relation_ids: set[str] = set()
+    relation_keys: set[str] = set()
     for index, record in enumerate(records):
         label = f"{GRAPH_PATH.as_posix()}.records[{index}]"
         validate_relation(
@@ -704,6 +720,15 @@ def validate_graph_payload(root: Path, graph: dict[str, Any]) -> None:
         )
         if set(record["privacy_omissions"]["omitted_fields"]) != set(graph["privacy_omissions"]["omitted_fields"]):
             raise GoalParticipantGraphError(f"{label}: relation privacy omissions do not match graph policy")
+        relation_id = record["relation_id"]
+        if relation_id in relation_ids:
+            raise GoalParticipantGraphError(f"{label}: duplicate relation_id {relation_id!r}")
+        relation_ids.add(relation_id)
+        if record["evidence_class"] == "owner_published":
+            key_id = record["relation_key"]["key_id"]
+            if key_id in relation_keys:
+                raise GoalParticipantGraphError(f"{label}: duplicate publisher relation key")
+            relation_keys.add(key_id)
 
 
 def check_generated(root: Path, output: Path) -> None:

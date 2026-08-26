@@ -109,6 +109,24 @@ class GoalParticipantGraphTests(unittest.TestCase):
         self.assertNotIn("value", record["dimensions"]["identity"])
         self.assertNotIn("Participant N", json.dumps(record))
 
+    def test_nonpresent_dimension_refs_still_obey_declared_owners(self) -> None:
+        for ref_field in ("owner_ref", "evidence_refs"):
+            record = copy.deepcopy(self.example)
+            dimension = record["dimensions"]["model_realization"]
+            dimension["state"] = "unknown"
+            dimension.pop("value")
+            dimension.pop("observed_at")
+            if ref_field == "owner_ref":
+                dimension["owner_ref"]["owner_repo"] = "codex-app-server"
+            else:
+                dimension.pop("owner_ref")
+                dimension["evidence_refs"] = [copy.deepcopy(self.example["scope"]["goal_ref"])]
+            record["relation_key"]["endpoint_refs"] = [
+                json.loads(value) for value in sorted(relation_endpoint_refs(record))
+            ]
+            with self.subTest(ref_field=ref_field), self.assertRaises(GoalParticipantGraphError):
+                validate_relation(record, relation_schema=self.relation_schema, label="unknown-model-owner")
+
     def test_heuristic_key_and_missing_digest_are_rejected(self) -> None:
         heuristic = copy.deepcopy(self.example)
         heuristic["relation_key"]["key_id"] = "rel:luna"
@@ -310,6 +328,34 @@ class GoalParticipantGraphTests(unittest.TestCase):
         tampered["claim_limit"] = "A widened claim is not structural admission."
         with self.assertRaises(GoalParticipantGraphError):
             validate_admission_receipt(ROOT, tampered)
+
+    def test_admission_receipt_rechecks_producer_provenance(self) -> None:
+        publication = self._valid_publication()
+        receipt = build_admission_receipt(ROOT, publication)
+
+        same_ref = copy.deepcopy(receipt)
+        same_ref["producer_ref"] = copy.deepcopy(same_ref["publication_ref"])
+        same_ref["receipt_id"] = admission_receipt_id(same_ref)
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_admission_receipt(ROOT, same_ref)
+
+        different_owner = copy.deepcopy(receipt)
+        different_owner["producer_ref"]["owner_repo"] = "aoa-agents"
+        different_owner["receipt_id"] = admission_receipt_id(different_owner)
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_admission_receipt(ROOT, different_owner)
+
+    def test_source_rejects_duplicate_publisher_relation_key(self) -> None:
+        source = build_source_payload(ROOT, self._valid_publication())
+        duplicate = copy.deepcopy(source["records"][0])
+        duplicate["relation_id"] = "rel-record:other"
+        source["records"].append(duplicate)
+        receipt = source["admission_receipt"]
+        receipt["relation_ids"] = [record["relation_id"] for record in source["records"]]
+        receipt["payload_digest"] = publication_payload_digest(source["records"])
+        receipt["receipt_id"] = admission_receipt_id(receipt)
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_source_payload(ROOT, source)
 
     def test_relation_privacy_omission_and_policy_parity_is_enforced(self) -> None:
         omissions_drift = self._valid_publication()
