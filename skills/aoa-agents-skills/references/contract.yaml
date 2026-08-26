@@ -118,6 +118,47 @@ relations:
     - domain-procedure-absorption
     - budget-as-initiative-gate
 
+delegation_classes:
+  ephemeral_read_worker_v1:
+    semantic_owner: aoa-sdk
+    runtime_owner: abyss-stack
+    responsibility: parent_retained
+    role_formation: forbidden
+    durable_transfer: forbidden
+    required_posture:
+      - stateless
+      - read_only
+      - bounded_immutable_input
+      - content_addressed_result
+      - economy_observation
+    agent_owner_action: Keep the current holder responsible; do not form a role, mandate, transfer, or external incarnation for this class.
+    handoff: Return the result to the current holder as bounded read-only evidence and escalate to external_incarnation_v1 only when a distinct duty-bearing actor is admitted.
+  external_incarnation_v1:
+    semantic_owner: aoa-agents
+    runtime_owner: abyss-stack
+    responsibility: transferred_and_reviewed_return
+    role_formation: required
+    durable_transfer: required
+    required_refs:
+      - role_contract_ref
+      - actor_mandate_ref
+      - responsibility_transfer_ref
+      - reviewed_return_ref
+    stronger_owner_refs:
+      model_realization: aoa-models
+      incarnation_binding: aoa-sdk
+      continuation: aoa-sdk
+      runtime_process_session_events: abyss-stack
+      eval: aoa-evals
+    agent_owner_action: Form or reuse the exact role and mandate, admit a bounded responsibility transfer, and filter the reviewed return before any closeout or wake.
+    handoff: Keep model fit, SDK binding, runtime evidence, eval, closeout, and acceptance with their named owners; transport never becomes responsibility meaning.
+
+delegation_class_rules:
+  provider_neutral_abi: aoa_delegation_class_v1
+  baseline_posture: Source contracts may be landed default-off before d0-baseline:baseline-ready; activation, pilot, promotion, and economy claims remain closed until the paired baseline is admitted.
+  builtin_codex_subagents: forbidden
+  lifecycle_separation: Eval, closeout, and acceptance are separate refs and claims; a runtime return is not any of them.
+
 termination:
   success: One bounded lifecycle transition or the smallest valid task-local chain with explicit responsibility movement.
   blocked: Required goal, obligation, role, fit, runtime, authority, return, or owner input is absent or contradictory.
