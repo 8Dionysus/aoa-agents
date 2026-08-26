@@ -22,7 +22,8 @@ runtime authority merely because a provider executes it.
 
 This class is the full responsibility-bearing route. `aoa-agents` supplies the
 exact role contract and actor mandate, records the responsibility transfer,
-and filters the reviewed return. `aoa-models` supplies the exact model
+and binds the concrete `aoa-sdk` incarnation before launch; it filters the
+reviewed return after execution. `aoa-models` supplies the exact model
 realization; `aoa-sdk` supplies the incarnation binding and continuation;
 `abyss-stack` supplies process, session, and event evidence; and `aoa-evals`
 owns eval meaning.

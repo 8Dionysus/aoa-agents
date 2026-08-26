@@ -143,6 +143,7 @@ delegation_classes:
       - role_contract_ref
       - actor_mandate_ref
       - responsibility_transfer_ref
+      - incarnation_binding_ref
     post_return_refs:
       - reviewed_return_ref
     stronger_owner_refs:

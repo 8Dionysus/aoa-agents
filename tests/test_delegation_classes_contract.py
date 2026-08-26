@@ -28,6 +28,7 @@ def test_owner_contract_keeps_the_two_delegation_classes_distinct() -> None:
         "role_contract_ref",
         "actor_mandate_ref",
         "responsibility_transfer_ref",
+        "incarnation_binding_ref",
     }
     assert external["post_return_refs"] == ["reviewed_return_ref"]
     assert external["stronger_owner_refs"]["model_realization"] == "aoa-models"
