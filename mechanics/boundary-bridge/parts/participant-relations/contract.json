@@ -70,8 +70,10 @@
     "digest_algorithm": "sha256",
     "relation_key": {
       "field": "relation_key",
+      "key_shape": "opaque_segmented_suffix",
       "publisher_owned": true,
-      "consumer_rule": "Compare the publisher key and its exact endpoint references; do not derive or substitute a key."
+      "consumer_rule": "Compare the publisher key and its exact endpoint references; do not derive or substitute a key.",
+      "source_ref_rule": "Every source_ref must use repo:<owner_repo>/<normalized_nonempty_path>."
     },
     "dimension_rule": "A present dimension requires its owner_ref, schema version, content digest, value, and observation time."
   },

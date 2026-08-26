@@ -117,6 +117,19 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_relation(scope_mismatch, relation_schema=self.relation_schema, label="mismatched-goal-source-owner")
 
+        for source_ref in ("repo:codex-app-server", "repo:codex-app-server/"):
+            missing_path = copy.deepcopy(self.example)
+            missing_path["scope"]["goal_ref"]["source_ref"] = source_ref
+            missing_path["relation_key"]["endpoint_refs"] = [
+                json.loads(value) for value in sorted(relation_endpoint_refs(missing_path))
+            ]
+            with self.subTest(source_ref=source_ref), self.assertRaises(GoalParticipantGraphError):
+                validate_relation(
+                    missing_path,
+                    relation_schema=self.relation_schema,
+                    label="missing-source-path",
+                )
+
     def test_nonpresent_dimension_has_no_value_or_fallback(self) -> None:
         record = copy.deepcopy(self.example)
         identity = record["dimensions"]["identity"]
@@ -156,6 +169,11 @@ class GoalParticipantGraphTests(unittest.TestCase):
         heuristic["relation_key"]["key_id"] = "rel:luna"
         with self.assertRaises(GoalParticipantGraphError):
             validate_relation(heuristic, relation_schema=self.relation_schema, label="heuristic-key")
+
+        compact_heuristic = copy.deepcopy(self.example)
+        compact_heuristic["relation_key"]["key_id"] = "rel:goal123"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(compact_heuristic, relation_schema=self.relation_schema, label="compact-heuristic-key")
 
         missing_digest = copy.deepcopy(self.example)
         del missing_digest["dimensions"]["identity"]["owner_ref"]["content_digest"]
@@ -371,6 +389,16 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, split_negation)
 
+        punctuation_boundary = self._valid_publication()
+        punctuation_boundary["claim_limit"] = "Not a draft: this proves liveness."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, punctuation_boundary)
+
+        inflected_acceptance = self._valid_publication()
+        inflected_acceptance["claim_limit"] = "The actor accepted the Goal."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, inflected_acceptance)
+
         receipt = build_admission_receipt(ROOT, self._valid_publication())
         receipt["claim_limit"] = "This proves Goal completion."
         receipt["receipt_id"] = admission_receipt_id(receipt)
@@ -390,6 +418,23 @@ class GoalParticipantGraphTests(unittest.TestCase):
         publication["payload_digest"] = publication_payload_digest(publication["records"])
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, publication)
+
+        digest_only_duplicate = self._valid_publication()
+        duplicate_master = copy.deepcopy(digest_only_duplicate["scope"]["goal_ref"])
+        duplicate_master["content_digest"] = "sha256:" + "f" * 64
+        digest_only_duplicate["scope"]["master_thread_ref"] = duplicate_master
+        record = digest_only_duplicate["records"][0]
+        record["scope"]["master_thread_ref"] = copy.deepcopy(duplicate_master)
+        record["dimensions"]["task_assignment"]["value"]["master_thread_ref"] = copy.deepcopy(
+            duplicate_master
+        )
+        record["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(record))
+        ]
+        record["relation_key"]["content_digest"] = relation_key_digest(record["relation_key"])
+        digest_only_duplicate["payload_digest"] = publication_payload_digest(digest_only_duplicate["records"])
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, digest_only_duplicate)
 
     def test_owner_published_source_requires_receipt(self) -> None:
         source = build_source_payload(ROOT, self._valid_publication())

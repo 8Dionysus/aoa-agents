@@ -45,6 +45,13 @@ publisher reference and endpoint references. Consumers compare that key; they
 do not recreate it from a name, role label, model slug, PID, working directory,
 path, version, process ancestry, or bare Goal id.
 
+The key uses a segmented opaque suffix; a concatenated heuristic such as
+`rel:goal123` is not admissible. Every `source_ref` also names the owner
+repository followed by a normalized, non-empty repository-relative path. A
+content digest can change as content is refreshed, so the three scope endpoints
+are additionally required to have distinct stable owner/object/source/schema
+identities.
+
 The `relation_key.endpoint_refs` list makes the scope and present dimension
 endpoints inspectable without making endpoint equality the consumer join rule.
 Conflicting or malformed references are `invalid`; absent evidence remains

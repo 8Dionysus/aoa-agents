@@ -75,6 +75,7 @@ DIMENSION_NAMES = (
     "runtime_incarnation",
 )
 SCOPE_FIELDS = ("goal_ref", "goal_instance_ref", "master_thread_ref")
+STABLE_REF_IDENTITY_FIELDS = ("owner_repo", "object_id", "source_ref", "schema_version")
 RFC3339_DATE_TIME = re.compile(
     r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
 )
@@ -304,10 +305,21 @@ def _declared_scope_owner_repos(root: Path, scope_field: str) -> frozenset[str]:
 
 def _validate_ref_source_owner(ref: dict[str, Any], *, label: str) -> None:
     encoded = ref["source_ref"][len("repo:") :]
-    source_owner = encoded.split("/", 1)[0]
+    source_owner, separator, source_path = encoded.partition("/")
     if source_owner != ref["owner_repo"]:
         raise GoalParticipantGraphError(
             f"{label}: source_ref repository {source_owner!r} contradicts owner_repo {ref['owner_repo']!r}"
+        )
+    path_parts = source_path.split("/") if separator else []
+    if (
+        not separator
+        or not source_path
+        or source_path.startswith("/")
+        or source_path.endswith("/")
+        or any(part in {"", ".", ".."} for part in path_parts)
+    ):
+        raise GoalParticipantGraphError(
+            f"{label}: source_ref must include a normalized non-empty path after the owner repository"
         )
 
 
@@ -407,7 +419,15 @@ def admission_receipt_id(receipt: dict[str, Any]) -> str:
 
 
 def _key_parts(key_id: str) -> set[str]:
-    return {part for part in re.split(r"[._:-]+", key_id.lower()) if part}
+    return {
+        part
+        for token in re.split(r"[._:-]+", key_id.lower())
+        for part in re.findall(r"[a-z]+|[0-9]+", token)
+        if part
+    }
+
+
+OPAQUE_RELATION_KEY_SUFFIX = re.compile(r"^[a-z0-9]+(?:[._:-][a-z0-9]+)+$")
 
 
 CLAIM_LIMIT_POSITIVE_VERBS = re.compile(
@@ -416,7 +436,7 @@ CLAIM_LIMIT_POSITIVE_VERBS = re.compile(
     r"show(?:s|ed)?|validat(?:e|es|ed)|verif(?:y|ies|ied))\b"
 )
 CLAIM_LIMIT_UNBOUNDED_TERMS = re.compile(
-    r"\b(?:live(?:ness)?|activation|wake|acceptance|completion)\b|"
+    r"\b(?:live(?:ness)?|activation|wake|accept(?:s|ed|ance|ing)?|completion)\b|"
     r"\b(?:runtime\s+(?:activation|health|presence)|owner\s+truth|"
     r"goal\s+completion|semantic\s+goal\s+acceptance|live\s+participant\s+presence)\b"
 )
@@ -437,7 +457,7 @@ def _claim_limit_is_negated(clause: str, start: int) -> bool:
 
 
 def validate_claim_limit(claim_limit: str, *, label: str) -> None:
-    for clause in re.split(r"[.!?;]+", claim_limit.lower()):
+    for clause in re.split(r"[.!?;:]+", claim_limit.lower()):
         if not clause.strip():
             continue
         for pattern in (CLAIM_LIMIT_POSITIVE_VERBS, CLAIM_LIMIT_UNBOUNDED_TERMS):
@@ -478,7 +498,13 @@ def validate_relation(
     )
     if record["relation_key"]["schema_version"] != RELATION_KEY_SCHEMA_VERSION:
         raise GoalParticipantGraphError(f"{label}: relation key schema version is not admitted")
-    key_parts = _key_parts(record["relation_key"]["key_id"])
+    key_id = record["relation_key"]["key_id"]
+    key_suffix = key_id[len("rel:") :]
+    if not OPAQUE_RELATION_KEY_SUFFIX.fullmatch(key_suffix):
+        raise GoalParticipantGraphError(
+            f"{label}: relation key must use an opaque segmented suffix; concatenated heuristic keys are not admissible"
+        )
+    key_parts = _key_parts(key_id)
     forbidden_parts = sorted(key_parts & FORBIDDEN_KEY_PARTS)
     if forbidden_parts:
         raise GoalParticipantGraphError(
@@ -498,10 +524,13 @@ def validate_relation(
             f"{label}: publisher endpoint references do not exactly cover the relation scope and present dimensions"
         )
 
-    scope_refs = [canonical_ref(record["scope"][scope_field]) for scope_field in SCOPE_FIELDS]
-    if len(set(scope_refs)) != len(scope_refs):
+    scope_identities = [
+        tuple(record["scope"][scope_field][field] for field in STABLE_REF_IDENTITY_FIELDS)
+        for scope_field in SCOPE_FIELDS
+    ]
+    if len(set(scope_identities)) != len(scope_identities):
         raise GoalParticipantGraphError(
-            f"{label}: goal, Goal-instance, and master-thread scope references must be distinct exact endpoints"
+            f"{label}: goal, Goal-instance, and master-thread scope references must be distinct stable endpoints"
         )
     for scope_field in SCOPE_FIELDS:
         _validate_ref_owner(

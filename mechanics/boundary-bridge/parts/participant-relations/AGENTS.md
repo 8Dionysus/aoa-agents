@@ -26,6 +26,11 @@ The typed publication is the only admitted upstream input shape.
 - Consumers join only on the publisher-owned `relation_key`; they must not
   derive joins from names, labels, PIDs, working directories, versions, or a
   bare Goal identifier.
+- Relation keys use an opaque segmented suffix, and every `source_ref` must
+  carry the owning repository plus a normalized non-empty path component.
+- Goal, Goal-instance, and master-thread scope endpoints must remain distinct
+  by stable owner/object/source/schema identity; mutable content digests do not
+  make two references distinct.
 - `aoa-agents` owns the relation contract and publication seam. Goal/thread
   truth belongs to the app-server/session owners, model truth to `aoa-models`,
   and runtime truth to `abyss-stack`.
