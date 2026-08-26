@@ -320,6 +320,11 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, publication)
 
+        split_negation = self._valid_publication()
+        split_negation["records"][0]["claim_limit"] = "This proves liveness and is not a draft."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, split_negation)
+
         receipt = build_admission_receipt(ROOT, self._valid_publication())
         receipt["claim_limit"] = "This proves Goal completion."
         receipt["receipt_id"] = admission_receipt_id(receipt)
@@ -389,6 +394,14 @@ class GoalParticipantGraphTests(unittest.TestCase):
         different_owner["receipt_id"] = admission_receipt_id(different_owner)
         with self.assertRaises(GoalParticipantGraphError):
             validate_admission_receipt(ROOT, different_owner)
+
+    def test_currentness_watermark_source_repository_must_match_owner(self) -> None:
+        publication = self._valid_publication()
+        watermark = copy.deepcopy(publication["producer_ref"])
+        watermark["source_ref"] = "repo:aoa-models/currentness-watermark"
+        publication["currentness"]["source_watermark_ref"] = watermark
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
 
     def test_source_rejects_duplicate_publisher_relation_key(self) -> None:
         source = build_source_payload(ROOT, self._valid_publication())

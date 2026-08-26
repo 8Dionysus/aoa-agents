@@ -417,19 +417,34 @@ CLAIM_LIMIT_UNBOUNDED_TERMS = re.compile(
 CLAIM_LIMIT_NEGATION = re.compile(
     r"\b(?:cannot|can't|does\s+not|doesn't|do\s+not|don't|never|no|not|without)\b"
 )
+CLAIM_LIMIT_NEGATION_BOUNDARY = re.compile(r"\b(?:and|although|but|however|yet)\b")
+
+
+def _claim_limit_is_negated(clause: str, start: int) -> bool:
+    prefix = clause[:start]
+    negations = list(CLAIM_LIMIT_NEGATION.finditer(prefix))
+    if not negations:
+        return False
+    negation = negations[-1]
+    governed = clause[negation.end() : start]
+    return not CLAIM_LIMIT_NEGATION_BOUNDARY.search(governed)
 
 
 def validate_claim_limit(claim_limit: str, *, label: str) -> None:
     for clause in re.split(r"[.!?;]+", claim_limit.lower()):
         if not clause.strip():
             continue
-        if (
-            CLAIM_LIMIT_POSITIVE_VERBS.search(clause)
-            or CLAIM_LIMIT_UNBOUNDED_TERMS.search(clause)
-        ) and not CLAIM_LIMIT_NEGATION.search(clause):
-            raise GoalParticipantGraphError(
-                f"{label}: claim_limit widens beyond structural relation admission"
-            )
+        for pattern in (CLAIM_LIMIT_POSITIVE_VERBS, CLAIM_LIMIT_UNBOUNDED_TERMS):
+            if any(not _claim_limit_is_negated(clause, match.start()) for match in pattern.finditer(clause)):
+                raise GoalParticipantGraphError(
+                    f"{label}: claim_limit widens beyond structural relation admission"
+                )
+
+
+def _validate_currentness_provenance(currentness: dict[str, Any], *, label: str) -> None:
+    watermark = currentness.get("source_watermark_ref")
+    if watermark is not None:
+        _validate_ref_source_owner(watermark, label=f"{label}.source_watermark_ref")
 
 
 def validate_relation(
@@ -569,6 +584,7 @@ def validate_admission_receipt(
     if set(receipt["privacy_omissions"]) != REQUIRED_PRIVACY_OMISSIONS:
         raise GoalParticipantGraphError("admission receipt privacy omissions drifted from the contract baseline")
     validate_claim_limit(receipt["claim_limit"], label="admission receipt.claim_limit")
+    _validate_currentness_provenance(receipt["currentness"], label="admission receipt.currentness")
     for field in ("publisher_ref", "producer_ref", "publication_ref"):
         _validate_ref_source_owner(receipt[field], label=f"admission receipt.{field}")
     for scope_field in SCOPE_FIELDS:
@@ -620,6 +636,7 @@ def validate_source_payload(root: Path, source: dict[str, Any]) -> None:
     source_schema = read_json(root / SOURCE_SCHEMA_PATH)
     relation_schema = read_json(root / RELATION_SCHEMA_PATH)
     validate_instance(source, source_schema, SOURCE_PATH.as_posix(), root=root)
+    _validate_currentness_provenance(source["currentness"], label=f"{SOURCE_PATH.as_posix()}.currentness")
     contract_path = root / CONTRACT_PATH
     contract = read_json(contract_path)
     if contract.get("schema_version") != CONTRACT_SCHEMA_VERSION:
@@ -717,6 +734,7 @@ def validate_graph_payload(root: Path, graph: dict[str, Any]) -> None:
     relation_schema = read_json(root / RELATION_SCHEMA_PATH)
     validate_instance(graph, graph_schema, GRAPH_PATH.as_posix(), root=root)
     validate_claim_limit(graph["claim_limit"], label="generated graph.claim_limit")
+    _validate_currentness_provenance(graph["currentness"], label="generated graph.currentness")
     expected_contract = current_contract_ref(root)
     expected_source = current_source_ref(root)
     expected_privacy = current_privacy_policy_ref(root)
