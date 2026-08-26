@@ -1,0 +1,290 @@
+{
+  "schema_version": "aoa_agents_goal_participant_relation_v1",
+  "kind": "aoa_agents_goal_participant_relation",
+  "evidence_class": "synthetic_public_example",
+  "relation_id": "rel-record:public-example-001",
+  "relation_key": {
+    "schema_version": "aoa_agents_goal_participant_relation_key_v1",
+    "key_id": "rel:public-example-001",
+    "publisher_ref": {
+      "owner_repo": "aoa-agents",
+      "object_id": "contract:goal-participant-relations",
+      "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
+      "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+      "content_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "endpoint_refs": [
+      {
+        "owner_repo": "codex-app-server",
+        "object_id": "goal:public-example-001",
+        "source_ref": "repo:codex-app-server/thread/goal/get",
+        "schema_version": "codex_app_server_goal_ref_v2",
+        "content_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      {
+        "owner_repo": "aoa-session-memory",
+        "object_id": "goal-instance:public-example-001",
+        "source_ref": "repo:aoa-session-memory/session-manifest",
+        "schema_version": "aoa_session_memory_goal_instance_ref_v1",
+        "content_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      {
+        "owner_repo": "codex-app-server",
+        "object_id": "thread:public-example-001",
+        "source_ref": "repo:codex-app-server/thread/get",
+        "schema_version": "codex_app_server_master_thread_ref_v2",
+        "content_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      {
+        "owner_repo": "aoa-agents",
+        "object_id": "actor:public-example-001",
+        "source_ref": "repo:aoa-agents/agents/roles/example",
+        "schema_version": "aoa_agents_actor_ref_v1",
+        "content_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      {
+        "owner_repo": "aoa-agents",
+        "object_id": "role:public-example",
+        "source_ref": "repo:aoa-agents/agents/roles/example",
+        "schema_version": "aoa_agents_role_ref_v1",
+        "content_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      },
+      {
+        "owner_repo": "aoa-agents",
+        "object_id": "obligation:public-example-001",
+        "source_ref": "repo:aoa-agents/agents/obligations/example",
+        "schema_version": "aoa_agents_obligation_ref_v1",
+        "content_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      {
+        "owner_repo": "codex-app-server",
+        "object_id": "assignment:public-example-001",
+        "source_ref": "repo:codex-app-server/task-assignment/get",
+        "schema_version": "codex_app_server_assignment_ref_v1",
+        "content_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      {
+        "owner_repo": "aoa-models",
+        "object_id": "model:public-example-001",
+        "source_ref": "repo:aoa-models/model-identity/get",
+        "schema_version": "aoa_models_identity_ref_v1",
+        "content_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      {
+        "owner_repo": "aoa-models",
+        "object_id": "realization:public-example-001",
+        "source_ref": "repo:aoa-models/model-realization/get",
+        "schema_version": "aoa_models_realization_ref_v1",
+        "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "owner_repo": "abyss-stack",
+        "object_id": "runtime-binding:public-example-001",
+        "source_ref": "repo:abyss-stack/runtime-binding/get",
+        "schema_version": "abyss_stack_runtime_binding_ref_v1",
+        "content_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "owner_repo": "abyss-stack",
+        "object_id": "incarnation:public-example-001",
+        "source_ref": "repo:abyss-stack/runtime-incarnation/get",
+        "schema_version": "abyss_stack_incarnation_ref_v1",
+        "content_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    ],
+    "content_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "scope": {
+    "goal_ref": {
+      "owner_repo": "codex-app-server",
+      "object_id": "goal:public-example-001",
+      "source_ref": "repo:codex-app-server/thread/goal/get",
+      "schema_version": "codex_app_server_goal_ref_v2",
+      "content_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "goal_instance_ref": {
+      "owner_repo": "aoa-session-memory",
+      "object_id": "goal-instance:public-example-001",
+      "source_ref": "repo:aoa-session-memory/session-manifest",
+      "schema_version": "aoa_session_memory_goal_instance_ref_v1",
+      "content_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "master_thread_ref": {
+      "owner_repo": "codex-app-server",
+      "object_id": "thread:public-example-001",
+      "source_ref": "repo:codex-app-server/thread/get",
+      "schema_version": "codex_app_server_master_thread_ref_v2",
+      "content_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  },
+  "dimensions": {
+    "identity": {
+      "state": "present",
+      "owner_ref": {
+        "owner_repo": "aoa-agents",
+        "object_id": "actor:public-example-001",
+        "source_ref": "repo:aoa-agents/agents/roles/example",
+        "schema_version": "aoa_agents_actor_ref_v1",
+        "content_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "observed_at": "2026-08-23T00:00:00Z",
+      "value": {
+        "actor_ref": {
+          "owner_repo": "aoa-agents",
+          "object_id": "actor:public-example-001",
+          "source_ref": "repo:aoa-agents/agents/roles/example",
+          "schema_version": "aoa_agents_actor_ref_v1",
+          "content_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+        }
+      },
+      "claim_limit": "Synthetic actor reference only; no human display or runtime claim."
+    },
+    "obligation_role": {
+      "state": "present",
+      "owner_ref": {
+        "owner_repo": "aoa-agents",
+        "object_id": "obligation:public-example-001",
+        "source_ref": "repo:aoa-agents/agents/obligations/example",
+        "schema_version": "aoa_agents_obligation_ref_v1",
+        "content_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "observed_at": "2026-08-23T00:00:00Z",
+      "value": {
+        "role_ref": {
+          "owner_repo": "aoa-agents",
+          "object_id": "role:public-example",
+          "source_ref": "repo:aoa-agents/agents/roles/example",
+          "schema_version": "aoa_agents_role_ref_v1",
+          "content_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "obligation_ref": {
+          "owner_repo": "aoa-agents",
+          "object_id": "obligation:public-example-001",
+          "source_ref": "repo:aoa-agents/agents/obligations/example",
+          "schema_version": "aoa_agents_obligation_ref_v1",
+          "content_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+        }
+      },
+      "claim_limit": "Synthetic role and obligation references only; no assignment or activation claim."
+    },
+    "task_assignment": {
+      "state": "present",
+      "owner_ref": {
+        "owner_repo": "codex-app-server",
+        "object_id": "assignment:public-example-001",
+        "source_ref": "repo:codex-app-server/task-assignment/get",
+        "schema_version": "codex_app_server_assignment_ref_v1",
+        "content_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "observed_at": "2026-08-23T00:00:00Z",
+      "value": {
+        "assignment_ref": {
+          "owner_repo": "codex-app-server",
+          "object_id": "assignment:public-example-001",
+          "source_ref": "repo:codex-app-server/task-assignment/get",
+          "schema_version": "codex_app_server_assignment_ref_v1",
+          "content_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+        },
+        "goal_ref": {
+          "owner_repo": "codex-app-server",
+          "object_id": "goal:public-example-001",
+          "source_ref": "repo:codex-app-server/thread/goal/get",
+          "schema_version": "codex_app_server_goal_ref_v2",
+          "content_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "goal_instance_ref": {
+          "owner_repo": "aoa-session-memory",
+          "object_id": "goal-instance:public-example-001",
+          "source_ref": "repo:aoa-session-memory/session-manifest",
+          "schema_version": "aoa_session_memory_goal_instance_ref_v1",
+          "content_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        },
+        "master_thread_ref": {
+          "owner_repo": "codex-app-server",
+          "object_id": "thread:public-example-001",
+          "source_ref": "repo:codex-app-server/thread/get",
+          "schema_version": "codex_app_server_master_thread_ref_v2",
+          "content_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+        }
+      },
+      "claim_limit": "Synthetic exact assignment shape only; no live Goal binding."
+    },
+    "model_realization": {
+      "state": "present",
+      "owner_ref": {
+        "owner_repo": "aoa-models",
+        "object_id": "realization:public-example-001",
+        "source_ref": "repo:aoa-models/model-realization/get",
+        "schema_version": "aoa_models_realization_ref_v1",
+        "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "observed_at": "2026-08-23T00:00:00Z",
+      "value": {
+        "model_identity_ref": {
+          "owner_repo": "aoa-models",
+          "object_id": "model:public-example-001",
+          "source_ref": "repo:aoa-models/model-identity/get",
+          "schema_version": "aoa_models_identity_ref_v1",
+          "content_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+        },
+        "model_realization_ref": {
+          "owner_repo": "aoa-models",
+          "object_id": "realization:public-example-001",
+          "source_ref": "repo:aoa-models/model-realization/get",
+          "schema_version": "aoa_models_realization_ref_v1",
+          "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "claim_limit": "Synthetic model references only; no model selection, fit, or execution claim."
+    },
+    "runtime_incarnation": {
+      "state": "present",
+      "owner_ref": {
+        "owner_repo": "abyss-stack",
+        "object_id": "incarnation:public-example-001",
+        "source_ref": "repo:abyss-stack/runtime-incarnation/get",
+        "schema_version": "abyss_stack_incarnation_ref_v1",
+        "content_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "observed_at": "2026-08-23T00:00:00Z",
+      "value": {
+        "runtime_binding_ref": {
+          "owner_repo": "abyss-stack",
+          "object_id": "runtime-binding:public-example-001",
+          "source_ref": "repo:abyss-stack/runtime-binding/get",
+          "schema_version": "abyss_stack_runtime_binding_ref_v1",
+          "content_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "incarnation_ref": {
+          "owner_repo": "abyss-stack",
+          "object_id": "incarnation:public-example-001",
+          "source_ref": "repo:abyss-stack/runtime-incarnation/get",
+          "schema_version": "abyss_stack_incarnation_ref_v1",
+          "content_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      },
+      "claim_limit": "Synthetic runtime references only; no process, liveness, wake, or acceptance claim."
+    }
+  },
+  "privacy_omissions": {
+    "state": "applied",
+    "omitted_fields": [
+      "human_display_name",
+      "raw_prompt",
+      "secrets",
+      "cwd",
+      "path",
+      "pid",
+      "terminal_title",
+      "unreviewed_model_metadata"
+    ],
+    "policy_ref": {
+      "owner_repo": "aoa-agents",
+      "object_id": "privacy:goal-participant-relations-v1",
+      "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
+      "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+      "content_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  },
+  "claim_limit": "Synthetic public-safe example; it is not live owner evidence."
+}

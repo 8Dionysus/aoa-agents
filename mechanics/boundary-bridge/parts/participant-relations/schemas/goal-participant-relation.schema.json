@@ -1,0 +1,693 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents.local/schemas/aoa_agents_goal_participant_relation_v1.json",
+  "title": "aoa-agents exact Goal participant relation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "evidence_class",
+    "relation_id",
+    "relation_key",
+    "scope",
+    "dimensions",
+    "privacy_omissions",
+    "claim_limit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_agents_goal_participant_relation_v1"
+    },
+    "kind": {
+      "const": "aoa_agents_goal_participant_relation"
+    },
+    "evidence_class": {
+      "enum": [
+        "owner_published",
+        "synthetic_public_example"
+      ]
+    },
+    "relation_id": {
+      "type": "string",
+      "pattern": "^rel-record:[^\\s]+$"
+    },
+    "relation_key": {
+      "$ref": "#/$defs/relation_key"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "obligation_role",
+        "task_assignment",
+        "model_realization",
+        "runtime_incarnation"
+      ],
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/identity_dimension"
+        },
+        "obligation_role": {
+          "$ref": "#/$defs/obligation_role_dimension"
+        },
+        "task_assignment": {
+          "$ref": "#/$defs/task_assignment_dimension"
+        },
+        "model_realization": {
+          "$ref": "#/$defs/model_realization_dimension"
+        },
+        "runtime_incarnation": {
+          "$ref": "#/$defs/runtime_incarnation_dimension"
+        }
+      }
+    },
+    "privacy_omissions": {
+      "$ref": "#/$defs/privacy_omissions"
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "object_id",
+        "source_ref",
+        "schema_version",
+        "content_digest"
+      ],
+      "properties": {
+        "owner_repo": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*$"
+        },
+        "object_id": {
+          "type": "string",
+          "pattern": "^[^\\s]+$"
+        },
+        "source_ref": {
+          "type": "string",
+          "pattern": "^repo:[^\\s]+$"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*_v[0-9]+$"
+        },
+        "content_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "relation_key": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "key_id",
+        "publisher_ref",
+        "endpoint_refs",
+        "content_digest"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "aoa_agents_goal_participant_relation_key_v1"
+        },
+        "key_id": {
+          "type": "string",
+          "pattern": "^rel:[a-z0-9][a-z0-9._:-]*$"
+        },
+        "publisher_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "endpoint_refs": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "content_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal_ref",
+        "goal_instance_ref",
+        "master_thread_ref"
+      ],
+      "properties": {
+        "goal_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "goal_instance_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "master_thread_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "dimension_base": {
+      "type": "object",
+      "required": [
+        "state",
+        "claim_limit"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "identity_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_ref"
+      ],
+      "properties": {
+        "actor_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "human_display_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "obligation_role_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role_ref",
+        "obligation_ref"
+      ],
+      "properties": {
+        "role_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "obligation_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "specialization_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "task_assignment_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assignment_ref",
+        "goal_ref",
+        "goal_instance_ref",
+        "master_thread_ref"
+      ],
+      "properties": {
+        "assignment_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "task_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "goal_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "goal_instance_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "master_thread_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "model_realization_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_identity_ref",
+        "model_realization_ref"
+      ],
+      "properties": {
+        "model_identity_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "model_realization_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "runtime_incarnation_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_binding_ref",
+        "incarnation_ref"
+      ],
+      "properties": {
+        "runtime_binding_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "incarnation_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "identity_dimension": {
+      "$ref": "#/$defs/identity_dimension_impl"
+    },
+    "identity_dimension_impl": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/dimension_base"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/identity_value"
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "present"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "owner_ref",
+              "value",
+              "observed_at"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/identity_value"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "state",
+        "claim_limit"
+      ]
+    },
+    "obligation_role_dimension": {
+      "$ref": "#/$defs/obligation_role_dimension_impl"
+    },
+    "obligation_role_dimension_impl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "claim_limit"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/obligation_role_value"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "present"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "owner_ref",
+              "value",
+              "observed_at"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "task_assignment_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "claim_limit"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/task_assignment_value"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "present"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "owner_ref",
+              "value",
+              "observed_at"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "model_realization_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "claim_limit"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/model_realization_value"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "present"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "owner_ref",
+              "value",
+              "observed_at"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "runtime_incarnation_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "claim_limit"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "present",
+            "missing",
+            "unknown",
+            "stale",
+            "deferred",
+            "invalid"
+          ]
+        },
+        "owner_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/runtime_incarnation_value"
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "present"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "owner_ref",
+              "value",
+              "observed_at"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "privacy_omissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "omitted_fields",
+        "policy_ref"
+      ],
+      "properties": {
+        "state": {
+          "const": "applied"
+        },
+        "omitted_fields": {
+          "const": [
+            "human_display_name",
+            "raw_prompt",
+            "secrets",
+            "cwd",
+            "path",
+            "pid",
+            "terminal_title",
+            "unreviewed_model_metadata"
+          ]
+        },
+        "policy_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    }
+  }
+}

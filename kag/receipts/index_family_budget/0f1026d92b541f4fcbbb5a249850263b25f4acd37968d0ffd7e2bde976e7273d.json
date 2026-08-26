@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11953322,
+  "allowed_tracked_bytes": 16336445,
+  "approved_by": "repository-owner",
+  "base_ref": "eb9a8e716317f545063833a00b24e1d2ef773fe6",
+  "changed_generated_bytes": 11953322,
+  "changed_generated_files": 292,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0f1026d92b541f4fcbbb5a249850263b25f4acd37968d0ffd7e2bde976e7273d",
+  "reason": "Participant relation source and owner-local publication intake added a durable contract, schemas, builder, validator, tests, decision records, and generated reader; the pinned owner-family rebuild is required to keep the checked-in derived surface current.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16336445,
+  "tracked_bytes_max": 16777216
+}
