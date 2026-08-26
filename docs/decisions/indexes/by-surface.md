@@ -190,10 +190,17 @@
 ## agent contract
 
 - [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
 ## authority boundary
 
 - [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
+
+## boundary
+
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
 ## capability route
 
@@ -229,6 +236,16 @@
 ## federation consumer seam
 
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
+
+## generated reader
+
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
+
+## mechanic
+
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
 ## memory posture
 

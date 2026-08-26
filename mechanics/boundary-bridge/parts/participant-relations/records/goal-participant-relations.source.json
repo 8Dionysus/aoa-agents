@@ -1,0 +1,49 @@
+{
+  "schema_version": "aoa_agents_goal_participant_relation_source_v1",
+  "kind": "aoa_agents_goal_participant_relation_source",
+  "owner_repo": "aoa-agents",
+  "evidence_class": "empty_deferred",
+  "publisher_ref": {
+    "owner_repo": "aoa-agents",
+    "object_id": "contract:goal-participant-relations",
+    "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
+    "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+    "content_digest": "sha256:1e87dad6d19bf2a43be36d177c86a4ad2c3e7de2b4979c145ba1ea30cb8c736c"
+  },
+  "relation_contract_ref": {
+    "owner_repo": "aoa-agents",
+    "object_id": "contract:goal-participant-relations",
+    "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
+    "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+    "content_digest": "sha256:1e87dad6d19bf2a43be36d177c86a4ad2c3e7de2b4979c145ba1ea30cb8c736c"
+  },
+  "currentness": {
+    "state": "deferred",
+    "reason": "No exact owner-published Goal/thread participant relation has been admitted into this source feed."
+  },
+  "pagination": {
+    "page_index": 0,
+    "page_size": 100,
+    "has_more": false,
+    "next_cursor_ref": null
+  },
+  "privacy_policy_ref": {
+    "owner_repo": "aoa-agents",
+    "object_id": "privacy:goal-participant-relations-v1",
+    "source_ref": "repo:aoa-agents/mechanics/boundary-bridge/parts/participant-relations/contract.json",
+    "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+    "content_digest": "sha256:1e87dad6d19bf2a43be36d177c86a4ad2c3e7de2b4979c145ba1ea30cb8c736c"
+  },
+  "privacy_omissions": [
+    "human_display_name",
+    "raw_prompt",
+    "secrets",
+    "cwd",
+    "path",
+    "pid",
+    "terminal_title",
+    "unreviewed_model_metadata"
+  ],
+  "admission_receipt": null,
+  "records": []
+}

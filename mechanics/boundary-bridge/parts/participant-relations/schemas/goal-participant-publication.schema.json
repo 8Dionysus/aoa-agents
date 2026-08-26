@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents.local/schemas/aoa_agents_goal_participant_relation_publication_v1.json",
+  "title": "aoa-agents typed Goal participant relation publication input",
+  "description": "An explicit owner publication envelope. It is admitted only after aoa-agents validates exact references, one Goal scope, currentness, privacy, and relation-key integrity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "evidence_class",
+    "publisher_ref",
+    "producer_ref",
+    "publication_ref",
+    "relation_contract_ref",
+    "scope",
+    "currentness",
+    "pagination",
+    "privacy_omissions",
+    "records",
+    "payload_digest",
+    "claim_limit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_agents_goal_participant_relation_publication_v1"
+    },
+    "kind": {
+      "const": "aoa_agents_goal_participant_relation_publication"
+    },
+    "evidence_class": {
+      "const": "owner_published"
+    },
+    "publisher_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "producer_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "publication_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "relation_contract_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "currentness": {
+      "$ref": "#/$defs/currentness"
+    },
+    "pagination": {
+      "$ref": "#/$defs/pagination"
+    },
+    "privacy_omissions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://aoa-agents.local/schemas/aoa_agents_goal_participant_relation_v1.json"
+      }
+    },
+    "payload_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "object_id",
+        "source_ref",
+        "schema_version",
+        "content_digest"
+      ],
+      "properties": {
+        "owner_repo": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*$"
+        },
+        "object_id": {
+          "type": "string",
+          "pattern": "^[^\\s]+$"
+        },
+        "source_ref": {
+          "type": "string",
+          "pattern": "^repo:[^\\s]+$"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*_v[0-9]+$"
+        },
+        "content_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal_ref",
+        "goal_instance_ref",
+        "master_thread_ref"
+      ],
+      "properties": {
+        "goal_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "goal_instance_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "master_thread_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "currentness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "reason"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "current",
+            "stale",
+            "deferred",
+            "unknown",
+            "invalid"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_watermark_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "page_size",
+        "has_more",
+        "next_cursor_ref"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_cursor_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

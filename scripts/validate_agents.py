@@ -268,6 +268,13 @@ validate_specialization_eligibility = (
     _SPECIALIZATION_ELIGIBILITY_MODULE.validate_specialization_eligibility
 )
 
+_PARTICIPANT_GRAPH_MODULE = load_repo_python_module(
+    "goal_participant_graph_validator",
+    "mechanics/boundary-bridge/parts/participant-relations/scripts/validate_goal_participant_graph.py",
+)
+GoalParticipantGraphValidationError = _PARTICIPANT_GRAPH_MODULE.GoalParticipantGraphValidationError
+validate_goal_participant_graph = _PARTICIPANT_GRAPH_MODULE.validate_goal_participant_graph
+
 
 def resolve_aoa_evals_schema_path(legacy_name: str, current_relative: str) -> Path:
     legacy_path = AOA_EVALS_ROOT / "schemas" / legacy_name
@@ -4393,6 +4400,7 @@ def main() -> int:
         validate_agon_formation_contracts(REPO_ROOT)
         validate_agon_rank_epistemic_contracts(REPO_ROOT)
         validate_adoption_boundary_contracts(REPO_ROOT)
+        validate_goal_participant_graph(REPO_ROOT)
         validate_experience_assistant_civil_contracts(REPO_ROOT)
         validate_agent_service_contracts(REPO_ROOT)
         validate_checkpoint_contracts(REPO_ROOT)
@@ -4456,6 +4464,7 @@ def main() -> int:
         AntifragilityStressValidationError,
         AssistantProjectionResolverValidationError,
         SpecializationEligibilityValidationError,
+        GoalParticipantGraphValidationError,
         CodexRefreshLawContractsValidationError,
         NestedAgentsValidationError,
         RPGProgressionValidationError,
@@ -4486,6 +4495,7 @@ def main() -> int:
     print("[ok] validated Agon formation part-local contracts")
     print("[ok] validated Agon rank/school/epistemic part-local contracts")
     print("[ok] validated adoption and boundary part-local contracts")
+    print("[ok] validated Goal participant relation part-local contract")
     print("[ok] validated experience assistant civil part-local contracts")
     print("[ok] validated agent service part-local contracts")
     print("[ok] validated checkpoint package-local contracts")

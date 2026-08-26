@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-agents.local/schemas/aoa_agents_goal_participant_relation_source_v1.json",
+  "title": "aoa-agents Goal participant relation source feed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "owner_repo",
+    "evidence_class",
+    "publisher_ref",
+    "relation_contract_ref",
+    "currentness",
+    "pagination",
+    "privacy_policy_ref",
+    "privacy_omissions",
+    "admission_receipt",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_agents_goal_participant_relation_source_v1"
+    },
+    "kind": {
+      "const": "aoa_agents_goal_participant_relation_source"
+    },
+    "owner_repo": {
+      "const": "aoa-agents"
+    },
+    "evidence_class": {
+      "enum": [
+        "empty_deferred",
+        "owner_published"
+      ]
+    },
+    "publisher_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "relation_contract_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "currentness": {
+      "$ref": "#/$defs/currentness"
+    },
+    "pagination": {
+      "$ref": "#/$defs/pagination"
+    },
+    "privacy_policy_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "privacy_omissions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "admission_receipt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/admission_receipt"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "https://aoa-agents.local/schemas/aoa_agents_goal_participant_relation_v1.json"
+      }
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "object_id",
+        "source_ref",
+        "schema_version",
+        "content_digest"
+      ],
+      "properties": {
+        "owner_repo": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*$"
+        },
+        "object_id": {
+          "type": "string",
+          "pattern": "^[^\\s]+$"
+        },
+        "source_ref": {
+          "type": "string",
+          "pattern": "^repo:[^\\s]+$"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*_v[0-9]+$"
+        },
+        "content_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "currentness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "reason"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "current",
+            "stale",
+            "deferred",
+            "unknown",
+            "invalid"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_watermark_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_index",
+        "page_size",
+        "has_more",
+        "next_cursor_ref"
+      ],
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_cursor_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal_ref",
+        "goal_instance_ref",
+        "master_thread_ref"
+      ],
+      "properties": {
+        "goal_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "goal_instance_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "master_thread_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "admission_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "admission_state",
+        "receipt_id",
+        "publisher_ref",
+        "producer_ref",
+        "publication_ref",
+        "publication_schema_version",
+        "payload_digest",
+        "scope",
+        "relation_ids",
+        "currentness",
+        "pagination",
+        "privacy_omissions",
+        "claim_limit"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "aoa_agents_goal_participant_relation_admission_v1"
+        },
+        "kind": {
+          "const": "aoa_agents_goal_participant_relation_admission"
+        },
+        "admission_state": {
+          "const": "admitted"
+        },
+        "receipt_id": {
+          "type": "string",
+          "pattern": "^receipt:[a-f0-9]{64}$"
+        },
+        "publisher_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "producer_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "publication_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "publication_schema_version": {
+          "const": "aoa_agents_goal_participant_relation_publication_v1"
+        },
+        "payload_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "relation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^rel-record:[^\\s]+$"
+          }
+        },
+        "currentness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "observed_at",
+            "reason"
+          ],
+          "properties": {
+            "state": {
+              "const": "current"
+            },
+            "observed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "source_watermark_ref": {
+              "$ref": "#/$defs/ref"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "page_index",
+            "page_size",
+            "has_more",
+            "next_cursor_ref"
+          ],
+          "properties": {
+            "page_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "page_size": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "has_more": {
+              "const": false
+            },
+            "next_cursor_ref": {
+              "type": "null"
+            }
+          }
+        },
+        "privacy_omissions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

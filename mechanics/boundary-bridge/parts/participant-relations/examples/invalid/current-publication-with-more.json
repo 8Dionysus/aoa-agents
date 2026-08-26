@@ -1,0 +1,16 @@
+{
+  "schema_version": "aoa_agents_goal_participant_relation_publication_v1",
+  "kind": "aoa_agents_goal_participant_relation_publication",
+  "evidence_class": "owner_published",
+  "currentness": {
+    "state": "current",
+    "reason": "Invalid fixture: a current page must not advertise an unadmitted continuation."
+  },
+  "pagination": {
+    "page_index": 0,
+    "page_size": 1,
+    "has_more": true,
+    "next_cursor_ref": null
+  },
+  "claim_limit": "Invalid fixture: exact owner references and a complete publication are absent."
+}
