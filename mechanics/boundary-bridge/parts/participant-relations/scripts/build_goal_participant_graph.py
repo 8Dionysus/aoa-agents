@@ -302,12 +302,22 @@ def _declared_scope_owner_repos(root: Path, scope_field: str) -> frozenset[str]:
     return frozenset(allowed)
 
 
+def _validate_ref_source_owner(ref: dict[str, Any], *, label: str) -> None:
+    encoded = ref["source_ref"][len("repo:") :]
+    source_owner = encoded.split("/", 1)[0]
+    if source_owner != ref["owner_repo"]:
+        raise GoalParticipantGraphError(
+            f"{label}: source_ref repository {source_owner!r} contradicts owner_repo {ref['owner_repo']!r}"
+        )
+
+
 def _validate_ref_owner(
     ref: dict[str, Any],
     *,
     allowed_owner_repos: frozenset[str],
     label: str,
 ) -> None:
+    _validate_ref_source_owner(ref, label=label)
     if ref["owner_repo"] not in allowed_owner_repos:
         expected = ", ".join(sorted(allowed_owner_repos))
         raise GoalParticipantGraphError(
@@ -394,6 +404,34 @@ def _key_parts(key_id: str) -> set[str]:
     return {part for part in re.split(r"[._:-]+", key_id.lower()) if part}
 
 
+CLAIM_LIMIT_POSITIVE_VERBS = re.compile(
+    r"\b(?:assert(?:s|ed)?|claim(?:s|ed)?|confirm(?:s|ed)?|demonstrat(?:e|es|ed)|"
+    r"establish(?:es|ed)?|ensur(?:e|es|ed)|guarante(?:e|es|d)|pro(?:ve|ves|ved)|"
+    r"show(?:s|ed)?|validat(?:e|es|ed)|verif(?:y|ies|ied))\b"
+)
+CLAIM_LIMIT_UNBOUNDED_TERMS = re.compile(
+    r"\b(?:live(?:ness)?|activation|wake|acceptance|completion)\b|"
+    r"\b(?:runtime\s+(?:activation|health|presence)|owner\s+truth|"
+    r"goal\s+completion|semantic\s+goal\s+acceptance|live\s+participant\s+presence)\b"
+)
+CLAIM_LIMIT_NEGATION = re.compile(
+    r"\b(?:cannot|can't|does\s+not|doesn't|do\s+not|don't|never|no|not|without)\b"
+)
+
+
+def validate_claim_limit(claim_limit: str, *, label: str) -> None:
+    for clause in re.split(r"[.!?;]+", claim_limit.lower()):
+        if not clause.strip():
+            continue
+        if (
+            CLAIM_LIMIT_POSITIVE_VERBS.search(clause)
+            or CLAIM_LIMIT_UNBOUNDED_TERMS.search(clause)
+        ) and not CLAIM_LIMIT_NEGATION.search(clause):
+            raise GoalParticipantGraphError(
+                f"{label}: claim_limit widens beyond structural relation admission"
+            )
+
+
 def validate_relation(
     record: dict[str, Any],
     *,
@@ -406,6 +444,12 @@ def validate_relation(
 ) -> None:
     repo_root = (root or ROOT).resolve()
     validate_instance(record, relation_schema, label, root=repo_root)
+    validate_claim_limit(record["claim_limit"], label=f"{label}.claim_limit")
+    for dimension_name, dimension in record["dimensions"].items():
+        validate_claim_limit(
+            dimension["claim_limit"],
+            label=f"{label}.dimensions.{dimension_name}.claim_limit",
+        )
     validate_privacy_omissions(
         record["privacy_omissions"],
         label=f"{label}.privacy_omissions",
@@ -524,6 +568,15 @@ def validate_admission_receipt(
         raise GoalParticipantGraphError("admission receipt must represent the initial complete publication page")
     if set(receipt["privacy_omissions"]) != REQUIRED_PRIVACY_OMISSIONS:
         raise GoalParticipantGraphError("admission receipt privacy omissions drifted from the contract baseline")
+    validate_claim_limit(receipt["claim_limit"], label="admission receipt.claim_limit")
+    for field in ("publisher_ref", "producer_ref", "publication_ref"):
+        _validate_ref_source_owner(receipt[field], label=f"admission receipt.{field}")
+    for scope_field in SCOPE_FIELDS:
+        _validate_ref_owner(
+            receipt["scope"][scope_field],
+            allowed_owner_repos=_declared_scope_owner_repos(root, scope_field),
+            label=f"admission receipt.scope.{scope_field}",
+        )
     if receipt["producer_ref"] == receipt["publication_ref"]:
         raise GoalParticipantGraphError("admission receipt producer_ref and publication_ref must remain distinct")
     if receipt["producer_ref"]["owner_repo"] != receipt["publication_ref"]["owner_repo"]:
@@ -663,6 +716,7 @@ def validate_graph_payload(root: Path, graph: dict[str, Any]) -> None:
     graph_schema = read_json(root / GRAPH_SCHEMA_PATH)
     relation_schema = read_json(root / RELATION_SCHEMA_PATH)
     validate_instance(graph, graph_schema, GRAPH_PATH.as_posix(), root=root)
+    validate_claim_limit(graph["claim_limit"], label="generated graph.claim_limit")
     expected_contract = current_contract_ref(root)
     expected_source = current_source_ref(root)
     expected_privacy = current_privacy_policy_ref(root)

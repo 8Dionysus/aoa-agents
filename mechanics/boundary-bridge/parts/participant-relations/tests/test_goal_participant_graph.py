@@ -93,6 +93,29 @@ class GoalParticipantGraphTests(unittest.TestCase):
         with self.assertRaises(GoalParticipantGraphError):
             validate_relation(record, relation_schema=self.relation_schema, label="wrong-model-owner")
 
+    def test_ref_source_repository_must_match_owner_repository(self) -> None:
+        dimension_mismatch = copy.deepcopy(self.example)
+        dimension_mismatch["dimensions"]["model_realization"]["owner_ref"]["source_ref"] = (
+            "repo:codex-app-server/model-identity/get"
+        )
+        dimension_mismatch["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(dimension_mismatch))
+        ]
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(
+                dimension_mismatch,
+                relation_schema=self.relation_schema,
+                label="mismatched-model-source-owner",
+            )
+
+        scope_mismatch = copy.deepcopy(self.example)
+        scope_mismatch["scope"]["goal_ref"]["source_ref"] = "repo:aoa-models/goal/get"
+        scope_mismatch["relation_key"]["endpoint_refs"] = [
+            json.loads(value) for value in sorted(relation_endpoint_refs(scope_mismatch))
+        ]
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(scope_mismatch, relation_schema=self.relation_schema, label="mismatched-goal-source-owner")
+
     def test_nonpresent_dimension_has_no_value_or_fallback(self) -> None:
         record = copy.deepcopy(self.example)
         identity = record["dimensions"]["identity"]
@@ -280,6 +303,28 @@ class GoalParticipantGraphTests(unittest.TestCase):
         publication["currentness"]["observed_at"] = "not-a-date"
         with self.assertRaises(GoalParticipantGraphError):
             validate_publication(ROOT, publication)
+
+    def test_claim_limits_cannot_widen_structural_admission(self) -> None:
+        record = copy.deepcopy(self.example)
+        record["claim_limit"] = "This proves liveness and Goal completion."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(record, relation_schema=self.relation_schema, label="widened-record-claim")
+
+        dimension = copy.deepcopy(self.example)
+        dimension["dimensions"]["runtime_incarnation"]["claim_limit"] = "This establishes runtime health."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(dimension, relation_schema=self.relation_schema, label="widened-dimension-claim")
+
+        publication = self._valid_publication()
+        publication["claim_limit"] = "This confirms live presence."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
+        receipt = build_admission_receipt(ROOT, self._valid_publication())
+        receipt["claim_limit"] = "This proves Goal completion."
+        receipt["receipt_id"] = admission_receipt_id(receipt)
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_admission_receipt(ROOT, receipt)
 
     def test_publication_requires_distinct_scope_endpoints(self) -> None:
         publication = self._valid_publication()

@@ -38,6 +38,8 @@ from build_goal_participant_graph import (  # noqa: E402
     _currentness_and_pagination_errors,
     publication_payload_digest,
     read_json,
+    _validate_ref_source_owner,
+    validate_claim_limit,
     validate_admission_receipt,
     validate_instance,
     validate_relation,
@@ -53,6 +55,9 @@ def validate_publication(root: Path, publication: dict[str, Any]) -> None:
     publication_schema = read_json(root / PUBLICATION_SCHEMA_PATH)
     relation_schema = read_json(root / RELATION_SCHEMA_PATH)
     validate_instance(publication, publication_schema, "Goal participant publication", root=root)
+    validate_claim_limit(publication["claim_limit"], label="Goal participant publication.claim_limit")
+    for field in ("publisher_ref", "producer_ref", "publication_ref", "relation_contract_ref"):
+        _validate_ref_source_owner(publication[field], label=f"Goal participant publication.{field}")
     expected_contract_ref = current_contract_ref(root)
     expected_privacy_ref = current_privacy_policy_ref(root)
     if publication["publisher_ref"] != expected_contract_ref:
