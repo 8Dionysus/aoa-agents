@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3999246,
+  "allowed_tracked_bytes": 16440156,
+  "approved_by": "repository-owner",
+  "base_ref": "b69222d59a5c7cdc59be287306ae5563b2e66285",
+  "changed_generated_bytes": 3999246,
+  "changed_generated_files": 122,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0bc37e0fae83cb02644f0fbd015a02ee6331bf2ae321e912c24f7d7f2fe72a46",
+  "reason": "Refresh the exact CI-pinned repository-local KAG family after the reviewed delegation contract, pytest CI dependency, and incarnation-binding documentation repairs; preserve the standing generated-delta budget and record the required owner-scoped exception.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16440156,
+  "tracked_bytes_max": 16777216
+}
