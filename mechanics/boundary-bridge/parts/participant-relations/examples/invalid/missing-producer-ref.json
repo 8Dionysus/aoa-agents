@@ -1,0 +1,6 @@
+{
+  "schema_version": "aoa_agents_goal_participant_relation_publication_v1",
+  "kind": "aoa_agents_goal_participant_relation_publication",
+  "evidence_class": "owner_published",
+  "claim_limit": "Invalid fixture: producer provenance is absent."
+}

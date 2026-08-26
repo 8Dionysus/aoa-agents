@@ -1,0 +1,42 @@
+# Goal Participant Relations
+
+This part publishes the narrow `aoa-agents` contract for an exact relation
+between a Goal/thread scope and a participant assignment. It is a source-owned
+boundary contract, not a runtime participant registry.
+
+## Surfaces
+
+- [contract](contract.json) — owner, dimension, admission, privacy, and claim
+  limits.
+- [source contract](docs/goal-participant-relations.md) — semantic route and
+  stronger-owner split.
+- [relation schema](schemas/goal-participant-relation.schema.json) — one
+  publisher-owned relation record.
+- [publication schema](schemas/goal-participant-publication.schema.json) — the
+  typed upstream owner input for one exact Goal scope.
+- [admission schema](schemas/goal-participant-admission.schema.json) — the
+  structural receipt emitted only after fail-closed validation.
+- [source schema](schemas/goal-participant-source.schema.json) — the source
+  feed with currentness and pagination.
+- [graph schema](schemas/goal-participant-graph.schema.json) — deterministic
+  generated reader shape.
+- [source feed](records/goal-participant-relations.source.json) — currently
+  empty and deferred until an exact owner-published relation is admitted.
+- [generated reader](generated/goal-participant-graph.min.json) — built from
+  the source feed; it contains no fabricated participant rows.
+- [public-safe example](examples/goal-participant-relation.example.json) —
+  synthetic only and never live evidence.
+- [negative fixtures](examples/invalid/) — malformed or incomplete owner
+  publications that must remain inadmissible.
+
+## Build and read
+
+The executable builder, reader, validator, and typed intake route is recorded
+in the local [AGENTS card](AGENTS.md) and is the source-owned validation
+entrypoint. `admit_goal_participant_publication.py` validates an explicit
+publication and returns a receipt; `--out-source` is an optional explicit
+source write and is never inferred from a Goal, session, title, or runtime.
+
+The builder is the only writer of the generated reader. The reader validates
+and returns the published state; it never supplies display, model, runtime, or
+evidence-available fallbacks.

@@ -1,0 +1,109 @@
+{
+  "schema_version": "aoa_agents_goal_participant_relation_contract_v1",
+  "kind": "aoa_agents_goal_participant_relation_contract",
+  "owner_repo": "aoa-agents",
+  "source_surface": "mechanics/boundary-bridge/parts/participant-relations/records/goal-participant-relations.source.json",
+  "generated_surface": "mechanics/boundary-bridge/parts/participant-relations/generated/goal-participant-graph.min.json",
+  "source_contract": "mechanics/boundary-bridge/parts/participant-relations/contract.json",
+  "purpose": "Admit exact Goal/thread participant and assignment relations without collapsing identity, obligation, task, model, or runtime dimensions.",
+  "dimensions": {
+    "identity": {
+      "owner": "aoa-agents",
+      "meaning": "Exact actor identity reference; any human display reference is optional and separate."
+    },
+    "obligation_role": {
+      "owner": "aoa-agents",
+      "meaning": "Exact role and obligation references; labels are descriptive and never join keys."
+    },
+    "task_assignment": {
+      "owner": "codex-app-server-and-aoa-sdk",
+      "meaning": "Exact Goal, Goal-instance, master-thread, task, and assignment references supplied by their owners."
+    },
+    "model_realization": {
+      "owner": "aoa-models",
+      "meaning": "Exact model identity and realization/config references; a model name or version is insufficient."
+    },
+    "runtime_incarnation": {
+      "owner": "abyss-stack",
+      "meaning": "Exact runtime binding and incarnation references; runtime evidence is not identity or liveness."
+    }
+  },
+  "admission": {
+    "publication_input_schema": "mechanics/boundary-bridge/parts/participant-relations/schemas/goal-participant-publication.schema.json",
+    "admission_receipt_schema": "mechanics/boundary-bridge/parts/participant-relations/schemas/goal-participant-admission.schema.json",
+    "publication_mode": "explicit_owner_input_only",
+    "accepted_publication_state": "current",
+    "exact_reference_fields": [
+      "owner_repo",
+      "object_id",
+      "source_ref",
+      "schema_version",
+      "content_digest"
+    ],
+    "digest_algorithm": "sha256",
+    "relation_key": {
+      "field": "relation_key",
+      "publisher_owned": true,
+      "consumer_rule": "Compare the publisher key and its exact endpoint references; do not derive or substitute a key."
+    },
+    "dimension_rule": "A present dimension requires its owner_ref, schema version, content digest, value, and observation time."
+  },
+  "publisher": {
+    "input_kind": "aoa_agents_goal_participant_relation_publication",
+    "producer_rule": "The producer must supply one exact Goal/Goal-instance/master-thread scope and all relation records for that scope; aoa-agents does not discover or compose missing owner facts.",
+    "receipt_rule": "Only a schema-valid current publication with a complete exact scope, stable relation-key digest, independent dimension states, and payload digest may receive an aoa-agents admission receipt.",
+    "source_transition": "An admitted receipt may be used by an explicit source publisher to replace empty_deferred; admission and source publication remain separate actions.",
+    "no_live_goal_binding": "No checked-in source record is produced from a selected Goal, live session, holder label, runtime observation, or synthetic example."
+  },
+  "dimension_states": [
+    "present",
+    "missing",
+    "unknown",
+    "stale",
+    "deferred",
+    "invalid"
+  ],
+  "forbidden_join_inputs": [
+    "actor_display_name",
+    "human_display_name",
+    "role_label",
+    "model_name",
+    "model_version",
+    "pid",
+    "cwd",
+    "path",
+    "terminal_title",
+    "bare_goal_id",
+    "holder_suffix",
+    "process_ancestry"
+  ],
+  "pagination_and_currentness": {
+    "pagination": "Preserve page index, page size, has_more, and exact next cursor reference. A non-null next cursor keeps the feed deferred until continuation is admitted.",
+    "currentness": "Preserve current, stale, deferred, unknown, or invalid state with its reason and evidence; absence is not currentness.",
+    "join_scope": "A bare Goal id is never sufficient; Goal, Goal-instance, and master-thread references are distinct exact endpoints."
+  },
+  "privacy_omissions": [
+    "human_display_name",
+    "raw_prompt",
+    "secrets",
+    "cwd",
+    "path",
+    "pid",
+    "terminal_title",
+    "unreviewed_model_metadata"
+  ],
+  "claims_not_made": [
+    "live participant presence",
+    "runtime activation or health",
+    "wake or return delivery",
+    "semantic Goal acceptance",
+    "Goal completion",
+    "human identity from a display name",
+    "model selection or model fitness from a label"
+  ],
+  "validation_commands": [
+    "python mechanics/boundary-bridge/parts/participant-relations/scripts/build_goal_participant_graph.py --check",
+    "python mechanics/boundary-bridge/parts/participant-relations/scripts/validate_goal_participant_graph.py",
+    "python -m unittest discover -s mechanics/boundary-bridge/parts/participant-relations/tests -p 'test_*.py'"
+  ]
+}

@@ -12,6 +12,7 @@ handoff and cross-boundary parts.
 | `workspace-trigger/` | workspace surface trigger posture | `workspace-trigger/README.md` |
 | `source-surface-registry/` | explain which source surfaces own agent truth | `source-surface-registry/README.md` |
 | `consumer-handoff/` | route consumers without taking stronger-owner authority | `consumer-handoff/README.md` |
+| `participant-relations/` | exact Goal/thread participant and assignment relation contract and derived reader | `participant-relations/README.md` |
 
 ## Admission Rule
 

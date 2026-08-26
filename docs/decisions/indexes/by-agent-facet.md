@@ -21,6 +21,8 @@
 - [AOA-AG-D-0066 Add Owner-Local Actor Responsibility Receipt Producer](../AOA-AG-D-0066-actor-responsibility-receipt-producer.md) (`docs/decisions/AOA-AG-D-0066-actor-responsibility-receipt-producer.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
 ## role specialization
 
@@ -180,6 +182,11 @@
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 
+## evidence posture
+
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
+
 ## handoff
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
@@ -210,6 +217,11 @@
 - [AOA-AG-D-0065 Prepare Selected External Actor Route Without Launching](../AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md) (`docs/decisions/AOA-AG-D-0065-prepare-selected-external-actor-route-without-launching.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+
+## owner split
+
+- [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
+- [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
 ## progression
 

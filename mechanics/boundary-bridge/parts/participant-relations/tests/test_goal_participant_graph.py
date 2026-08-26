@@ -1,0 +1,311 @@
+from __future__ import annotations
+
+import copy
+from contextlib import contextmanager
+import json
+import shutil
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[5]
+SCRIPT_DIR = ROOT / "mechanics/boundary-bridge/parts/participant-relations/scripts"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from build_goal_participant_graph import (  # noqa: E402
+    CONTRACT_PATH,
+    CONTRACT_SCHEMA_VERSION,
+    GRAPH_PATH,
+    GRAPH_SCHEMA_PATH,
+    RELATION_SCHEMA_ID,
+    REQUIRED_PRIVACY_OMISSIONS,
+    RELATION_SCHEMA_PATH,
+    SOURCE_SCHEMA_PATH,
+    SOURCE_PATH,
+    PUBLICATION_SCHEMA_PATH,
+    GoalParticipantGraphError,
+    admission_receipt_id,
+    build_graph_payload,
+    compact_json,
+    check_generated,
+    publication_payload_digest,
+    read_json,
+    ref_for_file,
+    relation_key_digest,
+    validate_admission_receipt,
+    validate_relation,
+    validate_source_payload,
+)
+from admit_goal_participant_publication import (  # noqa: E402
+    build_admission_receipt,
+    build_source_payload,
+    validate_publication,
+)
+from read_goal_participant_graph import read_goal_participant_graph  # noqa: E402
+from validate_goal_participant_graph import validate_goal_participant_graph  # noqa: E402
+
+
+class GoalParticipantGraphTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.example = read_json(
+            ROOT / "mechanics/boundary-bridge/parts/participant-relations/examples/goal-participant-relation.example.json"
+        )
+        cls.relation_schema = read_json(ROOT / RELATION_SCHEMA_PATH)
+        cls.source = read_json(ROOT / SOURCE_PATH)
+
+    def test_complete_part_is_valid_and_generated_reader_is_current(self) -> None:
+        validate_goal_participant_graph(ROOT)
+        check_generated(ROOT, ROOT / GRAPH_PATH)
+        self.assertEqual(build_graph_payload(ROOT), read_goal_participant_graph(ROOT))
+
+    def test_source_is_empty_deferred_and_does_not_claim_no_participant(self) -> None:
+        self.assertEqual(self.source["records"], [])
+        self.assertEqual(self.source["evidence_class"], "empty_deferred")
+        self.assertEqual(self.source["currentness"]["state"], "deferred")
+        self.assertIn("No exact owner-published", self.source["currentness"]["reason"])
+
+    def test_example_keeps_five_dimensions_separate(self) -> None:
+        self.assertEqual(
+            set(self.example["dimensions"]),
+            {"identity", "obligation_role", "task_assignment", "model_realization", "runtime_incarnation"},
+        )
+        self.assertTrue(all(item["state"] == "present" for item in self.example["dimensions"].values()))
+        endpoint_ids = {item["object_id"] for item in self.example["relation_key"]["endpoint_refs"]}
+        self.assertIn("goal:public-example-001", endpoint_ids)
+        self.assertIn("realization:public-example-001", endpoint_ids)
+        self.assertNotIn("public-example-001", endpoint_ids)
+
+    def test_nonpresent_dimension_has_no_value_or_fallback(self) -> None:
+        record = copy.deepcopy(self.example)
+        identity = record["dimensions"]["identity"]
+        identity["state"] = "unknown"
+        identity.pop("owner_ref")
+        identity.pop("observed_at")
+        identity.pop("value")
+        record["relation_key"]["endpoint_refs"] = [
+            ref
+            for ref in record["relation_key"]["endpoint_refs"]
+            if ref["object_id"] != "actor:public-example-001"
+        ]
+        validate_relation(record, relation_schema=self.relation_schema, label="unknown-dimension")
+        self.assertNotIn("value", record["dimensions"]["identity"])
+        self.assertNotIn("Participant N", json.dumps(record))
+
+    def test_heuristic_key_and_missing_digest_are_rejected(self) -> None:
+        heuristic = copy.deepcopy(self.example)
+        heuristic["relation_key"]["key_id"] = "rel:luna"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(heuristic, relation_schema=self.relation_schema, label="heuristic-key")
+
+        missing_digest = copy.deepcopy(self.example)
+        del missing_digest["dimensions"]["identity"]["owner_ref"]["content_digest"]
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(missing_digest, relation_schema=self.relation_schema, label="missing-digest")
+
+    def test_scope_and_assignment_must_match_exactly(self) -> None:
+        mismatched = copy.deepcopy(self.example)
+        mismatched["dimensions"]["task_assignment"]["value"]["master_thread_ref"]["object_id"] = (
+            "thread:other-example"
+        )
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_relation(mismatched, relation_schema=self.relation_schema, label="mismatched-scope")
+
+    def test_pagination_and_currentness_are_preserved_fail_closed(self) -> None:
+        paginated = copy.deepcopy(self.source)
+        paginated["pagination"]["has_more"] = True
+        paginated["currentness"]["state"] = "deferred"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_source_payload(ROOT, paginated)
+
+        stale_empty = copy.deepcopy(self.source)
+        stale_empty["currentness"]["state"] = "stale"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_source_payload(ROOT, stale_empty)
+
+    def _valid_publication(self) -> dict:
+        record = copy.deepcopy(self.example)
+        record["evidence_class"] = "owner_published"
+        contract_ref = ref_for_file(
+            root=ROOT,
+            path=ROOT / CONTRACT_PATH,
+            object_id="contract:goal-participant-relations",
+            schema_version=CONTRACT_SCHEMA_VERSION,
+        )
+        record["relation_key"]["publisher_ref"] = contract_ref
+        record["relation_key"]["content_digest"] = relation_key_digest(record["relation_key"])
+        record["privacy_omissions"]["policy_ref"] = ref_for_file(
+            root=ROOT,
+            path=ROOT / CONTRACT_PATH,
+            object_id="privacy:goal-participant-relations-v1",
+            schema_version=CONTRACT_SCHEMA_VERSION,
+        )
+        record["claim_limit"] = "Owner-published exact relation only; no live or acceptance claim."
+        producer_ref = {
+            "owner_repo": "codex-app-server",
+            "object_id": "producer:public-example-001",
+            "source_ref": "repo:codex-app-server/participant-relation-producer",
+            "schema_version": "codex_app_server_participant_producer_v1",
+            "content_digest": "sha256:" + "1" * 64,
+        }
+        publication_ref = {
+            "owner_repo": "codex-app-server",
+            "object_id": "publication:public-example-001",
+            "source_ref": "repo:codex-app-server/participant-relation-publication",
+            "schema_version": "codex_app_server_participant_publication_v1",
+            "content_digest": "sha256:" + "2" * 64,
+        }
+        publication = {
+            "schema_version": "aoa_agents_goal_participant_relation_publication_v1",
+            "kind": "aoa_agents_goal_participant_relation_publication",
+            "evidence_class": "owner_published",
+            "publisher_ref": contract_ref,
+            "producer_ref": producer_ref,
+            "publication_ref": publication_ref,
+            "relation_contract_ref": contract_ref,
+            "scope": copy.deepcopy(record["scope"]),
+            "currentness": {
+                "state": "current",
+                "observed_at": "2026-08-23T20:00:00Z",
+                "reason": "Exact owner publication observed at the producer boundary.",
+            },
+            "pagination": {
+                "page_index": 0,
+                "page_size": 100,
+                "has_more": False,
+                "next_cursor_ref": None,
+            },
+            "privacy_omissions": sorted(REQUIRED_PRIVACY_OMISSIONS),
+            "records": [record],
+            "claim_limit": "One exact owner publication; no live or acceptance claim.",
+        }
+        publication["payload_digest"] = publication_payload_digest(publication["records"])
+        return publication
+
+    @contextmanager
+    def _temporary_nonempty_graph(self, publication: dict):
+        with tempfile.TemporaryDirectory() as directory:
+            temp_root = Path(directory)
+            shutil.copytree(ROOT / "mechanics/boundary-bridge/parts/participant-relations", temp_root / "mechanics/boundary-bridge/parts/participant-relations")
+            source = build_source_payload(temp_root, publication)
+            (temp_root / SOURCE_PATH).write_text(compact_json(source), encoding="utf-8")
+            graph = build_graph_payload(temp_root)
+            (temp_root / GRAPH_PATH).write_text(compact_json(graph), encoding="utf-8")
+            yield temp_root, graph
+
+    def test_typed_publication_admits_without_changing_checked_in_source(self) -> None:
+        publication = self._valid_publication()
+        validate_publication(ROOT, publication)
+        receipt = build_admission_receipt(ROOT, publication)
+        self.assertEqual(receipt["admission_state"], "admitted")
+        self.assertEqual(receipt["scope"], publication["scope"])
+        source = build_source_payload(ROOT, publication)
+        self.assertEqual(source["evidence_class"], "owner_published")
+        self.assertEqual(source["admission_receipt"], receipt)
+        self.assertEqual(self.source["evidence_class"], "empty_deferred")
+        self.assertEqual(self.source["records"], [])
+
+    def test_publication_rejects_synthetic_record(self) -> None:
+        publication = self._valid_publication()
+        publication["records"][0]["evidence_class"] = "synthetic_public_example"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
+    def test_publication_rejects_relation_key_digest_drift(self) -> None:
+        publication = self._valid_publication()
+        publication["records"][0]["relation_key"]["content_digest"] = "sha256:" + "f" * 64
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
+    def test_publication_rejects_scope_mismatch_and_missing_owner_digest(self) -> None:
+        mismatched_scope = self._valid_publication()
+        mismatched_scope["scope"]["goal_ref"]["object_id"] = "goal:other-public-example"
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, mismatched_scope)
+
+        missing_digest = self._valid_publication()
+        del missing_digest["records"][0]["dimensions"]["identity"]["owner_ref"]["content_digest"]
+        missing_digest["payload_digest"] = publication_payload_digest(missing_digest["records"])
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, missing_digest)
+
+    def test_current_paginated_publication_stays_deferred(self) -> None:
+        publication = self._valid_publication()
+        publication["pagination"]["has_more"] = True
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, publication)
+
+    def test_owner_published_source_requires_receipt(self) -> None:
+        source = build_source_payload(ROOT, self._valid_publication())
+        source["admission_receipt"] = None
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_source_payload(ROOT, source)
+
+    def test_nonempty_graph_read_requires_and_binds_admission_receipt(self) -> None:
+        with self._temporary_nonempty_graph(self._valid_publication()) as (temp_root, graph):
+            graph["source"]["admission_receipt"] = None
+            graph_path = temp_root / GRAPH_PATH
+            graph_path.write_text(compact_json(graph), encoding="utf-8")
+            with self.assertRaises(GoalParticipantGraphError):
+                read_goal_participant_graph(temp_root)
+
+            bound = copy.deepcopy(graph)
+            bound["source"]["admission_receipt"] = copy.deepcopy(
+                build_admission_receipt(ROOT, self._valid_publication())
+            )
+            bound["source"]["admission_receipt"]["relation_ids"] = ["rel-record:other"]
+            bound["source"]["admission_receipt"]["receipt_id"] = admission_receipt_id(
+                bound["source"]["admission_receipt"]
+            )
+            graph_path.write_text(compact_json(bound), encoding="utf-8")
+            with self.assertRaises(GoalParticipantGraphError):
+                read_goal_participant_graph(temp_root)
+
+    def test_admission_receipt_identity_is_central_and_recomputed(self) -> None:
+        receipt = build_admission_receipt(ROOT, self._valid_publication())
+        self.assertEqual(receipt["receipt_id"], admission_receipt_id(receipt))
+        tampered = copy.deepcopy(receipt)
+        tampered["claim_limit"] = "A widened claim is not structural admission."
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_admission_receipt(ROOT, tampered)
+
+    def test_relation_privacy_omission_and_policy_parity_is_enforced(self) -> None:
+        omissions_drift = self._valid_publication()
+        omissions_drift["records"][0]["privacy_omissions"]["omitted_fields"] = ["human_display_name"]
+        omissions_drift["payload_digest"] = publication_payload_digest(omissions_drift["records"])
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, omissions_drift)
+
+        policy_drift = self._valid_publication()
+        policy_drift["records"][0]["privacy_omissions"]["policy_ref"]["content_digest"] = "sha256:" + "0" * 64
+        policy_drift["payload_digest"] = publication_payload_digest(policy_drift["records"])
+        with self.assertRaises(GoalParticipantGraphError):
+            validate_publication(ROOT, policy_drift)
+
+    def test_container_schemas_reference_the_exact_relation_schema(self) -> None:
+        for schema_path in (SOURCE_SCHEMA_PATH, PUBLICATION_SCHEMA_PATH, GRAPH_SCHEMA_PATH):
+            schema = read_json(ROOT / schema_path)
+            self.assertEqual(schema["properties"]["records"]["items"], {"$ref": RELATION_SCHEMA_ID})
+
+    def test_generated_read_rejects_stale_contract_or_source_content_digest(self) -> None:
+        with self._temporary_nonempty_graph(self._valid_publication()) as (temp_root, graph):
+            for ref_name in ("contract_ref", "source_ref"):
+                tampered = copy.deepcopy(graph)
+                tampered["source"][ref_name]["content_digest"] = "sha256:" + "0" * 64
+                (temp_root / GRAPH_PATH).write_text(compact_json(tampered), encoding="utf-8")
+                with self.assertRaises(GoalParticipantGraphError):
+                    read_goal_participant_graph(temp_root)
+
+    def test_valid_publication_intake_and_generated_read_round_trip(self) -> None:
+        with self._temporary_nonempty_graph(self._valid_publication()) as (temp_root, expected):
+            actual = read_goal_participant_graph(temp_root)
+            self.assertEqual(actual, expected)
+            self.assertEqual(actual["currentness"]["state"], "current")
+            self.assertIsNotNone(actual["source"]["admission_receipt"])
+
+
+if __name__ == "__main__":
+    unittest.main()
