@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3031135,
+  "allowed_tracked_bytes": 16449444,
+  "approved_by": "repository-owner",
+  "base_ref": "abfc0b981ae3cc51133d20874a2c13968be25db0",
+  "changed_generated_bytes": 3031135,
+  "changed_generated_files": 69,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "f79e01597d1999fe9ca16fbaad2febcec2844d01947d5af75bfd8effcd231df8",
+  "reason": "Refresh the exact aoa-agents owner family after committing the SDK continuity binding and RunPlan pin repair plus its CI drift guard. Authorize only this measured digest-bound generated-family delta; do not raise standing budgets or claim runtime, eval, closeout, or acceptance.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16449444,
+  "tracked_bytes_max": 16777216
+}
