@@ -3,7 +3,9 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import os
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 from unittest import mock
@@ -110,6 +112,34 @@ def valid_sdk_decision() -> tuple[dict[str, object], str]:
 
 
 class CompileExternalExecutionRequestTests(unittest.TestCase):
+    def test_pinned_schemas_match_checked_out_sdk_owner(self) -> None:
+        sdk_root_value = os.environ.get("AOA_SDK_ROOT")
+        if not sdk_root_value:
+            self.skipTest("AOA_SDK_ROOT is not configured")
+        sdk_root = Path(sdk_root_value)
+        schema_path = (
+            sdk_root
+            / "mechanics/boundary-bridge/parts/agent-incarnation-binding"
+            / "schemas/agent-incarnation-binding-v2.schema.json"
+        )
+        schema_raw = schema_path.read_bytes()
+        self.assertEqual(
+            COMPILER.digest_bytes(schema_raw),
+            COMPILER.SDK_BINDING_V2_SCHEMA_DIGEST,
+        )
+        sdk_src = str(sdk_root / "src")
+        sys.path.insert(0, sdk_src)
+        try:
+            import aoa_sdk.contracts.control_plane as control_plane
+
+            run_plan_schema = control_plane.RunPlan.model_json_schema()
+        finally:
+            sys.path.remove(sdk_src)
+        self.assertEqual(
+            COMPILER.digest_bytes(COMPILER.canonical_bytes(run_plan_schema)),
+            COMPILER.SDK_RUN_PLAN_SCHEMA_DIGEST,
+        )
+
     def test_runtime_subject_chain_must_remain_exact(self) -> None:
         subject = {
             "kind": "content_addressed_runtime_package",
