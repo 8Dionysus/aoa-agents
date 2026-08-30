@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+from types import ModuleType
 import unittest
 from unittest import mock
 
@@ -127,14 +128,28 @@ class CompileExternalExecutionRequestTests(unittest.TestCase):
             COMPILER.digest_bytes(schema_raw),
             COMPILER.SDK_BINDING_V2_SCHEMA_DIGEST,
         )
-        sdk_src = str(sdk_root / "src")
-        sys.path.insert(0, sdk_src)
-        try:
-            import aoa_sdk.contracts.control_plane as control_plane
-
-            run_plan_schema = control_plane.RunPlan.model_json_schema()
-        finally:
-            sys.path.remove(sdk_src)
+        sdk_package_root = sdk_root / "src" / "aoa_sdk"
+        package_name = "aoa_sdk_pin_contract_owner"
+        package = ModuleType(package_name)
+        package.__path__ = [str(sdk_package_root)]
+        contracts_package = ModuleType(f"{package_name}.contracts")
+        contracts_package.__path__ = [str(sdk_package_root / "contracts")]
+        sys.modules[package_name] = package
+        sys.modules[f"{package_name}.contracts"] = contracts_package
+        for module_name, module_path in (
+            (f"{package_name}.errors", sdk_package_root / "errors.py"),
+            (
+                f"{package_name}.contracts.control_plane",
+                sdk_package_root / "contracts" / "control_plane.py",
+            ),
+        ):
+            spec = importlib.util.spec_from_file_location(module_name, module_path)
+            assert spec is not None and spec.loader is not None
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[module_name] = module
+            spec.loader.exec_module(module)
+        control_plane = sys.modules[f"{package_name}.contracts.control_plane"]
+        run_plan_schema = control_plane.RunPlan.model_json_schema()
         self.assertEqual(
             COMPILER.digest_bytes(COMPILER.canonical_bytes(run_plan_schema)),
             COMPILER.SDK_RUN_PLAN_SCHEMA_DIGEST,
