@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3043872,
+  "allowed_tracked_bytes": 16450585,
+  "approved_by": "repository-owner",
+  "base_ref": "abfc0b981ae3cc51133d20874a2c13968be25db0",
+  "changed_generated_bytes": 3043872,
+  "changed_generated_files": 70,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "01af6bdb3e804a03ccbc58d336004fbf66889520cb4f37e0c3dd576dde24c5f9",
+  "reason": "Refresh the exact aoa-agents owner family after adding the SDK schema model dependency required by the continuity pin guard in minimal CI. Authorize only this measured digest-bound generated-family delta; do not raise standing budgets or claim runtime, eval, closeout, or acceptance.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16450585,
+  "tracked_bytes_max": 16777216
+}
