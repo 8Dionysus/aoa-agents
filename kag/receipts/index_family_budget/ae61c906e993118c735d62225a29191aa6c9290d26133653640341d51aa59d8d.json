@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3999246,
+  "allowed_tracked_bytes": 16440156,
+  "approved_by": "repository-owner",
+  "base_ref": "b69222d59a5c7cdc59be287306ae5563b2e66285",
+  "changed_generated_bytes": 3999246,
+  "changed_generated_files": 122,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ae61c906e993118c735d62225a29191aa6c9290d26133653640341d51aa59d8d",
+  "reason": "Refresh the portable aoa-agents owner-family after the reviewed SDK incarnation-ownership correction for PR #299; this receipt admits generated read-model churn only and does not claim runtime, eval, closeout, or owner acceptance.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16440156,
+  "tracked_bytes_max": 16777216
+}

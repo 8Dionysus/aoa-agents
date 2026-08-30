@@ -345,7 +345,7 @@ COMMANDS = [
             "test_*.py",
         ],
     ),
-    ("run tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]),
+    ("run tests", [sys.executable, "-m", "pytest", "-q", "tests"]),
     ("rebuild published surfaces", [sys.executable, "scripts/build_published_surfaces.py"]),
     (
         "check generated data drift",
