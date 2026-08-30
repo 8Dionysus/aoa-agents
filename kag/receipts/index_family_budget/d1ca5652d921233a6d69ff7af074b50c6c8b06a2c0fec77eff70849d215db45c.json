@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3031993,
+  "allowed_tracked_bytes": 16450302,
+  "approved_by": "repository-owner",
+  "base_ref": "abfc0b981ae3cc51133d20874a2c13968be25db0",
+  "changed_generated_bytes": 3031993,
+  "changed_generated_files": 69,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d1ca5652d921233a6d69ff7af074b50c6c8b06a2c0fec77eff70849d215db45c",
+  "reason": "Refresh the exact aoa-agents owner family after isolating the SDK schema-owner import in the continuity pin drift guard. Authorize only this measured digest-bound generated-family delta; do not raise standing budgets or claim runtime, eval, closeout, or acceptance.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16450302,
+  "tracked_bytes_max": 16777216
+}
