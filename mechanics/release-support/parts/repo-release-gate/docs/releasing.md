@@ -15,4 +15,5 @@ See also:
 4. Pass federation preflight.
 5. Publish through the root landing route.
 
-The exact executable flow is owned by root `AGENTS.md`.
+The exact executable flow is mapped by root `VALIDATION.md`; root `AGENTS.md`
+retains landing authority and stop-lines.

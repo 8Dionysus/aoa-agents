@@ -52,7 +52,7 @@ only land a local surface?
 | output | direction, horizon posture, future trigger, or owner-route pressure |
 | owner | root roadmap for direction; source, mechanics, decisions, and contour docs for detail |
 | next route | [agents](agents/README.md), [mechanics](mechanics/README.md), [CURRENT_CONTOUR](docs/CURRENT_CONTOUR.md), then nearest local route card |
-| validation | [AGENTS.md#verify](AGENTS.md#verify), plus route-specific tests when roadmap contracts move |
+| validation | [VALIDATION.md](VALIDATION.md), plus route-specific tests named by the owning route card when roadmap contracts move |
 
 ## Current Direction
 

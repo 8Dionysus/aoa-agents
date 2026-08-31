@@ -99,8 +99,9 @@ Mechanic-local docs live with their mechanics, not as a flat `docs/` pile.
 
 ## Validation Route
 
-Executable commands for docs-map and root-route changes live in
-[AGENTS.md#verify](../AGENTS.md#verify) and the nearest local route card.
+Executable commands for docs-map and root-route changes live in root
+[VALIDATION.md](../VALIDATION.md). The root and nearest local route cards
+identify which owner checks apply.
 
 Generated reader parity routes through [generated/AGENTS](../generated/AGENTS.md).
 Mechanic-owned payload docs route through [mechanics/AGENTS](../mechanics/AGENTS.md)

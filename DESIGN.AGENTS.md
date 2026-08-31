@@ -48,8 +48,8 @@ When a boundary is needed, state the positive route that handles the pressure.
 
 ## Verification
 
-Design topology changes use the command routes in root `AGENTS.md` and the
-nearest nested `AGENTS.md`.
+Design topology changes use root [VALIDATION.md](VALIDATION.md); the root and
+nearest nested `AGENTS.md` cards identify the applicable owner checks.
 
 Add the source-home validation lane when the source-object home, family map, or
 generated-reader routes move. Add builder checks when source objects or

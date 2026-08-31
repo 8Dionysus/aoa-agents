@@ -1,7 +1,7 @@
 # Releasing
 
-This document keeps the `aoa-agents` release route discoverable without moving
-executable validation command blocks out of `AGENTS.md`.
+This document keeps the `aoa-agents` release route discoverable without
+duplicating executable validation commands from root `VALIDATION.md`.
 
 Use it when preparing a public release, checking release-readiness posture, or
 recovering the next honest step after a release preflight failure.
@@ -13,9 +13,9 @@ recovering the next honest step after a release preflight failure.
 | role | release-readiness route card for public `aoa-agents` releases |
 | input | version target, changelog entry, release audit result, PR validation, tag or publication state |
 | output | release-ready branch, landed main, tag, GitHub Release, or explicit blocker |
-| owner | root `AGENTS.md` owns executable release/validation commands; this file owns release-readiness shape |
+| owner | root `VALIDATION.md` maps executable release/validation commands; root `AGENTS.md` owns landing stop-lines; this file owns release-readiness shape |
 | next route | `CHANGELOG.md`, `README.md`, `ROADMAP.md`, `docs/CURRENT_CONTOUR.md`, GitHub PR, tag, GitHub Release |
-| validation | root `AGENTS.md#verify`, release audit, GitHub Repo Validation, and post-merge release gate |
+| validation | root `VALIDATION.md`, release audit, GitHub Repo Validation, and post-merge release gate |
 
 ## Release Shape
 
@@ -39,7 +39,26 @@ decision records, generated readers, local memo candidates, and recent PR
 route. The changelog should name the durable surface changes, not every file.
 
 Keep release validation prose in the changelog concise. Command examples belong
-in route cards, not in the release note.
+in root `VALIDATION.md`, not in the release note.
+
+## Branch and PR Landing
+
+When the operator authorizes commit, push, and merge for this repository:
+
+1. Start from a branch based on current `origin/main`. If the worktree is
+   already dirty, inventory it and carry forward only the intended diff.
+2. Commit the intended change with a message naming the changed surface.
+3. Push the branch and open a pull request that states changed surfaces,
+   validation run, skipped checks, and remaining risk.
+4. Observe GitHub `Repo Validation` and every required check. Fix failures on
+   the branch and observe the replacement result.
+5. Merge through GitHub only after green validation and confirmed authority;
+   use the repository-required method and report what landed.
+6. Return to `main`, fast-forward from `origin/main`, and confirm the worktree
+   is clean before closeout.
+
+If GitHub status or merge permission cannot be observed, stop and report the
+exact blocker instead of guessing.
 
 ## Public-Share Review
 

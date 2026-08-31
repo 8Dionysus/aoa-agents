@@ -106,12 +106,13 @@ meaning.
 
 ## Validate
 
-Executable validation routes live in [AGENTS](AGENTS.md#verify) and the
-nearest nested `AGENTS.md`.
+Executable validation routes live in the on-demand
+[validation map](VALIDATION.md). Root and nested `AGENTS.md` cards identify
+which owner checks apply without copying their command sequences.
 
-For root documentation route changes, use the root route card. Run source
-builders only when source-authored inputs or generated companions move, and
-take those commands from the nearest owning `AGENTS.md`.
+For root documentation route changes, use the root route card and validation
+map. Run source builders only when source-authored inputs or generated
+companions move, following the source owner named by the nearest route card.
 
 ## Working Rule
 
