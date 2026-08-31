@@ -23,17 +23,6 @@ component manifests, anchor return, and Agon recursor boundaries.
 | tools | recursor builders, recursor validators, component manifest validator, repo validators |
 | validation | recursor contract checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. stronger owner routes for runtime, memo, or playbook recurrence pressure
-
 ## Boundaries
 
 - AoA center owns recurrence doctrine.
@@ -42,18 +31,7 @@ component manifests, anchor return, and Agon recursor boundaries.
 - `aoa-playbooks` owns recurring scenario choreography.
 
 ## Validation
-
-```bash
-python mechanics/recurrence/scripts/build_recursor_role_readiness.py --check
-python mechanics/recurrence/scripts/build_recursor_projection_candidates.py --check
-python mechanics/recurrence/scripts/validate_recursor_contracts.py
-python mechanics/recurrence/scripts/validate_recursor_role_readiness.py
-python mechanics/recurrence/scripts/validate_recursor_boundary.py
-python mechanics/recurrence/parts/component-manifests/scripts/validate_recurrence_component_manifests.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

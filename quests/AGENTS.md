@@ -23,22 +23,11 @@ execution passport posture, and generated reader contract.
 - Quest files are durable obligations, not hidden task dumps, roadmap copies,
   proof verdicts, or live runtime authority.
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `QUESTBOOK.md`
-3. `quests/README.md`
-4. `mechanics/questbook/README.md`
-5. the nearest lane README
-
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-After changing YAML source records or generated quest readers, run:
+After changing YAML source records or generated quest readers, use the
+repository validation map and the nearest questbook owner check.
 
-```bash
-python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
-python scripts/validate_agents.py
-```
-
-Run broader repo validation when route docs, generated surfaces, or mechanics
-maps change.
+Use the repository validation map for broader repo validation when route docs,
+generated surfaces, or mechanics maps change.

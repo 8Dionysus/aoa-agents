@@ -15,13 +15,7 @@ It is not the source-authored `agents/` district. Source role meaning remains
 under `agents/`, with docs, schemas, mechanics, builders, and validators as
 stronger owner surfaces where applicable.
 
-## Read Before Editing
-
-Read root `AGENTS.md`, then inspect the nearest local skill README, lane
-README, route card, or manifest before changing prompt-like material.
-
-For Codex Spark work, read `.agents/spark/AGENTS.md` and use
-`.agents/spark/SWARM.md` only when a Spark swarm is explicitly requested.
+The active companion route is [.agents/spark/AGENTS.md](spark/AGENTS.md).
 
 ## Boundaries
 
@@ -34,14 +28,9 @@ For Codex Spark work, read `.agents/spark/AGENTS.md` and use
   owner or shared skill copies under `.agents/skills/`.
 
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the narrowest relevant checks first:
-
-```bash
-python scripts/validate_nested_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_agents.py
-```
 
 ## Closeout
 

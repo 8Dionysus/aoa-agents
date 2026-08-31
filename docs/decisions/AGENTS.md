@@ -25,11 +25,7 @@ the repository.
   decision names.
 
 ## Validation
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-For decision-only changes, run the narrow docs/topology validators:
-
-```bash
-python scripts/generate_decision_indexes.py --check
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-```
+For decision-only changes, use the narrow docs/topology routes in the
+repository validation map.

@@ -20,8 +20,8 @@ inventories into active route cards.
 - [legacy index](legacy/INDEX.md): old-path lookup mapped to active part routes.
 - [distillation log](legacy/DISTILLATION_LOG.md): dated accounting for
   raw-to-active movement.
-- [raw receipts](legacy/raw/README.md): preserved raw inputs when a migration
-  has real source payloads.
+- `legacy/raw/` is not materialized without a real preserved receipt; admit
+  the directory and update this bridge only when source payload exists.
 
 The dated sections below preserve audit and accounting facts. Former root file
 names stay historical here; active parts use current route names.

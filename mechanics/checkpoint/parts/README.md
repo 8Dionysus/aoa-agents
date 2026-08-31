@@ -12,7 +12,7 @@ continuity operation parts.
 | `reviewed-closeout-hold/` | role hold before reviewed closeout promotes claims | `reviewed-closeout-hold/README.md` |
 | `reference-routes/` | public-loop reference route schema and examples | `reference-routes/README.md`, `reference-routes/schemas/`, `reference-routes/examples/` |
 | `growth-checkpoint/` | checkpoint-facing progression and growth posture | `growth-checkpoint/README.md` |
-| `stress-handoff/` | stress posture that needs reviewable survival boundaries | `stress-handoff/README.md` |
+| `stress-handoff/` | stress posture that needs reviewable survival boundaries | Route to antifragility `stress-posture/` plus checkpoint owners; no placeholder README is materialized. |
 
 ## Admission Rule
 

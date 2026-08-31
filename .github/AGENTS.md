@@ -21,5 +21,6 @@ When workflow or repository-policy files change, report:
 - remaining platform risk
 
 ## Verify
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the root `AGENTS.md` verification path for the changed surface. For GitHub-only edits, inspect the workflow YAML and run the nearest repo-local static, release, or validation check when available.

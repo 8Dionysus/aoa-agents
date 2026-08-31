@@ -48,11 +48,4 @@ Keep each pattern compact, reviewable, and role-facing.
 `alpha_curated` remains a readiness-lane cohort pattern and must not become the generic default.
 
 ## Validation
-
-Run:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.

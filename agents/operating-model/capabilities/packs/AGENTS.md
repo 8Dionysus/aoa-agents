@@ -22,10 +22,4 @@ routing policy to the `aoa-sdk` routing control plane, and runtime behavior to
 `abyss-stack`.
 
 ## Validation
-
-Run:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../../VALIDATION.md) and the nearest owner check when this route is relevant.

@@ -23,17 +23,6 @@ routes, and growth-facing checkpoint boundaries.
 | tools | checkpoint contract validator, reference-route validator, repo validators |
 | validation | checkpoint and reference-route checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. `mechanics/ARTIFACT_TOPOLOGY.md` before moving artifacts
-
 ## Boundaries
 
 - Durable memory truth belongs to `aoa-memo`.
@@ -42,14 +31,7 @@ routes, and growth-facing checkpoint boundaries.
 - Runtime checkpoint execution belongs to runtime owners.
 
 ## Validation
-
-```bash
-python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
-python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

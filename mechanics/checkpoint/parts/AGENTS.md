@@ -9,11 +9,6 @@ This card applies to `mechanics/checkpoint/parts/`.
 `parts/` is the lower active route for checkpoint and continuity part
 selection.
 
-## Read Before Editing
-
-Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
-`../PROVENANCE.md` when old-path pressure appears.
-
 ## Boundaries
 
 - Do not turn checkpoint posture into durable memory truth.
@@ -21,5 +16,6 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 - Provenance accounting is not current behavior.
 
 ## Validation
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the package validation route in `../AGENTS.md`, plus root validators.

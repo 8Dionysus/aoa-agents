@@ -915,14 +915,15 @@ def validate_memo_agents_portable_validation_route(repo_root: Path = REPO_ROOT) 
             f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must not use "
             f"host-specific {HOST_SPECIFIC_MEMO_ROOT}"
         )
-    if "AOA_MEMO_ROOT:?" not in text:
+    if "AOA_MEMO_ROOT" not in text:
         fail(
             f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must require "
             "an explicit AOA_MEMO_ROOT instead of guessing a sibling checkout path"
         )
     for command in MEMO_AGENTS_VALIDATION_COMMANDS:
-        if command not in text:
-            fail(f"{MEMO_AGENTS_PATH.as_posix()}: memo validation route must include `{command}`")
+        validation_text = read_text(repo_root / "VALIDATION.md", root=repo_root)
+        if command not in validation_text:
+            fail(f"VALIDATION.md: memo validation route must include `{command}`")
 
 
 def format_schema_path(path_parts: list[object]) -> str:

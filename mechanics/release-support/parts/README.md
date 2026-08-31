@@ -8,9 +8,9 @@ publication support parts.
 | Part | Operation | Current route |
 | --- | --- | --- |
 | `repo-release-gate/` | release validation and publication readiness | `repo-release-gate/README.md` |
-| `changelog-posture/` | preserve release history and current change surface | `changelog-posture/README.md` |
-| `published-readiness/` | compatibility of published agent contracts and generated readers | `published-readiness/README.md` |
-| `assistant-release-watch/` | assistant release watches that affect service experience | `assistant-release-watch/README.md` |
+| `changelog-posture/` | preserve release history and current change surface | Route to root `CHANGELOG.md`; no placeholder README is materialized. |
+| `published-readiness/` | compatibility of published agent contracts and generated readers | Route to `repo-release-gate/`, generated readers, and current-contour owners; no placeholder README is materialized. |
+| `assistant-release-watch/` | assistant release watches that affect service experience | Route to Experience `watch-and-rollback/`; no placeholder README is materialized. |
 | `runtime-release-hold/` | release holds that affect runtime-facing role contracts | `runtime-release-hold/README.md` |
 
 ## Admission Rule

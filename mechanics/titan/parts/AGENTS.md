@@ -8,11 +8,6 @@ This card applies to `mechanics/titan/parts/`.
 
 `parts/` is the lower active route for Titan role-bearing part selection.
 
-## Read Before Editing
-
-Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
-`../PROVENANCE.md` when old-path pressure appears.
-
 ## Boundaries
 
 - Do not turn Titan role posture into runtime service ownership.
@@ -20,5 +15,6 @@ Read parent `README.md`, parent `PARTS.md`, this directory's `README.md`, and
 - Provenance accounting is not current behavior.
 
 ## Validation
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the package validation route in `../AGENTS.md`, plus root validators.

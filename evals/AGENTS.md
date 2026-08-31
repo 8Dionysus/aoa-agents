@@ -13,12 +13,6 @@ rejected, or normalized by `aoa-evals`.
 authority. This port owns only agent-local intake, cases, fixtures, suites,
 reports, and source refs.
 
-## Read before editing
-
-Read the root `AGENTS.md`, then this card, `README.md`, `PORT.yaml`, and the
-nearest intake, suites, or reports surface you will touch. For central proof
-adoption rules, read the local eval-port standard in `aoa-evals`.
-
 ## Boundaries
 
 - Keep role profiles, handoff posture, memory posture, checkpoint posture, and
@@ -29,10 +23,7 @@ adoption rules, read the local eval-port standard in `aoa-evals`.
 - Do not place private traces, secrets, or unreduced operator evidence here.
 
 ## Validation
-
-```bash
-python ../aoa-evals/scripts/validate_local_eval_port.py --target-root .
-```
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

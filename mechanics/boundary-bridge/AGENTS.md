@@ -23,17 +23,6 @@ workspace triggers, install compatibility, and source-surface registries.
 | tools | adoption/boundary validator, repo validators |
 | validation | compatibility or surface-registry checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. the stronger owner route when a handoff leaves `aoa-agents`
-
 ## Boundaries
 
 - General routing policy belongs to the `aoa-sdk` routing control plane;
@@ -43,13 +32,7 @@ workspace triggers, install compatibility, and source-surface registries.
 - Durable memory handoff belongs to `aoa-memo`.
 
 ## Validation
-
-```bash
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

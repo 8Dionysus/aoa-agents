@@ -4,16 +4,13 @@
 
 Use this file as the agent-facing reading card for repository design work.
 
-## Read Order
+## Route
 
-1. `AGENTS.md`
-2. `DESIGN.md`
-3. `agents/AGENTS.md` when source objects move
-4. `mechanics/AGENTS.md` when operation topology moves
-5. `stats/AGENTS.md` when an agent-local statistical question or packet moves
-6. `.agents/AGENTS.md` when agent-facing companion lanes move
-7. `docs/decisions/` when structural ownership changes
-8. nearest nested `AGENTS.md`
+Start with `AGENTS.md` and `DESIGN.md`, then follow the nearest owner card:
+`agents/AGENTS.md` for source objects, `mechanics/AGENTS.md` for operation
+topology, `stats/AGENTS.md` for agent-local statistical packets, and
+`.agents/AGENTS.md` for companion lanes. Consult `docs/decisions/` when
+structural ownership changes.
 
 ## Design Law
 

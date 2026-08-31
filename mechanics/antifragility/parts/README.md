@@ -9,8 +9,8 @@ and negative-check parts.
 | --- | --- | --- |
 | `stress-posture/` | agent stress posture and handoff | `stress-posture/README.md` |
 | `via-negativa/` | negative checklist pressure phrased as operational route alternatives | `via-negativa/README.md` |
-| `scar-adaptation/` | shared scar, retention, and adaptation after Agon pressure | `scar-adaptation/README.md` |
-| `checkpoint-survival/` | stress that must remain reviewable before promotion | `checkpoint-survival/README.md` |
+| `scar-adaptation/` | shared scar, retention, and adaptation after Agon pressure | Route to `../PARTS.md` and Agon adoption-retention/shared-scar owners; no placeholder README is materialized. |
+| `checkpoint-survival/` | stress that must remain reviewable before promotion | Route to `stress-posture/` and checkpoint owners; no placeholder README is materialized. |
 
 ## Admission Rule
 

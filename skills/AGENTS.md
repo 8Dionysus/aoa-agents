@@ -11,12 +11,6 @@ to agent-layer truth already owned by `aoa-agents`. It is not a mirror of the
 shared AoA catalog and does not turn this repository into the owner of generic
 skill workflows.
 
-## Read Before Editing
-
-Read root `AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, the
-selected bundle and admission decision, then the named progression, summon,
-role, handoff, or mechanic owner surfaces.
-
 ## Boundaries
 
 - Keep progression lift and summon as existing independent front doors; do not
@@ -33,6 +27,7 @@ role, handoff, or mechanic owner surfaces.
   binding, runtime handle, returned output, and parent closeout.
 
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Manual isolated, negative, held-out, coexistence, binding-failure, return, and
 effect trials decide usefulness. The `aoa-skills` home-port source check proves

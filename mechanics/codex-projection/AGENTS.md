@@ -24,17 +24,6 @@ Codex runtime behavior.
 | tools | Codex projection validator, refresh-law validator, repo validators |
 | validation | Codex projection checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `agents/roles/AGENTS.md` when profile source affects projection
-8. `PROVENANCE.md` for provenance accounting
-
 ## Boundaries
 
 - Codex runtime, host config, and editor behavior do not live here.
@@ -43,20 +32,7 @@ Codex runtime behavior.
 - Generated projection manifests are evidence, not authority.
 
 ## Validation
-
-```bash
-python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
-python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
-python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
-python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
-python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
-python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

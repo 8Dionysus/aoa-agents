@@ -11,12 +11,6 @@ narrows the lane.
 source-linked records over `agent roles and capability pack registries` for `aoa-kag` registry,
 composition, and MCP consumers.
 
-## Read before editing
-
-Read the root `AGENTS.md`, this card, `kag/README.md`, `kag/manifest.json`,
-`agents/source_home.manifest.json`, and `agents/README.md` before
-changing provider records.
-
 ## Boundaries
 
 Keep authored meaning with `aoa-agents` source surfaces. Keep shared KAG schema,
@@ -24,6 +18,7 @@ registry, composition, and provider validation with `aoa-kag`. Keep runtime
 serving state with `abyss-stack` or the runtime owner named by the consumer.
 
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the owner validator named in `manifest.json`, then validate this provider
 through the `aoa-kag` local subtree validator.

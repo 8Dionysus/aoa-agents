@@ -82,10 +82,4 @@ Do not loosen a schema to pass a vague profile. Fix the profile or explicitly do
 
 Pair schema edits with examples, generated-surface rebuilds, and validation.
 
-Verify with:
-
-```bash
-python scripts/validate_active_organ_agent_local_namespace.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-```
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.

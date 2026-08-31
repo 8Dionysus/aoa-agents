@@ -36,18 +36,6 @@ agent-layer source meaning.
   `agents/operating-model/` owns cross-role tiers, orchestrators, cohorts, and
   runtime-seam bindings.
 
-## Read Before Editing
-
-Read:
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `agents/README.md`
-5. `agents/source_home.manifest.json`
-6. the nearest child `AGENTS.md`
-7. the docs named by the child route card
-
 ## Owner Routes
 
 | Need | Owner route |
@@ -89,17 +77,9 @@ Read:
 - Do not hand-edit generated readers as if they were source truth.
 
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-For source-object edits, run:
+For source-object edits, use the repository [validation map](../VALIDATION.md) and the nearest owner check.
 
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agent_source_home.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-```
-
-If adjunct formation surfaces changed, also run the agonic actor, assistant
-civil, and formation-trial builders and validators named in
-`agents/roles/AGENTS.md`.
+If adjunct formation surfaces changed, use the agonic actor, assistant civil,
+and formation-trial routes in the repository validation map.

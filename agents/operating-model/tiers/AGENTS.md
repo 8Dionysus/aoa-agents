@@ -52,11 +52,4 @@ Keep tier meaning separate from human role meaning.
 Avoid widening a tier into a hidden runtime or a brand alias.
 
 ## Validation
-
-Run:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.
