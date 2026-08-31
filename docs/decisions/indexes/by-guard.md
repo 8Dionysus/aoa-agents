@@ -14,6 +14,7 @@
 - [AOA-AG-D-0047 2026-05-26: Mechanics Package Route Cards](../AOA-AG-D-0047-mechanics-package-route-cards.md) (`docs/decisions/AOA-AG-D-0047-mechanics-package-route-cards.md`)
 - [AOA-AG-D-0057 2026-05-31: Canonical Decision IDs And Indexes](../AOA-AG-D-0057-canonical-decision-ids-and-indexes.md) (`docs/decisions/AOA-AG-D-0057-canonical-decision-ids-and-indexes.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## source topology
 
@@ -141,6 +142,7 @@
 - [AOA-AG-D-0037 2026-05-26: Experience Agent Service Check Localization](../AOA-AG-D-0037-experience-agent-service-check-localization.md) (`docs/decisions/AOA-AG-D-0037-experience-agent-service-check-localization.md`)
 - [AOA-AG-D-0040 2026-05-26: Reference Route Check Localization](../AOA-AG-D-0040-reference-route-check-localization.md) (`docs/decisions/AOA-AG-D-0040-reference-route-check-localization.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## projection guard
 
@@ -185,6 +187,7 @@
 ## AGENTS/mesh
 
 - [AOA-AG-D-0046 2026-05-26: Spark Agent Lane Home](../AOA-AG-D-0046-spark-agent-lane-home.md) (`docs/decisions/AOA-AG-D-0046-spark-agent-lane-home.md`)
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## release/tooling
 
@@ -272,6 +275,10 @@
 
 - [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
 - [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
+
+## provenance
+
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## relation admission
 

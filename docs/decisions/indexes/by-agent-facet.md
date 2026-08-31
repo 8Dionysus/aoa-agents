@@ -192,6 +192,10 @@
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 
+## human navigation
+
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
+
 ## incarnation
 
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
@@ -218,6 +222,10 @@
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
 
+## owner routing
+
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
+
 ## owner split
 
 - [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
@@ -226,6 +234,10 @@
 ## progression
 
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
+
+## prompt context
+
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## responsibility posture
 
@@ -247,6 +259,7 @@
 ## root clarity
 
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
 
 ## session identity
 

@@ -112,3 +112,7 @@
 
 - [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
 - [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
+
+## 2026-08-30
+
+- [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
