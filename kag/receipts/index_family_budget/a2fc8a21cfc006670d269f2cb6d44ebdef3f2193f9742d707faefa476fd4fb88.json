@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 13376831,
+  "allowed_tracked_bytes": 16442978,
+  "approved_by": "repository-owner",
+  "base_ref": "7c35fd3d10a71cf21833abdfcf4004ce93d7ae1f",
+  "changed_generated_bytes": 13376831,
+  "changed_generated_files": 369,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "a2fc8a21cfc006670d269f2cb6d44ebdef3f2193f9742d707faefa476fd4fb88",
+  "reason": "Refresh README/AGENTS owner family after corpus changes",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16442978,
+  "tracked_bytes_max": 16777216
+}
