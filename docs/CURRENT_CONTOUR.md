@@ -15,7 +15,7 @@ packages, generated builders, tests, and sibling owners keep authority.
 | output | route family, owner surface, generated reader, or validation lane |
 | owner | this map for discoverability; named source or mechanic owns meaning |
 | next route | source object, mechanic package, generated reader, builder, validator, or sibling owner |
-| validation | root `AGENTS.md#verify` and the owning route-family `AGENTS.md` when this map moves |
+| validation | root `VALIDATION.md`, with the owning route-family `AGENTS.md` identifying which checks apply when this map moves |
 
 ## Release Marker
 
@@ -171,8 +171,8 @@ center and runtime owners keep their stronger authority.
 
 ## Root Validation Route
 
-Use root `AGENTS.md#verify` for exact commands. This contour names shipped
-surface families and owner routes; it does not own executable validation blocks.
+Use root `VALIDATION.md` for exact commands. This contour names shipped surface
+families and owner routes; it does not own executable validation blocks.
 
 When generated readers or source objects move, add the relevant builder checks
 from the owning source or mechanic `AGENTS.md`.

@@ -39,7 +39,7 @@ review.
 ## Validation
 Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-For repo-wide release posture, use the root `AGENTS.md` validation route.
+For repo-wide release posture, use root [VALIDATION.md](../VALIDATION.md).
 
 ## Closeout
 

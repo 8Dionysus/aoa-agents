@@ -26,4 +26,5 @@ Use only already-published artifact schemas.
 ## Validation
 
 The checkpoint contract validator and repository release gate cover these
-examples; their executable routes live in the nearest `AGENTS.md`.
+examples. The nearest `AGENTS.md` identifies which checks apply; root
+`VALIDATION.md` carries their executable routes.

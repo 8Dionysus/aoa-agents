@@ -17,7 +17,7 @@ projection outputs while preserving authored source ownership.
 | owner | source surfaces and builders own truth; `generated/AGENTS.md` owns edit law |
 | next route | source family, quest record, mechanic part, builder, validator, or route card |
 | tools | published-surface builder, formation builders, quest readers, projection builders |
-| validation | [generated/AGENTS.md#regenerate-and-validate](AGENTS.md#regenerate-and-validate) and source-owner checks |
+| validation | root [VALIDATION.md](../VALIDATION.md), with [generated/AGENTS.md](AGENTS.md) identifying edit law and source-owner checks |
 
 ## Current Root Readers
 

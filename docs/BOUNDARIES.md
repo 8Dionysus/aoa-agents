@@ -12,7 +12,7 @@ absorbing every layer an agent touches.
 | output | local role-layer allowance, stop-line, or stronger-owner route |
 | owner | this boundary map plus [CHARTER](../CHARTER.md) for repository authority |
 | next route | [agents](../agents/README.md), [mechanics](../mechanics/README.md), or the sibling owner named below |
-| validation | [AGENTS.md#verify](../AGENTS.md#verify) when boundary wording changes |
+| validation | [VALIDATION.md](../VALIDATION.md), with root `AGENTS.md` retaining the boundary stop-lines |
 
 ## Core Rule
 

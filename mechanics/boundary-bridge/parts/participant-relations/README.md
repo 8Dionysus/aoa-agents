@@ -36,9 +36,10 @@ are rebuilt from the current source feed before returning them.
 
 ## Build and read
 
-The executable builder, reader, validator, and typed intake route is recorded
-in the local [AGENTS card](AGENTS.md) and is the source-owned validation
-entrypoint. `admit_goal_participant_publication.py` validates an explicit
+The local [AGENTS card](AGENTS.md) records the owner boundary and selects the
+applicable builder, reader, validator, and typed intake route; root
+[VALIDATION.md](../../../../VALIDATION.md) carries the executable commands.
+`admit_goal_participant_publication.py` validates an explicit
 publication and returns a receipt; `--out-source` is an optional explicit
 source write and is never inferred from a Goal, session, title, or runtime.
 

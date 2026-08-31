@@ -73,7 +73,8 @@ or a second runtime authority.
 - execute refresh through the published-surface and projection builders;
 - validate with focused projection tests and the repository release gate.
 
-Exact executable routes live in the nearest `AGENTS.md` cards.
+The nearest `AGENTS.md` cards identify applicable checks; exact executable
+routes live in root `VALIDATION.md`.
 
 Use `repair` only for a bounded owner fix that keeps source authorship in
 `agents/roles/` or wiring config. Use `regenerate` or `reproject` when generated or

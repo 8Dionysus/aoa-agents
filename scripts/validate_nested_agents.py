@@ -281,20 +281,43 @@ REQUIRED_PROVENANCE_BRIDGE_SNIPPETS: tuple[str, ...] = (
 )
 
 RETIRED_PLACEHOLDER_PATHS: tuple[str, ...] = (
-    "legacy/raw/README.md",
-    "parts/checkpoint-survival/README.md",
-    "parts/scar-adaptation/README.md",
-    "parts/stress-handoff/README.md",
-    "parts/titan-projection/README.md",
-    "parts/assistant-release-watch/README.md",
-    "parts/changelog-posture/README.md",
-    "parts/published-readiness/README.md",
-    "parts/checkpoint-growth/README.md",
-    "parts/quest-readable-status/README.md",
-    "parts/published-registry/README.md",
+    "mechanics/agon/legacy/raw/README.md",
+    "mechanics/antifragility/legacy/raw/README.md",
+    "mechanics/boundary-bridge/legacy/raw/README.md",
+    "mechanics/checkpoint/legacy/raw/README.md",
+    "mechanics/codex-projection/legacy/raw/README.md",
+    "mechanics/experience/legacy/raw/README.md",
+    "mechanics/questbook/legacy/raw/README.md",
+    "mechanics/recurrence/legacy/raw/README.md",
+    "mechanics/release-support/legacy/raw/README.md",
+    "mechanics/rpg/legacy/raw/README.md",
+    "mechanics/runtime-seam/legacy/raw/README.md",
+    "mechanics/titan/legacy/raw/README.md",
+    "mechanics/antifragility/parts/checkpoint-survival/README.md",
+    "mechanics/antifragility/parts/scar-adaptation/README.md",
+    "mechanics/checkpoint/parts/stress-handoff/README.md",
+    "mechanics/codex-projection/parts/titan-projection/README.md",
+    "mechanics/release-support/parts/assistant-release-watch/README.md",
+    "mechanics/release-support/parts/changelog-posture/README.md",
+    "mechanics/release-support/parts/published-readiness/README.md",
+    "mechanics/rpg/parts/checkpoint-growth/README.md",
+    "mechanics/rpg/parts/quest-readable-status/README.md",
+    "mechanics/runtime-seam/parts/published-registry/README.md",
     "evals/intake/README.md",
     "evals/reports/README.md",
     "evals/suites/README.md",
+)
+
+RUNNABLE_AGENT_COMMAND_RE = re.compile(
+    r"^[ \t]*(?:[-*][ \t]+)?`?(?:python(?:[ \t]+-m)?[ \t]+|"
+    r"pytest(?=[ \t`])|uv[ \t]+run[ \t]+pytest\b|"
+    r"git[ \t]+(?:status|diff)\b)",
+    re.IGNORECASE | re.MULTILINE,
+)
+INLINE_AGENT_COMMAND_RE = re.compile(
+    r"`(?:python(?:\s+-m)?\s+|pytest(?=\s)|uv\s+run\s+pytest\b|"
+    r"git\s+(?:status|diff)\b)[^`]+`",
+    re.IGNORECASE,
 )
 
 
@@ -350,9 +373,18 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             raise NestedAgentsValidationError(
                 f'{_describe_path(path)} must route executable commands through VALIDATION.md'
             )
-        if re.search(r'^#{1,4}\s+Read\s+(?:Before|First|Order)\b', text, re.I | re.M):
+        if RUNNABLE_AGENT_COMMAND_RE.search(text) or INLINE_AGENT_COMMAND_RE.search(text):
             raise NestedAgentsValidationError(
-                f'{_describe_path(path)} must not contain an unconditional Read Before/Read Order section'
+                f'{_describe_path(path)} must not carry runnable repository commands'
+            )
+        if re.search(
+            r'^#{1,4}\s+(?:Read\s+(?:Before|First|Order)|Reading\s+Order|'
+            r'Required\s+Reading|Start\s+Here)\b',
+            text,
+            re.I | re.M,
+        ):
+            raise NestedAgentsValidationError(
+                f'{_describe_path(path)} must not contain an unconditional reading section'
             )
     for path in root.rglob('*.md'):
         rel_path = path.relative_to(root).as_posix()

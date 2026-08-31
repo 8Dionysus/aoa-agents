@@ -111,4 +111,5 @@ Current order discipline is:
 The owner validator covers top-level metadata, stable publication order,
 published field sets, source-to-generated registry alignment, and the committed
 adjunct projections. Generated registries refresh only from source-authored
-registry inputs; exact executable routes live in the nearest `AGENTS.md`.
+registry inputs; the nearest `AGENTS.md` identifies applicable checks and root
+`VALIDATION.md` carries exact executable routes.

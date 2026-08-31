@@ -30,4 +30,5 @@ They do not replace playbooks, memo doctrine, or eval doctrine.
 ## Validation
 
 The owning generator, Questbook validator, and repository release gate cover
-these examples. Their executable routes live in the nearest `AGENTS.md`.
+these examples. The nearest `AGENTS.md` identifies which checks apply; root
+`VALIDATION.md` carries their executable routes.

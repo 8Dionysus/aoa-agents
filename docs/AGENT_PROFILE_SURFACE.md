@@ -69,8 +69,9 @@ repository instead.
 ## Editing flow
 
 When profile sources change, edit the target file under `agents/roles/`, refresh
-`generated/agent_registry.min.json` through its owner builder, and use the
-validation route in the nearest `AGENTS.md`.
+`generated/agent_registry.min.json` through its owner builder, use the nearest
+`AGENTS.md` to select applicable owner checks, and run them from root
+`VALIDATION.md`.
 
 This keeps the authored role contract distinct from the compact published
 registry while preserving a deterministic review surface.

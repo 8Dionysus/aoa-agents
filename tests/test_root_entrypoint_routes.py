@@ -12,6 +12,16 @@ NON_AGENTS_VALIDATION_SURFACES = (
     "docs/CURRENT_CONTOUR.md",
     "docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md",
 )
+PROMPT_LIGHT_VALIDATION_ROUTE_SURFACES = (
+    "README.md",
+    "DESIGN.AGENTS.md",
+    "ROADMAP.md",
+    "docs/README.md",
+    "docs/RELEASING.md",
+    "docs/CURRENT_CONTOUR.md",
+    "generated/README.md",
+    "schemas/README.md",
+)
 
 
 class RootEntrypointRoutesTestCase(unittest.TestCase):
@@ -43,6 +53,12 @@ class RootEntrypointRoutesTestCase(unittest.TestCase):
         for relative_path in REPO_ROOT.glob("**/AGENTS.md"):
             with self.subTest(path=relative_path):
                 self.assertNotIn("```", relative_path.read_text(encoding="utf-8"))
+
+    def test_authored_entrypoints_name_on_demand_validation_owner(self) -> None:
+        for relative_path in PROMPT_LIGHT_VALIDATION_ROUTE_SURFACES:
+            with self.subTest(path=relative_path):
+                text = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
+                self.assertIn("VALIDATION.md", text)
 
 
 if __name__ == "__main__":
