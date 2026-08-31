@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+from collections.abc import Iterator
 import sys
 import re
 from pathlib import Path
@@ -320,6 +321,17 @@ INLINE_AGENT_COMMAND_RE = re.compile(
     re.IGNORECASE,
 )
 
+IGNORED_DIRS: frozenset[str] = frozenset(
+    {
+        '.deps',
+        '.git',
+        '.mypy_cache',
+        '.pytest_cache',
+        '.venv',
+        '__pycache__',
+    }
+)
+
 
 class NestedAgentsValidationError(RuntimeError):
     pass
@@ -337,6 +349,22 @@ def _read_text(path: Path) -> str:
         return path.read_text(encoding='utf-8')
     except FileNotFoundError as exc:
         raise NestedAgentsValidationError(f'missing required file: {_describe_path(path)}') from exc
+
+
+def _is_ignored(path: Path, root: Path) -> bool:
+    try:
+        relative_parts = path.relative_to(root).parts
+    except ValueError:
+        return False
+    return any(part in IGNORED_DIRS for part in relative_parts)
+
+
+def _iter_owned_markdown(root: Path, pattern: str) -> Iterator[Path]:
+    """Yield repository-owned Markdown, excluding dependency and tool state."""
+
+    for path in root.rglob(pattern):
+        if not _is_ignored(path, root):
+            yield path
 
 
 def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
@@ -367,7 +395,7 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             raise NestedAgentsValidationError(
                 f'{rel_path} is missing provenance bridge operating snippet(s): {joined}'
             )
-    for path in root.rglob('AGENTS.md'):
+    for path in _iter_owned_markdown(root, 'AGENTS.md'):
         text = path.read_text(encoding='utf-8')
         if '```' in text:
             raise NestedAgentsValidationError(
@@ -386,7 +414,7 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             raise NestedAgentsValidationError(
                 f'{_describe_path(path)} must not contain an unconditional reading section'
             )
-    for path in root.rglob('*.md'):
+    for path in _iter_owned_markdown(root, '*.md'):
         rel_path = path.relative_to(root).as_posix()
         if rel_path == 'VALIDATION.md' or rel_path.startswith('docs/decisions/') or rel_path.startswith('kag/'):
             continue
