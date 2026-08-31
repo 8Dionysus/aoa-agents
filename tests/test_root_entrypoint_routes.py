@@ -3,6 +3,8 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
+from scripts.validate_nested_agents import _iter_owned_markdown
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ROADMAP_LINK = "[ROADMAP.md](ROADMAP.md)"
@@ -50,7 +52,7 @@ class RootEntrypointRoutesTestCase(unittest.TestCase):
                 self.assertNotIn("python -m pytest", text)
 
     def test_agents_cards_have_no_fenced_command_blocks(self) -> None:
-        for relative_path in REPO_ROOT.glob("**/AGENTS.md"):
+        for relative_path in _iter_owned_markdown(REPO_ROOT, "AGENTS.md"):
             with self.subTest(path=relative_path):
                 self.assertNotIn("```", relative_path.read_text(encoding="utf-8"))
 
