@@ -12,7 +12,7 @@ projection operation parts.
 | `specialization-eligibility/` | gate role specializations and publish candidate-only readiness before any future Codex custom-agent projection | `specialization-eligibility/README.md` |
 | `agon-boundary/` | prevent Agon formation pressure from leaking into Codex projection authority | `agon-boundary/README.md` |
 | `assistant-projection/` | assistant projection resolver and compatibility posture | `assistant-projection/README.md` |
-| `titan-projection/` | Titan projection into Codex-facing generated agents | `titan-projection/README.md` |
+| `titan-projection/` | Titan projection into Codex-facing generated agents | Route to `mechanics/titan/parts/codex-projection/`; no placeholder README is materialized. |
 
 ## Admission Rule
 

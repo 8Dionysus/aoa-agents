@@ -37,11 +37,4 @@ Do not place execution workflow bodies, memory canon, proof verdict logic,
 tool implementation, network protocol, or runtime infrastructure here.
 
 ## Validation
-
-Run:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agent_source_home.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.

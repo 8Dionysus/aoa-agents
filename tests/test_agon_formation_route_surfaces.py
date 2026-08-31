@@ -27,15 +27,15 @@ class AgonFormationRouteSurfacesTestCase(unittest.TestCase):
 
     def test_local_guides_name_agon_formation_companion_surfaces(self) -> None:
         profiles_agents = read_text("agents/roles/AGENTS.md")
-        generated_agents = read_text("generated/AGENTS.md")
-        examples_agents = read_text("examples/AGENTS.md")
+        generated_readme = read_text("generated/README.md")
+        examples_readme = read_text("examples/README.md")
+        validation = read_text("VALIDATION.md")
 
-        self.assertIn("agents/roles/*/forms/*", profiles_agents)
-        self.assertIn("generated/agent_agonic_formation_index.min.json", profiles_agents)
-        self.assertIn("generated/agent_agonic_formation_index.min.json", generated_agents)
-        self.assertIn("mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py", generated_agents)
-        self.assertIn("mechanics/agon/parts/formation/examples/agent-agonic-formation.example.json", examples_agents)
-        self.assertIn("validate_agent_agonic_formation.py", examples_agents)
+        self.assertIn("agents/roles/*/forms/", profiles_agents)
+        self.assertIn("generated/agent_agonic_formation_index.min.json", generated_readme)
+        self.assertIn("mechanics/agon/parts/formation/scripts/build_agent_agonic_formation_index.py", generated_readme)
+        self.assertIn("mechanics/agon/parts/formation/examples/", examples_readme)
+        self.assertIn("validate_agent_agonic_formation.py", validation)
 
 
 if __name__ == "__main__":

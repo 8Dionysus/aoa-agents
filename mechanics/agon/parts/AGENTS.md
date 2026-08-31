@@ -10,12 +10,6 @@ This card applies to `mechanics/agon/parts/`.
 pressure to active part-local docs and any remaining source/support owner
 surfaces.
 
-## Read Before Editing
-
-Read parent `mechanics/agon/README.md`, `mechanics/agon/PARTS.md`, this
-directory's `README.md`, and `mechanics/agon/PROVENANCE.md` when old-path
-pressure appears.
-
 ## Boundaries
 
 - Moved mechanics docs stay in the owning part-local `docs/` directory.
@@ -26,6 +20,7 @@ pressure appears.
   memory truth, and playbook choreography.
 
 ## Validation
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 Use the package validation route in `../AGENTS.md`, plus the root validators
 named by `mechanics/AGENTS.md`.

@@ -13,9 +13,4 @@ Do not update generated expected outputs without rebuilding and checking the sou
 
 Keep fixtures public-safe. No private prompts, secrets, hidden credentials, or unreduced operator traces.
 
-Verify with:
-
-```bash
-python -m pytest -q tests
-python scripts/validate_semantic_agents.py
-```
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.

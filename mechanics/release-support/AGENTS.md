@@ -23,17 +23,6 @@ verification, and assistant release-watch posture.
 | tools | release check, semantic/nested/root validators |
 | validation | release check plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. `.github/AGENTS.md` only when GitHub-native files change
-
 ## Boundaries
 
 - GitHub merge policy and CI execution are not owned here.
@@ -42,13 +31,7 @@ verification, and assistant release-watch posture.
 - Root `AGENTS.md` still owns branch, PR, CI, and merge route.
 
 ## Validation
-
-```bash
-python scripts/release_check.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

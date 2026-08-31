@@ -9,8 +9,8 @@ posture parts.
 | --- | --- | --- |
 | `progression-model/` | agent progression and mastery posture | `progression-model/README.md` |
 | `cohort-patterns/` | role grouping and progression-readable cohorts | `cohort-patterns/README.md` |
-| `quest-readable-status/` | progress posture exposed to quest surfaces | `quest-readable-status/README.md` |
-| `checkpoint-growth/` | growth status that must pass through reviewed checkpoint posture | `checkpoint-growth/README.md` |
+| `quest-readable-status/` | progress posture exposed to quest surfaces | Route to Questbook/root quest sources and readers; no placeholder README is materialized. |
+| `checkpoint-growth/` | growth status that must pass through reviewed checkpoint posture | Route to Checkpoint `growth-checkpoint/`; no placeholder README is materialized. |
 
 ## Admission Rule
 

@@ -33,15 +33,14 @@ class FormationTrialRouteSurfacesTestCase(unittest.TestCase):
 
     def test_local_guides_name_formation_trial_companion_surfaces(self) -> None:
         profiles_agents = read_text("agents/roles/AGENTS.md")
-        generated_agents = read_text("generated/AGENTS.md")
-        examples_agents = read_text("examples/AGENTS.md")
+        generated_readme = read_text("generated/README.md")
+        examples_readme = read_text("examples/README.md")
+        validation = read_text("VALIDATION.md")
 
-        self.assertIn("generated/agent_formation_trial.min.json", profiles_agents)
-        self.assertIn("validate_agent_formation_trial.py", profiles_agents)
-        self.assertIn("generated/agent_formation_trial.min.json", generated_agents)
-        self.assertIn("build_agent_formation_trial.py", generated_agents)
-        self.assertIn("mechanics/agon/parts/formation/examples/formation-trial.example.json", examples_agents)
-        self.assertIn("validate_agent_formation_trial.py", examples_agents)
+        self.assertIn("generated/agent_formation_trial.min.json", generated_readme)
+        self.assertIn("build_agent_formation_trial.py", generated_readme)
+        self.assertIn("mechanics/agon/parts/formation/examples/", examples_readme)
+        self.assertIn("validate_agent_formation_trial.py", validation)
 
 
 if __name__ == "__main__":

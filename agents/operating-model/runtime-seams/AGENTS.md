@@ -54,11 +54,4 @@ Treat changes to phase coverage, tier assignment, role binding, or artifact type
 Keep the seam small, inspectable, and contract-first.
 
 ## Validation
-
-Run:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.

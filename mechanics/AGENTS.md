@@ -36,26 +36,6 @@ choreography.
   and config.
 - Decisions: `docs/decisions/` owns why structural districts exist.
 
-## Read Before Editing
-
-Read:
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `mechanics/README.md`
-5. `mechanics/PAYLOAD_RECON.md` before deciding which mechanic a root payload
-   belongs to
-6. `mechanics/PROVENANCE_TOPOLOGY.md` before creating, editing, or using
-   archive accounting surfaces
-7. `mechanics/ARTIFACT_TOPOLOGY.md` before moving docs, schemas, examples,
-   scripts, tests, or generated companions into a mechanic
-8. target package `AGENTS.md`, `README.md`, `PARTS.md`, and `parts/README.md`
-   when a nearer package exists
-9. target package `PROVENANCE.md` before opening archive accounting
-10. `docs/decisions/` before changing active mechanics topology
-11. the source family under `agents/` or `docs/` that the mechanic routes
-
 ## Route Instead
 
 | Pressure | Do this |
@@ -115,14 +95,10 @@ Each child package has its own `AGENTS.md` as the nearest route card between
 the atlas and part-local cards.
 
 ## Validation
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-For root mechanics route changes, run:
-
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+For root mechanics route changes, use the repository validation map and the
+nearest package owner check.
 
 If the change also moves source objects or generated companions, add the owning
 builder checks named by the affected `agents/**/AGENTS.md` card.

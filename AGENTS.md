@@ -37,35 +37,7 @@ cross-owner statistical composition, or runtime workers.
 | output | source role object, mechanic-local contract, generated companion, decision record, or stronger-owner handoff |
 | owner | source objects under `agents/`, operation packages under `mechanics/`, and route docs under `docs/` |
 | next route | nearest nested `AGENTS.md`, then the source surface, mechanic package, builder, validator, or sibling owner |
-| validation | [Verify](#verify), plus the nearest local card |
-
-## Read Before Editing
-
-For first reading or outside orientation:
-
-1. [README](README.md)
-2. [CHARTER](CHARTER.md)
-3. [DESIGN](DESIGN.md)
-4. [agents](agents/README.md)
-5. [mechanics](mechanics/README.md)
-6. [skills](skills/README.md)
-7. [stats](stats/README.md)
-8. [BOUNDARIES](docs/BOUNDARIES.md)
-9. [ROADMAP.md](ROADMAP.md)
-
-For agent editing:
-
-1. this `AGENTS.md`
-2. nearest nested `AGENTS.md` for every touched path
-3. the route-mode surface from the table below
-4. nearest source file, package card, schema, builder, validator, test, or
-   generated-source owner
-5. the narrowest relevant validator before broader gates
-
-For preserved legacy root branches, use
-`docs/AGENTS_ROOT_REFERENCE.md` only as a reference. If a preserved rule still
-governs current work, move it to the nearest owner surface rather than
-re-bloating this card.
+| validation | [VALIDATION.md](VALIDATION.md), plus the nearest local card |
 
 ## Route Modes
 
@@ -135,28 +107,15 @@ If GitHub status or merge permissions cannot be observed, stop the landing
 route and report the exact blocker instead of guessing.
 
 ## Verify
+Use the repository [validation map](VALIDATION.md) and the nearest owner check when this route is relevant.
 
-For root docs, route-card, and current-contour changes, run:
+Use [VALIDATION.md](VALIDATION.md) for executable command routes. The nearest
+owner card identifies which checks apply; overview, contour, roadmap, and
+decision surfaces should link there instead of duplicating commands.
 
-```bash
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-python -m pytest -q tests
-```
-
-Keep executable validation command blocks in `AGENTS.md` route cards. Overview,
-contour, roadmap, and decision surfaces should route here instead of duplicating
-commands.
-
-For source or generated-surface changes, add:
-
-```bash
-python scripts/build_published_surfaces.py
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
-```
-
-Use optional federation smoke checks only when sibling reachability matters.
+For source or generated-surface changes, follow the source owner and its
+builder before running the repository gate. Use optional federation smoke
+checks only when sibling reachability matters.
 
 ## Report
 

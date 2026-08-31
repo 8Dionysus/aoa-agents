@@ -18,18 +18,6 @@ home, or sibling-owner doctrine shelf.
 | output | clarified docs surface or route to source object, mechanic package, decision, generated companion, or sibling owner |
 | owner | this card for docs edits; target docs own their meaning |
 | next route | `docs/README.md`, target doc, nearest source or mechanic owner |
-| validation | `python scripts/validate_agents.py` and `python scripts/validate_semantic_agents.py` |
-
-## Read First
-
-1. root `AGENTS.md`
-2. `docs/README.md`
-3. target docs surface
-4. nearest source, mechanic, generated, or sibling-owner route that the doc names
-
-For current shipped surface inventories, use `docs/CURRENT_CONTOUR.md`.
-For preserved root-era detail, use `docs/AGENTS_ROOT_REFERENCE.md` only as a
-reference; do not promote it back into active root law.
 
 ## Boundaries
 
@@ -46,11 +34,7 @@ posture, re-check the relevant profile, cohort, runtime seam, mechanic package,
 and downstream proof/memo surfaces.
 
 ## Verify
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-```bash
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-```
-
-Run broader tests from root `AGENTS.md` when root entrypoints, contour
-discoverability, or route-card law changes.
+Use the repository validation map for broader tests when root entrypoints,
+contour discoverability, or route-card law changes.

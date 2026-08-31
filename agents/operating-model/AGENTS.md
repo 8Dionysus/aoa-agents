@@ -40,17 +40,4 @@ brands, live routing policy, playbook choreography, proof doctrine, memory
 canon, network protocol, tool implementation, or runtime infrastructure here.
 
 ## Validation
-
-Run:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agent_source_home.py
-python scripts/validate_agents.py
-```
-
-For release-facing changes, run:
-
-```bash
-python scripts/release_check.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.

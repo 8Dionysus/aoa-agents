@@ -17,10 +17,4 @@ When repository-level config changes generated surfaces, rebuild and inspect
 the diff against source-authored role contracts. When mechanic-local config
 changes, use the owning mechanic package and part validator.
 
-Verify with:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-```
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.

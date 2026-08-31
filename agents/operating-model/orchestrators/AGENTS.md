@@ -47,11 +47,4 @@ Do not turn orchestrator classes into:
 - runtime implementation from `abyss-stack`
 
 ## Validation
-
-Run:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.

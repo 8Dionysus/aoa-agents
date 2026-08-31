@@ -23,17 +23,6 @@ progression is a repeatable operation rather than decorative metaphor.
 | tools | published surface builder, RPG progression validator, repo validators |
 | validation | affected cohort/progression checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. stronger owner routes for playbook, stats, proof, or runtime pressure
-
 ## Boundaries
 
 - Game mechanics implementation does not live here.
@@ -42,14 +31,7 @@ progression is a repeatable operation rather than decorative metaphor.
 - Proof of mastery belongs to `aoa-evals`.
 
 ## Validation
-
-```bash
-python mechanics/rpg/parts/progression-model/scripts/validate_rpg_progression.py
-python scripts/build_published_surfaces.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

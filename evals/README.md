@@ -10,9 +10,12 @@ packets, but they do not become bounded proof by location alone.
 
 ## Route
 
-- Put pre-bundle proof pressure in [intake](intake/).
-- Put deterministic local suite notes in [suites](suites/).
-- Put local run or review reports in [reports](reports/).
+- Future pre-bundle proof pressure will materialize an `intake/` lane with its
+  first admitted packet.
+- Future deterministic local suite notes will materialize a `suites/` lane
+  with an owner validator.
+- Future local run or review reports will materialize a `reports/` lane with
+  an admitted report payload.
 - Route central proof adoption, portable eval bundles, verdicts, scoring,
   regression, and proof doctrine to `aoa-evals`.
 

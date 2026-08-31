@@ -9,7 +9,7 @@ Parts are the active execution map for this mechanic. Each part lists package-lo
 | `reference-routes` | [Reference Route Examples](parts/reference-routes/docs/reference-route-examples.md) | Active schema: [parts/reference-routes/schemas/reference-route-manifest.schema.json](parts/reference-routes/schemas/reference-route-manifest.schema.json). Active examples: [parts/reference-routes/examples/](parts/reference-routes/examples/). |
 | `reviewed-closeout-hold` | [Reviewed Closeout Role Posture Hold](parts/reviewed-closeout-hold/docs/reviewed-closeout-role-posture-hold.md) | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
 | `self-agent-checkpoint` | [Self-Agent Checkpoint Stack](parts/self-agent-checkpoint/docs/self-agent-checkpoint-stack.md)<br>[Self Recharter Runtime Block](parts/self-agent-checkpoint/docs/self-recharter-runtime-block.md) | Active schemas: [parts/self-agent-checkpoint/schemas/](parts/self-agent-checkpoint/schemas/). Active examples: [parts/self-agent-checkpoint/examples/](parts/self-agent-checkpoint/examples/). |
-| `stress-handoff` | No package-local docs in this slice. | See source/support owners and parent package README; old path lookup routes through `PROVENANCE.md`. |
+| `stress-handoff` | Unmaterialized route. | Route to antifragility [stress posture](../antifragility/parts/stress-posture/README.md) plus checkpoint owners; retain the name here without a placeholder README. |
 
 ## Provenance Bridge
 

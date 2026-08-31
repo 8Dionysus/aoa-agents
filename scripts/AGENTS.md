@@ -13,11 +13,4 @@ Builder changes must preserve the distinction between source-authored role contr
 
 Validator changes should catch identity drift, role-boundary widening, unsupported handoff claims, and generated/source mismatch without turning style preference into noise.
 
-Verify with:
-
-```bash
-python scripts/build_published_surfaces.py
-python scripts/validate_agents.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_local_stats_port.py
-```
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.

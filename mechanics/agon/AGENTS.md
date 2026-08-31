@@ -24,17 +24,6 @@ after trial pressure.
 | tools | Agon contract validators, formation builders, generated-reader builders, repo validators |
 | validation | this card's `Validation` section plus touched part-local checks |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. `mechanics/ARTIFACT_TOPOLOGY.md` before moving source, support, generated, schema, example, script, or test payloads
-
 ## Boundaries
 
 - AoA center owns Agon doctrine.
@@ -44,28 +33,10 @@ after trial pressure.
 - Formation is a part of Agon here, not the parent mechanic.
 
 ## Validation
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-Run the narrow builder or validator for the affected part, then the smallest
-repo-safe subset from:
-
-```bash
-python mechanics/agon/parts/formation/scripts/validate_agent_agonic_formation.py
-python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python mechanics/agon/parts/formation/scripts/build_agent_formation_trial.py --check
-python mechanics/agon/parts/formation/scripts/validate_agent_formation_trial.py
-python mechanics/agon/parts/formation/scripts/validate_agon_formation_contracts.py
-python mechanics/agon/scripts/validate_agon_rank_epistemic_contracts.py
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_rank_jurisdiction_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_rank_jurisdiction.py
-python mechanics/agon/parts/arena-rank-school/scripts/build_agon_agent_school_campaign_posture_registry.py --check
-python mechanics/agon/parts/arena-rank-school/scripts/validate_agon_agent_school_campaign_posture_registry.py
-python mechanics/agon/parts/epistemic-actor/scripts/build_agon_epistemic_actor_posture_registry.py --check
-python mechanics/agon/parts/epistemic-actor/scripts/validate_agon_epistemic_actor_posture.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the narrow builder or validator for the affected part, then the smallest
+repo-safe subset in the repository validation map.
 
 ## Closeout
 

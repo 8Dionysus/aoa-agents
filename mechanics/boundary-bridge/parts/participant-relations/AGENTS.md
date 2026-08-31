@@ -46,12 +46,7 @@ The typed publication is the only admitted upstream input shape.
   liveness, wake, acceptance, or Goal completion.
 
 ## Validation
+Use the repository [validation map](../../../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-```bash
-python mechanics/boundary-bridge/parts/participant-relations/scripts/build_goal_participant_graph.py --check
-python mechanics/boundary-bridge/parts/participant-relations/scripts/validate_goal_participant_graph.py
-python mechanics/boundary-bridge/parts/participant-relations/scripts/admit_goal_participant_publication.py --help
-python -m unittest discover -s mechanics/boundary-bridge/parts/participant-relations/tests -p 'test_*.py'
-```
-
-Run the parent boundary-bridge and root validators for repository closeout.
+Use the parent boundary-bridge and root validation routes for repository
+closeout.

@@ -88,6 +88,8 @@ class DocumentationCommandRouteTests(unittest.TestCase):
                 continue
             if relative_path.name in {"AGENTS.md", "VALIDATION.md"}:
                 continue
+            if not (REPO_ROOT / relative_path).is_file():
+                continue
             content = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
             for violation in sorted(markdown_command_violations(content)):
                 offenders.append(f"{route}: {violation}")

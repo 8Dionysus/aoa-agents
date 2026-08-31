@@ -8,11 +8,6 @@ This card applies to `mechanics/questbook/legacy/`.
 
 `legacy/` preserves Questbook source lineage and old-route accounting.
 
-## Read Before Editing
-
-Read `../PROVENANCE.md`, then `README.md`, `INDEX.md`, and
-`DISTILLATION_LOG.md`.
-
 ## Boundaries
 
 - Do not make legacy the first route for current quest posture.
@@ -20,6 +15,7 @@ Read `../PROVENANCE.md`, then `README.md`, `INDEX.md`, and
 - Keep playbook choreography and proof authority outside this package.
 
 ## Validation
+Use the repository [validation map](../../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
-Run `git diff --check` plus parent mechanic validators when legacy meaning
-changes.
+Use the repository validation map plus parent mechanic validators when legacy
+meaning changes.

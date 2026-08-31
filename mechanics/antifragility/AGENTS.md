@@ -23,17 +23,6 @@ survival language.
 | tools | stress-posture validator, repo validators |
 | validation | targeted stress checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. `mechanics/ARTIFACT_TOPOLOGY.md` before moving artifacts
-
 ## Boundaries
 
 - Proof of resilience belongs to `aoa-evals`.
@@ -42,14 +31,7 @@ survival language.
 - Negative constraints should route to positive operational alternatives.
 
 ## Validation
-
-```bash
-python mechanics/antifragility/parts/stress-posture/scripts/validate_stress_posture.py
-python -m unittest discover -s mechanics/antifragility/parts/stress-posture/tests -p "test_*.py"
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

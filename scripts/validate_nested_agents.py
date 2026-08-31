@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import sys
+import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'source_home.manifest.json',
         'agents/roles/',
         'mechanics/',
+        'VALIDATION.md',
     ),
     'agents/roles/AGENTS.md': (
         'source-authored role-contract surface',
@@ -159,20 +161,17 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
         'docs/decisions/',
         'route-law',
         'topology decisions',
-        'validate_nested_agents.py',
+        'VALIDATION.md',
     ),
     'generated/AGENTS.md': (
         'Do not hand edit anything under `generated/`.',
-        'python scripts/build_published_surfaces.py',
-        'python scripts/validate_agents.py',
+        'validation map',
         'agents/operating-model/cohorts/',
         'orchestrator_class_catalog.min.json',
     ),
     'examples/AGENTS.md': (
         'public-safe, schema-backed examples',
-        'mechanics/runtime-seam/parts/artifact-contracts/examples/',
-        'mechanics/checkpoint/parts/self-agent-checkpoint/examples/',
-        'mechanics/checkpoint/parts/reference-routes/examples/',
+        'validation map',
         'not the source-authored canon layer',
     ),
     'mechanics/runtime-seam/parts/artifact-contracts/examples/README.md': (
@@ -276,9 +275,26 @@ REQUIRED_PROVENANCE_BRIDGE_SNIPPETS: tuple[str, ...] = (
     '## Archive Route',
     'legacy/INDEX.md',
     'legacy/DISTILLATION_LOG.md',
-    'legacy/raw/README.md',
+    'legacy/raw/',
     '## Distillation Rule',
     'Active part docs must not grow',
+)
+
+RETIRED_PLACEHOLDER_PATHS: tuple[str, ...] = (
+    "legacy/raw/README.md",
+    "parts/checkpoint-survival/README.md",
+    "parts/scar-adaptation/README.md",
+    "parts/stress-handoff/README.md",
+    "parts/titan-projection/README.md",
+    "parts/assistant-release-watch/README.md",
+    "parts/changelog-posture/README.md",
+    "parts/published-readiness/README.md",
+    "parts/checkpoint-growth/README.md",
+    "parts/quest-readable-status/README.md",
+    "parts/published-registry/README.md",
+    "evals/intake/README.md",
+    "evals/reports/README.md",
+    "evals/suites/README.md",
 )
 
 
@@ -328,6 +344,30 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             raise NestedAgentsValidationError(
                 f'{rel_path} is missing provenance bridge operating snippet(s): {joined}'
             )
+    for path in root.rglob('AGENTS.md'):
+        text = path.read_text(encoding='utf-8')
+        if '```' in text:
+            raise NestedAgentsValidationError(
+                f'{_describe_path(path)} must route executable commands through VALIDATION.md'
+            )
+        if re.search(r'^#{1,4}\s+Read\s+(?:Before|First|Order)\b', text, re.I | re.M):
+            raise NestedAgentsValidationError(
+                f'{_describe_path(path)} must not contain an unconditional Read Before/Read Order section'
+            )
+    for path in root.rglob('*.md'):
+        rel_path = path.relative_to(root).as_posix()
+        if rel_path == 'VALIDATION.md' or rel_path.startswith('docs/decisions/') or rel_path.startswith('kag/'):
+            continue
+        text = path.read_text(encoding='utf-8')
+        found = [candidate for candidate in RETIRED_PLACEHOLDER_PATHS if candidate in text]
+        if found:
+            joined = ', '.join(repr(candidate) for candidate in found)
+            raise NestedAgentsValidationError(
+                f'{rel_path} retains active reference(s) to deleted placeholder path(s): {joined}'
+            )
+    for candidate in RETIRED_PLACEHOLDER_PATHS:
+        if (root / candidate).is_file():
+            raise NestedAgentsValidationError(f'deleted placeholder remains materialized: {candidate}')
 
 
 def main() -> int:

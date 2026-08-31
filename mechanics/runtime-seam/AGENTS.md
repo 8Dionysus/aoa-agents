@@ -23,17 +23,6 @@ steps, runtime artifact contracts, and transition discipline.
 | tools | published surface builder, runtime artifact validator, repo validators |
 | validation | runtime seam registry checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `agents/operating-model/runtime-seams/AGENTS.md` when source bindings change
-8. `PROVENANCE.md` for provenance accounting
-
 ## Boundaries
 
 - Runtime implementation belongs to runtime owners, usually `abyss-stack`.
@@ -42,14 +31,7 @@ steps, runtime artifact contracts, and transition discipline.
 - Generated runtime seam registries are derived readers.
 
 ## Validation
-
-```bash
-python mechanics/runtime-seam/parts/artifact-contracts/scripts/validate_artifact_contracts.py
-python scripts/build_published_surfaces.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

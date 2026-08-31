@@ -25,7 +25,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'source_home.manifest.json',
             'agents/roles/',
             'mechanics/',
-            'validate_agents.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -45,7 +45,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'agent identity',
             'source-authored role contracts',
             'public-safe',
-            'build_published_surfaces.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -55,7 +55,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'handoff posture',
             'memory posture',
             'bounded',
-            'validate_agents.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -66,7 +66,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'mechanics/README.md',
             'mechanics/ARTIFACT_TOPOLOGY.md',
             'runtime implementation',
-            'validate_nested_agents.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -76,7 +76,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             '$schema',
             '$id',
             'role authority',
-            'validate_agents.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -86,7 +86,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'repo-relative',
             'source-authored role contracts',
             'identity drift',
-            'validate_agents.py',
+            'VALIDATION.md',
         ),
     ),
     AgentsDocSpec(
@@ -95,8 +95,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'role contracts',
             'runtime seam examples',
             'public-safe',
-            'python -m pytest -q tests',
-            'validate_semantic_agents.py',
+            'VALIDATION.md',
         ),
     ),
 )

@@ -27,13 +27,4 @@ processes, A2A transport, task-local DAG instances, proof, or memory truth.
 - Rebuild generated projections; never hand-edit them as authority.
 
 ## Validation
-
-From the canonical `aoa-skills` checkout, run:
-
-```bash
-PYTHONPATH=scripts python scripts/validate_capability_home_port.py --owner-root /path/to/aoa-agents
-PYTHONPATH=scripts python scripts/build_capability_home_projection.py --owner-root /path/to/aoa-agents
-PYTHONPATH=scripts python scripts/build_capability_home_projection.py --owner-root /path/to/aoa-agents --check
-PYTHONPATH=scripts python scripts/validate_capability_home_port.py --owner-root /path/to/aoa-agents --check-generated
-```
-
+Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.

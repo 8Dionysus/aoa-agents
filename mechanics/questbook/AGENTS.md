@@ -23,17 +23,6 @@ reader contracts, execution passport posture, and Alpha reference routes.
 | tools | dispatch-reader builder, Alpha reference builder, reference-route validator, repo validators |
 | validation | quest/read-model checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. root `QUESTBOOK.md` and `quests/AGENTS.md` when source quest records change
-8. `PROVENANCE.md` for provenance accounting
-
 ## Boundaries
 
 - Root `QUESTBOOK.md` owns human open-obligation visibility.
@@ -44,15 +33,7 @@ reader contracts, execution passport posture, and Alpha reference routes.
 - The `aoa-sdk` routing control plane owns general routing policy.
 
 ## Validation
-
-```bash
-python mechanics/questbook/parts/dispatch-reader/scripts/generate_questbook_readers.py --check
-python mechanics/questbook/parts/alpha-reference-routes/scripts/generate_alpha_reference_routes.py --check
-python mechanics/questbook/scripts/validate_alpha_reference_routes.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

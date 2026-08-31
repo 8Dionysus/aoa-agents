@@ -23,17 +23,6 @@ agent-layer experience.
 | tools | assistant civil validator, service contract validator, adoption/boundary validator, repo validators |
 | validation | experience contract checks plus repo validators |
 
-## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `mechanics/AGENTS.md`
-4. this package `README.md`
-5. `PARTS.md`
-6. `parts/AGENTS.md` and the target part README
-7. `PROVENANCE.md` for provenance accounting
-8. stronger owner routes for runtime, proof, memo, or playbook pressure
-
 ## Boundaries
 
 - Runtime assistant services do not live here.
@@ -43,19 +32,7 @@ agent-layer experience.
 - Agon formation pressure cross-routes to `mechanics/agon/`.
 
 ## Validation
-
-```bash
-python mechanics/experience/scripts/validate_experience_assistant_civil_contracts.py
-python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
-python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
-python -m unittest discover -s mechanics/experience/tests -p 'test_*.py'
-python -m unittest discover -s mechanics/experience/parts/assistant-civil-service/tests -p 'test_*.py'
-python mechanics/experience/scripts/validate_agent_service_contracts.py
-python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-python scripts/validate_agents.py
-```
+Use the repository [validation map](../../VALIDATION.md) and the nearest owner check when this route is relevant.
 
 ## Closeout
 

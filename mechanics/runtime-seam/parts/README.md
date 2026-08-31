@@ -10,7 +10,7 @@ operation parts.
 | `role-tier-bindings/` | source role bindings for the public runtime loop | `role-tier-bindings/README.md` |
 | `artifact-contracts/` | contract shape for runtime artifacts | `artifact-contracts/README.md` |
 | `transition-discipline/` | transition posture between runtime loop states | `transition-discipline/README.md` |
-| `published-registry/` | generated readers for consumers | `published-registry/README.md` |
+| `published-registry/` | generated readers for consumers | Route to the agent source home and generated reader owners; no placeholder README is materialized. |
 
 ## Admission Rule
 
