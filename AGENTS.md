@@ -2,23 +2,9 @@
 
 Root route card for `aoa-agents`.
 
-## Applies To
-
-This card applies to the whole repository unless a nearer nested `AGENTS.md`
-narrows the lane.
-
 ## Role
 
-This card keeps local work inside the `aoa-agents` role and persona layer,
-names the nearest owner boundary, and routes wider claims to the owning surface.
-
-It is the agent-facing route law for this repository. It does not replace
-`README.md`, `CHARTER.md`, `DESIGN.md`, `DESIGN.AGENTS.md`,
-`docs/BOUNDARIES.md`, source objects, mechanic packages, or local owner truth.
-
-## Purpose
-
-`aoa-agents` owns role-bearing actor meaning: profile structure, role
+This repository owns role-bearing actor meaning: profile structure, role
 contracts, handoff posture, memory posture, evaluation posture, operating-model
 surfaces, bounded cohort hints, role specializations, and generated
 agent-layer consumer seams. It also owns the meaning of agent-local
@@ -28,6 +14,10 @@ It does not implement runtime autonomy and does not own skill workflow truth,
 technique truth, proof doctrine, memory objects, routing policy, playbook
 scenario canon, KAG substrate semantics, shared statistical grammar,
 cross-owner statistical composition, or runtime workers.
+
+This card supplies the repository-wide route. A nearer `AGENTS.md` narrows it
+with a local delta; neither replaces authored source, public explanation, or a
+named stronger-owner contract.
 
 ## Operating Map
 
@@ -56,31 +46,24 @@ cross-owner statistical composition, or runtime workers.
 | `local-memory-port` | repo-local memo candidate, receipt, export, or local note changes | [memo/AGENTS](memo/AGENTS.md) |
 | `local-stats-port` | agent-local statistical question, contract, or reference packet changes | [stats/AGENTS](stats/AGENTS.md) |
 
-## AGENTS Stack Law
-
-- Start with this root card, then follow the nearest nested `AGENTS.md` for every touched path.
-- Root guidance owns repository identity, owner boundaries, route choice, and the shortest honest verification path.
-- Nested guidance owns local contracts, local risk, exact files, and local checks.
-- Authored source surfaces own meaning. Generated, exported, compact, derived, runtime, and adapter surfaces summarize, transport, or support meaning.
-- Self-agency, recurrence, quest, progression, checkpoint, formation, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
-- Report what changed, what was verified, what was not verified, and where the next agent should resume.
+The root card owns identity, owner boundaries, and route choice. Nested cards
+own only local contracts, risk, stop-lines, and route selection. Authored
+source owns meaning; generated, exported, compact, runtime, and adapter
+surfaces are derived. Keep formation, autonomy, recurrence, quest,
+progression, and growth claims bounded, evidence-linked, reversible, and
+weaker than their owner contracts.
 
 ## Memory Route
 
-For recall, continuity, compaction recovery, comparison with past work, or
-preserved lessons, start with `aoa-memo` and the workspace memory map. Session
-grounding routes through `.aoa`; local candidate writing routes through this
-repository's `memo/` port when that port exists; durable reviewed memory lands
-through `aoa-memo`.
+Use `aoa-memo` for reviewed continuity or prior rationale. Session evidence,
+local candidates, and durable reviewed memory remain distinct and do not
+become role truth merely because they are recalled here.
 
 ## Decision Review
 
-After structural, ownership, workflow, route-law, validator-authority,
-public-contract, projection, or topology changes, check whether future agents
-need a decision record to understand why the path was chosen. Use
-`docs/decisions/AGENTS.md` and `docs/decisions/README.md` for the local rule.
-
-If no record is needed, say so in closeout.
+After a structural, ownership, route-law, validator-authority, public-contract,
+projection, or topology change, use `docs/decisions/AGENTS.md` to decide
+whether future agents need a durable rationale.
 
 ## Route Away When
 
@@ -97,12 +80,11 @@ perform a landing without observing required GitHub checks and current merge
 authority. `.github/AGENTS.md` owns only the GitHub-native files that support
 that route.
 
-## Verify
-Use the repository [validation map](VALIDATION.md) and the nearest owner check when this route is relevant.
+## Validation
 
-Use [VALIDATION.md](VALIDATION.md) for executable command routes. The nearest
-owner card identifies which checks apply; overview, contour, roadmap, and
-decision surfaces should link there instead of duplicating commands.
+Use the nearest owner route in [VALIDATION.md](VALIDATION.md). Overview,
+contour, roadmap, decision, and AGENTS surfaces link to procedure owners rather
+than duplicating commands.
 
 For source or generated-surface changes, follow the source owner and its
 builder before running the repository gate. Use optional federation smoke
