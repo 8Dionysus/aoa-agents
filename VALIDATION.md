@@ -12,13 +12,13 @@ python scripts/validate_nested_agents.py
 python scripts/validate_agents.py
 python -m pytest -q tests
 python scripts/build_published_surfaces.py
-python mechanics/codex-projection/parts/subagent-projection/scripts/validate_codex_subagents.py --profiles-root agents/roles --wiring mechanics/codex-projection/parts/subagent-projection/config/wiring.v2.json --agents-dir generated/codex_agents/agents --config-snippet generated/codex_agents/config.subagents.generated.toml --manifest generated/codex_agents/projection_manifest.json
 python scripts/validate_agent_source_home.py
 python scripts/release_check.py
 python scripts/generate_decision_indexes.py --check
-python scripts/validate_local_stats_port.py
 python scripts/validate_active_organ_agent_local_namespace.py
 ```
+
+The generated-reader projection validation is owned by [Generated readers and projection outputs](#generated-readers-and-projection-outputs); the stats-port validation is owned by [Boundary, memo, quest, and stats ports](#boundary-memo-quest-and-stats-ports).
 
 ## Source, capability, and operating-model surfaces
 
@@ -61,15 +61,12 @@ python -m unittest discover -s mechanics/antifragility/parts/stress-posture/test
 python mechanics/experience/scripts/validate_adoption_boundary_contracts.py
 python mechanics/checkpoint/scripts/validate_checkpoint_contracts.py
 python mechanics/checkpoint/scripts/validate_reference_route_contracts.py
-python mechanics/codex-projection/parts/subagent-projection/scripts/build_codex_subagents_v2.py --check
 python -m unittest discover -s mechanics/codex-projection/parts/subagent-projection/tests -p "test_*.py"
 python mechanics/codex-projection/parts/specialization-eligibility/scripts/build_specialization_eligibility_readiness.py --check
 python mechanics/codex-projection/parts/specialization-eligibility/scripts/validate_specialization_eligibility.py
 python -m unittest discover -s mechanics/codex-projection/parts/specialization-eligibility/tests -p "test_*.py"
 python mechanics/codex-projection/parts/assistant-projection/scripts/validate_assistant_projection_resolver.py
 python mechanics/codex-projection/parts/refresh-law/scripts/validate_codex_refresh_law_contracts.py
-python mechanics/experience/parts/assistant-civil-service/scripts/build_assistant_civil_formation_index.py --check
-python mechanics/experience/parts/assistant-civil-service/scripts/validate_assistant_civil_formation.py
 python -m unittest discover -s mechanics/experience/tests -p 'test_*.py'
 python -m unittest discover -s mechanics/experience/parts/assistant-civil-service/tests -p 'test_*.py'
 python mechanics/experience/scripts/validate_agent_service_contracts.py
@@ -89,6 +86,8 @@ python mechanics/titan/parts/codex-projection/scripts/render_titan_codex_agents.
 python -m unittest discover -s mechanics/titan/parts/codex-projection/tests -p "test_*.py"
 ```
 
+The Codex subagent projection build is owned by [Generated readers and projection outputs](#generated-readers-and-projection-outputs); assistant civil formation is owned by [Agon and assistant formation](#agon-and-assistant-formation).
+
 ## Boundary, memo, quest, and stats ports
 
 ```bash
@@ -103,6 +102,8 @@ python mechanics/questbook/scripts/validate_alpha_reference_routes.py
 python scripts/validate_local_stats_port.py
 python -c 'import json, pathlib; p=json.loads(pathlib.Path("mechanics/codex-projection/parts/specialization-eligibility/generated/specialization-eligibility-readiness.min.json").read_text()); rows=p["records"]; eligible=sum(row["decision_status"] == "eligible" for row in rows); print({"population": len(rows), "eligible": eligible, "ratio": eligible / len(rows)})'
 ```
+
+The stats-port validation is owned by [Boundary, memo, quest, and stats ports](#boundary-memo-quest-and-stats-ports).
 
 Memo candidate and export routes use the local MCP helper. The `AOA_ABYSS_STACK_ROOT`
 and `AOA_MEMO_ROOT` variables must be explicit; do not infer sibling checkouts.

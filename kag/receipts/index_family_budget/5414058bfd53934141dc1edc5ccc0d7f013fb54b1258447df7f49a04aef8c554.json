@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 2690224,
+  "allowed_tracked_bytes": 16460758,
+  "approved_by": "repository-owner",
+  "base_ref": "3cacc27638aff21eeb1a5088f3c12ac22e8bffb7",
+  "changed_generated_bytes": 2690224,
+  "changed_generated_files": 56,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "5414058bfd53934141dc1edc5ccc0d7f013fb54b1258447df7f49a04aef8c554",
+  "reason": "Refresh the portable owner-family for the reviewed README/AGENTS source changes; this repository-owner receipt authorizes only the measured generated delta.",
+  "repo": "aoa-agents",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 16460758,
+  "tracked_bytes_max": 16777216
+}
