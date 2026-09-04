@@ -200,6 +200,14 @@
 - [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
 - [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
 
+## agent routes
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
+
+## archive retirement
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
+
 ## authority boundary
 
 - [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
@@ -253,6 +261,10 @@
 
 - [AOA-AG-D-0071 2026-08-23: Exact Goal participant relations stay a bounded agent-layer seam](../AOA-AG-D-0071-exact-goal-participant-relations.md) (`docs/decisions/AOA-AG-D-0071-exact-goal-participant-relations.md`)
 - [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
+
+## mechanics/provenance
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
 
 ## memory posture
 

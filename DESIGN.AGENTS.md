@@ -16,8 +16,8 @@ structural ownership changes.
 
 - `agents/` owns source-authored agent objects.
 - `agents/source_home.manifest.json` owns the checked source-home family map.
-- `.agents/` owns agent-facing companion lanes such as exported skills and the
-  Codex Spark fast-loop lane.
+- `.agents/` owns agent-facing companion lanes such as exported skills,
+  prompts, and handoff material.
 - `mechanics/` owns repeatable operation topology.
 - `docs/` explains public agent-layer doctrine and boundaries.
 - `schemas/` keeps shared contract shape until a mechanic-local package has a

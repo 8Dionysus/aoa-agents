@@ -116,3 +116,7 @@
 ## 2026-08-30
 
 - [AOA-AG-D-0073 2026-08-30: Compact agent routes and on-demand guides](../AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md) (`docs/decisions/AOA-AG-D-0073-compact-agent-routes-and-on-demand-guides.md`)
+
+## 2026-09-04
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)

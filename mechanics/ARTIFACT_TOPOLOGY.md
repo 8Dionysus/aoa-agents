@@ -304,7 +304,8 @@ registries. Mechanic-specific schemas have moved part-local; root
 `agent-profile`, registry, tier, class, cohort, and runtime-seam schemas are
 not mechanic payloads.
 
-The 2026-05-26 Spark lane placement moves root `Spark/` to `.agents/spark/`.
+The former 2026-05-26 Spark companion lane was retired on 2026-09-04; active
+agent-facing guidance remains in source owner routes.
 Spark is an agent-facing fast-loop lane, not a mechanic package. Future
 agent-facing lanes should start under `.agents/<lane>/` and route back to
 source, mechanic, proof, memo, or runtime owners when work outgrows the lane.
