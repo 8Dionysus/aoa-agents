@@ -4409,7 +4409,6 @@ def main() -> int:
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
         validate_reference_route_contract_routes()
-        validate_spark_agent_lane()
         validate_nested_agents_docs()
         validate_memo_agents_portable_validation_route()
         validate_runtime_artifact_contracts(REPO_ROOT)

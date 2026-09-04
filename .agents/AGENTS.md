@@ -8,14 +8,13 @@ This card applies to `.agents/` and all descendants unless a nearer
 ## Role
 
 `.agents/` holds bounded agent-facing companion surfaces for operating inside
-this repository. The active local surface is the Spark lane; globally exposed
-owner skills remain canonical under `skills/`.
+this repository. Globally exposed owner skills remain canonical under `skills/`.
 
 It is not the source-authored `agents/` district. Source role meaning remains
 under `agents/`, with docs, schemas, mechanics, builders, and validators as
 stronger owner surfaces where applicable.
 
-The active companion route is [.agents/spark/AGENTS.md](spark/AGENTS.md).
+No local companion lane is currently materialized.
 
 ## Boundaries
 
@@ -24,8 +23,7 @@ The active companion route is [.agents/spark/AGENTS.md](spark/AGENTS.md).
   durable memory, routing policy, or runtime state.
 - Do not add prompt material that bypasses source-family validation, route
   cards, or owner boundaries.
-- Keep `.agents/spark/` as a fast-loop lane. Do not recreate globally installed
-  owner or shared skill copies under `.agents/skills/`.
+- Do not recreate globally installed owner or shared skill copies under `.agents/skills/`.
 
 ## Validation
 Use the repository [validation map](../VALIDATION.md) and the nearest owner check when this route is relevant.
