@@ -9,8 +9,8 @@
     "contract_version": "aoa-kag:budget-receipt-candidate-identity-v2",
     "excluded_path": "kag/receipts/index_family_budget/fd7ac03f9c81cd92f05ea5db043142eb99c3816397a13129bca111313d08949d.json",
     "family_digest": "fd7ac03f9c81cd92f05ea5db043142eb99c3816397a13129bca111313d08949d",
-    "file_count": 1884,
-    "seal": "bedf6201b5f2e1b4034cf02c81bb1b88decb8637840be7994412364066c2a273",
+    "file_count": 1883,
+    "seal": "77dd82a19886fab1237bcd20ae136e6ec8e6e2ffd50724a06b6697fabe11eeaf",
     "source_epoch": "sha256:8331c39dd2dae1ca74676380b53752868d2501314d6dc7f0a28a716561d985b3",
     "source_snapshot": "sha256:08189fa4153d8471afb347032a988e4c374458b62e3af9dec2a720361f8bb071"
   },
@@ -1362,7 +1362,7 @@
     "revision_binding": "content-addressed-procedure-import-closure-portable-runtime-contract-and-descriptor-io-v1",
     "source_digest": "df3b43c667409671f5b5fc71b847a54b0f5aed3b4d9cafb2ca7046896f5c2c37"
   },
-  "reason": "Retirement owner exception approved by operator for aoa-agents: Spark/mechanics legacy retirement plus canonical aoa-kag CI producer parity at 14ee1e33; current source epoch only; no standing budget change.",
+  "reason": "AOA-AG-D-0074 operator-approved mechanics legacy retirement; final candidate keeps only its current migration receipt in addition to unchanged baseline history; standing budgets unchanged.",
   "repo": "aoa-agents",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v2",
   "scope": "generated_delta",
