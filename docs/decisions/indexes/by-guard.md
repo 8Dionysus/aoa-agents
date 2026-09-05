@@ -198,6 +198,10 @@
 - [AOA-AG-D-0053 2026-05-26: Role Specializations and Capability Packs](../AOA-AG-D-0053-role-specializations-and-capability-packs.md) (`docs/decisions/AOA-AG-D-0053-role-specializations-and-capability-packs.md`)
 - [AOA-AG-D-0070 2026-07-29: Agent-local memory is an isolated role leaf](../AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md) (`docs/decisions/AOA-AG-D-0070-agent-local-memory-is-an-isolated-role-leaf.md`)
 
+## active-route authority
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
+
 ## canonical producer admission
 
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
@@ -240,6 +244,14 @@
 - [AOA-AG-D-0061 Agent Obligation And Incarnation Skill Tree](../AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md) (`docs/decisions/AOA-AG-D-0061-agent-obligation-and-incarnation-skill-tree.md`)
 - [AOA-AG-D-0062 Resolve A Selected Role Chain Exactly](../AOA-AG-D-0062-resolve-selected-role-chain-exactly.md) (`docs/decisions/AOA-AG-D-0062-resolve-selected-role-chain-exactly.md`)
 - [AOA-AG-D-0063 Require Evidence-Complete Summon V4 For New Execution](../AOA-AG-D-0063-evidence-complete-summon-v4.md) (`docs/decisions/AOA-AG-D-0063-evidence-complete-summon-v4.md`)
+
+## generated parity
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
+
+## historical recovery
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
 
 ## idempotent publication
 

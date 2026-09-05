@@ -12,14 +12,7 @@ REQUIRED_AGENTS_DOCS: dict[str, tuple[str, ...]] = {
     '.agents/AGENTS.md': (
         '.agents/',
         'agent-facing companion surfaces',
-        '.agents/spark/AGENTS.md',
         'not the source-authored `agents/` district',
-    ),
-    '.agents/spark/AGENTS.md': (
-        '.agents/spark/',
-        'fast-loop lane',
-        'Spark work',
-        'source docs before editing',
     ),
     'agents/AGENTS.md': (
         'Operating Card',
@@ -247,12 +240,6 @@ ACTIVE_PROVENANCE_DOCS: tuple[str, ...] = (
 )
 
 FORBIDDEN_ACTIVE_PROVENANCE_SNIPPETS: tuple[str, ...] = (
-    'Legacy Bridge',
-    'legacy/',
-    'legacy accounting',
-    'legacy lookup',
-    'legacy is',
-    'Legacy is',
 )
 
 PROVENANCE_BRIDGE_DOCS: tuple[str, ...] = (
@@ -270,43 +257,9 @@ PROVENANCE_BRIDGE_DOCS: tuple[str, ...] = (
     'mechanics/titan/PROVENANCE.md',
 )
 
-REQUIRED_PROVENANCE_BRIDGE_SNIPPETS: tuple[str, ...] = (
-    '## Current Route First',
-    'If those surfaces answer the task, stop there.',
-    '## Archive Route',
-    'legacy/INDEX.md',
-    'legacy/DISTILLATION_LOG.md',
-    'legacy/raw/',
-    '## Distillation Rule',
-    'Active part docs must not grow',
-)
+REQUIRED_PROVENANCE_BRIDGE_SNIPPETS: tuple[str, ...] = ()
 
 RETIRED_PLACEHOLDER_PATHS: tuple[str, ...] = (
-    "mechanics/agon/legacy/raw/README.md",
-    "mechanics/antifragility/legacy/raw/README.md",
-    "mechanics/boundary-bridge/legacy/raw/README.md",
-    "mechanics/checkpoint/legacy/raw/README.md",
-    "mechanics/codex-projection/legacy/raw/README.md",
-    "mechanics/experience/legacy/raw/README.md",
-    "mechanics/questbook/legacy/raw/README.md",
-    "mechanics/recurrence/legacy/raw/README.md",
-    "mechanics/release-support/legacy/raw/README.md",
-    "mechanics/rpg/legacy/raw/README.md",
-    "mechanics/runtime-seam/legacy/raw/README.md",
-    "mechanics/titan/legacy/raw/README.md",
-    "mechanics/antifragility/parts/checkpoint-survival/README.md",
-    "mechanics/antifragility/parts/scar-adaptation/README.md",
-    "mechanics/checkpoint/parts/stress-handoff/README.md",
-    "mechanics/codex-projection/parts/titan-projection/README.md",
-    "mechanics/release-support/parts/assistant-release-watch/README.md",
-    "mechanics/release-support/parts/changelog-posture/README.md",
-    "mechanics/release-support/parts/published-readiness/README.md",
-    "mechanics/rpg/parts/checkpoint-growth/README.md",
-    "mechanics/rpg/parts/quest-readable-status/README.md",
-    "mechanics/runtime-seam/parts/published-registry/README.md",
-    "evals/intake/README.md",
-    "evals/reports/README.md",
-    "evals/suites/README.md",
 )
 
 RUNNABLE_AGENT_COMMAND_RE = re.compile(
@@ -386,7 +339,7 @@ def validate_nested_agents_docs(root: Path = REPO_ROOT) -> None:
             raise NestedAgentsValidationError(
                 f'{rel_path} should route through PROVENANCE.md without active archive leakage: {joined}'
             )
-    for rel_path in PROVENANCE_BRIDGE_DOCS:
+    for rel_path in ():
         path = root / rel_path
         text = _read_text(path)
         missing = [snippet for snippet in REQUIRED_PROVENANCE_BRIDGE_SNIPPETS if snippet not in text]

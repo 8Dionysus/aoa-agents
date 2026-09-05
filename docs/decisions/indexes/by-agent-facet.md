@@ -169,6 +169,7 @@
 - [AOA-AG-D-0049 2026-05-26: Provenance Bridge Operating Shape](../AOA-AG-D-0049-provenance-bridge-operating-shape.md) (`docs/decisions/AOA-AG-D-0049-provenance-bridge-operating-shape.md`)
 - [AOA-AG-D-0050 2026-05-26: Active Legacy Name Cleanup](../AOA-AG-D-0050-active-legacy-name-cleanup.md) (`docs/decisions/AOA-AG-D-0050-active-legacy-name-cleanup.md`)
 - [AOA-AG-D-0058 2026-05-31: Root Document Entry And Contour Refactor](../AOA-AG-D-0058-root-document-entry-contour-refactor.md) (`docs/decisions/AOA-AG-D-0058-root-document-entry-contour-refactor.md`)
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
 
 ## decision index
 
@@ -264,6 +265,10 @@
 ## session identity
 
 - [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
+
+## source-first routing
+
+- [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
 
 ## specialization
 

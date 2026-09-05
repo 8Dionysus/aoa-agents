@@ -385,9 +385,6 @@ QUESTBOOK_READER_BUILDER_PATH = (
     QUESTBOOK_PARTS_DIR / "dispatch-reader" / "scripts" / "generate_questbook_readers.py"
 )
 FORMER_QUESTBOOK_READER_BUILDER_PATH = REPO_ROOT / "scripts" / ("generate" + "_questbook_readers.py")
-AGENTS_DISTRICT_PATH = REPO_ROOT / ".agents"
-SPARK_LANE_PATH = AGENTS_DISTRICT_PATH / "spark"
-FORMER_SPARK_ROOT_PATH = REPO_ROOT / "Spark"
 EXTERNAL_QUEST_SCHEMA_PATH = resolve_aoa_evals_schema_path(
     "quest.schema.json",
     "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json",
@@ -1298,37 +1295,6 @@ def validate_reference_route_contract_routes() -> None:
     ):
         if not path.exists():
             fail(f"missing reference-route part-local surface: {describe_path(path)}")
-
-
-def validate_spark_agent_lane() -> None:
-    if FORMER_SPARK_ROOT_PATH.exists():
-        fail(f"former Spark root path must stay absent: {describe_path(FORMER_SPARK_ROOT_PATH)}")
-
-    required = (
-        AGENTS_DISTRICT_PATH / "AGENTS.md",
-        SPARK_LANE_PATH / "AGENTS.md",
-        SPARK_LANE_PATH / "SWARM.md",
-    )
-    for path in required:
-        if not path.is_file():
-            fail(f"missing Spark agent-lane surface: {describe_path(path)}")
-
-    district_text = read_text(AGENTS_DISTRICT_PATH / "AGENTS.md")
-    spark_agents_text = read_text(SPARK_LANE_PATH / "AGENTS.md")
-    spark_swarm_text = read_text(SPARK_LANE_PATH / "SWARM.md")
-
-    for snippet in (".agents/spark/", "agent-facing companion surfaces", "not the source-authored `agents/` district"):
-        if snippet not in district_text:
-            fail(f".agents/AGENTS.md must describe Spark lane district posture: missing {snippet!r}")
-
-    for snippet in (".agents/spark/", "fast-loop lane", "source docs before editing"):
-        if snippet not in spark_agents_text:
-            fail(f".agents/spark/AGENTS.md must describe Spark lane posture: missing {snippet!r}")
-
-    if ".agents/spark/SWARM.md" not in spark_swarm_text:
-        fail(".agents/spark/SWARM.md must name the current Spark lane path")
-    if "Spark/SWARM.md" in spark_swarm_text:
-        fail(".agents/spark/SWARM.md must not route to former root Spark path")
 
 
 def validate_antifragility_stress_surfaces() -> None:
@@ -4409,7 +4375,6 @@ def main() -> int:
         validate_rpg_progression(REPO_ROOT)
         validate_alpha_reference_route_schema_surface()
         validate_reference_route_contract_routes()
-        validate_spark_agent_lane()
         validate_nested_agents_docs()
         validate_memo_agents_portable_validation_route()
         validate_runtime_artifact_contracts(REPO_ROOT)
@@ -4504,7 +4469,6 @@ def main() -> int:
     print("[ok] validated RPG progression schema and example")
     print("[ok] validated Alpha reference-route schema surface")
     print("[ok] validated reference-route part-local contract routes")
-    print("[ok] validated Spark agent-lane placement")
     print("[ok] validated nested AGENTS.md guidance surfaces")
     print("[ok] validated source-authored agent profiles")
     print("[ok] validated source-authored model tiers")
