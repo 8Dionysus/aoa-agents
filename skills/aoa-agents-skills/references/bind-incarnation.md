@@ -1,8 +1,7 @@
 ### Mode: bind-incarnation
 
-Ask stronger owners to select and bind a current physical realization of a
-complete actor mandate. The role remains unchanged when the realization is
-substituted.
+Bind the holder-selected physical realization of a complete actor mandate.
+The role remains unchanged when the realization is substituted.
 
 ## Input
 
@@ -12,9 +11,17 @@ runtime profile compatible with the mandate's environment and permissions.
 
 ## Procedure
 
+For an existing actor, first inspect its obligation, mandate, holder, binding,
+and runtime continuation refs. Keep a valid incarnation and continue through
+its supported runtime interface. Session resumption is not a reason to query
+fit or reconstruct the binding. Run the steps below only for formation or an
+actual binding change; verify authority/currentness at that boundary.
+
 1. Send required executor properties, domain posture, environment, authority,
-   continuity, and evidence threshold to `aoa-models`. Do not ask for a model
-   by brand unless a comparative study itself is the task.
+   continuity, and evidence threshold to `aoa-models`. Preserve an explicit
+   operator model/effort choice, checking its fit rather than silently
+   substituting a different model. Otherwise the current holder selects from
+   the returned candidates.
 2. Require a current fit response identifying one model realization and mode,
    evidence refs, known failure modes, expiry/recheck conditions, and viable
    alternatives. A catalog entry is not fit evidence.
@@ -29,6 +36,10 @@ runtime profile compatible with the mandate's environment and permissions.
 5. Verify the binding is content-addressed to the exact mandate and owner
    inputs. Record usage counting, never a pre-emptive token budget.
 6. Return the binding ref and evidence; do not launch from this mode.
+
+An unavailable start, resume, or wake interface is a runtime integration gap.
+Keep the existing obligation and report that gap without forging a lifecycle
+transition or creating a replacement scheduler.
 
 ## Output
 

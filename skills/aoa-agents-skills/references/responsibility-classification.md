@@ -1,15 +1,16 @@
 ### Mode: responsibility-classification
 
-Emit one owner-produced negative responsibility result for a presented
-agent-tool decision that remains an ordinary local step. This mode does not
-select a tool, model, runtime, or domain procedure.
+Emit an owner-produced negative result only when an explicit caller needs the
+typed classification, including the legacy summon local ABI. Ordinary Codex
+helpers need neither this operation nor its receipt. This mode does not select
+a tool, model, runtime, or domain procedure and grants no execution permission.
 
 ## Input
 
 Require the supplied `goal-pressure-v1` context with:
 
 - the anchored Goal and current responsibility-holder refs;
-- a freshly minted execution epoch from the routing owner or current holder;
+- the execution epoch of that explicit compatibility request;
 - the presented agent-tool or delegation decision;
 - the positive and negative independence findings;
 - the reason the work remains an ordinary local step;
@@ -23,7 +24,7 @@ Require the supplied `goal-pressure-v1` context with:
    no independent authority or continuity is required, and no external return
    owner is being created.
 3. Build the semantic classification packet with the exact Goal, current
-   holder, fresh execution epoch, child-scope digest, reason, evidence, and
+   holder, request execution epoch, child-scope digest, reason, evidence, and
    stop line. Set only
    `disposition: not_independent` and `next_route: codex_local`.
 4. Validate and content-address it with the owner compiler:
@@ -42,9 +43,10 @@ python <bundle_dir>/scripts/compile_actor_contract.py classification \
 Return `responsibility-classification-v1` with its stable classification id,
 Goal, holder, execution epoch, and child-scope digest, `not_independent`
 disposition, reason, `codex_local` next route, stop line, evidence refs, and
-semantic digest. The routing owner or current holder must mint a new epoch for
-each initial, compaction/resume, re-entry, or material plan-change decision;
-the local request validator rejects a classification from another epoch. This
+semantic digest. The explicit compatibility request and its classification
+must share an execution epoch; session resumption alone does not mint one or
+require a new semantic decision. The local request validator still rejects a
+classification from another request epoch. This
 is not a one-time-consumption record and does not detect replay within the
 same epoch; that state belongs to the routing/runtime owner.
 
@@ -54,5 +56,5 @@ same epoch; that state belongs to the routing/runtime owner.
 - The result names the same Goal and current holder supplied by the pressure.
 - The result does not contain a role, model, transport, process, runtime, or
   launch claim.
-- The returned ref is carried into a later `summon-request-v4` before any
-  Codex-local child lane is considered.
+- An explicit legacy `summon-request-v4` local execution must bind the exact
+  returned ref; native Codex orchestration does not enter that legacy lane.

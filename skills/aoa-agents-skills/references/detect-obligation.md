@@ -21,8 +21,8 @@ Require a `goal-pressure-v1` packet containing:
 
 1. Separate a genuine duty from an implementation step, convenience split, or
    available-model opportunity.
-2. Test whether the duty needs its own responsibility holder. Name every
-   positive and negative independence signal.
+2. Test whether the duty needs its own responsibility holder. Preserve the
+   positive and negative signals that actually change this decision.
 3. Check planning pressure for duties that will predictably arise later. A
    future duty may be admitted before its work is executable.
 4. Select exactly one trigger strength: `notice`, `required_branch`,
@@ -30,12 +30,11 @@ Require a `goal-pressure-v1` packet containing:
 5. For `preauthorized_reflex`, require the exact persistent-role identity,
    reviewed trigger contract, authority envelope, rollback, and current
    runtime admissibility. Otherwise narrow to `master_decision`.
-6. Return either a semantic
-   `responsibility-classification-v1` packet with
-   `disposition: not_independent`, or one semantic obligation packet. For the
-   negative branch, use the bundled compiler to validate and content-address
-   the classification result. For the independent branch, use the bundled
-   compiler to validate and content-address the admitted packet as
+6. For an ordinary step, explain the disposition only if the caller needs it
+   and continue native Codex work. A typed negative classification is needed
+   only for an explicitly requested classification operation or legacy summon
+   local ABI. For an independent duty, prepare one semantic obligation. The
+   bundled compiler validates and content-addresses the admitted packet as
    `agent-obligation-v1`; do not select a model, process, transport, or domain
    procedure implementation.
 
@@ -54,13 +53,13 @@ or budget fields.
 
 ## Output
 
-`responsibility-classification-v1` records:
+When explicitly requested, `responsibility-classification-v1` records:
 
 - stable classification id, goal and current-holder refs, plus a digest of the
   complete local-child duty subject (desired role, intent, expected outputs,
   child scope, stop line, and child inputs);
 - the `not_independent` disposition and reason;
-- the permitted `codex_local` next route and stop line;
+- the recorded `codex_local` next route and stop line, not execution permission;
 - evidence refs and a semantic digest.
 
 `agent-obligation-v1` records:

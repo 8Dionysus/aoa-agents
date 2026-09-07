@@ -2,7 +2,11 @@
 
 ## Status
 
-Accepted.
+Partially superseded by
+[AOA-AG-D-0075](AOA-AG-D-0075-responsibility-entry-without-native-interception.md)
+for universal classification, native helper admission, and resume-triggered
+reclassification. The same-request execute authority and exact legacy packet
+checks remain in force. The original rationale below is retained as history.
 
 ## Index Metadata
 
