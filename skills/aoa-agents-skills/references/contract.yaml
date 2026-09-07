@@ -4,7 +4,7 @@ identity:
   name: aoa-agents-skills
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
-  version: 0.5.0
+  version: 0.6.0
   lifecycle: admitted
   health: challenger
 
@@ -45,7 +45,7 @@ modes:
     output_abi: agent-lifecycle-result-v1
     effects: [none, task-local-dag-branch-candidate, external-actor-runtime]
     reference: role-first-entry.md
-    activation: The routing control plane presents an independent responsibility boundary, or the current holder supplies Goal, independent duty, authority, expected result, and optional prepare/execute intent.
+    activation: The current holder supplies a new independent AoA duty, Goal, authority, expected result, and optional prepare/execute intent. Ordinary Codex helpers remain native; an existing actor enters its current lifecycle operation instead of new formation.
   responsibility-classification:
     input_abi: goal-pressure-v1
     output_abi: responsibility-classification-v1
@@ -53,7 +53,7 @@ modes:
     exact_packet_compiler: scripts/compile_actor_contract.py classification
     effects: [none]
     reference: responsibility-classification.md
-    activation: A presented agent-tool responsibility boundary is classified as an ordinary local step before a Codex-local child lane is considered.
+    activation: An explicit caller requests a typed negative classification or the legacy summon local ABI. This receipt is not a prerequisite or permission for native Codex helpers.
   detect-obligation:
     input_abi: goal-pressure-v1
     output_abi: agent-obligation-v1
@@ -97,7 +97,7 @@ common_output_abi:
     - actual effects and evidence class
     - usage receipt refs when execution occurred
     - uncertainty, stop line, and next owner route
-    - a responsibility-classification-v1 result with a child-duty digest whenever the local disposition is not_independent
+    - a responsibility-classification-v1 result only for the explicitly selected classification operation or legacy summon local ABI
 
 relations:
   primary-capability-parent: aoa-agents actor lifecycle
@@ -156,6 +156,7 @@ delegation_classes:
     handoff: Keep model fit, SDK binding, runtime evidence, eval, closeout, and acceptance with their named owners; transport never becomes responsibility meaning.
 
 delegation_class_rules:
+  scope: Explicit AoA delegation classes only; ordinary native Codex helpers do not enter this contract or acquire its baseline and receipt requirements.
   provider_neutral_abi: aoa_delegation_class_v1
   baseline_posture: Source contracts may be landed default-off before d0-baseline:baseline-ready; activation, pilot, promotion, and economy claims remain closed until the paired baseline is admitted.
   builtin_codex_child_as_external_incarnation: forbidden
@@ -167,13 +168,14 @@ termination:
 
 health:
   recheck_after:
-    - compaction, resume, or re-entry before a new agent-tool decision
-    - material delegation or plan change
+    - material duty, holder, mandate, or authority change
     - material model or reasoning-mode change
     - external runtime or continuation change
     - role, capability, or domain-procedure change
     - trigger false positive, missed obligation, or unsafe return
   manual_cases:
+    - native Codex work without an AoA routing call or negative receipt
+    - continuation of an existing obligation without semantic reclassification
     - positive and negative obligation detection
     - future-duty detection during planning
     - writer and independent reviewer separation

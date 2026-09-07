@@ -1,7 +1,7 @@
 schema_version: aoa-capability-family-v1
 family_id: agent-lifecycle
 title: aoa-agents skill tree
-description: Classify responsibility for presented agent-tool decisions, preserve independent obligation pressure, and carry role-bearing responsibility through replaceable incarnation, external execution, return, and wake without owning runtime dispatch.
+description: Carry independent AoA responsibility through role formation, replaceable incarnation, external execution, continuation, and return while leaving native Codex helpers outside the actor lifecycle.
 owner: &family_owner
   repo: aoa-agents
   surface: capabilities/families/agent-lifecycle.yaml
@@ -25,7 +25,7 @@ nodes:
 
   - id: aoa-agents-skills
     title: aoa-agents-skills tree
-    description: Classify a responsibility boundary explicitly presented to this owner-local stage and navigate obligation detection, actor formation, replaceable incarnation, responsibility transfer, external execution, return, wake, and progression leaves without owning route policy or transport dispatch.
+    description: Navigate independent obligation detection, actor formation, incarnation, responsibility transfer, continuation, and return without taking native orchestration or domain authority.
     kind: capability
     contract_level: navigation
     primary_parent: aoa-agents
@@ -34,9 +34,9 @@ nodes:
     keywords: [agent-skills, obligation, incarnation, a2a, return, wake, обязанность, воплощение, возврат]
 
   - id: skill.aoa-agents-skills
-    title: aoa-agents-skills organ router
-    description: Classify a responsibility boundary presented by the aoa-sdk routing control plane or current holder, or form, bind, transfer, and receive one role-bearing actor. Return responsibility meaning to the caller; do not choose transport, act as a universal pre-tool hook, or absorb domain procedures.
-    purpose: Classify the presented responsibility boundary and route the smallest owner-local actor lifecycle node or task-local DAG after the routing owner invokes this stage.
+    title: AoA responsibility lifecycle
+    description: Form, transfer, continue, or receive an independent AoA responsibility with a role-bearing actor. Use when an obligation needs its own holder, mandate, or continuity across incarnations. Ordinary tasks and native Codex helpers do not need this skill.
+    purpose: Preserve a duty-bearing actor's mandate, continuity, and return through the smallest relevant lifecycle operation.
     kind: skill
     contract_level: executable
     primary_parent: aoa-agents-skills
@@ -46,24 +46,23 @@ nodes:
       authority: authored
     lifecycle: &root_candidate_lifecycle
       state: active
-      version: 0.5.0
+      version: 0.6.0
       visibility: advertised
       evidence_state: evaluated
       health: challenger
     applicability:
       use_when:
-        - The aoa-sdk routing control plane or current holder explicitly presents an agent-tool or delegation decision whose responsibility boundary is not yet classified.
         - Goal planning, execution, or closeout exposes a duty that may need an independently addressable responsibility bearer.
         - An existing persistent role may need rebinding, return filtering, or controlled wake.
       do_not_use_when:
-        - No agent-tool decision, delegation pressure, or independent-duty pressure exists.
+        - The work is an ordinary task or native Codex helper without an independently held AoA duty.
       ambiguous_when:
-        - A proposed local split may instead need an independent reviewer, continuity holder, or return owner; classify it here before choosing a tool.
+        - A proposed branch may need an independent reviewer, continuity holder, or return owner; inspect that responsibility question without gating unrelated native helpers.
     abi:
       inputs:
         - {name: pressure, type: goal-pressure-v1, required: true, description: "Goal, phase, current holder, observed or anticipated duty, owner, independence signals, and uncertainty."}
       outputs:
-        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: One typed mode result or smallest task-local DAG with explicit responsibility movement and stop line; the ordinary-local branch also emits responsibility-classification-v1.}
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "One relevant lifecycle result with the useful outcome, current holder, actual effects, exact artifact refs, and next action; ordinary native work needs no negative packet."}
     binding: {kind: skill, ref: skills/aoa-agents-skills/SKILL.md, operation: route-lifecycle, availability: available}
     execution: &bounded_execution
       freedom: bounded-judgment
@@ -72,14 +71,14 @@ nodes:
       termination: [Stop after one bounded transition or smallest valid task-local chain., "Stop at the first missing owner, authority, fit, runtime, return, or wake input."]
       effects: [none, runtime-mutation]
       reversibility: reversible
-      failure_modes: [Selecting transport before responsibility classification., Treating this classifier as universal dispatch authority., Emitting an untyped not_independent disposition., Skipping classification after compaction or re-entry., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
+      failure_modes: [Gating native Codex helpers through the AoA lifecycle., Recreating a duty merely because the session resumed., Reassembling compiler-owned packets by hand., Creating an actor because a model is available., Encoding a model brand in a stable role., Treating a launcher or process handle as A2A responsibility., Absorbing a domain procedure., Treating a task-local DAG as durable source.]
     trust: &runtime_trust
       public_safe: true
       requires_human_approval: true
       posture: authored-procedure
     provenance:
       source_refs:
-        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.5.0, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.6.0, role: owner-skill-procedure, authority: authored}
         - {repo: aoa-agents, path: skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json, ref: responsibility-classification-v1, role: local-classification-schema, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
@@ -88,8 +87,8 @@ nodes:
     classification: {category: independent-callable, disposition: retain, rationale: "External workspace-write, independent return, controlled re-entry, filtering, and ambiguity evidence admit the obligation router as a challenger; model fit and effect routes remain separately unadmitted."}
     procedure: &root_procedure
       ref: skills/aoa-agents-skills/SKILL.md
-      required_sections: [Choose the responsibility boundary, Role-first entry, Focused lifecycle work, Keep ownership separate, Stop and evidence]
-      runtime_adaptation: Resolve logical owner, model-fit, SDK binding, and runtime roots independently before executing a selected leaf.
+      required_sections: [When responsibility needs its own holder, Work at the current lifecycle boundary, Continue without recreating the actor, Keep ownership separate, Stop and evidence]
+      runtime_adaptation: Resolve exact owner and execution bindings once for the selected operation; reuse valid actor identity and use only supported runtime lifecycle interfaces.
     mutation:
       preview_required: true
       explicit_apply_required: true
@@ -100,7 +99,7 @@ nodes:
       network: optional-explicit
       external_dependencies: [aoa-models, aoa-sdk, abyss-stack]
       untrusted_input: treat-as-data
-    keywords: [agent-tool, spawn_agent, sub-agent, delegation, worker, reviewer, obligation, actor, role, incarnation, external-cli, responsibility, a2a, return, wake, агент, делегирование, обязанность, актор, воплощение, ответственность]
+    keywords: [independent-duty, mandate, obligation, actor, role, incarnation, external-cli, responsibility, a2a, return, wake, обязанность, актор, воплощение, ответственность]
 
   - id: mode.agents.role-first-entry
     title: Role-first actor entry
@@ -129,7 +128,7 @@ nodes:
         - {name: intent, type: role-first-intent-v1, required: true, description: "Goal, independent duty, authority envelope, and named expected results."}
       outputs:
         - {name: normalized-pressure, type: goal-pressure-v1, required: false, description: Internal pressure context passed to obligation detection.}
-        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "Typed lifecycle result with responsibility movement, external handles, filtered return, or exact stop route; a not_independent local branch includes responsibility-classification-v1."}
+        - {name: lifecycle-result, type: agent-lifecycle-result-v1, required: true, description: "Lifecycle result with responsibility movement, external handles, filtered return, or exact stop route; ordinary work returns to native Codex without a classification receipt."}
     binding: {kind: mode, ref: skills/aoa-agents-skills/references/role-first-entry.md, operation: role-first-entry, availability: available}
     execution:
       freedom: bounded-judgment
@@ -142,14 +141,14 @@ nodes:
     trust: {public_safe: true, requires_human_approval: true, posture: human-authorized}
     provenance:
       source_refs:
-        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-entry.md, ref: capability-home-v0.5.0, role: semantic-entry-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-entry.md, ref: capability-home-v0.6.0, role: semantic-entry-procedure, authority: authored}
         - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-intent-v1.schema.json, ref: role-first-intent-v1, role: semantic-entry-schema, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: scripts/query_model_fit.py, ref: model-fit-query-owner, role: model-fit-owner-contract, authority: external-authority}
         - {repo: aoa-sdk, path: mechanics/boundary-bridge/parts/agent-incarnation-binding/schemas/agent-incarnation-binding-v2.schema.json, ref: agent-incarnation-binding-v2, role: runtime-planning-owner-contract, authority: external-authority}
         - {repo: abyss-stack, path: mechanics/governed-execution/parts/external-codex-agent/runtime-profile.v1.json, ref: external-codex-runtime-v1, role: external-runtime-owner-contract, authority: external-authority}
     classification: {category: local-mode, disposition: retain, rationale: "One semantic front door is useful inside the existing advertised organ router; its owner modes and external leaf remain separately addressable and its trigger is explicit."}
-    procedure: {ref: skills/aoa-agents-skills/references/role-first-entry.md, required_sections: [Applicability, Input, Procedure, Owner handoffs, Output, Verification and stop], runtime_adaptation: "Resolve active session context and stronger owners independently; do not expose or persist low-level packet assembly as caller procedure."}
+    procedure: {ref: skills/aoa-agents-skills/references/role-first-entry.md, required_sections: [Applicability, Input, Make the semantic choices once, Compile the technical chain once, Apply and receive through supported runtime interfaces, Owner handoffs, Output, Verification and stop], runtime_adaptation: "Use the existing passive preparer for technical assembly after semantic choices and exact environment bindings; do not repeat its individual compilers."}
     mutation:
       preview_required: true
       explicit_apply_required: true
@@ -209,7 +208,7 @@ nodes:
 
   - id: mode.agents.responsibility-classification
     title: Responsibility classification
-    description: Emit one typed not_independent result for a presented ordinary-local agent-tool decision before a Codex-local child lane is considered.
+    description: Emit a typed negative responsibility result when an explicit caller needs that artifact, including the legacy summon local ABI; native Codex helpers do not require it.
     purpose: Preserve the owner-produced negative classification, its goal, holder, execution epoch, and child-duty digest anchors, and its bounded local next route across skill boundaries.
     kind: mode
     contract_level: executable
@@ -217,20 +216,20 @@ nodes:
     owner: *family_owner
     lifecycle: *internal_lifecycle
     applicability:
-      use_when: [A presented agent-tool responsibility boundary is an ordinary local step after the owner classifier evaluates independence.]
-      do_not_use_when: [An independent obligation exists, no agent-tool decision was presented, or the route is already an admitted external leaf.]
+      use_when: [An explicit caller requests the owner classification artifact or an existing legacy local summon packet requires it.]
+      do_not_use_when: [The work is an ordinary native Codex helper, an independent obligation exists, or the route is already an admitted external leaf.]
       ambiguous_when: [The current holder has not supplied a goal, holder ref, reason, or stop line for the classification.]
     abi:
       inputs:
         - {name: pressure, type: goal-pressure-v1, required: true, description: Anchored goal pressure and responsibility-holder evidence.}
       outputs:
-        - {name: classification, type: responsibility-classification-v1, required: true, description: Content-addressed not_independent result with a child-duty digest permitting only the codex_local compatibility route.}
+        - {name: classification, type: responsibility-classification-v1, required: true, description: Content-addressed negative classification for its exact duty and explicit compatibility request; not execution permission.}
     binding: {kind: mode, ref: skills/aoa-agents-skills/references/responsibility-classification.md, operation: responsibility-classification, availability: available}
     execution: &classification_execution
       freedom: bounded-judgment
       tool_requirements: [goal and holder read access, passive classification packet compiler]
       verification:
-        - The result is a typed responsibility-classification-v1 artifact with its semantic digest and fresh execution epoch.
+        - The result is a typed responsibility-classification-v1 artifact with its semantic digest and the explicit request execution epoch.
         - Goal, current holder, execution epoch, child-duty subject, and codex_local next route remain exact.
         - The classifier selects no agent tool, model, runtime, or transport implementation; it only preserves the typed codex_local compatibility route.
       termination:
@@ -240,7 +239,7 @@ nodes:
       reversibility: not-applicable
       failure_modes:
         - Reconstructing a classification from prompt prose instead of an owner artifact.
-        - Treating not_independent as permission to bypass the aoa-summon leaf.
+        - Treating a negative classification as an execution permission or prerequisite for native Codex delegation.
         - Treating an execution-epoch match as proof of one-time consumption; same-epoch replay control belongs to runtime or owner state.
     trust: *read_trust
     provenance:
@@ -358,7 +357,7 @@ nodes:
 
   - id: skill.aoa-summon
     title: aoa-summon execution leaf
-    description: Decide or execute one complete, owner-classified summon-request-v4 and return a validated summon-result-v4. Use as the aoa-agents-skills execution leaf for an external CLI actor or an explicitly requested disposable Codex-local child with a bound not_independent classification. Unresolved transport and generic delegation remain with the aoa-sdk routing control plane.
+    description: Decide or execute a complete summon-request-v4 for an independent external AoA actor and return a validated summon-result-v4. Use as the aoa-agents-skills execution leaf or to inspect an explicit legacy summon packet. Ordinary native Codex helpers do not use this leaf.
     purpose: Preserve one anchored execution request, real host binding, runtime handle, named return validation, and parent closeout while the external incarnation ABI is evolved.
     kind: skill
     contract_level: executable
@@ -366,16 +365,16 @@ nodes:
     owner: {repo: aoa-agents, surface: skills/aoa-summon/SKILL.md, authority: authored}
     lifecycle:
       state: active
-      version: 0.4.0
+      version: 0.5.0
       visibility: advertised
       evidence_state: evaluated
       health: challenger
     applicability:
       use_when:
         - aoa-agents-skills selects this execution leaf from a complete task-local actor DAG with an admitted transfer and return owner.
-        - The user explicitly requests a disposable Codex-local child and aoa-agents-skills has classified it not_independent before a complete anchored local-child packet is supplied.
+        - The caller supplies an explicit legacy Codex-local summon packet with its bound classification artifact.
       do_not_use_when: [The request is incomplete, implicit, unsplit deep work, or intended to widen authority.]
-      ambiguous_when: [A generic delegation request has not yet passed through aoa-agents-skills responsibility classification.]
+      ambiguous_when: [An external actor is requested but its mandate or exact runtime binding is unresolved.]
     abi:
       inputs:
         - {name: request, type: summon-request-v4, required: true, description: "Immutable anchored request with named outputs, child scope, inputs, return owner, resolved not_independent classification artifact and child-duty digest for codex_local, and exact external-incarnation evidence where applicable."}
@@ -389,9 +388,9 @@ nodes:
       termination: [Stop after one decision or one real return and parent closeout., "Block when request, gate, binding, output, or return owner is absent."]
       effects: [none, runtime-mutation]
       reversibility: reversible
-      failure_modes: [Triggering directly from a generic delegation request., Calling spawn_agent before aoa-agents-skills classification., Dropping the typed classification result ref across the skill boundary., Replaying a classification against a changed child duty., Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
+      failure_modes: [Triggering directly from a generic delegation request., Gating native Codex helpers through the legacy local lane., Dropping the typed classification result ref from an explicit legacy packet., Replaying a classification against a changed child duty., Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
     trust: *runtime_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.4.0, role: owner-skill-procedure, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.5.0, role: owner-skill-procedure, authority: authored}], optional_refs: []}
     classification: {category: independent-callable, disposition: retain, rationale: Existing admitted leaf preserves execution and return evidence; external CLI compatibility remains an explicit evolution gate.}
     procedure: {<<: *root_procedure, ref: skills/aoa-summon/SKILL.md, required_sections: [Owner source, Request and mode, Use existing compilers, Return boundaries]}
     mutation:
@@ -400,7 +399,7 @@ nodes:
       rollback_or_recovery: [Stop only the exact launched runtime handle through its host binding., Preserve blocked, failed, or narrowed return for parent closeout.]
       postconditions: [Every executable state carries a real inspected binding and handle., Every accepted return matches the immutable named-output set.]
     security: {permissions: [read-parent-anchor, invoke-host-delegation], network: optional-explicit, external_dependencies: [aoa-sdk, abyss-stack], untrusted_input: runtime-policy-enforced}
-    keywords: [summon-leaf, classified-delegation, disposable-local-child, passport, return-validation, призвать-лист, классифицированное-делегирование]
+    keywords: [summon-leaf, external-actor, legacy-summon-packet, passport, return-validation, призвать-лист, внешний-актор]
 
   - id: mode.aoa-summon.decide
     title: Decide bounded summon
@@ -428,7 +427,7 @@ nodes:
       reversibility: not-applicable
       failure_modes: [Probing a host in decision-only mode., Reporting an allowed lane as execution., Inferring missing request fields.]
     trust: *read_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.4.0, role: internal-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.0, role: internal-mode, authority: authored}], optional_refs: []}
     classification: *internal_classification
     procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: decide"], runtime_adaptation: Do not inspect or launch a host binding in decision-only mode.}
     security: *read_security
@@ -462,7 +461,7 @@ nodes:
       reversibility: reversible
       failure_modes: [Plan reported as launch., Built-in child reported as external incarnation., Owner-local receipt replaces the SDK A2A or runtime result ABI., Missing output accepted., Runtime handle lost on failure.]
     trust: *runtime_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.4.0, role: internal-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.0, role: internal-mode, authority: authored}], optional_refs: []}
     classification: *internal_classification
     procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: execute"], runtime_adaptation: Bind only the exact inspected host interface and preserve its runtime handle.}
     mutation:

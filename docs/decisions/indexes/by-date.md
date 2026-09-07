@@ -120,3 +120,7 @@
 ## 2026-09-04
 
 - [AOA-AG-D-0074 Mechanics Legacy Retirement](../AOA-AG-D-0074-mechanics-legacy-retirement.md) (`docs/decisions/AOA-AG-D-0074-mechanics-legacy-retirement.md`)
+
+## 2026-09-07
+
+- [AOA-AG-D-0075 Responsibility Entry Without Native Interception](../AOA-AG-D-0075-responsibility-entry-without-native-interception.md) (`docs/decisions/AOA-AG-D-0075-responsibility-entry-without-native-interception.md`)

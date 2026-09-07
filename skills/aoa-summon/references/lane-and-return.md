@@ -2,6 +2,10 @@
 
 ## Lane decision
 
+This reference applies only after this execution leaf receives a complete
+external-actor or explicitly requested legacy compatibility packet. Native
+Codex helpers do not enter this protocol or need a classification receipt.
+
 If the literal request fails the request ABI, no lane exists yet. Return
 `lane: null`, `allowed: false`, `decision_state: blocked`, and
 `runtime_state.state: not_run`; do not manufacture a routing lane merely to
@@ -26,8 +30,8 @@ its digest, and require exact key-set equality between request
 Branch choice and physical transport must already be settled by the owning
 routing control plane. The v4 request accepted by this leaf contains only
 `codex_local` or `external_cli`; unresolved SDK `a2a_remote` and `either`
-values are rejected before lane selection. The local host child-agent
-interface is the compatibility default only after the exact
+values are rejected before lane selection. For an explicitly supplied legacy
+local packet, the host child-agent interface is available only after the exact
 `not_independent` classification artifact has been resolved and bound. A
 source-authorized external actor packet selects `external_cli_reviewed`; it
 may not fall back to a built-in child lane.
@@ -63,8 +67,9 @@ host binding. An allowed decision is not execution evidence.
    `aoa-summon` result is an actor-execution/closeout receipt, not a fork of the
    SDK A2A schema or the runtime result schema.
 6. Produce the parent closeout handoff: accepted outputs, rejected claims,
-   residual risk, checkpoint consequence, optional memo candidate route, owner
-   publication route, and whether parent work may continue.
+   residual risk, the next owner action, and whether parent work may continue.
+   Record checkpoint or publication consequences only when applicable; this
+   return does not automatically invoke stats, memory, or proof workflows.
 
 Decision-only output does not need a host probe. If no probe occurred, set
 `binding.inspected: false` and `binding.available: null`. A concrete

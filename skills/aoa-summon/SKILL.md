@@ -1,6 +1,6 @@
 ---
 name: aoa-summon
-description: Decide or execute one complete, owner-classified summon-request-v4 and return a validated summon-result-v4. Use as the aoa-agents-skills execution leaf for an external CLI actor or an explicitly requested disposable Codex-local child with a bound not_independent classification. Unresolved transport and generic delegation remain with the aoa-sdk routing control plane.
+description: Decide or execute a complete summon-request-v4 for an independent external AoA actor and return a validated summon-result-v4. Use as the aoa-agents-skills execution leaf or to inspect an explicit legacy summon packet. Ordinary native Codex helpers do not use this leaf.
 ---
 
 # aoa-summon
@@ -8,7 +8,8 @@ description: Decide or execute one complete, owner-classified summon-request-v4 
 Execute an already settled actor route. This leaf does not form an obligation,
 choose a role or model, select unresolved transport, or widen the caller's
 authority. A plan is not a launch; execution needs an inspected host binding,
-a real runtime handle, output validation, and responsibility closeout.
+a real runtime handle, output validation, and responsibility closeout. This is
+not the front door for generic delegation or native Codex helpers.
 
 ## Owner source
 
@@ -48,7 +49,8 @@ intent. Transport is already `codex_local` or `external_cli`; SDK
 
 - External execution needs the complete `external_incarnation` packet from
   `aoa-agents-skills`, including the admitted distinct-holder transfer.
-- A Codex-local child needs explicit child intent and the exact owner-produced
+- Only an explicitly supplied legacy Codex-local summon packet uses the local
+  compatibility lane. It needs the exact owner-produced
   `responsibility_classification` with `not_independent` disposition.
   Its artifact, Goal, holder, execution epoch, and child-duty digest must bind
   to this request; a prose classification or old session context is not enough.
@@ -56,6 +58,9 @@ intent. Transport is already `codex_local` or `external_cli`; SDK
   `blocked_missing_request_input`, `lane: null`, `allowed: false`, and
   runtime state `not_run`. Do not infer a complete packet from a route-shaped
   prompt. An input-free request explicitly carries `child_inputs: []`.
+
+These local-ABI checks do not apply to ordinary native Codex delegation.
+Do not construct a legacy summon packet solely to admit a native helper.
 
 Use [lane-and-return.md](references/lane-and-return.md) for lane selection and
 state-specific return requirements. Run
@@ -73,6 +78,11 @@ return responsibility. If the binding is unavailable, return
 `blocked_binding_unavailable`; do not silently substitute another transport.
 An external actor requires a separate OS process and persistent CLI session,
 resume/event handles, and disabled built-in subagents.
+
+Start, wait, resume, and wake use the inspected runtime's supported interfaces.
+Unavailable lifecycle support is a concrete binding blocker, not permission
+to emulate a Goal transition or create another scheduler. Preserve an existing
+actor's obligation and identity when continuing it.
 
 ## Use existing compilers
 

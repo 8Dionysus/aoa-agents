@@ -1,7 +1,7 @@
 interface:
   display_name: "AoA Agents"
-  short_description: "Classify responsibility for delegation"
-  default_prompt: "Use $aoa-agents-skills when the aoa-sdk routing control plane or current holder explicitly presents an unresolved responsibility boundary to this owner-local classification stage; classify whether responsibility moves, return the typed result, route independent duties to a separately addressable external CLI actor, and leave transport/tool dispatch to aoa-sdk. Treat a complete explicit execution request as apply authority."
+  short_description: "Carry an independent AoA responsibility"
+  default_prompt: "Use $aoa-agents-skills to form, continue, or receive an independent AoA duty, preserving its mandate, holder, and return while leaving ordinary Codex helpers native."
 
 policy:
   allow_implicit_invocation: true

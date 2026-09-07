@@ -218,6 +218,10 @@
 
 - [AOA-AG-D-0060 SDK Routing Consumer Succession](../AOA-AG-D-0060-sdk-routing-consumer-succession.md) (`docs/decisions/AOA-AG-D-0060-sdk-routing-consumer-succession.md`)
 
+## continuity
+
+- [AOA-AG-D-0075 Responsibility Entry Without Native Interception](../AOA-AG-D-0075-responsibility-entry-without-native-interception.md) (`docs/decisions/AOA-AG-D-0075-responsibility-entry-without-native-interception.md`)
+
 ## currentness
 
 - [AOA-AG-D-0072 2026-08-23: Typed Goal participant publication stays fail-closed at intake](../AOA-AG-D-0072-typed-goal-participant-publication-intake.md) (`docs/decisions/AOA-AG-D-0072-typed-goal-participant-publication-intake.md`)
@@ -278,6 +282,7 @@
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0068 Route-Derived External Runtime Session Identity](../AOA-AG-D-0068-route-derived-external-session-identity.md) (`docs/decisions/AOA-AG-D-0068-route-derived-external-session-identity.md`)
 - [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+- [AOA-AG-D-0075 Responsibility Entry Without Native Interception](../AOA-AG-D-0075-responsibility-entry-without-native-interception.md) (`docs/decisions/AOA-AG-D-0075-responsibility-entry-without-native-interception.md`)
 
 ## owner succession
 
@@ -314,6 +319,7 @@
 - [AOA-AG-D-0059 2026-07-16: Agent Owner Skill Home](../AOA-AG-D-0059-owner-skill-home.md) (`docs/decisions/AOA-AG-D-0059-owner-skill-home.md`)
 - [AOA-AG-D-0067 Role-First Semantic Entry for External Actors](../AOA-AG-D-0067-role-first-semantic-entry.md) (`docs/decisions/AOA-AG-D-0067-role-first-semantic-entry.md`)
 - [AOA-AG-D-0069 Role-First Agent Delegation Classification](../AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md) (`docs/decisions/AOA-AG-D-0069-pre-tool-agent-delegation-intercept.md`)
+- [AOA-AG-D-0075 Responsibility Entry Without Native Interception](../AOA-AG-D-0075-responsibility-entry-without-native-interception.md) (`docs/decisions/AOA-AG-D-0075-responsibility-entry-without-native-interception.md`)
 
 ## source identity
 

@@ -1,6 +1,6 @@
 ---
 name: aoa-agents-skills
-description: Classify a responsibility boundary presented by the aoa-sdk routing control plane or current holder, or form, bind, transfer, and receive one role-bearing actor. Return responsibility meaning to the caller; do not choose transport, act as a universal pre-tool hook, or absorb domain procedures.
+description: Form, transfer, continue, or receive an independent AoA responsibility with a role-bearing actor. Use when an obligation needs its own holder, mandate, or continuity across incarnations. Ordinary tasks and native Codex helpers do not need this skill.
 ---
 
 # aoa-agents-skills
@@ -9,63 +9,61 @@ Turn an independent obligation into a role-bearing actor with a bounded
 mandate, replaceable incarnation, and explicit return owner. A role may retain
 identity and responsibility while no process or model instance is running.
 
-## Choose the responsibility boundary
+## When responsibility needs its own holder
 
-Use this owner-local stage when the routing control plane or current holder
-presents a duty boundary. It does not intercept every tool call.
+Use judgment about the work, not the presence of an agent tool. A distinct
+holder is useful when a branch must be carried autonomously to a return gate,
+has its own authority envelope, or needs continuity beyond one process. A
+convenient parallel read or bounded helper does not acquire that lifecycle.
 
-- An independent duty needs a distinct holder, authority envelope, lifecycle,
-  or return gate. Continue toward role formation.
-- An ordinary local split returns `responsibility-classification-v1` with
-  `disposition: not_independent`, bound to the complete child-duty subject
-  and current execution epoch. Return it to the routing owner; this skill
-  does not choose the compatibility child tool.
-- If no responsibility decision or independent-duty pressure exists, return
-  `not_applicable`. Available compute is not an obligation.
+For ordinary work, continue with Codex's native workflow and delegation rules.
+Do not call the SDK router, mint a negative classification, or route a native
+helper through summon merely to establish that this skill is unnecessary.
+An instruction to work alone remains in force.
 
-For classification, read
-[responsibility-classification.md](references/responsibility-classification.md)
-and use its passive compiler. A newly presented decision after resume,
-compaction, or a material plan change needs a matching classification and
-epoch. Epoch binding is correlation, not one-time consumption or runtime
-replay protection. Re-entry alone does not create a duty.
+Before forming anything, check whether the request already identifies an
+obligation, actor, mandate, or return. Reuse that identity. Session resumption
+alone does not create a new obligation or require semantic reclassification.
 
-## Role-first entry
+## Work at the current lifecycle boundary
 
-For a request such as:
-
-> In this Goal an independent obligation has appeared; form and embody the
-> appropriate actor.
-
-use [role-first-entry.md](references/role-first-entry.md). The caller supplies
-Goal, independent duty, authority, and expected result through
-`role-first-intent-v1`. An explicit execution request supplies apply authority
-within that mandate; planning means preparation, not launch.
-
-The owner procedures compose role selection, mandate, model-fit evidence,
-SDK binding, responsibility transfer, the `aoa-summon` execution leaf, and
-return. The caller works at the semantic level; existing compilers assemble
-exact packets and digests. Missing stronger-owner input is a stop, not
-permission to invent a value.
-
-## Focused lifecycle work
-
-Record the absolute directory of this loaded `SKILL.md`. Before owner-relative
-reads, follow [source-return.md](references/source-return.md).
-Select only the procedure needed for the current state:
-
-| Need | Procedure |
+| Situation | Relevant procedure |
 | --- | --- |
-| Test pressure and trigger strength | [detect-obligation.md](references/detect-obligation.md) |
-| Choose role, mandate, required properties, and continuity | [form-actor.md](references/form-actor.md) |
-| Bind current model fit, environment, and permissions | [bind-incarnation.md](references/bind-incarnation.md) |
-| Transfer a complete mandate and incarnation | [transfer-responsibility.md](references/transfer-responsibility.md) |
-| Filter a result, refusal, pause, failure, or wake | [receive-return.md](references/receive-return.md) |
+| A new independent duty needs an actor | [role-first-entry.md](references/role-first-entry.md) |
+| An existing duty needs its incarnation inspected or replaced | [bind-incarnation.md](references/bind-incarnation.md) |
+| A complete mandate must move to another holder | [transfer-responsibility.md](references/transfer-responsibility.md) |
+| An actor returns, pauses, refuses, fails, or requests wake | [receive-return.md](references/receive-return.md) |
 
-Read [task-local-dag.md](references/task-local-dag.md) when composing several
-modes or handing off a branch. Use [contract.yaml](references/contract.yaml)
-for typed input/output contracts. Return each executed mode's typed result,
-holder before and after, actual effects, and next owner route.
+For a new duty, start with Goal, obligation, authority, and expected result
+from the request and available context. Resolve only missing facts that change
+the decision. Use [detect-obligation.md](references/detect-obligation.md) for
+uncertain independence and [form-actor.md](references/form-actor.md) for role
+and mandate detail; neither is a compulsory extra stage for every helper.
+
+The model chooses the role, mandate, and current model fit. Existing owner
+compilers assemble the exact technical packets and check their relations.
+Read [source-return.md](references/source-return.md) before owner-relative
+reads, resolving from the directory of this loaded skill. Keep that binding
+for the operation; do not rediscover every owner at each semantic step.
+
+Read [contract.yaml](references/contract.yaml) when exact ABI details matter,
+and [task-local-dag.md](references/task-local-dag.md) when several duties need
+composition. The explicit legacy classification operation is documented in
+[responsibility-classification.md](references/responsibility-classification.md);
+its receipt is not permission for ordinary Codex delegation.
+
+## Continue without recreating the actor
+
+Recover the existing obligation, mandate, holder, incarnation, and latest
+runtime/return refs. Check the current authority and whether the observed
+runtime can continue that incarnation. Changed credentials or an unavailable
+runtime may require a new binding, not a new role or obligation. Changed duty
+or authority requires the corresponding owner decision before more effects.
+
+Use only the runtime's supported continuation and event interfaces. If a
+required start, wait, or wake binding is unavailable, report that concrete
+integration gap while preserving the duty. Do not create a second scheduler
+or claim a Goal transition from an instruction, observer, or prepared packet.
 
 ## Keep ownership separate
 
@@ -81,10 +79,10 @@ part of the selected chain. Then use the passive role resolver and obligation/
 mandate compiler to preserve exact identities and current-holder authority.
 Neither a resolver nor a model brand makes the semantic choice.
 
-`aoa-summon` executes only after obligation, mandate, incarnation, environment,
-authority, named outputs, return owner, and stop line are complete. Its
-external lane must expose a real separate CLI process/session; a built-in
-Codex child is not an external incarnation.
+`aoa-summon` is the execution leaf for the independent external actor. It runs
+only after obligation, mandate, incarnation, environment, authority, named
+outputs, return owner, and stop line are complete. That lane exposes a real
+separate CLI process/session; a native Codex child is not its substitute.
 
 ## Stop and evidence
 
@@ -96,3 +94,9 @@ Plans, bindings, handles, output validation, review, and owner acceptance are
 different evidence. Count usage from runtime receipts without turning it into
 a pre-emptive budget gate. Keep raw trials, live state, and task-local DAG
 instances outside the skill source.
+
+Return the useful result, actual effects, checks and unresolved uncertainty,
+the current holder, and the next action. Link exact artifacts instead of
+repeating their assembly history. Stop at that bounded handoff; stats, memo,
+proof, progression, and new branches are separate owner operations, not an
+automatic closeout cascade.
