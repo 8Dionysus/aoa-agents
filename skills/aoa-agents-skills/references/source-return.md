@@ -8,14 +8,13 @@ installed parity, model fit, or execution.
 ## Gate
 
 1. Use the `<bundle_dir>` recorded from the loaded `SKILL.md`.
-2. In one tool turn containing no other read or command, read exactly
-   `<bundle_dir>/.aoa-skill-source.json`.
-3. When it exists, require:
+2. Inspect `<bundle_dir>/.aoa-skill-source.json`.
+3. When it exists, require a regular non-symlink file with:
    - schema `aoa_skill_source_receipt_v1` or
      `aoa_skill_source_receipt_v2`;
    - bundle and source name `aoa-agents-skills`;
    - owner `aoa-agents`;
-   - version `0.5.0`;
+   - a non-empty version matching the owner manifest;
    - an existing absolute `owner_root` and safe relative `source_path`;
    - `<owner_root>/<source_path>/SKILL.md`;
    - for v2, non-empty `digest`, `source_fingerprint`,
@@ -25,13 +24,15 @@ installed parity, model fit, or execution.
    `blocked_missing_owner_source`. Do not try another checkout.
 5. Only when the exact handle does not exist, run
    `git -C <bundle_dir> rev-parse --show-toplevel` once and use that root.
-6. In the next isolated tool turn, read only
-   `<owner_root>/skills/port.manifest.json`. Require owner `aoa-agents`, bundle
-   `aoa-agents-skills`, version `0.5.0`, and the exact bundle path. A manifest
-   read batched with an owner document terminates
-   `blocked_owner_source_gate_not_observed`.
-7. Only after manifest success may a later tool turn read the exact owner
-   sources required by the selected mode.
+6. Read `<owner_root>/skills/port.manifest.json`. Require owner `aoa-agents`,
+   bundle `aoa-agents-skills`, and the exact bundle path. Match its declared
+   version to the handle, or to the source bundle contract in the Git route.
+7. After manifest success, read the owner sources required by the selected mode.
+
+These are data dependencies, not separate-tool-turn requirements. Dependent
+reads may share one call when each result is checked before using it. A
+successful source lookup can serve the selected lifecycle chain; reopen it if
+the bundle identity or owner source changes, not merely for another tool call.
 
 Never use parent traversal, sibling scans, `find`, `rg --files`, repository-wide
 search, workspace conventions, `.system`, another skill directory, or a
@@ -55,6 +56,6 @@ archaeology. Return the missing input and the stronger owner route.
 
 ## Receipt
 
-Report the source route, owner root, source handle identity or git action,
-manifest action, first owner-source action, selected mode, stronger-owner roots
-resolved separately, and skipped checks.
+Report the source route, owner root, source identity, selected mode,
+stronger-owner roots resolved separately, and skipped checks. The number of
+tool calls is not source evidence.

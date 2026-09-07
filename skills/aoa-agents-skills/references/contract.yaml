@@ -45,7 +45,7 @@ modes:
     output_abi: agent-lifecycle-result-v1
     effects: [none, task-local-dag-branch-candidate, external-actor-runtime]
     reference: role-first-entry.md
-    activation: Pre-tool responsibility classification or explicit current-holder semantic request with Goal, independent duty, authority, expected result, and optional prepare/execute intent.
+    activation: The routing control plane presents an independent responsibility boundary, or the current holder supplies Goal, independent duty, authority, expected result, and optional prepare/execute intent.
   responsibility-classification:
     input_abi: goal-pressure-v1
     output_abi: responsibility-classification-v1

@@ -14,6 +14,11 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 COMPILER_PATH = ROOT / "skills/aoa-summon/scripts/compile_actor_responsibility_receipt.py"
 PUBLISHER_PATH = ROOT / "skills/aoa-summon/scripts/publish_actor_responsibility_receipts.py"
+SUMMON_VERSION = next(
+    bundle["version"]
+    for bundle in json.loads((ROOT / "skills/port.manifest.json").read_text())["bundles"]
+    if bundle["name"] == "aoa-summon"
+)
 
 compiler_spec = importlib.util.spec_from_file_location("actor_receipt_compiler_for_publisher", COMPILER_PATH)
 assert compiler_spec is not None and compiler_spec.loader is not None
@@ -303,7 +308,7 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
                         "owner_repo": "aoa-agents",
                         "owner_root": str(ROOT.resolve()),
                         "source_path": "skills/aoa-summon",
-                        "version": "0.4.0",
+                        "version": SUMMON_VERSION,
                         "digest": "bundle-digest",
                         "source_fingerprint": "source-fingerprint",
                         "source_fingerprint_scope": "authored-capability-package-v1-excludes-generated-projections",
@@ -325,7 +330,7 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
                 "owner_repo": "aoa-agents",
                 "owner_root": str(ROOT.resolve()),
                 "source_path": "skills/aoa-summon",
-                "version": "0.4.0",
+                "version": SUMMON_VERSION,
                 "digest": "bundle-digest",
                 "source_fingerprint": "source-fingerprint",
                 "source_fingerprint_scope": "authored-capability-package-v1-excludes-generated-projections",
@@ -347,7 +352,7 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
                         PUBLISHER._resolve_owner_root(script_path=script_path)
 
             invalid = dict(handle)
-            invalid["version"] = "0.3.0"
+            invalid["version"] = SUMMON_VERSION + "-mismatch"
             handle_path.write_text(json.dumps(invalid), encoding="utf-8")
             with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "source handle"):
                 PUBLISHER._resolve_owner_root(script_path=script_path)
@@ -357,6 +362,42 @@ class ActorResponsibilityReceiptPublisherTests(unittest.TestCase):
             handle_path.write_text(json.dumps(invalid), encoding="utf-8")
             with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "capability_graph_hash"):
                 PUBLISHER._resolve_owner_root(script_path=script_path)
+
+    def test_source_handle_version_tracks_owner_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            owner_root = Path(directory) / "owner"
+            source_bundle = owner_root / "skills" / "aoa-summon"
+            source_bundle.mkdir(parents=True)
+            (source_bundle / "SKILL.md").write_text("# source bundle\n")
+            installed_bundle = Path(directory) / "installed" / "aoa-summon"
+            installed_bundle.mkdir(parents=True)
+            handle = {
+                "schema_version": "aoa_skill_source_receipt_v1",
+                "name": "aoa-summon",
+                "owner_repo": "aoa-agents",
+                "owner_root": str(owner_root),
+                "source_path": "skills/aoa-summon",
+            }
+            manifest = {
+                "owner_repo": "aoa-agents",
+                "bundles": [{"name": "aoa-summon", "path": "skills/aoa-summon"}],
+            }
+            for version in ("1.0.0", "2.0.0"):
+                with self.subTest(version=version):
+                    handle["version"] = version
+                    manifest["bundles"][0]["version"] = version
+                    (owner_root / "skills/port.manifest.json").write_text(json.dumps(manifest))
+                    (installed_bundle / ".aoa-skill-source.json").write_text(json.dumps(handle))
+                    self.assertEqual(
+                        PUBLISHER._owner_root_from_source_handle(installed_bundle), owner_root
+                    )
+
+            # A broken installed handle must not silently fall back to a valid source tree.
+            (source_bundle / ".aoa-skill-source.json").symlink_to("missing-handle.json")
+            with self.assertRaisesRegex(PUBLISHER.ActorResponsibilityReceiptPublishError, "regular file"):
+                PUBLISHER._resolve_owner_root(
+                    script_path=source_bundle / "scripts/publish_actor_responsibility_receipts.py"
+                )
 
 
 if __name__ == "__main__":

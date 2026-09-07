@@ -43,7 +43,9 @@ class ActorResponsibilityReceiptPublishError(ValueError):
     """A receipt or existing log line is not safe to publish."""
 
 
-def _validated_owner_root(root: Path, *, label: str) -> Path:
+def _validated_owner_root(
+    root: Path, *, label: str, expected_version: str | None = None
+) -> Path:
     candidate = root.expanduser()
     if not candidate.is_absolute():
         raise ActorResponsibilityReceiptPublishError(f"{label} must be an absolute path")
@@ -67,6 +69,9 @@ def _validated_owner_root(root: Path, *, label: str) -> Path:
             isinstance(bundle, dict)
             and bundle.get("name") == "aoa-summon"
             and bundle.get("path") == "skills/aoa-summon"
+            and isinstance(bundle.get("version"), str)
+            and bool(bundle["version"].strip())
+            and (expected_version is None or bundle["version"] == expected_version)
             for bundle in bundles
         )
         and skill_path.is_file()
@@ -79,7 +84,7 @@ def _validated_owner_root(root: Path, *, label: str) -> Path:
 
 def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
     handle_path = bundle_dir / ".aoa-skill-source.json"
-    if not handle_path.exists():
+    if not handle_path.exists() and not handle_path.is_symlink():
         return None
     if handle_path.is_symlink() or not handle_path.is_file():
         raise ActorResponsibilityReceiptPublishError("same-bundle source handle is not a regular file")
@@ -95,7 +100,8 @@ def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
         schema_version not in {"aoa_skill_source_receipt_v1", "aoa_skill_source_receipt_v2"}
         or handle.get("name") != "aoa-summon"
         or handle.get("owner_repo") != "aoa-agents"
-        or handle.get("version") != "0.4.0"
+        or not isinstance(handle.get("version"), str)
+        or not handle["version"].strip()
         or not isinstance(handle.get("owner_root"), str)
         or not isinstance(source_path, str)
         or not source_path
@@ -122,7 +128,11 @@ def _owner_root_from_source_handle(bundle_dir: Path) -> Path | None:
             raise ActorResponsibilityReceiptPublishError(
                 "same-bundle source handle v2 capability_graph_hash is invalid"
             )
-    return _validated_owner_root(Path(handle["owner_root"]), label="source-handle owner_root")
+    return _validated_owner_root(
+        Path(handle["owner_root"]),
+        label="same-bundle source handle owner_root/version",
+        expected_version=handle["version"],
+    )
 
 
 def _resolve_owner_root(

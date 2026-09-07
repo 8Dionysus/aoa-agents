@@ -1,167 +1,98 @@
 ---
 name: aoa-agents-skills
-description: Owner-local responsibility classification and actor lifecycle for a boundary explicitly presented by the aoa-sdk routing control plane or current holder. Use only when that owner invokes this owner-local stage or explicitly re-enters it after compaction, resume, or re-entry; return a typed responsibility-classification-v1 not_independent result with a child-duty digest or the independent-duty classification and hand the result back. This skill is not a universal pre-tool hook and does not select transport, tools, or repository-wide navigation; the routing control plane owns that dispatch. Also use to bind an incarnation, transfer responsibility, or receive and filter a return. Do not use merely because compute is available, to own a domain procedure, to select a model brand without fit evidence, or to equate transport with A2A responsibility.
+description: Classify a responsibility boundary presented by the aoa-sdk routing control plane or current holder, or form, bind, transfer, and receive one role-bearing actor. Return responsibility meaning to the caller; do not choose transport, act as a universal pre-tool hook, or absorb domain procedures.
 ---
 
 # aoa-agents-skills
 
-Turn one real or anticipated obligation into an independently addressable
-role-bearing actor without making a model, process, transport, or domain skill
-the source of that actor's meaning.
+Turn an independent obligation into a role-bearing actor with a bounded
+mandate, replaceable incarnation, and explicit return owner. A role may retain
+identity and responsibility while no process or model instance is running.
 
-## Agent-tool responsibility classification
+## Choose the responsibility boundary
 
-When the aoa-sdk routing control plane or current holder explicitly presents an
-unresolved responsibility boundary to this owner-local stage, run this semantic
-classifier. The routing control plane decides whether this stage is invoked and
-which transport is available; this skill decides only whether responsibility
-itself moves and returns that meaning. It is not a universal pre-tool hook for
-every agent, collaboration, delegation, or built-in tool decision and never
-chooses the tool.
+Use this owner-local stage when the routing control plane or current holder
+presents a duty boundary. It does not intercept every tool call.
 
-- An independently owned duty routes toward role formation and a separately
-  addressable external CLI incarnation.
-- An ordinary local split returns a typed
-  `responsibility-classification-v1` result with
-  `disposition: not_independent`, a fresh execution epoch, and a digest of the
-  complete presented child-duty subject; only then may a Codex-local child
-  lane be considered.
-- This result is the typed `not_independent` disposition and is the only
-  owner-produced evidence that can authorize the compatibility local-child
-  branch.
-- An explicit request for a disposable Codex-local child still passes through
-  this classification, then may select the compatibility lane.
+- An independent duty needs a distinct holder, authority envelope, lifecycle,
+  or return gate. Continue toward role formation.
+- An ordinary local split returns `responsibility-classification-v1` with
+  `disposition: not_independent`, bound to the complete child-duty subject
+  and current execution epoch. Return it to the routing owner; this skill
+  does not choose the compatibility child tool.
+- If no responsibility decision or independent-duty pressure exists, return
+  `not_applicable`. Available compute is not an obligation.
 
-Repeat the classification after compaction, resume, re-entry, or a material
-plan change whenever the routing owner presents a new agent-tool decision, and
-mint a new execution epoch for that decision. A classification is valid only
-for the epoch carried by its matching request. This epoch binding is a
-freshness/correlation check, not a one-time-consumption record; same-epoch
-replay control remains with runtime or owner state.
-Prior correction in the same session is context, not permission to skip
-responsibility classification.
-
-## Applicability preflight
-
-Inspect the goal, current plan, execution pressure, or closeout residue first.
-Use this bundle only when at least one duty may need a distinct bearer of
-responsibility rather than an ordinary step performed by the current actor.
-
-Positive pressure includes:
-
-- a future landing, CI, eval, memo, stats, review, or other domain duty that
-  needs an independent owner, lifecycle, authority envelope, or return gate;
-- work that should remain addressable and resumable after one process exits;
-- a result that must return through an explicit reviewer, filter, or wake rule;
-- a pre-authorized persistent role whose exact reflex condition may have fired.
-
-Return a `responsibility-classification-v1` result with
-`disposition: not_independent` when an agent/delegation decision was presented
-but the work is only a local step and no responsibility needs to move. Return
-`not_applicable` when no agent/delegation decision or independent-duty pressure
-exists. Do not create an actor to justify available compute.
+For classification, read
+[responsibility-classification.md](references/responsibility-classification.md)
+and use its passive compiler. A newly presented decision after resume,
+compaction, or a material plan change needs a matching classification and
+epoch. Epoch binding is correlation, not one-time consumption or runtime
+replay protection. Re-entry alone does not create a duty.
 
 ## Role-first entry
 
-When the current holder explicitly says, or clearly means:
+For a request such as:
 
 > In this Goal an independent obligation has appeared; form and embody the
 > appropriate actor.
 
-and supplies the Goal, independent duty, authority envelope, and expected
-result, select the role-first-entry mode. A direct imperative to form, assign,
-launch, or delegate the actor normalizes to execution intent; a planning or
-exploratory request normalizes to preparation intent. Read
-references/role-first-entry.md and normalize only the semantic
-role-first-intent-v1 fields. The mode is the one public semantic entry for
-the full lifecycle; it composes the existing internal modes and aoa-summon
-leaf, and stops closed when any stronger-owner input is missing. The caller
-must not hand-build summon packets or choose a model by brand.
+use [role-first-entry.md](references/role-first-entry.md). The caller supplies
+Goal, independent duty, authority, and expected result through
+`role-first-intent-v1`. An explicit execution request supplies apply authority
+within that mandate; planning means preparation, not launch.
 
-## Start
+The owner procedures compose role selection, mandate, model-fit evidence,
+SDK binding, responsibility transfer, the `aoa-summon` execution leaf, and
+return. The caller works at the semantic level; existing compilers assemble
+exact packets and digests. Missing stronger-owner input is a stop, not
+permission to invent a value.
 
-1. Record `<bundle_dir>` as the absolute directory containing this loaded
-   `SKILL.md`.
-2. Read `references/contract.yaml`, `references/source-return.md`, and
-   `references/task-local-dag.md` to EOF.
-3. Select the smallest internal mode or task-local chain required now:
+## Focused lifecycle work
 
-   | Mode | Use when | Read |
-   | --- | --- | --- |
-   | role-first-entry | An explicit semantic request asks this Goal to form and embody one appropriate actor. | references/role-first-entry.md |
-   | `detect-obligation` | Pressure must be tested and assigned a trigger strength. | `references/detect-obligation.md` |
-   | `form-actor` | An admitted obligation needs a stable role, mandate, required executor properties, and continuity posture. | `references/form-actor.md` |
-   | `bind-incarnation` | A complete mandate needs a current model realization, specialized environment, permissions, and resumable runtime binding. | `references/bind-incarnation.md` |
-   | `transfer-responsibility` | A complete actor and incarnation binding are ready for a bounded A2A handoff and external execution leaf. | `references/transfer-responsibility.md` |
-   | `receive-return` | A return, event, refusal, pause, or failure must be filtered and responsibility reassigned or a role woken. | `references/receive-return.md` |
+Record the absolute directory of this loaded `SKILL.md`. Before owner-relative
+reads, follow [source-return.md](references/source-return.md).
+Select only the procedure needed for the current state:
 
-4. Read only the selected mode references. A compound request may select
-   several modes only through the task-local DAG rule; do not hide a fixed
-   workflow inside the root bundle.
-5. Execute the owner-source gate before reading owner-relative role, tier,
-   specialization, capability-pack, or handoff sources.
-6. Return the typed output for every executed node and the exact stop or next
-   owner route.
+| Need | Procedure |
+| --- | --- |
+| Test pressure and trigger strength | [detect-obligation.md](references/detect-obligation.md) |
+| Choose role, mandate, required properties, and continuity | [form-actor.md](references/form-actor.md) |
+| Bind current model fit, environment, and permissions | [bind-incarnation.md](references/bind-incarnation.md) |
+| Transfer a complete mandate and incarnation | [transfer-responsibility.md](references/transfer-responsibility.md) |
+| Filter a result, refusal, pause, failure, or wake | [receive-return.md](references/receive-return.md) |
 
-## Organ boundary
+Read [task-local-dag.md](references/task-local-dag.md) when composing several
+modes or handing off a branch. Use [contract.yaml](references/contract.yaml)
+for typed input/output contracts. Return each executed mode's typed result,
+holder before and after, actual effects, and next owner route.
 
-`aoa-agents` owns:
+## Keep ownership separate
 
-- whether pressure warrants a distinct responsibility bearer;
-- the role, specialization, mandate, authority, continuity, and return posture;
-- the required properties of an acceptable incarnation;
-- responsibility transfer, pause, refusal, return, and wake meaning.
+`aoa-agents` owns responsibility, role/specialization, mandate, continuity,
+required executor properties, and return meaning. Domain procedures stay with
+their named skills; model fit with `aoa-models`; planning and incarnation
+binding with `aoa-sdk`; process, persistence, and event transport with
+`abyss-stack`; task-local graph grammar with `aoa-skills`.
 
-It does not own:
+Select roles from authored candidates. A tier must belong to the base role's
+`preferred_tier_ids`; a specialization's exact `capability_pack_ref` remains
+part of the selected chain. Then use the passive role resolver and obligation/
+mandate compiler to preserve exact identities and current-holder authority.
+Neither a resolver nor a model brand makes the semantic choice.
 
-- landing, CI, eval, memo, stats, review, or other domain procedures;
-- model-fit evidence or model research, which belong to `aoa-models`;
-- runtime planning and incarnation binding, which belong to `aoa-sdk`;
-- CLI process, session, persistence, and event transport, which belong to
-  `abyss-stack`;
-- A2A transport or protocol merely because it carries the handoff;
-- task-local DAG persistence, routing policy, proof verdicts, or memory truth.
+`aoa-summon` executes only after obligation, mandate, incarnation, environment,
+authority, named outputs, return owner, and stop line are complete. Its
+external lane must expose a real separate CLI process/session; a built-in
+Codex child is not an external incarnation.
 
-The domain skill remains an input to the actor mandate. The model realization
-remains a replaceable binding. A persistent role may retain identity,
-obligation, continuity, and relationships while no process or model instance
-is running.
+## Stop and evidence
 
-## Execution leaf
+Stop at an unresolved holder, missing owner input, absent current fit evidence,
+unavailable external binding, or a return that cannot identify its next holder.
+Do not widen the mandate to make a route pass.
 
-An external execution leaf may be selected only after obligation, mandate,
-incarnation, environment, authority, named outputs, return owner, and stop
-line are complete. `aoa-summon` is the current candidate leaf only where its
-actual host binding launches a separate CLI process/session and returns a real
-runtime handle. Its built-in Codex child-agent lanes do not satisfy this
-bundle's external-incarnation path.
-
-## Verification and stop
-
-- Preserve the chain from goal pressure through obligation, mandate, required
-  properties, model-fit evidence, runtime binding, handoff, and return.
-- Resolve an already selected role chain through the bundled passive resolver;
-  never guess owner-relative role paths or treat the resolver as role-selection
-  authority.
-- For role-first-entry, make the semantic role, specialization, and tier
-  decisions from the bounded authored candidate route before invoking passive
-  resolvers and compilers. The tier must be one of the selected base role's
-  `preferred_tier_ids`; when a specialization is selected, read its exact
-  authored `capability_pack_ref` source and carry that chain into resolution.
-  Preserve the candidate set, rationale, exact refs, and current-holder
-  selection authority instead of hiding them in a launcher.
-- Compile an admitted obligation and mandate through the bundled passive
-  compiler so exact digests, lifecycle, stop line, output identities, and the
-  current-holder-authorized duty-to-fit-family relation survive downstream;
-  the compiler does not detect duties or select roles, models, or runtimes.
-- Keep model name and reasoning mode out of the stable role and obligation.
-- Count usage from runtime receipts; never convert usage counting into a
-  pre-emptive budget gate.
-- Treat plans, schemas, graph nodes, bindings, process handles, outputs, and
-  proof as distinct evidence classes.
-- Stop when the next owner input is absent, a responsibility holder is
-  unresolved, the selected model lacks current fit evidence, the external
-  binding cannot be inspected, or return validation cannot identify the next
-  holder.
-- Keep raw trials, live process state, and task-local DAG instances outside
-  the owner skill source.
+Plans, bindings, handles, output validation, review, and owner acceptance are
+different evidence. Count usage from runtime receipts without turning it into
+a pre-emptive budget gate. Keep raw trials, live state, and task-local DAG
+instances outside the skill source.
