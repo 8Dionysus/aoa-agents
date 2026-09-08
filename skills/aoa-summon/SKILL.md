@@ -84,23 +84,10 @@ Unavailable lifecycle support is a concrete binding blocker, not permission
 to emulate a Goal transition or create another scheduler. Preserve an existing
 actor's obligation and identity when continuing it.
 
-## Use existing compilers
-
-Keep semantic decisions with their owners; do not hand-build their JSON chains.
-
-| Need | Existing passive helper |
-| --- | --- |
-| Prepare an already selected role, mandate, fit, permissions, and owner-source graph without launching | `scripts/prepare_external_actor.py` |
-| Compile the final leaf request from exact admitted owner artifacts | `scripts/compile_external_execution_request.py` |
-| Close a completed external return from exact runtime, SDK, and independent-review artifacts | `scripts/compile_external_execution_result.py` |
-| Project an exact external result into an observe-only responsibility receipt | `scripts/compile_actor_responsibility_receipt.py` |
-| Explicitly publish validated receipts, with locking and event-ID deduplication | `scripts/publish_actor_responsibility_receipts.py` |
-
-Consult each helper's `--help` for its inputs. Compilation neither launches
-an actor nor performs review, publishes observations, or accepts owner work.
-The request/result compilers validate owner schemas, exact identities and
-digests, permission ceilings, and cross-artifact relations. On failure, return
-the missing or contradictory owner input; do not repair authority locally.
+Use the [existing passive helpers](references/lane-and-return.md#existing-passive-helpers)
+for request preparation, return compilation, and explicit receipt publication.
+Keep semantic decisions with their owners; compiler failure returns the exact
+missing or contradictory owner input without repairing authority locally.
 
 ## Return boundaries
 

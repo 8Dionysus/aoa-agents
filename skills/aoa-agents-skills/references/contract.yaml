@@ -4,7 +4,7 @@ identity:
   name: aoa-agents-skills
   owner: aoa-agents
   canonical_source: skills/aoa-agents-skills
-  version: 0.6.0
+  version: 0.6.1
   lifecycle: admitted
   health: challenger
 
