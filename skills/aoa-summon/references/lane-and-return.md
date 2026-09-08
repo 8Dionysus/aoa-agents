@@ -134,6 +134,24 @@ Blocked, failed, and narrowed actors return through the same responsibility
 surface.
 Raw traces may help review but never become proof, memory canon, or owner truth.
 
+## Existing passive helpers
+
+Keep semantic decisions with their owners; do not hand-build their JSON chains.
+
+| Need | Existing passive helper |
+| --- | --- |
+| Prepare an already selected role, mandate, fit, permissions, and owner-source graph without launching | `scripts/prepare_external_actor.py` |
+| Compile the final leaf request from exact admitted owner artifacts | `scripts/compile_external_execution_request.py` |
+| Close a completed external return from exact runtime, SDK, and independent-review artifacts | `scripts/compile_external_execution_result.py` |
+| Project an exact external result into an observe-only responsibility receipt | `scripts/compile_actor_responsibility_receipt.py` |
+| Explicitly publish validated receipts, with locking and event-ID deduplication | `scripts/publish_actor_responsibility_receipts.py` |
+
+Consult each helper's `--help` for its inputs. Compilation neither launches
+an actor nor performs review, publishes observations, or accepts owner work.
+The request/result compilers validate owner schemas, exact identities and
+digests, permission ceilings, and cross-artifact relations. On failure, return
+the missing or contradictory owner input; do not repair authority locally.
+
 ## Passive request compilation
 
 `compile_external_execution_request.py` is the pre-launch adapter for an

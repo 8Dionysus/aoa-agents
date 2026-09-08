@@ -9,6 +9,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Clarify existing-task context and concrete adapter requirements for bounded
+  helpers while preserving formal class admission and responsibility gates.
+  Move summon compiler details into its existing lane-and-return reference.
 - Add an owner-local actor responsibility receipt payload/compiler and a
   separate idempotent publisher for the already admitted stats event kind;
   publication remains explicit and receipt presence does not infer fit,

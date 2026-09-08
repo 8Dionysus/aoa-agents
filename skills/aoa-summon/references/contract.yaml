@@ -2,7 +2,7 @@ schema_version: aoa-skill-contract-v1
 identity:
   name: aoa-summon
   owner: aoa-agents
-  version: 0.5.0
+  version: 0.5.1
   health: challenger
 purpose: Decide or execute one anchored actor route through a compatibility child lane or exact external CLI incarnation and return responsibility to closeout.
 applicability:

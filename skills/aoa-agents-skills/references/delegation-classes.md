@@ -18,6 +18,32 @@ field, pass only the bounded result onward, and use typed escalation to
 The read worker is not a smaller actor and must not inherit role, model-fit, or
 runtime authority merely because a provider executes it.
 
+## Task context and adapter admission
+
+An ordinary native helper uses the existing parent task context; do not create
+an enduring Goal object, obligation, mandate, or legacy summon packet solely
+to ask for bounded assistance. Its parent still checks the returned artifacts,
+actual effects, and scope. Native helper execution is not evidence that either
+formal SDK class has been admitted.
+
+For the formal read-worker class, the SDK `parent_holder_ref` is a
+content-addressed reference to the existing parent context. The class does not
+require a permanent Goal object. This does not remove the obligation, holder,
+and lifecycle references required by an independent actor or an explicitly
+selected legacy compatibility packet.
+
+Choose by the required properties first, then verify the concrete adapter:
+
+| Class | Required capabilities | Current adapter limits |
+| --- | --- | --- |
+| `ephemeral_read_worker_v1` | Bounded immutable inputs, stateless read-only execution, content-addressed result and observations, parent retains responsibility | SDK v1 admits `local_provider`; it does not admit `codex_cli` or built-in Codex subagents for this class |
+| `external_incarnation_v1` | Exact admitted role, mandate, model realization and incarnation; distinct holders; process/session/event and continuation evidence; reviewed return | SDK v1 names `codex_cli` or `local_provider`; naming an adapter does not prove its implementation is available or admitted |
+
+A missing property blocks that executor. Return the missing capability and
+current holder; do not silently widen effects, switch transport, or treat a
+native child as an external incarnation. The default-off baseline gate below
+still applies to both formal classes.
+
 ## `external_incarnation_v1`
 
 This class is the full responsibility-bearing route. `aoa-agents` supplies the
