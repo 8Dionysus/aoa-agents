@@ -84,6 +84,8 @@ Unavailable lifecycle support is a concrete binding blocker, not permission
 to emulate a Goal transition or create another scheduler. Preserve an existing
 actor's obligation and identity when continuing it.
 
+## Use existing compilers
+
 Use the [existing passive helpers](references/lane-and-return.md#existing-passive-helpers)
 for request preparation, return compilation, and explicit receipt publication.
 Keep semantic decisions with their owners; compiler failure returns the exact
