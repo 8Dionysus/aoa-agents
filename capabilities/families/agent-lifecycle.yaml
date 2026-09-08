@@ -46,7 +46,7 @@ nodes:
       authority: authored
     lifecycle: &root_candidate_lifecycle
       state: active
-      version: 0.6.0
+      version: 0.6.1
       visibility: advertised
       evidence_state: evaluated
       health: challenger
@@ -78,7 +78,7 @@ nodes:
       posture: authored-procedure
     provenance:
       source_refs:
-        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.6.0, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/SKILL.md, ref: capability-home-v0.6.1, role: owner-skill-procedure, authority: authored}
         - {repo: aoa-agents, path: skills/aoa-agents-skills/references/responsibility-classification-v1.schema.json, ref: responsibility-classification-v1, role: local-classification-schema, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: schemas/model-fit-projection.schema.json, ref: model-fit-projection-v1, role: model-fit-owner-contract, authority: external-authority}
@@ -141,7 +141,7 @@ nodes:
     trust: {public_safe: true, requires_human_approval: true, posture: human-authorized}
     provenance:
       source_refs:
-        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-entry.md, ref: capability-home-v0.6.0, role: semantic-entry-procedure, authority: authored}
+        - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-entry.md, ref: capability-home-v0.6.1, role: semantic-entry-procedure, authority: authored}
         - {repo: aoa-agents, path: skills/aoa-agents-skills/references/role-first-intent-v1.schema.json, ref: role-first-intent-v1, role: semantic-entry-schema, authority: authored}
       optional_refs:
         - {repo: aoa-models, path: scripts/query_model_fit.py, ref: model-fit-query-owner, role: model-fit-owner-contract, authority: external-authority}
@@ -365,7 +365,7 @@ nodes:
     owner: {repo: aoa-agents, surface: skills/aoa-summon/SKILL.md, authority: authored}
     lifecycle:
       state: active
-      version: 0.5.0
+      version: 0.5.1
       visibility: advertised
       evidence_state: evaluated
       health: challenger
@@ -390,7 +390,7 @@ nodes:
       reversibility: reversible
       failure_modes: [Triggering directly from a generic delegation request., Gating native Codex helpers through the legacy local lane., Dropping the typed classification result ref from an explicit legacy packet., Replaying a classification against a changed child duty., Using an uninspected binding., Treating built-in child spawn as a separate external incarnation., Accepting missing or extra outputs., Widening authority.]
     trust: *runtime_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.5.0, role: owner-skill-procedure, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/SKILL.md, ref: capability-home-v0.5.1, role: owner-skill-procedure, authority: authored}], optional_refs: []}
     classification: {category: independent-callable, disposition: retain, rationale: Existing admitted leaf preserves execution and return evidence; external CLI compatibility remains an explicit evolution gate.}
     procedure: {<<: *root_procedure, ref: skills/aoa-summon/SKILL.md, required_sections: [Owner source, Request and mode, Use existing compilers, Return boundaries]}
     mutation:
@@ -427,7 +427,7 @@ nodes:
       reversibility: not-applicable
       failure_modes: [Probing a host in decision-only mode., Reporting an allowed lane as execution., Inferring missing request fields.]
     trust: *read_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.0, role: internal-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.1, role: internal-mode, authority: authored}], optional_refs: []}
     classification: *internal_classification
     procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: decide"], runtime_adaptation: Do not inspect or launch a host binding in decision-only mode.}
     security: *read_security
@@ -461,7 +461,7 @@ nodes:
       reversibility: reversible
       failure_modes: [Plan reported as launch., Built-in child reported as external incarnation., Owner-local receipt replaces the SDK A2A or runtime result ABI., Missing output accepted., Runtime handle lost on failure.]
     trust: *runtime_trust
-    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.0, role: internal-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-agents, path: skills/aoa-summon/references/lane-and-return.md, ref: capability-home-v0.5.1, role: internal-mode, authority: authored}], optional_refs: []}
     classification: *internal_classification
     procedure: {ref: skills/aoa-summon/references/lane-and-return.md, required_sections: ["Mode: execute"], runtime_adaptation: Bind only the exact inspected host interface and preserve its runtime handle.}
     mutation:
